@@ -202,3 +202,7 @@
 	path = terraform-gcp-postgresql
 	url = git@github.com:c0x12c/terraform-gcp-postgresql.git
 	branch = master
+[submodule "terraform-gcp-service-config"]
+	path = terraform-gcp-service-config
+	url = git@github.com:c0x12c/terraform-gcp-service-config.git
+	branch = master
