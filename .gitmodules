@@ -6,3 +6,7 @@
 	path = terraform-aws-password-policy
 	url = git@github.com:c0x12c/terraform-aws-password-policy.git
 	branch = master
+[submodule "terraform-aws-mwaa"]
+	path = terraform-aws-mwaa
+	url = git@github.com:c0x12c/terraform-aws-mwaa.git
+	branch = master
