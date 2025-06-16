@@ -38,3 +38,7 @@
 	path = terraform-aws-eks-rbac
 	url = git@github.com:c0x12c/terraform-aws-eks-rbac.git
 	branch = master
+[submodule "terraform-aws-eks-cluster"]
+	path = terraform-aws-eks-cluster
+	url = git@github.com:c0x12c/terraform-aws-eks-cluster.git
+	branch = master
