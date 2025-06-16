@@ -270,3 +270,7 @@
 	path = terraform-gcp-gke-ingress
 	url = git@github.com:c0x12c/terraform-gcp-gke-ingress.git
 	branch = master
+[submodule "terraform-gcp-cloud-dns"]
+	path = terraform-gcp-cloud-dns
+	url = git@github.com:c0x12c/terraform-gcp-cloud-dns.git
+	branch = master
