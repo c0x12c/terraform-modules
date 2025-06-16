@@ -54,3 +54,7 @@
 	path = terraform-aws-vpn
 	url = git@github.com:c0x12c/terraform-aws-vpn.git
 	branch = master
+[submodule "terraform-aws-wafv2"]
+	path = terraform-aws-wafv2
+	url = git@github.com:c0x12c/terraform-aws-wafv2.git
+	branch = master
