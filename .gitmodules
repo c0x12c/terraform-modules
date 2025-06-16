@@ -106,3 +106,7 @@
 	path = terraform-aws-iam-sso
 	url = git@github.com:c0x12c/terraform-aws-iam-sso.git
 	branch = master
+[submodule "terraform-aws-ecs-application"]
+	path = terraform-aws-ecs-application
+	url = git@github.com:c0x12c/terraform-aws-ecs-application.git
+	branch = master
