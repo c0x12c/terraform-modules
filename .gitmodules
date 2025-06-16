@@ -206,3 +206,7 @@
 	path = terraform-gcp-service-config
 	url = git@github.com:c0x12c/terraform-gcp-service-config.git
 	branch = master
+[submodule "terraform-gcp-project-service"]
+	path = terraform-gcp-project-service
+	url = git@github.com:c0x12c/terraform-gcp-project-service.git
+	branch = master
