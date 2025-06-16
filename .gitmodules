@@ -74,3 +74,7 @@
 	path = terraform-aws-oidc
 	url = git@github.com:c0x12c/terraform-aws-oidc.git
 	branch = master
+[submodule "terraform-aws-ecr"]
+	path = terraform-aws-ecr
+	url = git@github.com:c0x12c/terraform-aws-ecr.git
+	branch = master
