@@ -274,3 +274,7 @@
 	path = terraform-gcp-cloud-dns
 	url = git@github.com:c0x12c/terraform-gcp-cloud-dns.git
 	branch = master
+[submodule "terraform-gcp-workload-identity"]
+	path = terraform-gcp-workload-identity
+	url = git@github.com:c0x12c/terraform-gcp-workload-identity.git
+	branch = master
