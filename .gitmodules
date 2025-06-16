@@ -146,3 +146,7 @@
 	path = terraform-aws-eks-service
 	url = git@github.com:c0x12c/terraform-aws-eks-service.git
 	branch = master
+[submodule "terraform-aws-password-generator"]
+	path = terraform-aws-password-generator
+	url = git@github.com:c0x12c/terraform-aws-password-generator.git
+	branch = master
