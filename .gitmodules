@@ -62,3 +62,7 @@
 	path = terraform-aws-static-website
 	url = git@github.com:c0x12c/terraform-aws-static-website.git
 	branch = master
+[submodule "terraform-aws-vpc-endpoints"]
+	path = terraform-aws-vpc-endpoints
+	url = git@github.com:c0x12c/terraform-aws-vpc-endpoints.git
+	branch = master
