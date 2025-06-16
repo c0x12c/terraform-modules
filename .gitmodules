@@ -182,3 +182,7 @@
 	path = terraform-datadog-service-monitor
 	url = git@github.com:c0x12c/terraform-datadog-service-monitor.git
 	branch = master
+[submodule "terraform-datadog-aws-integration"]
+	path = terraform-datadog-aws-integration
+	url = git@github.com:c0x12c/terraform-datadog-aws-integration.git
+	branch = master
