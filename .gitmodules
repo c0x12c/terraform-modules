@@ -258,3 +258,7 @@
 	path = terraform-gcp-vpc
 	url = git@github.com:c0x12c/terraform-gcp-vpc.git
 	branch = master
+[submodule "terraform-gcp-gke-gateway-api"]
+	path = terraform-gcp-gke-gateway-api
+	url = git@github.com:c0x12c/terraform-gcp-gke-gateway-api.git
+	branch = master
