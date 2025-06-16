@@ -210,3 +210,7 @@
 	path = terraform-gcp-project-service
 	url = git@github.com:c0x12c/terraform-gcp-project-service.git
 	branch = master
+[submodule "terraform-gcp-iam-member"]
+	path = terraform-gcp-iam-member
+	url = git@github.com:c0x12c/terraform-gcp-iam-member.git
+	branch = master
