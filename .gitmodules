@@ -34,3 +34,7 @@
 	path = terraform-aws-security-group
 	url = git@github.com:c0x12c/terraform-aws-security-group.git
 	branch = master
+[submodule "terraform-aws-eks-rbac"]
+	path = terraform-aws-eks-rbac
+	url = git@github.com:c0x12c/terraform-aws-eks-rbac.git
+	branch = master
