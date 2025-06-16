@@ -214,3 +214,7 @@
 	path = terraform-gcp-iam-member
 	url = git@github.com:c0x12c/terraform-gcp-iam-member.git
 	branch = master
+[submodule "terraform-gcp-google-monitoring"]
+	path = terraform-gcp-google-monitoring
+	url = git@github.com:c0x12c/terraform-gcp-google-monitoring.git
+	branch = master
