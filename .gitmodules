@@ -1,3 +1,0 @@
-[submodule "terraform-aws-opensearch"]
-	path = terraform-aws-opensearch
-	url = git@github.com:c0x12c/terraform-aws-opensearch.git
