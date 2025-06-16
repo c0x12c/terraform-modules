@@ -42,3 +42,7 @@
 	path = terraform-aws-eks-cluster
 	url = git@github.com:c0x12c/terraform-aws-eks-cluster.git
 	branch = master
+[submodule "terraform-aws-sns"]
+	path = terraform-aws-sns
+	url = git@github.com:c0x12c/terraform-aws-sns.git
+	branch = master
