@@ -218,3 +218,7 @@
 	path = terraform-gcp-google-monitoring
 	url = git@github.com:c0x12c/terraform-gcp-google-monitoring.git
 	branch = master
+[submodule "terraform-gcp-github-oidc"]
+	path = terraform-gcp-github-oidc
+	url = git@github.com:c0x12c/terraform-gcp-github-oidc.git
+	branch = master
