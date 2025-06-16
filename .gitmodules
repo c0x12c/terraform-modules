@@ -26,3 +26,7 @@
 	path = terraform-aws-github-self-hosted-runners
 	url = git@github.com:c0x12c/terraform-aws-github-self-hosted-runners.git
 	branch = master
+[submodule "terraform-aws-s3"]
+	path = terraform-aws-s3
+	url = git@github.com:c0x12c/terraform-aws-s3.git
+	branch = master
