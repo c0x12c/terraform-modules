@@ -250,3 +250,7 @@
 	path = terraform-gcp-google-workspace
 	url = git@github.com:c0x12c/terraform-gcp-google-workspace.git
 	branch = master
+[submodule "terraform-gcp-service-account"]
+	path = terraform-gcp-service-account
+	url = git@github.com:c0x12c/terraform-gcp-service-account.git
+	branch = master
