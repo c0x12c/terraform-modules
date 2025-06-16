@@ -46,3 +46,7 @@
 	path = terraform-aws-sns
 	url = git@github.com:c0x12c/terraform-aws-sns.git
 	branch = master
+[submodule "terraform-aws-sendgrid"]
+	path = terraform-aws-sendgrid
+	url = git@github.com:c0x12c/terraform-aws-sendgrid.git
+	branch = master
