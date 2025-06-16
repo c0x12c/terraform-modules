@@ -86,3 +86,7 @@
 	path = terraform-aws-amplify
 	url = git@github.com:c0x12c/terraform-aws-amplify.git
 	branch = master
+[submodule "terraform-aws-cloudtrail"]
+	path = terraform-aws-cloudtrail
+	url = git@github.com:c0x12c/terraform-aws-cloudtrail.git
+	branch = master
