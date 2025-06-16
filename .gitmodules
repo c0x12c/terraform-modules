@@ -110,3 +110,7 @@
 	path = terraform-aws-ecs-application
 	url = git@github.com:c0x12c/terraform-aws-ecs-application.git
 	branch = master
+[submodule "terraform-aws-eks-helm"]
+	path = terraform-aws-eks-helm
+	url = git@github.com:c0x12c/terraform-aws-eks-helm.git
+	branch = master
