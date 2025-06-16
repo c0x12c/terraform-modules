@@ -98,3 +98,7 @@
 	path = terraform-aws-ecs-cluster
 	url = git@github.com:c0x12c/terraform-aws-ecs-cluster.git
 	branch = master
+[submodule "terraform-aws-vanta"]
+	path = terraform-aws-vanta
+	url = git@github.com:c0x12c/terraform-aws-vanta.git
+	branch = master
