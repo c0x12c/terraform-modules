@@ -102,3 +102,7 @@
 	path = terraform-aws-vanta
 	url = git@github.com:c0x12c/terraform-aws-vanta.git
 	branch = master
+[submodule "terraform-aws-iam-sso"]
+	path = terraform-aws-iam-sso
+	url = git@github.com:c0x12c/terraform-aws-iam-sso.git
+	branch = master
