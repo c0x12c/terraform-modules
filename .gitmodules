@@ -166,3 +166,7 @@
 	path = terraform-aws-route53
 	url = git@github.com:c0x12c/terraform-aws-route53.git
 	branch = master
+[submodule "terraform-aws-identity-provider"]
+	path = terraform-aws-identity-provider
+	url = git@github.com:c0x12c/terraform-aws-identity-provider.git
+	branch = master
