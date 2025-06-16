@@ -170,3 +170,7 @@
 	path = terraform-aws-identity-provider
 	url = git@github.com:c0x12c/terraform-aws-identity-provider.git
 	branch = master
+[submodule "terraform-datadog-monitors"]
+	path = terraform-datadog-monitors
+	url = git@github.com:c0x12c/terraform-datadog-monitors.git
+	branch = master
