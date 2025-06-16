@@ -50,3 +50,7 @@
 	path = terraform-aws-sendgrid
 	url = git@github.com:c0x12c/terraform-aws-sendgrid.git
 	branch = master
+[submodule "terraform-aws-vpn"]
+	path = terraform-aws-vpn
+	url = git@github.com:c0x12c/terraform-aws-vpn.git
+	branch = master
