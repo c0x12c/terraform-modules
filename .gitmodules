@@ -114,3 +114,7 @@
 	path = terraform-aws-eks-helm
 	url = git@github.com:c0x12c/terraform-aws-eks-helm.git
 	branch = master
+[submodule "terraform-aws-vpc"]
+	path = terraform-aws-vpc
+	url = git@github.com:c0x12c/terraform-aws-vpc.git
+	branch = master
