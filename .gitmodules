@@ -78,3 +78,7 @@
 	path = terraform-aws-ecr
 	url = git@github.com:c0x12c/terraform-aws-ecr.git
 	branch = master
+[submodule "terraform-aws-sqs"]
+	path = terraform-aws-sqs
+	url = git@github.com:c0x12c/terraform-aws-sqs.git
+	branch = master
