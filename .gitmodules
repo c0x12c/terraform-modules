@@ -242,3 +242,7 @@
 	path = terraform-gcp-storage-bucket
 	url = git@github.com:c0x12c/terraform-gcp-storage-bucket.git
 	branch = master
+[submodule "terraform-gcp-openvpn"]
+	path = terraform-gcp-openvpn
+	url = git@github.com:c0x12c/terraform-gcp-openvpn.git
+	branch = master
