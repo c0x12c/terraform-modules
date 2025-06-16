@@ -82,3 +82,7 @@
 	path = terraform-aws-sqs
 	url = git@github.com:c0x12c/terraform-aws-sqs.git
 	branch = master
+[submodule "terraform-aws-amplify"]
+	path = terraform-aws-amplify
+	url = git@github.com:c0x12c/terraform-aws-amplify.git
+	branch = master
