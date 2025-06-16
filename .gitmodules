@@ -186,3 +186,7 @@
 	path = terraform-datadog-aws-integration
 	url = git@github.com:c0x12c/terraform-datadog-aws-integration.git
 	branch = master
+[submodule "terraform-datadog-mono-monitor"]
+	path = terraform-datadog-mono-monitor
+	url = git@github.com:c0x12c/terraform-datadog-mono-monitor.git
+	branch = master
