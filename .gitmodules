@@ -94,3 +94,7 @@
 	path = terraform-aws-openvpn
 	url = git@github.com:c0x12c/terraform-aws-openvpn.git
 	branch = master
+[submodule "terraform-aws-ecs-cluster"]
+	path = terraform-aws-ecs-cluster
+	url = git@github.com:c0x12c/terraform-aws-ecs-cluster.git
+	branch = master
