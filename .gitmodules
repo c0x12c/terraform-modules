@@ -226,3 +226,7 @@
 	path = terraform-gcp-wildcard-sslcert
 	url = git@github.com:c0x12c/terraform-gcp-wildcard-sslcert.git
 	branch = master
+[submodule "terraform-gcp-redis-cluster"]
+	path = terraform-gcp-redis-cluster
+	url = git@github.com:c0x12c/terraform-gcp-redis-cluster.git
+	branch = master
