@@ -150,3 +150,7 @@
 	path = terraform-aws-password-generator
 	url = git@github.com:c0x12c/terraform-aws-password-generator.git
 	branch = master
+[submodule "terraform-aws-efs"]
+	path = terraform-aws-efs
+	url = git@github.com:c0x12c/terraform-aws-efs.git
+	branch = master
