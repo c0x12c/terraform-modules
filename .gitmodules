@@ -30,3 +30,7 @@
 	path = terraform-aws-s3
 	url = git@github.com:c0x12c/terraform-aws-s3.git
 	branch = master
+[submodule "terraform-aws-security-group"]
+	path = terraform-aws-security-group
+	url = git@github.com:c0x12c/terraform-aws-security-group.git
+	branch = master
