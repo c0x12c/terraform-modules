@@ -198,3 +198,7 @@
 	path = terraform-datadog-gcp-integration
 	url = git@github.com:c0x12c/terraform-datadog-gcp-integration.git
 	branch = master
+[submodule "terraform-gcp-postgresql"]
+	path = terraform-gcp-postgresql
+	url = git@github.com:c0x12c/terraform-gcp-postgresql.git
+	branch = master
