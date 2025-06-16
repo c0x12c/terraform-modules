@@ -138,3 +138,7 @@
 	path = terraform-aws-eks-access-entry
 	url = git@github.com:c0x12c/terraform-aws-eks-access-entry.git
 	branch = master
+[submodule "terraform-aws-rds"]
+	path = terraform-aws-rds
+	url = git@github.com:c0x12c/terraform-aws-rds.git
+	branch = master
