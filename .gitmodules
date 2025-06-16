@@ -234,3 +234,7 @@
 	path = terraform-gcp-gke-autopilot
 	url = git@github.com:c0x12c/terraform-gcp-gke-autopilot.git
 	branch = master
+[submodule "terraform-gcp-service-connection-policies"]
+	path = terraform-gcp-service-connection-policies
+	url = git@github.com:c0x12c/terraform-gcp-service-connection-policies.git
+	branch = master
