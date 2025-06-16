@@ -90,3 +90,7 @@
 	path = terraform-aws-cloudtrail
 	url = git@github.com:c0x12c/terraform-aws-cloudtrail.git
 	branch = master
+[submodule "terraform-aws-openvpn"]
+	path = terraform-aws-openvpn
+	url = git@github.com:c0x12c/terraform-aws-openvpn.git
+	branch = master
