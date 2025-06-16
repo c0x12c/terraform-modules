@@ -230,3 +230,7 @@
 	path = terraform-gcp-redis-cluster
 	url = git@github.com:c0x12c/terraform-gcp-redis-cluster.git
 	branch = master
+[submodule "terraform-gcp-gke-autopilot"]
+	path = terraform-gcp-gke-autopilot
+	url = git@github.com:c0x12c/terraform-gcp-gke-autopilot.git
+	branch = master
