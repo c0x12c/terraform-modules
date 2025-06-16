@@ -158,3 +158,7 @@
 	path = terraform-aws-schedulers
 	url = git@github.com:c0x12c/terraform-aws-schedulers.git
 	branch = master
+[submodule "terraform-aws-acm"]
+	path = terraform-aws-acm
+	url = git@github.com:c0x12c/terraform-aws-acm.git
+	branch = master
