@@ -58,3 +58,7 @@
 	path = terraform-aws-wafv2
 	url = git@github.com:c0x12c/terraform-aws-wafv2.git
 	branch = master
+[submodule "terraform-aws-static-website"]
+	path = terraform-aws-static-website
+	url = git@github.com:c0x12c/terraform-aws-static-website.git
+	branch = master
