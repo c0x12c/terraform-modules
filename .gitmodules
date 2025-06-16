@@ -126,3 +126,7 @@
 	path = terraform-aws-guardduty
 	url = git@github.com:c0x12c/terraform-aws-guardduty.git
 	branch = master
+[submodule "terraform-aws-ses"]
+	path = terraform-aws-ses
+	url = git@github.com:c0x12c/terraform-aws-ses.git
+	branch = master
