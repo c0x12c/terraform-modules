@@ -190,3 +190,7 @@
 	path = terraform-datadog-mono-monitor
 	url = git@github.com:c0x12c/terraform-datadog-mono-monitor.git
 	branch = master
+[submodule "terraform-datadog-dashboard"]
+	path = terraform-datadog-dashboard
+	url = git@github.com:c0x12c/terraform-datadog-dashboard.git
+	branch = master
