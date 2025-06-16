@@ -66,3 +66,7 @@
 	path = terraform-aws-vpc-endpoints
 	url = git@github.com:c0x12c/terraform-aws-vpc-endpoints.git
 	branch = master
+[submodule "terraform-aws-alb"]
+	path = terraform-aws-alb
+	url = git@github.com:c0x12c/terraform-aws-alb.git
+	branch = master
