@@ -22,3 +22,7 @@
 	path = terraform-aws-cloudwatch
 	url = git@github.com:c0x12c/terraform-aws-cloudwatch.git
 	branch = master
+[submodule "terraform-aws-github-self-hosted-runners"]
+	path = terraform-aws-github-self-hosted-runners
+	url = git@github.com:c0x12c/terraform-aws-github-self-hosted-runners.git
+	branch = master
