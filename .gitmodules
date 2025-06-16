@@ -246,3 +246,7 @@
 	path = terraform-gcp-openvpn
 	url = git@github.com:c0x12c/terraform-gcp-openvpn.git
 	branch = master
+[submodule "terraform-gcp-google-workspace"]
+	path = terraform-gcp-google-workspace
+	url = git@github.com:c0x12c/terraform-gcp-google-workspace.git
+	branch = master
