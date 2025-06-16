@@ -266,3 +266,7 @@
 	path = terraform-gcp-artifact-registry
 	url = git@github.com:c0x12c/terraform-gcp-artifact-registry.git
 	branch = master
+[submodule "terraform-gcp-gke-ingress"]
+	path = terraform-gcp-gke-ingress
+	url = git@github.com:c0x12c/terraform-gcp-gke-ingress.git
+	branch = master
