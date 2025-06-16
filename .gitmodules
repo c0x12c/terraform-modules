@@ -14,3 +14,7 @@
 	path = terraform-aws-kms
 	url = git@github.com:c0x12c/terraform-aws-kms.git
 	branch = master
+[submodule "terraform-aws-secret-manager"]
+	path = terraform-aws-secret-manager
+	url = git@github.com:c0x12c/terraform-aws-secret-manager.git
+	branch = master
