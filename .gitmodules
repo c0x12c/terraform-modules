@@ -70,3 +70,7 @@
 	path = terraform-aws-alb
 	url = git@github.com:c0x12c/terraform-aws-alb.git
 	branch = master
+[submodule "terraform-aws-oidc"]
+	path = terraform-aws-oidc
+	url = git@github.com:c0x12c/terraform-aws-oidc.git
+	branch = master
