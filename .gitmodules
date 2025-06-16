@@ -122,3 +122,7 @@
 	path = terraform-aws-ssm-parameter
 	url = git@github.com:c0x12c/terraform-aws-ssm-parameter.git
 	branch = master
+[submodule "terraform-aws-guardduty"]
+	path = terraform-aws-guardduty
+	url = git@github.com:c0x12c/terraform-aws-guardduty.git
+	branch = master
