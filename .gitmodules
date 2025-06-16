@@ -18,3 +18,7 @@
 	path = terraform-aws-secret-manager
 	url = git@github.com:c0x12c/terraform-aws-secret-manager.git
 	branch = master
+[submodule "terraform-aws-cloudwatch"]
+	path = terraform-aws-cloudwatch
+	url = git@github.com:c0x12c/terraform-aws-cloudwatch.git
+	branch = master
