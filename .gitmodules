@@ -118,3 +118,7 @@
 	path = terraform-aws-vpc
 	url = git@github.com:c0x12c/terraform-aws-vpc.git
 	branch = master
+[submodule "terraform-aws-ssm-parameter"]
+	path = terraform-aws-ssm-parameter
+	url = git@github.com:c0x12c/terraform-aws-ssm-parameter.git
+	branch = master
