@@ -134,3 +134,7 @@
 	path = terraform-aws-elasticache
 	url = git@github.com:c0x12c/terraform-aws-elasticache.git
 	branch = master
+[submodule "terraform-aws-eks-access-entry"]
+	path = terraform-aws-eks-access-entry
+	url = git@github.com:c0x12c/terraform-aws-eks-access-entry.git
+	branch = master
