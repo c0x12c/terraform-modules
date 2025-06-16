@@ -262,3 +262,7 @@
 	path = terraform-gcp-gke-gateway-api
 	url = git@github.com:c0x12c/terraform-gcp-gke-gateway-api.git
 	branch = master
+[submodule "terraform-gcp-artifact-registry"]
+	path = terraform-gcp-artifact-registry
+	url = git@github.com:c0x12c/terraform-gcp-artifact-registry.git
+	branch = master
