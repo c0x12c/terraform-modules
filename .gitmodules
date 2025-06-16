@@ -154,3 +154,7 @@
 	path = terraform-aws-efs
 	url = git@github.com:c0x12c/terraform-aws-efs.git
 	branch = master
+[submodule "terraform-aws-schedulers"]
+	path = terraform-aws-schedulers
+	url = git@github.com:c0x12c/terraform-aws-schedulers.git
+	branch = master
