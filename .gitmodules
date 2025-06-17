@@ -306,3 +306,7 @@
 	path = terraform-aws-helm-keda
 	url = git@github.com:c0x12c/terraform-aws-helm-keda.git
 	branch = master
+[submodule "terraform-aws-helm-keycloak"]
+	path = terraform-aws-helm-keycloak
+	url = git@github.com:c0x12c/terraform-aws-helm-keycloak.git
+	branch = master
