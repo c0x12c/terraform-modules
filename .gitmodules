@@ -322,3 +322,7 @@
 	path = terraform-aws-helm-nginx-ingress-controller
 	url = git@github.com:c0x12c/terraform-aws-helm-nginx-ingress-controller.git
 	branch = master
+[submodule "terraform-aws-helm-opa"]
+	path = terraform-aws-helm-opa
+	url = git@github.com:c0x12c/terraform-aws-helm-opa.git
+	branch = master
