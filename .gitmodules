@@ -286,3 +286,7 @@
 	path = terraform-aws-saml-idp
 	url = git@github.com:c0x12c/terraform-aws-saml-idp.git
 	branch = master
+[submodule "terraform-aws-helm-aws-lb-controller"]
+	path = terraform-aws-helm-aws-lb-controller
+	url = git@github.com:c0x12c/terraform-aws-helm-aws-lb-controller.git
+	branch = master
