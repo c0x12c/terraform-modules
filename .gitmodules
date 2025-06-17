@@ -298,3 +298,7 @@
 	path = terraform-aws-helm-jenkins
 	url = git@github.com:c0x12c/terraform-aws-helm-jenkins.git
 	branch = master
+[submodule "terraform-aws-helm-datadog"]
+	path = terraform-aws-helm-datadog
+	url = git@github.com:c0x12c/terraform-aws-helm-datadog.git
+	branch = master
