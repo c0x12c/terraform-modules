@@ -294,3 +294,7 @@
 	path = terraform-aws-helm-argocd
 	url = git@github.com:c0x12c/terraform-aws-helm-argocd.git
 	branch = master
+[submodule "terraform-aws-helm-jenkins"]
+	path = terraform-aws-helm-jenkins
+	url = git@github.com:c0x12c/terraform-aws-helm-jenkins.git
+	branch = master
