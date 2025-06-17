@@ -282,3 +282,7 @@
 	path = terraform-github-actions
 	url = git@github.com:c0x12c/terraform-github-actions.git
 	branch = master
+[submodule "terraform-aws-saml-idp"]
+	path = terraform-aws-saml-idp
+	url = git@github.com:c0x12c/terraform-aws-saml-idp.git
+	branch = master
