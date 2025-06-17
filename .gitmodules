@@ -314,3 +314,7 @@
 	path = terraform-aws-helm-metrics-server
 	url = git@github.com:c0x12c/terraform-aws-helm-metrics-server.git
 	branch = master
+[submodule "terraform-aws-helm-neo4j"]
+	path = terraform-aws-helm-neo4j
+	url = git@github.com:c0x12c/terraform-aws-helm-neo4j.git
+	branch = master
