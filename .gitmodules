@@ -310,3 +310,7 @@
 	path = terraform-aws-helm-keycloak
 	url = git@github.com:c0x12c/terraform-aws-helm-keycloak.git
 	branch = master
+[submodule "terraform-aws-helm-metrics-server"]
+	path = terraform-aws-helm-metrics-server
+	url = git@github.com:c0x12c/terraform-aws-helm-metrics-server.git
+	branch = master
