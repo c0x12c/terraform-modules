@@ -326,3 +326,7 @@
 	path = terraform-aws-helm-opa
 	url = git@github.com:c0x12c/terraform-aws-helm-opa.git
 	branch = master
+[submodule "terraform-aws-cloudwatch-alarm"]
+	path = terraform-aws-cloudwatch-alarm
+	url = git@github.com:c0x12c/terraform-aws-cloudwatch-alarm.git
+	branch = master
