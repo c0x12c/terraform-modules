@@ -290,3 +290,7 @@
 	path = terraform-aws-helm-aws-lb-controller
 	url = git@github.com:c0x12c/terraform-aws-helm-aws-lb-controller.git
 	branch = master
+[submodule "terraform-aws-helm-argocd"]
+	path = terraform-aws-helm-argocd
+	url = git@github.com:c0x12c/terraform-aws-helm-argocd.git
+	branch = master
