@@ -334,3 +334,7 @@
 	path = terraform-aws-ses-monitoring
 	url = git@github.com:c0x12c/terraform-aws-ses-monitoring.git
 	branch = master
+[submodule "terraform-aws-cloudfront-logging"]
+	path = terraform-aws-cloudfront-logging
+	url = git@github.com:c0x12c/terraform-aws-cloudfront-logging.git
+	branch = master
