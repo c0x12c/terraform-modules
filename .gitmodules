@@ -330,3 +330,7 @@
 	path = terraform-aws-cloudwatch-alarm
 	url = git@github.com:c0x12c/terraform-aws-cloudwatch-alarm.git
 	branch = master
+[submodule "terraform-aws-ses-monitoring"]
+	path = terraform-aws-ses-monitoring
+	url = git@github.com:c0x12c/terraform-aws-ses-monitoring.git
+	branch = master
