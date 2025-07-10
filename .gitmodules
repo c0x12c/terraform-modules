@@ -338,3 +338,12 @@
 	path = terraform-aws-cloudfront-logging
 	url = git@github.com:c0x12c/terraform-aws-cloudfront-logging.git
 	branch = master
+[submodule "modules/aws/oidc-provider"]
+	path = modules/aws/oidc-provider
+	url = git@github.com:c0x12c/terraform-modules-registry.git
+[submodule "modules/aws/github-oidc"]
+	path = modules/aws/github-oidc
+	url = git@github.com:c0x12c/terraform-modules-registry.git
+[submodule "modules/aws/jenkins-oidc"]
+	path = modules/aws/jenkins-oidc
+	url = git@github.com:c0x12c/terraform-modules-registry.git
