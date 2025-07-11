@@ -350,3 +350,35 @@
 	path = terraform-aws-jenkins-oidc
 	url = git@github.com:c0x12c/terraform-aws-jenkins-oidc.git
 	branch = master
+[submodule "terraform-aws-eks-managed-node-group"]
+	path = terraform-aws-eks-managed-node-group
+	url = git@github.com:c0x12c/terraform-aws-eks-managed-node-group.git
+	branch = master
+[submodule "terraform-aws-eks-fargate-profile"]
+	path = terraform-aws-eks-fargate-profile
+	url = git@github.com:c0x12c/terraform-aws-eks-fargate-profile.git
+	branch = master
+[submodule "terraform-aws-eks-efs"]
+	path = terraform-aws-eks-efs
+	url = git@github.com:c0x12c/terraform-aws-eks-efs.git
+	branch = master
+[submodule "terraform-aws-eks-datadog-rbac"]
+	path = terraform-aws-eks-datadog-rbac
+	url = git@github.com:c0x12c/terraform-aws-eks-datadog-rbac.git
+	branch = master
+[submodule "terraform-aws-eks-cloudwatch-logging-fargate"]
+	path = terraform-aws-eks-cloudwatch-logging-fargate
+	url = git@github.com:c0x12c/terraform-aws-eks-cloudwatch-logging-fargate.git
+	branch = master
+[submodule "terraform-datadog-team"]
+	path = terraform-datadog-team
+	url = git@github.com:c0x12c/terraform-datadog-team.git
+	branch = master
+[submodule "terraform-datadog-oncall"]
+	path = terraform-datadog-oncall
+	url = git@github.com:c0x12c/terraform-datadog-oncall.git
+	branch = master
+[submodule "terraform-datadog-notification-rules"]
+	path = terraform-datadog-notification-rules
+	url = git@github.com:c0x12c/terraform-datadog-notification-rules.git
+	branch = master
