@@ -13,13 +13,13 @@ To integrate a new Terraform module repository as a submodule, follow the steps 
    Run the following command to add the desired Terraform module repository:
 
    ```bash
-   git submodule add git@github.com:c0x12c/terraform-modules-registry.git modules/<provider>/<module-name>
+   git submodule add <repository-url> [<path>]
    ```
 
    Example:
 
    ```bash
-   git submodule add git@github.com:c0x12c/terraform-modules-registry.git modules/aws/vpc
+   git submodule add git@github.com:c0x12c/terraform-datadog-team.git terraform-datadog-team
    ```
 
 2. **Commit the Changes**
