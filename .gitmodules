@@ -382,3 +382,9 @@
 	path = terraform-datadog-notification-rules
 	url = git@github.com:c0x12c/terraform-datadog-notification-rules.git
 	branch = master
+[submodule "terraform-github-action-variables"]
+	path = terraform-github-action-variables
+	url = git@github.com:c0x12c/terraform-github-action-variables.git
+[submodule "terraform-github-action-secrets"]
+	path = terraform-github-action-secrets
+	url = git@github.com:c0x12c/terraform-github-action-secrets.git
