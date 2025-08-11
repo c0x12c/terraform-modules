@@ -388,3 +388,6 @@
 [submodule "terraform-github-action-secrets"]
 	path = terraform-github-action-secrets
 	url = git@github.com:c0x12c/terraform-github-action-secrets.git
+[submodule "terraform-qdrant-accounts-cluster"]
+	path = terraform-qdrant-accounts-cluster
+	url = git@github.com:c0x12c/terraform-qdrant-accounts-cluster.git
