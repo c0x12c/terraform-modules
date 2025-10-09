@@ -406,3 +406,7 @@
 [submodule "terraform-gcp-recaptcha"]
 	path = terraform-gcp-recaptcha
 	url = git@github.com:c0x12c/terraform-gcp-recaptcha.git
+[submodule "terraform-github-action-env-secrets"]
+	path = terraform-github-action-env-secrets
+	url = git@github.com:c0x12c/terraform-github-action-env-secrets.git
+	branch = master
