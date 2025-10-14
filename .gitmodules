@@ -410,3 +410,7 @@
 	path = terraform-github-action-env-variables
 	url = git@github.com:c0x12c/terraform-github-action-env-variables.git
 	branch = master
+[submodule "terraform-aws-eventbridge-slack-notification"]
+	path = terraform-aws-eventbridge-slack-notification
+	url = git@github.com:c0x12c/terraform-aws-eventbridge-slack-notification.git
+	branch = master
