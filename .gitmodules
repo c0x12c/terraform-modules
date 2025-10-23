@@ -414,3 +414,7 @@
 	path = terraform-aws-eventbridge-slack-notification
 	url = git@github.com:c0x12c/terraform-aws-eventbridge-slack-notification.git
 	branch = master
+[submodule "terraform-kubernetes-helm-reloader"]
+	path = terraform-kubernetes-helm-reloader
+	url = git@github.com:c0x12c/terraform-kubernetes-helm-reloader.git
+	branch = master
