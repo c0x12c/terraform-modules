@@ -418,3 +418,6 @@
 	path = terraform-kubernetes-helm-reloader
 	url = git@github.com:c0x12c/terraform-kubernetes-helm-reloader.git
 	branch = master
+[submodule "terraform-datadog-ecs-monitor"]
+	path = terraform-datadog-ecs-monitor
+	url = git@github.com:c0x12c/terraform-datadog-ecs-monitor.git
