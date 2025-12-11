@@ -1,0 +1,92 @@
+## This `release` pipeline will create a new tag, release and release note
+## from the first (latest) version specified in `./CHANGELOG.md`
+##
+name: Release
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - 'CHANGELOG.md'
+
+permissions:
+  contents: write # to publish a GitHub release
+
+jobs:
+  verify-changelog:
+    name: Verify Changelog
+    runs-on: ubuntu-latest
+    if: github.repository_owner == 'c0x12c'
+    outputs:
+      is_releasable: ${{ steps.check_unreleased.outputs.is_releasable }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check for [Unreleased] section
+        id: check_unreleased
+        run: |
+          if grep -q "\[Unreleased\]" CHANGELOG.md; then
+            echo "is_releasable=false" >> $GITHUB_OUTPUT
+            echo "CHANGELOG.md contains [Unreleased] section - skipping release"
+          else
+            echo "is_releasable=true" >> $GITHUB_OUTPUT
+            echo "CHANGELOG.md is ready for release"
+          fi
+
+
+  release:
+    name: Release
+    needs: verify-changelog
+    runs-on: ubuntu-latest
+    # Skip running release workflow on forks
+    if: github.repository_owner == 'c0x12c' && needs.verify-changelog.outputs.is_releasable == 'true'
+    steps:
+      - name: Create GitHub App Token
+        uses: actions/create-github-app-token@v2
+        id: github-app-token
+        with:
+          app-id: ${{ vars.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ steps.github-app-token.outputs.token }}
+          ref: ${{ github.head_ref }}
+
+
+      # Extract the first (latest) version mentioned in the changelog
+      - name: Extract Version from Changelog
+        id: extract_version
+        run: |
+          VERSION=$(grep -oE '^## \[v?[0-9]+\.[0-9]+\.[0-9]+\]' CHANGELOG.md | head -1 | sed 's/^## \[//;s/]$//')
+          echo "Extracted version: $VERSION"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      # Extract only the changelog content of specified version
+      - name: Extract Changelog
+        id: changelog
+        uses: nickohold/changelog-version-extractor@v1.0.0
+        with:
+          version_prefix: "## ["
+          version: ${{ env.VERSION }}
+          changelog_path: "./CHANGELOG.md"
+
+      # Echo the output from the `changelog` step
+      - name: Echo the output
+        run: echo "The Changelog is ${{ steps.changelog.outputs.changelog }}"
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ steps.github-app-token.outputs.token }}
+        with:
+          tag_name: "v${{ env.VERSION }}"
+          release_name: "v${{ env.VERSION }}"
+          body: "${{ steps.changelog.outputs.changelog }}"
+          draft: false
+          prerelease: false

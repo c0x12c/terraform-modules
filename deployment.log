@@ -1,0 +1,1588 @@
+Found 107 submodules
+
+=========================================
+Processing: terraform-aws-opensearch
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-opensearch
+ * branch            5233aa1eace397afea285552cbc2df742ef9363e -> FETCH_HEAD
+Submodule path 'terraform-aws-opensearch': checked out '5233aa1eace397afea285552cbc2df742ef9363e'
+Default branch: master
+Warning: you are leaving 11 commits behind, not connected to
+any of your branches:
+
+  5233aa1 Initial commit
+  74d807a Initial commit
+  29c8abc Initial commit
+  98a8f4f Initial commit
+ ... and 7 more.
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> 5233aa1
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-opensearch
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was a994b86).
+
+=========================================
+Processing: terraform-aws-password-policy
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-password-policy
+ * branch            07a0d0f11f005f5830898aa0aca72d20ea61b32b -> FETCH_HEAD
+Submodule path 'terraform-aws-password-policy': checked out '07a0d0f11f005f5830898aa0aca72d20ea61b32b'
+Default branch: master
+Warning: you are leaving 28 commits behind, not connected to
+any of your branches:
+
+  07a0d0f Initial commit
+  e2872a5 Initial commit
+  6f56c08 Initial commit
+  3d161ce Initial commit
+ ... and 24 more.
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> 07a0d0f
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-password-policy
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 3f04be9).
+
+=========================================
+Processing: terraform-aws-mwaa
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-mwaa
+ * branch            7a2cd2ab687e13fd91d0a47a77b003100be9a68b -> FETCH_HEAD
+Submodule path 'terraform-aws-mwaa': checked out '7a2cd2ab687e13fd91d0a47a77b003100be9a68b'
+Default branch: master
+Warning: you are leaving 12 commits behind, not connected to
+any of your branches:
+
+  7a2cd2a Initial commit
+  632a844 Initial commit
+  fdffc23 Initial commit
+  c2c8cde Initial commit
+ ... and 8 more.
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> 7a2cd2a
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-mwaa
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was c0a24c9).
+
+=========================================
+Processing: terraform-aws-kms
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-kms
+ * branch            82307821e0b6da4d7f7ee3070ab1542f6c2f93e4 -> FETCH_HEAD
+Submodule path 'terraform-aws-kms': checked out '82307821e0b6da4d7f7ee3070ab1542f6c2f93e4'
+Default branch: master
+Warning: you are leaving 8 commits behind, not connected to
+any of your branches:
+
+  8230782 Initial commit
+  372557c Initial commit
+  8833967 Initial commit
+  3caba80 Initial commit
+ ... and 4 more.
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> 8230782
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-kms
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was ae7233f).
+
+=========================================
+Processing: terraform-aws-secret-manager
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-secret-manager
+ * branch            68c039a188ef44157836453c62aa244398a9bda8 -> FETCH_HEAD
+Submodule path 'terraform-aws-secret-manager': checked out '68c039a188ef44157836453c62aa244398a9bda8'
+Default branch: master
+Warning: you are leaving 7 commits behind, not connected to
+any of your branches:
+
+  68c039a Initial commit
+  287372d Initial commit
+  de59dee Initial commit
+  c8e8a12 Initial commit
+ ... and 3 more.
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> 68c039a
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-secret-manager
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 3b744b0).
+
+=========================================
+Processing: terraform-aws-cloudwatch
+=========================================
+Initializing submodule...
+Default branch: master
+Already on 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-cloudwatch
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 1e8a5a4).
+
+=========================================
+Processing: terraform-aws-github-self-hosted-runners
+=========================================
+Initializing submodule...
+Submodule path 'terraform-aws-github-self-hosted-runners': checked out 'df918547ed368eaca34cffac8eef4ccc555df0a9'
+Default branch: master
+Previous HEAD position was df91854 Initial commit
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-github-self-hosted-runners
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 3ef0cf1).
+
+=========================================
+Processing: terraform-aws-s3
+=========================================
+Initializing submodule...
+Submodule path 'terraform-aws-s3': checked out '51cdcb8fb5a17f350c89b6addef6b2f886338d82'
+Default branch: master
+From github.com:c0x12c/terraform-aws-s3
+ * [new tag]         v1.0.0     -> v1.0.0
+ * [new tag]         v1.1.0     -> v1.1.0
+Previous HEAD position was 51cdcb8 Initial commit
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-s3
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was af51b2c).
+
+=========================================
+Processing: terraform-aws-security-group
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-security-group
+ * branch            f058d747745d57e3fd6b527fc0bd338ef26fc2ea -> FETCH_HEAD
+Submodule path 'terraform-aws-security-group': checked out 'f058d747745d57e3fd6b527fc0bd338ef26fc2ea'
+Default branch: master
+Warning: you are leaving 6 commits behind, not connected to
+any of your branches:
+
+  f058d74 Initial commit
+  61d1af7 Initial commit
+  17eb822 Initial commit
+  9c30604 Initial commit
+ ... and 2 more.
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> f058d74
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-security-group
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 0f2c79d).
+
+=========================================
+Processing: terraform-aws-eks-rbac
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-eks-rbac
+ * branch            249c92e298e97c5b17ebc53812342c9293bb9e9e -> FETCH_HEAD
+Submodule path 'terraform-aws-eks-rbac': checked out '249c92e298e97c5b17ebc53812342c9293bb9e9e'
+Default branch: master
+Warning: you are leaving 6 commits behind, not connected to
+any of your branches:
+
+  249c92e Initial commit
+  bf53508 Initial commit
+  e0f1a84 Initial commit
+  e30c878 Initial commit
+ ... and 2 more.
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> 249c92e
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-eks-rbac
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was def13da).
+
+=========================================
+Processing: terraform-aws-eks-cluster
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-eks-cluster
+ * branch            a156114c5d85864fb2f66fbdb2ebda82f32e2d22 -> FETCH_HEAD
+Submodule path 'terraform-aws-eks-cluster': checked out 'a156114c5d85864fb2f66fbdb2ebda82f32e2d22'
+Default branch: master
+Warning: you are leaving 6 commits behind, not connected to
+any of your branches:
+
+  a156114 Initial commit
+  76ce918 Initial commit
+  0383fb0 Initial commit
+  b0021e3 Initial commit
+ ... and 2 more.
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> a156114
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-eks-cluster
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 5469147).
+
+=========================================
+Processing: terraform-aws-sns
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-sns
+ * branch            06a24d3d597878570432ed5584abbd90782953b0 -> FETCH_HEAD
+Submodule path 'terraform-aws-sns': checked out '06a24d3d597878570432ed5584abbd90782953b0'
+Default branch: master
+Warning: you are leaving 6 commits behind, not connected to
+any of your branches:
+
+  06a24d3 Initial commit
+  9f4be05 Initial commit
+  9129a7c Initial commit
+  5c67a3f Initial commit
+ ... and 2 more.
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> 06a24d3
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-sns
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 2a41601).
+
+=========================================
+Processing: terraform-aws-sendgrid
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-sendgrid
+ * branch            e2ed807ff4542194eb4535976248fc8bc9513bf0 -> FETCH_HEAD
+Submodule path 'terraform-aws-sendgrid': checked out 'e2ed807ff4542194eb4535976248fc8bc9513bf0'
+Default branch: master
+Warning: you are leaving 6 commits behind, not connected to
+any of your branches:
+
+  e2ed807 Initial commit
+  7b5bee5 Initial commit
+  e15ec7b Initial commit
+  00c6c1e Initial commit
+ ... and 2 more.
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> e2ed807
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-sendgrid
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 01d62fa).
+
+=========================================
+Processing: terraform-aws-vpn
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-vpn
+ * branch            8ec136e15bd2ff337ba7e2216391f3ed2a8bc7cb -> FETCH_HEAD
+Submodule path 'terraform-aws-vpn': checked out '8ec136e15bd2ff337ba7e2216391f3ed2a8bc7cb'
+Default branch: master
+Warning: you are leaving 6 commits behind, not connected to
+any of your branches:
+
+  8ec136e Initial commit
+  c5eb528 Initial commit
+  7af553b Initial commit
+  c62dd80 Initial commit
+ ... and 2 more.
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> 8ec136e
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-vpn
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 5677484).
+
+=========================================
+Processing: terraform-aws-wafv2
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-wafv2
+ * [new tag]         v1.0.1     -> v1.0.1
+From github.com:c0x12c/terraform-aws-wafv2
+ * branch            76dd4352abed134aa8e707816a976686cc3f2cf7 -> FETCH_HEAD
+Submodule path 'terraform-aws-wafv2': checked out '76dd4352abed134aa8e707816a976686cc3f2cf7'
+Default branch: master
+Warning: you are leaving 6 commits behind, not connected to
+any of your branches:
+
+  76dd435 Initial commit
+  e7f8f2a Initial commit
+  a9159fe Initial commit
+  8f14229 Initial commit
+ ... and 2 more.
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> 76dd435
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-wafv2
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 41a071c).
+
+=========================================
+Processing: terraform-aws-static-website
+=========================================
+Initializing submodule...
+Submodule path 'terraform-aws-static-website': checked out '939db2bc43f542154ab92f078da8688c18875318'
+Default branch: master
+Previous HEAD position was 939db2b Initial commit
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-static-website
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 696dc07).
+
+=========================================
+Processing: terraform-aws-vpc-endpoints
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-vpc-endpoints
+ * branch            61c37bca0e712bc641a7723ad05a8be0b16f7012 -> FETCH_HEAD
+Submodule path 'terraform-aws-vpc-endpoints': checked out '61c37bca0e712bc641a7723ad05a8be0b16f7012'
+Default branch: master
+Warning: you are leaving 5 commits behind, not connected to
+any of your branches:
+
+  61c37bc Initial commit
+  967937a Initial commit
+  6d44d36 Initial commit
+  3a5b839 Initial commit
+  060b898 Initial commit
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> 61c37bc
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-vpc-endpoints
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was f4fa781).
+
+=========================================
+Processing: terraform-aws-alb
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-alb
+ * branch            a3cb88d4a8b88108b0283a971e180d9e68e2f980 -> FETCH_HEAD
+Submodule path 'terraform-aws-alb': checked out 'a3cb88d4a8b88108b0283a971e180d9e68e2f980'
+Default branch: master
+Warning: you are leaving 5 commits behind, not connected to
+any of your branches:
+
+  a3cb88d Initial commit
+  0031e93 Initial commit
+  3e8471e Initial commit
+  d9d0728 Initial commit
+  907bfa4 Initial commit
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> a3cb88d
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-alb
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 40f966b).
+
+=========================================
+Processing: terraform-aws-oidc
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-oidc
+ * branch            d8ddcfa6f247a8b6b2339b73409e672534a62021 -> FETCH_HEAD
+Submodule path 'terraform-aws-oidc': checked out 'd8ddcfa6f247a8b6b2339b73409e672534a62021'
+Default branch: master
+Warning: you are leaving 5 commits behind, not connected to
+any of your branches:
+
+  d8ddcfa Initial commit
+  31b39c5 Initial commit
+  1422c01 Initial commit
+  397db42 Initial commit
+  28a8ee7 Initial commit
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> d8ddcfa
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-oidc
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was e0dc874).
+
+=========================================
+Processing: terraform-aws-ecr
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-ecr
+ * branch            5f0246e30b49e7e3f30dfe820748939de5b07df2 -> FETCH_HEAD
+Submodule path 'terraform-aws-ecr': checked out '5f0246e30b49e7e3f30dfe820748939de5b07df2'
+Default branch: master
+Warning: you are leaving 5 commits behind, not connected to
+any of your branches:
+
+  5f0246e Initial commit
+  b2f6ead Initial commit
+  1b441a0 Initial commit
+  a8a813e Initial commit
+  73a1ad5 Initial commit
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> 5f0246e
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-ecr
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was d2dd414).
+
+=========================================
+Processing: terraform-aws-sqs
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-sqs
+ * branch            e0197594cbfb599bf45d711a967d66d574693a22 -> FETCH_HEAD
+Submodule path 'terraform-aws-sqs': checked out 'e0197594cbfb599bf45d711a967d66d574693a22'
+Default branch: master
+Warning: you are leaving 5 commits behind, not connected to
+any of your branches:
+
+  e019759 Initial commit
+  70341d5 Initial commit
+  4414b50 Initial commit
+  370934a Initial commit
+  630b4b1 Initial commit
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> e019759
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-sqs
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 3dcc061).
+
+=========================================
+Processing: terraform-aws-amplify
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-amplify
+ * branch            e3a6a7d7a4e211ea6bf88d2ce6fb076e593b7749 -> FETCH_HEAD
+Submodule path 'terraform-aws-amplify': checked out 'e3a6a7d7a4e211ea6bf88d2ce6fb076e593b7749'
+Default branch: master
+Warning: you are leaving 5 commits behind, not connected to
+any of your branches:
+
+  e3a6a7d Initial commit
+  bad341c Initial commit
+  594611f Initial commit
+  a517b52 Initial commit
+  adefbba Initial commit
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> e3a6a7d
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-amplify
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 9ef7fc4).
+
+=========================================
+Processing: terraform-aws-cloudtrail
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-cloudtrail
+ * branch            42755f1f23ecae1763858949ac8cb7248e2fb2bb -> FETCH_HEAD
+Submodule path 'terraform-aws-cloudtrail': checked out '42755f1f23ecae1763858949ac8cb7248e2fb2bb'
+Default branch: master
+Warning: you are leaving 5 commits behind, not connected to
+any of your branches:
+
+  42755f1 Initial commit
+  f863c80 Initial commit
+  7b1efaf Initial commit
+  289785a Initial commit
+  d752485 Initial commit
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> 42755f1
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-cloudtrail
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 43a7639).
+
+=========================================
+Processing: terraform-aws-openvpn
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-openvpn
+ * branch            15c1247e4d7d8ecd512937342d0efa44780c3198 -> FETCH_HEAD
+Submodule path 'terraform-aws-openvpn': checked out '15c1247e4d7d8ecd512937342d0efa44780c3198'
+Default branch: master
+Warning: you are leaving 4 commits behind, not connected to
+any of your branches:
+
+  15c1247 Initial commit
+  e330c01 Initial commit
+  e0ed52c Initial commit
+  5a8af48 Initial commit
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> 15c1247
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-openvpn
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 8b29980).
+
+=========================================
+Processing: terraform-aws-ecs-cluster
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-ecs-cluster
+ * branch            9096c991379a045606bcdb45d9eb26a0f172adab -> FETCH_HEAD
+Submodule path 'terraform-aws-ecs-cluster': checked out '9096c991379a045606bcdb45d9eb26a0f172adab'
+Default branch: master
+Warning: you are leaving 7 commits behind, not connected to
+any of your branches:
+
+  9096c99 Initial commit
+  8888e18 Initial commit
+  0edf2db Initial commit
+  0540fe1 Initial commit
+ ... and 3 more.
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> 9096c99
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-ecs-cluster
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 1ed9b42).
+
+=========================================
+Processing: terraform-aws-vanta
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-vanta
+ * [new branch]      dependabot/github_actions/github-actions-76468cb07f -> origin/dependabot/github_actions/github-actions-76468cb07f
+From github.com:c0x12c/terraform-aws-vanta
+ * branch            58c98a981baa43282f20cca8540b113446757658 -> FETCH_HEAD
+Submodule path 'terraform-aws-vanta': checked out '58c98a981baa43282f20cca8540b113446757658'
+Default branch: master
+Warning: you are leaving 7 commits behind, not connected to
+any of your branches:
+
+  58c98a9 Initial commit
+  d5cfcb0 Initial commit
+  4452321 Initial commit
+  e2b2461 Initial commit
+ ... and 3 more.
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> 58c98a9
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-vanta
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 2d5a3ed).
+
+=========================================
+Processing: terraform-aws-iam-sso
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-iam-sso
+ * branch            50b4cc5f7b28ef1a9a42d1bff9f1c8080855fe7b -> FETCH_HEAD
+Submodule path 'terraform-aws-iam-sso': checked out '50b4cc5f7b28ef1a9a42d1bff9f1c8080855fe7b'
+Default branch: master
+Warning: you are leaving 8 commits behind, not connected to
+any of your branches:
+
+  50b4cc5 Initial commit
+  19fc02a Initial commit
+  742444a Initial commit
+  8164b52 Initial commit
+ ... and 4 more.
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> 50b4cc5
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-iam-sso
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 809aa3b).
+
+=========================================
+Processing: terraform-aws-ecs-application
+=========================================
+Initializing submodule...
+Submodule path 'terraform-aws-ecs-application': checked out 'c4b79746598d874c2480714b38f1dd6517bfbfe1'
+Default branch: master
+Previous HEAD position was c4b7974 Initial commit
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-ecs-application
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 9c5c2ee).
+
+=========================================
+Processing: terraform-aws-eks-helm
+=========================================
+Initializing submodule...
+Default branch: master
+Already on 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-eks-helm
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 72c6fb5).
+
+=========================================
+Processing: terraform-aws-vpc
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-vpc
+ * branch            bdaf0e31a879c3e6c08a6876470114c7383a7a47 -> FETCH_HEAD
+Submodule path 'terraform-aws-vpc': checked out 'bdaf0e31a879c3e6c08a6876470114c7383a7a47'
+Default branch: master
+Warning: you are leaving 7 commits behind, not connected to
+any of your branches:
+
+  bdaf0e3 Initial commit
+  ed7ac29 Initial commit
+  a1adc97 Initial commit
+  d271b56 Initial commit
+ ... and 3 more.
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> bdaf0e3
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-vpc
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 580abf5).
+
+=========================================
+Processing: terraform-aws-ssm-parameter
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-ssm-parameter
+ * branch            3c8ffde117b7b55bb6c5604a07e2c62f58b91963 -> FETCH_HEAD
+Submodule path 'terraform-aws-ssm-parameter': checked out '3c8ffde117b7b55bb6c5604a07e2c62f58b91963'
+Default branch: master
+Warning: you are leaving 6 commits behind, not connected to
+any of your branches:
+
+  3c8ffde Initial commit
+  3d88240 Initial commit
+  71d64ca Initial commit
+  9ee7bc8 Initial commit
+ ... and 2 more.
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> 3c8ffde
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-ssm-parameter
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was dd3ba9c).
+
+=========================================
+Processing: terraform-aws-guardduty
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-guardduty
+ * branch            c7fdaa9425aacb9c0fcc1129cf1de182f4ad35af -> FETCH_HEAD
+Submodule path 'terraform-aws-guardduty': checked out 'c7fdaa9425aacb9c0fcc1129cf1de182f4ad35af'
+Default branch: master
+Warning: you are leaving 6 commits behind, not connected to
+any of your branches:
+
+  c7fdaa9 Initial commit
+  81238b3 Initial commit
+  a56c5d0 Initial commit
+  1392398 Initial commit
+ ... and 2 more.
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> c7fdaa9
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-guardduty
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 291782f).
+
+=========================================
+Processing: terraform-aws-ses
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-ses
+ * branch            9634239277cc39cc8553aa239be1733ed8b6e558 -> FETCH_HEAD
+Submodule path 'terraform-aws-ses': checked out '9634239277cc39cc8553aa239be1733ed8b6e558'
+Default branch: master
+Warning: you are leaving 6 commits behind, not connected to
+any of your branches:
+
+  9634239 Initial commit
+  eba25d1 Initial commit
+  2723f04 Initial commit
+  c4f3ba1 Initial commit
+ ... and 2 more.
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> 9634239
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-ses
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 33f5dda).
+
+=========================================
+Processing: terraform-aws-elasticache
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-elasticache
+ * branch            be733206d2ad457a553bf671205bded4d12cb6f6 -> FETCH_HEAD
+Submodule path 'terraform-aws-elasticache': checked out 'be733206d2ad457a553bf671205bded4d12cb6f6'
+Default branch: master
+Warning: you are leaving 4 commits behind, not connected to
+any of your branches:
+
+  be73320 Initial commit
+  764732c Initial commit
+  d038804 Initial commit
+  09ab26a Initial commit
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> be73320
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-elasticache
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 0628f63).
+
+=========================================
+Processing: terraform-aws-eks-access-entry
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-eks-access-entry
+ * branch            40cb800cbbbcd97ce2ebe5c2a2e7eb772a277c6e -> FETCH_HEAD
+Submodule path 'terraform-aws-eks-access-entry': checked out '40cb800cbbbcd97ce2ebe5c2a2e7eb772a277c6e'
+Default branch: master
+Warning: you are leaving 5 commits behind, not connected to
+any of your branches:
+
+  40cb800 Initial commit
+  5f9156d Initial commit
+  222fe3b Initial commit
+  31c8674 Initial commit
+  3ba04de Initial commit
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> 40cb800
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-eks-access-entry
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 93a81f0).
+
+=========================================
+Processing: terraform-aws-rds
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-rds
+ * branch            9c521780725bd801b8ba4c12e2a194c0907a3ce3 -> FETCH_HEAD
+Submodule path 'terraform-aws-rds': checked out '9c521780725bd801b8ba4c12e2a194c0907a3ce3'
+Default branch: master
+Warning: you are leaving 5 commits behind, not connected to
+any of your branches:
+
+  9c52178 Initial commit
+  d5454d0 Initial commit
+  90b0f09 Initial commit
+  865a546 Initial commit
+  dd5af60 Initial commit
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> 9c52178
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-rds
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 4bf6948).
+
+=========================================
+Processing: terraform-aws-eks-service
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-eks-service
+ * branch            19bb1899ee05246baa474f4b7ce7c021ec45eb05 -> FETCH_HEAD
+Submodule path 'terraform-aws-eks-service': checked out '19bb1899ee05246baa474f4b7ce7c021ec45eb05'
+Default branch: master
+Warning: you are leaving 5 commits behind, not connected to
+any of your branches:
+
+  19bb189 Initial commit
+  39aa13d Initial commit
+  a72717e Initial commit
+  2e63d7e Initial commit
+  e20adef Initial commit
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> 19bb189
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-eks-service
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was f1f42ed).
+
+=========================================
+Processing: terraform-aws-password-generator
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-password-generator
+ * branch            2e73ee02a26592213c91907e19deefb74360a699 -> FETCH_HEAD
+Submodule path 'terraform-aws-password-generator': checked out '2e73ee02a26592213c91907e19deefb74360a699'
+Default branch: master
+Warning: you are leaving 5 commits behind, not connected to
+any of your branches:
+
+  2e73ee0 Initial commit
+  0e5b5f8 Initial commit
+  18acce0 Initial commit
+  cc86fd0 Initial commit
+  64b6d7b Initial commit
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> 2e73ee0
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-password-generator
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 7b919d7).
+
+=========================================
+Processing: terraform-aws-efs
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-efs
+ * branch            013bda2e58c57fddc715553d673a2633fc7d8df4 -> FETCH_HEAD
+Submodule path 'terraform-aws-efs': checked out '013bda2e58c57fddc715553d673a2633fc7d8df4'
+Default branch: master
+Warning: you are leaving 5 commits behind, not connected to
+any of your branches:
+
+  013bda2 Initial commit
+  1f3687c Initial commit
+  f399218 Initial commit
+  c259aff Initial commit
+  4ee8eeb Initial commit
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> 013bda2
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-efs
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was f353db8).
+
+=========================================
+Processing: terraform-aws-schedulers
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-schedulers
+ * branch            343cb33f3fd6d8d632a10251fe3e08ff7bc768b2 -> FETCH_HEAD
+Submodule path 'terraform-aws-schedulers': checked out '343cb33f3fd6d8d632a10251fe3e08ff7bc768b2'
+Default branch: master
+Warning: you are leaving 5 commits behind, not connected to
+any of your branches:
+
+  343cb33 Initial commit
+  421a06a Initial commit
+  7d9b966 Initial commit
+  bd6b5be Initial commit
+  e6beef6 Initial commit
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> 343cb33
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-schedulers
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 27b8663).
+
+=========================================
+Processing: terraform-aws-acm
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-acm
+ * branch            7927e96decc32b2cff3f19ac796066a95dd93a8c -> FETCH_HEAD
+Submodule path 'terraform-aws-acm': checked out '7927e96decc32b2cff3f19ac796066a95dd93a8c'
+Default branch: master
+Warning: you are leaving 8 commits behind, not connected to
+any of your branches:
+
+  7927e96 Initial commit
+  8deb5df Initial commit
+  61f8112 Initial commit
+  2014430 Initial commit
+ ... and 4 more.
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> 7927e96
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-acm
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 772431d).
+
+=========================================
+Processing: terraform-aws-route53
+=========================================
+Initializing submodule...
+From github.com:c0x12c/terraform-aws-route53
+ * branch            5d787989a0b6fbb29eb7b2404cd808e7c050d96a -> FETCH_HEAD
+Submodule path 'terraform-aws-route53': checked out '5d787989a0b6fbb29eb7b2404cd808e7c050d96a'
+Default branch: master
+Warning: you are leaving 5 commits behind, not connected to
+any of your branches:
+
+  5d78798 Initial commit
+  4754433 Initial commit
+  b17c52a Initial commit
+  0de20c7 Initial commit
+  2c3afef Initial commit
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> 5d78798
+
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-route53
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 60b4241).
+
+=========================================
+Processing: terraform-aws-identity-provider
+=========================================
+Initializing submodule...
+Default branch: master
+Already on 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-aws-identity-provider
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 3822f12).
+
+=========================================
+Processing: terraform-datadog-monitors
+=========================================
+Initializing submodule...
+Submodule path 'terraform-datadog-monitors': checked out 'a880b5b68e4c207897bf1cfa9b63edc9f98ed8c3'
+Default branch: master
+From github.com:c0x12c/terraform-datadog-monitors
+ * [new tag]         v1.0.0     -> v1.0.0
+Previous HEAD position was a880b5b Initial commit
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-datadog-monitors
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 5c65a06).
+
+=========================================
+Processing: terraform-datadog-aws-monitor
+=========================================
+Initializing submodule...
+Submodule path 'terraform-datadog-aws-monitor': checked out '7e8cb9f09f02c1eabe50558bd49b5987a65c64ee'
+Default branch: master
+From github.com:c0x12c/terraform-datadog-aws-monitor
+ * [new tag]         v1.1.0     -> v1.1.0
+Previous HEAD position was 7e8cb9f Initial commit
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-datadog-aws-monitor
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was d65ed28).
+
+=========================================
+Processing: terraform-datadog-service-monitor
+=========================================
+Initializing submodule...
+Submodule path 'terraform-datadog-service-monitor': checked out '7e610517670559a227fb8c463c76dac4ac202343'
+Default branch: master
+From github.com:c0x12c/terraform-datadog-service-monitor
+ * [new tag]         v0.7.0     -> v0.7.0
+ * [new tag]         v0.7.1     -> v0.7.1
+ * [new tag]         v1.0.0     -> v1.0.0
+ * [new tag]         v1.0.1     -> v1.0.1
+Previous HEAD position was 7e61051 Initial commit
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-datadog-service-monitor
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 8415111).
+
+=========================================
+Processing: terraform-datadog-aws-integration
+=========================================
+Initializing submodule...
+Submodule path 'terraform-datadog-aws-integration': checked out '1d933497165d1964f3b175cc5bf90b8921a57d10'
+Default branch: master
+Previous HEAD position was 1d93349 Initial commit
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-datadog-aws-integration
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 4cd467c).
+
+=========================================
+Processing: terraform-datadog-mono-monitor
+=========================================
+Initializing submodule...
+Submodule path 'terraform-datadog-mono-monitor': checked out '6e2039a6400ffb5f78eb4aabb39daf4fbe9d59bb'
+Default branch: master
+Previous HEAD position was 6e2039a Initial commit
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-datadog-mono-monitor
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 72185c4).
+
+=========================================
+Processing: terraform-datadog-dashboard
+=========================================
+Initializing submodule...
+Submodule path 'terraform-datadog-dashboard': checked out '70e4ee21d40e915e7a228f5574c0365d0470737f'
+Default branch: master
+From github.com:c0x12c/terraform-datadog-dashboard
+ * [new tag]         v1.0.0     -> v1.0.0
+Previous HEAD position was 70e4ee2 Initial commit
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-datadog-dashboard
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 477b5d3).
+
+=========================================
+Processing: terraform-datadog-gcp-integration
+=========================================
+Initializing submodule...
+Submodule path 'terraform-datadog-gcp-integration': checked out 'c4ea9892163e3677127e019729febac263bfd078'
+Default branch: master
+From github.com:c0x12c/terraform-datadog-gcp-integration
+ * [new tag]         v1.0.0     -> v1.0.0
+ * [new tag]         v1.0.1     -> v1.0.1
+ * [new tag]         v1.1.0     -> v1.1.0
+Previous HEAD position was c4ea989 Initial commit
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+From github.com:c0x12c/terraform-datadog-gcp-integration
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was d13eb3a).
+
+=========================================
+Processing: terraform-gcp-postgresql
+=========================================
+Initializing submodule...
+Default branch: master
+From github.com:c0x12c/terraform-gcp-postgresql
+   6739c57..9c5d6d5  master     -> origin/master
+ * [new tag]         v1.0.0     -> v1.0.0
+ * [new tag]         v1.0.1     -> v1.0.1
+Previous HEAD position was 43f5f95 Initial commit
+Switched to branch 'master'
+Your branch is behind 'origin/master' by 4 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+From github.com:c0x12c/terraform-gcp-postgresql
+ * branch            master     -> FETCH_HEAD
+Updating 6739c57..9c5d6d5
+Fast-forward
+ .github/workflows/pull_request.yml |  2 +-
+ .github/workflows/release.yml      |  4 ++--
+ CHANGELOG.md                       | 13 ++++++++++
+ examples/complete/main.tf          |  8 +++++++
+ main.tf                            | 49 +++++++++++++++++++++++++-------------
+ variables.tf                       | 26 ++++++++++++++++++++
+ 6 files changed, 83 insertions(+), 19 deletions(-)
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 9c5d6d5).
+
+=========================================
+Processing: terraform-gcp-service-config
+=========================================
+Initializing submodule...
+Default branch: master
+From github.com:c0x12c/terraform-gcp-service-config
+   de4b7a8..2b353e2  master     -> origin/master
+ * [new tag]         v1.0.0     -> v1.0.0
+Previous HEAD position was 6b16625 Initial commit
+Switched to branch 'master'
+Your branch is behind 'origin/master' by 3 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+From github.com:c0x12c/terraform-gcp-service-config
+ * branch            master     -> FETCH_HEAD
+Updating de4b7a8..2b353e2
+Fast-forward
+ .github/workflows/pull_request.yml | 2 +-
+ .github/workflows/release.yml      | 4 ++--
+ CHANGELOG.md                       | 7 +++++++
+ README.md                          | 9 ++++++---
+ dns.tf                             | 3 ++-
+ service-account.tf                 | 3 ++-
+ 6 files changed, 20 insertions(+), 8 deletions(-)
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 2b353e2).
+
+=========================================
+Processing: terraform-gcp-project-service
+=========================================
+Initializing submodule...
+Default branch: master
+From github.com:c0x12c/terraform-gcp-project-service
+   1089b6a..3c94123  master     -> origin/master
+Previous HEAD position was ddc774c Initial commit
+Switched to branch 'master'
+Your branch is behind 'origin/master' by 2 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+From github.com:c0x12c/terraform-gcp-project-service
+ * branch            master     -> FETCH_HEAD
+Updating 1089b6a..3c94123
+Fast-forward
+ .github/workflows/pull_request.yml | 2 +-
+ .github/workflows/release.yml      | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 3c94123).
+
+=========================================
+Processing: terraform-gcp-iam-member
+=========================================
+Initializing submodule...
+Default branch: master
+From github.com:c0x12c/terraform-gcp-iam-member
+   09de605..6de71e8  master     -> origin/master
+Previous HEAD position was 7819a1b Initial commit
+Switched to branch 'master'
+Your branch is behind 'origin/master' by 2 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+From github.com:c0x12c/terraform-gcp-iam-member
+ * branch            master     -> FETCH_HEAD
+Updating 09de605..6de71e8
+Fast-forward
+ .github/workflows/pull_request.yml | 2 +-
+ .github/workflows/release.yml      | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+✅ Added workflow file
+ℹ️  No changes - workflow already exists
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+Deleted branch ducdt/add-dependabot-automerge (was 6de71e8).
+
+=========================================
+Processing: terraform-gcp-google-monitoring
+=========================================
+Initializing submodule...
+Submodule path 'terraform-gcp-google-monitoring': checked out 'c0c3b891e43514255c7b040b621be1395d00797b'
+Default branch: master
+From github.com:c0x12c/terraform-gcp-google-monitoring
+ * [new tag]         v0.6.2     -> v0.6.2
+Previous HEAD position was c0c3b89 Initial commit
+Switched to branch 'master'
+Your branch and 'origin/master' have diverged,
+and have 4 and 4 different commits each, respectively.
+  (use "git pull" if you want to integrate the remote branch with yours)
+From github.com:c0x12c/terraform-gcp-google-monitoring
+ * branch            master     -> FETCH_HEAD
+hint: Diverging branches can't be fast-forwarded, you need to either:
+hint:
+hint: 	git merge --no-ff
+hint:
+hint: or:
+hint:
+hint: 	git rebase
+hint:
+hint: Disable this message with "git config set advice.diverging false"
+fatal: Not possible to fast-forward, aborting.

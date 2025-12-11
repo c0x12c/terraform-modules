@@ -1,0 +1,25 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: 'deps-gh-actions:'
+    labels: []
+    groups:
+      github-actions:
+        patterns:
+          - '*'
+
+  - package-ecosystem: "terraform"
+    directories:
+      - "**/*"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: 'deps-terraform:'
+    groups:
+      terraform:
+        patterns:
+          - '*'

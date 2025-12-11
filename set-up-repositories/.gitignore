@@ -1,0 +1,8 @@
+# Python
+.venv
+
+# Dotenv
+.env
+
+# Secrets
+credentials
