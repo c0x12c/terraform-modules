@@ -425,3 +425,7 @@
 	path = terraform-datadog-logging-monitor
 	url = git@github.com:c0x12c/terraform-datadog-logging-monitor.git
 	branch = master
+[submodule "terraform-aws-ecs-service-bot"]
+	path = terraform-aws-ecs-service-bot
+	url = git@github.com:c0x12c/terraform-aws-ecs-service-bot.git
+	branch = master
