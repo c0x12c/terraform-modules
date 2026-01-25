@@ -425,3 +425,7 @@
 	path = terraform-datadog-logging-monitor
 	url = git@github.com:c0x12c/terraform-datadog-logging-monitor.git
 	branch = master
+[submodule "terraform-aws-keycloak-operator"]
+	path = terraform-aws-keycloak-operator
+	url = git@github.com:c0x12c/terraform-aws-keycloak-operator.git
+	branch = master
