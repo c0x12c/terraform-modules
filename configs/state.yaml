@@ -392,3 +392,7 @@ modules:
     applied_features:
       - dependabot-automerge
       - gh-app-secret
+  terraform-datadog-logging-monitor:
+    applied_features:
+      - dependabot-automerge
+      - gh-app-secret
