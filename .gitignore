@@ -1,1 +1,5 @@
 **/.idea
+configs/state.json
+
+# Claude
+.claude/settings.local.json
