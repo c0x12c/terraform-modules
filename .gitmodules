@@ -445,3 +445,7 @@
 	path = terraform-github-action-env-secrets
 	url = git@github.com:c0x12c/terraform-github-action-env-secrets.git
 	branch = master
+[submodule "terraform-aws-rds-cluster"]
+	path = terraform-aws-rds-cluster
+	url = git@github.com:c0x12c/terraform-aws-rds-cluster.git
+	branch = master
