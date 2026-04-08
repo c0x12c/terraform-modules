@@ -1,0 +1,36 @@
+name: Publish Module to Terraform Public Registry
+
+on:
+  workflow_dispatch:
+    inputs:
+      module-name:
+        description: 'Submodule directory name, e.g. `terraform-aws-msk-kafka-cluster`'
+        required: true
+        type: string
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: set-up-repositories
+    env:
+      GITHUB_ORG: ${{ vars.SPARTAN_GITHUB_ORG }}
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
+      TF_GH_APP_INSTALLATION_ID: ${{ secrets.TF_GH_APP_INSTALLATION_ID }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests python-dotenv
+
+      - name: Publish module
+        run: python publish_module.py --module-name "${{ inputs.module-name }}"

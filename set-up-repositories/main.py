@@ -44,7 +44,6 @@ if not PAT_TOKEN:
 
 CONFIG = {
     "update_repo_content": False,
-    "update_repo_template_file": False,
     "enable_branch_protection": True,
     "enable_tag_protection": True,
     "setup_actions_secrets": True,
@@ -62,7 +61,6 @@ class TerraformModulePublisher:
         self.github_token = github_token
         self.github_client = Github(github_token)
         self.provider_folders = ['aws', 'datadog', 'gcp', 'github']
-        self.template_dir = os.path.join(os.getcwd(), 'template')
         self.base_dir = base_dir
         self.org_name = org_name
 
@@ -579,7 +577,7 @@ class TerraformModulePublisher:
             else:
                 repo = self.create_github_repo(repo_name)
 
-            if CONFIG["update_repo_content"] or CONFIG["update_repo_template_file"]:
+            if CONFIG["update_repo_content"]:
                 with tempfile.TemporaryDirectory() as temp_dir:
                     # Clone the new repository
                     repo_path = os.path.join(temp_dir, repo_name)
@@ -592,14 +590,8 @@ class TerraformModulePublisher:
                     cloned_url = repo.html_url.replace("https://", f"https://{self.github_token}@") + ".git"
                     repo_clone = Repo.clone_from(cloned_url, repo_path)
 
-                    if CONFIG["update_repo_content"]:
-                        # Copy module files
-                        self.copy_module_files(module_path, repo_path)
-
-                    if CONFIG["update_repo_template_file"]:
-                        # Copy template files if they exist
-                        if os.path.exists(self.template_dir):
-                            self.copy_template_files(repo_path)
+                    # Copy module files
+                    self.copy_module_files(module_path, repo_path)
 
                     # Check for changes before committing
                     if repo_clone.is_dirty(untracked_files=True):
@@ -734,28 +726,6 @@ class TerraformModulePublisher:
             logger.error(f"Error copying module files: {str(e)}", exc_info=True)
             raise
 
-    def copy_template_files(self, destination_path):
-        """Copy template files to the destination repository"""
-        try:
-            for item in os.listdir(self.template_dir):
-                source_item = os.path.join(self.template_dir, item)
-                dest_item = os.path.join(destination_path, item)
-
-                if os.path.isfile(source_item):
-                    if os.path.isfile(dest_item):
-                        os.remove(dest_item)
-                    print(f"Copying template file: {source_item} to {dest_item}")
-                    shutil.copy2(source_item, dest_item)
-                elif os.path.isdir(source_item):
-                    if os.path.isdir(dest_item):
-                        shutil.rmtree(dest_item)
-                    shutil.copytree(source_item, dest_item)
-
-            logger.info(f"Template files copied successfully to {destination_path}")
-        except Exception as e:
-            logger.error(f"Error copying template files: {str(e)}", exc_info=True)
-            raise
-
 
 def parse_arguments():
     parser = argparse.ArgumentParser(
@@ -764,7 +734,7 @@ def parse_arguments():
         '--base-dir',
         type=str,
         default=os.getcwd(),
-        help='Base directory containing the provider folders and template directory (default: current working directory)'
+        help='Base directory containing the provider folders (default: current working directory)'
     )
 
     # Adding the new `module-path` argument
