@@ -449,3 +449,7 @@
 	path = terraform-aws-rds-cluster
 	url = git@github.com:c0x12c/terraform-aws-rds-cluster.git
 	branch = master
+[submodule "terraform-aws-msk-kafka-cluster"]
+	path = terraform-aws-msk-kafka-cluster
+	url = git@github.com:c0x12c/terraform-aws-msk-kafka-cluster.git
+	branch = master
