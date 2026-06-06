@@ -8,7 +8,7 @@ module "ecs_monitors" {
 
   notification_slack_channel_prefix = "alerts-"
   tag_slack_channel                 = true
-  escalate_min_priority          = 2 # Only tag @channel for P1 and P2, not P3 (e.g., throughput drop)
+  escalate_min_priority             = 2 # Only tag @channel for P1 and P2, not P3 (e.g., throughput drop)
 
   enabled_monitors = ["service", "apm"]
 

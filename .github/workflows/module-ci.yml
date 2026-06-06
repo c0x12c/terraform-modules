@@ -99,7 +99,7 @@ jobs:
         env:
           MODULE: ${{ matrix.module }}
         shell: bash
-        run: tflint --chdir="$MODULE"
+        run: tflint --chdir="$MODULE" --minimum-failure-severity=error
 
       - name: Check terraform-docs output
         env:

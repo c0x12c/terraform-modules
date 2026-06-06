@@ -1,5 +1,5 @@
 module "load_balancer" {
-  source = "../.."
+  source     = "../.."
   project_id = "your-project-id"
 
   prefix_name = "proj-x"

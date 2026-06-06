@@ -16,9 +16,6 @@
     "terraform-aws-amplify": {
       "component": "terraform-aws-amplify"
     },
-    "terraform-aws-cloudfront": {
-      "component": "terraform-aws-cloudfront"
-    },
     "terraform-aws-cloudfront-logging": {
       "component": "terraform-aws-cloudfront-logging"
     },

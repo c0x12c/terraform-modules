@@ -9,23 +9,23 @@ module "production_variables" {
 
   variables = {
     # Environment configuration
-    "NODE_ENV"        = "production"
-    "LOG_LEVEL"       = "error"
-    "DEBUG_MODE"      = "false"
+    "NODE_ENV"   = "production"
+    "LOG_LEVEL"  = "error"
+    "DEBUG_MODE" = "false"
 
     # API configuration
-    "API_ENDPOINT"    = "https://api.example.com"
-    "API_VERSION"     = "v1"
-    "API_TIMEOUT"     = "30000"
+    "API_ENDPOINT" = "https://api.example.com"
+    "API_VERSION"  = "v1"
+    "API_TIMEOUT"  = "30000"
 
     # AWS configuration
-    "AWS_REGION"      = "us-east-1"
-    "S3_BUCKET"       = "my-app-prod"
+    "AWS_REGION" = "us-east-1"
+    "S3_BUCKET"  = "my-app-prod"
 
     # Application settings
-    "MAX_RETRIES"     = "3"
-    "CACHE_TTL"       = "3600"
-    "FEATURE_FLAG_X"  = "enabled"
+    "MAX_RETRIES"    = "3"
+    "CACHE_TTL"      = "3600"
+    "FEATURE_FLAG_X" = "enabled"
   }
 }
 
@@ -38,23 +38,23 @@ module "staging_variables" {
 
   variables = {
     # Environment configuration
-    "NODE_ENV"        = "staging"
-    "LOG_LEVEL"       = "warn"
-    "DEBUG_MODE"      = "true"
+    "NODE_ENV"   = "staging"
+    "LOG_LEVEL"  = "warn"
+    "DEBUG_MODE" = "true"
 
     # API configuration
-    "API_ENDPOINT"    = "https://staging-api.example.com"
-    "API_VERSION"     = "v1"
-    "API_TIMEOUT"     = "30000"
+    "API_ENDPOINT" = "https://staging-api.example.com"
+    "API_VERSION"  = "v1"
+    "API_TIMEOUT"  = "30000"
 
     # AWS configuration
-    "AWS_REGION"      = "us-east-1"
-    "S3_BUCKET"       = "my-app-staging"
+    "AWS_REGION" = "us-east-1"
+    "S3_BUCKET"  = "my-app-staging"
 
     # Application settings
-    "MAX_RETRIES"     = "5"
-    "CACHE_TTL"       = "1800"
-    "FEATURE_FLAG_X"  = "enabled"
+    "MAX_RETRIES"    = "5"
+    "CACHE_TTL"      = "1800"
+    "FEATURE_FLAG_X" = "enabled"
   }
 }
 
@@ -67,23 +67,23 @@ module "development_variables" {
 
   variables = {
     # Environment configuration
-    "NODE_ENV"        = "development"
-    "LOG_LEVEL"       = "debug"
-    "DEBUG_MODE"      = "true"
+    "NODE_ENV"   = "development"
+    "LOG_LEVEL"  = "debug"
+    "DEBUG_MODE" = "true"
 
     # API configuration
-    "API_ENDPOINT"    = "https://dev-api.example.com"
-    "API_VERSION"     = "v2-beta"
-    "API_TIMEOUT"     = "60000"
+    "API_ENDPOINT" = "https://dev-api.example.com"
+    "API_VERSION"  = "v2-beta"
+    "API_TIMEOUT"  = "60000"
 
     # AWS configuration
-    "AWS_REGION"      = "us-west-2"
-    "S3_BUCKET"       = "my-app-dev"
+    "AWS_REGION" = "us-west-2"
+    "S3_BUCKET"  = "my-app-dev"
 
     # Application settings
-    "MAX_RETRIES"     = "10"
-    "CACHE_TTL"       = "300"
-    "FEATURE_FLAG_X"  = "disabled"
+    "MAX_RETRIES"    = "10"
+    "CACHE_TTL"      = "300"
+    "FEATURE_FLAG_X" = "disabled"
   }
 }
 
