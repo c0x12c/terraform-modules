@@ -1,0 +1,99 @@
+name: Registry Publish
+
+on:
+  workflow_call:
+    inputs:
+      module:
+        required: true
+        type: string
+      version:
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      module:
+        description: "Module directory name, e.g. terraform-aws-msk-kafka-cluster"
+        required: true
+        type: string
+      version:
+        description: "Module version tag without the module prefix, e.g. v1.2.0"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  publish:
+    if: github.repository_owner == 'c0x12c'
+    runs-on: ubuntu-latest
+    # Job-level (not workflow-level): top-level concurrency is unreliably honored
+    # when a reusable workflow is invoked via workflow_call.
+    concurrency:
+      group: mirror-${{ inputs.module }}
+      cancel-in-progress: false
+    steps:
+      - name: Create GitHub App Token
+        id: github-app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ vars.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+          owner: c0x12c
+
+      - name: Checkout monorepo release ref
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.module }}/${{ inputs.version }}
+          token: ${{ steps.github-app-token.outputs.token }}
+
+      - name: Initialize module submodule when needed
+        env:
+          MODULE: ${{ inputs.module }}
+        shell: bash
+        run: |
+          mode="$(git ls-tree HEAD "$MODULE" | awk '{print $2}')"
+          if [ "$mode" = "commit" ]; then
+            git submodule update --init "$MODULE"
+          fi
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Mirror module release
+        env:
+          GITHUB_TOKEN: ${{ steps.github-app-token.outputs.token }}
+          MODULE: ${{ inputs.module }}
+          VERSION: ${{ inputs.version }}
+        run: |
+          python3 scripts/mirror_release.py \
+            --module "$MODULE" \
+            --version "$VERSION"
+
+      - name: Open or update mirror failure issue
+        if: failure()
+        env:
+          GH_TOKEN: ${{ steps.github-app-token.outputs.token }}
+          MODULE: ${{ inputs.module }}
+          VERSION: ${{ inputs.version }}
+          ISSUE_TITLE: "Mirror failure: ${{ inputs.module }} ${{ inputs.version }}"
+        shell: bash
+        run: |
+          existing_issue="$(gh issue list \
+            --state open \
+            --label mirror-failure \
+            --search "\"$ISSUE_TITLE\" in:title" \
+            --json number \
+            --jq '.[0].number')"
+          body="Mirror publish failed for \`$MODULE\` at \`$VERSION\`.
+
+          Run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          if [ -n "$existing_issue" ]; then
+            gh issue comment "$existing_issue" --body "$body"
+          else
+            gh issue create \
+              --title "$ISSUE_TITLE" \
+              --label mirror-failure \
+              --body "$body"
+          fi
