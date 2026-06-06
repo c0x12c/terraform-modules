@@ -105,6 +105,8 @@ jobs:
         env:
           MODULE: ${{ matrix.module }}
           TERRAFORM_DOCS_VERSION: v0.20.0
+          # sha256 of terraform-docs-v0.20.0-linux-amd64.tar.gz from the release's .sha256sum asset
+          TERRAFORM_DOCS_SHA256: 34ae01772412bb11474e6718ea62113e38ff5964ee570a98c69fafe3a6dff286
         shell: bash
         run: |
           if [ ! -f "$MODULE/.terraform-docs.yml" ]; then
@@ -114,5 +116,6 @@ jobs:
 
           archive="terraform-docs-${TERRAFORM_DOCS_VERSION}-$(uname | tr '[:upper:]' '[:lower:]')-amd64.tar.gz"
           curl -sSL "https://github.com/terraform-docs/terraform-docs/releases/download/${TERRAFORM_DOCS_VERSION}/${archive}" -o /tmp/terraform-docs.tgz
+          echo "${TERRAFORM_DOCS_SHA256}  /tmp/terraform-docs.tgz" | sha256sum -c -
           tar -xzf /tmp/terraform-docs.tgz -C /tmp terraform-docs
           /tmp/terraform-docs markdown table --output-check "$MODULE"
