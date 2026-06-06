@@ -1,0 +1,121 @@
+name: Module CI
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    outputs:
+      modules: ${{ steps.detect.outputs.modules }}
+      any: ${{ steps.detect.outputs.any }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect changed modules
+        id: detect
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        shell: bash
+        run: |
+          tmp_modules="$(mktemp)"
+          git diff --name-only "$BASE_SHA...$HEAD_SHA" \
+            | awk -F/ '/^terraform-/ {print $1}' \
+            | sort -u > "$tmp_modules"
+
+          python3 - "$tmp_modules" <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          import pathlib
+          import sys
+
+          modules_path = pathlib.Path(sys.argv[1])
+          modules = [
+              line
+              for line in modules_path.read_text().splitlines()
+              if line
+          ]
+          print(f"modules={json.dumps(modules, separators=(',', ':'))}")
+          print(f"any={'true' if modules else 'false'}")
+          PY
+
+  check:
+    needs: detect
+    if: needs.detect.outputs.any == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        module: ${{ fromJSON(needs.detect.outputs.modules) }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Initialize module submodule when needed
+        env:
+          MODULE: ${{ matrix.module }}
+        shell: bash
+        run: |
+          mode="$(git ls-tree HEAD "$MODULE" | awk '{print $2}')"
+          if [ "$mode" = "commit" ]; then
+            git submodule update --init "$MODULE"
+          fi
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.10.1
+
+      - name: Check Terraform formatting
+        env:
+          MODULE: ${{ matrix.module }}
+        shell: bash
+        run: terraform -chdir="$MODULE" fmt -check -recursive
+
+      - name: Initialize Terraform
+        env:
+          MODULE: ${{ matrix.module }}
+        shell: bash
+        run: terraform -chdir="$MODULE" init -backend=false -input=false
+
+      - name: Validate Terraform
+        env:
+          MODULE: ${{ matrix.module }}
+        shell: bash
+        run: terraform -chdir="$MODULE" validate -no-color
+
+      - name: Set up TFLint
+        uses: terraform-linters/setup-tflint@v6
+
+      - name: Run TFLint
+        env:
+          MODULE: ${{ matrix.module }}
+        shell: bash
+        run: tflint --chdir="$MODULE"
+
+      - name: Check terraform-docs output
+        env:
+          MODULE: ${{ matrix.module }}
+          TERRAFORM_DOCS_VERSION: v0.20.0
+          # sha256 of terraform-docs-v0.20.0-linux-amd64.tar.gz from the release's .sha256sum asset
+          TERRAFORM_DOCS_SHA256: 34ae01772412bb11474e6718ea62113e38ff5964ee570a98c69fafe3a6dff286
+        shell: bash
+        run: |
+          if [ ! -f "$MODULE/.terraform-docs.yml" ]; then
+            echo "::notice title=terraform-docs skipped::No .terraform-docs.yml found for $MODULE"
+            exit 0
+          fi
+
+          archive="terraform-docs-${TERRAFORM_DOCS_VERSION}-$(uname | tr '[:upper:]' '[:lower:]')-amd64.tar.gz"
+          curl -sSL "https://github.com/terraform-docs/terraform-docs/releases/download/${TERRAFORM_DOCS_VERSION}/${archive}" -o /tmp/terraform-docs.tgz
+          echo "${TERRAFORM_DOCS_SHA256}  /tmp/terraform-docs.tgz" | sha256sum -c -
+          tar -xzf /tmp/terraform-docs.tgz -C /tmp terraform-docs
+          /tmp/terraform-docs markdown table --output-check "$MODULE"
