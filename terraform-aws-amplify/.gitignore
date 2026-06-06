@@ -1,0 +1,11 @@
+**/.terraform
+**/.terraform.lock.hcl
+
+#Claude
+.claude/settings.local.json
+
+# Ignore auto-generated folder context files
+**/CLAUDE.md
+
+# But keep the root CLAUDE.md if you want
+!/CLAUDE.md

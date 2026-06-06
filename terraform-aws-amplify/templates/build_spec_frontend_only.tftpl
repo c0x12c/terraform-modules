@@ -1,0 +1,18 @@
+version: 1
+applications:
+- appRoot: ${application_root}
+  frontend:
+    phases:
+      preBuild:
+        commands:
+          - ${install_command}
+      build:
+        commands:
+          - ${build_command}
+    artifacts:
+      baseDirectory: ${base_artifacts_directory}
+      files:
+        - '**/*'
+    cache:
+      paths:
+        - node_modules/**/*
