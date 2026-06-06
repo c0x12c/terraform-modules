@@ -1,0 +1,362 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "release-type": "terraform-module",
+  "tag-separator": "/",
+  "include-component-in-tag": true,
+  "include-v-in-tag": true,
+  "bump-minor-pre-major": true,
+  "separate-pull-requests": true,
+  "packages": {
+    "terraform-aws-acm": {
+      "component": "terraform-aws-acm"
+    },
+    "terraform-aws-alb": {
+      "component": "terraform-aws-alb"
+    },
+    "terraform-aws-amplify": {
+      "component": "terraform-aws-amplify"
+    },
+    "terraform-aws-cloudfront": {
+      "component": "terraform-aws-cloudfront"
+    },
+    "terraform-aws-cloudfront-logging": {
+      "component": "terraform-aws-cloudfront-logging"
+    },
+    "terraform-aws-cloudtrail": {
+      "component": "terraform-aws-cloudtrail"
+    },
+    "terraform-aws-cloudwatch": {
+      "component": "terraform-aws-cloudwatch"
+    },
+    "terraform-aws-cloudwatch-alarm": {
+      "component": "terraform-aws-cloudwatch-alarm"
+    },
+    "terraform-aws-ec2": {
+      "component": "terraform-aws-ec2"
+    },
+    "terraform-aws-ecr": {
+      "component": "terraform-aws-ecr"
+    },
+    "terraform-aws-ecs-application": {
+      "component": "terraform-aws-ecs-application"
+    },
+    "terraform-aws-ecs-cluster": {
+      "component": "terraform-aws-ecs-cluster"
+    },
+    "terraform-aws-ecs-service-bot": {
+      "component": "terraform-aws-ecs-service-bot"
+    },
+    "terraform-aws-efs": {
+      "component": "terraform-aws-efs"
+    },
+    "terraform-aws-eks-access-entry": {
+      "component": "terraform-aws-eks-access-entry"
+    },
+    "terraform-aws-eks-cloudwatch-logging-fargate": {
+      "component": "terraform-aws-eks-cloudwatch-logging-fargate"
+    },
+    "terraform-aws-eks-cluster": {
+      "component": "terraform-aws-eks-cluster"
+    },
+    "terraform-aws-eks-datadog-rbac": {
+      "component": "terraform-aws-eks-datadog-rbac"
+    },
+    "terraform-aws-eks-efs": {
+      "component": "terraform-aws-eks-efs"
+    },
+    "terraform-aws-eks-fargate-profile": {
+      "component": "terraform-aws-eks-fargate-profile"
+    },
+    "terraform-aws-eks-helm": {
+      "component": "terraform-aws-eks-helm"
+    },
+    "terraform-aws-eks-managed-node-group": {
+      "component": "terraform-aws-eks-managed-node-group"
+    },
+    "terraform-aws-eks-rbac": {
+      "component": "terraform-aws-eks-rbac"
+    },
+    "terraform-aws-eks-service": {
+      "component": "terraform-aws-eks-service"
+    },
+    "terraform-aws-elasticache": {
+      "component": "terraform-aws-elasticache"
+    },
+    "terraform-aws-eventbridge-slack-notification": {
+      "component": "terraform-aws-eventbridge-slack-notification"
+    },
+    "terraform-aws-github-oidc": {
+      "component": "terraform-aws-github-oidc"
+    },
+    "terraform-aws-github-self-hosted-runners": {
+      "component": "terraform-aws-github-self-hosted-runners"
+    },
+    "terraform-aws-guardduty": {
+      "component": "terraform-aws-guardduty"
+    },
+    "terraform-aws-helm-argocd": {
+      "component": "terraform-aws-helm-argocd"
+    },
+    "terraform-aws-helm-aws-lb-controller": {
+      "component": "terraform-aws-helm-aws-lb-controller"
+    },
+    "terraform-aws-helm-datadog": {
+      "component": "terraform-aws-helm-datadog"
+    },
+    "terraform-aws-helm-jenkins": {
+      "component": "terraform-aws-helm-jenkins"
+    },
+    "terraform-aws-helm-keda": {
+      "component": "terraform-aws-helm-keda"
+    },
+    "terraform-aws-helm-keycloak": {
+      "component": "terraform-aws-helm-keycloak"
+    },
+    "terraform-aws-helm-metrics-server": {
+      "component": "terraform-aws-helm-metrics-server"
+    },
+    "terraform-aws-helm-neo4j": {
+      "component": "terraform-aws-helm-neo4j"
+    },
+    "terraform-aws-helm-nginx-ingress-controller": {
+      "component": "terraform-aws-helm-nginx-ingress-controller"
+    },
+    "terraform-aws-helm-opa": {
+      "component": "terraform-aws-helm-opa"
+    },
+    "terraform-aws-helm-service-bot": {
+      "component": "terraform-aws-helm-service-bot"
+    },
+    "terraform-aws-iam-sso": {
+      "component": "terraform-aws-iam-sso"
+    },
+    "terraform-aws-identity-provider": {
+      "component": "terraform-aws-identity-provider"
+    },
+    "terraform-aws-jenkins-oidc": {
+      "component": "terraform-aws-jenkins-oidc"
+    },
+    "terraform-aws-keycloak-operator": {
+      "component": "terraform-aws-keycloak-operator"
+    },
+    "terraform-aws-kms": {
+      "component": "terraform-aws-kms"
+    },
+    "terraform-aws-msk-kafka-cluster": {
+      "component": "terraform-aws-msk-kafka-cluster"
+    },
+    "terraform-aws-mwaa": {
+      "component": "terraform-aws-mwaa"
+    },
+    "terraform-aws-oidc": {
+      "component": "terraform-aws-oidc"
+    },
+    "terraform-aws-oidc-provider": {
+      "component": "terraform-aws-oidc-provider"
+    },
+    "terraform-aws-opensearch": {
+      "component": "terraform-aws-opensearch"
+    },
+    "terraform-aws-openvpn": {
+      "component": "terraform-aws-openvpn"
+    },
+    "terraform-aws-password-generator": {
+      "component": "terraform-aws-password-generator"
+    },
+    "terraform-aws-password-policy": {
+      "component": "terraform-aws-password-policy"
+    },
+    "terraform-aws-rds": {
+      "component": "terraform-aws-rds"
+    },
+    "terraform-aws-rds-cluster": {
+      "component": "terraform-aws-rds-cluster"
+    },
+    "terraform-aws-route53": {
+      "component": "terraform-aws-route53"
+    },
+    "terraform-aws-s3": {
+      "component": "terraform-aws-s3"
+    },
+    "terraform-aws-saml-idp": {
+      "component": "terraform-aws-saml-idp"
+    },
+    "terraform-aws-schedulers": {
+      "component": "terraform-aws-schedulers"
+    },
+    "terraform-aws-secret-manager": {
+      "component": "terraform-aws-secret-manager"
+    },
+    "terraform-aws-security-group": {
+      "component": "terraform-aws-security-group"
+    },
+    "terraform-aws-sendgrid": {
+      "component": "terraform-aws-sendgrid"
+    },
+    "terraform-aws-ses": {
+      "component": "terraform-aws-ses"
+    },
+    "terraform-aws-ses-monitoring": {
+      "component": "terraform-aws-ses-monitoring"
+    },
+    "terraform-aws-sns": {
+      "component": "terraform-aws-sns"
+    },
+    "terraform-aws-sqs": {
+      "component": "terraform-aws-sqs"
+    },
+    "terraform-aws-ssm-parameter": {
+      "component": "terraform-aws-ssm-parameter"
+    },
+    "terraform-aws-static-website": {
+      "component": "terraform-aws-static-website"
+    },
+    "terraform-aws-vanta": {
+      "component": "terraform-aws-vanta"
+    },
+    "terraform-aws-vpc": {
+      "component": "terraform-aws-vpc"
+    },
+    "terraform-aws-vpc-endpoints": {
+      "component": "terraform-aws-vpc-endpoints"
+    },
+    "terraform-aws-vpn": {
+      "component": "terraform-aws-vpn"
+    },
+    "terraform-aws-wafv2": {
+      "component": "terraform-aws-wafv2"
+    },
+    "terraform-cloudflare-record-with-cache-rule": {
+      "component": "terraform-cloudflare-record-with-cache-rule"
+    },
+    "terraform-datadog-aws-integration": {
+      "component": "terraform-datadog-aws-integration"
+    },
+    "terraform-datadog-aws-monitor": {
+      "component": "terraform-datadog-aws-monitor"
+    },
+    "terraform-datadog-dashboard": {
+      "component": "terraform-datadog-dashboard"
+    },
+    "terraform-datadog-ecs-monitor": {
+      "component": "terraform-datadog-ecs-monitor"
+    },
+    "terraform-datadog-gcp-integration": {
+      "component": "terraform-datadog-gcp-integration"
+    },
+    "terraform-datadog-gcp-monitor": {
+      "component": "terraform-datadog-gcp-monitor"
+    },
+    "terraform-datadog-logging-monitor": {
+      "component": "terraform-datadog-logging-monitor"
+    },
+    "terraform-datadog-monitors": {
+      "component": "terraform-datadog-monitors"
+    },
+    "terraform-datadog-mono-monitor": {
+      "component": "terraform-datadog-mono-monitor"
+    },
+    "terraform-datadog-notification-rules": {
+      "component": "terraform-datadog-notification-rules"
+    },
+    "terraform-datadog-oncall": {
+      "component": "terraform-datadog-oncall"
+    },
+    "terraform-datadog-service-monitor": {
+      "component": "terraform-datadog-service-monitor"
+    },
+    "terraform-datadog-team": {
+      "component": "terraform-datadog-team"
+    },
+    "terraform-gcp-artifact-registry": {
+      "component": "terraform-gcp-artifact-registry"
+    },
+    "terraform-gcp-cloud-dns": {
+      "component": "terraform-gcp-cloud-dns"
+    },
+    "terraform-gcp-github-oidc": {
+      "component": "terraform-gcp-github-oidc"
+    },
+    "terraform-gcp-gke-autopilot": {
+      "component": "terraform-gcp-gke-autopilot"
+    },
+    "terraform-gcp-gke-gateway-api": {
+      "component": "terraform-gcp-gke-gateway-api"
+    },
+    "terraform-gcp-gke-ingress": {
+      "component": "terraform-gcp-gke-ingress"
+    },
+    "terraform-gcp-google-monitoring": {
+      "component": "terraform-gcp-google-monitoring"
+    },
+    "terraform-gcp-google-workspace": {
+      "component": "terraform-gcp-google-workspace"
+    },
+    "terraform-gcp-google-workspace-group": {
+      "component": "terraform-gcp-google-workspace-group"
+    },
+    "terraform-gcp-iam-member": {
+      "component": "terraform-gcp-iam-member"
+    },
+    "terraform-gcp-load-balancer-gcs": {
+      "component": "terraform-gcp-load-balancer-gcs"
+    },
+    "terraform-gcp-openvpn": {
+      "component": "terraform-gcp-openvpn"
+    },
+    "terraform-gcp-postgresql": {
+      "component": "terraform-gcp-postgresql"
+    },
+    "terraform-gcp-project-service": {
+      "component": "terraform-gcp-project-service"
+    },
+    "terraform-gcp-recaptcha": {
+      "component": "terraform-gcp-recaptcha"
+    },
+    "terraform-gcp-redis-cluster": {
+      "component": "terraform-gcp-redis-cluster"
+    },
+    "terraform-gcp-service-account": {
+      "component": "terraform-gcp-service-account"
+    },
+    "terraform-gcp-service-config": {
+      "component": "terraform-gcp-service-config"
+    },
+    "terraform-gcp-service-connection-policies": {
+      "component": "terraform-gcp-service-connection-policies"
+    },
+    "terraform-gcp-storage-bucket": {
+      "component": "terraform-gcp-storage-bucket"
+    },
+    "terraform-gcp-vpc": {
+      "component": "terraform-gcp-vpc"
+    },
+    "terraform-gcp-wildcard-sslcert": {
+      "component": "terraform-gcp-wildcard-sslcert"
+    },
+    "terraform-gcp-workload-identity": {
+      "component": "terraform-gcp-workload-identity"
+    },
+    "terraform-github-action-env-secrets": {
+      "component": "terraform-github-action-env-secrets"
+    },
+    "terraform-github-action-env-variables": {
+      "component": "terraform-github-action-env-variables"
+    },
+    "terraform-github-action-secrets": {
+      "component": "terraform-github-action-secrets"
+    },
+    "terraform-github-action-variables": {
+      "component": "terraform-github-action-variables"
+    },
+    "terraform-github-actions": {
+      "component": "terraform-github-actions"
+    },
+    "terraform-kubernetes-helm-reloader": {
+      "component": "terraform-kubernetes-helm-reloader"
+    },
+    "terraform-qdrant-accounts-cluster": {
+      "component": "terraform-qdrant-accounts-cluster"
+    }
+  }
+}
