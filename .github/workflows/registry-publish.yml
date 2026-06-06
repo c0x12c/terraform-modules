@@ -49,11 +49,13 @@ jobs:
           token: ${{ steps.github-app-token.outputs.token }}
 
       - name: Initialize module submodule when needed
+        env:
+          MODULE: ${{ inputs.module }}
         shell: bash
         run: |
-          mode="$(git ls-tree HEAD "${{ inputs.module }}" | awk '{print $2}')"
+          mode="$(git ls-tree HEAD "$MODULE" | awk '{print $2}')"
           if [ "$mode" = "commit" ]; then
-            git submodule update --init "${{ inputs.module }}"
+            git submodule update --init "$MODULE"
           fi
 
       - name: Set up Terraform
@@ -62,15 +64,19 @@ jobs:
       - name: Mirror module release
         env:
           GITHUB_TOKEN: ${{ steps.github-app-token.outputs.token }}
+          MODULE: ${{ inputs.module }}
+          VERSION: ${{ inputs.version }}
         run: |
           python3 scripts/mirror_release.py \
-            --module "${{ inputs.module }}" \
-            --version "${{ inputs.version }}"
+            --module "$MODULE" \
+            --version "$VERSION"
 
       - name: Open or update mirror failure issue
         if: failure()
         env:
           GH_TOKEN: ${{ steps.github-app-token.outputs.token }}
+          MODULE: ${{ inputs.module }}
+          VERSION: ${{ inputs.version }}
           ISSUE_TITLE: "Mirror failure: ${{ inputs.module }} ${{ inputs.version }}"
         shell: bash
         run: |
@@ -80,7 +86,7 @@ jobs:
             --search "\"$ISSUE_TITLE\" in:title" \
             --json number \
             --jq '.[0].number')"
-          body="Mirror publish failed for \`${{ inputs.module }}\` at \`${{ inputs.version }}\`.
+          body="Mirror publish failed for \`$MODULE\` at \`$VERSION\`.
 
           Run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           if [ -n "$existing_issue" ]; then

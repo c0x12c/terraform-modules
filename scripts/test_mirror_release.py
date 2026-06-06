@@ -233,6 +233,25 @@ class MirrorReleaseCliTests(unittest.TestCase):
         self.assertIn("already mirrored", second.stdout)
         self.assertEqual(before, after)
 
+    def test_generated_terraform_artifacts_are_cleaned_before_snapshot_and_commit(self):
+        self.write_fixture_module()
+        self.remote = self.init_remote()
+        validate_cmd = "mkdir -p .terraform/providers && touch .terraform/providers/x .terraform.lock.hcl"
+        first = self.run_cli(self.remote, validate_cmd=validate_cmd)
+        self.assertEqual(first.returncode, 0, first.stderr)
+
+        checkout = self.clone_remote_for_assertions()
+        tracked_files = set(git(checkout, "ls-tree", "-r", "--name-only", "HEAD").stdout.splitlines())
+        self.assertNotIn(".terraform.lock.hcl", tracked_files)
+        self.assertFalse(any(path.startswith(".terraform/") for path in tracked_files))
+
+        before = git(self.root, "ls-remote", str(self.remote), "refs/heads/master").stdout
+        second = self.run_cli(self.remote, validate_cmd=validate_cmd)
+        after = git(self.root, "ls-remote", str(self.remote), "refs/heads/master").stdout
+        self.assertEqual(second.returncode, 0, second.stderr)
+        self.assertIn("already mirrored", second.stdout)
+        self.assertEqual(before, after)
+
     def test_tag_conflict_fails_when_content_changes(self):
         self.write_fixture_module()
         self.remote = self.init_remote()

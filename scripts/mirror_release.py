@@ -247,10 +247,29 @@ def run_validation(worktree: Path, validate_cmd: str) -> None:
         )
 
 
+def remove_generated_terraform_artifacts(root: Path) -> None:
+    for lock_file in root.rglob(".terraform.lock.hcl"):
+        if ".git" in lock_file.parts:
+            continue
+        if lock_file.is_file():
+            lock_file.unlink()
+    terraform_dirs = sorted(
+        (path for path in root.rglob(".terraform") if ".git" not in path.parts),
+        key=lambda path: len(path.parts),
+        reverse=True,
+    )
+    for terraform_dir in terraform_dirs:
+        if terraform_dir.is_dir():
+            shutil.rmtree(terraform_dir)
+
+
 def snapshot_worktree(root: Path) -> dict:
     snapshot = {}
+    excluded = {".git", ".terraform", ".terraform.lock.hcl"}
     for path in sorted(root.rglob("*")):
-        if ".git" in path.parts or path.is_dir():
+        if path.is_dir():
+            continue
+        if any(part in excluded for part in path.parts):
             continue
         rel_path = path.relative_to(root).as_posix()
         snapshot[rel_path] = path.read_bytes()
@@ -363,6 +382,7 @@ def main(argv=None) -> int:
         copy_module_contents(module_dir, clone_dir)
         rewrite_worktree_tf_files(clone_dir, manifest, args.org)
         run_validation(clone_dir, args.validate_cmd)
+        remove_generated_terraform_artifacts(clone_dir)
 
         tag_ref = "refs/tags/%s" % args.version
         if git_ref_exists(clone_dir, tag_ref):
