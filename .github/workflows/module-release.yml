@@ -1,0 +1,75 @@
+# Per-module releases from the monorepo via module-release.yml and follow-on
+# registry-publish.yml mirror jobs.
+#
+# Each terraform-* folder is an independent component (see
+# release-please-config.json). Tags are <module>/vX.Y.Z; versions are tracked
+# in .release-please-manifest.json.
+#
+# NOTE: manual trigger only until the monorepo cutover (squash-import of module
+# folders) lands. The folders are still git submodules; running release-please
+# on gitlink-only changes would produce meaningless release PRs. Switch the
+# trigger to `push: branches: [master]` as part of the cutover.
+name: Module Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    if: github.repository_owner == 'c0x12c'
+    outputs:
+      releases_created: ${{ steps.release.outputs.releases_created }}
+      paths_released: ${{ steps.release.outputs.paths_released }}
+      release_versions: ${{ steps.release-versions.outputs.versions }}
+    steps:
+      - name: Create GitHub App Token
+        uses: actions/create-github-app-token@v3
+        id: github-app-token
+        with:
+          app-id: ${{ vars.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
+      - name: Run release-please
+        id: release
+        uses: googleapis/release-please-action@v5
+        with:
+          token: ${{ steps.github-app-token.outputs.token }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+      - name: Collect release versions
+        id: release-versions
+        env:
+          RELEASE_OUTPUTS: ${{ toJSON(steps.release.outputs) }}
+        shell: bash
+        run: |
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          import os
+
+          outputs = json.loads(os.environ["RELEASE_OUTPUTS"])
+          versions = {
+              key[: -len("--version")]: f"v{value}"
+              for key, value in outputs.items()
+              if key.endswith("--version") and value
+          }
+          print(f"versions={json.dumps(versions, separators=(',', ':'))}")
+          PY
+
+  mirror:
+    needs: release-please
+    if: needs.release-please.outputs.releases_created == 'true'
+    strategy:
+      fail-fast: false
+      matrix:
+        module: ${{ fromJSON(needs.release-please.outputs.paths_released) }}
+    uses: ./.github/workflows/registry-publish.yml
+    with:
+      module: ${{ matrix.module }}
+      version: ${{ fromJSON(needs.release-please.outputs.release_versions)[matrix.module] }}
+    secrets: inherit

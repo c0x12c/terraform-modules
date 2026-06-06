@@ -71,8 +71,8 @@ history is preserved in the mirrors regardless.
 
 - **PR CI (path-filtered):** run `fmt` / `validate` / `tflint` / `docs` only for folders changed in the
   PR. Never run 116-module CI on every PR.
-- **Release CI (on merge to `master`):** `release-please` opens/merges release PRs and creates
-  `<module>/vX.Y.Z` tags for changed folders. A follow-on job, **per changed module only**:
+- **Release CI (`module-release.yml`, on merge to `master` after cutover):** `release-please` opens/merges release PRs and creates
+  `<module>/vX.Y.Z` tags for changed folders. A follow-on `registry-publish.yml` job, **per changed module only**:
   1. Check out the mirror repo's existing `master`, **copy** the module folder's current contents over it
      (not `git subtree split` — split extracts history verbatim and cannot rewrite file contents, would
      force a force-push that discards the mirror's history, and can't do the sibling-source rewrite below).
@@ -80,7 +80,7 @@ history is preserved in the mirrors regardless.
      `c0x12c/<name>/<provider>`) so the mirror is registry-consumable.
   3. Commit onto the mirror's `master` and push the clean `vX.Y.Z` tag — TFC auto-publishes the new
      version because the mirror keeps its VCS connection (publish is tag-webhook-driven, not script-driven;
-     `publish_module.py` only does the one-time registration).
+     `registry-register.yml` only does the one-time registration).
   4. Idempotent + retryable; alarm on partial failure across modules.
 
 ## Consumer & tooling impact

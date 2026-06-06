@@ -1,7 +1,7 @@
 # New Release Flow — Option C (Hybrid Monorepo)
 
 How a module version ships under the chosen design: the monorepo is the source of
-truth, and release CI mirrors each changed folder back to its per-module repo so the
+truth, and `module-release.yml` release CI invokes `registry-publish.yml` to mirror each changed folder back to its per-module repo so the
 public registry and every existing consumer reference keep working unchanged.
 
 ## End-to-end pipeline
@@ -48,8 +48,8 @@ flowchart TB
 | | Today (116 submodules) | New (Option C) |
 |---|---|---|
 | Where you edit | Per-repo, one at a time | One monorepo PR (cross-module atomic) |
-| Versioning | Per-repo CHANGELOG.md → release.yml → tag | release-please per-folder → `<module>/vX.Y.Z` tag |
-| Registry publish | TFC VCS webhook on each repo's tag | Same webhook, on the **mirror** repo's clean tag |
+| Versioning | Per-repo CHANGELOG.md → release.yml → tag | `module-release.yml` with release-please per-folder → `<module>/vX.Y.Z` tag |
+| Registry publish | TFC VCS webhook on each repo's tag | Same webhook, on the **mirror** repo's clean tag after `registry-publish.yml`; `registry-register.yml` remains one-time setup |
 | Consumer source ref | `c0x12c/<name>/<provider>` | **Identical — no change** |
 | Config sync | sync-configs.sh + state.yaml + per-repo Dependabot/secrets | Single monorepo config; mirrors are dumb outputs |
 

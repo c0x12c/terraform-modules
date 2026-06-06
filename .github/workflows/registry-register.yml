@@ -1,4 +1,4 @@
-name: Publish Module to Terraform Public Registry
+name: Registry Registration
 
 on:
   workflow_dispatch:
