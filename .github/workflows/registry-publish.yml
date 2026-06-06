@@ -79,7 +79,9 @@ jobs:
       - name: Open or update mirror failure issue
         if: failure()
         env:
-          GH_TOKEN: ${{ steps.github-app-token.outputs.token }}
+          # Fallback: if the App-token mint itself failed, the alarm must
+          # still fire — github.token can create issues on this repo.
+          GH_TOKEN: ${{ steps.github-app-token.outputs.token || github.token }}
           MODULE: ${{ inputs.module }}
           VERSION: ${{ inputs.version }}
           ISSUE_TITLE: "Mirror failure: ${{ inputs.module }} ${{ inputs.version }}"
