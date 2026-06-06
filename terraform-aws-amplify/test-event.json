@@ -1,0 +1,20 @@
+{
+  "version": "0",
+  "id": "test-event-id",
+  "detail-type": "Amplify Deployment Status Change",
+  "source": "aws.amplify",
+  "account": "123456789012",
+  "time": "2025-09-05T12:00:00Z",
+  "region": "us-east-1",
+  "resources": [
+    "arn:aws:amplify:us-east-1:123456789012:apps/d123456789/branches/main/jobs/1"
+  ],
+  "detail": {
+    "appId": "d123456789",
+    "branchName": "main",
+    "jobId": "1",
+    "jobStatus": "SUCCEED",
+    "commitId": "abc123def456",
+    "commitMessage": "feat: add new feature to homepage"
+  }
+}

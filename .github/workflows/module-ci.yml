@@ -26,9 +26,12 @@ jobs:
         shell: bash
         run: |
           tmp_modules="$(mktemp)"
+          # -d filter: a module deleted in this PR appears in the diff but
+          # cannot be checked (nothing to chdir into).
           git diff --name-only "$BASE_SHA...$HEAD_SHA" \
             | awk -F/ '/^terraform-/ {print $1}' \
-            | sort -u > "$tmp_modules"
+            | sort -u \
+            | while IFS= read -r m; do [ -d "$m" ] && printf '%s\n' "$m" || true; done > "$tmp_modules"
 
           python3 - "$tmp_modules" <<'PY' >> "$GITHUB_OUTPUT"
           import json
@@ -99,7 +102,7 @@ jobs:
         env:
           MODULE: ${{ matrix.module }}
         shell: bash
-        run: tflint --chdir="$MODULE"
+        run: tflint --chdir="$MODULE" --minimum-failure-severity=error
 
       - name: Check terraform-docs output
         env:

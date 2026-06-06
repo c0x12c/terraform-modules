@@ -1,0 +1,19 @@
+#!/bin/bash
+
+sudo apt update -y
+sudo apt install -y curl unzip jq
+
+sudo -u ubuntu bash <<EOF
+set -e
+
+mkdir -p ${RUNNER_HOME}
+cd ${RUNNER_HOME}
+
+curl -o actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz -L \
+    https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz
+tar xzf actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz
+
+./config.sh --url https://github.com/${GITHUB_ORG} --token ${GITHUB_ACTIONS_RUNNER_REGISTRATION_TOKEN} --labels ${RUNNER_LABELS} --unattended
+
+./run.sh
+EOF

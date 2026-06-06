@@ -90,9 +90,40 @@
       "Bash(./configs/sync-configs.sh:*)",
       "Bash(./sync-configs.sh:*)",
       "Bash(python3:*)",
-      "Bash(/tmp/convert_state.py:*)"
+      "Bash(/tmp/convert_state.py:*)",
+      "Bash(__NEW_LINE_3a04cc9c9144dbc6__ git:*)",
+      "Bash(__NEW_LINE_332367dd0c66a325__ git:*)",
+      "WebFetch(domain:argo-cd.readthedocs.io)",
+      "Bash(mkdir -p /tmp/aurora-test)",
+      "Read(//tmp/**)",
+      "Bash(rm -f *.tf .terraform.lock.hcl)",
+      "Bash(rm -rf .terraform)",
+      "Read(//private/tmp/aurora-test/**)",
+      "Bash(AWS_PROFILE=8fleet-dev terraform apply -auto-approve -no-color)",
+      "Bash(AWS_PROFILE=8fleet-dev terraform destroy -auto-approve -no-color)",
+      "Bash(rm -rf /tmp/aurora-test /tmp/aurora-pg-test /tmp/aurora-sv2-test /tmp/multiaz-test)",
+      "Bash(mkdir -p /tmp/aurora-pg-test /tmp/aurora-sv2-test /tmp/multiaz-test)",
+      "Bash(AWS_PROFILE=8fleet-dev aws rds describe-db-engine-versions --engine postgres --query 'DBEngineVersions[?SupportsClusters==`true`].EngineVersion' --output text)",
+      "Bash(AWS_PROFILE=8fleet-dev terraform apply -auto-approve)",
+      "Bash(AWS_PROFILE=8fleet-dev aws rds describe-db-clusters:*)",
+      "Bash(AWS_PROFILE=8fleet-dev terraform destroy -auto-approve)",
+      "Bash(AWS_PROFILE=8fleet-dev aws rds describe-db-engine-versions --engine aurora-postgresql --region us-west-2 --query 'DBEngineVersions[?starts_with\\(EngineVersion, `16.`\\)].EngineVersion' --output text)",
+      "Bash(AWS_PROFILE=8fleet-dev aws rds describe-orderable-db-instance-options --engine postgres --db-instance-class db.r6gd.large --region us-west-2 --query 'OrderableDBInstanceOptions[?SupportsClusters==`true`].EngineVersion' --output text)",
+      "Bash(AWS_PROFILE=8fleet-dev terraform validate)",
+      "Bash(python setup_repo.py --repo terraform-aws-msk-kafka-cluster --skip-secrets --skip-tag-protection)",
+      "Bash(wait)",
+      "Bash(python setup_repo.py --repo terraform-aws-rds-cluster)",
+      "Bash(PRE_COMMIT_ALLOW_NO_CONFIG=1 git commit -m \"feat: publish rds-cluster module + setup_repo helper\")"
     ],
     "deny": [],
     "ask": []
-  }
+  },
+  "enabledMcpjsonServers": [
+    "tkt",
+    "slack",
+    "local-kb",
+    "llm-router",
+    "life-graph",
+    "google-tasks"
+  ]
 }
