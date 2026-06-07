@@ -1,0 +1,16 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns:
+          - "*"
+
+  # publish_module.py deps (registry-register.yml first-time registrations)
+  - package-ecosystem: pip
+    directory: /set-up-repositories
+    schedule:
+      interval: monthly
