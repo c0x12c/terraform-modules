@@ -1,6 +1,13 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## [0.10.0](https://github.com/c0x12c/terraform-modules-registry/compare/terraform-aws-helm-datadog/v0.9.0...terraform-aws-helm-datadog/v0.10.0) (2026-06-07)
+
+
+### Features
+
+* add extra_confd input for cluster-agent custom checks (helm-datadog) ([#124](https://github.com/c0x12c/terraform-modules-registry/issues/124)) ([08885b5](https://github.com/c0x12c/terraform-modules-registry/commit/08885b501b4ff0c9ed9082fb7ec0290054a591bf))
+
 ## [0.9.2]() (2026-04-23)
 * Fix yaml format for datadog, name_override and fullname_override must be at the root.
 
