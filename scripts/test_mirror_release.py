@@ -7,6 +7,10 @@ import textwrap
 import unittest
 from pathlib import Path
 
+# Ensure the scripts/ directory is on sys.path so `mirror_release` can be imported
+# whether this module is loaded as `scripts.test_mirror_release` or run directly.
+sys.path.insert(0, str(Path(__file__).parent))
+
 from mirror_release import (
     EXIT_IDENTITY,
     EXIT_LEFTOVER_RELATIVE,
@@ -16,6 +20,7 @@ from mirror_release import (
     EXIT_VALIDATE,
     module_to_registry,
     rewrite_tf_text,
+    _is_examples_path,
 )
 
 
@@ -95,6 +100,40 @@ class MirrorReleasePureTests(unittest.TestCase):
                 'module "local" {\n  source = "./modules/local"\n}\n',
                 {},
                 "c0x12c",
+            )
+
+    def test_rewrite_examples_dir_returns_verbatim(self):
+        # A relative source inside examples/ must NOT trigger leftover-relative or be rewritten.
+        text = 'module "self" {\n  source = "../../"\n}\n'
+        result = rewrite_tf_text(text, {}, "c0x12c", rel_path="examples/complete/main.tf")
+        self.assertEqual(result, text)
+
+    def test_rewrite_test_dir_returns_verbatim(self):
+        text = 'module "self" {\n  source = "../../"\n}\n'
+        result = rewrite_tf_text(text, {}, "c0x12c", rel_path="test/main.tf")
+        self.assertEqual(result, text)
+
+    def test_rewrite_tests_dir_returns_verbatim(self):
+        text = 'module "self" {\n  source = "../../"\n}\n'
+        result = rewrite_tf_text(text, {}, "c0x12c", rel_path="tests/main.tf")
+        self.assertEqual(result, text)
+
+    def test_is_examples_path(self):
+        self.assertTrue(_is_examples_path("examples/complete/main.tf"))
+        self.assertTrue(_is_examples_path("test/main.tf"))
+        self.assertTrue(_is_examples_path("tests/e2e/main.tf"))
+        self.assertFalse(_is_examples_path("main.tf"))
+        self.assertFalse(_is_examples_path("modules/examples/main.tf"))
+        self.assertFalse(_is_examples_path(""))
+
+    def test_rewrite_relative_outside_examples_still_fails(self):
+        # A relative source at the top level (not under examples/test/tests) must still fail.
+        with self.assertRaisesRegex(Exception, "leftover-relative"):
+            rewrite_tf_text(
+                'module "local" {\n  source = "./modules/local"\n}\n',
+                {},
+                "c0x12c",
+                rel_path="main.tf",
             )
 
 
@@ -304,6 +343,20 @@ class MirrorReleaseCliTests(unittest.TestCase):
         result = self.run_cli(self.remote)
         self.assertEqual(result.returncode, EXIT_LEFTOVER_RELATIVE)
         self.assertIn("leftover-relative:", result.stderr)
+
+    def test_examples_relative_source_copied_verbatim(self):
+        """examples/complete/main.tf with source = "../../" must copy byte-identical, no error."""
+        self.write_fixture_module()
+        examples_dir = self.monorepo / self.module / "examples" / "complete"
+        examples_dir.mkdir(parents=True)
+        examples_body = 'module "self" {\n  source = "../../"\n}\n'
+        (examples_dir / "main.tf").write_text(examples_body, encoding="utf-8")
+        self.remote = self.init_remote()
+        result = self.run_cli(self.remote)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        checkout = self.clone_remote_for_assertions()
+        mirrored = (checkout / "examples" / "complete" / "main.tf").read_text(encoding="utf-8")
+        self.assertEqual(mirrored, examples_body)
 
     def test_cli_mapping_error_is_distinct(self):
         self.module = "bad-module"
