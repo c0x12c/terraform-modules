@@ -75,3 +75,53 @@ jobs:
       module: ${{ matrix.module }}
       version: ${{ fromJSON(needs.release.outputs.release_versions)[matrix.module] }}
     secrets: inherit
+
+  # Bump consuming parents so their next release re-pins this leaf
+  # (docs/decisions/2026-06-07-release-cascade.md). Inert until the repo
+  # variable CASCADE_ENABLED is 'true'; commits/pushes additionally require
+  # CASCADE_EXECUTE='true' — otherwise the run only prints planned bumps.
+  cascade:
+    # needs mirror: only cascade versions that are confirmed live on the
+    # mirror (and thus the registry) — a failed mirror must not get pinned.
+    needs: [release, mirror]
+    if: needs.release.outputs.releases_created == 'true' && vars.CASCADE_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create GitHub App Token
+        uses: actions/create-github-app-token@v3
+        id: github-app-token
+        with:
+          app-id: ${{ vars.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
+      - name: Checkout master
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          token: ${{ steps.github-app-token.outputs.token }}
+
+      - name: Cascade released modules to consuming parents
+        env:
+          PATHS_RELEASED: ${{ needs.release.outputs.paths_released }}
+          RELEASE_VERSIONS: ${{ needs.release.outputs.release_versions }}
+          CASCADE_EXECUTE: ${{ vars.CASCADE_EXECUTE }}
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          exec_flag=""
+          if [ "$CASCADE_EXECUTE" = "true" ]; then
+            exec_flag="--execute"
+          fi
+          echo "$PATHS_RELEASED" | python3 -c '
+          import json, sys
+          for p in json.load(sys.stdin):
+              print(p)
+          ' | while IFS= read -r module; do
+            version="$(python3 -c '
+          import json, os, sys
+          versions = json.loads(os.environ["RELEASE_VERSIONS"])
+          print(versions[sys.argv[1]])
+          ' "$module")"
+            python3 scripts/cascade_release.py --module "$module" --version "$version" $exec_flag
+          done
