@@ -171,6 +171,11 @@ def load_manifest(path: Path) -> dict:
     return data
 
 
+def _redact(text: str) -> str:
+    """Strip credentials from URLs (https://user:token@host -> https://***@host)."""
+    return re.sub(r"(https?://)[^@/\s]+@", r"\1***@", text)
+
+
 def run_git(args, cwd=None, check=True, capture_output=True):
     completed = subprocess.run(
         ["git"] + list(args),
@@ -182,7 +187,10 @@ def run_git(args, cwd=None, check=True, capture_output=True):
     if check and completed.returncode != 0:
         raise GitError(
             "git: command failed (%s): %s"
-            % (" ".join(["git"] + list(args)), completed.stderr.strip())
+            % (
+                _redact(" ".join(["git"] + list(args))),
+                _redact(completed.stderr.strip()),
+            )
         )
     return completed
 
@@ -208,7 +216,7 @@ def assert_mirror_identity(clone_dir: Path, module: str) -> None:
     ):
         raise IdentityError(
             "identity: remote %s does not match expected module %s"
-            % (remote_url, module)
+            % (_redact(remote_url), module)
         )
 
 
