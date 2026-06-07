@@ -36,6 +36,12 @@ variable "http_check_urls" {
   default     = []
 }
 
+variable "extra_confd" {
+  description = "Additional cluster-agent confd files to inject. Map of filename -> YAML body (rendered as-is under datadog.clusterAgent.confd). Example: { \"clickpipes.yaml\" = \"cluster_check: true\\ninit_config:\\ninstances:\\n  - openmetrics_endpoint: ...\" }"
+  type        = map(string)
+  default     = {}
+}
+
 variable "timeout" {
   description = "Default timeout of datadog"
   default     = 1200
