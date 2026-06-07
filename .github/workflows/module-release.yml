@@ -5,13 +5,12 @@
 # module-release-config.json). Tags are <module>/vX.Y.Z; versions are tracked
 # in .module-versions.json.
 #
-# NOTE: manual trigger only until the monorepo cutover (squash-import of module
-# folders) lands. The folders are still git submodules; running release-please
-# on gitlink-only changes would produce meaningless release PRs. Switch the
-# trigger to `push: branches: [master]` as part of the cutover.
 name: Module Release
 
 on:
+  push:
+    branches:
+      - master
   workflow_dispatch:
 
 permissions:
