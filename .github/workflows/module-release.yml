@@ -13,9 +13,12 @@ on:
       - master
   workflow_dispatch:
 
+# Must be a superset of the called registry-publish.yml permissions
+# (contents: read, issues: write) — callers cap reusable-workflow grants.
 permissions:
   contents: write
   pull-requests: write
+  issues: write
 
 jobs:
   release:
