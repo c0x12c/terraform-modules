@@ -134,7 +134,7 @@ def discover_modules(monorepo_root: Path) -> list:
 # ── Freeze a single module ────────────────────────────────────────────────────
 FREEZE_COMMIT_MSG = (
     "chore: freeze mirror - this repo is a generated output of the "
-    "terraform-modules-registry monorepo"
+    "terraform-modules monorepo"
 )
 
 

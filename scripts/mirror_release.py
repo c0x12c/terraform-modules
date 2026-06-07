@@ -266,7 +266,7 @@ def apply_readme_banner(worktree: Path, module: str) -> None:
     banner = (
         "%s\n"
         "> This repository is a **read-only mirror** generated from\n"
-        "> [`c0x12c/terraform-modules-registry`](https://github.com/c0x12c/terraform-modules-registry/tree/master/%s).\n"
+        "> [`c0x12c/terraform-modules`](https://github.com/c0x12c/terraform-modules/tree/master/%s).\n"
         "> Develop and open PRs there — changes pushed here are overwritten on the next release.\n\n"
         % (README_BANNER_FIRST_LINE, module)
     )

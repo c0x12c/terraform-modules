@@ -305,7 +305,7 @@ class MirrorReleaseCliTests(unittest.TestCase):
             readme,
             "> [!IMPORTANT]\n"
             "> This repository is a **read-only mirror** generated from\n"
-            "> [`c0x12c/terraform-modules-registry`](https://github.com/c0x12c/terraform-modules-registry/tree/master/terraform-aws-rds).\n"
+            "> [`c0x12c/terraform-modules`](https://github.com/c0x12c/terraform-modules/tree/master/terraform-aws-rds).\n"
             "> Develop and open PRs there — changes pushed here are overwritten on the next release.\n\n",
         )
 
