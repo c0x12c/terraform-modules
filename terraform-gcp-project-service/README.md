@@ -8,7 +8,8 @@ This Terraform module allows management of a single API service for a Google Clo
 
 ```hcl
 module "project_service" {
-  source  = "github.com/spartan-stratos/terraform-modules//gcp/workload-identity?ref=v0.1.5"
+  source  = "c0x12c/project-service/gcp"
+  version = "0.1.5"
 
   project_id = "example-project"
   services = [

@@ -15,7 +15,8 @@ This module will create the following components:
 
 ```hcl
 module "github_oidc" {
-  source  = "github.com/spartan-stratos/terraform-modules//gcp/github-oidc?ref=v0.1.0"
+  source  = "c0x12c/github-oidc/gcp"
+  version = "0.1.4"
 
   gcp_pool_id            = "github-actions-pool"
   gcp_project_id         = "my-gcp-project"

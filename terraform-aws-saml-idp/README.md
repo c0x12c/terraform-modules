@@ -8,7 +8,8 @@ Terraform module which creates Identity SAML Provider resource on AWS.
 
 ```hcl
 module "saml_vpn" {
-  source  = "github.com/spartan-stratos/terraform-modules//aws/identity-provider/saml?ref=v0.1.0"
+  source  = "c0x12c/saml-idp/aws"
+  version = "1.0.0"
 
   saml_providers = {
     "example_provider" = "example_saml_metadata"

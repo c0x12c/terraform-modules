@@ -6,7 +6,8 @@ Terraform module which creates Datadog AWS integration resources and the require
 
 ```hcl
 module "datadog_aws_integration" {
-  source = "github.com/spartan-stratos/terraform-modules//datadog/aws-integration?ref=v2.0.0"
+  source  = "c0x12c/aws-integration/datadog"
+  version = "1.0.1"
 
   # Default: null (collect all namespaces). Override to restrict to specific namespaces:
   namespace_filters_include_only = ["AWS/ElastiCache", "AWS/RDS", "AWS/EC2"]

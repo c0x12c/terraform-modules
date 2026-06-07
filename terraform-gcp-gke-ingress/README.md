@@ -14,7 +14,8 @@ This module will create the components below:
 
 ```hcl
 module "gke_ingress" {
-  source  = "github.com/spartan-stratos/terraform-modules//gcp/gke-ingress?ref=v0.1.5"
+  source  = "c0x12c/gke-ingress/gcp"
+  version = "0.1.5"
 
   project_id = "example-project"
   gke_ingress_services = {

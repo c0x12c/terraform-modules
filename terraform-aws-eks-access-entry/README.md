@@ -12,7 +12,8 @@ This module will create the components below
 
 ```hcl
 module "eks-access-entry" {
-  source = "github.com/spartan-stratos/terraform-modules//aws/eks-access-entry?ref=v0.3.0"
+  source  = "c0x12c/eks-access-entry/aws"
+  version = "0.3.0"
 
   aws_account_id = "<account-id>"
   cluster_name   = "example-cluster"

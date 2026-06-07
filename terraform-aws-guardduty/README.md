@@ -16,7 +16,8 @@ This module will create the following components:
 
 ```hcl
 module "guardduty" {
-  source  = "github.com/spartan-stratos/terraform-modules//aws/guardduty?ref=v0.1.23"
+  source  = "c0x12c/guardduty/aws"
+  version = "0.1.23"
 
   name                                    = "example"
   enabled_guardduty                       = true

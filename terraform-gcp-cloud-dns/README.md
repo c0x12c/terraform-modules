@@ -13,7 +13,8 @@ This module will create the following components:
 
 ```hcl
 module "cloud_dns" {
-  source  = "github.com/spartan-stratos/terraform-modules//gcp/cloud-dns?ref=v0.1.0"
+  source  = "c0x12c/cloud-dns/gcp"
+  version = "0.1.4"
 
   create_new = true
 

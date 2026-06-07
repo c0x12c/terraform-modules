@@ -14,7 +14,8 @@ This module will create the following components:
 
 ```hcl
 module "kms" {
-  source = "github.com/spartan-stratos/terraform-modules//aws/kms?ref=v0.1.2"
+  source  = "c0x12c/kms/aws"
+  version = "0.3.15"
 
   name                     = "example"
   description              = "example"

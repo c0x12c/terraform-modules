@@ -14,7 +14,8 @@ This module creates the following components:
 
 ```hcl
 module "mwaa" {
-  source  = "github.com/spartan-stratos/terraform-modules//aws/mwaa?ref=v0.1.52"
+  source  = "c0x12c/mwaa/aws"
+  version = "1.0.0"
 
   name                         = "example-mwaa-environment"
   private_subnet_ids           = ["subnet-12345", "subnet-67890"]

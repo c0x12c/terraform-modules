@@ -8,7 +8,8 @@ Terraform module which creates VPC endpoint resources on AWS.
 
 ```hcl
 module "vpc_endpoints" {
-  source  = "github.com/spartan-stratos/terraform-modules//aws/vpn-endpoints?ref=v0.1.29"
+  source  = "c0x12c/vpc-endpoints/aws"
+  version = "0.1.29"
 
   vpc_id             = "vpc-123456"
   route_table_ids    = ["route_table_1"]

@@ -12,7 +12,8 @@ services, providing rules on how service connections should be established and c
 
 ```hcl
 module "service_connection_policies" {
-  source  = "github.com/spartan-stratos/terraform-modules//gcp/service-connection-policies?ref=v0.1.5"
+  source  = "c0x12c/service-connection-policies/gcp"
+  version = "0.1.5"
   
   gcp_region = "us-west-1"
   subnet_id  = "<subnet-id>"

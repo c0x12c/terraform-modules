@@ -8,7 +8,8 @@ Module which generates password then stores to Secret Manager.
 
 ```hcl
 module "password_generator" {
-  source  = "github.com/spartan-stratos/terraform-modules//aws/password-generator?ref=v0.2.0"
+  source  = "c0x12c/password-generator/aws"
+  version = "0.2.0"
 
   secret_name = "secret"
   tags = {
