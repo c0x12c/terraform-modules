@@ -102,7 +102,20 @@ def normalize_version(value: str) -> str:
     return value[1:] if value.startswith("v") else value
 
 
-def rewrite_tf_text(text: str, manifest: dict, org: str) -> str:
+_EXAMPLES_DIRS = {"examples", "test", "tests"}
+
+
+def _is_examples_path(rel_path: str) -> bool:
+    """Return True if rel_path is under examples/, test/, or tests/ (relative to module root)."""
+    parts = Path(rel_path).parts
+    return bool(parts) and parts[0] in _EXAMPLES_DIRS
+
+
+def rewrite_tf_text(text: str, manifest: dict, org: str, rel_path: str = "") -> str:
+    # Files under examples/, test/, tests/ are copied verbatim — no rewrite, no relative-source check.
+    if rel_path and _is_examples_path(rel_path):
+        return text
+
     lines = text.splitlines(True)
     output = []
     for line in lines:
@@ -223,8 +236,9 @@ def rewrite_worktree_tf_files(worktree: Path, manifest: dict, org: str) -> None:
     for tf_file in sorted(worktree.rglob("*.tf")):
         if ".git" in tf_file.parts:
             continue
+        rel_path = tf_file.relative_to(worktree).as_posix()
         original = tf_file.read_text(encoding="utf-8")
-        rewritten = rewrite_tf_text(original, manifest, org)
+        rewritten = rewrite_tf_text(original, manifest, org, rel_path=rel_path)
         if rewritten != original:
             tf_file.write_text(rewritten, encoding="utf-8")
 
