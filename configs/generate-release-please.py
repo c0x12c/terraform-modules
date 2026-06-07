@@ -2,8 +2,8 @@
 """Generate release-please monorepo config for all terraform module folders.
 
 Emits:
-  release-please-config.json      one package entry per terraform-* folder
-  .release-please-manifest.json   seeded with each module's current version
+  module-release-config.json      one package entry per terraform-* folder
+  .module-versions.json           seeded with each module's current version
 
 Version source order: submodule git tag -> CHANGELOG.md latest entry -> 0.0.0.
 Re-runnable: regenerates both files from the current tree state. Run from the
@@ -81,10 +81,10 @@ def main() -> int:
         "packages": packages,
     }
 
-    (ROOT / "release-please-config.json").write_text(
+    (ROOT / "module-release-config.json").write_text(
         json.dumps(config, indent=2) + "\n"
     )
-    (ROOT / ".release-please-manifest.json").write_text(
+    (ROOT / ".module-versions.json").write_text(
         json.dumps(manifest, indent=2) + "\n"
     )
 

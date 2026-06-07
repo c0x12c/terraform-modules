@@ -153,7 +153,7 @@ class MirrorReleaseCliTests(unittest.TestCase):
         self.monorepo.mkdir()
         self.module = "terraform-aws-rds"
         self.version = "v1.2.0"
-        self.manifest_path = self.monorepo / ".release-please-manifest.json"
+        self.manifest_path = self.monorepo / ".module-versions.json"
 
     def tearDown(self):
         self.temp_dir.cleanup()

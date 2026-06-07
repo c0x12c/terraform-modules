@@ -137,8 +137,8 @@ required; fixed with `>= 3.46, < 3.80`).
 
 1. Create `terraform-<provider>-<name>/` with standard layout (`main.tf`,
    `variables.tf`, `outputs.tf`, `versions.tf`, `examples/`).
-2. Add the module to `release-please-config.json` (`packages`) and seed
-   `.release-please-manifest.json` with `"0.0.0"`.
+2. Add the module to `module-release-config.json` (`packages`) and seed
+   `.module-versions.json` with `"0.0.0"`.
 3. Open the PR — Module CI picks the folder up automatically.
 4. After the first release tag exists, create the mirror repo
    `c0x12c/terraform-<provider>-<name>` and register it on the public
@@ -146,8 +146,8 @@ required; fixed with `>= 3.46, < 3.80`).
 
 ## Removing a module
 
-Delete the folder and its `release-please-config.json` /
-`.release-please-manifest.json` entries in one PR. Existing published versions
+Delete the folder and its `module-release-config.json` /
+`.module-versions.json` entries in one PR. Existing published versions
 remain available to consumers; the mirror repo can be archived.
 
 ## Repository layout

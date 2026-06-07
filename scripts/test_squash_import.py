@@ -66,7 +66,7 @@ class SquashImportCliTests(unittest.TestCase):
         self.head_a = self.rev_parse(self.seed_a, "HEAD")
         self.head_b = self.rev_parse(self.seed_b, "HEAD")
         manifest = {self.module_a: "1.0.0"}
-        (self.monorepo / ".release-please-manifest.json").write_text(
+        (self.monorepo / ".module-versions.json").write_text(
             json.dumps(manifest),
             encoding="utf-8",
         )
