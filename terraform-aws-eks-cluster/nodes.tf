@@ -1,6 +1,5 @@
 module "eks_managed_node_group" {
-  source  = "c0x12c/eks-managed-node-group/aws"
-  version = "1.0.1"
+  source = "../terraform-aws-eks-managed-node-group"
 
   for_each = var.node_groups
 

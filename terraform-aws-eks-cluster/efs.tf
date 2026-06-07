@@ -1,6 +1,5 @@
 module "efs" {
-  source  = "c0x12c/eks-efs/aws"
-  version = "1.0.0"
+  source = "../terraform-aws-eks-efs"
 
   count                     = var.enabled_efs == true ? 1 : 0
   name                      = local.cluster_name

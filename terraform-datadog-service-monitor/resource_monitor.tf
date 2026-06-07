@@ -1,6 +1,5 @@
 module "pod" {
-  source  = "c0x12c/monitors/datadog"
-  version = "~> 1.0.0"
+  source = "../terraform-datadog-monitors"
 
   notification_slack_channel_prefix = var.notification_slack_channel_prefix
   tag_slack_channel                 = var.tag_slack_channel
@@ -14,8 +13,7 @@ module "pod" {
 }
 
 module "cpu" {
-  source  = "c0x12c/monitors/datadog"
-  version = "~> 1.0.0"
+  source = "../terraform-datadog-monitors"
 
   notification_slack_channel_prefix = var.notification_slack_channel_prefix
   tag_slack_channel                 = var.tag_slack_channel
@@ -29,8 +27,7 @@ module "cpu" {
 }
 
 module "memory" {
-  source  = "c0x12c/monitors/datadog"
-  version = "~> 1.0.0"
+  source = "../terraform-datadog-monitors"
 
   notification_slack_channel_prefix = var.notification_slack_channel_prefix
   tag_slack_channel                 = var.tag_slack_channel

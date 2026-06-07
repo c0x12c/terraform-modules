@@ -1,6 +1,5 @@
 module "fargate_profile" {
-  source  = "c0x12c/eks-fargate-profile/aws"
-  version = "1.0.0"
+  source = "../terraform-aws-eks-fargate-profile"
 
   create = var.create_fargate_profile
 

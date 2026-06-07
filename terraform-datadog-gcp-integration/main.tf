@@ -1,6 +1,5 @@
 module "service_account" {
-  source  = "c0x12c/service-account/gcp"
-  version = "1.0.0"
+  source = "../terraform-gcp-service-account"
 
   service_account_id = var.datadog_account_id
   roles              = var.datadog_roles
