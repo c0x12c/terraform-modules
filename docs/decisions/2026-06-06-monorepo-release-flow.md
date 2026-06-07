@@ -76,3 +76,26 @@ and confirming TFC's tag-triggered publish on the mirror repos before cutover.
 1. **Prove step 7 end-to-end on one real mirror** — push a clean tag, confirm the public registry publishes the new version. This validates the core assumption of C.
 2. **Build step 6 as a tested codemod** over the 33 sibling refs, then `terraform validate` each module — don't ship raw sed.
 3. **Dry-run step 9** on a 3-module subset before the full 116 cutover.
+
+## Sibling release ordering (runbook — added 2026-06-07)
+
+In-repo sibling refs are relative (`../terraform-<provider>-<name>`); the mirror
+job rewrites them to registry refs with an **exact pin** taken from
+`.module-versions.json` at the *parent's* release time. Two operational
+consequences:
+
+1. **Merge release PRs leaf-first.** When one change touches a leaf and its
+   parent(s), merge the leaf's release PR before the parent's. Merging the
+   parent first pins the leaf's *previous* version into the parent's mirror —
+   a torn release.
+2. **A leaf fix does not reach registry consumers until every consuming parent
+   re-releases.** Parents pin exact sibling versions at release; there is no
+   `~>` range float anymore. After releasing a leaf fix (especially security
+   fixes), find consuming parents via
+   `grep -rl '"\.\./terraform-<provider>-<name>"' --include='*.tf' .`
+   and land a `fix(deps): bump <leaf>` commit per parent so release-please
+   re-releases them. (Automation for this cascade is a planned follow-up.)
+
+CI note: `module-ci.yml`'s detect job expands the changed-module set with the
+reverse-dependency closure, so a leaf interface break fails consuming parents'
+checks in the same PR.
