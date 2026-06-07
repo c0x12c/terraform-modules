@@ -18,6 +18,7 @@ from mirror_release import (
     EXIT_MAPPING,
     EXIT_TAG_CONFLICT,
     EXIT_VALIDATE,
+    README_BANNER_FIRST_LINE,
     module_to_registry,
     rewrite_tf_text,
     _is_examples_path,
@@ -158,7 +159,7 @@ class MirrorReleaseCliTests(unittest.TestCase):
     def tearDown(self):
         self.temp_dir.cleanup()
 
-    def write_fixture_module(self, module_body=None):
+    def write_fixture_module(self, module_body=None, readme_body="module readme\n"):
         module_dir = self.monorepo / self.module
         module_dir.mkdir(parents=True, exist_ok=True)
         (self.monorepo / "terraform-aws-network").mkdir(exist_ok=True)
@@ -178,6 +179,8 @@ class MirrorReleaseCliTests(unittest.TestCase):
             """
         ).lstrip()
         (module_dir / "main.tf").write_text(module_body or default_body, encoding="utf-8")
+        if readme_body is not None:
+            (module_dir / "README.md").write_text(readme_body, encoding="utf-8")
         (module_dir / "notes.txt").write_text("keep bytes\n", encoding="utf-8")
         (module_dir / ".terraform.lock.hcl").write_text("ignored\n", encoding="utf-8")
         terraform_dir = module_dir / ".terraform"
@@ -264,6 +267,14 @@ class MirrorReleaseCliTests(unittest.TestCase):
         self.assertIn('source = "c0x12c/network/aws"', rewritten)
         self.assertIn('version = "9.8.7"', rewritten)
         self.assertIn('source = "c0x12c/external/aws"', rewritten)
+        readme = (checkout / "README.md").read_text(encoding="utf-8")
+        self.assertTrue(readme.startswith(README_BANNER_FIRST_LINE + "\n"))
+        self.assertIn(
+            "tree/master/terraform-aws-rds).\n"
+            "> Develop and open PRs there — changes pushed here are overwritten on the next release.\n\n"
+            "module readme\n",
+            readme,
+        )
         self.assertTrue((checkout / "notes.txt").exists())
         self.assertFalse((checkout / ".terraform.lock.hcl").exists())
         self.assertFalse((checkout / ".terraform").exists())
@@ -279,6 +290,24 @@ class MirrorReleaseCliTests(unittest.TestCase):
         self.assertEqual(second.returncode, 0, second.stderr)
         self.assertIn("already mirrored", second.stdout)
         self.assertEqual(before, after)
+        checkout = self.clone_remote_for_assertions()
+        readme = (checkout / "README.md").read_text(encoding="utf-8")
+        self.assertEqual(readme.count(README_BANNER_FIRST_LINE), 1)
+
+    def test_missing_readme_gets_created_with_banner(self):
+        self.write_fixture_module(readme_body=None)
+        self.remote = self.init_remote()
+        result = self.run_cli(self.remote)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        checkout = self.clone_remote_for_assertions()
+        readme = (checkout / "README.md").read_text(encoding="utf-8")
+        self.assertEqual(
+            readme,
+            "> [!IMPORTANT]\n"
+            "> This repository is a **read-only mirror** generated from\n"
+            "> [`c0x12c/terraform-modules-registry`](https://github.com/c0x12c/terraform-modules-registry/tree/master/terraform-aws-rds).\n"
+            "> Develop and open PRs there — changes pushed here are overwritten on the next release.\n\n",
+        )
 
     def test_generated_terraform_artifacts_are_cleaned_before_snapshot_and_commit(self):
         self.write_fixture_module()
