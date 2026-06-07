@@ -15,7 +15,8 @@ This module will create the following components:
 
 ```hcl
 module "workload_identity" {
-  source  = "github.com/spartan-stratos/terraform-modules//gcp/workload-identity?ref=v0.1.5"
+  source  = "c0x12c/workload-identity/gcp"
+  version = "0.1.5"
 
   pool_id            = "example-pool"
   project_id         = "example-project"

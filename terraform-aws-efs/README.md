@@ -8,7 +8,8 @@ Terraform EFS sub-module to create EFS resources on AWS.
 
 ```hcl
 module "efs" {
-  source = "github.com/spartan-stratos/terraform-modules//aws/efs?ref=v0.1.78"
+  source  = "c0x12c/efs/aws"
+  version = "0.1.78"
 
   name               = "example"
   subnet_ids         = []

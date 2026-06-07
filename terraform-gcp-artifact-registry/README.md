@@ -13,7 +13,8 @@ This module will create the following components:
 
 ```hcl
 module "docker_repository" {
-  source  = "github.com/spartan-stratos/terraform-modules//gcp/artifact-registry?ref=v0.1.0"
+  source  = "c0x12c/artifact-registry/gcp"
+  version = "0.1.4"
   
   format        = "DOCKER"
   location      = "us-west1"

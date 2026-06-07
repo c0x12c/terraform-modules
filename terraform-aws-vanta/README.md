@@ -11,7 +11,8 @@ This module will create the components below:
 
 ```hcl
 module "vanta" {
-  source = "github.com/spartan-stratos/terraform-modules//aws/vanta?ref=v0.1.49"
+  source  = "c0x12c/vanta/aws"
+  version = "0.1.49"
 
   providers = {
     aws.global = aws.global

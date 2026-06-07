@@ -13,7 +13,8 @@ This module will create the following components:
 
 ```hcl
 module "security_groups" {
-  source = "github.com/spartan-stratos/terraform-modules//aws/security-group?ref=v0.1.33"
+  source  = "c0x12c/security-group/aws"
+  version = "0.1.58"
   
   create_default_security_group = false
   security_groups = {
@@ -53,7 +54,8 @@ module "security_groups" {
 
 ```hcl
 module "security_groups" {
-  source = "github.com/spartan-stratos/terraform-modules//aws/security-group?ref=v0.1.23"
+  source  = "c0x12c/security-group/aws"
+  version = "0.1.58"
 
   create_default_security_group = true
   vpc_id                        = "vpc-12345678"

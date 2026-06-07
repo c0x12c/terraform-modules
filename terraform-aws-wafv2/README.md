@@ -16,7 +16,8 @@ module "wafv2_cloudfront" {
     aws = aws.global
   }
 
-  source = "github.com/spartan-stratos/terraform-modules//aws/wafv2?ref=v0.1.72"
+  source  = "c0x12c/wafv2/aws"
+  version = "1.0.1"
 
   name  = "cloudfront-name"
   scope = "CLOUDFRONT"
@@ -32,7 +33,8 @@ module "wafv2_cloudfront" {
 }
 
 module "wafv2_alb" {
-  source = "github.com/spartan-stratos/terraform-modules//aws/wafv2?ref=v0.1.72"
+  source  = "c0x12c/wafv2/aws"
+  version = "1.0.1"
 
   name  = "alb-name"
   scope = "REGIONAL"

@@ -8,7 +8,8 @@ Terraform module which creates SNS resources on AWS.
 
 ```hcl
 module "ses" {
-  source = "github.com/spartan-stratos/terraform-modules//aws/sns?ref=v0.1.44"
+  source  = "c0x12c/sns/aws"
+  version = "0.1.44"
   
   name = "sns-topic"
   subscriptions = [

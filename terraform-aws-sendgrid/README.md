@@ -14,7 +14,8 @@ This module will create the following components:
 
 ```hcl
 module "sendgrid" {
-  source = "github.com/spartan-stratos/terraform-modules//aws/sendgrid?ref=v0.2.0"
+  source  = "c0x12c/sendgrid/aws"
+  version = "0.2.0"
 
   api_keys = {
     "email-sending-service" = {

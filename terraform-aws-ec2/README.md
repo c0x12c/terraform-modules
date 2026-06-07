@@ -20,7 +20,7 @@ Terraform module to provision AWS EC2 instances with comprehensive configuration
 
 ```hcl
 module "ec2" {
-  source = "git::https://github.com/c0x12c/spartans.git//terraform-modules-registry/terraform-aws-ec2"
+  source = "git::https://github.com/c0x12c/terraform-modules.git//terraform-aws-ec2?ref=terraform-aws-ec2/v1.0.0"
 
   name               = "my-instance"
   ami                = "ami-0c55b159cbfafe1f0"
@@ -40,7 +40,7 @@ module "ec2" {
 
 ```hcl
 module "ec2_with_volumes" {
-  source = "git::https://github.com/c0x12c/spartans.git//terraform-modules-registry/terraform-aws-ec2"
+  source = "git::https://github.com/c0x12c/terraform-modules.git//terraform-aws-ec2?ref=terraform-aws-ec2/v1.0.0"
 
   name               = "app-server"
   ami                = "ami-0c55b159cbfafe1f0"
@@ -79,7 +79,7 @@ module "ec2_with_volumes" {
 
 ```hcl
 module "ec2_with_eip" {
-  source = "git::https://github.com/c0x12c/spartans.git//terraform-modules-registry/terraform-aws-ec2"
+  source = "git::https://github.com/c0x12c/terraform-modules.git//terraform-aws-ec2?ref=terraform-aws-ec2/v1.0.0"
 
   name                        = "bastion-host"
   ami                         = "ami-0c55b159cbfafe1f0"
@@ -102,7 +102,7 @@ module "ec2_with_eip" {
 
 ```hcl
 module "ec2_with_userdata" {
-  source = "git::https://github.com/c0x12c/spartans.git//terraform-modules-registry/terraform-aws-ec2"
+  source = "git::https://github.com/c0x12c/terraform-modules.git//terraform-aws-ec2?ref=terraform-aws-ec2/v1.0.0"
 
   name               = "web-server"
   ami                = "ami-0c55b159cbfafe1f0"
@@ -151,7 +151,7 @@ resource "aws_iam_instance_profile" "ec2_profile" {
 }
 
 module "ec2_with_iam" {
-  source = "git::https://github.com/c0x12c/spartans.git//terraform-modules-registry/terraform-aws-ec2"
+  source = "git::https://github.com/c0x12c/terraform-modules.git//terraform-aws-ec2?ref=terraform-aws-ec2/v1.0.0"
 
   name                 = "app-server"
   ami                  = "ami-0c55b159cbfafe1f0"

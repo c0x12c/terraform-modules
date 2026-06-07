@@ -13,7 +13,8 @@ This module will create the following components:
 
 ```hcl
 module "instance" {
-  source = "github.com/spartan-stratos/terraform-modules//aws/rds?ref=v0.1.75"
+  source  = "c0x12c/rds/aws"
+  version = "0.6.6"
 
   db_name                             = "example_rds"
   db_username                         = "exampleuser"

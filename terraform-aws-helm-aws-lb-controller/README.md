@@ -8,7 +8,8 @@ Terraform module which install an ALB Controller to EKS cluster and configure th
 
 ```hcl
 module "aws_eks_lb" {
-  source = "github.com/spartan-stratos/terraform-modules//aws/eks-helm/aws-load-balancer-controller?ref=v0.3.11"
+  source  = "c0x12c/helm-aws-lb-controller/aws"
+  version = "1.2.1"
 
   cluster_name        = local.eks_cluster.cluster_name
   oidc_provider       = local.eks_cluster.oidc_provider

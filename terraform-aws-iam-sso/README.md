@@ -9,7 +9,8 @@ resources.
 
 ```hcl
 module "iam_sso" {
-  source  = "github.com/spartan-stratos/terraform-modules//aws/iam-sso?ref=v0.1.0"
+  source  = "c0x12c/iam-sso/aws"
+  version = "0.1.4"
 
   groups = {
     "Developers" = {

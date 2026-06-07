@@ -13,7 +13,8 @@ This module will create the following components:
 
 ```hcl
 module "storage_bucket" {
-  source = "github.com/spartan-stratos/terraform-modules//gcp/storage-bucket?ref=v0.6.5"
+  source  = "c0x12c/storage-bucket/gcp"
+  version = "0.6.5"
 
   bucket_name = "example-bucket"
   environment = "example-environment"

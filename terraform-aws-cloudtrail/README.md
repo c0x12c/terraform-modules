@@ -13,7 +13,8 @@ Terraform module which creates external AWS CloudTrail resources:
 
 ```hcl
 module "cloudtrail" {
-  source = "github.com/spartan-stratos/terraform-modules//aws/cloudtrail?ref=v0.1.15"
+  source  = "c0x12c/cloudtrail/aws"
+  version = "0.6.6"
 
   name                          = "example-cloudtrail"
   enable_logging                = true

@@ -8,7 +8,8 @@ This module provision AWS Secret Manager resources to manage secret value.
 
 ```hcl
 module "secret_manager" {
-  source = "github.com/spartan-stratos/terraform-modules//aws/secret-manager?ref=v0.2.0"
+  source  = "c0x12c/secret-manager/aws"
+  version = "0.2.0"
 
   secrets = {
     "API_KEY" = "VALUE"

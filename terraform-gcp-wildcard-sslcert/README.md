@@ -6,7 +6,8 @@ This Terraform module creates a cert map for a wildcard domain.
 
 ```hcl
 module "wildcard-sslcert" {
-  source = "github.com/spartan-stratos/terraform-modules//gcp/wildcard-sslcert?ref=v0.1.4"
+  source  = "c0x12c/wildcard-sslcert/gcp"
+  version = "0.1.4"
   domain = "example.com"
 }
 ```

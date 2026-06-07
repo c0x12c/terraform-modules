@@ -6,7 +6,8 @@ Terraform module which creates Amazon ECR resources.
 
 ```hcl
 module "ecr" {
-  source  = "github.com/spartan-stratos/terraform-modules//aws/acm?ref=v0.1.0"
+  source  = "c0x12c/ecr/aws"
+  version = "0.1.57"
 
   name = "example-repo"
 

@@ -8,7 +8,8 @@ This Terraform module allows managing IAM members and their roles within the GCP
 
 ```hcl
 module "iam_member" {
-  source  = "github.com/spartan-stratos/terraform-modules//gcp/iam-member?ref=v0.1.5"
+  source  = "c0x12c/iam-member/gcp"
+  version = "0.1.5"
 
   project_id = "example"
   user_groups = {

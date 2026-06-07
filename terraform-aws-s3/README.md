@@ -13,7 +13,8 @@ This module will create:
 
 ```hcl
 module "s3" {
-  source = "github.com/spartan-stratos/terraform-modules//aws/s3?ref=v0.3.17"
+  source  = "c0x12c/s3/aws"
+  version = "1.1.0"
 
   bucket_name     = "example-bucket"
   allowed_origins = ["example.com"]

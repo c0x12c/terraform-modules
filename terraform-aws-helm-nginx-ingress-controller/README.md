@@ -8,7 +8,8 @@ This module helps install and configure Nginx Ingress Controller for EKS cluster
 
 ```hcl
 module "eks_helm_nginx_ingress_controller" {
-  source = "github.com/spartan-stratos/terraform-modules//aws/eks-helm/nginx-ingress-controller?ref=v0.3.11"
+  source  = "c0x12c/helm-nginx-ingress-controller/aws"
+  version = "1.1.0"
 
   network_cidr = "10.1.0.0/16"
 
