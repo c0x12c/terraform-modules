@@ -18,6 +18,8 @@ DEFAULT_VALIDATE_CMD = (
     "terraform validate"
 )
 
+README_BANNER_FIRST_LINE = "> [!IMPORTANT]"
+
 SIBLING_SOURCE_RE = re.compile(
     r'^(\s*source\s*=\s*")\.\./(terraform-[A-Za-z0-9_-]+)(".*?)(\r?\n?)$'
 )
@@ -253,6 +255,24 @@ def rewrite_worktree_tf_files(worktree: Path, manifest: dict, org: str) -> None:
             tf_file.write_text(rewritten, encoding="utf-8")
 
 
+def apply_readme_banner(worktree: Path, module: str) -> None:
+    readme_path = worktree / "README.md"
+    original = ""
+    if readme_path.exists():
+        original = readme_path.read_text(encoding="utf-8")
+        first_line = original.splitlines()[0] if original.splitlines() else ""
+        if first_line == README_BANNER_FIRST_LINE:
+            return
+    banner = (
+        "%s\n"
+        "> This repository is a **read-only mirror** generated from\n"
+        "> [`c0x12c/terraform-modules-registry`](https://github.com/c0x12c/terraform-modules-registry/tree/master/%s).\n"
+        "> Develop and open PRs there — changes pushed here are overwritten on the next release.\n\n"
+        % (README_BANNER_FIRST_LINE, module)
+    )
+    readme_path.write_text(banner + original, encoding="utf-8")
+
+
 def run_validation(worktree: Path, validate_cmd: str) -> None:
     completed = subprocess.run(
         ["sh", "-lc", validate_cmd],
@@ -405,6 +425,7 @@ def main(argv=None) -> int:
         assert_mirror_identity(clone_dir, module)
         copy_module_contents(module_dir, clone_dir)
         rewrite_worktree_tf_files(clone_dir, manifest, args.org)
+        apply_readme_banner(clone_dir, module)
         run_validation(clone_dir, args.validate_cmd)
         remove_generated_terraform_artifacts(clone_dir)
 
