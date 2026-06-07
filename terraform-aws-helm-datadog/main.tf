@@ -36,7 +36,7 @@ clusterAgent:
           url: ${url}
           tags:
             - env:${var.environment}
-%{endfor}
+%{endfor}${join("", [for fname, body in var.extra_confd : "\n    ${fname}: |-\n      ${indent(6, body)}"])}
 YAML
 }
 

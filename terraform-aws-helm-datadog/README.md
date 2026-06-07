@@ -48,9 +48,40 @@ module "datadog" {
 
 ```
 
+### Adding custom cluster-agent checks (extra_confd)
+
+Use `extra_confd` to inject additional cluster-agent confd files without forking the module. This is useful for OpenMetrics, `tcp_check`, and other custom integrations.
+
+```hcl
+module "datadog" {
+  source  = "c0x12c/helm-datadog/aws"
+  version = "~> 0.10.0"
+
+  environment  = var.environment
+  cluster_name = var.cluster_name
+
+  datadog_site    = var.datadog_site
+  datadog_api_key = var.datadog_api_key
+  datadog_app_key = var.datadog_app_key
+
+  extra_confd = {
+    "openmetrics.yaml" = <<-YAML
+      cluster_check: true
+      init_config:
+      instances:
+        - openmetrics_endpoint: https://example.com/metrics
+          namespace: example
+          metrics:
+            - example_metric
+    YAML
+  }
+}
+```
+
 ## Examples
 
 - [Example](./examples/complete/)
+- [Extra confd example](./examples/with-extra-confd/)
 
 <!-- BEGIN_TF_DOCS -->
 
@@ -99,6 +130,7 @@ No modules.
 | <a name="input_enabled_logs"></a> [enabled\_logs](#input\_enabled\_logs)                                                                         | Toggle to enable or disable the logs.            | `bool`                                                                           | `true`      |    no    |
 | <a name="input_enabled_metric_provider"></a> [enabled\_metric\_provider](#input\_enabled\_metric\_provider)                                      | Toggle to enable or disable the metric provider. | `bool`                                                                           | `true`      |    no    |
 | <a name="input_environment"></a> [environment](#input\_environment)                                                                              | Environment where the resources will be created. | `string`                                                                         | n/a         |   yes    |
+| <a name="input_extra_confd"></a> [extra\_confd](#input\_extra\_confd)                                                                            | Additional cluster-agent confd files to inject.  | <pre>map(string)</pre>                                                           | `{}`        |    no    |
 | <a name="input_helm_release_name"></a> [helm\_release\_name](#input\_helm\_release\_name)                                                        | The Helm release of the services.                | `string`                                                                         | `"datadog"` |    no    |
 | <a name="input_http_check_urls"></a> [http\_check\_urls](#input\_http\_check\_urls)                                                              | The list of urls for http check                  | `list(string)`                                                                   | `[]`        |    no    |
 | <a name="input_namespace"></a> [namespace](#input\_namespace)                                                                                    | The Namespace of the services.                   | `string`                                                                         | `"datadog"` |    no    |
