@@ -1,6 +1,5 @@
 module "action-secret" {
-  source  = "c0x12c/action-secrets/github"
-  version = "~> 1.0.1"
+  source = "../terraform-github-action-secrets"
 
   for_each   = var.repository_secrets
   repository = each.key
@@ -8,8 +7,7 @@ module "action-secret" {
 }
 
 module "action-variables" {
-  source  = "c0x12c/action-variables/github"
-  version = "~> 1.0.0"
+  source = "../terraform-github-action-variables"
 
   for_each   = var.repository_variables
   repository = each.key

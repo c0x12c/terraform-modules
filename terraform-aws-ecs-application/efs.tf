@@ -1,6 +1,5 @@
 module "efs" {
-  source  = "c0x12c/efs/aws"
-  version = "~> 0.1.78"
+  source = "../terraform-aws-efs"
 
   count = var.persistent_volume != null ? 1 : 0
 

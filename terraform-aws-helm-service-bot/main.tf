@@ -1,6 +1,5 @@
 module "eks_service" {
-  source  = "c0x12c/eks-service/aws"
-  version = "0.2.8"
+  source = "../terraform-aws-eks-service"
 
   cluster_name      = var.cluster_name
   eks_oidc_provider = var.eks_oidc_provider

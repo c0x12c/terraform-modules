@@ -1,6 +1,5 @@
 module "main" {
-  source  = "c0x12c/ecs-application/aws"
-  version = "~> 2.0.1"
+  source = "../terraform-aws-ecs-application"
 
   name        = var.service_name
   environment = var.environment

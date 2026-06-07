@@ -1,6 +1,5 @@
 module "group" {
-  source  = "c0x12c/google-workspace-group/gcp"
-  version = "~> 1.0.0"
+  source = "../terraform-gcp-google-workspace-group"
 
   for_each = var.groups
 

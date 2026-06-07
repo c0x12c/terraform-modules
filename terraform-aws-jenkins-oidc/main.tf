@@ -1,6 +1,5 @@
 module "provider" {
-  source  = "c0x12c/oidc-provider/aws"
-  version = "1.0.1"
+  source = "../terraform-aws-oidc-provider"
 
   url                    = var.url
   client_id_list         = var.client_id_list

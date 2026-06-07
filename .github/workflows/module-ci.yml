@@ -33,6 +33,28 @@ jobs:
             | sort -u \
             | while IFS= read -r m; do [ -d "$m" ] && printf '%s\n' "$m" || true; done > "$tmp_modules"
 
+          # Reverse-dependency closure: a sibling consumed via "../<module>"
+          # builds from HEAD, so a leaf change must also re-check every
+          # consuming parent (transitively), or interface breaks merge green.
+          while :; do
+            parents="$(mktemp)"
+            while IFS= read -r m; do
+              grep -rlE "source[[:space:]]*=[[:space:]]*\"\.\./${m}\"" --include='*.tf' . 2>/dev/null || true
+            done < "$tmp_modules" \
+              | sed 's|^\./||' \
+              | awk -F/ '/^terraform-/ {print $1}' \
+              | sort -u \
+              | while IFS= read -r p; do [ -d "$p" ] && printf '%s\n' "$p" || true; done > "$parents"
+            merged="$(mktemp)"
+            sort -u "$tmp_modules" "$parents" > "$merged"
+            rm -f "$parents"
+            if cmp -s "$merged" "$tmp_modules"; then
+              rm -f "$merged"
+              break
+            fi
+            mv "$merged" "$tmp_modules"
+          done
+
           python3 - "$tmp_modules" <<'PY' >> "$GITHUB_OUTPUT"
           import json
           import pathlib

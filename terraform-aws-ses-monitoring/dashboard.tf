@@ -1,6 +1,5 @@
 module "datadog_dashboard" {
-  source  = "c0x12c/dashboard/datadog"
-  version = "~> 1.0.0"
+  source = "../terraform-datadog-dashboard"
 
   count = var.enabled_datadog_dashboard == true ? 1 : 0
 
