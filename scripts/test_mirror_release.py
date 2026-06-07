@@ -95,12 +95,20 @@ class MirrorReleasePureTests(unittest.TestCase):
             )
 
     def test_rewrite_leftover_relative_source_fails(self):
+        # Parent-escaping non-sibling source: cannot resolve on the mirror.
         with self.assertRaisesRegex(Exception, "leftover-relative"):
             rewrite_tf_text(
-                'module "local" {\n  source = "./modules/local"\n}\n',
+                'module "shared" {\n  source = "../common/thing"\n}\n',
                 {},
                 "c0x12c",
             )
+
+    def test_rewrite_intra_module_local_source_allowed(self):
+        # "./<subdir>" stays inside the module folder and works on the mirror
+        # (e.g. terraform-aws-rds uses source = "./db_instance").
+        text = 'module "local" {\n  source = "./db_instance"\n}\n'
+        result = rewrite_tf_text(text, {}, "c0x12c")
+        self.assertEqual(result, text)
 
     def test_rewrite_examples_dir_returns_verbatim(self):
         # A relative source inside examples/ must NOT trigger leftover-relative or be rewritten.
@@ -127,10 +135,10 @@ class MirrorReleasePureTests(unittest.TestCase):
         self.assertFalse(_is_examples_path(""))
 
     def test_rewrite_relative_outside_examples_still_fails(self):
-        # A relative source at the top level (not under examples/test/tests) must still fail.
+        # A parent-escaping source at the top level (not under examples/test/tests) must still fail.
         with self.assertRaisesRegex(Exception, "leftover-relative"):
             rewrite_tf_text(
-                'module "local" {\n  source = "./modules/local"\n}\n',
+                'module "shared" {\n  source = "../common/thing"\n}\n',
                 {},
                 "c0x12c",
                 rel_path="main.tf",
@@ -337,7 +345,7 @@ class MirrorReleaseCliTests(unittest.TestCase):
         self.assertIn("manifest-missing:", result.stderr)
 
     def test_cli_leftover_relative_is_distinct(self):
-        relative_body = 'module "local" {\n  source = "./modules/local"\n}\n'
+        relative_body = 'module "shared" {\n  source = "../common/thing"\n}\n'
         self.write_fixture_module(module_body=relative_body)
         self.remote = self.init_remote()
         result = self.run_cli(self.remote)

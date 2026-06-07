@@ -81,7 +81,9 @@ jobs:
         env:
           # Fallback: if the App-token mint itself failed, the alarm must
           # still fire — github.token can create issues on this repo.
-          GH_TOKEN: ${{ steps.github-app-token.outputs.token || github.token }}
+          # github.token, not the App token: the issue lives on THIS repo and
+          # the workflow grants issues:write; the App has no Issues permission.
+          GH_TOKEN: ${{ github.token }}
           MODULE: ${{ inputs.module }}
           VERSION: ${{ inputs.version }}
           ISSUE_TITLE: "Mirror failure: ${{ inputs.module }} ${{ inputs.version }}"
