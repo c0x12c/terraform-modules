@@ -1,6 +1,6 @@
 # Decision: Collapse the module registry into a monorepo (hybrid, registry-preserving)
 
-Status: **Accepted** · Date: 2026-06-06 · Scope: `terraform-modules-registry`
+Status: **Accepted** · Date: 2026-06-06 · Scope: `terraform-modules` (renamed from `terraform-modules-registry` 2026-06-07)
 
 ## Problem
 
