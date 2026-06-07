@@ -21,7 +21,9 @@ DEFAULT_VALIDATE_CMD = (
 SIBLING_SOURCE_RE = re.compile(
     r'^(\s*source\s*=\s*")\.\./(terraform-[A-Za-z0-9_-]+)(".*?)(\r?\n?)$'
 )
-RELATIVE_SOURCE_RE = re.compile(r'^\s*source\s*=\s*"\.{1,2}/')
+# Only parent-escaping sources are forbidden on the mirror. "./<subdir>"
+# stays inside the module folder and resolves fine on the mirror repo.
+RELATIVE_SOURCE_RE = re.compile(r'^\s*source\s*=\s*"(\.\./|\./\.\./)')
 
 EXIT_MAPPING = 11
 EXIT_MANIFEST = 12
