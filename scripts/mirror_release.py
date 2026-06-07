@@ -390,7 +390,7 @@ def main(argv=None) -> int:
     manifest_path = (
         Path(args.manifest).resolve()
         if args.manifest
-        else monorepo_root / ".release-please-manifest.json"
+        else monorepo_root / ".module-versions.json"
     )
     module_dir = monorepo_root / module
     if not module_dir.is_dir():

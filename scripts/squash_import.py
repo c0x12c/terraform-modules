@@ -341,7 +341,7 @@ def parse_args(argv=None):
     )
     parser.add_argument(
         "--manifest",
-        default=".release-please-manifest.json",
+        default=".module-versions.json",
         help="Path to release manifest relative to repo root or absolute",
     )
     parser.add_argument("--dry-run", action="store_true", help="Print actions without mutating the repo")

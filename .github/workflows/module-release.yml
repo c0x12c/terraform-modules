@@ -2,8 +2,8 @@
 # registry-publish.yml mirror jobs.
 #
 # Each terraform-* folder is an independent component (see
-# release-please-config.json). Tags are <module>/vX.Y.Z; versions are tracked
-# in .release-please-manifest.json.
+# module-release-config.json). Tags are <module>/vX.Y.Z; versions are tracked
+# in .module-versions.json.
 #
 # NOTE: manual trigger only until the monorepo cutover (squash-import of module
 # folders) lands. The folders are still git submodules; running release-please
@@ -19,7 +19,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  release-please:
+  release:
     runs-on: ubuntu-latest
     if: github.repository_owner == 'c0x12c'
     outputs:
@@ -39,8 +39,8 @@ jobs:
         uses: googleapis/release-please-action@v5
         with:
           token: ${{ steps.github-app-token.outputs.token }}
-          config-file: release-please-config.json
-          manifest-file: .release-please-manifest.json
+          config-file: module-release-config.json
+          manifest-file: .module-versions.json
 
       - name: Collect release versions
         id: release-versions
@@ -62,14 +62,14 @@ jobs:
           PY
 
   mirror:
-    needs: release-please
-    if: needs.release-please.outputs.releases_created == 'true'
+    needs: release
+    if: needs.release.outputs.releases_created == 'true'
     strategy:
       fail-fast: false
       matrix:
-        module: ${{ fromJSON(needs.release-please.outputs.paths_released) }}
+        module: ${{ fromJSON(needs.release.outputs.paths_released) }}
     uses: ./.github/workflows/registry-publish.yml
     with:
       module: ${{ matrix.module }}
-      version: ${{ fromJSON(needs.release-please.outputs.release_versions)[matrix.module] }}
+      version: ${{ fromJSON(needs.release.outputs.release_versions)[matrix.module] }}
     secrets: inherit
