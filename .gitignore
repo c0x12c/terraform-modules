@@ -6,3 +6,6 @@ configs/state.json
 
 # Python
 __pycache__/
+
+# Agent workflow state (local only)
+.agent/
