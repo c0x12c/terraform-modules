@@ -48,7 +48,7 @@ jobs:
           owner: c0x12c
 
       - name: Checkout monorepo release ref
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ inputs.ref != '' && inputs.ref || format('{0}/{1}', inputs.module, inputs.version) }}
           token: ${{ steps.github-app-token.outputs.token }}
@@ -64,7 +64,7 @@ jobs:
           fi
 
       - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v3
+        uses: hashicorp/setup-terraform@v4
 
       - name: Mirror module release
         env:
