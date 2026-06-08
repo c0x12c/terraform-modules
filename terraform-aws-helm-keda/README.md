@@ -20,7 +20,8 @@ module "keda" {
 }
 
 module "keda-assume-role-policy" {
-  source = "github.com/spartan-stratos/terraform-modules//aws/eks-helm/keda/assume-role-policy?ref=v0.3.0"
+  source  = "c0x12c/helm-keda/aws//assume-role-policy"
+  version = "1.1.0"
 
   keda_operator_role_id = module.keda.keda_operator_role_id
   assume_role_arns = []

@@ -8,7 +8,8 @@ Terraform AWS Identity Store User sub-module which creates Identity Store User r
 
 ```hcl
 module "iam_sso_user" {
-  source  = "github.com/spartan-stratos/terraform-modules//aws/iam-sso/modules/user?ref=v0.1.0"
+  source  = "c0x12c/iam-sso/aws//modules/user"
+  version = "0.1.4"
 
   identity_store_id = "d-0123456789"
   email             = "sample.user@email.abc"

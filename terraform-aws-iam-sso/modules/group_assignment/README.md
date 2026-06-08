@@ -8,7 +8,8 @@ Terraform AWS SSO Admin Account Assignment sub-module to manage account assignme
 
 ```hcl
 module "iam_sso_group_assignment" {
-  source  = "github.com/spartan-stratos/terraform-modules//aws/iam-sso/modules/group_assignment?ref=v0.1.0"
+  source  = "c0x12c/iam-sso/aws//modules/group_assignment"
+  version = "0.1.4"
 
   aws_account_id = "0123456789"
   group_id       = "example-group-id-1234-5678-abcd-ef1234567890"

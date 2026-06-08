@@ -22,9 +22,6 @@
     "terraform-aws-cloudtrail": {
       "component": "terraform-aws-cloudtrail"
     },
-    "terraform-aws-cloudwatch": {
-      "component": "terraform-aws-cloudwatch"
-    },
     "terraform-aws-cloudwatch-alarm": {
       "component": "terraform-aws-cloudwatch-alarm"
     },
@@ -63,9 +60,6 @@
     },
     "terraform-aws-eks-fargate-profile": {
       "component": "terraform-aws-eks-fargate-profile"
-    },
-    "terraform-aws-eks-helm": {
-      "component": "terraform-aws-eks-helm"
     },
     "terraform-aws-eks-managed-node-group": {
       "component": "terraform-aws-eks-managed-node-group"
@@ -127,9 +121,6 @@
     "terraform-aws-iam-sso": {
       "component": "terraform-aws-iam-sso"
     },
-    "terraform-aws-identity-provider": {
-      "component": "terraform-aws-identity-provider"
-    },
     "terraform-aws-jenkins-oidc": {
       "component": "terraform-aws-jenkins-oidc"
     },
@@ -144,9 +135,6 @@
     },
     "terraform-aws-mwaa": {
       "component": "terraform-aws-mwaa"
-    },
-    "terraform-aws-oidc": {
-      "component": "terraform-aws-oidc"
     },
     "terraform-aws-oidc-provider": {
       "component": "terraform-aws-oidc-provider"

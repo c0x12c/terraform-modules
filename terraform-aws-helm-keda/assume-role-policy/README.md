@@ -8,7 +8,8 @@ This Terraform module is used to attach the assume role arns to kera-operator ro
 
 ```hcl
 module "keda" {
-  source = "github.com/spartan-stratos/terraform-modules//aws/eks-helm/keda/assume-role-policy?ref=v0.1.60"
+  source  = "c0x12c/helm-keda/aws//assume-role-policy"
+  version = "1.1.0"
 
   keda_operator_role_id = "keda-operator"
   assume_role_arns = [
