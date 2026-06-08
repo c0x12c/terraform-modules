@@ -1,6 +1,21 @@
 # Automated parent re-release cascade on leaf module releases
 
-Status: **Proposed** · Date: 2026-06-07 · Scope: `terraform-modules`
+Status: **Accepted** · Date: 2026-06-07 · Scope: `terraform-modules`
+
+## Decisions taken (2026-06-08)
+
+- **D1 — which releases cascade: all releases** (as-built). The cascade fires on
+  every leaf release. A `fix:`-only filter is deferred as a volume optimization
+  if changelog noise proves excessive — not needed for correctness.
+- **D2 — who merges cascade release PRs: humans.** The cascade only *creates*
+  `fix(deps)` commits + opens parent release PRs; a human merges each, so a
+  registry publish never happens unreviewed. No auto-merge wiring.
+- **Enablement is two repo variables, gated for safety:**
+  - `CASCADE_ENABLED=true` — arms the job in **dry-run** (prints planned bumps,
+    zero mutation). **Set 2026-06-08.**
+  - `CASCADE_EXECUTE=true` — promotes dry-run to real commits/pushes. Flip only
+    after observing one clean dry-run on a real release. **Not yet set.**
+  Revert either instantly by unsetting the variable.
 
 ## Problem
 
