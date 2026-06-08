@@ -8,7 +8,8 @@ Terraform AWS Identity Group sub-module to create and manage groups and users on
 
 ```hcl
 module "iam_sso_group" {
-  source  = "github.com/spartan-stratos/terraform-modules//aws/iam-sso/modules/group?ref=v0.1.0"
+  source  = "c0x12c/iam-sso/aws//modules/group"
+  version = "0.1.4"
 
   group_name = "Developers"
 

@@ -1,3 +1,0 @@
-locals {
-  port = 80
-}

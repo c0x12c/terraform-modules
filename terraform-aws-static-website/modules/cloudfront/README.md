@@ -8,7 +8,8 @@ Terraform sub-module which creates Cloudfront resources on AWS.
 
 ```hcl
 module "cloudfront" {
-  source = "github.com/spartan-stratos/terraform-modules//aws/static-website/aws//modules/cloudfront"
+  source  = "c0x12c/static-website/aws//modules/cloudfront"
+  version = "1.0.0"
 
   dns_name           = var.dns_name
   route53_zone_id     = var.route53_zone_id
