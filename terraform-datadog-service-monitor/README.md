@@ -32,6 +32,32 @@ module "service_monitor" {
 }
 ```
 
+### Override default monitor thresholds
+
+Override only the fields you want to change; everything else (title,
+`query_template`, etc.) keeps the module defaults. Partial overrides are
+supported:
+
+```hcl
+module "service_monitor" {
+  source = "c0x12c/service-monitor/datadog"
+
+  cluster_name                      = "proj-service-dev"
+  service_name                      = "service-platform"
+  environment                       = "dev"
+  notification_slack_channel_prefix = "proj-service-x-"
+
+  service_monitor_enabled = true
+
+  override_default_monitors = {
+    p95 = {
+      threshold_critical          = 2 # alert when P95 latency > 2s
+      threshold_critical_recovery = 1.8
+    }
+  }
+}
+```
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
