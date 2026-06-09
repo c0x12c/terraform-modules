@@ -139,12 +139,20 @@ def rewrite_tf_text(text: str, manifest: dict, org: str, rel_path: str = "") -> 
                 newline = "\n"
             indent_match = re.match(r"^(\s*)", line)
             indent = indent_match.group(1) if indent_match else ""
-            rewritten_line = (
-                '%ssource = "%s"%s'
-                % (indent, sibling_mapping.registry_source, newline)
-            )
-            version_line = '%sversion = "%s"%s' % (
+            # `terraform fmt` aligns the "=" of the consecutive source/version
+            # assignments to the longest key ("version"), so emit them
+            # pre-aligned. Otherwise `terraform fmt -check` rejects the mirror
+            # (exit 3) during validation.
+            key_width = len("version")
+            rewritten_line = '%s%s = "%s"%s' % (
                 indent,
+                "source".ljust(key_width),
+                sibling_mapping.registry_source,
+                newline,
+            )
+            version_line = '%s%s = "%s"%s' % (
+                indent,
+                "version".ljust(key_width),
                 normalize_version(str(sibling_version)),
                 newline,
             )

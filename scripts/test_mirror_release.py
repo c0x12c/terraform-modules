@@ -82,10 +82,42 @@ class MirrorReleasePureTests(unittest.TestCase):
         )
         manifest = {"terraform-aws-network": "2.3.4"}
         rewritten = rewrite_tf_text(original, manifest, "c0x12c")
-        self.assertIn('  source = "c0x12c/network/aws"\n', rewritten)
+        self.assertIn('  source  = "c0x12c/network/aws"\n', rewritten)
         self.assertIn('  version = "2.3.4"\n', rewritten)
         self.assertIn('  source = "c0x12c/rds/aws"\n', rewritten)
         self.assertIn('  note = "keep me"\n', rewritten)
+
+    def test_rewrite_output_passes_terraform_fmt(self):
+        # Regression: the source -> source+version rewrite must emit "="-aligned
+        # lines, otherwise `terraform fmt -check` (part of the default validate
+        # command) rejects the mirror with exit 3. See mirror_release exit 15.
+        import shutil
+
+        terraform = shutil.which("terraform")
+        if not terraform:
+            self.skipTest("terraform binary not available")
+        original = (
+            'module "sibling" {\n'
+            '  source = "../terraform-aws-network"\n'
+            '\n'
+            '  environment = "prod"\n'
+            '}\n'
+        )
+        manifest = {"terraform-aws-network": "2.3.4"}
+        rewritten = rewrite_tf_text(original, manifest, "c0x12c")
+        with tempfile.TemporaryDirectory() as tmp:
+            tf_file = Path(tmp) / "main.tf"
+            tf_file.write_text(rewritten, encoding="utf-8")
+            result = subprocess.run(
+                [terraform, "fmt", "-check", str(tf_file)],
+                capture_output=True,
+                text=True,
+            )
+        self.assertEqual(
+            result.returncode,
+            0,
+            "terraform fmt -check rejected rewritten output:\n%s" % rewritten,
+        )
 
     def test_rewrite_missing_sibling_from_manifest_fails(self):
         with self.assertRaisesRegex(Exception, "manifest-missing"):
@@ -264,7 +296,7 @@ class MirrorReleaseCliTests(unittest.TestCase):
             "chore: mirror terraform-aws-rds v1.2.0 from monorepo",
         )
         self.assertEqual(tag_message, self.version)
-        self.assertIn('source = "c0x12c/network/aws"', rewritten)
+        self.assertIn('source  = "c0x12c/network/aws"', rewritten)
         self.assertIn('version = "9.8.7"', rewritten)
         self.assertIn('source = "c0x12c/external/aws"', rewritten)
         readme = (checkout / "README.md").read_text(encoding="utf-8")
