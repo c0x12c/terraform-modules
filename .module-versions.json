@@ -79,7 +79,7 @@
   "terraform-datadog-mono-monitor": "1.1.0",
   "terraform-datadog-notification-rules": "1.0.0",
   "terraform-datadog-oncall": "1.0.1",
-  "terraform-datadog-service-monitor": "1.0.1",
+  "terraform-datadog-service-monitor": "1.0.2",
   "terraform-datadog-team": "1.0.0",
   "terraform-gcp-artifact-registry": "0.1.4",
   "terraform-gcp-cloud-dns": "0.1.4",

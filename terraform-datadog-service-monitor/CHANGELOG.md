@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.2](https://github.com/c0x12c/terraform-modules/compare/terraform-datadog-service-monitor/v1.0.1...terraform-datadog-service-monitor/v1.0.2) (2026-06-09)
+
+
+### Bug Fixes
+
+* partial override_default_monitors in service-monitor ([#147](https://github.com/c0x12c/terraform-modules/issues/147)) ([312a905](https://github.com/c0x12c/terraform-modules/commit/312a905f99d239c0ec0924059afc9533efb6159e))
+
 ## [1.1.1]() (2026-06-09)
 
 ### Bug Fixes
