@@ -2,11 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.1.1]() (2026-06-09)
+## [1.1.1](https://github.com/c0x12c/terraform-modules/compare/terraform-datadog-service-monitor/v1.1.0...terraform-datadog-service-monitor/v1.1.1) (2026-06-09)
+
 
 ### Bug Fixes
 
-* Fix `override_default_monitors` so partial overrides work. Every attribute is `optional()` with no default, so omitted attributes resolved to `null` and the `merge(config, override)` in `service_monitor.tf` / `resource_monitor.tf` clobbered each default monitor's `title`, `query_template`, etc. Null-valued override attributes are now stripped before merging, so callers can override only the fields they need (for example, just `threshold_critical` and `threshold_critical_recovery` on `p95`) while keeping the rest of the module defaults.
+* Fix `override_default_monitors` so partial overrides work. Every attribute is `optional()` with no default, so omitted attributes resolved to `null` and the `merge(config, override)` in `service_monitor.tf` / `resource_monitor.tf` clobbered each default monitor's `title`, `query_template`, etc. Null-valued override attributes are now stripped before merging, so callers can override only the fields they need (for example, just `threshold_critical` and `threshold_critical_recovery` on `p95`) while keeping the rest of the module defaults. ([#147](https://github.com/c0x12c/terraform-modules/issues/147)) ([312a905](https://github.com/c0x12c/terraform-modules/commit/312a905f99d239c0ec0924059afc9533efb6159e))
 
 ## [1.1.0]() (2025-08-11)
 
