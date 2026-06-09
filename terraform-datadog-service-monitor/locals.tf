@@ -1,4 +1,13 @@
 locals {
+  # Strip null-valued attributes from each override so a PARTIAL override (e.g.
+  # only `threshold_critical`) merges cleanly over the default monitor config
+  # instead of clobbering its `title` / `query_template` / etc. with nulls.
+  # Consumed by the merges in service_monitor.tf and resource_monitor.tf.
+  override_default_monitors_clean = {
+    for name, override in var.override_default_monitors :
+    name => { for key, value in override : key => value if value != null }
+  }
+
   # Resource monitor
   default_pod_monitors = merge({
     restart = local.restart
