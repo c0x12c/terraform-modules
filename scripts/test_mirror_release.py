@@ -1,16 +1,21 @@
 import json
+import io
 import os
 import subprocess
 import sys
+import tarfile
 import tempfile
 import textwrap
 import unittest
+from types import SimpleNamespace
+from unittest import mock
 from pathlib import Path
 
 # Ensure the scripts/ directory is on sys.path so `mirror_release` can be imported
 # whether this module is loaded as `scripts.test_mirror_release` or run directly.
 sys.path.insert(0, str(Path(__file__).parent))
 
+import mirror_release
 from mirror_release import (
     EXIT_IDENTITY,
     EXIT_LEFTOVER_RELATIVE,
@@ -21,6 +26,7 @@ from mirror_release import (
     README_BANNER_FIRST_LINE,
     module_to_registry,
     rewrite_tf_text,
+    upload_to_r2,
     _is_examples_path,
 )
 
@@ -405,6 +411,223 @@ class MirrorReleaseCliTests(unittest.TestCase):
         result = self.run_cli(self.remote)
         self.assertEqual(result.returncode, EXIT_MAPPING)
         self.assertIn("mapping:", result.stderr)
+
+
+class _FakeNoSuchKey(Exception):
+    pass
+
+
+class _FakeS3Client:
+    def __init__(self, initial_objects=None):
+        self.objects = dict(initial_objects or {})
+        self.put_calls = []
+        self.get_calls = []
+        self.exceptions = SimpleNamespace(NoSuchKey=_FakeNoSuchKey)
+
+    def put_object(self, Bucket, Key, Body, ContentType):
+        if hasattr(Body, "read"):
+            Body = Body.read()
+        if isinstance(Body, str):
+            Body = Body.encode("utf-8")
+        self.put_calls.append(
+            {
+                "Bucket": Bucket,
+                "Key": Key,
+                "Body": Body,
+                "ContentType": ContentType,
+            }
+        )
+        self.objects[Key] = Body
+
+    def get_object(self, Bucket, Key):
+        self.get_calls.append({"Bucket": Bucket, "Key": Key})
+        if Key not in self.objects:
+            raise self.exceptions.NoSuchKey()
+        return {"Body": io.BytesIO(self.objects[Key])}
+
+
+class _FakeBoto3Module:
+    def __init__(self, client):
+        self._client = client
+        self.calls = []
+
+    def client(self, service_name, endpoint_url=None):
+        self.calls.append((service_name, endpoint_url))
+        return self._client
+
+
+class MirrorReleaseR2Tests(unittest.TestCase):
+    def test_main_noops_when_r2_bucket_absent(self):
+        with tempfile.TemporaryDirectory(prefix="mirror-r2-main-") as temp_dir:
+            root = Path(temp_dir)
+            module_dir = (root / "terraform-aws-rds").resolve()
+            module_dir.mkdir()
+            manifest_path = root / ".module-versions.json"
+            manifest_path.write_text(
+                json.dumps(
+                    {
+                        "terraform-aws-rds": "1.2.0",
+                        "terraform-aws-network": "9.8.7",
+                    }
+                ),
+                encoding="utf-8",
+            )
+            remote = "https://example.invalid/c0x12c/terraform-aws-rds.git"
+            clone_dir = root / "mirror"
+            clone_dir.mkdir()
+            upload_calls = []
+
+            def fake_upload(*args):
+                upload_calls.append(args)
+
+            with mock.patch.object(mirror_release, "clone_mirror") as clone_mirror, mock.patch.object(
+                mirror_release, "assert_mirror_identity"
+            ) as assert_identity, mock.patch.object(
+                mirror_release, "copy_module_contents"
+            ) as copy_contents, mock.patch.object(
+                mirror_release, "rewrite_worktree_tf_files"
+            ) as rewrite_tf_files, mock.patch.object(
+                mirror_release, "apply_readme_banner"
+            ) as apply_readme_banner, mock.patch.object(
+                mirror_release, "run_validation"
+            ) as run_validation, mock.patch.object(
+                mirror_release, "remove_generated_terraform_artifacts"
+            ) as remove_artifacts, mock.patch.object(
+                mirror_release, "git_ref_exists", return_value=False
+            ) as git_ref_exists, mock.patch.object(
+                mirror_release, "commit_changes", return_value=True
+            ) as commit_changes, mock.patch.object(
+                mirror_release, "push_master"
+            ) as push_master, mock.patch.object(
+                mirror_release, "ensure_tag"
+            ) as ensure_tag, mock.patch.object(
+                mirror_release.tempfile, "TemporaryDirectory"
+            ) as tempdir, mock.patch.object(
+                mirror_release, "upload_to_r2", side_effect=fake_upload
+            ) as upload_to_r2_mock:
+                tempdir.return_value.__enter__.return_value = temp_dir
+                tempdir.return_value.__exit__.return_value = False
+                result = mirror_release.main(
+                    [
+                        "--module",
+                        "terraform-aws-rds",
+                        "--version",
+                        "v1.2.0",
+                        "--mirror-remote",
+                        remote,
+                        "--monorepo-root",
+                        str(root),
+                        "--manifest",
+                        str(manifest_path),
+                        "--validate-cmd",
+                        "true",
+                        "--org",
+                        "c0x12c",
+                    ]
+                )
+
+        self.assertEqual(result, 0)
+        clone_mirror.assert_called_once_with(remote, clone_dir)
+        assert_identity.assert_called_once_with(clone_dir, "terraform-aws-rds")
+        copy_contents.assert_called_once_with(module_dir, clone_dir)
+        rewrite_tf_files.assert_called_once()
+        apply_readme_banner.assert_called_once_with(clone_dir, "terraform-aws-rds")
+        run_validation.assert_called_once_with(clone_dir, "true")
+        remove_artifacts.assert_called_once_with(clone_dir)
+        git_ref_exists.assert_called_once_with(clone_dir, "refs/tags/v1.2.0")
+        commit_changes.assert_called_once_with(clone_dir, "terraform-aws-rds", "v1.2.0")
+        push_master.assert_called_once_with(clone_dir)
+        ensure_tag.assert_called_once_with(clone_dir, "v1.2.0")
+        upload_to_r2_mock.assert_not_called()
+        self.assertEqual(upload_calls, [])
+
+    def test_upload_to_r2_tarball_shape(self):
+        with tempfile.TemporaryDirectory(prefix="mirror-r2-tar-") as temp_dir:
+            clone_dir = Path(temp_dir)
+            (clone_dir / "main.tf").write_text(
+                'module "network" {\n  source = "c0x12c/network/aws"\n}\n',
+                encoding="utf-8",
+            )
+            (clone_dir / "versions.tf").write_text('terraform {}\n', encoding="utf-8")
+            git_dir = clone_dir / ".git"
+            git_dir.mkdir()
+            (git_dir / "config").write_text("[core]\n", encoding="utf-8")
+            fake_client = _FakeS3Client()
+            fake_boto3 = _FakeBoto3Module(fake_client)
+
+            with mock.patch.dict(sys.modules, {"boto3": fake_boto3}), mock.patch.dict(
+                os.environ, {"R2_ENDPOINT": "https://r2.example.invalid"}, clear=False
+            ):
+                upload_to_r2(
+                    clone_dir,
+                    "terraform-aws-rds",
+                    "v1.2.0",
+                    "mirror-bucket",
+                    "c0x12c",
+                )
+
+        self.assertEqual(fake_boto3.calls, [("s3", "https://r2.example.invalid")])
+        tarball = fake_client.objects["modules/c0x12c/rds/aws/1.2.0.tar.gz"]
+        with tarfile.open(fileobj=io.BytesIO(tarball), mode="r:gz") as archive:
+            names = archive.getnames()
+            self.assertIn("main.tf", names)
+            self.assertIn("versions.tf", names)
+            self.assertFalse(any(name.startswith(".git") for name in names))
+            main_tf = archive.extractfile("main.tf").read().decode("utf-8")
+        self.assertNotIn("../", main_tf)
+
+    def test_upload_to_r2_index_json_merge_and_dedupe(self):
+        fake_client = _FakeS3Client(
+            {
+                "index.json": (
+                    json.dumps({"c0x12c/foo/aws": ["0.1.0"]}, indent=2) + "\n"
+                ).encode("utf-8")
+            }
+        )
+        fake_boto3 = _FakeBoto3Module(fake_client)
+        with tempfile.TemporaryDirectory(prefix="mirror-r2-index-") as temp_dir:
+            clone_dir = Path(temp_dir)
+            (clone_dir / "main.tf").write_text("terraform {}\n", encoding="utf-8")
+            with mock.patch.dict(sys.modules, {"boto3": fake_boto3}), mock.patch.dict(
+                os.environ, {"R2_ENDPOINT": "https://r2.example.invalid"}, clear=False
+            ):
+                upload_to_r2(
+                    clone_dir,
+                    "terraform-aws-foo",
+                    "v0.2.0",
+                    "mirror-bucket",
+                    "c0x12c",
+                )
+                upload_to_r2(
+                    clone_dir,
+                    "terraform-aws-foo",
+                    "v0.2.0",
+                    "mirror-bucket",
+                    "c0x12c",
+                )
+
+        index = json.loads(fake_client.objects["index.json"].decode("utf-8"))
+        self.assertEqual(index["c0x12c/foo/aws"], ["0.1.0", "0.2.0"])
+
+    def test_upload_to_r2_uses_registry_key_layout(self):
+        fake_client = _FakeS3Client()
+        fake_boto3 = _FakeBoto3Module(fake_client)
+        with tempfile.TemporaryDirectory(prefix="mirror-r2-key-") as temp_dir:
+            clone_dir = Path(temp_dir)
+            (clone_dir / "main.tf").write_text("terraform {}\n", encoding="utf-8")
+            with mock.patch.dict(sys.modules, {"boto3": fake_boto3}), mock.patch.dict(
+                os.environ, {"R2_ENDPOINT": "https://r2.example.invalid"}, clear=False
+            ):
+                upload_to_r2(
+                    clone_dir,
+                    "terraform-aws-msk-kafka-cluster",
+                    "v0.6.6",
+                    "mirror-bucket",
+                    "c0x12c",
+                )
+
+        tar_keys = [call["Key"] for call in fake_client.put_calls if call["Key"].endswith(".tar.gz")]
+        self.assertEqual(tar_keys, ["modules/c0x12c/msk-kafka-cluster/aws/0.6.6.tar.gz"])
 
 
 if __name__ == "__main__":

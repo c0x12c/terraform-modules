@@ -18,3 +18,13 @@ updates:
       pip:
         patterns:
           - "*"
+
+  # R2 dual-publish deps (boto3) for the self-hosted registry
+  - package-ecosystem: pip
+    directory: /tools/registry
+    schedule:
+      interval: monthly
+    groups:
+      pip:
+        patterns:
+          - "*"
