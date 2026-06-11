@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 
 import argparse
+import io
 import json
 import os
 import re
 import shutil
 import subprocess
 import sys
+import tarfile
 import tempfile
 from dataclasses import dataclass
 from pathlib import Path
@@ -315,6 +317,48 @@ def remove_generated_terraform_artifacts(root: Path) -> None:
             shutil.rmtree(terraform_dir)
 
 
+def upload_to_r2(clone_dir: Path, module: str, version: str, bucket: str, org: str) -> None:
+    import boto3
+
+    client = boto3.client("s3", endpoint_url=os.environ["R2_ENDPOINT"])
+    ver = version.lstrip("v")
+    key = module_to_registry(module, org).registry_source
+
+    tar_buffer = io.BytesIO()
+    with tarfile.open(fileobj=tar_buffer, mode="w:gz") as archive:
+        for path in sorted(clone_dir.rglob("*")):
+            rel_path = path.relative_to(clone_dir)
+            if rel_path.parts and rel_path.parts[0] == ".git":
+                continue
+            archive.add(path, arcname=rel_path.as_posix(), recursive=False)
+    client.put_object(
+        Bucket=bucket,
+        Key="modules/%s/%s.tar.gz" % (key, ver),
+        Body=tar_buffer.getvalue(),
+        ContentType="application/gzip",
+    )
+
+    try:
+        body = client.get_object(Bucket=bucket, Key="index.json")["Body"].read()
+        index = json.loads(body.decode("utf-8"))
+    except client.exceptions.NoSuchKey:
+        index = {}
+
+    versions = set(index.get(key, []))
+    versions.add(ver)
+    index[key] = sorted(
+        versions,
+        key=lambda value: tuple(int(part) for part in value.split(".")),
+    )
+    client.put_object(
+        Bucket=bucket,
+        Key="index.json",
+        Body=(json.dumps(index, indent=2) + "\n").encode("utf-8"),
+        ContentType="application/json",
+    )
+    print("r2-published %s %s -> %s" % (module, ver, key))
+
+
 def snapshot_worktree(root: Path) -> dict:
     snapshot = {}
     excluded = {".git", ".terraform", ".terraform.lock.hcl"}
@@ -408,6 +452,7 @@ def parse_args(argv):
     parser.add_argument("--manifest")
     parser.add_argument("--validate-cmd", default=DEFAULT_VALIDATE_CMD)
     parser.add_argument("--org", default="c0x12c")
+    parser.add_argument("--r2-bucket")
     return parser.parse_args(argv)
 
 
@@ -436,6 +481,8 @@ def main(argv=None) -> int:
         apply_readme_banner(clone_dir, module)
         run_validation(clone_dir, args.validate_cmd)
         remove_generated_terraform_artifacts(clone_dir)
+        if args.r2_bucket:
+            upload_to_r2(clone_dir, module, args.version, args.r2_bucket, args.org)
 
         tag_ref = "refs/tags/%s" % args.version
         if git_ref_exists(clone_dir, tag_ref):

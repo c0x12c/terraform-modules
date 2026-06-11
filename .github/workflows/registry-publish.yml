@@ -66,15 +66,39 @@ jobs:
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v4
 
+      # R2 dual-publish dependency — installed ONLY when the flag is on, so the
+      # default (flag-off) release path keeps zero added overhead.
+      - name: Set up Python for R2 publish
+        if: vars.R2_PUBLISH_ENABLED == 'true'
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.x"
+
+      - name: Install R2 publish deps
+        if: vars.R2_PUBLISH_ENABLED == 'true'
+        run: pip install -r tools/registry/requirements.txt
+
       - name: Mirror module release
         env:
           GITHUB_TOKEN: ${{ steps.github-app-token.outputs.token }}
           MODULE: ${{ inputs.module }}
           VERSION: ${{ inputs.version }}
+          # Dual-publish to the self-hosted R2 registry in the SAME pass as the
+          # mirror push (one clone+rewrite). Inert unless vars.R2_PUBLISH_ENABLED
+          # == 'true': R2_BUCKET_ARG is empty, so mirror_release.py never touches
+          # R2 and never imports boto3. R2_* secrets are consumed only when set.
+          R2_BUCKET_ARG: ${{ vars.R2_PUBLISH_ENABLED == 'true' && format('--r2-bucket {0}', vars.R2_BUCKET) || '' }}
+          R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
         run: |
+          # shellcheck disable=SC2086  # R2_BUCKET_ARG must word-split into
+          # "--r2-bucket <name>" or expand to nothing when the flag is off;
+          # quoting would pass an empty-string arg that argparse rejects.
           python3 scripts/mirror_release.py \
             --module "$MODULE" \
-            --version "$VERSION"
+            --version "$VERSION" \
+            $R2_BUCKET_ARG
 
       - name: Open or update mirror failure issue
         if: failure()
