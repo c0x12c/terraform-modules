@@ -66,7 +66,13 @@ def main() -> int:
 
     modules = args.modules or list_module_dirs()
     s3 = boto3.client("s3", endpoint_url=os.environ["R2_ENDPOINT"])
-    index = {}
+
+    # Merge into the existing index, never overwrite: a partial run
+    # (--modules <subset>) must not drop other modules' entries.
+    try:
+        index = json.loads(s3.get_object(Bucket=args.bucket, Key="index.json")["Body"].read())
+    except s3.exceptions.NoSuchKey:
+        index = {}
 
     for module in modules:
         repo_url = "https://github.com/%s/%s.git" % (args.org, module)
@@ -88,7 +94,8 @@ def main() -> int:
                               Key="modules/%s/%s.tar.gz" % (key, ver),
                               Body=archive_tag(tmp, tag),
                               ContentType="application/gzip")
-            index[key] = [t.lstrip("v") for t in tags]
+            merged = set(index.get(key, [])) | {t.lstrip("v") for t in tags}
+            index[key] = sorted(merged, key=lambda v: tuple(int(x) for x in v.split(".")))
         print("backfilled %-44s %d versions" % (module, len(tags)))
 
     s3.put_object(Bucket=args.bucket, Key="index.json",
