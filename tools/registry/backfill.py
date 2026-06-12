@@ -30,9 +30,9 @@ NAMESPACE = "c0x12c"
 SEMVER_TAG = re.compile(r"^v?(\d+)\.(\d+)\.(\d+)$")
 
 
-def registry_key(module: str) -> str:
+def registry_key(module: str, namespace: str = NAMESPACE) -> str:
     p = module.split("-")
-    return "%s/%s/%s" % (NAMESPACE, "-".join(p[2:]), p[1])
+    return "%s/%s/%s" % (namespace, "-".join(p[2:]), p[1])
 
 
 def list_module_dirs() -> list:
@@ -85,7 +85,7 @@ def main() -> int:
             print("skip %s (no semver tags)" % module, file=sys.stderr)
             continue
 
-        key = registry_key(module)
+        key = registry_key(module, args.org)
         with tempfile.TemporaryDirectory() as tmp:
             subprocess.run(["git", "clone", "--bare", "--quiet", repo_url, tmp], check=True)
             for tag in tags:
