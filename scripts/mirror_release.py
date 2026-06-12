@@ -453,6 +453,12 @@ def parse_args(argv):
     parser.add_argument("--validate-cmd", default=DEFAULT_VALIDATE_CMD)
     parser.add_argument("--org", default="c0x12c")
     parser.add_argument("--r2-bucket")
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="clone, rewrite, and validate the module but make no changes: "
+        "skip the R2 upload, the commit, the push, and the tag.",
+    )
     return parser.parse_args(argv)
 
 
@@ -481,7 +487,7 @@ def main(argv=None) -> int:
         apply_readme_banner(clone_dir, module)
         run_validation(clone_dir, args.validate_cmd)
         remove_generated_terraform_artifacts(clone_dir)
-        if args.r2_bucket:
+        if args.r2_bucket and not args.dry_run:
             upload_to_r2(clone_dir, module, args.version, args.r2_bucket, args.org)
 
         tag_ref = "refs/tags/%s" % args.version
@@ -494,6 +500,14 @@ def main(argv=None) -> int:
             raise TagConflictError(
                 "tag-conflict: tag %s exists with different content" % args.version
             )
+
+        # Read-only checks above (validation, tag-conflict) have run; a dry-run
+        # stops before any mutation so a release can be verified without
+        # touching the mirror or R2.
+        if args.dry_run:
+            print("dry-run: validated %s %s (no commit/push/tag/R2)"
+                  % (module, args.version))
+            return 0
 
         commit_changes(clone_dir, module, args.version)
         push_master(clone_dir)

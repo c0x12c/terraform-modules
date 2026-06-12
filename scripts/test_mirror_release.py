@@ -288,6 +288,20 @@ class MirrorReleaseCliTests(unittest.TestCase):
         self.assertEqual(before_head, after_head)
         self.assertNotIn(self.version, tags)
 
+    def test_dry_run_validates_without_push_commit_or_tag(self):
+        self.write_fixture_module()
+        self.remote = self.init_remote()
+        before_head = git(
+            self.root, "ls-remote", str(self.remote), "refs/heads/master").stdout
+        result = self.run_cli(self.remote, extra_args=["--dry-run"])
+        after_head = git(
+            self.root, "ls-remote", str(self.remote), "refs/heads/master").stdout
+        tags = git(self.root, "ls-remote", "--tags", str(self.remote)).stdout
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("dry-run", result.stdout)
+        self.assertEqual(before_head, after_head)
+        self.assertNotIn(self.version, tags)
+
     def test_full_happy_path_commits_and_tags_expected_tree(self):
         self.write_fixture_module()
         self.remote = self.init_remote()
