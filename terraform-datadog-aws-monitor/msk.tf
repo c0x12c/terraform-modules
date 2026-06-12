@@ -99,13 +99,15 @@ locals {
       title_tags     = "[Active Controller] [MSK]"
       title          = "MSK Active Controller Count is abnormal."
 
-      query_template = "avg($${timeframe}):avg:aws.kafka.active_controller_count{aws_account:${var.aws_account_id}} by {cluster_name} < $${threshold_critical}"
+      # active_controller_count is per-broker; averaging across brokers yields ~1/N
+      # so `avg < 1` always fires. Use the per-broker .maximum (1.0 when healthy).
+      query_template = "avg($${timeframe}):avg:aws.kafka.active_controller_count.maximum{aws_account:${var.aws_account_id}} by {cluster_name} < $${threshold_critical}"
       query_args = {
         timeframe = "last_5m"
       }
 
-      threshold_critical          = 1
-      threshold_critical_recovery = 2
+      threshold_critical          = 0.9
+      threshold_critical_recovery = 0.95
       renotify_interval           = 10
       renotify_occurrences        = 5
     }
