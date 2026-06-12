@@ -87,8 +87,9 @@ from the `/versions` list the Worker returns.
 - **New critical dependency** (init fails if the registry is down): Cloudflare
   edge + R2 are highly available and the Worker is stateless; **keep the mirrors
   as hot fallback through Phase 3** — don't retire until traffic has moved.
-- **Tarball format**: `git archive`/`publish_registry.py` pack files at archive
-  root, so `X-Terraform-Get` needs no `//subdir`. Validated in Phase 0.
+- **Tarball format**: `git archive` (`backfill.py`) / `mirror_release.py` pack
+  files at archive root, so `X-Terraform-Get` needs no `//subdir`. Validated in
+  Phase 0.
 - **No module signing** in the protocol (unlike providers) — nothing to manage.
 - **index.json caching**: immutable tarballs cache freely; purge/short-TTL
   `index.json` on publish so new versions appear immediately.
@@ -104,8 +105,8 @@ domain**.
 
 ## Implementation
 
-`tools/registry/` — `worker.js`, `publish_registry.py`, `backfill.py`,
-`wrangler.toml`, `README.md`. The release pipeline dual-publishes to R2 in the
+`tools/registry/` — `worker.js`, `backfill.py`, `wrangler.toml`, `README.md`.
+The release pipeline dual-publishes to R2 in the
 same pass as the mirror push: `scripts/mirror_release.py` packs the
 already-rewritten, validated module tree (no relative `../` sources) and uploads
 it when invoked with `--r2-bucket`. The `registry-publish.yml` workflow adds that

@@ -1,16 +1,18 @@
-# Self-hosted public registry — prototype
+# Self-hosted public registry
 
 A minimal, **fully anonymous** Terraform module registry (`modules.v1`) that
 replaces the 115 per-module mirror repos with one Cloudflare Worker + one R2
 bucket. The source monorepo stays **private**; only built module tarballs are
 public.
 
-> Prototype / not wired into the live pipeline. Evaluate, then decide.
+> Live at **`terraform.c0x12c.com`**. Dual-published beside the mirror repos
+> (flag `R2_PUBLISH_ENABLED`); the mirrors remain the rollback path until
+> consumers cut over.
 
 ## Pieces
 - `worker.js` — the registry. 3 protocol endpoints + a tarball route. ~60 lines.
-- `publish_registry.py` — release-pipeline step: packs a module → tarball, uploads
-  to R2, updates `index.json`.
+- `backfill.py` — one-shot: `git archive` every mirror tag → R2 + `index.json`
+  (seeds historical versions so the registry is a superset before cutover).
 - `wrangler.toml` — Worker + R2 binding + custom-domain note.
 
 ## How consumption works (anonymous)
@@ -29,10 +31,11 @@ No tokens, no `.terraformrc` — same UX as registry.terraform.io.
 2. Set a custom domain on the Worker (`terraform.c0x12c.com`), TLS is automatic.
 3. `wrangler deploy`
 
-## Publish (per release — prototype wiring)
-In the release pipeline, after a module releases, run `publish_registry.py`
-with R2 S3-API creds for each released module + version. (Mirror the inputs the
-existing `cascade` job already receives: `paths_released` + `release_versions`.)
+## Publish (per release)
+`registry-publish.yml` runs `scripts/mirror_release.py` for each released module.
+When `R2_PUBLISH_ENABLED == 'true'` it passes `--r2-bucket`, so the same
+clone+rewrite that builds the mirror tarball also uploads it to R2 and updates
+`index.json` — one rewrite, no drift, tarball identical to the mirror.
 
 ## Cost
 - Worker: free tier 100k req/day. R2: 10 GB + Class-A/B ops free tier; **zero egress**.

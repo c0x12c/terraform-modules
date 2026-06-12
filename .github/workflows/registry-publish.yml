@@ -53,16 +53,6 @@ jobs:
           ref: ${{ inputs.ref != '' && inputs.ref || format('{0}/{1}', inputs.module, inputs.version) }}
           token: ${{ steps.github-app-token.outputs.token }}
 
-      - name: Initialize module submodule when needed
-        env:
-          MODULE: ${{ inputs.module }}
-        shell: bash
-        run: |
-          mode="$(git ls-tree HEAD "$MODULE" | awk '{print $2}')"
-          if [ "$mode" = "commit" ]; then
-            git submodule update --init "$MODULE"
-          fi
-
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v4
 

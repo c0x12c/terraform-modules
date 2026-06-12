@@ -155,7 +155,8 @@ remain available to consumers; the mirror repo can be archived.
 ```
 terraform-<provider>-<name>/   one folder per module (the only place you edit)
 docs/decisions/                architecture decision records
-scripts/                       release tooling (mirror_release.py, squash_import.py)
+scripts/                       release tooling (mirror_release.py, cascade_release.py)
+tools/registry/                self-hosted registry (Cloudflare Worker + R2)
 .github/workflows/
   module-ci.yml                PR checks, changed modules only
   module-release.yml           release automation versioning + mirror fan-out
@@ -164,6 +165,9 @@ scripts/                       release tooling (mirror_release.py, squash_import
 ```
 
 > **Cutover status:** the monorepo is the source of truth for module code.
-> `module-release.yml` is still manually triggered (`workflow_dispatch`) until
-> the mirror-freeze step of the migration completes; until then, do not push
-> changes directly to the per-module mirror repos — they will be overwritten.
+> Releases dual-publish to the public mirror repos (`registry.terraform.io`) and
+> the self-hosted registry at **`terraform.c0x12c.com`** (Cloudflare Worker + R2,
+> live — see `tools/registry/`). Both serve in parallel; consumers flip the host
+> prefix on their own schedule. The mirrors remain the rollback path and are not
+> retired until consumers have cut over. Do not push directly to the per-module
+> mirror repos — they are overwritten on every release.
