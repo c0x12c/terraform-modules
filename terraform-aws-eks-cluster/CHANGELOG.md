@@ -2,13 +2,6 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.0.3](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-eks-cluster/v1.0.2...terraform-aws-eks-cluster/v1.0.3) (2026-06-12)
-
-
-### Bug Fixes
-
-* **eks-cluster:** default node_group_version to null so it tracks cluster_version ([#156](https://github.com/c0x12c/terraform-modules/issues/156)) ([6622528](https://github.com/c0x12c/terraform-modules/commit/6622528bada9adacbd4edb087731562036151579))
-
 ## [1.0.3]() (2026-06-12)
 
 ### Fixes
