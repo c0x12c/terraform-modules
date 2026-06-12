@@ -36,7 +36,7 @@ jobs:
           app-id: ${{ vars.GH_APP_ID }}
           private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
 
-      - name: Run release-please
+      - name: Run release automation
         id: release
         uses: googleapis/release-please-action@v5
         with:

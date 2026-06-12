@@ -25,7 +25,7 @@ Design background: [docs/decisions/2026-06-06-monorepo-migration.md](docs/decisi
 flowchart LR
   A["1. PR edits<br/>terraform-aws-rds/"] --> B["2. Module CI<br/>(changed folders only)"]
   B --> C["3. Merge to master"]
-  C --> D["4. release-please opens<br/>release PR for the module"]
+  C --> D["4. release automation opens<br/>release PR for the module"]
   D --> E["5. Merge release PR<br/>→ tag terraform-aws-rds/v1.2.1"]
   E --> F["6. Registry Publish mirrors folder<br/>→ c0x12c/terraform-aws-rds, tag v1.2.1"]
   F --> G["7. Registry publishes v1.2.1<br/>(webhook, ~30s)"]
@@ -47,7 +47,7 @@ Steps 1, 3, 5 are the only human actions. Merging the release PR is the
 2. Open the PR. **Module CI** runs `fmt` / `validate` / `tflint` / docs check
    for `terraform-aws-rds` only — a PR never triggers CI for untouched modules.
 
-3. Merge. **release-please** opens (or updates) a release PR titled
+3. Merge. **release automation** opens (or updates) a release PR titled
    `chore(master): release terraform-aws-rds 0.6.7` containing the version
    bump and the module's `CHANGELOG.md` entry.
 
@@ -73,7 +73,7 @@ release PR, not per commit.
 ## Cross-module changes
 
 Edit any number of modules in one PR — review and CI are atomic. On merge,
-release-please opens **one release PR per touched module**
+release automation opens **one release PR per touched module**
 (independent versions); ship them all or hold some back.
 
 For sibling dependencies (one module consuming another), in-repo sources use
@@ -158,7 +158,7 @@ docs/decisions/                architecture decision records
 scripts/                       release tooling (mirror_release.py, squash_import.py)
 .github/workflows/
   module-ci.yml                PR checks, changed modules only
-  module-release.yml           release-please versioning + mirror fan-out
+  module-release.yml           release automation versioning + mirror fan-out
   registry-publish.yml         per-module mirror + tag push (reusable + manual)
   registry-register.yml        one-time registry registration for new modules
 ```
