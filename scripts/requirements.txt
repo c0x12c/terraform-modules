@@ -1,0 +1,4 @@
+# Dependencies for scripts/ — install when running R2-publishing paths
+# (mirror_release.py --r2-bucket). boto3 is imported lazily, so the default
+# mirror-only release path needs nothing here.
+boto3>=1.34,<2
