@@ -2,11 +2,11 @@ name = "c0x12c-tf-registry"
 main = "worker.js"
 compatibility_date = "2026-01-01"
 
+# Custom domain. Consumers use:
+#   source = "terraform.c0x12c.com/c0x12c/<name>/<provider>"
+routes = [{ pattern = "terraform.c0x12c.com", custom_domain = true }]
+
 # Bind the R2 bucket that holds index.json + module tarballs.
 [[r2_buckets]]
 binding = "BUCKET"
 bucket_name = "c0x12c-tf-modules"
-
-# Custom domain (set up in Cloudflare dash or via routes). Consumers then use:
-#   source = "terraform.c0x12c.com/c0x12c/<name>/<provider>"
-# routes = [{ pattern = "terraform.c0x12c.com", custom_domain = true }]
