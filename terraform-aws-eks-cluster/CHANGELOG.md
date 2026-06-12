@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.3]() (2026-06-12)
+
+### Fixes
+
+- Default `node_group_version` to null so managed node groups track `cluster_version`
+
 ## [1.0.2]() (2025-10-27)
 
 ### Bug fixes
