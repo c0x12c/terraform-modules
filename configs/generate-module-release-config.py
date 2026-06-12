@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate release-please monorepo config for all terraform module folders.
+"""Generate release-automation monorepo config for all terraform module folders.
 
 Emits:
   module-release-config.json      one package entry per terraform-* folder
@@ -9,7 +9,7 @@ Version source order: submodule git tag -> CHANGELOG.md latest entry -> 0.0.0.
 Re-runnable: regenerates both files from the current tree state. Run from the
 repository root:
 
-    python3 configs/generate-release-please.py
+    python3 configs/generate-module-release-config.py
 """
 
 import json

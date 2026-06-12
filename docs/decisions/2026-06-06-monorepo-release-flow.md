@@ -24,7 +24,7 @@ flowchart TB
   B["Path-filtered CI<br/>fmt · validate · tflint · docs<br/>changed folders only"]:::ci
   C["Merge to master"]:::dev
 
-  D["release-please<br/>detects changed folder<br/>opens release PR<br/>(version bump + CHANGELOG)"]:::rel
+  D["release automation<br/>detects changed folder<br/>opens release PR<br/>(version bump + CHANGELOG)"]:::rel
   E["Merge release PR"]:::dev
   F["Tag created<br/>terraform-aws-rds/v1.2.0<br/>(tag-separator '/')"]:::rel
 
@@ -48,7 +48,7 @@ flowchart TB
 | | Today (116 submodules) | New (Option C) |
 |---|---|---|
 | Where you edit | Per-repo, one at a time | One monorepo PR (cross-module atomic) |
-| Versioning | Per-repo CHANGELOG.md → release.yml → tag | `module-release.yml` with release-please per-folder → `<module>/vX.Y.Z` tag |
+| Versioning | Per-repo CHANGELOG.md → release.yml → tag | `module-release.yml` with release automation per-folder → `<module>/vX.Y.Z` tag |
 | Registry publish | TFC VCS webhook on each repo's tag | Same webhook, on the **mirror** repo's clean tag after `registry-publish.yml`; `registry-register.yml` remains one-time setup |
 | Consumer source ref | `c0x12c/<name>/<provider>` | **Identical — no change** |
 | Config sync | sync-configs.sh + state.yaml + per-repo Dependabot/secrets | Single monorepo config; mirrors are dumb outputs |
@@ -62,7 +62,7 @@ and confirming TFC's tag-triggered publish on the mirror repos before cutover.
 | # | Step | Confidence | Basis / risk |
 |---|---|---|---|
 | 1 | Path-filtered PR CI | **95% High** | Standard GitHub Actions `paths`/dorny-filter matrix. Well-trodden. |
-| 2 | release-please monorepo mode + per-folder changelog | **90% High** | Mature tool with first-class manifest/monorepo support. |
+| 2 | release automation monorepo mode + per-folder changelog | **90% High** | Mature tool with first-class manifest/monorepo support. |
 | 3 | `tag-separator: "/"` → `<module>/vX.Y.Z` | **88% High** | Documented config; verify it round-trips with seeded last-release versions. |
 | 4 | Clean-tag map `<module>/vX.Y.Z` → `vX.Y.Z` | **90% High** | Pure string transform in CI; trivial to test. |
 | 5 | Copy folder + commit onto mirror master | **85% Med-High** | Replaces subtree-split correctly; mirror history preserved (no force-push). |
@@ -93,7 +93,7 @@ consequences:
    `~>` range float anymore. After releasing a leaf fix (especially security
    fixes), find consuming parents via
    `grep -rl '"\.\./terraform-<provider>-<name>"' --include='*.tf' .`
-   and land a `fix(deps): bump <leaf>` commit per parent so release-please
+   and land a `fix(deps): bump <leaf>` commit per parent so release automation
    re-releases them. (Automation for this cascade is a planned follow-up.)
 
 CI note: `module-ci.yml`'s detect job expands the changed-module set with the

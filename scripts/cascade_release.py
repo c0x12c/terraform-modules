@@ -7,7 +7,7 @@ parent re-releases (see docs/decisions/2026-06-07-release-cascade.md). This
 script finds direct parents of a released module and lands one
 ``fix(deps): bump <module> to <version> in <parent>`` commit per parent,
 touching only the parent's ``.sibling-versions`` stamp file — enough for
-release-please to open the parent's release PR.
+release automation to open the parent's release PR.
 
 Default is dry-run (prints planned bumps). Mutation requires --execute.
 Transitive propagation is intentional-by-iteration: each parent's release

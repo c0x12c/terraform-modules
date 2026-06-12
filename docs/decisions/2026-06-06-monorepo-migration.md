@@ -52,9 +52,9 @@ hand-maintained sources.
 
 ## Tag convention
 
-- In-monorepo, per-module tags use a **prefix**: `terraform-aws-rds/v1.2.0`. This lets `release-please`
+- In-monorepo, per-module tags use a **prefix**: `terraform-aws-rds/v1.2.0`. This lets `release automation`
   (manifest / monorepo mode) version and changelog each folder independently from one repo.
-  Note: `release-please`'s default component-tag separator is a hyphen
+  Note: `release automation`'s default component-tag separator is a hyphen
   (`terraform-aws-rds-v1.2.0`); the slash form requires `tag-separator: "/"` in the manifest config.
 - Mirror repos and the registry require **clean** whole-repo tags: `v1.2.0`. The release job maps
   `<module>/vX.Y.Z` (monorepo) → `vX.Y.Z` (mirror) when it pushes the split. **This prefix→clean mapping
@@ -71,7 +71,7 @@ history is preserved in the mirrors regardless.
 
 - **PR CI (path-filtered):** run `fmt` / `validate` / `tflint` / `docs` only for folders changed in the
   PR. Never run 116-module CI on every PR.
-- **Release CI (`module-release.yml`, on merge to `master` after cutover):** `release-please` opens/merges release PRs and creates
+- **Release CI (`module-release.yml`, on merge to `master` after cutover):** `release automation` opens/merges release PRs and creates
   `<module>/vX.Y.Z` tags for changed folders. A follow-on `registry-publish.yml` job, **per changed module only**:
   1. Check out the mirror repo's existing `master`, **copy** the module folder's current contents over it
      (not `git subtree split` — split extracts history verbatim and cannot rewrite file contents, would
@@ -98,7 +98,7 @@ history is preserved in the mirrors regardless.
 
 ## Follow-up implementation tickets (to be created)
 
-1. Scaffold monorepo `release-please` manifest + per-module config (prefix tags, per-folder changelog).
+1. Scaffold monorepo `release automation` manifest + per-module config (prefix tags, per-folder changelog).
 2. Build path-filtered PR CI (`fmt`/`validate`/`tflint`/`docs` per changed folder).
 3. Build the release mirror job (copy folder → relative→registry source rewrite → commit onto mirror
    master → clean `vX.Y.Z` tag map), idempotent + alarmed. **Not** `git subtree split`.

@@ -37,7 +37,7 @@ flowchart LR
   A[leaf release tagged<br/>module-release.yml] --> B[cascade job]
   B --> C["reverse-dep closure<br/>grep '../&lt;leaf&gt;' in *.tf"]
   C --> D["per parent: write<br/>&lt;parent&gt;/.sibling-versions<br/>commit fix(deps): bump &lt;leaf&gt;"]
-  D --> E[release-please opens<br/>parent release PR]
+  D --> E[release automation opens<br/>parent release PR]
   E -->|human merges| F[parent mirror re-pins leaf]
 ```
 
@@ -65,7 +65,7 @@ flowchart LR
 
 - **Attribution works**: a commit touching only
   `terraform-aws-ses-monitoring/.sibling-versions` with a `fix(deps):` message,
-  dry-run through release-please (config `module-release-config.json`,
+  dry-run through release automation (config `module-release-config.json`,
   manifest `.module-versions.json`), produced exactly one candidate release PR:
   `ses-monitoring 1.0.0 → 1.0.1`, changelog section "Bug Fixes" with the bump
   line, manifest update included. No other module affected.
