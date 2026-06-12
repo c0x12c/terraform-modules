@@ -13,7 +13,7 @@
   "terraform-aws-efs": "0.1.78",
   "terraform-aws-eks-access-entry": "0.3.0",
   "terraform-aws-eks-cloudwatch-logging-fargate": "1.0.0",
-  "terraform-aws-eks-cluster": "1.0.2",
+  "terraform-aws-eks-cluster": "1.0.3",
   "terraform-aws-eks-datadog-rbac": "1.2.0",
   "terraform-aws-eks-efs": "1.0.0",
   "terraform-aws-eks-fargate-profile": "1.0.0",
