@@ -134,3 +134,16 @@ jobs:
           echo "${TERRAFORM_DOCS_SHA256}  /tmp/terraform-docs.tgz" | sha256sum -c -
           tar -xzf /tmp/terraform-docs.tgz -C /tmp terraform-docs
           /tmp/terraform-docs markdown table --output-check "$MODULE"
+
+  drift:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Check module-list drift
+        # Fails the PR if the on-disk terraform-* dirs, the release-config
+        # packages, and the versions manifest fall out of sync.
+        run: python3 scripts/check_module_drift.py
