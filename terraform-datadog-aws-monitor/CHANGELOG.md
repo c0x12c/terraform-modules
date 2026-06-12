@@ -1,7 +1,7 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
-## [1.3.0]() (2026-06-12)
+## [1.3.0](https://github.com/c0x12c/terraform-modules/compare/terraform-datadog-aws-monitor/v1.2.3...terraform-datadog-aws-monitor/v1.3.0) (2026-06-12)
 
 ### Features
 
