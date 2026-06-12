@@ -1,6 +1,13 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## [1.3.1](https://github.com/c0x12c/terraform-modules/compare/terraform-datadog-aws-monitor/v1.3.0...terraform-datadog-aws-monitor/v1.3.1) (2026-06-12)
+
+
+### Bug Fixes
+
+* **aws-monitor:** RDS metric postgres-&gt;postgresql + MSK active-controller .maximum ([#155](https://github.com/c0x12c/terraform-modules/issues/155)) ([02c627c](https://github.com/c0x12c/terraform-modules/commit/02c627c995f63c0060eacef48d44c9052105112b))
+
 ## [1.3.0](https://github.com/c0x12c/terraform-modules/compare/terraform-datadog-aws-monitor/v1.2.3...terraform-datadog-aws-monitor/v1.3.0) (2026-06-12)
 
 ### Features
