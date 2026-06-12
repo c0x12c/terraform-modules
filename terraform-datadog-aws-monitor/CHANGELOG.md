@@ -1,6 +1,13 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## [1.2.4]() (2026-06-12)
+
+### Fixes
+
+- Fix RDS query monitors to use `trace.postgresql.*` (the nonexistent `trace.postgres.*` never evaluated)
+- Fix MSK active controller monitor to use per-broker `.maximum` (averaging across brokers always fired)
+
 ## [1.2.3]() (2026-04-13)
 
 ### Fixes
