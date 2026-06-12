@@ -1,6 +1,18 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## [1.3.0]() (2026-06-12)
+
+### Features
+
+- Add `service_name` input to filter RDS query (trace) monitors by service (default `*` = all)
+
+### Fixes
+
+- Fix RDS query monitors to use `trace.postgresql.*` (the nonexistent `trace.postgres.*` never evaluated)
+- Remove `dbinstanceidentifier` filter from RDS query (trace) monitors — APM trace metrics aren't tagged with it, so the filter dropped all data
+- Fix MSK active controller monitor to use per-broker `.maximum` (averaging across brokers always fired)
+
 ## [1.2.3]() (2026-04-13)
 
 ### Fixes

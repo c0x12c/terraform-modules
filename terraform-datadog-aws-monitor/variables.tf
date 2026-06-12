@@ -14,6 +14,12 @@ variable "db_name_regex" {
   default     = "*"
 }
 
+variable "service_name" {
+  description = "Service tag to filter RDS query (trace) monitors by. `*` matches all services."
+  type        = string
+  default     = "*"
+}
+
 variable "notification_slack_channel_prefix" {
   description = "The prefix for Slack channels that will receive notifications and alerts"
   type        = string
