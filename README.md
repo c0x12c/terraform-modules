@@ -1,21 +1,28 @@
 # Terraform Modules Registry
 
 Monorepo for all c0x12c Terraform modules. Each `terraform-<provider>-<name>/`
-folder is an independently versioned module published to the
-[public Terraform registry](https://registry.terraform.io/namespaces/c0x12c)
-under the `c0x12c` namespace.
+folder is an independently versioned module published to the **self-hosted
+registry** at `terraform.c0x12c.com` under the `c0x12c` namespace.
 
-Consumers reference modules the same way they always have:
+Consumers reference a module by host-qualified source:
 
 ```hcl
 module "rds" {
-  source  = "c0x12c/rds/aws"
+  source  = "terraform.c0x12c.com/c0x12c/rds/aws"
   version = "~> 0.6"
 }
 ```
 
+> **Migrating from the public registry.** The old public source
+> `c0x12c/rds/aws` (implicit `registry.terraform.io`) still resolves the
+> versions published before the cutover, but **new versions ship only to
+> `terraform.c0x12c.com`**. Flip the host prefix to receive new releases; the
+> version constraint is unchanged. Both serve in parallel during the
+> transition, so cut over on your own schedule.
+
 Design background: [docs/decisions/2026-06-06-monorepo-migration.md](docs/decisions/2026-06-06-monorepo-migration.md)
 · [release flow diagram](docs/decisions/2026-06-06-monorepo-release-flow.md)
+· [self-hosted registry](docs/decisions/2026-06-08-self-host-registry.md)
 
 ---
 
@@ -27,8 +34,8 @@ flowchart LR
   B --> C["3. Merge to master"]
   C --> D["4. release automation opens<br/>release PR for the module"]
   D --> E["5. Merge release PR<br/>→ tag terraform-aws-rds/v1.2.1"]
-  E --> F["6. Registry Publish mirrors folder<br/>→ c0x12c/terraform-aws-rds, tag v1.2.1"]
-  F --> G["7. Registry publishes v1.2.1<br/>(webhook, ~30s)"]
+  E --> F["6. Registry Publish assembles the folder<br/>and uploads the tarball to R2"]
+  F --> G["7. Live on terraform.c0x12c.com<br/>(index updated immediately)"]
 ```
 
 Steps 1, 3, 5 are the only human actions. Merging the release PR is the
@@ -52,10 +59,9 @@ Steps 1, 3, 5 are the only human actions. Merging the release PR is the
    bump and the module's `CHANGELOG.md` entry.
 
 4. Merge the release PR when you want the version shipped. The pipeline then
-   tags `terraform-aws-rds/v0.6.7`, mirrors the folder to
-   `c0x12c/terraform-aws-rds`, pushes clean tag `v0.6.7`, and the registry
-   publishes it. Verify at
-   `https://registry.terraform.io/modules/c0x12c/rds/aws`.
+   tags `terraform-aws-rds/v0.6.7`, assembles the folder (sibling sources
+   rewritten + `terraform validate`), and uploads the tarball to R2. Verify at
+   `https://terraform.c0x12c.com/v1/modules/c0x12c/rds/aws/versions`.
 
 ### Commit message → version bump
 
@@ -86,7 +92,7 @@ module "service_account" {
 }
 ```
 
-At release time the mirror job rewrites this to the registry form with an
+At release time the publish job rewrites this to the registry form with an
 **exact pin** of the sibling's currently released version:
 
 ```hcl
@@ -128,10 +134,9 @@ required; fixed with `>= 3.46, < 3.80`).
 | Symptom | Action |
 |---|---|
 | Release PR not opened after merge | Commits were `chore:`/`docs:` (no release), or the change didn't touch module files. Check the Module Release workflow run. |
-| `mirror-failure` issue opened | A mirror push failed. Read the linked run log, fix the cause, then re-run **Registry Publish** via *Actions → Registry Publish → Run workflow* with the module + version. The job is idempotent — partial failures (e.g. mirror master updated, tag missing) self-heal on re-run. |
-| Tag exists on mirror with different content | Never force-push mirror tags. Investigate which content is correct; if the registry already published the bad tag, ship a new patch version instead. |
-| Registry didn't publish after mirror tag | Check the mirror repo's TFC GitHub App connection (Settings → GitHub Apps). It must remain installed — it is the publish path. |
-| Need a dry-run without a release | *Actions → Registry Publish → Run workflow* with `ref: master`. It exercises clone/rewrite/validate against the real mirror and stops before any conflicting write. |
+| Registry publish failure issue opened | The R2 publish failed (assemble / validate / upload). Read the linked run log, fix the cause, then re-run **Registry Publish** via *Actions → Registry Publish → Run workflow* with the module + version. Re-upload is idempotent (same tarball + index merge). |
+| New version not on `terraform.c0x12c.com` | Confirm the Registry Publish run was green and that `vars.R2_BUCKET` / the `R2_*` secrets are set. Check `https://terraform.c0x12c.com/v1/modules/c0x12c/<name>/<provider>/versions`. |
+| Need a dry-run without a release | *Actions → Registry Publish → Run workflow* with `ref: master`, or locally: `python3 scripts/mirror_release.py --module <m> --version <v> --dry-run`. Assembles + validates from the monorepo and uploads nothing. |
 
 ## Adding a new module
 
@@ -140,15 +145,16 @@ required; fixed with `>= 3.46, < 3.80`).
 2. Add the module to `module-release-config.json` (`packages`) and seed
    `.module-versions.json` with `"0.0.0"`.
 3. Open the PR — Module CI picks the folder up automatically.
-4. After the first release tag exists, create the mirror repo
-   `c0x12c/terraform-<provider>-<name>` and register it on the public
-   registry (one-time, *Actions → Registry Registration*).
+
+No mirror repo or registry registration is needed: once the first release PR
+merges, Registry Publish assembles the folder and uploads it to R2, and it is
+live at `terraform.c0x12c.com/c0x12c/<name>/<provider>` immediately.
 
 ## Removing a module
 
 Delete the folder and its `module-release-config.json` /
-`.module-versions.json` entries in one PR. Existing published versions
-remain available to consumers; the mirror repo can be archived.
+`.module-versions.json` entries in one PR. Versions already in R2 stay
+available to consumers until the bucket entry is pruned.
 
 ## Repository layout
 
@@ -159,15 +165,15 @@ scripts/                       release tooling (mirror_release.py, cascade_relea
 tools/registry/                self-hosted registry (Cloudflare Worker + R2)
 .github/workflows/
   module-ci.yml                PR checks, changed modules only
-  module-release.yml           release automation versioning + mirror fan-out
-  registry-publish.yml         per-module mirror + tag push (reusable + manual)
-  registry-register.yml        one-time registry registration for new modules
+  module-release.yml           release automation versioning + publish fan-out
+  registry-publish.yml         per-module R2 publish (reusable + manual)
+  registry-register.yml        legacy public-registry registration (unused for R2)
 ```
 
 > **Cutover status:** the monorepo is the source of truth for module code.
-> Releases dual-publish to the public mirror repos (`registry.terraform.io`) and
-> the self-hosted registry at **`terraform.c0x12c.com`** (Cloudflare Worker + R2,
-> live — see `tools/registry/`). Both serve in parallel; consumers flip the host
-> prefix on their own schedule. The mirrors remain the rollback path and are not
-> retired until consumers have cut over. Do not push directly to the per-module
-> mirror repos — they are overwritten on every release.
+> New releases publish **only** to the self-hosted registry at
+> **`terraform.c0x12c.com`** (Cloudflare Worker + R2, live — see
+> `tools/registry/`). The old public mirror repos are frozen — kept public and
+> read-only so versions published before the cutover keep resolving via
+> `registry.terraform.io` — and are retired as consumers move to
+> `terraform.c0x12c.com`. New versions do not appear on the public registry.
