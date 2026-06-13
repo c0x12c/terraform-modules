@@ -5,9 +5,9 @@ replaces the 115 per-module mirror repos with one Cloudflare Worker + one R2
 bucket. The source monorepo stays **private**; only built module tarballs are
 public.
 
-> Live at **`terraform.c0x12c.com`**. Dual-published beside the mirror repos
-> (flag `R2_PUBLISH_ENABLED`); the mirrors remain the rollback path until
-> consumers cut over.
+> Live at **`terraform.c0x12c.com`**. New releases publish to R2 only; the
+> existing mirror repos are frozen (kept public + read-only as the rollback
+> path) and retired as consumers cut over.
 
 ## Pieces
 - `worker.js` — the registry. 3 protocol endpoints + a tarball route. ~60 lines.
@@ -32,10 +32,10 @@ No tokens, no `.terraformrc` — same UX as registry.terraform.io.
 3. `wrangler deploy`
 
 ## Publish (per release)
-`registry-publish.yml` runs `scripts/mirror_release.py` for each released module.
-When `R2_PUBLISH_ENABLED == 'true'` it passes `--r2-bucket`, so the same
-clone+rewrite that builds the mirror tarball also uploads it to R2 and updates
-`index.json` — one rewrite, no drift, tarball identical to the mirror.
+`registry-publish.yml` runs `scripts/mirror_release.py` for each released
+module: it assembles the module from the monorepo, rewrites sibling sources,
+runs `terraform validate`, packs the tree, and uploads it to R2 + updates
+`index.json`. R2 is the only target — no GitHub mirror repo is touched.
 
 ## Cost
 - Worker: free tier 100k req/day. R2: 10 GB + Class-A/B ops free tier; **zero egress**.

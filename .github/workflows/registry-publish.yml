@@ -39,68 +39,47 @@ jobs:
       group: mirror-${{ inputs.module }}
       cancel-in-progress: false
     steps:
-      - name: Create GitHub App Token
-        id: github-app-token
-        uses: actions/create-github-app-token@v3
-        with:
-          client-id: ${{ vars.GH_APP_CLIENT_ID }}
-          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
-          owner: c0x12c
-
+      # No GitHub App token: R2-only publish does not push to any mirror repo,
+      # it only reads THIS (monorepo) checkout — the default GITHUB_TOKEN covers
+      # same-repo read.
       - name: Checkout monorepo release ref
         uses: actions/checkout@v6
         with:
           ref: ${{ inputs.ref != '' && inputs.ref || format('{0}/{1}', inputs.module, inputs.version) }}
-          token: ${{ steps.github-app-token.outputs.token }}
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v4
 
-      # R2 dual-publish dependency — installed ONLY when the flag is on, so the
-      # default (flag-off) release path keeps zero added overhead.
-      - name: Set up Python for R2 publish
-        if: vars.R2_PUBLISH_ENABLED == 'true'
+      - name: Set up Python
         uses: actions/setup-python@v6
         with:
           python-version: "3.x"
 
       - name: Install R2 publish deps
-        if: vars.R2_PUBLISH_ENABLED == 'true'
         run: pip install -r tools/registry/requirements.txt
 
-      - name: Mirror module release
+      - name: Publish module to R2 registry
         env:
-          GITHUB_TOKEN: ${{ steps.github-app-token.outputs.token }}
           MODULE: ${{ inputs.module }}
           VERSION: ${{ inputs.version }}
-          # Dual-publish to the self-hosted R2 registry in the SAME pass as the
-          # mirror push (one clone+rewrite). Inert unless vars.R2_PUBLISH_ENABLED
-          # == 'true': R2_BUCKET_ARG is empty, so mirror_release.py never touches
-          # R2 and never imports boto3. R2_* secrets are consumed only when set.
-          R2_BUCKET_ARG: ${{ vars.R2_PUBLISH_ENABLED == 'true' && format('--r2-bucket {0}', vars.R2_BUCKET) || '' }}
           R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
           AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
         run: |
-          # shellcheck disable=SC2086  # R2_BUCKET_ARG must word-split into
-          # "--r2-bucket <name>" or expand to nothing when the flag is off;
-          # quoting would pass an empty-string arg that argparse rejects.
           python3 scripts/mirror_release.py \
             --module "$MODULE" \
             --version "$VERSION" \
-            $R2_BUCKET_ARG
+            --r2-bucket "${{ vars.R2_BUCKET }}"
 
-      - name: Open or update mirror failure issue
+      - name: Open or update registry publish failure issue
         if: failure()
         env:
-          # Fallback: if the App-token mint itself failed, the alarm must
-          # still fire — github.token can create issues on this repo.
-          # github.token, not the App token: the issue lives on THIS repo and
-          # the workflow grants issues:write; the App has no Issues permission.
+          # github.token (workflow grants issues:write) creates the alarm issue
+          # on THIS repo.
           GH_TOKEN: ${{ github.token }}
           MODULE: ${{ inputs.module }}
           VERSION: ${{ inputs.version }}
-          ISSUE_TITLE: "Mirror failure: ${{ inputs.module }} ${{ inputs.version }}"
+          ISSUE_TITLE: "Registry publish failure: ${{ inputs.module }} ${{ inputs.version }}"
         shell: bash
         run: |
           existing_issue="$(gh issue list \
@@ -109,7 +88,7 @@ jobs:
             --search "\"$ISSUE_TITLE\" in:title" \
             --json number \
             --jq '.[0].number')"
-          body="Mirror publish failed for \`$MODULE\` at \`$VERSION\`.
+          body="Registry (R2) publish failed for \`$MODULE\` at \`$VERSION\`.
 
           Run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           if [ -n "$existing_issue" ]; then

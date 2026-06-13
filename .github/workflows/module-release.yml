@@ -63,7 +63,7 @@ jobs:
           print(f"versions={json.dumps(versions, separators=(',', ':'))}")
           PY
 
-  mirror:
+  publish:
     needs: release
     if: needs.release.outputs.releases_created == 'true'
     strategy:
@@ -81,9 +81,9 @@ jobs:
   # variable CASCADE_ENABLED is 'true'; commits/pushes additionally require
   # CASCADE_EXECUTE='true' — otherwise the run only prints planned bumps.
   cascade:
-    # needs mirror: only cascade versions that are confirmed live on the
-    # mirror (and thus the registry) — a failed mirror must not get pinned.
-    needs: [release, mirror]
+    # needs publish: only cascade versions that are confirmed live on the
+    # R2 registry — a failed publish must not get pinned.
+    needs: [release, publish]
     if: needs.release.outputs.releases_created == 'true' && vars.CASCADE_ENABLED == 'true'
     runs-on: ubuntu-latest
     steps:
