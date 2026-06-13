@@ -1,3 +1,5 @@
+> **ARCHIVED — retired.** The Terraform module scaffold now lives in the [c0x12c/terraform-modules](https://github.com/c0x12c/terraform-modules) monorepo at [`_template/`](https://github.com/c0x12c/terraform-modules/tree/master/_template). See its CONTRIBUTING.md → "Adding a module".
+
 # Terraform Modules Registry
 
 Monorepo for all c0x12c Terraform modules. Each `terraform-<provider>-<name>/`
