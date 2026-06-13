@@ -17,13 +17,11 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 import mirror_release
 from mirror_release import (
-    EXIT_IDENTITY,
     EXIT_LEFTOVER_RELATIVE,
     EXIT_MANIFEST,
     EXIT_MAPPING,
-    EXIT_TAG_CONFLICT,
     EXIT_VALIDATE,
-    README_BANNER_FIRST_LINE,
+    assemble_r2_tree,
     module_to_registry,
     rewrite_tf_text,
     upload_to_r2,
@@ -32,12 +30,6 @@ from mirror_release import (
 
 
 SCRIPT_PATH = Path(__file__).with_name("mirror_release.py")
-GIT_ENV = {
-    "GIT_AUTHOR_NAME": "Test User",
-    "GIT_AUTHOR_EMAIL": "test@example.com",
-    "GIT_COMMITTER_NAME": "Test User",
-    "GIT_COMMITTER_EMAIL": "test@example.com",
-}
 
 
 def run(cmd, cwd, check=True, env=None):
@@ -60,14 +52,36 @@ def run(cmd, cwd, check=True, env=None):
     return completed
 
 
-def git(cwd, *args, check=True):
-    return run(["git"] + list(args), cwd=cwd, check=check, env=GIT_ENV)
-
-
 class MirrorReleasePureTests(unittest.TestCase):
     def test_module_mapping_happy(self):
         mapping = module_to_registry("terraform-aws-msk-kafka-cluster", "c0x12c")
         self.assertEqual(mapping.registry_source, "c0x12c/msk-kafka-cluster/aws")
+
+    def test_assemble_r2_tree_rewrites_siblings_no_git_no_banner(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            module_dir = root / "terraform-aws-rds"
+            module_dir.mkdir()
+            (module_dir / "main.tf").write_text(
+                'module "net" {\n  source = "../terraform-aws-network"\n}\n',
+                encoding="utf-8",
+            )
+            (module_dir / "README.md").write_text("rds module\n", encoding="utf-8")
+            dest = root / "out"
+            dest.mkdir()
+            manifest = {"terraform-aws-rds": "1.2.0", "terraform-aws-network": "9.8.7"}
+            # validate_cmd="true" → no-op validation, no terraform needed
+            assemble_r2_tree(module_dir, dest, manifest, "c0x12c", "true")
+
+            main_tf = (dest / "main.tf").read_text(encoding="utf-8")
+            self.assertIn('source  = "c0x12c/network/aws"', main_tf)  # sibling rewritten
+            self.assertIn('version = "9.8.7"', main_tf)
+            self.assertNotIn("../terraform-aws-network", main_tf)  # no leftover relative
+            # R2-only adds no mirror banner — README is byte-identical
+            readme = (dest / "README.md").read_text(encoding="utf-8")
+            self.assertEqual(readme, "rds module\n")
+            # no git artifacts in the R2 tree
+            self.assertFalse((dest / ".git").exists())
 
     def test_module_mapping_malformed(self):
         with self.assertRaisesRegex(Exception, "mapping"):
@@ -230,21 +244,7 @@ class MirrorReleaseCliTests(unittest.TestCase):
         }
         self.manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
 
-    def init_remote(self, remote_name=None):
-        name = remote_name or self.module
-        bare = self.root / ("%s.git" % name)
-        work = self.root / ("%s-seed" % name)
-        git(self.root, "init", "--bare", str(bare))
-        git(self.root, "init", str(work))
-        (work / "README.md").write_text("seed\n", encoding="utf-8")
-        git(work, "add", "README.md")
-        git(work, "commit", "-m", "seed")
-        git(work, "branch", "-M", "master")
-        git(work, "remote", "add", "origin", str(bare))
-        git(work, "push", "-u", "origin", "master")
-        return bare
-
-    def run_cli(self, remote, validate_cmd="true", extra_args=None):
+    def run_cli(self, validate_cmd="true", extra_args=None):
         cmd = [
             sys.executable,
             str(SCRIPT_PATH),
@@ -252,8 +252,6 @@ class MirrorReleaseCliTests(unittest.TestCase):
             self.module,
             "--version",
             self.version,
-            "--mirror-remote",
-            str(remote),
             "--monorepo-root",
             str(self.monorepo),
             "--validate-cmd",
@@ -265,196 +263,56 @@ class MirrorReleaseCliTests(unittest.TestCase):
             cmd.extend(extra_args)
         return run(cmd, cwd=self.root, check=False)
 
-    def clone_remote_for_assertions(self):
-        checkout = self.root / "assert"
-        git(self.root, "clone", "--branch", "master", str(self.remote), str(checkout))
-        return checkout
-
-    def test_identity_mismatch_fails(self):
+    def test_dry_run_assembles_and_validates(self):
         self.write_fixture_module()
-        wrong_remote = self.init_remote(remote_name="terraform-aws-other")
-        result = self.run_cli(wrong_remote)
-        self.assertEqual(result.returncode, EXIT_IDENTITY)
-        self.assertIn("identity:", result.stderr)
-
-    def test_validate_fail_does_not_push_commit_or_tag(self):
-        self.write_fixture_module()
-        self.remote = self.init_remote()
-        before_head = git(self.root, "ls-remote", str(self.remote), "refs/heads/master").stdout
-        result = self.run_cli(self.remote, validate_cmd="false")
-        after_head = git(self.root, "ls-remote", str(self.remote), "refs/heads/master").stdout
-        tags = git(self.root, "ls-remote", "--tags", str(self.remote)).stdout
-        self.assertEqual(result.returncode, EXIT_VALIDATE)
-        self.assertEqual(before_head, after_head)
-        self.assertNotIn(self.version, tags)
-
-    def test_dry_run_validates_without_push_commit_or_tag(self):
-        self.write_fixture_module()
-        self.remote = self.init_remote()
-        before_head = git(
-            self.root, "ls-remote", str(self.remote), "refs/heads/master").stdout
-        result = self.run_cli(self.remote, extra_args=["--dry-run"])
-        after_head = git(
-            self.root, "ls-remote", str(self.remote), "refs/heads/master").stdout
-        tags = git(self.root, "ls-remote", "--tags", str(self.remote)).stdout
+        result = self.run_cli(extra_args=["--dry-run"])
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("dry-run", result.stdout)
-        self.assertEqual(before_head, after_head)
-        self.assertNotIn(self.version, tags)
 
-    def test_full_happy_path_commits_and_tags_expected_tree(self):
+    def test_missing_bucket_without_dry_run_is_usage_error(self):
         self.write_fixture_module()
-        self.remote = self.init_remote()
-        result = self.run_cli(self.remote)
-        self.assertEqual(result.returncode, 0, result.stderr)
-        checkout = self.clone_remote_for_assertions()
-        head_message = git(checkout, "log", "-1", "--pretty=%s").stdout.strip()
-        tag_message = git(checkout, "tag", "--list", self.version).stdout.strip()
-        rewritten = (checkout / "main.tf").read_text(encoding="utf-8")
-        self.assertEqual(
-            head_message,
-            "chore: mirror terraform-aws-rds v1.2.0 from monorepo",
-        )
-        self.assertEqual(tag_message, self.version)
-        self.assertIn('source  = "c0x12c/network/aws"', rewritten)
-        self.assertIn('version = "9.8.7"', rewritten)
-        self.assertIn('source = "c0x12c/external/aws"', rewritten)
-        readme = (checkout / "README.md").read_text(encoding="utf-8")
-        self.assertTrue(readme.startswith(README_BANNER_FIRST_LINE + "\n"))
-        self.assertIn(
-            "tree/master/terraform-aws-rds).\n"
-            "> Develop and open PRs there — changes pushed here are overwritten on the next release.\n\n"
-            "module readme\n",
-            readme,
-        )
-        self.assertTrue((checkout / "notes.txt").exists())
-        self.assertFalse((checkout / ".terraform.lock.hcl").exists())
-        self.assertFalse((checkout / ".terraform").exists())
+        result = self.run_cli()  # no --r2-bucket and no --dry-run
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("--r2-bucket is required", result.stderr)
 
-    def test_idempotent_rerun_exits_zero_without_new_commit(self):
+    def test_validate_failure_is_distinct(self):
         self.write_fixture_module()
-        self.remote = self.init_remote()
-        first = self.run_cli(self.remote)
-        self.assertEqual(first.returncode, 0, first.stderr)
-        before = git(self.root, "ls-remote", str(self.remote), "refs/heads/master").stdout
-        second = self.run_cli(self.remote)
-        after = git(self.root, "ls-remote", str(self.remote), "refs/heads/master").stdout
-        self.assertEqual(second.returncode, 0, second.stderr)
-        self.assertIn("already mirrored", second.stdout)
-        self.assertEqual(before, after)
-        checkout = self.clone_remote_for_assertions()
-        readme = (checkout / "README.md").read_text(encoding="utf-8")
-        self.assertEqual(readme.count(README_BANNER_FIRST_LINE), 1)
+        result = self.run_cli(validate_cmd="false", extra_args=["--dry-run"])
+        self.assertEqual(result.returncode, EXIT_VALIDATE)
+        self.assertIn("validate:", result.stderr)
 
-    def test_missing_readme_gets_created_with_banner(self):
-        self.write_fixture_module(readme_body=None)
-        self.remote = self.init_remote()
-        result = self.run_cli(self.remote)
-        self.assertEqual(result.returncode, 0, result.stderr)
-        checkout = self.clone_remote_for_assertions()
-        readme = (checkout / "README.md").read_text(encoding="utf-8")
-        self.assertEqual(
-            readme,
-            "> [!IMPORTANT]\n"
-            "> This repository is a **read-only mirror** generated from\n"
-            "> [`c0x12c/terraform-modules`](https://github.com/c0x12c/terraform-modules/tree/master/terraform-aws-rds).\n"
-            "> Develop and open PRs there — changes pushed here are overwritten on the next release.\n\n",
-        )
-
-    def test_generated_terraform_artifacts_are_cleaned_before_snapshot_and_commit(self):
+    def test_manifest_missing_is_distinct(self):
         self.write_fixture_module()
-        self.remote = self.init_remote()
-        validate_cmd = "mkdir -p .terraform/providers && touch .terraform/providers/x .terraform.lock.hcl"
-        first = self.run_cli(self.remote, validate_cmd=validate_cmd)
-        self.assertEqual(first.returncode, 0, first.stderr)
-
-        checkout = self.clone_remote_for_assertions()
-        tracked_files = set(git(checkout, "ls-tree", "-r", "--name-only", "HEAD").stdout.splitlines())
-        self.assertNotIn(".terraform.lock.hcl", tracked_files)
-        self.assertFalse(any(path.startswith(".terraform/") for path in tracked_files))
-
-        before = git(self.root, "ls-remote", str(self.remote), "refs/heads/master").stdout
-        second = self.run_cli(self.remote, validate_cmd=validate_cmd)
-        after = git(self.root, "ls-remote", str(self.remote), "refs/heads/master").stdout
-        self.assertEqual(second.returncode, 0, second.stderr)
-        self.assertIn("already mirrored", second.stdout)
-        self.assertEqual(before, after)
-
-    def test_tag_conflict_fails_when_content_changes(self):
-        self.write_fixture_module()
-        self.remote = self.init_remote()
-        first = self.run_cli(self.remote)
-        self.assertEqual(first.returncode, 0, first.stderr)
-        changed_body = textwrap.dedent(
-            """
-            module "sibling" {
-              source = "../terraform-aws-network"
-            }
-
-            locals {
-              marker = "changed"
-            }
-            """
-        ).lstrip()
-        self.write_fixture_module(module_body=changed_body)
-        result = self.run_cli(self.remote)
-        self.assertEqual(result.returncode, EXIT_TAG_CONFLICT)
-        self.assertIn("tag-conflict:", result.stderr)
-
-    def test_rerun_after_missing_tag_reuses_master_commit_and_pushes_tag(self):
-        self.write_fixture_module()
-        self.remote = self.init_remote()
-        first = self.run_cli(self.remote)
-        self.assertEqual(first.returncode, 0, first.stderr)
-        bare_checkout = self.root / "bare-maint"
-        git(self.root, "clone", str(self.remote), str(bare_checkout))
-        git(bare_checkout, "push", "origin", ":refs/tags/%s" % self.version)
-        before = git(self.root, "ls-remote", str(self.remote), "refs/heads/master").stdout
-        rerun = self.run_cli(self.remote)
-        after = git(self.root, "ls-remote", str(self.remote), "refs/heads/master").stdout
-        tags = git(self.root, "ls-remote", "--tags", str(self.remote)).stdout
-        self.assertEqual(rerun.returncode, 0, rerun.stderr)
-        self.assertEqual(before, after)
-        self.assertIn(self.version, tags)
-
-    def test_cli_manifest_missing_is_distinct(self):
-        self.write_fixture_module()
-        self.remote = self.init_remote()
         self.manifest_path.unlink()
-        result = self.run_cli(self.remote)
+        result = self.run_cli(extra_args=["--dry-run"])
         self.assertEqual(result.returncode, EXIT_MANIFEST)
         self.assertIn("manifest-missing:", result.stderr)
 
-    def test_cli_leftover_relative_is_distinct(self):
+    def test_leftover_relative_is_distinct(self):
         relative_body = 'module "shared" {\n  source = "../common/thing"\n}\n'
         self.write_fixture_module(module_body=relative_body)
-        self.remote = self.init_remote()
-        result = self.run_cli(self.remote)
+        result = self.run_cli(extra_args=["--dry-run"])
         self.assertEqual(result.returncode, EXIT_LEFTOVER_RELATIVE)
         self.assertIn("leftover-relative:", result.stderr)
 
-    def test_examples_relative_source_copied_verbatim(self):
-        """examples/complete/main.tf with source = "../../" must copy byte-identical, no error."""
+    def test_examples_relative_source_does_not_error(self):
+        """A "../../" source under examples/ is copied verbatim — must not trip leftover-relative."""
         self.write_fixture_module()
         examples_dir = self.monorepo / self.module / "examples" / "complete"
         examples_dir.mkdir(parents=True)
-        examples_body = 'module "self" {\n  source = "../../"\n}\n'
-        (examples_dir / "main.tf").write_text(examples_body, encoding="utf-8")
-        self.remote = self.init_remote()
-        result = self.run_cli(self.remote)
+        (examples_dir / "main.tf").write_text(
+            'module "self" {\n  source = "../../"\n}\n', encoding="utf-8"
+        )
+        result = self.run_cli(extra_args=["--dry-run"])
         self.assertEqual(result.returncode, 0, result.stderr)
-        checkout = self.clone_remote_for_assertions()
-        mirrored = (checkout / "examples" / "complete" / "main.tf").read_text(encoding="utf-8")
-        self.assertEqual(mirrored, examples_body)
 
-    def test_cli_mapping_error_is_distinct(self):
+    def test_mapping_error_is_distinct(self):
         self.module = "bad-module"
         module_dir = self.monorepo / self.module
         module_dir.mkdir(parents=True, exist_ok=True)
         (module_dir / "main.tf").write_text('output "x" { value = 1 }\n', encoding="utf-8")
         self.manifest_path.write_text(json.dumps({self.module: "1.2.0"}), encoding="utf-8")
-        self.remote = self.init_remote(remote_name=self.module)
-        result = self.run_cli(self.remote)
+        result = self.run_cli(extra_args=["--dry-run"])
         self.assertEqual(result.returncode, EXIT_MAPPING)
         self.assertIn("mapping:", result.stderr)
 
@@ -503,89 +361,29 @@ class _FakeBoto3Module:
 
 
 class MirrorReleaseR2Tests(unittest.TestCase):
-    def test_main_noops_when_r2_bucket_absent(self):
-        with tempfile.TemporaryDirectory(prefix="mirror-r2-main-") as temp_dir:
+    def test_dry_run_does_not_upload(self):
+        with tempfile.TemporaryDirectory(prefix="r2-dry-") as temp_dir:
             root = Path(temp_dir)
-            module_dir = (root / "terraform-aws-rds").resolve()
+            module_dir = root / "terraform-aws-rds"
             module_dir.mkdir()
+            (module_dir / "main.tf").write_text("terraform {}\n", encoding="utf-8")
             manifest_path = root / ".module-versions.json"
             manifest_path.write_text(
-                json.dumps(
-                    {
-                        "terraform-aws-rds": "1.2.0",
-                        "terraform-aws-network": "9.8.7",
-                    }
-                ),
-                encoding="utf-8",
+                json.dumps({"terraform-aws-rds": "1.2.0"}), encoding="utf-8"
             )
-            remote = "https://example.invalid/c0x12c/terraform-aws-rds.git"
-            clone_dir = root / "mirror"
-            clone_dir.mkdir()
-            upload_calls = []
-
-            def fake_upload(*args):
-                upload_calls.append(args)
-
-            with mock.patch.object(mirror_release, "clone_mirror") as clone_mirror, mock.patch.object(
-                mirror_release, "assert_mirror_identity"
-            ) as assert_identity, mock.patch.object(
-                mirror_release, "copy_module_contents"
-            ) as copy_contents, mock.patch.object(
-                mirror_release, "rewrite_worktree_tf_files"
-            ) as rewrite_tf_files, mock.patch.object(
-                mirror_release, "apply_readme_banner"
-            ) as apply_readme_banner, mock.patch.object(
-                mirror_release, "run_validation"
-            ) as run_validation, mock.patch.object(
-                mirror_release, "remove_generated_terraform_artifacts"
-            ) as remove_artifacts, mock.patch.object(
-                mirror_release, "git_ref_exists", return_value=False
-            ) as git_ref_exists, mock.patch.object(
-                mirror_release, "commit_changes", return_value=True
-            ) as commit_changes, mock.patch.object(
-                mirror_release, "push_master"
-            ) as push_master, mock.patch.object(
-                mirror_release, "ensure_tag"
-            ) as ensure_tag, mock.patch.object(
-                mirror_release.tempfile, "TemporaryDirectory"
-            ) as tempdir, mock.patch.object(
-                mirror_release, "upload_to_r2", side_effect=fake_upload
-            ) as upload_to_r2_mock:
-                tempdir.return_value.__enter__.return_value = temp_dir
-                tempdir.return_value.__exit__.return_value = False
+            with mock.patch.object(mirror_release, "upload_to_r2") as upload:
                 result = mirror_release.main(
                     [
-                        "--module",
-                        "terraform-aws-rds",
-                        "--version",
-                        "v1.2.0",
-                        "--mirror-remote",
-                        remote,
-                        "--monorepo-root",
-                        str(root),
-                        "--manifest",
-                        str(manifest_path),
-                        "--validate-cmd",
-                        "true",
-                        "--org",
-                        "c0x12c",
+                        "--module", "terraform-aws-rds",
+                        "--version", "v1.2.0",
+                        "--monorepo-root", str(root),
+                        "--manifest", str(manifest_path),
+                        "--validate-cmd", "true",
+                        "--dry-run",
                     ]
                 )
-
-        self.assertEqual(result, 0)
-        clone_mirror.assert_called_once_with(remote, clone_dir)
-        assert_identity.assert_called_once_with(clone_dir, "terraform-aws-rds")
-        copy_contents.assert_called_once_with(module_dir, clone_dir)
-        rewrite_tf_files.assert_called_once()
-        apply_readme_banner.assert_called_once_with(clone_dir, "terraform-aws-rds")
-        run_validation.assert_called_once_with(clone_dir, "true")
-        remove_artifacts.assert_called_once_with(clone_dir)
-        git_ref_exists.assert_called_once_with(clone_dir, "refs/tags/v1.2.0")
-        commit_changes.assert_called_once_with(clone_dir, "terraform-aws-rds", "v1.2.0")
-        push_master.assert_called_once_with(clone_dir)
-        ensure_tag.assert_called_once_with(clone_dir, "v1.2.0")
-        upload_to_r2_mock.assert_not_called()
-        self.assertEqual(upload_calls, [])
+                self.assertEqual(result, 0)
+                upload.assert_not_called()
 
     def test_upload_to_r2_tarball_shape(self):
         with tempfile.TemporaryDirectory(prefix="mirror-r2-tar-") as temp_dir:

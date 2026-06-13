@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+"""Publish a monorepo module to the self-hosted R2 Terraform registry.
+
+Assembles the module from the monorepo, rewrites sibling sources to registry
+form, runs terraform validation, and uploads the tarball plus its index.json
+entry to R2. No GitHub mirror repo is touched — R2 is the only target.
+"""
 
 import argparse
 import io
@@ -20,22 +26,17 @@ DEFAULT_VALIDATE_CMD = (
     "terraform validate"
 )
 
-README_BANNER_FIRST_LINE = "> [!IMPORTANT]"
-
 SIBLING_SOURCE_RE = re.compile(
     r'^(\s*source\s*=\s*")\.\./(terraform-[A-Za-z0-9_-]+)(".*?)(\r?\n?)$'
 )
-# Only parent-escaping sources are forbidden on the mirror. "./<subdir>"
-# stays inside the module folder and resolves fine on the mirror repo.
+# Only parent-escaping sources are forbidden in the published tarball. A
+# "./<subdir>" source stays inside the module folder and resolves fine.
 RELATIVE_SOURCE_RE = re.compile(r'^\s*source\s*=\s*"(\.\./|\./\.\./)')
 
 EXIT_MAPPING = 11
 EXIT_MANIFEST = 12
 EXIT_LEFTOVER_RELATIVE = 13
-EXIT_IDENTITY = 14
 EXIT_VALIDATE = 15
-EXIT_TAG_CONFLICT = 16
-EXIT_GIT = 17
 
 
 class MirrorError(Exception):
@@ -58,24 +59,9 @@ class LeftoverRelativeSourceError(MirrorError):
     failure_class = "leftover-relative"
 
 
-class IdentityError(MirrorError):
-    exit_code = EXIT_IDENTITY
-    failure_class = "identity"
-
-
 class ValidateError(MirrorError):
     exit_code = EXIT_VALIDATE
     failure_class = "validate"
-
-
-class TagConflictError(MirrorError):
-    exit_code = EXIT_TAG_CONFLICT
-    failure_class = "tag-conflict"
-
-
-class GitError(MirrorError):
-    exit_code = EXIT_GIT
-    failure_class = "git"
 
 
 @dataclass(frozen=True)
@@ -183,55 +169,6 @@ def load_manifest(path: Path) -> dict:
     return data
 
 
-def _redact(text: str) -> str:
-    """Strip credentials from URLs (https://user:token@host -> https://***@host)."""
-    return re.sub(r"(https?://)[^@/\s]+@", r"\1***@", text)
-
-
-def run_git(args, cwd=None, check=True, capture_output=True):
-    completed = subprocess.run(
-        ["git"] + list(args),
-        cwd=str(cwd) if cwd else None,
-        check=False,
-        text=True,
-        capture_output=capture_output,
-    )
-    if check and completed.returncode != 0:
-        raise GitError(
-            "git: command failed (%s): %s"
-            % (
-                _redact(" ".join(["git"] + list(args))),
-                _redact(completed.stderr.strip()),
-            )
-        )
-    return completed
-
-
-def clone_mirror(remote: str, destination: Path) -> None:
-    run_git(["clone", remote, str(destination)])
-    remote_head = run_git(
-        ["symbolic-ref", "--short", "refs/remotes/origin/HEAD"],
-        cwd=destination,
-        check=False,
-    )
-    start_point = "origin/master"
-    if remote_head.returncode == 0 and remote_head.stdout.strip():
-        start_point = remote_head.stdout.strip()
-    run_git(["checkout", "-B", "master", start_point], cwd=destination)
-
-
-def assert_mirror_identity(clone_dir: Path, module: str) -> None:
-    remote_url = run_git(["remote", "get-url", "origin"], cwd=clone_dir).stdout.strip()
-    normalized = remote_url.rstrip("/")
-    if not (
-        normalized.endswith("/%s" % module) or normalized.endswith("/%s.git" % module)
-    ):
-        raise IdentityError(
-            "identity: remote %s does not match expected module %s"
-            % (_redact(remote_url), module)
-        )
-
-
 def clear_worktree(worktree: Path) -> None:
     for child in worktree.iterdir():
         if child.name == ".git":
@@ -263,24 +200,6 @@ def rewrite_worktree_tf_files(worktree: Path, manifest: dict, org: str) -> None:
         rewritten = rewrite_tf_text(original, manifest, org, rel_path=rel_path)
         if rewritten != original:
             tf_file.write_text(rewritten, encoding="utf-8")
-
-
-def apply_readme_banner(worktree: Path, module: str) -> None:
-    readme_path = worktree / "README.md"
-    original = ""
-    if readme_path.exists():
-        original = readme_path.read_text(encoding="utf-8")
-        first_line = original.splitlines()[0] if original.splitlines() else ""
-        if first_line == README_BANNER_FIRST_LINE:
-            return
-    banner = (
-        "%s\n"
-        "> This repository is a **read-only mirror** generated from\n"
-        "> [`c0x12c/terraform-modules`](https://github.com/c0x12c/terraform-modules/tree/master/%s).\n"
-        "> Develop and open PRs there — changes pushed here are overwritten on the next release.\n\n"
-        % (README_BANNER_FIRST_LINE, module)
-    )
-    readme_path.write_text(banner + original, encoding="utf-8")
 
 
 def run_validation(worktree: Path, validate_cmd: str) -> None:
@@ -359,107 +278,67 @@ def upload_to_r2(clone_dir: Path, module: str, version: str, bucket: str, org: s
     print("r2-published %s %s -> %s" % (module, ver, key))
 
 
-def snapshot_worktree(root: Path) -> dict:
-    snapshot = {}
-    excluded = {".git", ".terraform", ".terraform.lock.hcl"}
-    for path in sorted(root.rglob("*")):
-        if path.is_dir():
-            continue
-        if any(part in excluded for part in path.parts):
-            continue
-        rel_path = path.relative_to(root).as_posix()
-        snapshot[rel_path] = path.read_bytes()
-    return snapshot
+def assemble_r2_tree(
+    module_dir: Path, dest: Path, manifest: dict, org: str, validate_cmd: str
+) -> None:
+    """Build the rewritten, validated module tree for R2 packing.
 
-
-def git_ref_exists(repo: Path, ref: str) -> bool:
-    completed = run_git(
-        ["rev-parse", "--verify", "--quiet", ref],
-        cwd=repo,
-        check=False,
-    )
-    return completed.returncode == 0
-
-
-def snapshot_git_tree(repo: Path, ref: str) -> dict:
-    listing = run_git(
-        ["ls-tree", "-r", "--full-tree", ref],
-        cwd=repo,
-    ).stdout.strip()
-    snapshot = {}
-    if not listing:
-        return snapshot
-    for line in listing.splitlines():
-        _meta, rel_path = line.split("\t", 1)
-        blob = subprocess.run(
-            ["git", "show", "%s:%s" % (ref, rel_path)],
-            cwd=str(repo),
-            check=False,
-            capture_output=True,
-        )
-        if blob.returncode != 0:
-            raise GitError(
-                "git: failed to read %s from %s: %s"
-                % (rel_path, ref, blob.stderr.decode("utf-8", "replace").strip())
-            )
-        snapshot[rel_path] = blob.stdout
-    return snapshot
-
-
-def worktree_has_changes(repo: Path) -> bool:
-    completed = run_git(["status", "--porcelain"], cwd=repo)
-    return bool(completed.stdout.strip())
-
-
-def ensure_git_identity(repo: Path) -> None:
-    run_git(["config", "user.name", "monorepo-mirror"], cwd=repo)
-    run_git(["config", "user.email", "monorepo-mirror@example.invalid"], cwd=repo)
-
-
-def commit_changes(repo: Path, module: str, version: str) -> bool:
-    if not worktree_has_changes(repo):
-        return False
-    ensure_git_identity(repo)
-    run_git(["add", "-A"], cwd=repo)
-    run_git(
-        ["commit", "-m", "chore: mirror %s %s from monorepo" % (module, version)],
-        cwd=repo,
-    )
-    return True
-
-
-def push_master(repo: Path) -> None:
-    run_git(["push", "origin", "master"], cwd=repo)
-
-
-def ensure_tag(repo: Path, version: str) -> None:
-    if not git_ref_exists(repo, "refs/tags/%s" % version):
-        run_git(["tag", version], cwd=repo)
-    run_git(["push", "origin", version], cwd=repo)
-
-
-def default_remote(org: str, module: str) -> str:
-    token = os.environ.get("GITHUB_TOKEN", "$GITHUB_TOKEN")
-    return "https://x-access-token:%s@github.com/%s/%s.git" % (token, org, module)
+    The R2-only counterpart to the mirror assembly: copy the module from the
+    monorepo, rewrite sibling sources, run terraform validation, and strip
+    generated artifacts — with NO git clone, NO mirror identity check, and NO
+    readme banner (the banner's "read-only mirror" wording is mirror-specific).
+    """
+    copy_module_contents(module_dir, dest)
+    rewrite_worktree_tf_files(dest, manifest, org)
+    run_validation(dest, validate_cmd)
+    remove_generated_terraform_artifacts(dest)
 
 
 def parse_args(argv):
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--module", required=True)
-    parser.add_argument("--version", required=True)
-    parser.add_argument("--mirror-remote")
-    parser.add_argument("--monorepo-root", default=os.getcwd())
-    parser.add_argument("--manifest")
-    parser.add_argument("--validate-cmd", default=DEFAULT_VALIDATE_CMD)
-    parser.add_argument("--org", default="c0x12c")
-    parser.add_argument("--r2-bucket")
-    parser.add_argument(
-        "--dry-run",
-        action="store_true",
-        help="clone, rewrite, and validate the module but make no changes: "
-        "skip the R2 upload, the commit, the push, and the tag.",
+    parser = argparse.ArgumentParser(
+        description="Publish a monorepo module to the self-hosted R2 Terraform "
+        "registry: assemble the module, rewrite sibling sources to registry "
+        "form, run terraform validation, and upload the tarball plus its "
+        "index.json entry. Does not touch any mirror repo.",
     )
-    return parser.parse_args(argv)
+    parser.add_argument(
+        "--module", required=True,
+        help="module directory name in the monorepo, e.g. terraform-aws-rds",
+    )
+    parser.add_argument(
+        "--version", required=True,
+        help="version to publish, e.g. v1.2.0 (a leading 'v' is optional)",
+    )
+    parser.add_argument(
+        "--r2-bucket",
+        help="R2 bucket to publish into (required unless --dry-run)",
+    )
+    parser.add_argument(
+        "--org", default="c0x12c",
+        help="registry namespace / GitHub org (default: c0x12c)",
+    )
+    parser.add_argument(
+        "--monorepo-root", default=os.getcwd(),
+        help="path to the monorepo checkout (default: current directory)",
+    )
+    parser.add_argument(
+        "--manifest",
+        help="versions manifest path "
+        "(default: <monorepo-root>/.module-versions.json)",
+    )
+    parser.add_argument(
+        "--validate-cmd", default=DEFAULT_VALIDATE_CMD,
+        help="shell command run to validate the assembled module",
+    )
+    parser.add_argument(
+        "--dry-run", action="store_true",
+        help="assemble and validate the module but do NOT upload to R2 — "
+        "use to verify a release safely",
+    )
+    args = parser.parse_args(argv)
+    if not args.dry_run and not args.r2_bucket:
+        parser.error("--r2-bucket is required unless --dry-run is set")
+    return args
 
 
 def main(argv=None) -> int:
@@ -476,44 +355,18 @@ def main(argv=None) -> int:
         raise MappingError("mapping: module directory does not exist: %s" % module_dir)
     module_to_registry(module, args.org)
     manifest = load_manifest(manifest_path)
-    remote = args.mirror_remote or default_remote(args.org, module)
 
-    with tempfile.TemporaryDirectory(prefix="mirror-release-") as temp_dir:
-        clone_dir = Path(temp_dir) / "mirror"
-        clone_mirror(remote, clone_dir)
-        assert_mirror_identity(clone_dir, module)
-        copy_module_contents(module_dir, clone_dir)
-        rewrite_worktree_tf_files(clone_dir, manifest, args.org)
-        apply_readme_banner(clone_dir, module)
-        run_validation(clone_dir, args.validate_cmd)
-        remove_generated_terraform_artifacts(clone_dir)
-        if args.r2_bucket and not args.dry_run:
-            upload_to_r2(clone_dir, module, args.version, args.r2_bucket, args.org)
-
-        tag_ref = "refs/tags/%s" % args.version
-        if git_ref_exists(clone_dir, tag_ref):
-            current_snapshot = snapshot_worktree(clone_dir)
-            tag_snapshot = snapshot_git_tree(clone_dir, args.version)
-            if current_snapshot == tag_snapshot:
-                print("already mirrored: %s %s" % (module, args.version))
-                return 0
-            raise TagConflictError(
-                "tag-conflict: tag %s exists with different content" % args.version
-            )
-
-        # Read-only checks above (validation, tag-conflict) have run; a dry-run
-        # stops before any mutation so a release can be verified without
-        # touching the mirror or R2.
+    with tempfile.TemporaryDirectory(prefix="r2-publish-") as temp_dir:
+        work = Path(temp_dir) / "module"
+        work.mkdir(parents=True)
+        assemble_r2_tree(module_dir, work, manifest, args.org, args.validate_cmd)
         if args.dry_run:
-            print("dry-run: validated %s %s (no commit/push/tag/R2)"
+            print("dry-run: assembled and validated %s %s (not uploaded)"
                   % (module, args.version))
             return 0
+        upload_to_r2(work, module, args.version, args.r2_bucket, args.org)
 
-        commit_changes(clone_dir, module, args.version)
-        push_master(clone_dir)
-        ensure_tag(clone_dir, args.version)
-
-    print("mirrored: %s %s" % (module, args.version))
+    print("published %s %s to the R2 registry" % (module, args.version))
     return 0
 
 
