@@ -45,13 +45,14 @@ jobs:
 
       # Enhancement: this repo also receives pip updates (boto3 in /tools/registry
       # for the R2 dual-publish registry, and publish_module.py deps in
-      # /set-up-repositories). Auto-merge non-major pip bumps; major bumps are
-      # held for manual review since they can carry breaking changes.
-      - name: Merge pip patch and minor updates
+      # /set-up-repositories). Auto-merge any non-major pip bump. This includes
+      # grouped updates and requirement-range widenings, which dependabot reports
+      # with an empty update-type (e.g. boto3 "<2,>=1.34" -> ">=1.43.27,<2").
+      # Only an explicit semver-major bump is held back for manual review.
+      - name: Merge pip non-major updates
         if: |
           steps.metadata.outputs.package-ecosystem == 'pip' &&
-          (steps.metadata.outputs.update-type == 'version-update:semver-minor' ||
-           steps.metadata.outputs.update-type == 'version-update:semver-patch')
+          steps.metadata.outputs.update-type != 'version-update:semver-major'
         run: gh pr merge --admin --squash "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
