@@ -64,7 +64,8 @@ automation opens one release PR per touched module.
 
 ## Adding a module
 
-Create the folder with the layout above, add it to
+Copy the [`_template/`](_template) scaffold to `terraform-<provider>-<name>/`
+(it has the layout above pre-wired), fill in the resources, then add it to
 `module-release-config.json` (`packages`), seed `.module-versions.json` with
 `"0.0.0"`, and open the PR. No mirror repo or registration is needed — once the
 first release PR merges it publishes straight to R2. Keep the module list in
