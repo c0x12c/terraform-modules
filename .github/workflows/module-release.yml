@@ -33,7 +33,7 @@ jobs:
         uses: actions/create-github-app-token@v3
         id: github-app-token
         with:
-          app-id: ${{ vars.GH_APP_ID }}
+          client-id: ${{ vars.GH_APP_CLIENT_ID }}
           private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
 
       - name: Run release automation
@@ -91,7 +91,7 @@ jobs:
         uses: actions/create-github-app-token@v3
         id: github-app-token
         with:
-          app-id: ${{ vars.GH_APP_ID }}
+          client-id: ${{ vars.GH_APP_CLIENT_ID }}
           private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
 
       - name: Checkout master
