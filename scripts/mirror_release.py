@@ -203,6 +203,21 @@ def rewrite_worktree_tf_files(worktree: Path, manifest: dict, org: str) -> None:
             tf_file.write_text(rewritten, encoding="utf-8")
 
 
+def normalize_fmt(worktree: Path) -> None:
+    # Let terraform canonicalize "=" alignment across the full assignment run;
+    # the hand-aligned source/version pair does not re-pad neighbor keys.
+    terraform = shutil.which("terraform")
+    if not terraform:
+        return
+    subprocess.run(
+        [terraform, "fmt", "-recursive", str(worktree)],
+        cwd=str(worktree),
+        check=False,
+        text=True,
+        capture_output=True,
+    )
+
+
 def run_validation(worktree: Path, validate_cmd: str) -> None:
     completed = subprocess.run(
         ["sh", "-lc", validate_cmd],
@@ -291,6 +306,7 @@ def assemble_r2_tree(
     """
     copy_module_contents(module_dir, dest)
     rewrite_worktree_tf_files(dest, manifest, org)
+    normalize_fmt(dest)
     run_validation(dest, validate_cmd)
     remove_generated_terraform_artifacts(dest)
 
