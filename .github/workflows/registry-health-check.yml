@@ -1,0 +1,62 @@
+name: registry-health-check
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.x"
+      - name: Install deps
+        run: pip install -r tools/registry/requirements.txt
+      - name: Run registry health check
+        env:
+          R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+        run: |
+          python3 scripts/registry_health_check.py \
+            --r2-bucket "${{ vars.R2_BUCKET }}" \
+            --report-file health-report.md
+      - name: Open or refresh failure issue
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create registry-health --color FBCA04 \
+            --description "Registry health-check discrepancy" --force || true
+          TITLE="Registry health-check failure"
+          # Only refresh the automation-owned issue so humans keep incident control.
+          existing=$(gh issue list --state open --label registry-health \
+            --search "\"$TITLE\" in:title" --json number,author \
+            --jq '[.[] | select(.author.login=="github-actions[bot]")][0].number // empty')
+          body=$(cat health-report.md 2>/dev/null || echo "Health check failed before producing a report.")
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "$body"
+          else
+            gh issue create --title "$TITLE" --label registry-health --body "$body"
+          fi
+      - name: Resolve issue on success
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TITLE="Registry health-check failure"
+          # Close only the bot-authored tracker, never a human-filed incident.
+          existing=$(gh issue list --state open --label registry-health \
+            --search "\"$TITLE\" in:title" --json number,author \
+            --jq '[.[] | select(.author.login=="github-actions[bot]")][0].number // empty')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "Registry health-check passed; closing."
+            gh issue close "$existing"
+          fi
