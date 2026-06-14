@@ -25,6 +25,7 @@ DEFAULT_VALIDATE_CMD = (
     "terraform init -backend=false -input=false && "
     "terraform validate"
 )
+REGISTRY_HOST = "terraform.c0x12c.com"
 
 SIBLING_SOURCE_RE = re.compile(
     r'^(\s*source\s*=\s*")\.\./(terraform-[A-Za-z0-9_-]+)(".*?)(\r?\n?)$'
@@ -135,7 +136,7 @@ def rewrite_tf_text(text: str, manifest: dict, org: str, rel_path: str = "") -> 
             rewritten_line = '%s%s = "%s"%s' % (
                 indent,
                 "source".ljust(key_width),
-                sibling_mapping.registry_source,
+                "%s/%s" % (REGISTRY_HOST, sibling_mapping.registry_source),
                 newline,
             )
             version_line = '%s%s = "%s"%s' % (

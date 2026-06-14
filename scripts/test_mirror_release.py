@@ -74,7 +74,9 @@ class MirrorReleasePureTests(unittest.TestCase):
             assemble_r2_tree(module_dir, dest, manifest, "c0x12c", "true")
 
             main_tf = (dest / "main.tf").read_text(encoding="utf-8")
-            self.assertIn('source  = "c0x12c/network/aws"', main_tf)  # sibling rewritten
+            self.assertIn(
+                'source  = "terraform.c0x12c.com/c0x12c/network/aws"', main_tf
+            )  # sibling rewritten
             self.assertIn('version = "9.8.7"', main_tf)
             self.assertNotIn("../terraform-aws-network", main_tf)  # no leftover relative
             # R2-only adds no mirror banner — README is byte-identical
@@ -102,7 +104,9 @@ class MirrorReleasePureTests(unittest.TestCase):
         )
         manifest = {"terraform-aws-network": "2.3.4"}
         rewritten = rewrite_tf_text(original, manifest, "c0x12c")
-        self.assertIn('  source  = "c0x12c/network/aws"\n', rewritten)
+        self.assertIn(
+            '  source  = "terraform.c0x12c.com/c0x12c/network/aws"\n', rewritten
+        )
         self.assertIn('  version = "2.3.4"\n', rewritten)
         self.assertIn('  source = "c0x12c/rds/aws"\n', rewritten)
         self.assertIn('  note = "keep me"\n', rewritten)
