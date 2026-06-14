@@ -143,6 +143,38 @@ class MirrorReleasePureTests(unittest.TestCase):
             "terraform fmt -check rejected rewritten output:\n%s" % rewritten,
         )
 
+    def test_assemble_realigns_neighbor_meta_arg_passes_fmt(self):
+        # Regression: a `count =` above a sibling source widens the fmt
+        # alignment run when version is inserted; assemble must re-fmt it.
+        import shutil
+
+        if not shutil.which("terraform"):
+            self.skipTest("terraform binary not available")
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            module_dir = root / "terraform-aws-foo"
+            module_dir.mkdir()
+            (module_dir / "main.tf").write_text(
+                'module "bar" {\n'
+                '  count  = var.enabled ? 1 : 0\n'
+                '  source = "../terraform-aws-baz"\n'
+                '}\n',
+                encoding="utf-8",
+            )
+            dest = root / "out"
+            dest.mkdir()
+            manifest = {"terraform-aws-foo": "1.0.0", "terraform-aws-baz": "2.0.0"}
+            assemble_r2_tree(
+                module_dir,
+                dest,
+                manifest,
+                "c0x12c",
+                "terraform fmt -check -recursive",
+            )
+            main_tf = (dest / "main.tf").read_text(encoding="utf-8")
+            self.assertIn('terraform.c0x12c.com/c0x12c/baz/aws', main_tf)
+            self.assertIn('version = "2.0.0"', main_tf)
+
     def test_rewrite_missing_sibling_from_manifest_fails(self):
         with self.assertRaisesRegex(Exception, "manifest-missing"):
             rewrite_tf_text(
