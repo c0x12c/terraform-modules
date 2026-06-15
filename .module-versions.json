@@ -108,7 +108,7 @@
   "terraform-github-action-env-variables": "1.0.0",
   "terraform-github-action-secrets": "1.0.1",
   "terraform-github-action-variables": "1.0.0",
-  "terraform-github-actions": "0.1.10",
+  "terraform-github-actions": "1.0.0",
   "terraform-kubernetes-helm-reloader": "1.1.0",
   "terraform-qdrant-accounts-cluster": "1.0.0"
 }
