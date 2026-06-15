@@ -23,7 +23,7 @@ provider "cloudflare" {
 
 module "cloudflare_cdn_for_static_site" {
   source  = "terraform.c0x12c.com/c0x12c/record-with-cache-rule/cloudflare"
-  version = "~> 1.0.0"
+  version = "1.0.0"
 
   zone_id = local.cloudflare_zone_id
 

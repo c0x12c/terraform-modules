@@ -2,7 +2,7 @@
 
 module "main" {
   source  = "terraform.c0x12c.com/c0x12c/ses-monitoring/aws"
-  version = "~> 1.0.0"
+  version = "1.0.0"
 
   environment      = "dev"
   name             = replace("example1.com", ".", "_")

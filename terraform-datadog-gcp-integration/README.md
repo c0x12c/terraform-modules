@@ -9,7 +9,7 @@ Terraform module which creates Datadog GCP integration and service account resou
 ```hcl
 module "datadog_gcp_integration" {
   source  = "terraform.c0x12c.com/c0x12c/gcp-integration/datadog"
-  version = "~> 1.1.0"
+  version = "1.1.0"
 
   datadog_account_id   = "datadog"
 }

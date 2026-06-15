@@ -9,7 +9,7 @@ This Terraform module allows management of a single API service for a Google Clo
 ```hcl
 module "recaptcha" {
   source  = "terraform.c0x12c.com/c0x12c/recaptcha/gcp"
-  version = "~> 1.0.0"
+  version = "1.0.0"
 
   environment = "dev"
 

@@ -7,7 +7,7 @@ Terraform module which creates SNS resources on AWS.
 ### Create SNS
 
 ```hcl
-module "ses" {
+module "sns" {
   source  = "terraform.c0x12c.com/c0x12c/sns/aws"
   version = "0.1.44"
   

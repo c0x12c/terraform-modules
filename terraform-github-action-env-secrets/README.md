@@ -23,7 +23,7 @@ This module creates GitHub Actions environment secrets for a specific environmen
 ```hcl
 module "production_secrets" {
   source  = "terraform.c0x12c.com/c0x12c/action-env-secrets/github"
-  version = "~> 1.0.0"
+  version = "1.0.1"
 
   repository  = "my-application"
   environment = "production"
@@ -43,7 +43,7 @@ module "production_secrets" {
 # Production environment secrets
 module "production_secrets" {
   source  = "terraform.c0x12c.com/c0x12c/action-env-secrets/github"
-  version = "~> 1.0.0"
+  version = "1.0.1"
 
   repository  = "my-application"
   environment = "production"
@@ -57,7 +57,7 @@ module "production_secrets" {
 # Staging environment secrets
 module "staging_secrets" {
   source  = "terraform.c0x12c.com/c0x12c/action-env-secrets/github"
-  version = "~> 1.0.0"
+  version = "1.0.1"
 
   repository  = "my-application"
   environment = "staging"
@@ -71,7 +71,7 @@ module "staging_secrets" {
 # Development environment secrets
 module "development_secrets" {
   source  = "terraform.c0x12c.com/c0x12c/action-env-secrets/github"
-  version = "~> 1.0.0"
+  version = "1.0.1"
 
   repository  = "my-application"
   environment = "development"
@@ -94,7 +94,7 @@ variable "prod_secrets" {
 
 module "production_secrets" {
   source  = "terraform.c0x12c.com/c0x12c/action-env-secrets/github"
-  version = "~> 1.0.0"
+  version = "1.0.1"
 
   repository  = "my-application"
   environment = "production"
@@ -127,7 +127,7 @@ locals {
 
 module "environment_secrets" {
   source   = "terraform.c0x12c.com/c0x12c/action-env-secrets/github"
-  version  = "~> 1.0.0"
+  version  = "1.0.1"
   for_each = local.environment_secrets
 
   repository  = "my-application"

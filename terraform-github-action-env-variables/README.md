@@ -30,7 +30,7 @@ This module creates GitHub Actions environment variables for specific deployment
 ```hcl
 module "production_variables" {
   source  = "terraform.c0x12c.com/c0x12c/action-env-variables/github"
-  version = "~> 1.0.0"
+  version = "1.0.0"
 
   repository  = "my-application"
   environment = "production"
@@ -51,7 +51,7 @@ module "production_variables" {
 # Production environment variables
 module "production_variables" {
   source  = "terraform.c0x12c.com/c0x12c/action-env-variables/github"
-  version = "~> 1.0.0"
+  version = "1.0.0"
 
   repository  = "my-application"
   environment = "production"
@@ -67,7 +67,7 @@ module "production_variables" {
 # Staging environment variables
 module "staging_variables" {
   source  = "terraform.c0x12c.com/c0x12c/action-env-variables/github"
-  version = "~> 1.0.0"
+  version = "1.0.0"
 
   repository  = "my-application"
   environment = "staging"
@@ -83,7 +83,7 @@ module "staging_variables" {
 # Development environment variables
 module "development_variables" {
   source  = "terraform.c0x12c.com/c0x12c/action-env-variables/github"
-  version = "~> 1.0.0"
+  version = "1.0.0"
 
   repository  = "my-application"
   environment = "development"
@@ -125,7 +125,7 @@ locals {
 
 module "environment_variables" {
   source   = "terraform.c0x12c.com/c0x12c/action-env-variables/github"
-  version  = "~> 1.0.0"
+  version  = "1.0.0"
   for_each = local.environment_variables
 
   repository  = "my-application"

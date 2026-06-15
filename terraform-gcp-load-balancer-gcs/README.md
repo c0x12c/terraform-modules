@@ -9,7 +9,7 @@ This Terraform module allows management of Load Balancer in front of Google Clou
 ```hcl
 module "load_balancer" {
   source  = "terraform.c0x12c.com/c0x12c/load-balancer-gcs/gcp"
-  version = "~> 1.0.1"
+  version = "1.0.1"
 
   prefix_name = "proj-x"
   bucket_name = "proj-x-static-website"

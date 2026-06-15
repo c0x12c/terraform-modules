@@ -17,7 +17,7 @@ This module will create the components below
 ```hcl
 module "eks" {
   source  = "terraform.c0x12c.com/c0x12c/eks-cluster/aws"
-  version = "1.0.2"
+  version = "1.0.3"
 
   region          = "us-west-2"
   environment     = "test"

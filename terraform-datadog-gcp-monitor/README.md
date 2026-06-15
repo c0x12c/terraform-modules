@@ -11,7 +11,7 @@ Terraform module that creates Datadog monitors, supporting the following:
 ```hcl
 module "gcp_monitor" {
   source  = "terraform.c0x12c.com/c0x12c/gcp-monitor/datadog"
-  version = "~> 1.0.0"
+  version = "1.0.0"
 
   notification_slack_channel_prefix = "project-x-alerts-"
   tag_slack_channel                 = true

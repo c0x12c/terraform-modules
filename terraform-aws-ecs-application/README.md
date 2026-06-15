@@ -19,7 +19,7 @@ This module will create the components below:
 ```hcl
 module "application" {
   source  = "terraform.c0x12c.com/c0x12c/ecs-application/aws"
-  version = "~> 1.0.0"
+  version = "2.2.0"
 
   name                          = "example-service"
   environment                   = "dev"
