@@ -6,7 +6,7 @@
 
 ```hcl
 module "cloudfront_logging" {
-  source  = "c0x12c/cloudfront-logging/aws"
+  source  = "terraform.c0x12c.com/c0x12c/cloudfront-logging/aws"
   version = "0.1.0"
 
   # Use provider `us-east-1`

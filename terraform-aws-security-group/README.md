@@ -13,7 +13,7 @@ This module will create the following components:
 
 ```hcl
 module "security_groups" {
-  source  = "c0x12c/security-group/aws"
+  source  = "terraform.c0x12c.com/c0x12c/security-group/aws"
   version = "0.1.58"
   
   create_default_security_group = false
@@ -54,7 +54,7 @@ module "security_groups" {
 
 ```hcl
 module "security_groups" {
-  source  = "c0x12c/security-group/aws"
+  source  = "terraform.c0x12c.com/c0x12c/security-group/aws"
   version = "0.1.58"
 
   create_default_security_group = true

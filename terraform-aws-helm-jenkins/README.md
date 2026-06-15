@@ -8,7 +8,7 @@ This module helps install and configure Jenkins via Helm chart.
 
 ```hcl
 module "eks_helm_jenkins" {
-  source  = "c0x12c/helm-jenkins/aws"
+  source  = "terraform.c0x12c.com/c0x12c/helm-jenkins/aws"
   version = "1.0.1"
 
   environment             = "dev"

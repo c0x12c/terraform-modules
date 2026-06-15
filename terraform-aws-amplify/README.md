@@ -11,7 +11,8 @@ this [guideline](https://docs.aws.amazon.com/amplify/latest/userguide/deploy-nex
 
 ```hcl
 module "website" {
-  source  = "github.com/c0x12c/terraform-aws-amplify?ref=v0.1.0"
+  source  = "terraform.c0x12c.com/c0x12c/amplify/aws"
+  version = "1.4.1"
 
   dns_zone         = "example.com"
   environment      = "dev"

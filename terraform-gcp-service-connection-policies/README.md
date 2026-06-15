@@ -12,7 +12,7 @@ services, providing rules on how service connections should be established and c
 
 ```hcl
 module "service_connection_policies" {
-  source  = "c0x12c/service-connection-policies/gcp"
+  source  = "terraform.c0x12c.com/c0x12c/service-connection-policies/gcp"
   version = "0.1.5"
   
   gcp_region = "us-west-1"

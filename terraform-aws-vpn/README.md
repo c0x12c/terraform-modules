@@ -8,7 +8,7 @@ This supports 1024-bit and 2048-bit RSA key sizes only.
 
 ```hcl
 module "vpn" {
-  source  = "c0x12c/vpn/aws"
+  source  = "terraform.c0x12c.com/c0x12c/vpn/aws"
   version = "0.1.4"
 
   endpoint_name                  = "example"

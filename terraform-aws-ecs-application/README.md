@@ -18,7 +18,7 @@ This module will create the components below:
 
 ```hcl
 module "application" {
-  source  = "c0x12c/ecs-application/aws"
+  source  = "terraform.c0x12c.com/c0x12c/ecs-application/aws"
   version = "~> 1.0.0"
 
   name                          = "example-service"

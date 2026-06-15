@@ -13,7 +13,7 @@ This module will create the following components:
 
 ```hcl
 module "storage_bucket" {
-  source  = "c0x12c/storage-bucket/gcp"
+  source  = "terraform.c0x12c.com/c0x12c/storage-bucket/gcp"
   version = "0.6.5"
 
   bucket_name = "example-bucket"

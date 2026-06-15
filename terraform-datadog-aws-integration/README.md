@@ -6,7 +6,7 @@ Terraform module which creates Datadog AWS integration resources and the require
 
 ```hcl
 module "datadog_aws_integration" {
-  source  = "c0x12c/aws-integration/datadog"
+  source  = "terraform.c0x12c.com/c0x12c/aws-integration/datadog"
   version = "1.0.1"
 
   # Default: null (collect all namespaces). Override to restrict to specific namespaces:

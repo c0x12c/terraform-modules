@@ -1,7 +1,7 @@
 ## Usage
 
 module "main" {
-  source  = "c0x12c/ses-monitoring/aws"
+  source  = "terraform.c0x12c.com/c0x12c/ses-monitoring/aws"
   version = "~> 1.0.0"
 
   environment      = "dev"

@@ -18,7 +18,7 @@ The module can manage the following:
 
 ```hcl
 module "jenkins_oidc" {
-  source  = "c0x12c/jenkins-oidc/aws"
+  source  = "terraform.c0x12c.com/c0x12c/jenkins-oidc/aws"
   version = "1.0.0"
 
   role_name = "jenkins"

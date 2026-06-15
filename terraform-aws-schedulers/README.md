@@ -14,7 +14,7 @@ This module will create:
 
 ```hcl
 module "scheduler" {
-  source  = "c0x12c/schedulers/aws"
+  source  = "terraform.c0x12c.com/c0x12c/schedulers/aws"
   version = "1.1.0"
 
   sqs_arn                      = module.sqs-project-service-connection.queue.arn

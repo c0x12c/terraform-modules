@@ -14,7 +14,7 @@ This module will create the following components:
 
 ```hcl
 module "sendgrid" {
-  source  = "c0x12c/sendgrid/aws"
+  source  = "terraform.c0x12c.com/c0x12c/sendgrid/aws"
   version = "0.2.0"
 
   api_keys = {

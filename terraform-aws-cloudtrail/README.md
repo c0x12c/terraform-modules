@@ -13,7 +13,7 @@ Terraform module which creates external AWS CloudTrail resources:
 
 ```hcl
 module "cloudtrail" {
-  source  = "c0x12c/cloudtrail/aws"
+  source  = "terraform.c0x12c.com/c0x12c/cloudtrail/aws"
   version = "0.6.6"
 
   name                          = "example-cloudtrail"

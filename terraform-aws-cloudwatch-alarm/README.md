@@ -6,7 +6,7 @@ Terraform module which creates Amazon CloudWatch Alarm resources.
 
 ```hcl
 module "cloudwatch-alarm" {
-  source  = "c0x12c/cloudwatch-alarm/aws"
+  source  = "terraform.c0x12c.com/c0x12c/cloudwatch-alarm/aws"
   version = "0.8.0"
 
   emails      = ["example-email"]

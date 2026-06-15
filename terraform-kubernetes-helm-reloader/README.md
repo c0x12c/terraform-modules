@@ -19,7 +19,7 @@ This Terraform module deploys [Stakater Reloader](https://github.com/stakater/Re
 
 ```hcl
 module "reloader" {
-  source  = "c0x12c/helm-reloader/kubernetes"
+  source  = "terraform.c0x12c.com/c0x12c/helm-reloader/kubernetes"
   version = "1.1.0"
 
   namespace = "reloader-system"
@@ -30,7 +30,7 @@ module "reloader" {
 
 ```hcl
 module "reloader" {
-  source  = "c0x12c/helm-reloader/kubernetes"
+  source  = "terraform.c0x12c.com/c0x12c/helm-reloader/kubernetes"
   version = "1.1.0"
 
   namespace = "reloader-system"
@@ -95,7 +95,7 @@ For GitOps environments like ArgoCD, use the annotations strategy to avoid confi
 
 ```hcl
 module "reloader" {
-  source  = "c0x12c/helm-reloader/kubernetes"
+  source  = "terraform.c0x12c.com/c0x12c/helm-reloader/kubernetes"
   version = "1.1.0"
 
   namespace = "reloader-system"

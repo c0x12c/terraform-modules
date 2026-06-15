@@ -8,7 +8,7 @@ Terraform EFS sub-module to create EFS resources on AWS.
 
 ```hcl
 module "efs" {
-  source  = "c0x12c/efs/aws"
+  source  = "terraform.c0x12c.com/c0x12c/efs/aws"
   version = "0.1.78"
 
   name               = "example"

@@ -12,7 +12,7 @@ This module will create the following components:
 
 ```hcl
 module "route53" {
-  source  = "c0x12c/route53/aws"
+  source  = "terraform.c0x12c.com/c0x12c/route53/aws"
   version = "0.1.14"
 
   dns_zone = "example.com"

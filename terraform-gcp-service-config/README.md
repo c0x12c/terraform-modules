@@ -12,7 +12,7 @@ This Terraform module creates a combination of resources (customizable and optio
 
 ```hcl
 module "service" {
-  source  = "c0x12c/service-config/gcp"
+  source  = "terraform.c0x12c.com/c0x12c/service-config/gcp"
   version = "~> 1.0.0"
 
   environment = "dev"

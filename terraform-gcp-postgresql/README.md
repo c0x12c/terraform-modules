@@ -15,7 +15,8 @@ This module will create the following components:
 
 ```hcl
 module "postgresql" {
-  source = "../../"
+  source  = "terraform.c0x12c.com/c0x12c/postgresql/gcp"
+  version = "1.0.1"
 
   network_name = "example-vpc-name"
   project_id   = "example-project"

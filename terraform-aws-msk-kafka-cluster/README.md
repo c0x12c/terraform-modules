@@ -16,7 +16,7 @@ This module will create the following components:
 
 ```hcl
 module "msk" {
-  source  = "c0x12c/msk-kafka-cluster/aws"
+  source  = "terraform.c0x12c.com/c0x12c/msk-kafka-cluster/aws"
   version = "0.1.0"
 
   cluster_name           = "example"

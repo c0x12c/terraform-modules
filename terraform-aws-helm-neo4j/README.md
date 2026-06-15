@@ -9,7 +9,7 @@ for persistent storage and various Kubernetes and Helm configurations.
 
 ```hcl
 module "neo4j" {
-  source  = "c0x12c/helm-neo4j/aws"
+  source  = "terraform.c0x12c.com/c0x12c/helm-neo4j/aws"
   version = "1.1.0"
 
   domain = "example.com"

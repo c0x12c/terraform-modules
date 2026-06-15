@@ -8,7 +8,7 @@ Terraform module that creates Datadog notification rules. These rules allow to f
 
 ```hcl
 module "datadog_notification_rules" {
-  source = "c0x12c/notification-rules/datadog"
+  source = "terraform.c0x12c.com/c0x12c/notification-rules/datadog"
 
   notification_rules = {
     prod_slack_rule = {

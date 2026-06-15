@@ -13,7 +13,7 @@ This module will create the following components:
 
 ```hcl
 module "instance" {
-  source  = "c0x12c/rds/aws"
+  source  = "terraform.c0x12c.com/c0x12c/rds/aws"
   version = "0.6.6"
 
   db_name                             = "example_rds"

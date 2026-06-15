@@ -16,7 +16,7 @@ module "wafv2_cloudfront" {
     aws = aws.global
   }
 
-  source  = "c0x12c/wafv2/aws"
+  source  = "terraform.c0x12c.com/c0x12c/wafv2/aws"
   version = "1.0.1"
 
   name  = "cloudfront-name"
@@ -33,7 +33,7 @@ module "wafv2_cloudfront" {
 }
 
 module "wafv2_alb" {
-  source  = "c0x12c/wafv2/aws"
+  source  = "terraform.c0x12c.com/c0x12c/wafv2/aws"
   version = "1.0.1"
 
   name  = "alb-name"

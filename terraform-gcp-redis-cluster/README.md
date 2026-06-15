@@ -8,7 +8,8 @@ This Terraform module creates a GCP redis cluster.
 
 ```hcl
 module "redis_cluster" {
-  source = "../../"
+  source  = "terraform.c0x12c.com/c0x12c/redis-cluster/gcp"
+  version = "0.1.4"
 
   name   = "redis-cluster-name"
   region = "us-west1"

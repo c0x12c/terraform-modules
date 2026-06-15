@@ -13,7 +13,7 @@ This module will create the components:
 
 ```hcl
 module "ecs_cluster" {
-  source  = "c0x12c/ecs-cluster/aws"
+  source  = "terraform.c0x12c.com/c0x12c/ecs-cluster/aws"
   version = "0.2.2"
 
   cluster_name = "example"

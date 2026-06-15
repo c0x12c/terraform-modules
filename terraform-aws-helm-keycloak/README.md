@@ -8,7 +8,7 @@ This module helps install and configure Keycloak for EKS cluster via Helm chart.
 
 ```hcl
 module "eks_helm_keycloak" {
-  source  = "c0x12c/helm-keycloak/aws"
+  source  = "terraform.c0x12c.com/c0x12c/helm-keycloak/aws"
   version = "1.1.0"
 
   create_postgresql   = false

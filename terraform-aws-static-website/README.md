@@ -15,7 +15,7 @@ This module will create the components below:
 
 ```hcl
 module "static_website" {
-  source  = "c0x12c/static-website/aws"
+  source  = "terraform.c0x12c.com/c0x12c/static-website/aws"
   version = "1.0.0"
 
   name              = "example"

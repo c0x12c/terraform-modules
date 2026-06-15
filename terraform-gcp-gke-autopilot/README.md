@@ -8,7 +8,8 @@ This Terraform module provisions a Google Kubernetes Engine (GKE) Autopilot clus
 
 ```hcl
 module "gke_autopilot" {
-  source  = "../modules/gcp/gke-autopilot"
+  source  = "terraform.c0x12c.com/c0x12c/gke-autopilot/gcp"
+  version = "0.1.4"
 
   project_id                     = "my-gcp-project"
   region                         = "us-central1"

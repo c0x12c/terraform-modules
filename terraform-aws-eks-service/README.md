@@ -5,7 +5,7 @@ of  [Kubernetes and AWS resources](#resources).
 
 ```hcl
 module "keda" {
-  source  = "c0x12c/eks-service/aws"
+  source  = "terraform.c0x12c.com/c0x12c/eks-service/aws"
   version = "0.2.8"
 
   cluster_name = "my-eks-cluster"

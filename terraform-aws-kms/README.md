@@ -14,7 +14,7 @@ This module will create the following components:
 
 ```hcl
 module "kms" {
-  source  = "c0x12c/kms/aws"
+  source  = "terraform.c0x12c.com/c0x12c/kms/aws"
   version = "0.3.15"
 
   name                     = "example"

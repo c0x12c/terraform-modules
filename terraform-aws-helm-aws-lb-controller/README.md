@@ -8,7 +8,7 @@ Terraform module which install an ALB Controller to EKS cluster and configure th
 
 ```hcl
 module "aws_eks_lb" {
-  source  = "c0x12c/helm-aws-lb-controller/aws"
+  source  = "terraform.c0x12c.com/c0x12c/helm-aws-lb-controller/aws"
   version = "1.2.1"
 
   cluster_name        = local.eks_cluster.cluster_name

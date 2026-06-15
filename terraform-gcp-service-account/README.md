@@ -8,7 +8,7 @@ This Terraform module creates a GCP Service Account.
 
 ```hcl
 module "service_account" {
-  source  = "c0x12c/service-account/gcp"
+  source  = "terraform.c0x12c.com/c0x12c/service-account/gcp"
   version = "1.0.0"
   
   service_account_id         = "example"

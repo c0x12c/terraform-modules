@@ -13,7 +13,7 @@ This module will create the following components:
 
 ```hcl
 module "cloud_dns" {
-  source  = "c0x12c/cloud-dns/gcp"
+  source  = "terraform.c0x12c.com/c0x12c/cloud-dns/gcp"
   version = "0.1.4"
 
   create_new = true

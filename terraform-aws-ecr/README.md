@@ -6,7 +6,7 @@ Terraform module which creates Amazon ECR resources.
 
 ```hcl
 module "ecr" {
-  source  = "c0x12c/ecr/aws"
+  source  = "terraform.c0x12c.com/c0x12c/ecr/aws"
   version = "0.1.57"
 
   name = "example-repo"

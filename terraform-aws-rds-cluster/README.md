@@ -19,7 +19,7 @@ Terraform module which provisions an Amazon RDS cluster on AWS. A single module 
 
 ```hcl
 module "cluster" {
-  source  = "c0x12c/rds-cluster/aws"
+  source  = "terraform.c0x12c.com/c0x12c/rds-cluster/aws"
   version = "0.1.0"
 
   name            = "rental"
@@ -60,7 +60,7 @@ module "cluster" {
 
 ```hcl
 module "cluster" {
-  source  = "c0x12c/rds-cluster/aws"
+  source  = "terraform.c0x12c.com/c0x12c/rds-cluster/aws"
   version = "0.1.0"
 
   name            = "analytics"
@@ -88,7 +88,7 @@ module "cluster" {
 
 ```hcl
 module "cluster" {
-  source  = "c0x12c/rds-cluster/aws"
+  source  = "terraform.c0x12c.com/c0x12c/rds-cluster/aws"
   version = "0.1.0"
 
   name            = "billing"

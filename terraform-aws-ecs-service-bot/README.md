@@ -16,7 +16,7 @@ This Terraform module deploys a Service Bot on AWS ECS using Fargate. The Servic
 
 ```hcl
 module "service_bot" {
-  source  = "c0x12c/ecs-service-bot/aws"
+  source  = "terraform.c0x12c.com/c0x12c/ecs-service-bot/aws"
   version = "1.0.0"
 
   name        = "service-bot"

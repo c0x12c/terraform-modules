@@ -8,7 +8,7 @@ Terraform Cloudwatch logging module for fargate.
 
 ```hcl
 module "cloudwatch_logging" {
-  source  = "c0x12c/eks-cloudwatch-logging-fargate/aws"
+  source  = "terraform.c0x12c.com/c0x12c/eks-cloudwatch-logging-fargate/aws"
 
   name                                    = local.cluster_name
   region                                  = local.region

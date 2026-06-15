@@ -8,7 +8,7 @@ This Terraform module provisions workspace group resources that manages workspac
 
 ```hcl
 module "google_workspace" {
-  source  = "c0x12c/google-workspace/gcp"
+  source  = "terraform.c0x12c.com/c0x12c/google-workspace/gcp"
   version = "~> 1.0.0"
 
   domain = "example.com"
