@@ -8,7 +8,7 @@ Terraform module which creates SSM parameter resources on AWS.
 
 ```hcl
 module "ssm_parameter" {
-  source  = "c0x12c/ssm-parameter/aws"
+  source  = "terraform.c0x12c.com/c0x12c/ssm-parameter/aws"
   version = "1.0.0"
 
   prefix = "example"

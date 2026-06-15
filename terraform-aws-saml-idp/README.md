@@ -8,7 +8,7 @@ Terraform module which creates Identity SAML Provider resource on AWS.
 
 ```hcl
 module "saml_vpn" {
-  source  = "c0x12c/saml-idp/aws"
+  source  = "terraform.c0x12c.com/c0x12c/saml-idp/aws"
   version = "1.0.0"
 
   saml_providers = {

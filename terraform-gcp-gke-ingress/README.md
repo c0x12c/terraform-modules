@@ -14,7 +14,7 @@ This module will create the components below:
 
 ```hcl
 module "gke_ingress" {
-  source  = "c0x12c/gke-ingress/gcp"
+  source  = "terraform.c0x12c.com/c0x12c/gke-ingress/gcp"
   version = "0.1.5"
 
   project_id = "example-project"

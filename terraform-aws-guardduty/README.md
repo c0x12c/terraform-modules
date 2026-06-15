@@ -16,7 +16,7 @@ This module will create the following components:
 
 ```hcl
 module "guardduty" {
-  source  = "c0x12c/guardduty/aws"
+  source  = "terraform.c0x12c.com/c0x12c/guardduty/aws"
   version = "0.1.23"
 
   name                                    = "example"

@@ -8,7 +8,7 @@ This Terraform module is used to deploy the Keda Helm chart on an AWS EKS cluste
 
 ```hcl
 module "keda" {
-  source  = "c0x12c/helm-keda/aws"
+  source  = "terraform.c0x12c.com/c0x12c/helm-keda/aws"
   version = "1.1.0"
 
   oidc_provider = {
@@ -20,7 +20,7 @@ module "keda" {
 }
 
 module "keda-assume-role-policy" {
-  source  = "c0x12c/helm-keda/aws//assume-role-policy"
+  source  = "terraform.c0x12c.com/c0x12c/helm-keda/aws//assume-role-policy"
   version = "1.1.0"
 
   keda_operator_role_id = module.keda.keda_operator_role_id

@@ -8,7 +8,7 @@ Terraform module which creates OpenVPN to access internal VPC network.
 
 ```hcl
 module "openvpn" {
-  source  = "c0x12c/openvpn/aws"
+  source  = "terraform.c0x12c.com/c0x12c/openvpn/aws"
   version = "0.5.0"
 
   vpn_name    = "openvpn"

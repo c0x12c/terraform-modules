@@ -16,8 +16,8 @@ with monitors:
 
 ```hcl
 module "service_monitor" {
-  source  = "c0x12c/service-monitor/datadog"
-  version = "0.7.0"
+  source  = "terraform.c0x12c.com/c0x12c/service-monitor/datadog"
+  version = "1.1.1"
 
   cluster_name                      = "proj-service-dev"
   service_name                      = "service-platform"
@@ -40,7 +40,7 @@ supported:
 
 ```hcl
 module "service_monitor" {
-  source = "c0x12c/service-monitor/datadog"
+  source = "terraform.c0x12c.com/c0x12c/service-monitor/datadog"
 
   cluster_name                      = "proj-service-dev"
   service_name                      = "service-platform"

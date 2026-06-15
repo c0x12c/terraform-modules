@@ -8,7 +8,7 @@ Terraform module to create Datadog team.
 
 ```hcl
 module "datadog_be_team" {
-  source = "c0x12c/team/datadog"
+  source = "terraform.c0x12c.com/c0x12c/team/datadog"
 
   team_name        = "Prj X oncall team"
   team_handle      = "prj-x-oncall"

@@ -22,8 +22,8 @@ This module creates GitHub Actions environment secrets for a specific environmen
 
 ```hcl
 module "production_secrets" {
-  source  = "c0x12c/action-env-secrets/github"
-  version = "~> 1.0.0"
+  source  = "terraform.c0x12c.com/c0x12c/action-env-secrets/github"
+  version = "1.0.1"
 
   repository  = "my-application"
   environment = "production"
@@ -42,8 +42,8 @@ module "production_secrets" {
 ```hcl
 # Production environment secrets
 module "production_secrets" {
-  source  = "c0x12c/action-env-secrets/github"
-  version = "~> 1.0.0"
+  source  = "terraform.c0x12c.com/c0x12c/action-env-secrets/github"
+  version = "1.0.1"
 
   repository  = "my-application"
   environment = "production"
@@ -56,8 +56,8 @@ module "production_secrets" {
 
 # Staging environment secrets
 module "staging_secrets" {
-  source  = "c0x12c/action-env-secrets/github"
-  version = "~> 1.0.0"
+  source  = "terraform.c0x12c.com/c0x12c/action-env-secrets/github"
+  version = "1.0.1"
 
   repository  = "my-application"
   environment = "staging"
@@ -70,8 +70,8 @@ module "staging_secrets" {
 
 # Development environment secrets
 module "development_secrets" {
-  source  = "c0x12c/action-env-secrets/github"
-  version = "~> 1.0.0"
+  source  = "terraform.c0x12c.com/c0x12c/action-env-secrets/github"
+  version = "1.0.1"
 
   repository  = "my-application"
   environment = "development"
@@ -93,8 +93,8 @@ variable "prod_secrets" {
 }
 
 module "production_secrets" {
-  source  = "c0x12c/action-env-secrets/github"
-  version = "~> 1.0.0"
+  source  = "terraform.c0x12c.com/c0x12c/action-env-secrets/github"
+  version = "1.0.1"
 
   repository  = "my-application"
   environment = "production"
@@ -126,8 +126,8 @@ locals {
 }
 
 module "environment_secrets" {
-  source   = "c0x12c/action-env-secrets/github"
-  version  = "~> 1.0.0"
+  source   = "terraform.c0x12c.com/c0x12c/action-env-secrets/github"
+  version  = "1.0.1"
   for_each = local.environment_secrets
 
   repository  = "my-application"
@@ -249,7 +249,7 @@ The GitHub token must have the following permissions:
 ```hcl
 # Repository-level secrets (available to all workflows)
 module "repo_secrets" {
-  source     = "c0x12c/action-secrets/github"
+  source     = "terraform.c0x12c.com/c0x12c/action-secrets/github"
   repository = "my-app"
   secrets = {
     "GLOBAL_SECRET" = "value"
@@ -262,7 +262,7 @@ module "repo_secrets" {
 ```hcl
 # Environment-level secrets (only available to specific environment)
 module "env_secrets" {
-  source      = "c0x12c/action-env-secrets/github"
+  source      = "terraform.c0x12c.com/c0x12c/action-env-secrets/github"
   repository  = "my-app"
   environment = "production"  # Additional scoping
   secrets = {
@@ -319,7 +319,7 @@ If you're migrating from repository-level secrets to environment secrets:
 ```hcl
 # Before: Repository-level secret
 module "old_secrets" {
-  source     = "c0x12c/action-secrets/github"
+  source     = "terraform.c0x12c.com/c0x12c/action-secrets/github"
   repository = "my-app"
   secrets = {
     "DATABASE_URL" = var.database_url
@@ -328,7 +328,7 @@ module "old_secrets" {
 
 # After: Environment-level secret
 module "new_secrets" {
-  source      = "c0x12c/action-env-secrets/github"
+  source      = "terraform.c0x12c.com/c0x12c/action-env-secrets/github"
   repository  = "my-app"
   environment = "production"
   secrets = {

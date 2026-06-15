@@ -7,8 +7,8 @@ This module helps install and configure Metrics Server for EKS cluster via Helm 
 ### Install Metrics Server
 
 ```hcl
-module "eks_helm_datadog" {
-  source  = "c0x12c/helm-metrics-server/aws"
+module "metrics_server" {
+  source  = "terraform.c0x12c.com/c0x12c/helm-metrics-server/aws"
   version = "1.1.0"
 
   helm_release_name  = "metrics-server"

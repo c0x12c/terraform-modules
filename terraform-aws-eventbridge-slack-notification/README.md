@@ -14,7 +14,8 @@ This module creates a reusable notification system that sends AWS EventBridge ev
 
 ```hcl
 module "notification" {
-  source = "../terraform-aws-eventbridge-slack-notification"
+  source  = "terraform.c0x12c.com/c0x12c/eventbridge-slack-notification/aws"
+  version = "1.2.0"
 
   name              = "my-service-notifier"
   environment       = "production"

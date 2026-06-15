@@ -8,7 +8,7 @@ Terraform Datadog RBAC sub-module.
 
 ```hcl
 module "datadog_rbac" {
-  source  = "c0x12c/eks-datadog-rbac/aws"
+  source  = "terraform.c0x12c.com/c0x12c/eks-datadog-rbac/aws"
 
   fargate_profiles        = var.fargate_profiles
   default_service_account = var.default_service_account

@@ -14,8 +14,8 @@ This Terraform module deploys a Service Bot on AWS EKS using Helm. The Service B
 
 ```hcl
 module "service_bot" {
-  source  = "c0x12c/helm-service-bot/aws"
-  version = "0.4.0"
+  source  = "terraform.c0x12c.com/c0x12c/helm-service-bot/aws"
+  version = "0.6.1"
 
   cluster_name      = "my-eks-cluster"
   eks_oidc_provider = {

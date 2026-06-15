@@ -12,7 +12,7 @@ This module will create the components below
 
 ```hcl
 module "eks-access-entry" {
-  source  = "c0x12c/eks-access-entry/aws"
+  source  = "terraform.c0x12c.com/c0x12c/eks-access-entry/aws"
   version = "0.3.0"
 
   aws_account_id = "<account-id>"

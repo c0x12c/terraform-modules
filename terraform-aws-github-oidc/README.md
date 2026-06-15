@@ -18,7 +18,7 @@ The module can manage the following:
 
 ```hcl
 module "github_oidc" {
-  source  = "c0x12c/github-oidc/aws"
+  source  = "terraform.c0x12c.com/c0x12c/github-oidc/aws"
   version = "1.0.1"
 
   role_name       = "service-atlas"

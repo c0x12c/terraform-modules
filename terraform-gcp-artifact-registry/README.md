@@ -13,7 +13,7 @@ This module will create the following components:
 
 ```hcl
 module "docker_repository" {
-  source  = "c0x12c/artifact-registry/gcp"
+  source  = "terraform.c0x12c.com/c0x12c/artifact-registry/gcp"
   version = "0.1.4"
   
   format        = "DOCKER"

@@ -1,4 +1,16 @@
 <!-- BEGIN_TF_DOCS -->
+## Usage
+
+```hcl
+module "accounts_cluster" {
+  source  = "terraform.c0x12c.com/c0x12c/accounts-cluster/qdrant"
+  version = "1.0.0"
+
+  name            = "accounts"
+  node_package_id = "node-package-id"
+}
+```
+
 ## Requirements
 
 | Name | Version |

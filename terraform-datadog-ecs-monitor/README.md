@@ -14,8 +14,8 @@ Terraform module for creating comprehensive Datadog monitors for AWS ECS service
 
 ```hcl
 module "ecs_monitors" {
-  source  = "c0x12c/ecs-monitor/datadog"
-  version = "~> 1.0.0"
+  source  = "terraform.c0x12c.com/c0x12c/ecs-monitor/datadog"
+  version = "1.0.2"
 
   aws_account_id   = "123456789012"
   environment      = "prod"
@@ -35,8 +35,8 @@ module "ecs_monitors" {
 
 ```hcl
 module "ecs_monitors" {
-  source  = "c0x12c/ecs-monitor/datadog"
-  version = "~> 1.0.0"
+  source  = "terraform.c0x12c.com/c0x12c/ecs-monitor/datadog"
+  version = "1.0.2"
 
   aws_account_id   = "123456789012"
   environment      = "prod"
@@ -54,8 +54,8 @@ module "ecs_monitors" {
 
 ```hcl
 module "ecs_monitors" {
-  source  = "c0x12c/ecs-monitor/datadog"
-  version = "~> 1.0.0"
+  source  = "terraform.c0x12c.com/c0x12c/ecs-monitor/datadog"
+  version = "1.0.2"
 
   aws_account_id   = "123456789012"
   environment      = "prod"
@@ -72,8 +72,8 @@ module "ecs_monitors" {
 
 ```hcl
 module "ecs_monitors" {
-  source  = "c0x12c/ecs-monitor/datadog"
-  version = "~> 1.0.0"
+  source  = "terraform.c0x12c.com/c0x12c/ecs-monitor/datadog"
+  version = "1.0.2"
 
   aws_account_id   = "123456789012"
   environment      = "prod"
@@ -98,8 +98,8 @@ module "ecs_monitors" {
 
 ```hcl
 module "ecs_monitors" {
-  source  = "c0x12c/ecs-monitor/datadog"
-  version = "~> 1.0.0"
+  source  = "terraform.c0x12c.com/c0x12c/ecs-monitor/datadog"
+  version = "1.0.2"
 
   aws_account_id   = "123456789012"
   environment      = "prod"
@@ -124,8 +124,8 @@ Control which severity levels trigger @channel tags in Slack notifications:
 
 ```hcl
 module "ecs_monitors" {
-  source  = "c0x12c/ecs-monitor/datadog"
-  version = "~> 1.0.0"
+  source  = "terraform.c0x12c.com/c0x12c/ecs-monitor/datadog"
+  version = "1.0.2"
 
   aws_account_id   = "123456789012"
   environment      = "prod"
@@ -149,8 +149,8 @@ This configuration will:
 
 ```hcl
 module "ecs_monitors" {
-  source  = "c0x12c/ecs-monitor/datadog"
-  version = "~> 1.0.0"
+  source  = "terraform.c0x12c.com/c0x12c/ecs-monitor/datadog"
+  version = "1.0.2"
 
   aws_account_id   = "123456789012"
   environment      = "prod"

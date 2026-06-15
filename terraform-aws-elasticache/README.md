@@ -13,7 +13,7 @@ This module will create the following components:
 
 ```hcl
 module "elasticache" {
-  source  = "c0x12c/elasticache/aws"
+  source  = "terraform.c0x12c.com/c0x12c/elasticache/aws"
   version = "0.6.0"
 
   cluster_name                           = "example"

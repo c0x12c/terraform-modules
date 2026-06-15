@@ -13,7 +13,7 @@ This module will create the following components:
 
 ```hcl
 module "ses" {
-  source  = "c0x12c/ses/aws"
+  source  = "terraform.c0x12c.com/c0x12c/ses/aws"
   version = "1.0.0"
 
   environment  = "dev"

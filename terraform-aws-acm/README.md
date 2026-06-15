@@ -8,7 +8,7 @@ Terraform module which creates ACM certificates and validates them using Route53
 
 ```hcl
 module "acm" {
-  source  = "c0x12c/acm/aws"
+  source  = "terraform.c0x12c.com/c0x12c/acm/aws"
   version = "0.1.63"
 
   zone_id                   = "example"

@@ -8,8 +8,8 @@ This Terraform module create and manage a group of members within the Google wor
 
 ```hcl
 module "google_workspace_group" {
-  source  = "c0x12c/google-workspace-group/gcp"
-  version = "~> 1.0.0"
+  source  = "terraform.c0x12c.com/c0x12c/google-workspace-group/gcp"
+  version = "1.0.0"
 
   identifier  = "example_project_developers"
   domain      = "example.com"

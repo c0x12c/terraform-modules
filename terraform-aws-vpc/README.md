@@ -23,7 +23,7 @@ achieve decreasing cost and centralized all the traffic in private subnets under
 
 ```hcl
 module "vpc" {
-  source  = "c0x12c/vpc/aws"
+  source  = "terraform.c0x12c.com/c0x12c/vpc/aws"
   version = "0.5.0"
 
   name                        = "example"

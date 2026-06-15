@@ -15,7 +15,7 @@ This module will create the following components:
 
 ```hcl
 module "workload_identity" {
-  source  = "c0x12c/workload-identity/gcp"
+  source  = "terraform.c0x12c.com/c0x12c/workload-identity/gcp"
   version = "0.1.5"
 
   pool_id            = "example-pool"

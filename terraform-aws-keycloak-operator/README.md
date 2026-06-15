@@ -50,7 +50,8 @@ resource "kubernetes_secret" "keycloak_db" {
 }
 
 module "keycloak" {
-  source = "path/to/terraform-aws-keycloak-operator"
+  source  = "terraform.c0x12c.com/c0x12c/keycloak-operator/aws"
+  version = "0.1.0"
 
   name      = "keycloak"
   namespace = "keycloak"
@@ -85,7 +86,8 @@ For clusters without OLM, use the manifest installation method:
 
 ```hcl
 module "keycloak" {
-  source = "path/to/terraform-aws-keycloak-operator"
+  source  = "terraform.c0x12c.com/c0x12c/keycloak-operator/aws"
+  version = "0.1.0"
 
   # ... other configuration ...
 
@@ -99,7 +101,8 @@ module "keycloak" {
 
 ```hcl
 module "keycloak" {
-  source = "path/to/terraform-aws-keycloak-operator"
+  source  = "terraform.c0x12c.com/c0x12c/keycloak-operator/aws"
+  version = "0.1.0"
 
   # ... other configuration ...
 

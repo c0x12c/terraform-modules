@@ -8,7 +8,7 @@ Terraform module which creates OpenSearch resources on AWS.
 
 ```hcl
 module "opensearch" {
-  source  = "c0x12c/opensearch/aws"
+  source  = "terraform.c0x12c.com/c0x12c/opensearch/aws"
   version = "0.3.16"
 
   domain             = "opensearch"

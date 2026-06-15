@@ -4,6 +4,29 @@ This Terraform module provisions GCP metric and monitoring rule.
 
 ## Usage
 
+```hcl
+module "google_monitoring" {
+  source  = "terraform.c0x12c.com/c0x12c/google-monitoring/gcp"
+  version = "0.6.2"
+
+  name        = "high-cpu-alert"
+  filter      = "metric.type=\"compute.googleapis.com/instance/cpu/utilization\""
+  metric_kind = "GAUGE"
+  value_type  = "DOUBLE"
+  combiner    = "OR"
+
+  conditions = [
+    {
+      display_name    = "CPU > 80%"
+      comparison      = "COMPARISON_GT"
+      threshold_value = 0.8
+      duration        = "300s"
+    }
+  ]
+}
+```
+
+
 ### Create Logging Metric and Monitoring Rule
 
 ## Examples

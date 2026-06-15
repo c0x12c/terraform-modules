@@ -8,7 +8,7 @@ This module helps install and configure OPA Engine for EKS cluster via Helm char
 
 ```hcl
 module "eks_helm_opa" {
-  source  = "c0x12c/helm-opa/aws"
+  source  = "terraform.c0x12c.com/c0x12c/helm-opa/aws"
   version = "1.1.0"
 
   helm_release_name  = "opa"

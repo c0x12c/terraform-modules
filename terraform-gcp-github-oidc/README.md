@@ -15,7 +15,7 @@ This module will create the following components:
 
 ```hcl
 module "github_oidc" {
-  source  = "c0x12c/github-oidc/gcp"
+  source  = "terraform.c0x12c.com/c0x12c/github-oidc/gcp"
   version = "0.1.4"
 
   gcp_pool_id            = "github-actions-pool"

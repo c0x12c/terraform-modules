@@ -13,7 +13,7 @@ This module will create the following components:
 
 ```hcl
 module "sqs" {
-  source  = "c0x12c/sqs/aws"
+  source  = "terraform.c0x12c.com/c0x12c/sqs/aws"
   version = "0.3.0"
 
   name              = "example-queue"

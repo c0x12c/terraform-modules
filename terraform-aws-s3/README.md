@@ -13,7 +13,7 @@ This module will create:
 
 ```hcl
 module "s3" {
-  source  = "c0x12c/s3/aws"
+  source  = "terraform.c0x12c.com/c0x12c/s3/aws"
   version = "1.1.0"
 
   bucket_name     = "example-bucket"

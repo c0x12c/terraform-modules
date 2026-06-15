@@ -29,8 +29,8 @@ This module creates GitHub Actions environment variables for specific deployment
 
 ```hcl
 module "production_variables" {
-  source  = "c0x12c/action-env-variables/github"
-  version = "~> 1.0.0"
+  source  = "terraform.c0x12c.com/c0x12c/action-env-variables/github"
+  version = "1.0.0"
 
   repository  = "my-application"
   environment = "production"
@@ -50,8 +50,8 @@ module "production_variables" {
 ```hcl
 # Production environment variables
 module "production_variables" {
-  source  = "c0x12c/action-env-variables/github"
-  version = "~> 1.0.0"
+  source  = "terraform.c0x12c.com/c0x12c/action-env-variables/github"
+  version = "1.0.0"
 
   repository  = "my-application"
   environment = "production"
@@ -66,8 +66,8 @@ module "production_variables" {
 
 # Staging environment variables
 module "staging_variables" {
-  source  = "c0x12c/action-env-variables/github"
-  version = "~> 1.0.0"
+  source  = "terraform.c0x12c.com/c0x12c/action-env-variables/github"
+  version = "1.0.0"
 
   repository  = "my-application"
   environment = "staging"
@@ -82,8 +82,8 @@ module "staging_variables" {
 
 # Development environment variables
 module "development_variables" {
-  source  = "c0x12c/action-env-variables/github"
-  version = "~> 1.0.0"
+  source  = "terraform.c0x12c.com/c0x12c/action-env-variables/github"
+  version = "1.0.0"
 
   repository  = "my-application"
   environment = "development"
@@ -124,8 +124,8 @@ locals {
 }
 
 module "environment_variables" {
-  source   = "c0x12c/action-env-variables/github"
-  version  = "~> 1.0.0"
+  source   = "terraform.c0x12c.com/c0x12c/action-env-variables/github"
+  version  = "1.0.0"
   for_each = local.environment_variables
 
   repository  = "my-application"
@@ -139,7 +139,7 @@ module "environment_variables" {
 ```hcl
 # Non-sensitive configuration variables
 module "production_variables" {
-  source      = "c0x12c/action-env-variables/github"
+  source      = "terraform.c0x12c.com/c0x12c/action-env-variables/github"
   repository  = "my-app"
   environment = "production"
 
@@ -152,7 +152,7 @@ module "production_variables" {
 
 # Sensitive secrets
 module "production_secrets" {
-  source      = "c0x12c/action-env-secrets/github"
+  source      = "terraform.c0x12c.com/c0x12c/action-env-secrets/github"
   repository  = "my-app"
   environment = "production"
 
@@ -231,7 +231,7 @@ provider "github" {
 ### Configuration Management
 ```hcl
 module "app_config" {
-  source      = "c0x12c/action-env-variables/github"
+  source      = "terraform.c0x12c.com/c0x12c/action-env-variables/github"
   repository  = "my-app"
   environment = "production"
 
@@ -263,7 +263,7 @@ locals {
 }
 
 module "region_variables" {
-  source   = "c0x12c/action-env-variables/github"
+  source   = "terraform.c0x12c.com/c0x12c/action-env-variables/github"
   for_each = local.regions
 
   repository  = "my-app"
@@ -275,7 +275,7 @@ module "region_variables" {
 ### Feature Flags
 ```hcl
 module "feature_flags" {
-  source      = "c0x12c/action-env-variables/github"
+  source      = "terraform.c0x12c.com/c0x12c/action-env-variables/github"
   repository  = "my-app"
   environment = "production"
 
@@ -338,7 +338,7 @@ module "feature_flags" {
    ```hcl
    # Configuration (variables)
    module "config" {
-     source      = "c0x12c/action-env-variables/github"
+     source      = "terraform.c0x12c.com/c0x12c/action-env-variables/github"
      repository  = "app"
      environment = "prod"
      variables   = { "API_URL" = "https://api.com" }
@@ -346,7 +346,7 @@ module "feature_flags" {
 
    # Credentials (secrets)
    module "credentials" {
-     source      = "c0x12c/action-env-secrets/github"
+     source      = "terraform.c0x12c.com/c0x12c/action-env-secrets/github"
      repository  = "app"
      environment = "prod"
      secrets     = { "API_KEY" = var.api_key }
@@ -369,7 +369,7 @@ The GitHub token must have:
 ```hcl
 # Repository-level variables (available to all workflows)
 module "repo_variables" {
-  source     = "c0x12c/action-variables/github"
+  source     = "terraform.c0x12c.com/c0x12c/action-variables/github"
   repository = "my-app"
   variables = {
     "GLOBAL_CONFIG" = "value"
@@ -382,7 +382,7 @@ module "repo_variables" {
 ```hcl
 # Environment-level variables (only available to specific environment)
 module "env_variables" {
-  source      = "c0x12c/action-env-variables/github"
+  source      = "terraform.c0x12c.com/c0x12c/action-env-variables/github"
   repository  = "my-app"
   environment = "production"  # Additional scoping
   variables = {
@@ -468,7 +468,7 @@ jobs:
 ```hcl
 # Use terraform-github-action-env-secrets module
 module "secrets" {
-  source      = "c0x12c/action-env-secrets/github"
+  source      = "terraform.c0x12c.com/c0x12c/action-env-secrets/github"
   repository  = "app"
   environment = "prod"
   secrets     = { "SENSITIVE_VALUE" = var.secret }
@@ -482,7 +482,7 @@ module "secrets" {
 ```hcl
 # Before: Repository-level variable
 module "old_variables" {
-  source     = "c0x12c/action-variables/github"
+  source     = "terraform.c0x12c.com/c0x12c/action-variables/github"
   repository = "my-app"
   variables = {
     "CONFIG" = "value"
@@ -491,7 +491,7 @@ module "old_variables" {
 
 # After: Environment-level variable
 module "new_variables" {
-  source      = "c0x12c/action-env-variables/github"
+  source      = "terraform.c0x12c.com/c0x12c/action-env-variables/github"
   repository  = "my-app"
   environment = "production"
   variables = {

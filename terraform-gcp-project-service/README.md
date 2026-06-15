@@ -8,7 +8,7 @@ This Terraform module allows management of a single API service for a Google Clo
 
 ```hcl
 module "project_service" {
-  source  = "c0x12c/project-service/gcp"
+  source  = "terraform.c0x12c.com/c0x12c/project-service/gcp"
   version = "0.1.5"
 
   project_id = "example-project"

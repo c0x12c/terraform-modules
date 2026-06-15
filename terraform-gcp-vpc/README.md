@@ -18,7 +18,8 @@ This module will create the following components:
 
 ```hcl
 module "vpc" {
-  source = "../../"
+  source  = "terraform.c0x12c.com/c0x12c/vpc/gcp"
+  version = "0.1.4"
 
   vpc_name                = "example-vpc"
   region                  = "us-west1"

@@ -8,7 +8,7 @@ This module provision AWS Secret Manager resources to manage secret value.
 
 ```hcl
 module "secret_manager" {
-  source  = "c0x12c/secret-manager/aws"
+  source  = "terraform.c0x12c.com/c0x12c/secret-manager/aws"
   version = "0.2.0"
 
   secrets = {

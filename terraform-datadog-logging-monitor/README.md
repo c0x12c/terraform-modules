@@ -1,5 +1,16 @@
 <!-- BEGIN_TF_DOCS -->
 
+## Usage
+
+```hcl
+module "logging_monitor" {
+  source  = "terraform.c0x12c.com/c0x12c/logging-monitor/datadog"
+  version = "0.0.1"
+
+  environment = "production"
+}
+```
+
 ## Requirements
 
 | Name                                                                      | Version   |

@@ -7,9 +7,9 @@ This Terraform module provisions a Google Kubernetes Engine (GKE) Gateway API wi
 ### Create GKE Gateway API
 
 ```hcl
-module "gke_autopilot" {
-  source  = "c0x12c/gke-gateway-api/gcp"
-  version = "~> 1.0.0"
+module "gke_gateway_api" {
+  source  = "terraform.c0x12c.com/c0x12c/gke-gateway-api/gcp"
+  version = "1.0.0"
 
   ext_gateway_name = "external-gateway"
   create_namespace = true

@@ -11,7 +11,7 @@ Terraform module which creates external Application Load Balancer resources on A
 
 ```hcl
 module "alb" {
-  source  = "c0x12c/alb/aws"
+  source  = "terraform.c0x12c.com/c0x12c/alb/aws"
   version = "1.0.0"
 
   name              = "example"

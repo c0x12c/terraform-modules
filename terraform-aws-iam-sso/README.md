@@ -9,7 +9,7 @@ resources.
 
 ```hcl
 module "iam_sso" {
-  source  = "c0x12c/iam-sso/aws"
+  source  = "terraform.c0x12c.com/c0x12c/iam-sso/aws"
   version = "0.1.4"
 
   groups = {

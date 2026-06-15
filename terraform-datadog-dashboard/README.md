@@ -8,8 +8,8 @@ Terraform module which creates Datadog Dashboard.
 
 ```hcl
 module "dashboard" {
-  source  = "c0x12c/dashboard/datadog"
-  version = "~> 1.0.0"
+  source  = "terraform.c0x12c.com/c0x12c/dashboard/datadog"
+  version = "1.0.0"
 
   layout_type = "ordered"
   title       = "Example Dashboard"

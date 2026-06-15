@@ -11,7 +11,7 @@ This module will create the components below:
 
 ```hcl
 module "vanta" {
-  source  = "c0x12c/vanta/aws"
+  source  = "terraform.c0x12c.com/c0x12c/vanta/aws"
   version = "0.1.49"
 
   providers = {

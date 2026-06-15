@@ -6,7 +6,7 @@ This Terraform module creates a cert map for a wildcard domain.
 
 ```hcl
 module "wildcard-sslcert" {
-  source  = "c0x12c/wildcard-sslcert/gcp"
+  source  = "terraform.c0x12c.com/c0x12c/wildcard-sslcert/gcp"
   version = "0.1.4"
   domain = "example.com"
 }

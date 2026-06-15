@@ -14,7 +14,7 @@ This module creates the following components:
 
 ```hcl
 module "mwaa" {
-  source  = "c0x12c/mwaa/aws"
+  source  = "terraform.c0x12c.com/c0x12c/mwaa/aws"
   version = "1.0.0"
 
   name                         = "example-mwaa-environment"
