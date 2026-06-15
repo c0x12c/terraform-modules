@@ -2,6 +2,17 @@
 
 Reference: [Using RBAC Authorization](https://kubernetes.io/docs/reference/access-authn-authz/rbac/)
 
+## Usage
+
+```hcl
+module "eks_rbac" {
+  source  = "terraform.c0x12c.com/c0x12c/eks-rbac/aws"
+  version = "0.1.21"
+
+  cluster_name = "my-eks-cluster"
+}
+```
+
 ## Terminologies
 
 - General

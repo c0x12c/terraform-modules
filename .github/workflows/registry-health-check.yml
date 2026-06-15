@@ -39,7 +39,7 @@ jobs:
           # Only refresh the automation-owned issue so humans keep incident control.
           existing=$(gh issue list --state open --label registry-health \
             --search "\"$TITLE\" in:title" --json number,author \
-            --jq '[.[] | select(.author.login=="github-actions[bot]")][0].number // empty')
+            --jq '[.[] | select(.author.is_bot==true)][0].number // empty')
           body=$(cat health-report.md 2>/dev/null || echo "Health check failed before producing a report.")
           if [ -n "$existing" ]; then
             gh issue comment "$existing" --body "$body"
@@ -55,7 +55,7 @@ jobs:
           # Close only the bot-authored tracker, never a human-filed incident.
           existing=$(gh issue list --state open --label registry-health \
             --search "\"$TITLE\" in:title" --json number,author \
-            --jq '[.[] | select(.author.login=="github-actions[bot]")][0].number // empty')
+            --jq '[.[] | select(.author.is_bot==true)][0].number // empty')
           if [ -n "$existing" ]; then
             gh issue comment "$existing" --body "Registry health-check passed; closing."
             gh issue close "$existing"

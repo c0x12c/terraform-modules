@@ -1,4 +1,17 @@
 <!-- BEGIN_TF_DOCS -->
+## Usage
+
+```hcl
+module "aws_monitor" {
+  source  = "terraform.c0x12c.com/c0x12c/aws-monitor/datadog"
+  version = "1.3.1"
+
+  aws_account_id                    = "123456789012"
+  environment                       = "production"
+  notification_slack_channel_prefix = "@slack-team-alerts"
+}
+```
+
 ## Requirements
 
 | Name | Version |

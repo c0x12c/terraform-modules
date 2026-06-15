@@ -1,5 +1,18 @@
 <!-- BEGIN_TF_DOCS -->
 
+## Usage
+
+```hcl
+module "monitors" {
+  source  = "terraform.c0x12c.com/c0x12c/monitors/datadog"
+  version = "1.0.0"
+
+  notification_slack_channel_prefix = "@slack-team-alerts"
+  environment                       = "production"
+  service                           = "my-service"
+}
+```
+
 ## Requirements
 
 | Name                                                                      | Version   |
