@@ -1,0 +1,85 @@
+# Deploys the self-hosted Terraform registry Worker (tools/registry) to
+# Cloudflare. The Worker serves terraform.c0x12c.com; publishing module tarballs
+# to R2 is a SEPARATE pipeline (registry-publish.yml) - this only ships the
+# Worker code/config.
+#
+# Triggers:
+#   - push to master touching tools/registry/** -> auto-deploy (gated, see below)
+#   - workflow_dispatch -> manual deploy (always attempts)
+#   - pull_request touching tools/registry/** -> validate only (no deploy)
+#
+# Gate: auto-deploy on master fires only when the repo variable
+# REGISTRY_DEPLOY_ENABLED == 'true' (mirrors R2_PUBLISH_ENABLED / CASCADE_ENABLED),
+# so the workflow can land inert before the Cloudflare credentials exist.
+#
+# Required repo secrets (create before enabling):
+#   CLOUDFLARE_API_TOKEN   - token with the "Edit Cloudflare Workers" template
+#                            permissions on the account that owns terraform.c0x12c.com
+#   CLOUDFLARE_ACCOUNT_ID  - the Cloudflare account id
+# Then: set repo variable REGISTRY_DEPLOY_ENABLED=true.
+#
+# Rollback: `wrangler rollback` in tools/registry, or the Cloudflare dashboard
+# (Workers keeps prior versions).
+name: Registry Deploy
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - tools/registry/**
+      - .github/workflows/registry-deploy.yml
+  pull_request:
+    paths:
+      - tools/registry/**
+      - .github/workflows/registry-deploy.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Never run two deploys at once; a queued deploy waits rather than cancelling an
+# in-flight one (cancelling mid-deploy could leave a half-applied Worker).
+concurrency:
+  group: registry-deploy
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Syntax-check the Worker
+        working-directory: tools/registry
+        run: node --check worker.js
+
+  deploy:
+    # Manual dispatch always attempts; auto-deploy on master requires the gate.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'push' && vars.REGISTRY_DEPLOY_ENABLED == 'true')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy Worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: tools/registry
+          command: deploy
+
+      - name: Smoke-check /healthz
+        run: |
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' https://terraform.c0x12c.com/healthz || true)
+            echo "attempt $i: /healthz -> ${code:-no-response}"
+            [ "$code" = "200" ] && exit 0
+            sleep 5
+          done
+          echo "::error::registry /healthz did not return 200 after deploy"
+          exit 1

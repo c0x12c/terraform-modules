@@ -10,10 +10,14 @@ public.
 > path) and retired as consumers cut over.
 
 ## Pieces
-- `worker.js` — the registry. 3 protocol endpoints + a tarball route. ~60 lines.
-- `backfill.py` — one-shot: `git archive` every mirror tag → R2 + `index.json`
+- `worker.js` - the registry. 3 protocol endpoints + a tarball route, plus a
+  human/ops surface: `/` (HTML landing page + browsable module catalog from
+  `index.json`), `/healthz` (readiness - 200 only when `index.json` loads, else
+  503), `/robots.txt` (disallow `/v1/`), `/favicon.ico` (204). Unmatched paths
+  return JSON 404 for `/v1/` + `/.well-known/` shapes and an HTML 404 otherwise.
+- `backfill.py` - one-shot: `git archive` every mirror tag → R2 + `index.json`
   (seeds historical versions so the registry is a superset before cutover).
-- `wrangler.toml` — Worker + R2 binding + custom-domain note.
+- `wrangler.toml` - Worker + R2 binding + custom-domain note.
 
 ## How consumption works (anonymous)
 ```hcl
@@ -24,18 +28,34 @@ module "rds" {
 ```
 Terraform hits `/.well-known/terraform.json` → `/v1/modules/.../versions` →
 `/v1/modules/.../<v>/download` (204 + `X-Terraform-Get`) → pulls the tarball.
-No tokens, no `.terraformrc` — same UX as registry.terraform.io.
+No tokens, no `.terraformrc` - same UX as registry.terraform.io.
 
-## Deploy (one-time)
-1. `wrangler r2 bucket create c0x12c-tf-modules`
-2. Set a custom domain on the Worker (`terraform.c0x12c.com`), TLS is automatic.
-3. `wrangler deploy`
+## Deploy
+
+CI deploys the Worker via `.github/workflows/registry-deploy.yml`:
+- **auto** on push to `master` touching `tools/registry/**` (gated on the repo
+  variable `REGISTRY_DEPLOY_ENABLED=true`),
+- **manual** via the workflow's `workflow_dispatch`,
+- **PRs** touching `tools/registry/**` run a syntax-check only (no deploy).
+
+After deploy it smoke-checks `https://terraform.c0x12c.com/healthz`.
+
+One-time setup before enabling:
+1. `wrangler r2 bucket create c0x12c-tf-modules` (already done).
+2. Set a custom domain on the Worker (`terraform.c0x12c.com`); TLS is automatic.
+3. Create a Cloudflare API token (**Edit Cloudflare Workers** template) and add
+   repo secrets `CLOUDFLARE_API_TOKEN` + `CLOUDFLARE_ACCOUNT_ID`.
+4. Set repo variable `REGISTRY_DEPLOY_ENABLED=true`.
+
+Manual / local deploy still works: `cd tools/registry && wrangler deploy`.
+Rollback: `wrangler rollback` (or the Cloudflare dashboard - Workers keeps prior
+versions).
 
 ## Publish (per release)
 `registry-publish.yml` runs `scripts/mirror_release.py` for each released
 module: it assembles the module from the monorepo, rewrites sibling sources,
 runs `terraform validate`, packs the tree, and uploads it to R2 + updates
-`index.json`. R2 is the only target — no GitHub mirror repo is touched.
+`index.json`. R2 is the only target - no GitHub mirror repo is touched.
 
 ## Cost
 - Worker: free tier 100k req/day. R2: 10 GB + Class-A/B ops free tier; **zero egress**.
@@ -53,4 +73,4 @@ runs `terraform validate`, packs the tree, and uploads it to R2 + updates
 - Discovery returns `{"modules.v1": "/v1/modules/"}` (relative base allowed).
 - `versions` body: `{"modules":[{"versions":[{"version":"x"}]}]}`, 404 if absent.
 - `download`: HTTP 204 + `X-Terraform-Get` (accepts an HTTPS tarball URL).
-- Protocol defines **no auth** — anonymous is spec-compliant.
+- Protocol defines **no auth** - anonymous is spec-compliant.
