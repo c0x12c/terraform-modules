@@ -43,7 +43,7 @@
   "terraform-aws-msk-kafka-cluster": "0.1.0",
   "terraform-aws-mwaa": "1.0.0",
   "terraform-aws-oidc-provider": "1.0.1",
-  "terraform-aws-opensearch": "0.3.16",
+  "terraform-aws-opensearch": "0.4.0",
   "terraform-aws-openvpn": "0.5.0",
   "terraform-aws-password-generator": "0.2.0",
   "terraform-aws-password-policy": "0.1.52",

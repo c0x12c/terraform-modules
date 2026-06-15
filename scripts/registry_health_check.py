@@ -15,12 +15,7 @@ DEFAULT_ORG = "c0x12c"
 # Cloudflare in front of the registry 403s the default "Python-urllib/x" agent,
 # so identify the probe explicitly.
 USER_AGENT = "terraform-registry-health-check/1.0"
-EXCEPTIONS = {
-    "terraform-aws-opensearch": (
-        "registry has orphan 0.4.0 from archived-mirror backfill; monorepo is at "
-        "0.3.16 and registry lacks it - cutover reconciliation tracked under issue #1914"
-    )
-}
+EXCEPTIONS = {}
 
 
 def module_key(module_dir, org):
