@@ -126,20 +126,24 @@ def test_check_coverage_cases():
         )
         == []
     )
+    # An exempted module missing from the index is suppressed.
+    exceptions = {"terraform-aws-exempt": "documented coverage exception"}
     assert (
         health.check_coverage(
-            {"terraform-aws-opensearch": "0.3.16"},
+            {"terraform-aws-exempt": "0.3.16"},
             {},
             "c0x12c",
-            health.EXCEPTIONS,
+            exceptions,
         )
         == []
     )
+    # Once the exempted version appears in the index, the exception is flagged
+    # as no longer needed so it can't silently mask a future real failure.
     discrepancies = health.check_coverage(
-        {"terraform-aws-opensearch": "0.3.16"},
-        {"c0x12c/opensearch/aws": ["0.3.16"]},
+        {"terraform-aws-exempt": "0.3.16"},
+        {"c0x12c/exempt/aws": ["0.3.16"]},
         "c0x12c",
-        health.EXCEPTIONS,
+        exceptions,
     )
     assert len(discrepancies) == 1
     assert "exception no longer needed" in discrepancies[0]
