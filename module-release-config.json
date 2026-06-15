@@ -335,7 +335,8 @@
       "component": "terraform-github-action-variables"
     },
     "terraform-github-actions": {
-      "component": "terraform-github-actions"
+      "component": "terraform-github-actions",
+      "release-as": "1.0.0"
     },
     "terraform-kubernetes-helm-reloader": {
       "component": "terraform-kubernetes-helm-reloader"
