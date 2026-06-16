@@ -95,10 +95,13 @@ function landingHtml(idx) {
     })
     .join("");
   const catalog = keys.length
-    ? `<table>
+    ? `<input id="q" class="search" type="search" placeholder="Filter ${keys.length} modules…"
+        autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Filter modules">
+    <table>
       <thead><tr><th>Source</th><th>Latest</th><th>Versions</th></tr></thead>
-      <tbody>${rows}</tbody>
-    </table>`
+      <tbody id="rows">${rows}</tbody>
+    </table>
+    <p id="empty" class="muted" hidden>No modules match.</p>`
     : `<p class="muted">Catalog temporarily unavailable — try again shortly.</p>`;
   const snippet = esc(
     `module "example" {\n  source  = "${REGISTRY_HOST}/${example.key}"\n  version = "${example.v}"\n}`
@@ -133,6 +136,10 @@ function landingHtml(idx) {
   tbody tr:hover { background:var(--card); }
   a { color:var(--accent); }
   .muted { color:var(--muted); }
+  .search { width:100%; margin:4px 0 12px; padding:9px 12px; border-radius:8px;
+    border:1px solid var(--border); background:var(--card); color:var(--fg);
+    font:13.5px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+  .search:focus { outline:none; border-color:var(--accent); }
 </style>
 </head>
 <body>
@@ -148,6 +155,25 @@ function landingHtml(idx) {
   <h2>Modules</h2>
   ${catalog}
 </div>
+<script>
+(function () {
+  var q = document.getElementById("q");
+  if (!q) return;
+  var rows = Array.prototype.slice.call(document.querySelectorAll("#rows tr"));
+  var empty = document.getElementById("empty");
+  rows.forEach(function (r) { r.dataset.k = (r.textContent || "").toLowerCase(); });
+  q.addEventListener("input", function () {
+    var term = q.value.trim().toLowerCase();
+    var shown = 0;
+    rows.forEach(function (r) {
+      var hit = !term || r.dataset.k.indexOf(term) !== -1;
+      r.hidden = !hit;
+      if (hit) shown++;
+    });
+    if (empty) empty.hidden = shown !== 0;
+  });
+})();
+</script>
 </body>
 </html>`;
 }
