@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.7.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-helm-service-bot/v0.6.1...terraform-aws-helm-service-bot/v0.7.0) (2026-06-16)
+
+
+### Features
+
+* **service-bot:** default image v1.0.0 + centralized release channel ([#189](https://github.com/c0x12c/terraform-modules/issues/189)) ([eecaf90](https://github.com/c0x12c/terraform-modules/commit/eecaf908764b9a1cd58cc60749b4640779b21687))
+
 ## [0.7.0]() (2026-06-16)
 
 ### Features
