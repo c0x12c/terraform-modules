@@ -29,7 +29,7 @@ data "aws_iam_policy_document" "assume_role_github" {
     condition {
       test     = "StringEquals"
       values   = ["sts.amazonaws.com"]
-      variable = "${module.provider.url}:aud"
+      variable = "${replace(module.provider.url, "https://", "")}:aud"
     }
 
     dynamic "condition" {
