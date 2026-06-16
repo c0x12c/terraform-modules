@@ -9,16 +9,6 @@ All notable changes to this project will be documented in this file.
 
 * **service-bot:** default image v1.0.0 + centralized release channel ([#189](https://github.com/c0x12c/terraform-modules/issues/189)) ([eecaf90](https://github.com/c0x12c/terraform-modules/commit/eecaf908764b9a1cd58cc60749b4640779b21687))
 
-## [0.7.0]() (2026-06-16)
-
-### Features
-
-* Added `centralized_release_slack_channel` variable to configure the centralized Slack channel for trunk-based single-channel releases (`CENTRALIZED_RELEASE_SLACK_CHANNEL`).
-
-### Chore
-
-* Updated default service bot image tag to `v1.0.0`.
-
 ## [0.6.1]() (2025-12-17)
 
 ### Chore
