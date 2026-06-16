@@ -81,6 +81,62 @@ function latestVersion(versions) {
   })[0];
 }
 
+const STYLE = `
+  :root { color-scheme: light dark; --fg:#1c1e21; --muted:#6b7280; --bg:#ffffff; --card:#f6f7f9; --border:#e3e6ea; --accent:#5b3bd4; }
+  @media (prefers-color-scheme: dark) {
+    :root { --fg:#e6e8eb; --muted:#9aa3ad; --bg:#0f1115; --card:#171a20; --border:#272b33; --accent:#a98bff; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg);
+    font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+  .wrap { max-width:880px; margin:0 auto; padding:48px 20px 72px; }
+  h1 { font-size:1.7rem; margin:0 0 4px; letter-spacing:-0.01em; word-break:break-word; }
+  .sub { color:var(--muted); margin:0 0 28px; }
+  h2 { font-size:1rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--muted); margin:32px 0 12px; }
+  pre { background:var(--card); border:1px solid var(--border); border-radius:10px;
+    padding:16px 18px; overflow:auto; margin:0; }
+  code { font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+  .note { color:var(--muted); margin:12px 0 0; font-size:13.5px; }
+  table { width:100%; border-collapse:collapse; font-size:13.5px; margin-top:4px; }
+  th, td { text-align:left; padding:7px 10px; border-bottom:1px solid var(--border); }
+  th { color:var(--muted); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:0.03em; }
+  td.v, th:nth-child(2) { white-space:nowrap; }
+  td.n, th:nth-child(3) { text-align:right; color:var(--muted); }
+  tbody tr:hover { background:var(--card); }
+  tbody tr.link { cursor:pointer; }
+  td a.src { color:var(--accent); text-decoration:none; }
+  td a.src:hover { text-decoration:underline; }
+  a { color:var(--accent); }
+  .muted { color:var(--muted); }
+  .crumb { display:inline-block; margin:0 0 18px; font-size:13.5px; color:var(--muted); text-decoration:none; }
+  .crumb:hover { color:var(--accent); }
+  .pill { display:inline-block; padding:2px 9px; border-radius:999px; background:var(--card);
+    border:1px solid var(--border); font-size:12px; color:var(--muted); margin-left:6px; }
+  td.dl { text-align:right; white-space:nowrap; }
+  .search { width:100%; margin:4px 0 12px; padding:9px 12px; border-radius:8px;
+    border:1px solid var(--border); background:var(--card); color:var(--fg);
+    font:13.5px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+  .search:focus { outline:none; border-color:var(--accent); }
+`;
+
+function page(title, inner, script = "") {
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${esc(title)}</title>
+<style>${STYLE}</style>
+</head>
+<body>
+<div class="wrap">${inner}</div>${script}
+</body>
+</html>`;
+}
+
+// Path to a module's human detail page (distinct from the /v1/ protocol routes).
+const detailPath = (key) => `/modules/${key}`;
+
 function landingHtml(idx) {
   const keys = idx ? Object.keys(idx).sort() : [];
   const example =
@@ -91,7 +147,8 @@ function landingHtml(idx) {
     .map((k) => {
       const latest = esc(latestVersion(idx[k]));
       const count = idx[k].length;
-      return `<tr><td><code>${esc(REGISTRY_HOST)}/${esc(k)}</code></td><td class="v">${latest}</td><td class="n">${count}</td></tr>`;
+      const href = esc(detailPath(k));
+      return `<tr class="link" data-href="${href}"><td><a class="src" href="${href}"><code>${esc(REGISTRY_HOST)}/${esc(k)}</code></a></td><td class="v">${latest}</td><td class="n">${count}</td></tr>`;
     })
     .join("");
   const catalog = keys.length
@@ -106,44 +163,7 @@ function landingHtml(idx) {
   const snippet = esc(
     `module "example" {\n  source  = "${REGISTRY_HOST}/${example.key}"\n  version = "${example.v}"\n}`
   );
-  return `<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>c0x12c Terraform Module Registry</title>
-<style>
-  :root { color-scheme: light dark; --fg:#1c1e21; --muted:#6b7280; --bg:#ffffff; --card:#f6f7f9; --border:#e3e6ea; --accent:#5b3bd4; }
-  @media (prefers-color-scheme: dark) {
-    :root { --fg:#e6e8eb; --muted:#9aa3ad; --bg:#0f1115; --card:#171a20; --border:#272b33; --accent:#a98bff; }
-  }
-  * { box-sizing: border-box; }
-  body { margin:0; background:var(--bg); color:var(--fg);
-    font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
-  .wrap { max-width:880px; margin:0 auto; padding:48px 20px 72px; }
-  h1 { font-size:1.7rem; margin:0 0 4px; letter-spacing:-0.01em; }
-  .sub { color:var(--muted); margin:0 0 28px; }
-  h2 { font-size:1rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--muted); margin:32px 0 12px; }
-  pre { background:var(--card); border:1px solid var(--border); border-radius:10px;
-    padding:16px 18px; overflow:auto; margin:0; }
-  code { font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
-  .note { color:var(--muted); margin:12px 0 0; font-size:13.5px; }
-  table { width:100%; border-collapse:collapse; font-size:13.5px; margin-top:4px; }
-  th, td { text-align:left; padding:7px 10px; border-bottom:1px solid var(--border); }
-  th { color:var(--muted); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:0.03em; }
-  td.v, th:nth-child(2) { white-space:nowrap; }
-  td.n, th:nth-child(3) { text-align:right; color:var(--muted); }
-  tbody tr:hover { background:var(--card); }
-  a { color:var(--accent); }
-  .muted { color:var(--muted); }
-  .search { width:100%; margin:4px 0 12px; padding:9px 12px; border-radius:8px;
-    border:1px solid var(--border); background:var(--card); color:var(--fg);
-    font:13.5px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
-  .search:focus { outline:none; border-color:var(--accent); }
-</style>
-</head>
-<body>
-<div class="wrap">
+  const inner = `
   <h1>c0x12c Terraform Module Registry</h1>
   <p class="sub">Self-hosted, public, anonymous. Namespace <code>c0x12c</code> · ${keys.length || "—"} modules.</p>
 
@@ -153,15 +173,20 @@ function landingHtml(idx) {
   Service discovery: <a href="/.well-known/terraform.json">/.well-known/terraform.json</a>.</p>
 
   <h2>Modules</h2>
-  ${catalog}
-</div>
-<script>
+  ${catalog}`;
+  const script = `<script>
 (function () {
+  var rows = Array.prototype.slice.call(document.querySelectorAll("#rows tr"));
+  rows.forEach(function (r) {
+    r.dataset.k = (r.textContent || "").toLowerCase();
+    r.addEventListener("click", function (e) {
+      if (e.target.closest("a")) return; // let real links handle themselves
+      if (r.dataset.href) location.href = r.dataset.href;
+    });
+  });
   var q = document.getElementById("q");
   if (!q) return;
-  var rows = Array.prototype.slice.call(document.querySelectorAll("#rows tr"));
   var empty = document.getElementById("empty");
-  rows.forEach(function (r) { r.dataset.k = (r.textContent || "").toLowerCase(); });
   q.addEventListener("input", function () {
     var term = q.value.trim().toLowerCase();
     var shown = 0;
@@ -173,28 +198,59 @@ function landingHtml(idx) {
     if (empty) empty.hidden = shown !== 0;
   });
 })();
-</script>
-</body>
-</html>`;
+</script>`;
+  return page("c0x12c Terraform Module Registry", inner, script);
+}
+
+// Per-module detail page: pinned-usage snippet for the latest version plus every
+// published version with a direct tarball download link.
+function moduleDetailHtml(key, versions) {
+  const latest = latestVersion(versions);
+  // Sort versions for display the same way the catalog picks "latest" (desc).
+  const sorted = [...versions].sort((a, b) => {
+    const pa = semverParts(a);
+    const pb = semverParts(b);
+    for (let i = 0; i < 3; i++) {
+      if ((pa[i] || 0) !== (pb[i] || 0)) return (pb[i] || 0) - (pa[i] || 0);
+    }
+    return 0;
+  });
+  const snippet = esc(
+    `module "example" {\n  source  = "${REGISTRY_HOST}/${key}"\n  version = "${latest}"\n}`
+  );
+  const rows = sorted
+    .map((v) => {
+      const dl = `/v1/modules/${esc(key)}/${esc(v)}/archive.tar.gz`;
+      const tag = v === latest ? ' <span class="pill">latest</span>' : "";
+      return `<tr><td><code>${esc(v)}</code>${tag}</td><td class="dl"><a href="${dl}">tarball ↓</a></td></tr>`;
+    })
+    .join("");
+  const inner = `
+  <a class="crumb" href="/">← All modules</a>
+  <h1><code>${esc(REGISTRY_HOST)}/${esc(key)}</code></h1>
+  <p class="sub">Latest <code>${esc(latest)}</code> · ${versions.length} version${versions.length === 1 ? "" : "s"}.</p>
+
+  <h2>Usage</h2>
+  <pre><code>${snippet}</code></pre>
+  <p class="note">No authentication required — <code>terraform init</code> resolves this module over HTTPS.
+  Pin <code>version</code> to any tag below.</p>
+
+  <h2>Versions</h2>
+  <table>
+    <thead><tr><th>Version</th><th class="dl">Download</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table>`;
+  return page(`${key} — c0x12c Terraform Module Registry`, inner);
 }
 
 function notFoundHtml() {
-  return `<!doctype html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Not found</title>
-<style>body{margin:0;background:#0f1115;color:#e6e8eb;color-scheme:light dark;
-font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
-@media(prefers-color-scheme:light){body{background:#fff;color:#1c1e21}}
-.w{max-width:640px;margin:0 auto;padding:64px 20px}a{color:#a98bff}
-code{font:13px ui-monospace,Menlo,monospace}</style></head>
-<body><div class="w">
-<h1>404 — Not found</h1>
-<p>This is the c0x12c self-hosted Terraform module registry. The page you
-requested isn't a registry endpoint.</p>
-<p>See the <a href="/">module catalog</a>, or use a module via:</p>
-<pre><code>source  = "${REGISTRY_HOST}/c0x12c/&lt;module&gt;/&lt;provider&gt;"</code></pre>
-</div></body></html>`;
+  const inner = `
+  <h1>404 — Not found</h1>
+  <p>This is the c0x12c self-hosted Terraform module registry. The page you
+  requested isn't a registry endpoint.</p>
+  <p>See the <a href="/">module catalog</a>, or use a module via:</p>
+  <pre><code>source  = "${REGISTRY_HOST}/c0x12c/&lt;module&gt;/&lt;provider&gt;"</code></pre>`;
+  return page("Not found", inner);
 }
 
 export default {
@@ -215,6 +271,28 @@ export default {
           idx = null;
         }
         return new Response(landingHtml(idx), {
+          headers: { "content-type": "text/html; charset=utf-8" },
+        });
+      }
+
+      // Human module detail page (not part of the protocol). Best-effort like /.
+      let dm = p.match(/^\/modules\/([^/]+)\/([^/]+)\/([^/]+)$/);
+      if (dm) {
+        const key = `${dm[1]}/${dm[2]}/${dm[3]}`;
+        let idx = null;
+        try {
+          idx = await loadIndex(env);
+        } catch (e) {
+          idx = null;
+        }
+        const versions = idx && idx[key];
+        if (!versions) {
+          return new Response(notFoundHtml(), {
+            status: 404,
+            headers: { "content-type": "text/html; charset=utf-8" },
+          });
+        }
+        return new Response(moduleDetailHtml(key, versions), {
           headers: { "content-type": "text/html; charset=utf-8" },
         });
       }
