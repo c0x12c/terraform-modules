@@ -70,6 +70,16 @@ module "argocd" {
   # node_selector = local.node_selector
   # tolerations   = local.tolerations
 
+  # Application-controller pod annotations (OPTIONAL)
+  # e.g. Datadog autodiscovery to scrape ArgoCD controller metrics.
+  controller_pod_annotations = {
+    "ad.datadoghq.com/application-controller.check_names"  = jsonencode(["argocd"])
+    "ad.datadoghq.com/application-controller.init_configs" = jsonencode([{}])
+    "ad.datadoghq.com/application-controller.instances" = jsonencode([{
+      app_controller_endpoint = "http://%%host%%:8082/metrics"
+    }])
+  }
+
   # GitHub App
   github_app = {
     secret_name     = "argocd"
