@@ -71,8 +71,8 @@ Refer to the [complete example](examples/complete) for a full implementation inc
 
 | Name | Version |
 |------|---------|
-| <a name="provider_helm"></a> [helm](#provider\_helm) | ~> 3.0 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | ~> 2 |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | 3.2.0 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.38.0 |
 
 ## Modules
 
@@ -122,7 +122,7 @@ Refer to the [complete example](examples/complete) for a full implementation inc
 | <a name="input_region"></a> [region](#input\_region) | AWS region | `string` | n/a | yes |
 | <a name="input_route53_zone_id"></a> [route53\_zone\_id](#input\_route53\_zone\_id) | Route53 hosted zone ID | `string` | n/a | yes |
 | <a name="input_service_bot_image_repository"></a> [service\_bot\_image\_repository](#input\_service\_bot\_image\_repository) | Docker image for the service bot | `string` | `"ghcr.io/spartan-stratos/service-bot"` | no |
-| <a name="input_service_bot_image_tag"></a> [service\_bot\_image\_tag](#input\_service\_bot\_image\_tag) | Docker image tag for the service bot | `string` | `"v1.0.0"` | no |
+| <a name="input_service_bot_image_tag"></a> [service\_bot\_image\_tag](#input\_service\_bot\_image\_tag) | Docker image tag for the service bot | `string` | `"v1.1.0"` | no |
 | <a name="input_service_name"></a> [service\_name](#input\_service\_name) | The name of the service | `string` | `"service-bot"` | no |
 | <a name="input_service_resources"></a> [service\_resources](#input\_service\_resources) | Kubernetes resource requests and limits for the service bot | `map(map(string))` | <pre>{<br/>  "limits": {<br/>    "memory": "1Gi"<br/>  },<br/>  "requests": {<br/>    "cpu": "200m",<br/>    "memory": "1Gi"<br/>  }<br/>}</pre> | no |
 | <a name="input_slack_bot_token"></a> [slack\_bot\_token](#input\_slack\_bot\_token) | Slack bot token | `string` | n/a | yes |
