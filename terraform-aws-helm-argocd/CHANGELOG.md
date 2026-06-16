@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.5.0]() (2026-06-16)
+
+### Features
+
+* Add `controller_pod_annotations` input to set annotations on the
+  argocd-application-controller pod template (rendered as
+  `controller.podAnnotations` in the argo-cd chart values). Enables
+  Datadog autodiscovery (`ad.datadoghq.com/*`) for scraping controller
+  metrics without a separate out-of-band patch.
+
 ## [1.4.2]() (2026-05-16)
 
 ### Fix Bugs
