@@ -23,10 +23,12 @@ module "eks_service" {
       ON_CALL_SLACK_CHANNEL  = var.on_call_slack_channel
       SLACK_USER_GROUP_NAMES = var.slack_user_group_names
       SLACK_CHANNEL_PREFIX   = var.slack_channel_prefix
-      GITHUB_ORG             = var.github_org
-      GITHUB_REPO_LIST       = join(",", concat(var.app_repo_list, var.infra_repo_list))
-      APP_REPO_LIST          = join(",", var.app_repo_list)
-      INFRA_REPO_LIST        = join(",", var.infra_repo_list)
+
+      CENTRALIZED_RELEASE_SLACK_CHANNEL = var.centralized_release_slack_channel
+      GITHUB_ORG                        = var.github_org
+      GITHUB_REPO_LIST                  = join(",", concat(var.app_repo_list, var.infra_repo_list))
+      APP_REPO_LIST                     = join(",", var.app_repo_list)
+      INFRA_REPO_LIST                   = join(",", var.infra_repo_list)
 
       # optional config map entries
       ATLASSIAN_HOST             = var.atlassian_host

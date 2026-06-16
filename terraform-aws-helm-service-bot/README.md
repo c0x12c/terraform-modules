@@ -78,7 +78,7 @@ Refer to the [complete example](examples/complete) for a full implementation inc
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_eks_service"></a> [eks\_service](#module\_eks\_service) | c0x12c/eks-service/aws | 0.2.8 |
+| <a name="module_eks_service"></a> [eks\_service](#module\_eks\_service) | ../terraform-aws-eks-service | n/a |
 
 ## Resources
 
@@ -100,6 +100,7 @@ Refer to the [complete example](examples/complete) for a full implementation inc
 | <a name="input_atlassian_host"></a> [atlassian\_host](#input\_atlassian\_host) | Atlassian host URL | `string` | `"https://example.atlassian.net"` | no |
 | <a name="input_atlassian_page_path_prefix"></a> [atlassian\_page\_path\_prefix](#input\_atlassian\_page\_path\_prefix) | Atlassian page path prefix | `string` | `"wiki/spaces/C0X12C/pages"` | no |
 | <a name="input_atlassian_username"></a> [atlassian\_username](#input\_atlassian\_username) | Atlassian username | `string` | `"spartan"` | no |
+| <a name="input_centralized_release_slack_channel"></a> [centralized\_release\_slack\_channel](#input\_centralized\_release\_slack\_channel) | Centralized Slack channel for trunk-based single-channel releases | `string` | `"release"` | no |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | The name of the EKS cluster | `string` | n/a | yes |
 | <a name="input_eks_oidc_provider"></a> [eks\_oidc\_provider](#input\_eks\_oidc\_provider) | The OIDC provider for the EKS cluster | `object({ arn = string, url = string })` | n/a | yes |
 | <a name="input_environment"></a> [environment](#input\_environment) | The micronaut environment | `string` | n/a | yes |
@@ -121,7 +122,7 @@ Refer to the [complete example](examples/complete) for a full implementation inc
 | <a name="input_region"></a> [region](#input\_region) | AWS region | `string` | n/a | yes |
 | <a name="input_route53_zone_id"></a> [route53\_zone\_id](#input\_route53\_zone\_id) | Route53 hosted zone ID | `string` | n/a | yes |
 | <a name="input_service_bot_image_repository"></a> [service\_bot\_image\_repository](#input\_service\_bot\_image\_repository) | Docker image for the service bot | `string` | `"ghcr.io/spartan-stratos/service-bot"` | no |
-| <a name="input_service_bot_image_tag"></a> [service\_bot\_image\_tag](#input\_service\_bot\_image\_tag) | Docker image tag for the service bot | `string` | `"v0.2.0"` | no |
+| <a name="input_service_bot_image_tag"></a> [service\_bot\_image\_tag](#input\_service\_bot\_image\_tag) | Docker image tag for the service bot | `string` | `"v1.0.0"` | no |
 | <a name="input_service_name"></a> [service\_name](#input\_service\_name) | The name of the service | `string` | `"service-bot"` | no |
 | <a name="input_service_resources"></a> [service\_resources](#input\_service\_resources) | Kubernetes resource requests and limits for the service bot | `map(map(string))` | <pre>{<br/>  "limits": {<br/>    "memory": "1Gi"<br/>  },<br/>  "requests": {<br/>    "cpu": "200m",<br/>    "memory": "1Gi"<br/>  }<br/>}</pre> | no |
 | <a name="input_slack_bot_token"></a> [slack\_bot\_token](#input\_slack\_bot\_token) | Slack bot token | `string` | n/a | yes |
