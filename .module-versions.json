@@ -35,7 +35,7 @@
   "terraform-aws-helm-neo4j": "1.1.0",
   "terraform-aws-helm-nginx-ingress-controller": "1.1.0",
   "terraform-aws-helm-opa": "1.1.0",
-  "terraform-aws-helm-service-bot": "0.6.1",
+  "terraform-aws-helm-service-bot": "0.7.0",
   "terraform-aws-iam-sso": "0.1.4",
   "terraform-aws-jenkins-oidc": "1.0.0",
   "terraform-aws-keycloak-operator": "0.1.0",
