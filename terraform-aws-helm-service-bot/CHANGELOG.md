@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.7.0]() (2026-06-16)
+
+### Features
+
+* Added `centralized_release_slack_channel` variable to configure the centralized Slack channel for trunk-based single-channel releases (`CENTRALIZED_RELEASE_SLACK_CHANNEL`).
+
+### Chore
+
+* Updated default service bot image tag to `v1.0.0`.
+
 ## [0.6.1]() (2025-12-17)
 
 ### Chore

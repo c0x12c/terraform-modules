@@ -19,7 +19,7 @@ variable "service_bot_image_repository" {
 variable "service_bot_image_tag" {
   description = "Docker image tag for the service bot"
   type        = string
-  default     = "v0.3.0"
+  default     = "v1.0.0"
 }
 
 variable "service_resources" {
@@ -110,6 +110,12 @@ variable "on_call_slack_channel" {
   description = "On-call Slack channel"
   type        = string
   default     = "on-call"
+}
+
+variable "centralized_release_slack_channel" {
+  description = "Centralized Slack channel for trunk-based single-channel releases"
+  type        = string
+  default     = "release"
 }
 
 variable "namespace" {
