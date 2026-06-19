@@ -19,6 +19,8 @@ import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 
+from changelog import split_changelog
+
 
 DEFAULT_VALIDATE_CMD = (
     "terraform fmt -check -recursive && "
@@ -272,6 +274,17 @@ def upload_to_r2(clone_dir: Path, module: str, version: str, bucket: str, org: s
         Body=tar_buffer.getvalue(),
         ContentType="application/gzip",
     )
+    changelog_path = clone_dir / "CHANGELOG.md"
+    if changelog_path.is_file():
+        changelog_sections = split_changelog(changelog_path.read_text(encoding="utf-8"))
+        changelog_section = changelog_sections.get(ver)
+        if changelog_section is not None:
+            client.put_object(
+                Bucket=bucket,
+                Key="modules/%s/%s.changelog.md" % (key, ver),
+                Body=changelog_section.encode("utf-8"),
+                ContentType="text/markdown",
+            )
 
     try:
         body = client.get_object(Bucket=bucket, Key="index.json")["Body"].read()

@@ -204,7 +204,35 @@ const STYLE = `
   .vrow{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 18px;border-bottom:1px solid var(--border)}
   .vrow:last-child{border-bottom:none}
   .vrow .ver{font-family:var(--mono);font-size:14px;font-weight:500;color:var(--fg);display:flex;align-items:center;gap:10px}
-  .vrow .dl{font-family:var(--sans);font-size:13px;font-weight:500}
+  .vrow .vlink{color:var(--fg)}
+  .vrow .vlink:hover{color:var(--accent-fg);text-decoration:none}
+  .vrow .vlink:hover code{text-decoration:underline}
+  .vacts{display:flex;align-items:center;gap:16px}
+  .vrow .rn{font-family:var(--sans);font-size:13px;font-weight:500}
+  .vrow .dl{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+  .vrow .dl:hover{color:var(--fg)}
+
+  .changelog{background:var(--panel);border:1px solid var(--border);border-radius:14px;
+    padding:6px 22px 20px;box-shadow:var(--shadow)}
+  .changelog .cl-h{letter-spacing:-.01em}
+  .changelog h2.cl-h{font-size:1.15rem;font-weight:600;margin:22px 0 4px;color:var(--fg)}
+  .changelog h2.cl-h a{color:var(--fg)}
+  .changelog h3.cl-h{font-size:.74rem;text-transform:uppercase;letter-spacing:.12em;
+    color:var(--accent-fg);font-weight:600;margin:20px 0 8px}
+  .changelog h4.cl-h{font-size:.95rem;font-weight:600;margin:16px 0 6px;color:var(--fg-soft)}
+  .changelog p{color:var(--fg-soft);margin:10px 0}
+  .changelog .cl-ul{margin:8px 0;padding-left:22px}
+  .changelog .cl-ul li{margin:6px 0;color:var(--fg-soft)}
+  .changelog .cl-ul .cl-ul{margin:4px 0}
+  .changelog code{font-family:var(--mono);font-size:.86em;background:var(--panel-2);
+    border:1px solid var(--border);border-radius:5px;padding:1px 5px}
+  .changelog .cl-pre{margin:12px 0;background:var(--panel-2);border:1px solid var(--border);
+    border-radius:10px;padding:14px 16px;overflow:auto}
+  .changelog .cl-pre code{background:none;border:none;padding:0;font-size:12.5px;line-height:1.7;color:var(--fg-soft)}
+
+  @media (max-width:600px){
+    .vrow{flex-direction:column;align-items:flex-start;gap:9px}
+  }
 
   @media (max-width:600px){
     .hero h1{font-size:1.75rem}
@@ -250,6 +278,8 @@ function page(title, inner, script = "") {
 
 // Path to a module's human detail page (distinct from the /v1/ protocol routes).
 const detailPath = (key) => `/modules/${key}`;
+// Path to a single version's release-notes page.
+const versionPath = (key, v) => `/modules/${key}/${v}`;
 
 // ns/name/provider -> parts. Catalog keys are always exactly three segments.
 function parseKey(key) {
@@ -383,8 +413,9 @@ function moduleDetailHtml(key, versions) {
   const rows = sorted
     .map((v) => {
       const dl = `/v1/modules/${esc(key)}/${esc(v)}/archive.tar.gz`;
+      const notes = esc(versionPath(key, v));
       const tag = v === latest ? ' <span class="pill">latest</span>' : "";
-      return `<div class="vrow"><span class="ver"><code>${esc(v)}</code>${tag}</span><a class="dl" href="${dl}">Download .tar.gz ↓</a></div>`;
+      return `<div class="vrow"><span class="ver"><a class="vlink" href="${notes}"><code>${esc(v)}</code></a>${tag}</span><span class="vacts"><a class="rn" href="${notes}">Release notes →</a><a class="dl" href="${dl}">.tar.gz ↓</a></span></div>`;
     })
     .join("");
   const inner = `
@@ -408,6 +439,131 @@ function moduleDetailHtml(key, versions) {
   <div class="sec"><h2>Versions</h2><span class="hint">${versions.length} release${versions.length === 1 ? "" : "s"}</span></div>
   <div class="tbl">${rows}</div>`;
   return page(`${name}/${provider} - c0x12c Registry`, inner);
+}
+
+// --- Changelog markdown rendering -----------------------------------------
+// The release-notes section is stored in R2 as raw markdown (split out of each
+// module's CHANGELOG.md by the Python release pipeline). It is team-authored,
+// trusted content, but we still HTML-escape every text node defensively. This
+// is a deliberately small renderer covering exactly the conventional-changelog
+// shapes that appear in the real files: ##/### headings, * bullets (one nested
+// level), `inline code`, **bold**, [links](url), and ```fenced``` blocks.
+function mdInline(s) {
+  s = esc(s);
+  s = s.replace(/`([^`]+)`/g, (_m, c) => `<code>${c}</code>`);
+  // Drop the empty-link form the changelog generator emits: `[1.4.2]()` -> `1.4.2`.
+  s = s.replace(/\[([^\]]+)\]\(\)/g, (_m, t) => t);
+  s = s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g,
+    (_m, t, u) => `<a href="${u}" rel="noopener noreferrer" target="_blank">${t}</a>`);
+  s = s.replace(/\*\*([^*]+)\*\*/g, (_m, b) => `<strong>${b}</strong>`);
+  return s;
+}
+
+function renderChangelog(md) {
+  const lines = String(md).replace(/\r\n/g, "\n").split("\n");
+  const out = [];
+  let depth = 0; // open <ul> nesting depth (0, 1, or 2)
+  let para = [];
+  const flushPara = () => {
+    if (para.length) {
+      out.push(`<p>${mdInline(para.join(" "))}</p>`);
+      para = [];
+    }
+  };
+  const closeLists = (to) => {
+    while (depth > to) {
+      out.push("</li></ul>");
+      depth--;
+    }
+  };
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const fence = line.match(/^```(\w*)\s*$/);
+    if (fence) {
+      flushPara();
+      closeLists(0);
+      const buf = [];
+      i++;
+      while (i < lines.length && !/^```\s*$/.test(lines[i])) buf.push(lines[i++]);
+      out.push(`<pre class="cl-pre"><code>${esc(buf.join("\n"))}</code></pre>`);
+      continue;
+    }
+    let m = line.match(/^(#{2,4})\s+(.*)$/);
+    if (m) {
+      flushPara();
+      closeLists(0);
+      const lvl = m[1].length;
+      out.push(`<h${lvl} class="cl-h">${mdInline(m[2].trim())}</h${lvl}>`);
+      continue;
+    }
+    m = line.match(/^(\s*)[*-]\s+(.*)$/);
+    if (m) {
+      flushPara();
+      const indent = m[1].replace(/\t/g, "  ").length;
+      const want = indent >= 2 ? 2 : 1;
+      if (want > depth) {
+        while (depth < want) {
+          out.push("<ul class=\"cl-ul\">");
+          depth++;
+        }
+      } else {
+        closeLists(want);
+        out.push("</li>");
+      }
+      out.push(`<li>${mdInline(m[2].trim())}`);
+      continue;
+    }
+    if (line.trim() === "") {
+      flushPara();
+      continue;
+    }
+    // Non-blank, non-bullet line while a list item is open = wrapped
+    // continuation of that bullet (the real changelogs wrap long bullets).
+    if (depth > 0) {
+      out[out.length - 1] += " " + mdInline(line.trim());
+      continue;
+    }
+    para.push(line.trim());
+  }
+  flushPara();
+  closeLists(0);
+  return out.join("\n");
+}
+
+// Per-version release-notes page. `body` is the raw markdown section for this
+// version (null when none was recorded - e.g. a version published before the
+// changelog pipeline, or with no CHANGELOG entry).
+function versionDetailHtml(key, version, body) {
+  const { name, provider } = parseKey(key);
+  const color = providerColor(provider);
+  const dl = `/v1/modules/${esc(key)}/${esc(version)}/archive.tar.gz`;
+  const snippet = esc(
+    `module "example" {\n  source  = "${REGISTRY_HOST}/${key}"\n  version = "${version}"\n}`
+  );
+  const notes = body
+    ? `<div class="changelog reveal">${renderChangelog(body)}</div>`
+    : `<div class="tbl"><p class="empty">No release notes were recorded for this version.</p></div>`;
+  const inner = `
+  <header class="bar">
+    <div class="brand"><span class="logo">c0</span> c0x12c Registry</div>
+    <span class="tag">modules.v1 · anonymous</span>
+  </header>
+
+  <a class="crumb" href="${esc(detailPath(key))}">← ${esc(name)}/${esc(provider)}</a>
+
+  <section class="reveal">
+    <p class="badge-line"><span class="badge" style="--prov:${color}"><span class="dot"></span>${esc(provider)}</span></p>
+    <div class="title"><span class="name-lg">${esc(name)}</span><span class="pill">v${esc(version)}</span></div>
+    <p class="host">${esc(REGISTRY_HOST)}/${esc(key)}</p>
+  </section>
+
+  <div class="sec"><h2>Install</h2><span class="hint">Pinned to v${esc(version)}</span></div>
+  <div class="snip"><pre><code>${snippet}</code></pre><button class="copy" type="button">Copy</button></div>
+  <p class="note"><a class="dl" href="${dl}">Download .tar.gz ↓</a></p>
+
+  <div class="sec"><h2>Release notes</h2><span class="hint">v${esc(version)}</span></div>
+  ${notes}`;
+  return page(`${name}/${provider} v${version} - c0x12c Registry`, inner);
 }
 
 function notFoundHtml() {
@@ -469,6 +625,38 @@ export default {
           });
         }
         return new Response(moduleDetailHtml(key, versions), {
+          headers: { "content-type": "text/html; charset=utf-8" },
+        });
+      }
+
+      // Per-version release-notes page (4 segments). Best-effort like /.
+      let vm = p.match(/^\/modules\/([^/]+)\/([^/]+)\/([^/]+)\/([^/]+)$/);
+      if (vm) {
+        const key = `${vm[1]}/${vm[2]}/${vm[3]}`;
+        const version = vm[4].replace(/^v/, "");
+        let idx = null;
+        try {
+          idx = await loadIndex(env);
+        } catch (e) {
+          idx = null;
+        }
+        const versions = idx && idx[key];
+        // Unknown module or version that was never published -> real 404.
+        if (!versions || !versions.includes(version)) {
+          return new Response(notFoundHtml(), {
+            status: 404,
+            headers: { "content-type": "text/html; charset=utf-8" },
+          });
+        }
+        // Released version with no recorded notes still renders (with fallback).
+        let body = null;
+        try {
+          const obj = await r2Get(env, `modules/${key}/${version}.changelog.md`);
+          if (obj) body = await obj.text();
+        } catch (e) {
+          body = null;
+        }
+        return new Response(versionDetailHtml(key, version, body), {
           headers: { "content-type": "text/html; charset=utf-8" },
         });
       }
