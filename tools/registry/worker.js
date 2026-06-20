@@ -205,9 +205,7 @@ const STYLE = `
     font-size:15px;color:var(--fg);text-decoration:none;transition:opacity .15s ease;border-radius:8px}
   .brand:hover{text-decoration:none;opacity:.72}
   .brand:focus-visible{outline:2px solid var(--accent-fg);outline-offset:3px}
-  .logo{width:30px;height:30px;flex:none;background:center/contain no-repeat;
-    background-image:url("data:image/webp;base64,UklGRuYDAABXRUJQVlA4WAoAAAAQAAAASgAASgAAQUxQSI4DAAABoC3Jtmnbmse2bdu2bdu2bdu2bdu2bdu+62nV7aPtH4gIB27bOJLjQy8KztPuCZ61sv7wudajvkE8WTX1udcMnby5AjfVKeQZd/3MrnP8N+5+HF3non/dvT+ozv0FrxmjU6ANAtfQOdJdd31Nq3PG76RXLZv71wOiuR1B5zrYeT+gyfCNaLYE1nkG6V9poKmLnfXXKdhRgn2fxNhZGZ3jvSbaS6GhsyPYWVKdC+EIWQo0sZ4TzeUwOvfyUbUCmoJ/iGa5cISsJf3OCzhdsbOOOoe7TrDPY0Fnq0h/Cuic9ivRHg3mTxP2KtG8jKtzbR/VMKBJ8Qk7C6zzZJxpEwJNpf8Ip65whJwl2NaEM4G01guQ5WoIKRHpmFAdSU1I6UjLhIvVHZoaI5IWkEqaBkLyLH6VCTWAWPsQTV56yf5ABqW/AlRzSElok3AzBCjoZaD5lcoy9T8FqrdRSNvpuijRdCGa4aYZ1virVjHOGLE+0c7FMidlpYnsFA2b0LSGfI5DWkONlTdcAp8CqL8ZCWcMsXYgmuJEs93yWFuiGk80aX7T5ErbgBA3Qd8TGRTjA+hFBErlAVo+chHkQGq3t+V6iXG1b0g0s42xvB3CoHwU9D0Yy1egd1FJW6mxIoZL8GsU9JTusazqOOh7EtVgQSwfgj7FtqyzX0APw0hj2d5yjRuvsuJYGlSSWNerY/n/CnUP9C2hMZbVjbGcZXlsKFH1MMZytzGWb6MalOwn6Fow4zyYwhjLxpbrHURV2BjLQcZYHrVM2bWIdbE1lqFtsfyT0bIXeUpBjyWN5TjLYxOJqo0xlutcY4mLKO3QzgbRxtIyZR+noGcjnCHE2p1oClIsd5i2DsajZXKK5dVgtlnrRDSDIr+lw0Uk0i6g+a8Ahqm5XzXOG8hy3YOumxNNZqJZ6elqDymmcVTUFuoEqaDx1YOFmsEnC9tE/yWlTimN+/7gt4nmZviAOQO3o3ntN9GsEJ4s1uPJIp9te+lrr3PEOwT7gtatRXx20TkdniyOB4fBfx47i6VzLR/VRKBJ+iFg/n6Ygq4PNOX+4XZSeLI4TPqeybZo/VdZ55jPiPZORJj3cO/7IYnOuX/Z/hyIdI/HoM6d8DUzm/vXDKRZ4Olqsc+9musU5orgj7KsOif76O5HUXUu/5+79wTRebjgNf11CrzDXf9K6Rz5vrvfJdI52zd3nwqhc/ZDP5093SwPVlA4IDIAAADwAwCdASpLAEsAPikUiUMhoSEQpAAYAoS0gAAE+NGjRo0aNGjRoz8AAP7+0BwAAAAAAA==");}
-  @media (prefers-color-scheme:dark){.logo{background-image:url("data:image/webp;base64,UklGRj4EAABXRUJQVlA4WAoAAAAQAAAASAAASgAAQUxQSKMDAAABkChJsmlb++LZtm3btm3btm3btm3btm0bl7vWrLk/EBESHElSJMkrlg69pCj6giMcWX742I5Hfb0cpdHEx37M1MKZo5BmWoQ4bc/vPFqJ/8Y+z2Nppchf+xwNppV+Cn9mrBYe6xVSXysR79rzNa1WMnwnXrVs7h73yeZ2RK3Uxln3o3l9I5stnlqZTvwrDTZ1cF4DtAh2lFTfJxHOq4xW4r4i10uhYV5HyOZDUq0U+kOuS8Em5nOyuRxGKz19aLQCmzy/yWaF2npYgxtEXtDpgvPqpJVw10n1RWzQWUX8KaiVlJ/J9VgwN2Gv4iqJq5VaPjSGg02KTzgvT61MIn4lAptK/0mnntp6OEuqbUhnArHOCYJDaCiRkDiuRkeiKZGWWK52BN0GvkUi5hOlBLVPnsU1MiH9ybQv2eShP3LAw0i6y+A0h0hCB/6tEID3JapQavOm/sTHzdsoxHb6WoxsOpHNCMfINHJqQjZVhPtCzI90AwlrvrPQEXqKlkjoB8DnOI5sjVcwfnie9HHzNyPpjCbTjmRTjGx2OEbakNN4sknzm7bOYFTEm8D3xEZivKddKgL1cL+Pm/+5SXIATbaP+eticqpBNg18rIt4O4SRfFTrPWQTgQ6Fd9GIrTStkoE/hLVOKTxQm2IRrRZ3D3IaLCziaXERjcT7AjwMIyxiJmERO5i/4tWprLCIE6RF9DZSgkzXqxbxXy7jR6h7tM8lJJbQtGoKizjbMTKYnHroFjGqkaRU62vBqIiXpUUU7EzCfa6w8LIxRLwzGalBpouFRXwURrozme8UT4FPsYgNNK1y4p3JyHjhoVuSbDaIi2gkLdX6rJewiInsdiaq9TGqdTbSGUKmPcmmABVxp2OkMZnOIJvkP6mIwenqcc3HzcloRiK9octVJGIXbccFsUDNXaNxXg/z1270tTnZZCab1Y7W2EPEFG6KddQ4QRQUrvnBaszgd4BsC/+SSu2C+1u27Qe7RTa3wgfF+7Qd2OTFea1Uewesw3dAftDpgPPqoPYOuEGqL+ksWojzyqeVdF/xLhscFvl5fGfECop3wETarj+QzQFvrUzGNACbsv/wKqhFsMPE90yyned/Za3EfEaudyLCdo5nyOeUWsn9S/Zgj3QP36ehtdIJ/8ys5u4xA20WOlpjkY/9aKFFmCv2/MymlWQf7fMoqlbK/7fPHi+tDFf4MwO08Nxhz79SWol83z7vE2kl2zf7nA6hleyHflpnhhQHAFZQOCB0AAAAkAcAnQEqSQBLAD4pEIZCIaEMKgAMAUJaQAV4B/APwA/QCn/RnA/lwtNzN33VVUTnXHXuvyuKKv7gfpqJtxPvIOLkPMMAAP7+0E43M4hv1L///yW///kz7//8lwcvU6JH/3Z7o9VLb1UEXfVQXXvEoAAAAAA==");}}
+  .logo{display:block;width:30px;height:30px;flex:none}
   .tag{font-family:var(--mono);font-size:11.5px;color:var(--muted);border:1px solid var(--border);
     padding:4px 10px;border-radius:999px;background:var(--panel)}
 
@@ -329,6 +327,8 @@ const STYLE = `
   }
 `;
 
+const BRAND = `<a class="brand" href="/" aria-label="c0x12c Registry - home"><picture class="logo"><source srcset="data:image/webp;base64,UklGRj4EAABXRUJQVlA4WAoAAAAQAAAASAAASgAAQUxQSKMDAAABkChJsmlb++LZtm3btm3btm3btm3btm0bl7vWrLk/EBESHElSJMkrlg69pCj6giMcWX742I5Hfb0cpdHEx37M1MKZo5BmWoQ4bc/vPFqJ/8Y+z2Nppchf+xwNppV+Cn9mrBYe6xVSXysR79rzNa1WMnwnXrVs7h73yeZ2RK3Uxln3o3l9I5stnlqZTvwrDTZ1cF4DtAh2lFTfJxHOq4xW4r4i10uhYV5HyOZDUq0U+kOuS8Em5nOyuRxGKz19aLQCmzy/yWaF2npYgxtEXtDpgvPqpJVw10n1RWzQWUX8KaiVlJ/J9VgwN2Gv4iqJq5VaPjSGg02KTzgvT61MIn4lAptK/0mnntp6OEuqbUhnArHOCYJDaCiRkDiuRkeiKZGWWK52BN0GvkUi5hOlBLVPnsU1MiH9ybQv2eShP3LAw0i6y+A0h0hCB/6tEID3JapQavOm/sTHzdsoxHb6WoxsOpHNCMfINHJqQjZVhPtCzI90AwlrvrPQEXqKlkjoB8DnOI5sjVcwfnie9HHzNyPpjCbTjmRTjGx2OEbakNN4sknzm7bOYFTEm8D3xEZivKddKgL1cL+Pm/+5SXIATbaP+eticqpBNg18rIt4O4SRfFTrPWQTgQ6Fd9GIrTStkoE/hLVOKTxQm2IRrRZ3D3IaLCziaXERjcT7AjwMIyxiJmERO5i/4tWprLCIE6RF9DZSgkzXqxbxXy7jR6h7tM8lJJbQtGoKizjbMTKYnHroFjGqkaRU62vBqIiXpUUU7EzCfa6w8LIxRLwzGalBpouFRXwURrozme8UT4FPsYgNNK1y4p3JyHjhoVuSbDaIi2gkLdX6rJewiInsdiaq9TGqdTbSGUKmPcmmABVxp2OkMZnOIJvkP6mIwenqcc3HzcloRiK9octVJGIXbccFsUDNXaNxXg/z1270tTnZZCab1Y7W2EPEFG6KddQ4QRQUrvnBaszgd4BsC/+SSu2C+1u27Qe7RTa3wgfF+7Qd2OTFea1Uewesw3dAftDpgPPqoPYOuEGqL+ksWojzyqeVdF/xLhscFvl5fGfECop3wETarj+QzQFvrUzGNACbsv/wKqhFsMPE90yyned/Za3EfEaudyLCdo5nyOeUWsn9S/Zgj3QP36ehtdIJ/8ys5u4xA20WOlpjkY/9aKFFmCv2/MymlWQf7fMoqlbK/7fPHi+tDFf4MwO08Nxhz79SWol83z7vE2kl2zf7nA6hleyHflpnhhQHAFZQOCB0AAAAkAcAnQEqSQBLAD4pEIZCIaEMKgAMAUJaQAV4B/APwA/QCn/RnA/lwtNzN33VVUTnXHXuvyuKKv7gfpqJtxPvIOLkPMMAAP7+0E43M4hv1L///yW///kz7//8lwcvU6JH/3Z7o9VLb1UEXfVQXXvEoAAAAAA=" media="(prefers-color-scheme:dark)"><img src="data:image/webp;base64,UklGRuYDAABXRUJQVlA4WAoAAAAQAAAASgAASgAAQUxQSI4DAAABoC3Jtmnbmse2bdu2bdu2bdu2bdu2bdu+62nV7aPtH4gIB27bOJLjQy8KztPuCZ61sv7wudajvkE8WTX1udcMnby5AjfVKeQZd/3MrnP8N+5+HF3non/dvT+ozv0FrxmjU6ANAtfQOdJdd31Nq3PG76RXLZv71wOiuR1B5zrYeT+gyfCNaLYE1nkG6V9poKmLnfXXKdhRgn2fxNhZGZ3jvSbaS6GhsyPYWVKdC+EIWQo0sZ4TzeUwOvfyUbUCmoJ/iGa5cISsJf3OCzhdsbOOOoe7TrDPY0Fnq0h/Cuic9ivRHg3mTxP2KtG8jKtzbR/VMKBJ8Qk7C6zzZJxpEwJNpf8Ip65whJwl2NaEM4G01guQ5WoIKRHpmFAdSU1I6UjLhIvVHZoaI5IWkEqaBkLyLH6VCTWAWPsQTV56yf5ABqW/AlRzSElok3AzBCjoZaD5lcoy9T8FqrdRSNvpuijRdCGa4aYZ1virVjHOGLE+0c7FMidlpYnsFA2b0LSGfI5DWkONlTdcAp8CqL8ZCWcMsXYgmuJEs93yWFuiGk80aX7T5ErbgBA3Qd8TGRTjA+hFBErlAVo+chHkQGq3t+V6iXG1b0g0s42xvB3CoHwU9D0Yy1egd1FJW6mxIoZL8GsU9JTusazqOOh7EtVgQSwfgj7FtqyzX0APw0hj2d5yjRuvsuJYGlSSWNerY/n/CnUP9C2hMZbVjbGcZXlsKFH1MMZytzGWb6MalOwn6Fow4zyYwhjLxpbrHURV2BjLQcZYHrVM2bWIdbE1lqFtsfyT0bIXeUpBjyWN5TjLYxOJqo0xlutcY4mLKO3QzgbRxtIyZR+noGcjnCHE2p1oClIsd5i2DsajZXKK5dVgtlnrRDSDIr+lw0Uk0i6g+a8Ahqm5XzXOG8hy3YOumxNNZqJZ6elqDymmcVTUFuoEqaDx1YOFmsEnC9tE/yWlTimN+/7gt4nmZviAOQO3o3ntN9GsEJ4s1uPJIp9te+lrr3PEOwT7gtatRXx20TkdniyOB4fBfx47i6VzLR/VRKBJ+iFg/n6Ygq4PNOX+4XZSeLI4TPqeybZo/VdZ55jPiPZORJj3cO/7IYnOuX/Z/hyIdI/HoM6d8DUzm/vXDKRZ4Olqsc+9musU5orgj7KsOif76O5HUXUu/5+79wTRebjgNf11CrzDXf9K6Rz5vrvfJdI52zd3nwqhc/ZDP5093SwPVlA4IDIAAADwAwCdASpLAEsAPikUiUMhoSEQpAAYAoS0gAAE+NGjRo0aNGjRoz8AAP7+0BwAAAAAAA==" alt="Spartan" width="30" height="30"></picture> c0x12c Registry</a>`;
+
 function page(title, inner, script = "") {
   return `<!doctype html>
 <html lang="en">
@@ -428,7 +428,7 @@ function landingHtml(idx, totals = {}) {
   );
   const inner = `
   <header class="bar">
-    <a class="brand" href="/" aria-label="c0x12c Registry - home"><span class="logo" role="img" aria-label="Spartan"></span> c0x12c Registry</a>
+    ${BRAND}
     <span class="tag">modules.v1 · anonymous</span>
   </header>
 
@@ -507,7 +507,7 @@ function moduleDetailHtml(key, versions, counts = {}) {
     .join("");
   const inner = `
   <header class="bar">
-    <a class="brand" href="/" aria-label="c0x12c Registry - home"><span class="logo" role="img" aria-label="Spartan"></span> c0x12c Registry</a>
+    ${BRAND}
     <span class="tag">modules.v1 · anonymous</span>
   </header>
 
@@ -632,7 +632,7 @@ function versionDetailHtml(key, version, body, count = 0) {
     : `<div class="tbl"><p class="empty">No release notes were recorded for this version.</p></div>`;
   const inner = `
   <header class="bar">
-    <a class="brand" href="/" aria-label="c0x12c Registry - home"><span class="logo" role="img" aria-label="Spartan"></span> c0x12c Registry</a>
+    ${BRAND}
     <span class="tag">modules.v1 · anonymous</span>
   </header>
 
@@ -656,7 +656,7 @@ function versionDetailHtml(key, version, body, count = 0) {
 function notFoundHtml() {
   const inner = `
   <header class="bar">
-    <a class="brand" href="/" aria-label="c0x12c Registry - home"><span class="logo" role="img" aria-label="Spartan"></span> c0x12c Registry</a>
+    ${BRAND}
     <span class="tag">modules.v1 · anonymous</span>
   </header>
 
