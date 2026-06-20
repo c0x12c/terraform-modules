@@ -43,7 +43,7 @@ resource "aws_elasticache_replication_group" "this" {
   depends_on = [aws_elasticache_subnet_group.this]
 
   replication_group_id = var.cluster_name
-  description          = "${var.cluster_name} redis cluster"
+  description          = var.cluster_mode_enabled ? "${var.cluster_name} redis cluster" : "${var.cluster_name} redis (standalone)"
   multi_az_enabled     = var.multi_az_enabled
   node_type            = var.node_type
   # Cluster Mode Enabled uses num_node_groups/replicas_per_node_group (sharded).
