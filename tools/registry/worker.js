@@ -86,14 +86,22 @@ function bumpDownload(env, ctx, key, version) {
 }
 
 // Per-module totals across the whole registry: { "ns/name/provider": total }.
+// Cached like INDEX_CACHE: the landing page is hit by crawlers/monitors on every
+// "/" load, and an aggregate that's 60s stale is fine for an approximate counter.
+// Without this, every "/" would run a full-table GROUP BY against D1.
+let TOTALS_CACHE = null; // { data, ts }
+const TOTALS_TTL_MS = 60_000;
 async function dlTotals(env) {
   if (!env.DB) return {};
+  const now = Date.now();
+  if (TOTALS_CACHE && now - TOTALS_CACHE.ts < TOTALS_TTL_MS) return TOTALS_CACHE.data;
   try {
     const { results } = await env.DB.prepare(
       "SELECT module_key, SUM(count) AS total FROM downloads GROUP BY module_key"
     ).all();
     const out = {};
     for (const r of results || []) out[r.module_key] = Number(r.total) || 0;
+    TOTALS_CACHE = { data: out, ts: now };
     return out;
   } catch (e) {
     return {};
@@ -406,7 +414,7 @@ function landingHtml(idx, totals = {}) {
         spellcheck="false" aria-label="Filter modules"></div>
     <div class="tbl">
       <table>
-        <thead><tr><th>Module</th><th>Latest</th><th class="r">Versions</th><th class="r">Downloads</th></tr></thead>
+        <thead><tr><th>Module</th><th>Latest</th><th class="r">Versions</th><th class="r" title="Cold terraform init fetches (CI-inflated), not unique adopters">Pulls</th></tr></thead>
         <tbody id="rows">${rows}</tbody>
       </table>
       <p id="empty" class="empty" hidden>No modules match your filter.</p>
@@ -429,7 +437,7 @@ function landingHtml(idx, totals = {}) {
       <div class="stat"><div class="num">${keys.length || "-"}</div><div class="lbl">Modules</div></div>
       <div class="stat"><div class="num">${totalVersions || "-"}</div><div class="lbl">Versions</div></div>
       <div class="stat"><div class="num">${providerCount || "-"}</div><div class="lbl">Providers</div></div>
-      <div class="stat"><div class="num">${grandDownloads ? fmtNum(grandDownloads) : "-"}</div><div class="lbl">Downloads</div></div>
+      <div class="stat"><div class="num">${grandDownloads ? fmtNum(grandDownloads) : "-"}</div><div class="lbl">Pulls</div></div>
     </div>
   </section>
 
@@ -491,7 +499,7 @@ function moduleDetailHtml(key, versions, counts = {}) {
       const dl = `/v1/modules/${esc(key)}/${esc(v)}/archive.tar.gz`;
       const notes = esc(versionPath(key, v));
       const tag = v === latest ? ' <span class="pill">latest</span>' : "";
-      return `<div class="vrow"><span class="ver"><a class="vlink" href="${notes}"><code>${esc(v)}</code></a>${tag}</span><span class="vacts"><span class="dlc" title="downloads">${fmtNum(counts[v] || 0)} ↓</span><a class="rn" href="${notes}">Release notes →</a><a class="dl" href="${dl}">.tar.gz ↓</a></span></div>`;
+      return `<div class="vrow"><span class="ver"><a class="vlink" href="${notes}"><code>${esc(v)}</code></a>${tag}</span><span class="vacts"><span class="dlc" title="pulls (cold terraform init fetches)">${fmtNum(counts[v] || 0)} ↓</span><a class="rn" href="${notes}">Release notes →</a><a class="dl" href="${dl}">.tar.gz ↓</a></span></div>`;
     })
     .join("");
   const inner = `
@@ -512,7 +520,7 @@ function moduleDetailHtml(key, versions, counts = {}) {
   <div class="snip"><pre><code>${snippet}</code></pre><button class="copy" type="button">Copy</button></div>
   <p class="note">Pin <code>version</code> to any release below. <code>terraform init</code> resolves it over HTTPS - no auth.</p>
 
-  <div class="sec"><h2>Versions</h2><span class="hint">${versions.length} release${versions.length === 1 ? "" : "s"} · ${fmtNum(totalDownloads)} downloads</span></div>
+  <div class="sec"><h2>Versions</h2><span class="hint">${versions.length} release${versions.length === 1 ? "" : "s"} · ${fmtNum(totalDownloads)} pulls</span></div>
   <div class="tbl">${rows}</div>`;
   return page(`${name}/${provider} - c0x12c Registry`, inner);
 }
@@ -635,7 +643,7 @@ function versionDetailHtml(key, version, body, count = 0) {
 
   <div class="sec"><h2>Install</h2><span class="hint">Pinned to v${esc(version)}</span></div>
   <div class="snip"><pre><code>${snippet}</code></pre><button class="copy" type="button">Copy</button></div>
-  <p class="note"><a class="dl" href="${dl}">Download .tar.gz ↓</a> <span class="dlc">${fmtNum(count)} downloads</span></p>
+  <p class="note"><a class="dl" href="${dl}">Download .tar.gz ↓</a> <span class="dlc" title="Cold terraform init fetches (CI-inflated)">${fmtNum(count)} pulls</span></p>
 
   <div class="sec"><h2>Release notes</h2><span class="hint">v${esc(version)}</span></div>
   ${notes}`;

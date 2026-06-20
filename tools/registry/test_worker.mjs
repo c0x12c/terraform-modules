@@ -99,19 +99,19 @@ async function main() {
   // (b) Landing catalog total comes from SUM(count) GROUP BY -> 3 for the module.
   const landing = await (await call("/")).text();
   assert.match(landing, /class="count dlc">3</, "landing catalog cell should show module total 3");
-  assert.match(landing, /Downloads/, "landing should have a Downloads column/stat");
+  assert.match(landing, /Pulls/, "landing should have a Pulls column/stat");
   ok("landing SUM/GROUP BY end-to-end: module total 3");
 
   // (c) Module detail: per-version counts + module total.
   const detail = await (await call("/modules/c0x12c/rds/aws")).text();
   assert.match(detail, />2 ↓</, "module detail should show 2 downloads for 0.6.5 row");
   assert.match(detail, />1 ↓</, "module detail should show 1 download for 0.6.6 row");
-  assert.match(detail, /3 downloads/, "module detail should show module total 3 downloads");
+  assert.match(detail, /3 pulls/, "module detail should show module total 3 pulls");
   ok("module detail shows per-version counts and total");
 
   // (d) Version detail: single count.
   const vdetail = await (await call("/modules/c0x12c/rds/aws/0.6.5")).text();
-  assert.match(vdetail, /2 downloads/, "version detail should show 2 downloads");
+  assert.match(vdetail, /2 pulls/, "version detail should show 2 pulls");
   ok("version detail shows the version count");
 
   // (e) Graceful degradation: NO DB binding. Downloads still serve; counts read 0.
@@ -124,7 +124,7 @@ async function main() {
   const landing2 = await (await call2("/")).text();
   assert.match(landing2, /class="count dlc">0</, "no-DB landing shows 0 per module");
   const vdetail2 = await (await call2("/modules/c0x12c/rds/aws/0.6.5")).text();
-  assert.match(vdetail2, /0 downloads/, "no-DB version detail shows 0");
+  assert.match(vdetail2, /0 pulls/, "no-DB version detail shows 0");
   ok("graceful degrade: no DB binding -> downloads serve, counts read 0");
 
   console.log(`\nALL PASS (${passed} checks)`);
