@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.7.0]() (2026-06-21)
+
+### Features
+
+* Add `cluster_mode_enabled` variable (default `true`). When `false`, provisions a Cluster Mode Disabled (standalone) replication group via `num_cache_clusters` instead of `num_node_groups`, enabling multi-key Redis operations without CROSSSLOT errors. Use a non-cluster parameter group when disabled.
+
 ## [0.6.0]() (2025-05-27)
 
 ### Changes

@@ -42,12 +42,15 @@ https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/elas
 resource "aws_elasticache_replication_group" "this" {
   depends_on = [aws_elasticache_subnet_group.this]
 
-  replication_group_id    = var.cluster_name
-  description             = "${var.cluster_name} redis cluster"
-  multi_az_enabled        = var.multi_az_enabled
-  node_type               = var.node_type
-  num_node_groups         = var.cache_node_count
-  replicas_per_node_group = var.replicas_per_node_group
+  replication_group_id = var.cluster_name
+  description          = "${var.cluster_name} redis cluster"
+  multi_az_enabled     = var.multi_az_enabled
+  node_type            = var.node_type
+  # Cluster Mode Enabled uses num_node_groups/replicas_per_node_group (sharded).
+  # Cluster Mode Disabled (standalone) uses num_cache_clusters = primary + replicas.
+  num_node_groups         = var.cluster_mode_enabled ? var.cache_node_count : null
+  replicas_per_node_group = var.cluster_mode_enabled ? var.replicas_per_node_group : null
+  num_cache_clusters      = var.cluster_mode_enabled ? null : 1 + var.replicas_per_node_group
 
   parameter_group_name = local.parameter_group_name
   engine               = var.engine

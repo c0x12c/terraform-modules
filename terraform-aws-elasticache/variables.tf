@@ -49,6 +49,12 @@ variable "cache_node_count" {
   type        = number
 }
 
+variable "cluster_mode_enabled" {
+  description = "When true (default), creates a Cluster Mode Enabled (sharded) replication group using num_node_groups = cache_node_count. When false, creates a Cluster Mode Disabled (standalone) replication group using num_cache_clusters = 1 + replicas_per_node_group. For standalone, pass a non-cluster parameter_group_name (e.g. default.valkey8 / default.redis7) and set automatic_failover_enabled = false / multi_az_enabled = false when there are no replicas."
+  type        = bool
+  default     = true
+}
+
 variable "subnet_ids" {
   description = "The subnet ids of this cluster"
   type        = list(string)
