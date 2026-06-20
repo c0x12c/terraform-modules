@@ -21,8 +21,8 @@ resource "aws_elasticache_subnet_group" "this" {
 
 resource "aws_elasticache_parameter_group" "this" {
   count       = var.custom_redis_parameters == null ? 0 : 1
-  name        = replace("${var.cluster_name}-redis${local.major_version}", "_", "-")
-  family      = local.redis_family
+  name        = replace("${var.cluster_name}-${var.engine}${local.major_version}", "_", "-")
+  family      = local.engine_family
   description = "Custom redis parameter group"
 
   dynamic "parameter" {
@@ -42,12 +42,17 @@ https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/elas
 resource "aws_elasticache_replication_group" "this" {
   depends_on = [aws_elasticache_subnet_group.this]
 
-  replication_group_id    = var.cluster_name
-  description             = "${var.cluster_name} redis cluster"
-  multi_az_enabled        = var.multi_az_enabled
-  node_type               = var.node_type
-  num_node_groups         = var.cache_node_count
-  replicas_per_node_group = var.replicas_per_node_group
+  replication_group_id = var.cluster_name
+  description          = var.cluster_mode_enabled ? "${var.cluster_name} redis cluster" : "${var.cluster_name} redis (standalone)"
+  # Multi-AZ / automatic failover require >= 1 replica. In standalone mode with no
+  # replicas (single node) AWS rejects them as true, so force false in that case.
+  multi_az_enabled = (var.cluster_mode_enabled || var.replicas_per_node_group > 0) ? var.multi_az_enabled : false
+  node_type        = var.node_type
+  # Cluster Mode Enabled uses num_node_groups/replicas_per_node_group (sharded).
+  # Cluster Mode Disabled (standalone) uses num_cache_clusters = primary + replicas.
+  num_node_groups         = var.cluster_mode_enabled ? var.cache_node_count : null
+  replicas_per_node_group = var.cluster_mode_enabled ? var.replicas_per_node_group : null
+  num_cache_clusters      = var.cluster_mode_enabled ? null : 1 + var.replicas_per_node_group
 
   parameter_group_name = local.parameter_group_name
   engine               = var.engine
@@ -60,7 +65,7 @@ resource "aws_elasticache_replication_group" "this" {
 
   apply_immediately          = var.apply_immediately
   snapshot_window            = var.snapshot_window
-  automatic_failover_enabled = var.automatic_failover_enabled
+  automatic_failover_enabled = (var.cluster_mode_enabled || var.replicas_per_node_group > 0) ? var.automatic_failover_enabled : false
 
   at_rest_encryption_enabled = var.at_rest_encryption_enabled
 

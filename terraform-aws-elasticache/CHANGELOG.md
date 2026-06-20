@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.7.0]() (2026-06-21)
+
+### Features
+
+* Add `cluster_mode_enabled` variable (default `true`). When `false`, provisions a Cluster Mode Disabled (standalone) replication group via `num_cache_clusters = 1 + replicas_per_node_group` instead of `num_node_groups`, enabling multi-key Redis operations without CROSSSLOT errors. Use a non-cluster parameter group when disabled.
+* Reflect the topology in the replication group `description` (`redis cluster` vs `redis (standalone)`).
+
+### Bug Fixes
+
+* Derive the parameter-group family from the engine (`valkey8`/`redis7`) instead of hardcoding `redis`, so Valkey clusters using `custom_redis_parameters` get the correct family.
+* Force `multi_az_enabled` / `automatic_failover_enabled` to `false` for a single-node standalone group (no replicas), which AWS otherwise rejects. Cluster-mode behavior is unchanged.
+
 ## [0.6.0]() (2025-05-27)
 
 ### Changes

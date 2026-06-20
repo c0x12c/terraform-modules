@@ -35,6 +35,7 @@ module "elasticache" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.8 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.75 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.6 |
 
@@ -66,6 +67,7 @@ No modules.
 | <a name="input_at_rest_encryption_enabled"></a> [at\_rest\_encryption\_enabled](#input\_at\_rest\_encryption\_enabled) | Whether to enable encryption at rest. | `bool` | `false` | no |
 | <a name="input_automatic_failover_enabled"></a> [automatic\_failover\_enabled](#input\_automatic\_failover\_enabled) | Automatically promote read-replica to become primary when the primary instance down, default is false | `bool` | `false` | no |
 | <a name="input_cache_node_count"></a> [cache\_node\_count](#input\_cache\_node\_count) | The number of cache node | `number` | n/a | yes |
+| <a name="input_cluster_mode_enabled"></a> [cluster\_mode\_enabled](#input\_cluster\_mode\_enabled) | When true (default), creates a Cluster Mode Enabled (sharded) replication group using num\_node\_groups = cache\_node\_count. When false, creates a Cluster Mode Disabled (standalone) replication group using num\_cache\_clusters = 1 + replicas\_per\_node\_group. For standalone, pass a non-cluster parameter\_group\_name (e.g. default.valkey8 / default.redis7) and set automatic\_failover\_enabled = false / multi\_az\_enabled = false when there are no replicas. | `bool` | `true` | no |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | The name of this cluster | `string` | n/a | yes |
 | <a name="input_custom_redis_parameters"></a> [custom\_redis\_parameters](#input\_custom\_redis\_parameters) | Custom redis parameters to apply to the parameter group | <pre>list(object({<br/>    name  = string<br/>    value = string<br/>  }))</pre> | `null` | no |
 | <a name="input_engine"></a> [engine](#input\_engine) | Name of the cache engine to be used for the clusters in the replication group. Valid values are redis or valkey | `string` | `"redis"` | no |
