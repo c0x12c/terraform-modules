@@ -44,8 +44,10 @@ resource "aws_elasticache_replication_group" "this" {
 
   replication_group_id = var.cluster_name
   description          = var.cluster_mode_enabled ? "${var.cluster_name} redis cluster" : "${var.cluster_name} redis (standalone)"
-  multi_az_enabled     = var.multi_az_enabled
-  node_type            = var.node_type
+  # Multi-AZ / automatic failover require >= 1 replica. In standalone mode with no
+  # replicas (single node) AWS rejects them as true, so force false in that case.
+  multi_az_enabled = (var.cluster_mode_enabled || var.replicas_per_node_group > 0) ? var.multi_az_enabled : false
+  node_type        = var.node_type
   # Cluster Mode Enabled uses num_node_groups/replicas_per_node_group (sharded).
   # Cluster Mode Disabled (standalone) uses num_cache_clusters = primary + replicas.
   num_node_groups         = var.cluster_mode_enabled ? var.cache_node_count : null
@@ -63,7 +65,7 @@ resource "aws_elasticache_replication_group" "this" {
 
   apply_immediately          = var.apply_immediately
   snapshot_window            = var.snapshot_window
-  automatic_failover_enabled = var.automatic_failover_enabled
+  automatic_failover_enabled = (var.cluster_mode_enabled || var.replicas_per_node_group > 0) ? var.automatic_failover_enabled : false
 
   at_rest_encryption_enabled = var.at_rest_encryption_enabled
 
