@@ -10,3 +10,11 @@ routes = [{ pattern = "terraform.c0x12c.com", custom_domain = true }]
 [[r2_buckets]]
 binding = "BUCKET"
 bucket_name = "c0x12c-tf-modules"
+
+# D1 for download (pull) stats. Binding name must be DB (worker reads env.DB).
+# Schema lives in schema.sql; apply once with:
+#   wrangler d1 execute c0x12c-tf-registry-stats --remote --file schema.sql
+[[d1_databases]]
+binding = "DB"
+database_name = "c0x12c-tf-registry-stats"
+database_id = "7caf776f-ee19-475e-b8ec-65a0f2c88a3f"
