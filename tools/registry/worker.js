@@ -276,12 +276,25 @@ const STYLE = `
   thead th a.sort.on{color:var(--fg)}
   thead th a.sort .arr{font-size:9px;line-height:1;opacity:.85}
   th.r a.sort{flex-direction:row-reverse}
-  .pager{display:flex;align-items:center;justify-content:center;gap:14px;padding:14px 0 2px}
-  .pg{font:inherit;font-size:13px;color:var(--fg-soft);background:var(--panel);border:1px solid var(--border);
-    border-radius:9px;padding:7px 14px;cursor:pointer;transition:.12s}
-  .pg:hover:not(:disabled){border-color:var(--border-strong);color:var(--fg)}
-  .pg:disabled{opacity:.4;cursor:default}
-  .pgi{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+  th.pcol{width:1%;white-space:nowrap}
+  td.prov .cell{padding-right:6px}
+  td.prov .badge{white-space:nowrap}
+  td.mod .cell{gap:0}
+  .pager{display:flex;align-items:center;justify-content:space-between;gap:12px 16px;flex-wrap:wrap;
+    padding:16px 6px 4px}
+  .prange{font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .pgrp{display:flex;align-items:center;gap:4px;margin-left:auto}
+  .pg{min-width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;
+    font:inherit;font-size:13px;font-variant-numeric:tabular-nums;color:var(--fg-soft);background:var(--panel);
+    border:1px solid var(--border);border-radius:9px;padding:0 6px;cursor:pointer;transition:.12s;
+    -webkit-tap-highlight-color:transparent}
+  .pg svg{width:16px;height:16px}
+  .pg:hover:not(:disabled):not(.on){border-color:var(--border-strong);color:var(--fg);background:var(--panel-2)}
+  .pg.on{background:var(--accent-soft);color:var(--accent-fg);font-weight:600;cursor:default;
+    border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
+  .pg:disabled{opacity:.36;cursor:default}
+  .pg:focus-visible{outline:2px solid var(--accent-fg);outline-offset:2px}
+  .pgdots{min-width:22px;text-align:center;color:var(--faint);user-select:none}
 
   .crumb{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--muted);margin:6px 0 24px;
     padding:6px 13px;border:1px solid var(--border);border-radius:999px;background:var(--panel);transition:.15s}
@@ -426,10 +439,8 @@ function landingHtml(idx, totals = {}, sort = "name", order = "asc") {
       const href = esc(detailPath(k));
       const src = `${REGISTRY_HOST}/${k}`;
       return `<tr class="link" data-href="${href}">
-        <td class="mod"><div class="cell">
-          <span class="badge" style="--prov:${color}"><span class="dot"></span>${esc(provider)}</span>
-          <span class="mtext"><a class="name" href="${href}">${esc(name)}</a><span class="path">${esc(src)}</span></span>
-        </div></td>
+        <td class="prov"><div class="cell"><span class="badge" style="--prov:${color}"><span class="dot"></span>${esc(provider)}</span></div></td>
+        <td class="mod"><div class="cell"><span class="mtext"><a class="name" href="${href}">${esc(name)}</a><span class="path">${esc(src)}</span></span></div></td>
         <td class="v"><div class="cell"><span class="vpill">${latest}</span></div></td>
         <td class="n"><div class="cell"><span class="count">${count}</span></div></td>
         <td class="n"><div class="cell"><span class="count dlc">${fmtNum(totals[k] || 0)}</span></div></td>
@@ -453,15 +464,14 @@ function landingHtml(idx, totals = {}, sort = "name", order = "asc") {
         spellcheck="false" aria-label="Filter modules"></div>
     <div class="tbl">
       <table>
-        <thead><tr><th>${sortTh("name", "Module")}</th><th>Latest</th><th class="r">Versions</th><th class="r">${sortTh("pulls", "Pulls", pullsTitle)}</th></tr></thead>
+        <thead><tr><th class="pcol">Provider</th><th>${sortTh("name", "Module")}</th><th>Latest</th><th class="r">Versions</th><th class="r">${sortTh("pulls", "Pulls", pullsTitle)}</th></tr></thead>
         <tbody id="rows">${rows}</tbody>
       </table>
       <p id="empty" class="empty" hidden>No modules match your filter.</p>
-      <div class="pager" id="pager" hidden>
-        <button type="button" class="pg" data-act="prev" aria-label="Previous page">Prev</button>
-        <span class="pgi" id="pgi"></span>
-        <button type="button" class="pg" data-act="next" aria-label="Next page">Next</button>
-      </div>
+      <nav class="pager" id="pager" aria-label="Module list pagination" hidden>
+        <span class="prange" id="prange"></span>
+        <div class="pgrp" id="pgrp"></div>
+      </nav>
     </div>`
     : `<div class="tbl"><p class="empty">Catalog temporarily unavailable - try again shortly.</p></div>`;
   const snippet = esc(
@@ -503,8 +513,43 @@ function landingHtml(idx, totals = {}, sort = "name", order = "asc") {
   });
   var q = document.getElementById("q");
   var empty = document.getElementById("empty"), shown = document.getElementById("shown"), total = rows.length;
-  var pager = document.getElementById("pager"), pgi = document.getElementById("pgi");
+  var pager = document.getElementById("pager"), pgrp = document.getElementById("pgrp"), prange = document.getElementById("prange");
   var PAGE = 25, page = 0;
+  var CH_L = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>';
+  var CH_R = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>';
+
+  // Page numbers with first/last anchors and ellipsis around the current page.
+  function pageItems(cur, total) {
+    var range = [1], out = [], last;
+    for (var i = cur - 1; i <= cur + 1; i++) if (i > 1 && i < total) range.push(i);
+    if (total > 1) range.push(total);
+    range = range.filter(function (v, i, a) { return a.indexOf(v) === i; }).sort(function (a, b) { return a - b; });
+    range.forEach(function (n) {
+      if (last) { if (n - last === 2) out.push(last + 1); else if (n - last > 2) out.push("..."); }
+      out.push(n); last = n;
+    });
+    return out;
+  }
+  function navBtn(act, disabled, icon, label) {
+    return '<button type="button" class="pg" data-act="' + act + '"' + (disabled ? " disabled" : "") +
+      ' aria-label="' + label + '">' + icon + "</button>";
+  }
+  function renderPager(count, pages) {
+    if (!pager) return;
+    pager.hidden = pages <= 1;
+    if (pages <= 1) return;
+    var from = page * PAGE + 1, to = Math.min(count, (page + 1) * PAGE);
+    if (prange) prange.textContent = from + "-" + to + " of " + count;
+    var html = navBtn("prev", page === 0, CH_L, "Previous page");
+    pageItems(page + 1, pages).forEach(function (it) {
+      if (it === "...") { html += '<span class="pgdots" aria-hidden="true">…</span>'; return; }
+      var on = it === page + 1;
+      html += '<button type="button" class="pg' + (on ? " on" : "") + '" data-page="' + it + '"' +
+        (on ? ' aria-current="page"' : "") + ' aria-label="Page ' + it + '">' + it + "</button>";
+    });
+    html += navBtn("next", page >= pages - 1, CH_R, "Next page");
+    pgrp.innerHTML = html;
+  }
 
   function apply() {
     var term = q ? q.value.trim().toLowerCase() : "";
@@ -519,23 +564,16 @@ function landingHtml(idx, totals = {}, sort = "name", order = "asc") {
     filtered.forEach(function (r, i) { if (i >= start && i < end) r.hidden = false; });
     if (empty) empty.hidden = filtered.length !== 0;
     if (shown) shown.textContent = term ? (filtered.length + " of " + total) : (total + " total");
-    if (pager) {
-      var many = filtered.length > PAGE;
-      pager.hidden = !many;
-      if (many) {
-        pgi.textContent = "Page " + (page + 1) + " of " + pages;
-        var prev = pager.querySelector('[data-act="prev"]'), next = pager.querySelector('[data-act="next"]');
-        prev.disabled = page === 0;
-        next.disabled = page >= pages - 1;
-      }
-    }
+    renderPager(filtered.length, pages);
   }
 
   if (pager) {
     pager.addEventListener("click", function (e) {
-      var b = e.target.closest("[data-act]");
+      var b = e.target.closest("button");
       if (!b || b.disabled) return;
-      page += b.dataset.act === "next" ? 1 : -1;
+      if (b.dataset.act) page += b.dataset.act === "next" ? 1 : -1;
+      else if (b.dataset.page) page = parseInt(b.dataset.page, 10) - 1;
+      else return;
       apply();
       var top = document.getElementById("rows");
       if (top) top.scrollIntoView({ block: "nearest" });
