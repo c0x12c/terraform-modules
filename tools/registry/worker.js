@@ -270,6 +270,18 @@ const STYLE = `
     background:var(--panel-2);border:1px solid var(--border);border-radius:7px;padding:3px 9px}
   .count{font-family:var(--mono);font-size:13px;color:var(--muted)}
   .empty{color:var(--muted);text-align:center;padding:34px 0;font-size:14px}
+  thead th a.sort{display:inline-flex;align-items:center;gap:5px;color:inherit;text-transform:inherit;
+    letter-spacing:inherit;font-weight:inherit;transition:color .12s}
+  thead th a.sort:hover{color:var(--fg);text-decoration:none}
+  thead th a.sort.on{color:var(--fg)}
+  thead th a.sort .arr{font-size:9px;line-height:1;opacity:.85}
+  th.r a.sort{flex-direction:row-reverse}
+  .pager{display:flex;align-items:center;justify-content:center;gap:14px;padding:14px 0 2px}
+  .pg{font:inherit;font-size:13px;color:var(--fg-soft);background:var(--panel);border:1px solid var(--border);
+    border-radius:9px;padding:7px 14px;cursor:pointer;transition:.12s}
+  .pg:hover:not(:disabled){border-color:var(--border-strong);color:var(--fg)}
+  .pg:disabled{opacity:.4;cursor:default}
+  .pgi{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
 
   .crumb{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--muted);margin:6px 0 24px;
     padding:6px 13px;border:1px solid var(--border);border-radius:999px;background:var(--panel);transition:.15s}
@@ -383,8 +395,21 @@ const providerColor = (p) => PROVIDER_COLORS[String(p || "").toLowerCase()] || "
 const SEARCH_ICON =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>';
 
-function landingHtml(idx, totals = {}) {
-  const keys = idx ? Object.keys(idx).sort() : [];
+function landingHtml(idx, totals = {}, sort = "name", order = "asc") {
+  // Backend-side sort of the catalog. Name uses the module name (then full key
+  // as a stable tiebreak); pulls uses the download total, tiebroken by name.
+  const cmpName = (a, b) =>
+    parseKey(a).name.localeCompare(parseKey(b).name) || a.localeCompare(b);
+  const keys = idx
+    ? Object.keys(idx).sort((a, b) => {
+        let c =
+          sort === "pulls"
+            ? Number(totals[a] || 0) - Number(totals[b] || 0)
+            : cmpName(a, b);
+        if (c === 0) c = cmpName(a, b);
+        return order === "desc" ? -c : c;
+      })
+    : [];
   const example =
     idx && idx["c0x12c/rds/aws"]
       ? { key: "c0x12c/rds/aws", v: latestVersion(idx["c0x12c/rds/aws"]) }
@@ -411,16 +436,32 @@ function landingHtml(idx, totals = {}) {
       </tr>`;
     })
     .join("");
+  // Header sort links. Non-active column opens with a sensible first order
+  // (name asc, pulls desc); clicking the active column flips the order.
+  const firstOrder = (col) => (col === "pulls" ? "desc" : "asc");
+  const nextOrder = (col) =>
+    sort === col ? (order === "asc" ? "desc" : "asc") : firstOrder(col);
+  const sortTh = (col, label, extra = "") => {
+    const on = sort === col;
+    const arr = on ? `<span class="arr">${order === "asc" ? "▲" : "▼"}</span>` : "";
+    return `<a class="sort${on ? " on" : ""}" href="/?sort=${col}&order=${nextOrder(col)}"${extra}>${label}${arr}</a>`;
+  };
+  const pullsTitle = ' title="Cold terraform init fetches (CI-inflated), not unique adopters"';
   const catalog = keys.length
     ? `<div class="search-wrap">${SEARCH_ICON}<input id="q" class="search" type="search"
         placeholder="Filter by name or provider…" autocomplete="off" autocapitalize="off"
         spellcheck="false" aria-label="Filter modules"></div>
     <div class="tbl">
       <table>
-        <thead><tr><th>Module</th><th>Latest</th><th class="r">Versions</th><th class="r" title="Cold terraform init fetches (CI-inflated), not unique adopters">Pulls</th></tr></thead>
+        <thead><tr><th>${sortTh("name", "Module")}</th><th>Latest</th><th class="r">Versions</th><th class="r">${sortTh("pulls", "Pulls", pullsTitle)}</th></tr></thead>
         <tbody id="rows">${rows}</tbody>
       </table>
       <p id="empty" class="empty" hidden>No modules match your filter.</p>
+      <div class="pager" id="pager" hidden>
+        <button type="button" class="pg" data-act="prev" aria-label="Previous page">Prev</button>
+        <span class="pgi" id="pgi"></span>
+        <button type="button" class="pg" data-act="next" aria-label="Next page">Next</button>
+      </div>
     </div>`
     : `<div class="tbl"><p class="empty">Catalog temporarily unavailable - try again shortly.</p></div>`;
   const snippet = esc(
@@ -461,18 +502,47 @@ function landingHtml(idx, totals = {}) {
     });
   });
   var q = document.getElementById("q");
-  if (!q) return;
   var empty = document.getElementById("empty"), shown = document.getElementById("shown"), total = rows.length;
-  q.addEventListener("input", function () {
-    var term = q.value.trim().toLowerCase(), n = 0;
-    rows.forEach(function (r) {
-      var hit = !term || r.dataset.k.indexOf(term) !== -1;
-      r.hidden = !hit;
-      if (hit) n++;
+  var pager = document.getElementById("pager"), pgi = document.getElementById("pgi");
+  var PAGE = 25, page = 0;
+
+  function apply() {
+    var term = q ? q.value.trim().toLowerCase() : "";
+    var filtered = term
+      ? rows.filter(function (r) { return r.dataset.k.indexOf(term) !== -1; })
+      : rows;
+    var pages = Math.max(1, Math.ceil(filtered.length / PAGE));
+    if (page > pages - 1) page = pages - 1;
+    if (page < 0) page = 0;
+    var start = page * PAGE, end = start + PAGE;
+    rows.forEach(function (r) { r.hidden = true; });
+    filtered.forEach(function (r, i) { if (i >= start && i < end) r.hidden = false; });
+    if (empty) empty.hidden = filtered.length !== 0;
+    if (shown) shown.textContent = term ? (filtered.length + " of " + total) : (total + " total");
+    if (pager) {
+      var many = filtered.length > PAGE;
+      pager.hidden = !many;
+      if (many) {
+        pgi.textContent = "Page " + (page + 1) + " of " + pages;
+        var prev = pager.querySelector('[data-act="prev"]'), next = pager.querySelector('[data-act="next"]');
+        prev.disabled = page === 0;
+        next.disabled = page >= pages - 1;
+      }
+    }
+  }
+
+  if (pager) {
+    pager.addEventListener("click", function (e) {
+      var b = e.target.closest("[data-act]");
+      if (!b || b.disabled) return;
+      page += b.dataset.act === "next" ? 1 : -1;
+      apply();
+      var top = document.getElementById("rows");
+      if (top) top.scrollIntoView({ block: "nearest" });
     });
-    if (empty) empty.hidden = n !== 0;
-    if (shown) shown.textContent = term ? (n + " of " + total) : (total + " total");
-  });
+  }
+  if (q) q.addEventListener("input", function () { page = 0; apply(); });
+  apply();
 })();
 </script>`;
   return page("c0x12c Terraform Module Registry", inner, script);
@@ -690,7 +760,9 @@ export default {
           idx = null;
         }
         const totals = await dlTotals(env);
-        return new Response(landingHtml(idx, totals), {
+        const sort = url.searchParams.get("sort") === "pulls" ? "pulls" : "name";
+        const order = url.searchParams.get("order") === "desc" ? "desc" : "asc";
+        return new Response(landingHtml(idx, totals, sort, order), {
           headers: { "content-type": "text/html; charset=utf-8" },
         });
       }
