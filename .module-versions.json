@@ -20,7 +20,7 @@
   "terraform-aws-eks-managed-node-group": "1.0.1",
   "terraform-aws-eks-rbac": "0.1.21",
   "terraform-aws-eks-service": "0.2.8",
-  "terraform-aws-elasticache": "0.6.0",
+  "terraform-aws-elasticache": "0.7.0",
   "terraform-aws-eventbridge-slack-notification": "1.2.0",
   "terraform-aws-github-oidc": "1.0.1",
   "terraform-aws-github-self-hosted-runners": "0.1.66",

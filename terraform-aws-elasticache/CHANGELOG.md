@@ -2,7 +2,8 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.7.0]() (2026-06-21)
+## [0.7.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-elasticache/v0.6.0...terraform-aws-elasticache/v0.7.0) (2026-06-20)
+
 
 ### Features
 
