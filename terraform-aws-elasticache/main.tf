@@ -21,8 +21,8 @@ resource "aws_elasticache_subnet_group" "this" {
 
 resource "aws_elasticache_parameter_group" "this" {
   count       = var.custom_redis_parameters == null ? 0 : 1
-  name        = replace("${var.cluster_name}-redis${local.major_version}", "_", "-")
-  family      = local.redis_family
+  name        = replace("${var.cluster_name}-${var.engine}${local.major_version}", "_", "-")
+  family      = local.engine_family
   description = "Custom redis parameter group"
 
   dynamic "parameter" {
