@@ -7,12 +7,6 @@ All notable changes to this project will be documented in this file.
 
 ### Features
 
-* **elasticache:** add cluster_mode_enabled flag for standalone Redis ([#199](https://github.com/c0x12c/terraform-modules/issues/199)) ([e260458](https://github.com/c0x12c/terraform-modules/commit/e260458e655e3a4fbaf3660ed7b6796e298bcfbd))
-
-## [0.7.0]() (2026-06-21)
-
-### Features
-
 * Add `cluster_mode_enabled` variable (default `true`). When `false`, provisions a Cluster Mode Disabled (standalone) replication group via `num_cache_clusters = 1 + replicas_per_node_group` instead of `num_node_groups`, enabling multi-key Redis operations without CROSSSLOT errors. Use a non-cluster parameter group when disabled.
 * Reflect the topology in the replication group `description` (`redis cluster` vs `redis (standalone)`).
 
