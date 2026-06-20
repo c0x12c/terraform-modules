@@ -240,6 +240,17 @@ const STYLE = `
     background:var(--panel);color:var(--fg);font-family:var(--sans);font-size:14.5px;transition:.15s;box-shadow:var(--shadow)}
   .search::placeholder{color:var(--faint)}
   .search:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+  .chip{display:inline-flex;align-items:center;gap:7px;font:inherit;font-size:12.5px;color:var(--fg-soft);
+    background:var(--panel);border:1px solid var(--border);border-radius:999px;padding:6px 13px;cursor:pointer;
+    transition:.12s;-webkit-tap-highlight-color:transparent}
+  .chip .dot{width:7px;height:7px;border-radius:50%;background:var(--prov,var(--accent));flex:none}
+  .chip .chip-n{font-family:var(--mono);font-size:11px;color:var(--faint)}
+  .chip:hover:not(.on){border-color:var(--border-strong);color:var(--fg)}
+  .chip.on{background:var(--accent-soft);color:var(--accent-fg);
+    border-color:color-mix(in srgb,var(--accent) 40%,transparent)}
+  .chip.on .chip-n{color:var(--accent-fg)}
+  .chip:focus-visible{outline:2px solid var(--accent-fg);outline-offset:2px}
 
   .tbl{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--panel);box-shadow:var(--shadow)}
   table{width:100%;border-collapse:collapse}
@@ -430,6 +441,12 @@ function landingHtml(idx, totals = {}, sort = "name", order = "asc") {
   const totalVersions = keys.reduce((s, k) => s + idx[k].length, 0);
   const providerCount = new Set(keys.map((k) => parseKey(k).provider)).size;
   const grandDownloads = Object.values(totals).reduce((s, n) => s + Number(n || 0), 0);
+  const provCounts = {};
+  keys.forEach((k) => {
+    const pr = parseKey(k).provider;
+    provCounts[pr] = (provCounts[pr] || 0) + 1;
+  });
+  const provList = Object.keys(provCounts).sort();
   const rows = keys
     .map((k) => {
       const { name, provider } = parseKey(k);
@@ -438,7 +455,7 @@ function landingHtml(idx, totals = {}, sort = "name", order = "asc") {
       const count = idx[k].length;
       const href = esc(detailPath(k));
       const src = `${REGISTRY_HOST}/${k}`;
-      return `<tr class="link" data-href="${href}">
+      return `<tr class="link" data-href="${href}" data-prov="${esc(provider)}">
         <td class="prov"><div class="cell"><span class="badge" style="--prov:${color}"><span class="dot"></span>${esc(provider)}</span></div></td>
         <td class="mod"><div class="cell"><span class="mtext"><a class="name" href="${href}">${esc(name)}</a><span class="path">${esc(src)}</span></span></div></td>
         <td class="v"><div class="cell"><span class="vpill">${latest}</span></div></td>
@@ -462,6 +479,15 @@ function landingHtml(idx, totals = {}, sort = "name", order = "asc") {
     ? `<div class="search-wrap">${SEARCH_ICON}<input id="q" class="search" type="search"
         placeholder="Filter by name or provider…" autocomplete="off" autocapitalize="off"
         spellcheck="false" aria-label="Filter modules"></div>
+    <div class="chips" id="chips" role="group" aria-label="Filter by provider">
+      <button type="button" class="chip on" data-prov="" aria-pressed="true">All <span class="chip-n">${keys.length}</span></button>
+      ${provList
+        .map(
+          (pr) =>
+            `<button type="button" class="chip" data-prov="${esc(pr)}" aria-pressed="false" style="--prov:${providerColor(pr)}"><span class="dot"></span>${esc(pr)} <span class="chip-n">${provCounts[pr]}</span></button>`
+        )
+        .join("")}
+    </div>
     <div class="tbl">
       <table>
         <thead><tr><th class="pcol">Provider</th><th>${sortTh("name", "Module")}</th><th>Latest</th><th class="r">Versions</th><th class="r">${sortTh("pulls", "Pulls", pullsTitle)}</th></tr></thead>
@@ -512,6 +538,7 @@ function landingHtml(idx, totals = {}, sort = "name", order = "asc") {
     });
   });
   var q = document.getElementById("q");
+  var chips = document.getElementById("chips"), activeProv = "";
   var empty = document.getElementById("empty"), shown = document.getElementById("shown"), total = rows.length;
   var pager = document.getElementById("pager"), pgrp = document.getElementById("pgrp"), prange = document.getElementById("prange");
   var PAGE = 25, page = 0;
@@ -553,9 +580,10 @@ function landingHtml(idx, totals = {}, sort = "name", order = "asc") {
 
   function apply() {
     var term = q ? q.value.trim().toLowerCase() : "";
-    var filtered = term
-      ? rows.filter(function (r) { return r.dataset.k.indexOf(term) !== -1; })
-      : rows;
+    var filtered = rows.filter(function (r) {
+      return (!term || r.dataset.k.indexOf(term) !== -1) &&
+        (!activeProv || r.dataset.prov === activeProv);
+    });
     var pages = Math.max(1, Math.ceil(filtered.length / PAGE));
     if (page > pages - 1) page = pages - 1;
     if (page < 0) page = 0;
@@ -563,7 +591,7 @@ function landingHtml(idx, totals = {}, sort = "name", order = "asc") {
     rows.forEach(function (r) { r.hidden = true; });
     filtered.forEach(function (r, i) { if (i >= start && i < end) r.hidden = false; });
     if (empty) empty.hidden = filtered.length !== 0;
-    if (shown) shown.textContent = term ? (filtered.length + " of " + total) : (total + " total");
+    if (shown) shown.textContent = (term || activeProv) ? (filtered.length + " of " + total) : (total + " total");
     renderPager(filtered.length, pages);
   }
 
@@ -580,6 +608,20 @@ function landingHtml(idx, totals = {}, sort = "name", order = "asc") {
     });
   }
   if (q) q.addEventListener("input", function () { page = 0; apply(); });
+  if (chips) {
+    chips.addEventListener("click", function (e) {
+      var c = e.target.closest(".chip");
+      if (!c) return;
+      activeProv = c.dataset.prov || "";
+      Array.prototype.forEach.call(chips.querySelectorAll(".chip"), function (x) {
+        var on = x === c;
+        x.classList.toggle("on", on);
+        x.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+      page = 0;
+      apply();
+    });
+  }
   apply();
 })();
 </script>`;
