@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.7.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-elasticache/v0.6.0...terraform-aws-elasticache/v0.7.0) (2026-06-20)
+
+
+### Features
+
+* **elasticache:** add cluster_mode_enabled flag for standalone Redis ([#199](https://github.com/c0x12c/terraform-modules/issues/199)) ([e260458](https://github.com/c0x12c/terraform-modules/commit/e260458e655e3a4fbaf3660ed7b6796e298bcfbd))
+
 ## [0.7.0]() (2026-06-21)
 
 ### Features
