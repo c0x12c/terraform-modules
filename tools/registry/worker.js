@@ -61,6 +61,85 @@ async function loadIndex(env) {
 const esc = (s) =>
   String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
+// Thousands-separated count for display.
+const fmtNum = (n) => Number(n || 0).toLocaleString("en-US");
+
+// --- Download stats (D1) ---------------------------------------------------
+// Best-effort, exactly like the R2 path: a missing `DB` binding or any query
+// error degrades to zero counts and NEVER throws, so download serving and page
+// rendering are unaffected. The binding is added in a follow-up once the D1
+// database is provisioned (see schema.sql); until then env.DB is undefined and
+// every counter reads 0.
+
+// Fire-and-forget atomic increment on a real tarball delivery. Wrapped in
+// ctx.waitUntil so it never delays the response, and `.catch` so a stats-write
+// failure can't surface as a 5xx on the download.
+function bumpDownload(env, ctx, key, version) {
+  if (!env.DB || !ctx) return;
+  const work = env.DB.prepare(
+    "INSERT INTO downloads (module_key, version, count, last_at) VALUES (?, ?, 1, datetime('now')) ON CONFLICT(module_key, version) DO UPDATE SET count = count + 1, last_at = datetime('now')"
+  )
+    .bind(key, version)
+    .run()
+    .catch(() => {});
+  ctx.waitUntil(work);
+}
+
+// Per-module totals across the whole registry: { "ns/name/provider": total }.
+// Cached like INDEX_CACHE: the landing page is hit by crawlers/monitors on every
+// "/" load, and an aggregate that's 60s stale is fine for an approximate counter.
+// Without this, every "/" would run a full-table GROUP BY against D1.
+let TOTALS_CACHE = null; // { data, ts }
+const TOTALS_TTL_MS = 60_000;
+async function dlTotals(env) {
+  if (!env.DB) return {};
+  const now = Date.now();
+  if (TOTALS_CACHE && now - TOTALS_CACHE.ts < TOTALS_TTL_MS) return TOTALS_CACHE.data;
+  try {
+    const { results } = await env.DB.prepare(
+      "SELECT module_key, SUM(count) AS total FROM downloads GROUP BY module_key"
+    ).all();
+    const out = {};
+    for (const r of results || []) out[r.module_key] = Number(r.total) || 0;
+    TOTALS_CACHE = { data: out, ts: now };
+    return out;
+  } catch (e) {
+    return {};
+  }
+}
+
+// Per-version counts for one module: { "0.6.5": 12, ... }.
+async function dlByVersion(env, key) {
+  if (!env.DB) return {};
+  try {
+    const { results } = await env.DB.prepare(
+      "SELECT version, count FROM downloads WHERE module_key = ?"
+    )
+      .bind(key)
+      .all();
+    const out = {};
+    for (const r of results || []) out[r.version] = Number(r.count) || 0;
+    return out;
+  } catch (e) {
+    return {};
+  }
+}
+
+// Count for one (module, version).
+async function dlOne(env, key, version) {
+  if (!env.DB) return 0;
+  try {
+    const row = await env.DB.prepare(
+      "SELECT count FROM downloads WHERE module_key = ? AND version = ?"
+    )
+      .bind(key, version)
+      .first();
+    return (row && Number(row.count)) || 0;
+  } catch (e) {
+    return 0;
+  }
+}
+
 // Numeric semver-ish compare (descending). Prerelease tags are stripped, so the
 // ordering is for display only - pinned consumers always go through the protocol.
 function semverParts(v) {
@@ -211,6 +290,7 @@ const STYLE = `
   .vrow .rn{font-family:var(--sans);font-size:13px;font-weight:500}
   .vrow .dl{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
   .vrow .dl:hover{color:var(--fg)}
+  .dlc{font-family:var(--mono);font-size:12.5px;color:var(--faint);white-space:nowrap}
 
   .changelog{background:var(--panel);border:1px solid var(--border);border-radius:14px;
     padding:6px 22px 20px;box-shadow:var(--shadow)}
@@ -300,7 +380,7 @@ const providerColor = (p) => PROVIDER_COLORS[String(p || "").toLowerCase()] || "
 const SEARCH_ICON =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>';
 
-function landingHtml(idx) {
+function landingHtml(idx, totals = {}) {
   const keys = idx ? Object.keys(idx).sort() : [];
   const example =
     idx && idx["c0x12c/rds/aws"]
@@ -308,6 +388,7 @@ function landingHtml(idx) {
       : { key: "c0x12c/<module>/<provider>", v: "x.y.z" };
   const totalVersions = keys.reduce((s, k) => s + idx[k].length, 0);
   const providerCount = new Set(keys.map((k) => parseKey(k).provider)).size;
+  const grandDownloads = Object.values(totals).reduce((s, n) => s + Number(n || 0), 0);
   const rows = keys
     .map((k) => {
       const { name, provider } = parseKey(k);
@@ -323,6 +404,7 @@ function landingHtml(idx) {
         </div></td>
         <td class="v"><div class="cell"><span class="vpill">${latest}</span></div></td>
         <td class="n"><div class="cell"><span class="count">${count}</span></div></td>
+        <td class="n"><div class="cell"><span class="count dlc">${fmtNum(totals[k] || 0)}</span></div></td>
       </tr>`;
     })
     .join("");
@@ -332,7 +414,7 @@ function landingHtml(idx) {
         spellcheck="false" aria-label="Filter modules"></div>
     <div class="tbl">
       <table>
-        <thead><tr><th>Module</th><th>Latest</th><th class="r">Versions</th></tr></thead>
+        <thead><tr><th>Module</th><th>Latest</th><th class="r">Versions</th><th class="r" title="Cold terraform init fetches (CI-inflated), not unique adopters">Pulls</th></tr></thead>
         <tbody id="rows">${rows}</tbody>
       </table>
       <p id="empty" class="empty" hidden>No modules match your filter.</p>
@@ -355,6 +437,7 @@ function landingHtml(idx) {
       <div class="stat"><div class="num">${keys.length || "-"}</div><div class="lbl">Modules</div></div>
       <div class="stat"><div class="num">${totalVersions || "-"}</div><div class="lbl">Versions</div></div>
       <div class="stat"><div class="num">${providerCount || "-"}</div><div class="lbl">Providers</div></div>
+      <div class="stat"><div class="num">${grandDownloads ? fmtNum(grandDownloads) : "-"}</div><div class="lbl">Pulls</div></div>
     </div>
   </section>
 
@@ -394,8 +477,9 @@ function landingHtml(idx) {
 
 // Per-module detail page: pinned-usage snippet for the latest version plus every
 // published version with a direct tarball download link.
-function moduleDetailHtml(key, versions) {
+function moduleDetailHtml(key, versions, counts = {}) {
   const latest = latestVersion(versions);
+  const totalDownloads = Object.values(counts).reduce((s, n) => s + Number(n || 0), 0);
   // Sort versions for display the same way the catalog picks "latest" (desc).
   const sorted = [...versions].sort((a, b) => {
     const pa = semverParts(a);
@@ -415,7 +499,7 @@ function moduleDetailHtml(key, versions) {
       const dl = `/v1/modules/${esc(key)}/${esc(v)}/archive.tar.gz`;
       const notes = esc(versionPath(key, v));
       const tag = v === latest ? ' <span class="pill">latest</span>' : "";
-      return `<div class="vrow"><span class="ver"><a class="vlink" href="${notes}"><code>${esc(v)}</code></a>${tag}</span><span class="vacts"><a class="rn" href="${notes}">Release notes →</a><a class="dl" href="${dl}">.tar.gz ↓</a></span></div>`;
+      return `<div class="vrow"><span class="ver"><a class="vlink" href="${notes}"><code>${esc(v)}</code></a>${tag}</span><span class="vacts"><span class="dlc" title="pulls (cold terraform init fetches)">${fmtNum(counts[v] || 0)} ↓</span><a class="rn" href="${notes}">Release notes →</a><a class="dl" href="${dl}">.tar.gz ↓</a></span></div>`;
     })
     .join("");
   const inner = `
@@ -436,7 +520,7 @@ function moduleDetailHtml(key, versions) {
   <div class="snip"><pre><code>${snippet}</code></pre><button class="copy" type="button">Copy</button></div>
   <p class="note">Pin <code>version</code> to any release below. <code>terraform init</code> resolves it over HTTPS - no auth.</p>
 
-  <div class="sec"><h2>Versions</h2><span class="hint">${versions.length} release${versions.length === 1 ? "" : "s"}</span></div>
+  <div class="sec"><h2>Versions</h2><span class="hint">${versions.length} release${versions.length === 1 ? "" : "s"} · ${fmtNum(totalDownloads)} pulls</span></div>
   <div class="tbl">${rows}</div>`;
   return page(`${name}/${provider} - c0x12c Registry`, inner);
 }
@@ -533,7 +617,7 @@ function renderChangelog(md) {
 // Per-version release-notes page. `body` is the raw markdown section for this
 // version (null when none was recorded - e.g. a version published before the
 // changelog pipeline, or with no CHANGELOG entry).
-function versionDetailHtml(key, version, body) {
+function versionDetailHtml(key, version, body, count = 0) {
   const { name, provider } = parseKey(key);
   const color = providerColor(provider);
   const dl = `/v1/modules/${esc(key)}/${esc(version)}/archive.tar.gz`;
@@ -559,7 +643,7 @@ function versionDetailHtml(key, version, body) {
 
   <div class="sec"><h2>Install</h2><span class="hint">Pinned to v${esc(version)}</span></div>
   <div class="snip"><pre><code>${snippet}</code></pre><button class="copy" type="button">Copy</button></div>
-  <p class="note"><a class="dl" href="${dl}">Download .tar.gz ↓</a></p>
+  <p class="note"><a class="dl" href="${dl}">Download .tar.gz ↓</a> <span class="dlc" title="Cold terraform init fetches (CI-inflated)">${fmtNum(count)} pulls</span></p>
 
   <div class="sec"><h2>Release notes</h2><span class="hint">v${esc(version)}</span></div>
   ${notes}`;
@@ -586,7 +670,7 @@ function notFoundHtml() {
 }
 
 export default {
-  async fetch(req, env) {
+  async fetch(req, env, ctx) {
     try {
       const url = new URL(req.url);
       const p = url.pathname;
@@ -602,7 +686,8 @@ export default {
         } catch (e) {
           idx = null;
         }
-        return new Response(landingHtml(idx), {
+        const totals = await dlTotals(env);
+        return new Response(landingHtml(idx, totals), {
           headers: { "content-type": "text/html; charset=utf-8" },
         });
       }
@@ -624,7 +709,8 @@ export default {
             headers: { "content-type": "text/html; charset=utf-8" },
           });
         }
-        return new Response(moduleDetailHtml(key, versions), {
+        const counts = await dlByVersion(env, key);
+        return new Response(moduleDetailHtml(key, versions, counts), {
           headers: { "content-type": "text/html; charset=utf-8" },
         });
       }
@@ -656,7 +742,8 @@ export default {
         } catch (e) {
           body = null;
         }
-        return new Response(versionDetailHtml(key, version, body), {
+        const dls = await dlOne(env, key, version);
+        return new Response(versionDetailHtml(key, version, body, dls), {
           headers: { "content-type": "text/html; charset=utf-8" },
         });
       }
@@ -703,6 +790,8 @@ export default {
         const key = `modules/${m[1]}/${m[2]}/${m[3]}/${m[4]}.tar.gz`;
         const obj = await r2Get(env, key);
         if (!obj) return jsonRes({ errors: ["Not Found"] }, 404);
+        // Count this real delivery (both terraform CLI and browser/curl hit here).
+        bumpDownload(env, ctx, `${m[1]}/${m[2]}/${m[3]}`, m[4]);
         return new Response(obj.body, { headers: { "content-type": "application/gzip" } });
       }
 
