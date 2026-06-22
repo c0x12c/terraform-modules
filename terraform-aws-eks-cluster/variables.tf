@@ -335,6 +335,35 @@ variable "efs_csi" {
   }
 }
 
+variable "enable_metrics_server" {
+  type        = bool
+  description = "Install the metrics-server EKS managed add-on (opt-in; required for HPA cpu/memory metrics)."
+  default     = false
+}
+
+variable "addons_metrics_server_version" {
+  type        = string
+  description = "metrics-server add-on version; null = AWS default/recommended."
+  default     = null
+}
+
+variable "metrics_server" {
+  description = "Configuration for the metrics-server add-on"
+  type = object({
+    node_selector = optional(map(string), {})
+    tolerations = optional(list(object({
+      key      = string
+      operator = string
+      value    = optional(string)
+      effect   = optional(string)
+    })), [])
+  })
+  default = {
+    node_selector = {}
+    tolerations   = []
+  }
+}
+
 variable "node_group_version" {
   type        = string
   description = "Kubernetes version for the managed node group. Null tracks cluster_version."

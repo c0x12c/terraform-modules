@@ -125,3 +125,23 @@ resource "aws_eks_addon" "efs_csi_driver" {
   })
   depends_on = [aws_eks_cluster.master, module.eks_managed_node_group]
 }
+
+resource "aws_eks_addon" "metrics_server" {
+  count = var.enable_metrics_server ? 1 : 0
+
+  addon_name                  = "metrics-server"
+  addon_version               = var.addons_metrics_server_version
+  cluster_name                = local.cluster_name
+  resolve_conflicts_on_update = "OVERWRITE"
+  resolve_conflicts_on_create = "OVERWRITE"
+
+  configuration_values = jsonencode({
+    nodeSelector = var.metrics_server.node_selector
+    tolerations  = var.metrics_server.tolerations
+  })
+
+  # Wait on both compute backends so the add-on isn't created while its pods are
+  # unschedulable: EC2 node group and/or the Fargate profile (pure-Fargate
+  # clusters, mirroring coredns_fargate). Whichever isn't in use is a no-op dep.
+  depends_on = [aws_eks_cluster.master, module.eks_managed_node_group, module.fargate_profile]
+}

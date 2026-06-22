@@ -124,16 +124,29 @@ jobs:
           TERRAFORM_DOCS_SHA256: 34ae01772412bb11474e6718ea62113e38ff5964ee570a98c69fafe3a6dff286
         shell: bash
         run: |
-          if [ ! -f "$MODULE/.terraform-docs.yml" ]; then
-            echo "::notice title=terraform-docs skipped::No .terraform-docs.yml found for $MODULE"
-            exit 0
-          fi
-
           archive="terraform-docs-${TERRAFORM_DOCS_VERSION}-$(uname | tr '[:upper:]' '[:lower:]')-amd64.tar.gz"
           curl -sSL "https://github.com/terraform-docs/terraform-docs/releases/download/${TERRAFORM_DOCS_VERSION}/${archive}" -o /tmp/terraform-docs.tgz
           echo "${TERRAFORM_DOCS_SHA256}  /tmp/terraform-docs.tgz" | sha256sum -c -
           tar -xzf /tmp/terraform-docs.tgz -C /tmp terraform-docs
-          /tmp/terraform-docs markdown table --output-check "$MODULE"
+
+          # Guard: a changed module's docs must reflect its current inputs/outputs.
+          # No silent skip - adding/changing an input or output variable without
+          # regenerating the docs fails the PR. Modules with a .terraform-docs.yml
+          # use it; otherwise we require a README.md carrying the inject markers.
+          if [ -f "$MODULE/.terraform-docs.yml" ]; then
+            if ! /tmp/terraform-docs markdown table --output-check "$MODULE"; then
+              echo "::error title=terraform-docs::$MODULE docs are out of date. Regenerate per its .terraform-docs.yml."
+              exit 1
+            fi
+          elif [ -f "$MODULE/README.md" ] && grep -q "BEGIN_TF_DOCS" "$MODULE/README.md"; then
+            if ! /tmp/terraform-docs markdown table --output-file README.md --output-mode inject --output-check "$MODULE"; then
+              echo "::error title=terraform-docs::$MODULE docs are out of date for a new/changed input or output. Run: terraform-docs markdown table --output-file README.md --output-mode inject $MODULE"
+              exit 1
+            fi
+          else
+            echo "::error title=terraform-docs::$MODULE has no .terraform-docs.yml and no README.md with <!-- BEGIN_TF_DOCS --> markers; cannot verify input/output docs. Add the markers (or a .terraform-docs.yml)."
+            exit 1
+          fi
 
   drift:
     runs-on: ubuntu-latest
