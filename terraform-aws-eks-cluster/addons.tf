@@ -140,5 +140,8 @@ resource "aws_eks_addon" "metrics_server" {
     tolerations  = var.metrics_server.tolerations
   })
 
-  depends_on = [aws_eks_cluster.master, module.eks_managed_node_group]
+  # Wait on both compute backends so the add-on isn't created while its pods are
+  # unschedulable: EC2 node group and/or the Fargate profile (pure-Fargate
+  # clusters, mirroring coredns_fargate). Whichever isn't in use is a no-op dep.
+  depends_on = [aws_eks_cluster.master, module.eks_managed_node_group, module.fargate_profile]
 }
