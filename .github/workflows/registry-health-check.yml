@@ -21,9 +21,12 @@ jobs:
         run: pip install -r tools/registry/requirements.txt
       - name: Run registry health check
         env:
+          # Dedicated R2 token for the health-check cron, separate from the
+          # publish credentials, so it can be rotated/revoked independently if
+          # the cron secret context is ever exposed.
           R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_HEALTHCHECK_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_HEALTHCHECK_SECRET_ACCESS_KEY }}
         run: |
           python3 scripts/registry_health_check.py \
             --r2-bucket "${{ vars.R2_BUCKET }}" \
