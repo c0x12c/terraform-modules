@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-eks-cluster/v1.0.3...terraform-aws-eks-cluster/v1.1.0) (2026-06-22)
+
+
+### Features
+
+* **eks-cluster:** add opt-in metrics-server EKS managed addon ([#208](https://github.com/c0x12c/terraform-modules/issues/208)) ([79133c1](https://github.com/c0x12c/terraform-modules/commit/79133c19c55750e0d833c6c50c05d3d1b65c1469))
+
 ## [1.0.3]() (2026-06-12)
 
 ### Fixes
