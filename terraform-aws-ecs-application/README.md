@@ -96,14 +96,14 @@ module "application" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.27.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.51.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_efs"></a> [efs](#module\_efs) | c0x12c/efs/aws | ~> 0.1.78 |
-| <a name="module_eventbridge-slack-notification"></a> [eventbridge-slack-notification](#module\_eventbridge-slack-notification) | c0x12c/eventbridge-slack-notification/aws | ~> 1.1.0 |
+| <a name="module_efs"></a> [efs](#module\_efs) | ../terraform-aws-efs | n/a |
+| <a name="module_eventbridge-slack-notification"></a> [eventbridge-slack-notification](#module\_eventbridge-slack-notification) | ../terraform-aws-eventbridge-slack-notification | n/a |
 
 ## Resources
 
@@ -160,6 +160,7 @@ module "application" {
 | <a name="input_aws_lb_listener_arn"></a> [aws\_lb\_listener\_arn](#input\_aws\_lb\_listener\_arn) | ARN of the ALB | `string` | n/a | yes |
 | <a name="input_aws_lb_listener_rule_priority"></a> [aws\_lb\_listener\_rule\_priority](#input\_aws\_lb\_listener\_rule\_priority) | AWS LB listener rule's priority | `number` | `100` | no |
 | <a name="input_awslogs_stream_prefix"></a> [awslogs\_stream\_prefix](#input\_awslogs\_stream\_prefix) | AWS logs stream prefix. | `string` | `"ecs"` | no |
+| <a name="input_capacity_provider_strategies"></a> [capacity\_provider\_strategies](#input\_capacity\_provider\_strategies) | Capacity provider strategy for the service (e.g. FARGATE\_SPOT). When non-empty, it replaces launch\_type on the service (the two are mutually exclusive). Leave empty to use launch\_type. | <pre>list(object({<br/>    capacity_provider = string<br/>    weight            = optional(number, 1)<br/>    base              = optional(number, 0)<br/>  }))</pre> | `[]` | no |
 | <a name="input_cloudwatch_log_group_migration_name"></a> [cloudwatch\_log\_group\_migration\_name](#input\_cloudwatch\_log\_group\_migration\_name) | Overwrite existing aws\_cloudwatch\_log\_group migration name. | `string` | `null` | no |
 | <a name="input_cloudwatch_log_group_name"></a> [cloudwatch\_log\_group\_name](#input\_cloudwatch\_log\_group\_name) | Overwrite existing aws\_cloudwatch\_log\_group name. | `string` | `null` | no |
 | <a name="input_container_command"></a> [container\_command](#input\_container\_command) | Container command. | `list(string)` | `[]` | no |
@@ -172,6 +173,7 @@ module "application" {
 | <a name="input_container_port"></a> [container\_port](#input\_container\_port) | Port of container to be exposed | `number` | n/a | yes |
 | <a name="input_container_protocol"></a> [container\_protocol](#input\_container\_protocol) | Protocol of container to be exposed | `string` | `"HTTP"` | no |
 | <a name="input_container_secrets"></a> [container\_secrets](#input\_container\_secrets) | The container secret environment variables | <pre>list(object({<br/>    name      = string<br/>    valueFrom = string<br/>  }))</pre> | `[]` | no |
+| <a name="input_cpu_architecture"></a> [cpu\_architecture](#input\_cpu\_architecture) | CPU architecture for the Fargate task runtime platform. Valid values are `X86_64` and `ARM64` (Graviton). Defaults to `X86_64`. | `string` | `"X86_64"` | no |
 | <a name="input_create_iam_instance_profile"></a> [create\_iam\_instance\_profile](#input\_create\_iam\_instance\_profile) | Whether to create an IAM instance profile for the ECS service. | `bool` | `false` | no |
 | <a name="input_dd_agent_image"></a> [dd\_agent\_image](#input\_dd\_agent\_image) | Datadog agent image. | `string` | `"public.ecr.aws/datadog/agent:latest"` | no |
 | <a name="input_dd_api_key_arn"></a> [dd\_api\_key\_arn](#input\_dd\_api\_key\_arn) | n/a | `string` | `null` | no |
@@ -195,7 +197,9 @@ module "application" {
 | <a name="input_enabled_service_connect"></a> [enabled\_service\_connect](#input\_enabled\_service\_connect) | Whether to create service connect namespace for service internal discovery. | `bool` | `false` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | The environment name | `string` | `"dev"` | no |
 | <a name="input_force_new_deployment"></a> [force\_new\_deployment](#input\_force\_new\_deployment) | Enable to force a new task deployment of the service | `bool` | `true` | no |
+| <a name="input_health_check_enabled"></a> [health\_check\_enabled](#input\_health\_check\_enabled) | Specify whether enabling health check for this ECS service or not | `bool` | `true` | no |
 | <a name="input_health_check_grace_period_seconds"></a> [health\_check\_grace\_period\_seconds](#input\_health\_check\_grace\_period\_seconds) | Seconds to ignore failing load balancer health checks on newly instantiated tasks to prevent premature shutdown, up to 2147483647. Only valid for services configured to use load balancers | `number` | `60` | no |
+| <a name="input_health_check_path"></a> [health\_check\_path](#input\_health\_check\_path) | Default path for health check requests | `string` | `"/health"` | no |
 | <a name="input_launch_type"></a> [launch\_type](#input\_launch\_type) | Launch type on which to run your service. The valid values are `EC2`, `FARGATE`, and `EXTERNAL`. Defaults to `FARGATE` | `string` | `"FARGATE"` | no |
 | <a name="input_name"></a> [name](#input\_name) | The name ECS application | `string` | n/a | yes |
 | <a name="input_notification_deployment_event_types"></a> [notification\_deployment\_event\_types](#input\_notification\_deployment\_event\_types) | List of ECS deployments event types | `list(string)` | <pre>[<br/>  "SERVICE_DEPLOYMENT_IN_PROGRESS",<br/>  "SERVICE_DEPLOYMENT_COMPLETED",<br/>  "SERVICE_DEPLOYMENT_FAILED"<br/>]</pre> | no |
