@@ -35,9 +35,20 @@ resource "aws_ecs_service" "this" {
   deployment_minimum_healthy_percent = var.deployment_minimum_healthy_percent
   deployment_maximum_percent         = var.deployment_maximum_percent
   health_check_grace_period_seconds  = var.health_check_grace_period_seconds
-  launch_type                        = var.launch_type
-  scheduling_strategy                = local.is_fargate ? "REPLICA" : var.scheduling_strategy
-  force_new_deployment               = var.force_new_deployment
+  # launch_type and capacity_provider_strategy are mutually exclusive; prefer the
+  # strategy (e.g. FARGATE_SPOT) when provided, otherwise fall back to launch_type.
+  launch_type          = length(var.capacity_provider_strategies) > 0 ? null : var.launch_type
+  scheduling_strategy  = local.is_fargate ? "REPLICA" : var.scheduling_strategy
+  force_new_deployment = var.force_new_deployment
+
+  dynamic "capacity_provider_strategy" {
+    for_each = var.capacity_provider_strategies
+    content {
+      capacity_provider = capacity_provider_strategy.value.capacity_provider
+      weight            = capacity_provider_strategy.value.weight
+      base              = capacity_provider_strategy.value.base
+    }
+  }
 
   network_configuration {
     security_groups  = compact(concat([try(aws_security_group.this[0].id, null)], var.security_group_ids))
@@ -115,6 +126,14 @@ resource "aws_ecs_task_definition" "this" {
   execution_role_arn    = aws_iam_role.task_execution_role.arn
   task_role_arn         = aws_iam_role.task_role.arn
   container_definitions = jsonencode(local.container_definitions)
+
+  dynamic "runtime_platform" {
+    for_each = local.is_fargate ? [1] : []
+    content {
+      cpu_architecture        = var.cpu_architecture
+      operating_system_family = "LINUX"
+    }
+  }
 
   dynamic "volume" {
     for_each = var.persistent_volume != null ? [var.name] : []

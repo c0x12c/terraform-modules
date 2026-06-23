@@ -388,6 +388,28 @@ variable "scheduling_strategy" {
   default     = "REPLICA"
 }
 
+variable "cpu_architecture" {
+  description = "CPU architecture for the Fargate task runtime platform. Valid values are `X86_64` and `ARM64` (Graviton). Defaults to `X86_64`."
+  type        = string
+  default     = "X86_64"
+  nullable    = false
+
+  validation {
+    condition     = contains(["X86_64", "ARM64"], var.cpu_architecture)
+    error_message = "cpu_architecture must be X86_64 or ARM64."
+  }
+}
+
+variable "capacity_provider_strategies" {
+  description = "Capacity provider strategy for the service (e.g. FARGATE_SPOT). When non-empty, it replaces launch_type on the service (the two are mutually exclusive). Leave empty to use launch_type."
+  type = list(object({
+    capacity_provider = string
+    weight            = optional(number, 1)
+    base              = optional(number, 0)
+  }))
+  default = []
+}
+
 variable "deployment_minimum_healthy_percent" {
   description = "Lower limit (as a percentage of the service's `desired_count`) of the number of running tasks that must remain running and healthy in a service during a deployment"
   type        = number
