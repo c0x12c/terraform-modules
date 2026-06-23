@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.3.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-ecs-application/v2.2.0...terraform-aws-ecs-application/v2.3.0) (2026-06-23)
+
+
+### Features
+
+* **ecs-application:** ARM64 runtime_platform + FARGATE_SPOT capacity provider strategy ([#210](https://github.com/c0x12c/terraform-modules/issues/210)) ([d9f0b80](https://github.com/c0x12c/terraform-modules/commit/d9f0b801211c25a99923ad7375de8eaa5cca0e4c))
+
 ## [2.2.0]() (2026-03-01)
 
 ### Features
