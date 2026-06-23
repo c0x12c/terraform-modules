@@ -7,7 +7,7 @@
   "terraform-aws-cloudwatch-alarm": "0.8.0",
   "terraform-aws-ec2": "1.0.0",
   "terraform-aws-ecr": "0.1.57",
-  "terraform-aws-ecs-application": "2.2.0",
+  "terraform-aws-ecs-application": "2.3.0",
   "terraform-aws-ecs-cluster": "0.2.2",
   "terraform-aws-ecs-service-bot": "0.1.0",
   "terraform-aws-efs": "0.1.78",
