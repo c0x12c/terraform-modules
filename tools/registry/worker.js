@@ -10,7 +10,7 @@
 //   GET /            -> HTML landing page + browsable module catalog
 //   GET /healthz     -> readiness probe (200 if index.json loads, else 503)
 //   GET /robots.txt  -> disallow crawling the API paths
-//   GET /favicon.ico -> 204 (suppress browser 404 noise)
+//   GET /favicon.ico -> 301 redirect to the c0x12c org avatar (site favicon)
 //   any other path   -> JSON 404 for /v1/ + /.well-known/ shapes, HTML 404 otherwise
 //
 // R2 layout (binding: BUCKET):
@@ -314,6 +314,12 @@ const STYLE = `
   .title{display:flex;align-items:center;gap:13px;flex-wrap:wrap;margin:0 0 8px}
   .name-lg{font-family:var(--mono);font-size:1.75rem;font-weight:600;letter-spacing:-.025em;color:var(--fg)}
   .host{font-family:var(--mono);font-size:12.5px;color:var(--faint);margin:0}
+  .srclink{display:inline-flex;align-items:center;gap:8px;margin:16px 0 0;font-size:13px;
+    color:var(--fg-soft);border:1px solid var(--border);border-radius:8px;padding:7px 12px;
+    background:var(--panel);transition:.15s}
+  .srclink:hover{color:var(--fg);border-color:var(--border-strong);text-decoration:none}
+  .srclink svg{width:15px;height:15px;flex:none}
+  .srclink .ext{color:var(--faint);font-size:12px;margin-left:1px}
   .pill{display:inline-flex;align-items:center;gap:6px;padding:3px 11px;border-radius:999px;
     background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);
     color:var(--accent-fg);font-family:var(--mono);font-size:11.5px;font-weight:500}
@@ -373,6 +379,7 @@ function page(title, inner, script = "") {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark light">
 <title>${esc(title)}</title>
+<link rel="icon" href="https://avatars.githubusercontent.com/u/111300075?v=4" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -397,6 +404,16 @@ function page(title, inner, script = "") {
 
 // Path to a module's human detail page (distinct from the /v1/ protocol routes).
 const detailPath = (key) => `/modules/${key}`;
+
+// Modules live in the c0x12c/terraform-modules monorepo, one subdir per module
+// named terraform-<provider>-<name>; release-please tags each as <dir>/v<ver>.
+const GITHUB_REPO = "https://github.com/c0x12c/terraform-modules";
+const repoDir = (name, provider) => `terraform-${provider}-${name}`;
+const sourceUrl = (name, provider) => `${GITHUB_REPO}/tree/master/${repoDir(name, provider)}`;
+const sourceTagUrl = (name, provider, version) =>
+  `${GITHUB_REPO}/releases/tag/${repoDir(name, provider)}/v${version}`;
+const GITHUB_ICON =
+  '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>';
 // Path to a single version's release-notes page.
 const versionPath = (key, v) => `/modules/${key}/${v}`;
 
@@ -667,6 +684,7 @@ function moduleDetailHtml(key, versions, counts = {}) {
     <p class="badge-line"><span class="badge" style="--prov:${color}"><span class="dot"></span>${esc(provider)}</span></p>
     <div class="title"><span class="name-lg">${esc(name)}</span><span class="pill">v${esc(latest)} latest</span></div>
     <p class="host">${esc(REGISTRY_HOST)}/${esc(key)}</p>
+    <a class="srclink" href="${esc(sourceUrl(name, provider))}" target="_blank" rel="noopener noreferrer">${GITHUB_ICON}<span>View source on GitHub</span><span class="ext">↗</span></a>
   </section>
 
   <div class="sec"><h2>Quick start</h2><span class="hint">Pinned to latest</span></div>
@@ -792,6 +810,7 @@ function versionDetailHtml(key, version, body, count = 0) {
     <p class="badge-line"><span class="badge" style="--prov:${color}"><span class="dot"></span>${esc(provider)}</span></p>
     <div class="title"><span class="name-lg">${esc(name)}</span><span class="pill">v${esc(version)}</span></div>
     <p class="host">${esc(REGISTRY_HOST)}/${esc(key)}</p>
+    <a class="srclink" href="${esc(sourceTagUrl(name, provider, version))}" target="_blank" rel="noopener noreferrer">${GITHUB_ICON}<span>View source at v${esc(version)}</span><span class="ext">↗</span></a>
   </section>
 
   <div class="sec"><h2>Install</h2><span class="hint">Pinned to v${esc(version)}</span></div>
@@ -920,7 +939,11 @@ export default {
         });
       }
 
-      if (p === "/favicon.ico") return new Response(null, { status: 204 });
+      // Mirror c0x12c.com's favicon (the GitHub org avatar) for default
+      // browser /favicon.ico requests; cached at the edge for a day.
+      if (p === "/favicon.ico") {
+        return Response.redirect("https://avatars.githubusercontent.com/u/111300075?v=4", 301);
+      }
 
       // List versions
       let m = p.match(/^\/v1\/modules\/([^/]+)\/([^/]+)\/([^/]+)\/versions$/);
