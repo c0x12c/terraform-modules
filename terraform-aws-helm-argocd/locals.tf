@@ -246,6 +246,13 @@ global:
       effect: ${toleration.effect}
     %{endfor}
   %{endif}
+%{if length(var.controller_pod_annotations) > 0}
+controller:
+  podAnnotations:
+    %{for key, value in var.controller_pod_annotations}
+    ${jsonencode(key)}: ${jsonencode(value)}
+    %{endfor}
+%{endif}
 server:
   ingress:
     enabled: true

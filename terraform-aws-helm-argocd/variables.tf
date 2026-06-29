@@ -228,3 +228,9 @@ variable "notification_templates" {
   })
   default = {}
 }
+
+variable "controller_pod_annotations" {
+  description = "Annotations added to the argocd-application-controller pod template, e.g. Datadog autodiscovery `ad.datadoghq.com/*` keys for scraping controller metrics."
+  type        = map(string)
+  default     = {}
+}
