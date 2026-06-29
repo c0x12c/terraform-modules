@@ -338,7 +338,7 @@ notifications:
       slack-token: ${var.slack_token}
   subscriptions:
     - recipients:
-        - slack:social
+        - slack:${var.default_notification_channel}
       triggers:
         - on-sync-status-unknown
         - app-deployed
