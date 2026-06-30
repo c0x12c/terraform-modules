@@ -150,6 +150,12 @@ variable "slack_token" {
   sensitive   = true
 }
 
+variable "default_notification_channel" {
+  description = "Slack channel for the default ArgoCD notification subscription applied to every application. Leave empty to skip the default subscription entirely; per-app `subscribe.*` annotations are unaffected."
+  type        = string
+  default     = ""
+}
+
 variable "domain_name" {
   description = "Domain name for ArgoCD"
   type        = string

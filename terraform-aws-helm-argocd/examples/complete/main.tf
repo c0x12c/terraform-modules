@@ -66,6 +66,9 @@ module "argocd" {
   # Slack Connection
   slack_token = "xobx-1234"
 
+  # Slack channel for the default notification subscription (applies to all apps)
+  default_notification_channel = "eng-cicd-notification"
+
   # Managed Node (OPTIONAL)
   # node_selector = local.node_selector
   # tolerations   = local.tolerations

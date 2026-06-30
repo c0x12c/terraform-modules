@@ -336,15 +336,17 @@ notifications:
   secret:
     items:
       slack-token: ${var.slack_token}
+  %{if var.default_notification_channel != ""}
   subscriptions:
     - recipients:
-        - slack:social
+        - slack:${var.default_notification_channel}
       triggers:
         - on-sync-status-unknown
         - app-deployed
         - app-sync-failed
         - app-sync-running
         - app-sync-succeeded
+  %{endif}
   notifiers:
     service.slack: |
       token: $slack-token
