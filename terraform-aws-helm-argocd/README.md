@@ -94,7 +94,7 @@ module "argocd" {
 | <a name="input_chart_url"></a> [chart\_url](#input\_chart\_url) | URL of the Argo CD Helm chart | `string` | `"https://argoproj.github.io/argo-helm"` | no |
 | <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Version of the Argo CD Helm chart | `string` | `"7.8.26"` | no |
 | <a name="input_create_route53_record"></a> [create\_route53\_record](#input\_create\_route53\_record) | Determines whether or not to create a route53 record for the ingress or not | `bool` | `false` | no |
-| <a name="input_default_notification_channel"></a> [default\_notification\_channel](#input\_default\_notification\_channel) | Slack channel for the default ArgoCD notification subscription applied to every application. | `string` | `"eng-cicd-notification"` | no |
+| <a name="input_default_notification_channel"></a> [default\_notification\_channel](#input\_default\_notification\_channel) | Slack channel for the default ArgoCD notification subscription applied to every application. Leave empty to skip the default subscription entirely; per-app `subscribe.*` annotations are unaffected. | `string` | `""` | no |
 | <a name="input_domain_name"></a> [domain\_name](#input\_domain\_name) | Domain name for ArgoCD | `string` | n/a | yes |
 | <a name="input_enabled_aws_management_role"></a> [enabled\_aws\_management\_role](#input\_enabled\_aws\_management\_role) | Enable the AWS management role for cross cluster management | `bool` | `false` | no |
 | <a name="input_enabled_managed_in_cluster"></a> [enabled\_managed\_in\_cluster](#input\_enabled\_managed\_in\_cluster) | Enable in\_cluster manage to rename in\_cluster | `bool` | `true` | no |
