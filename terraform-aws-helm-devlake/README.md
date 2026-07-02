@@ -22,8 +22,11 @@ module "devlake" {
   version = "~> 0.1"
 
   namespace     = "devlake"
-  chart_version = "0.21.0"
+  chart_version = "1.0.2"
   hostname      = "devlake.example.com"
+
+  enable_grafana         = true
+  grafana_admin_password = var.devlake_grafana_admin_password
 
   ingress_class_name = "alb"
   ingress_annotations = {
