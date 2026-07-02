@@ -171,6 +171,13 @@ variable "encryption_secret" {
   sensitive   = true
 }
 
+variable "grafana_admin_password" {
+  description = "Admin password for the bundled Grafana. Empty leaves the chart default."
+  type        = string
+  default     = ""
+  sensitive   = true
+}
+
 variable "mysql_password" {
   description = "Password for the DevLake database user."
   type        = string

@@ -39,6 +39,7 @@ locals {
     var.encryption_secret != "" ? { "lake.encryptionSecret.secret" = var.encryption_secret } : {},
     var.mysql_password != "" ? { "mysql.password" = var.mysql_password } : {},
     var.mysql_root_password != "" ? { "mysql.rootPassword" = var.mysql_root_password } : {},
+    var.grafana_admin_password != "" ? { "grafana.adminPassword" = var.grafana_admin_password } : {},
   )
 }
 
