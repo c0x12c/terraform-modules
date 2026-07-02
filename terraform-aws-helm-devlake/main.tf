@@ -1,5 +1,5 @@
 locals {
-  image_tag_line = var.image_tag != "" ? "imageTag: ${var.image_tag}\n" : ""
+  image_tag_line = var.image_tag != "" ? "imageTag: ${jsonencode(var.image_tag)}\n" : ""
 
   manifest = <<-YAML
     ${local.image_tag_line}grafana:
@@ -9,15 +9,15 @@ locals {
 
     mysql:
       useExternal: ${var.mysql_use_external}
-      externalServer: ${var.mysql_external_server}
+      externalServer: ${jsonencode(var.mysql_external_server)}
       externalPort: ${var.mysql_external_port}
-      username: ${var.mysql_username}
-      database: ${var.mysql_database}
+      username: ${jsonencode(var.mysql_username)}
+      database: ${jsonencode(var.mysql_database)}
       replicaCount: 1
       storage:
         type: pvc
-        class: "${var.mysql_storage_class}"
-        size: ${var.mysql_storage_size}
+        class: ${jsonencode(var.mysql_storage_class)}
+        size: ${jsonencode(var.mysql_storage_size)}
       resources: ${jsonencode(var.mysql_resources)}
 
     lake:
@@ -32,8 +32,8 @@ locals {
 
     ingress:
       enabled: ${var.ingress_enabled}
-      className: ${var.ingress_class_name}
-      hostname: ${var.hostname}
+      className: ${jsonencode(var.ingress_class_name)}
+      hostname: ${jsonencode(var.hostname)}
       annotations: ${jsonencode(var.ingress_annotations)}
   YAML
 
@@ -72,8 +72,4 @@ resource "helm_release" "devlake" {
   ]
 
   depends_on = [kubernetes_namespace_v1.this]
-
-  lifecycle {
-    ignore_changes = [timeout]
-  }
 }
