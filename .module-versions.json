@@ -28,6 +28,7 @@
   "terraform-aws-helm-argocd": "1.3.0",
   "terraform-aws-helm-aws-lb-controller": "1.2.1",
   "terraform-aws-helm-datadog": "0.10.0",
+  "terraform-aws-helm-devlake": "0.0.0",
   "terraform-aws-helm-jenkins": "1.1.0",
   "terraform-aws-helm-keda": "1.1.0",
   "terraform-aws-helm-keycloak": "1.1.0",

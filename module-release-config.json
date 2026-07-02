@@ -94,6 +94,9 @@
     "terraform-aws-helm-datadog": {
       "component": "terraform-aws-helm-datadog"
     },
+    "terraform-aws-helm-devlake": {
+      "component": "terraform-aws-helm-devlake"
+    },
     "terraform-aws-helm-jenkins": {
       "component": "terraform-aws-helm-jenkins"
     },
