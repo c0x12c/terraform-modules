@@ -34,9 +34,9 @@ variable "chart_name" {
 }
 
 variable "image_tag" {
-  description = "Image tag applied to the DevLake components (lake, config-ui, grafana)."
+  description = "Image tag applied to the DevLake components. Empty uses the chart's default (matching the chart version)."
   type        = string
-  default     = "v1.0.3-beta13"
+  default     = ""
 }
 
 variable "helm_release_timeout" {

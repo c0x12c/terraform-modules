@@ -1,8 +1,8 @@
 locals {
-  manifest = <<-YAML
-    imageTag: ${var.image_tag}
+  image_tag_line = var.image_tag != "" ? "imageTag: ${var.image_tag}\n" : ""
 
-    grafana:
+  manifest = <<-YAML
+    ${local.image_tag_line}grafana:
       enabled: ${var.enable_grafana}
 
     mysql:
