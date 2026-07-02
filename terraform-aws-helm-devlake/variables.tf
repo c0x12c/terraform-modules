@@ -24,7 +24,7 @@ variable "chart_version" {
 variable "chart_repository" {
   description = "Helm repository hosting the DevLake chart."
   type        = string
-  default     = "https://apache.github.io/incubator-devlake-helm-chart"
+  default     = "https://apache.github.io/devlake-helm-chart"
 }
 
 variable "chart_name" {
