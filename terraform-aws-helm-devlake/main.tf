@@ -4,6 +4,8 @@ locals {
   manifest = <<-YAML
     ${local.image_tag_line}grafana:
       enabled: ${var.enable_grafana}
+      persistence:
+        enabled: ${var.grafana_persistence_enabled}
 
     mysql:
       useExternal: ${var.mysql_use_external}

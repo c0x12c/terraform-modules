@@ -51,6 +51,12 @@ variable "enable_grafana" {
   default     = false
 }
 
+variable "grafana_persistence_enabled" {
+  description = "Attach a persistent volume to the bundled Grafana. Disable on Fargate, which has no EBS PVC support."
+  type        = bool
+  default     = true
+}
+
 # --- Ingress ---------------------------------------------------------------
 
 variable "ingress_enabled" {
