@@ -88,5 +88,7 @@ module "replica_db_instance" {
   replicate_source_db          = module.main_db_instance.db_identifier
   deletion_protection          = var.replica_deletion_protection
 
+  iam_database_authentication_enabled = var.iam_database_authentication_enabled
+
   cloudwatch_exported_log_types = var.cloudwatch_exported_log_types
 }
