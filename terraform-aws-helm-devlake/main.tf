@@ -2,12 +2,21 @@ locals {
   values = merge(
     var.image_tag != "" ? { imageTag = var.image_tag } : {},
     {
-      grafana = {
-        enabled = var.enable_grafana
-        persistence = {
-          enabled = var.grafana_persistence_enabled
-        }
-      }
+      grafana = merge(
+        {
+          enabled = var.enable_grafana
+          persistence = {
+            enabled = var.grafana_persistence_enabled
+          }
+        },
+        var.enable_grafana && var.mysql_use_external ? {
+          env = {
+            MYSQL_URL      = "${var.mysql_external_server}:${var.mysql_external_port}"
+            MYSQL_USER     = var.mysql_username
+            MYSQL_DATABASE = var.mysql_database
+          }
+        } : {}
+      )
       mysql = {
         useExternal    = var.mysql_use_external
         externalServer = var.mysql_external_server
