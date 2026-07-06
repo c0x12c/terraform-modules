@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-eks-cluster/v1.1.0...terraform-aws-eks-cluster/v1.2.0) (2026-07-06)
+
+
+### Features
+
+* **terraform-aws-eks-cluster:** vpc-cni configuration_values passthrough ([#223](https://github.com/c0x12c/terraform-modules/issues/223)) ([1d8484d](https://github.com/c0x12c/terraform-modules/commit/1d8484de655b32cdbf58109cca89b89e3964045c))
+
 ## [1.1.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-eks-cluster/v1.0.3...terraform-aws-eks-cluster/v1.1.0) (2026-06-22)
 
 
