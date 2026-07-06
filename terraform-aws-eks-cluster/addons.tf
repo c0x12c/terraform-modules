@@ -4,6 +4,13 @@ data "aws_eks_addon_version" "vpc_cni_latest" {
   kubernetes_version = aws_eks_cluster.master.version
 }
 
+locals {
+  # try()+coalesce guards a caller explicitly forwarding `vpc_cni = { env = null }` - the
+  # optional() default in the variable type only fills in when the attribute is omitted
+  # entirely, not when null is passed explicitly.
+  vpc_cni_env = coalesce(try(var.vpc_cni.env, null), {})
+}
+
 resource "aws_eks_addon" "vpc_cni" {
   cluster_name                = local.cluster_name
   addon_name                  = "vpc-cni"
@@ -13,7 +20,7 @@ resource "aws_eks_addon" "vpc_cni" {
 
   # null (not "{}") when no overrides are set, so callers who don't touch var.vpc_cni see no
   # configuration_values diff on this addon.
-  configuration_values = length(var.vpc_cni.env) > 0 ? jsonencode({ env = var.vpc_cni.env }) : null
+  configuration_values = length(local.vpc_cni_env) > 0 ? jsonencode({ env = local.vpc_cni_env }) : null
 
   depends_on = [aws_eks_cluster.master]
 }

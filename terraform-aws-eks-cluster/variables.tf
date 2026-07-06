@@ -245,6 +245,10 @@ variable "vpc_cni" {
   default = {
     env = {}
   }
+  # Guards against a caller explicitly forwarding `vpc_cni = null` (variables are nullable by
+  # default; the object default above only fills in when the whole variable is omitted, not
+  # when null is passed explicitly) - keeps the passthrough safe for wrapper modules.
+  nullable = false
 }
 
 variable "addons_kube_proxy_version" {
