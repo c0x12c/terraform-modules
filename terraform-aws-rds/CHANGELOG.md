@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.7](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-rds/v0.6.6...terraform-aws-rds/v0.6.7) (2026-07-04)
+
+
+### Bug Fixes
+
+* **terraform-aws-rds:** enable IAM DB auth on read replicas ([#217](https://github.com/c0x12c/terraform-modules/issues/217)) ([1d558c9](https://github.com/c0x12c/terraform-modules/commit/1d558c9b3a85261f8f0a8b04a3661961fe3f4d07))
+
 ## [0.6.6]() (2025-06-06)
 
 ### Features

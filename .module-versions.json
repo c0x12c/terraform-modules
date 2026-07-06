@@ -48,7 +48,7 @@
   "terraform-aws-openvpn": "0.5.0",
   "terraform-aws-password-generator": "0.2.0",
   "terraform-aws-password-policy": "0.1.52",
-  "terraform-aws-rds": "0.6.6",
+  "terraform-aws-rds": "0.6.7",
   "terraform-aws-rds-cluster": "0.1.0",
   "terraform-aws-route53": "0.1.14",
   "terraform-aws-s3": "1.1.0",
