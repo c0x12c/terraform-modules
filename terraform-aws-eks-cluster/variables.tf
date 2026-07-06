@@ -233,6 +233,20 @@ variable "addons_vpc_cni_version" {
   default     = null
 }
 
+# Passthrough for the vpc-cni addon's `env` block (e.g. WARM_ENI_TARGET, WARM_IP_TARGET,
+# MINIMUM_IP_TARGET to tune ENI/IP pre-allocation on IP-constrained subnets). Empty by default
+# so existing clusters that don't set this see no configuration_values diff / addon behavior
+# change.
+variable "vpc_cni" {
+  description = "Configuration for the VPC CNI add-on"
+  type = object({
+    env = optional(map(string), {})
+  })
+  default = {
+    env = {}
+  }
+}
+
 variable "addons_kube_proxy_version" {
   type        = string
   description = "The version of the kube-proxy addon, latest by default"

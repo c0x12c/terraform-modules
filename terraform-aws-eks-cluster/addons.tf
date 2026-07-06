@@ -11,6 +11,10 @@ resource "aws_eks_addon" "vpc_cni" {
   resolve_conflicts_on_update = "OVERWRITE"
   resolve_conflicts_on_create = "OVERWRITE"
 
+  # null (not "{}") when no overrides are set, so callers who don't touch var.vpc_cni see no
+  # configuration_values diff on this addon.
+  configuration_values = length(var.vpc_cni.env) > 0 ? jsonencode({ env = var.vpc_cni.env }) : null
+
   depends_on = [aws_eks_cluster.master]
 }
 
