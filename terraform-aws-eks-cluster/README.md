@@ -75,6 +75,7 @@ module "eks" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.8 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.83 |
 | <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.33.0 |
 | <a name="requirement_tls"></a> [tls](#requirement\_tls) | >= 4.0 |
@@ -199,6 +200,7 @@ module "eks" {
 | <a name="input_security_group_ids"></a> [security\_group\_ids](#input\_security\_group\_ids) | Security group IDs that will be used in additional to the default ones. | `list(string)` | n/a | yes |
 | <a name="input_update_config"></a> [update\_config](#input\_update\_config) | Configuration block of settings for max unavailable resources during node group updates | `map(string)` | <pre>{<br/>  "max_unavailable_percentage": 33<br/>}</pre> | no |
 | <a name="input_vpc_cidr"></a> [vpc\_cidr](#input\_vpc\_cidr) | VPC CIDR for creating default security groups | `string` | n/a | yes |
+| <a name="input_vpc_cni"></a> [vpc\_cni](#input\_vpc\_cni) | Configuration for the VPC CNI add-on | <pre>object({<br/>    env = optional(map(string), {})<br/>  })</pre> | <pre>{<br/>  "env": {}<br/>}</pre> | no |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | The ID of the VPC that the cluster will be created on. | `string` | n/a | yes |
 
 ## Outputs
