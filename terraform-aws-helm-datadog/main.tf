@@ -138,6 +138,45 @@ resource "helm_release" "this" {
         value = lookup(value, "effect", "")
       }
     ],
+    # The datadog umbrella chart bundles the datadog-operator subchart with
+    # operator.enabled=true by default. This module deploys the classic agent +
+    # cluster-agent and never creates a DatadogAgent CR, so the operator manages
+    # nothing; disabled by default (var.enable_operator) so its pod does not sit
+    # Pending on tainted nodes and wedge helm_release wait=true. The tolerations
+    # below only take effect when a consumer opts the operator back on.
+    [
+      {
+        # The umbrella chart gates the bundled operator via datadog.operator.enabled
+        # (the top-level `operator` block is the subchart's own values and has no
+        # `enabled` field). operator.tolerations below is the subchart's pod tolerations.
+        name  = "datadog.operator.enabled"
+        value = tostring(var.enable_operator)
+      }
+    ],
+    [
+      for key, value in var.tolerations : {
+        name  = "operator.tolerations[${key}].key"
+        value = lookup(value, "key", "")
+      }
+    ],
+    [
+      for key, value in var.tolerations : {
+        name  = "operator.tolerations[${key}].operator"
+        value = lookup(value, "operator", "")
+      }
+    ],
+    [
+      for key, value in var.tolerations : {
+        name  = "operator.tolerations[${key}].value"
+        value = lookup(value, "value", "")
+      }
+    ],
+    [
+      for key, value in var.tolerations : {
+        name  = "operator.tolerations[${key}].effect"
+        value = lookup(value, "effect", "")
+      }
+    ],
   ])
 
   values = [local.manifest]
