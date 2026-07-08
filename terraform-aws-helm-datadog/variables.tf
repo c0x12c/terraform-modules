@@ -103,6 +103,12 @@ variable "enabled_cluster_check" {
   default     = true
 }
 
+variable "enable_operator" {
+  description = "Toggle the datadog-operator subchart the umbrella chart bundles (operator.enabled). This module deploys the classic agent + cluster-agent and never creates a DatadogAgent CR, so the operator manages nothing here; it is disabled by default to avoid an idle pod that cannot schedule onto tainted nodes and wedges the release. Set true only if you run the operator/CRD pattern."
+  type        = bool
+  default     = false
+}
+
 variable "node_selector" {
   type        = map(string)
   description = "Node selector for the ingress controller"
