@@ -146,7 +146,10 @@ resource "helm_release" "this" {
     # below only take effect when a consumer opts the operator back on.
     [
       {
-        name  = "operator.enabled"
+        # The umbrella chart gates the bundled operator via datadog.operator.enabled
+        # (the top-level `operator` block is the subchart's own values and has no
+        # `enabled` field). operator.tolerations below is the subchart's pod tolerations.
+        name  = "datadog.operator.enabled"
         value = tostring(var.enable_operator)
       }
     ],
