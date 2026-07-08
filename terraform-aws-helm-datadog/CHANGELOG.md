@@ -1,6 +1,13 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## [0.10.1](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-helm-datadog/v0.10.0...terraform-aws-helm-datadog/v0.10.1) (2026-07-08)
+
+
+### Bug Fixes
+
+* **helm-datadog:** disable unused bundled datadog-operator (tolerate when enabled) ([#225](https://github.com/c0x12c/terraform-modules/issues/225)) ([23a969a](https://github.com/c0x12c/terraform-modules/commit/23a969a1cb311e611235c102848321a76d820029))
+
 ## [0.10.0](https://github.com/c0x12c/terraform-modules-registry/compare/terraform-aws-helm-datadog/v0.9.0...terraform-aws-helm-datadog/v0.10.0) (2026-06-07)
 
 
