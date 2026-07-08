@@ -25,6 +25,9 @@
     "terraform-aws-cloudwatch-alarm": {
       "component": "terraform-aws-cloudwatch-alarm"
     },
+    "terraform-aws-documentdb": {
+      "component": "terraform-aws-documentdb"
+    },
     "terraform-aws-ec2": {
       "component": "terraform-aws-ec2"
     },
