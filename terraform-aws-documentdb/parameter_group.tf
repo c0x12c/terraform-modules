@@ -1,7 +1,7 @@
 resource "aws_docdb_cluster_parameter_group" "this" {
   count = var.create_db_cluster_parameter_group ? 1 : 0
 
-  name        = var.name
+  name_prefix = "${var.name}-"
   family      = var.db_cluster_parameter_group_family
   description = "Cluster parameter group for ${var.name} DocumentDB cluster"
 
