@@ -11,8 +11,8 @@ locals {
 
   connection_uri = format(
     "mongodb://%s:%s@%s:%d/%s?tls=%s&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false",
-    var.master_username,
-    local.master_password,
+    urlencode(var.master_username),
+    urlencode(local.master_password),
     aws_docdb_cluster.this.endpoint,
     local.port,
     local.database_path,

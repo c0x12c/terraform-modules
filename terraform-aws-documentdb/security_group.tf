@@ -1,8 +1,12 @@
 resource "aws_security_group" "this" {
-  name        = var.name
+  name_prefix = "${var.name}-"
   description = "Security group for ${var.name} DocumentDB cluster"
   vpc_id      = var.vpc_id
   tags        = var.tags
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_vpc_security_group_egress_rule" "this" {
