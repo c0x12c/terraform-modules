@@ -39,6 +39,12 @@ variable "image_tag" {
   default     = ""
 }
 
+variable "image_registry" {
+  description = "Registry prefix for all DevLake component images (e.g. an ECR pull-through cache like `<account>.dkr.ecr.<region>.amazonaws.com/dockerhub`). Empty keeps the chart's default Docker Hub repositories."
+  type        = string
+  default     = ""
+}
+
 variable "helm_release_timeout" {
   description = "Timeout in seconds for the Helm release."
   type        = number

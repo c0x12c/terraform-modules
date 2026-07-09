@@ -15,33 +15,43 @@ locals {
             MYSQL_USER     = var.mysql_username
             MYSQL_DATABASE = var.mysql_database
           }
-        } : {}
+        } : {},
+        var.image_registry != "" ? { image = { repository = "${var.image_registry}/apache/devlake-dashboard" } } : {}
       )
-      mysql = {
-        useExternal    = var.mysql_use_external
-        externalServer = var.mysql_external_server
-        externalPort   = var.mysql_external_port
-        username       = var.mysql_username
-        database       = var.mysql_database
-        replicaCount   = 1
-        storage = {
-          type  = "pvc"
-          class = var.mysql_storage_class
-          size  = var.mysql_storage_size
-        }
-        resources = var.mysql_resources
-      }
-      lake = {
-        replicaCount = var.lake_replica_count
-        resources    = var.lake_resources
-        encryptionSecret = {
-          autoCreateSecret = true
-        }
-      }
-      ui = {
-        replicaCount = var.ui_replica_count
-        resources    = var.ui_resources
-      }
+      mysql = merge(
+        {
+          useExternal    = var.mysql_use_external
+          externalServer = var.mysql_external_server
+          externalPort   = var.mysql_external_port
+          username       = var.mysql_username
+          database       = var.mysql_database
+          replicaCount   = 1
+          storage = {
+            type  = "pvc"
+            class = var.mysql_storage_class
+            size  = var.mysql_storage_size
+          }
+          resources = var.mysql_resources
+        },
+        var.image_registry != "" ? { image = { repository = "${var.image_registry}/mysql" } } : {}
+      )
+      lake = merge(
+        {
+          replicaCount = var.lake_replica_count
+          resources    = var.lake_resources
+          encryptionSecret = {
+            autoCreateSecret = true
+          }
+        },
+        var.image_registry != "" ? { image = { repository = "${var.image_registry}/apache/devlake" } } : {}
+      )
+      ui = merge(
+        {
+          replicaCount = var.ui_replica_count
+          resources    = var.ui_resources
+        },
+        var.image_registry != "" ? { image = { repository = "${var.image_registry}/apache/devlake-config-ui" } } : {}
+      )
       ingress = {
         enabled     = var.ingress_enabled
         className   = var.ingress_class_name

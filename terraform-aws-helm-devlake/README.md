@@ -102,6 +102,7 @@ No modules.
 | <a name="input_grafana_persistence_enabled"></a> [grafana\_persistence\_enabled](#input\_grafana\_persistence\_enabled) | Attach a persistent volume to the bundled Grafana. Disable on Fargate, which has no EBS PVC support. | `bool` | `true` | no |
 | <a name="input_helm_release_timeout"></a> [helm\_release\_timeout](#input\_helm\_release\_timeout) | Timeout in seconds for the Helm release. | `number` | `600` | no |
 | <a name="input_hostname"></a> [hostname](#input\_hostname) | Hostname the DevLake UI is served on. Required when ingress is enabled. | `string` | `""` | no |
+| <a name="input_image_registry"></a> [image\_registry](#input\_image\_registry) | Registry prefix for all DevLake component images (e.g. an ECR pull-through cache like `<account>.dkr.ecr.<region>.amazonaws.com/dockerhub`). Empty keeps the chart's default Docker Hub repositories. | `string` | `""` | no |
 | <a name="input_image_tag"></a> [image\_tag](#input\_image\_tag) | Image tag applied to the DevLake components. Empty uses the chart's default (matching the chart version). | `string` | `""` | no |
 | <a name="input_ingress_annotations"></a> [ingress\_annotations](#input\_ingress\_annotations) | Annotations applied to the Ingress resource (controller-specific). | `map(string)` | `{}` | no |
 | <a name="input_ingress_class_name"></a> [ingress\_class\_name](#input\_ingress\_class\_name) | IngressClass name (e.g. `alb` for the AWS Load Balancer Controller). | `string` | `"alb"` | no |
