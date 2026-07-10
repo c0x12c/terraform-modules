@@ -342,10 +342,10 @@ notifications:
         - slack:${var.default_notification_channel}
       triggers:
         - on-sync-status-unknown
-        - app-deployed
-        - app-sync-failed
-        - app-sync-running
-        - app-sync-succeeded
+        - on-deployed
+        - on-sync-failed
+        - on-sync-running
+        - on-sync-succeeded
   %{endif}
   notifiers:
     service.slack: |
