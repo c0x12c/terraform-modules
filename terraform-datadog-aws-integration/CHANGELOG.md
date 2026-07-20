@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.0](https://github.com/c0x12c/terraform-modules/compare/terraform-datadog-aws-integration/v1.0.1...terraform-datadog-aws-integration/v1.1.0) (2026-07-20)
+
+
+### Features
+
+* **terraform-datadog-aws-integration:** add metric_tag_filters for per-namespace tag-scoped metric collection ([#235](https://github.com/c0x12c/terraform-modules/issues/235)) ([f572613](https://github.com/c0x12c/terraform-modules/commit/f5726138e13db8aed87384751a8c5545d476e7f5))
+
 ## [2.0.0]() (2026-05-19)
 
 ### BREAKING CHANGES
