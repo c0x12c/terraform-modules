@@ -39,8 +39,8 @@ module "datadog_aws_integration" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.55.0 |
-| <a name="provider_datadog"></a> [datadog](#provider\_datadog) | 4.9.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.75 |
+| <a name="provider_datadog"></a> [datadog](#provider\_datadog) | ~> 4.9.0 |
 
 ## Modules
 
