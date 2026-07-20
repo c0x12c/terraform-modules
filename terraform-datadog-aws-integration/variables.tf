@@ -33,3 +33,12 @@ variable "extended_collection" {
   type        = bool
   default     = false
 }
+
+variable "metric_tag_filters" {
+  description = "Per-namespace AWS resource tag filters limiting metric collection, e.g. [{ namespace = \"AWS/ApplicationELB\", tags = [\"datadog-metrics:true\"] }]. Within a listed namespace only resources matching the tags are collected (reduces CloudWatch GetMetricData polling costs); namespaces not listed are unaffected. Reference: https://docs.datadoghq.com/account_management/billing/aws/#aws-resource-exclusion."
+  type = list(object({
+    namespace = string
+    tags      = list(string)
+  }))
+  default = []
+}

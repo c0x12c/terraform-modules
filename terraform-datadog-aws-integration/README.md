@@ -14,6 +14,11 @@ module "datadog_aws_integration" {
 
   # To exclude specific namespaces instead (mutually exclusive with include_only):
   # namespace_filters_exclude_only = ["AWS/Billing"]
+
+  # Limit a namespace to resources matching AWS tags (cuts GetMetricData costs):
+  metric_tag_filters = [
+    { namespace = "AWS/ApplicationELB", tags = ["datadog-metrics:true"] },
+  ]
 }
 ```
 
@@ -62,6 +67,7 @@ No modules.
 | <a name="input_datadog_permissions"></a> [datadog\_permissions](#input\_datadog\_permissions) | List of AWS IAM permissions required for Datadog integration with AWS services. Reference: https://docs.datadoghq.com/integrations/amazon_web_services/#aws-integration-iam-policy. | `list(string)` | `null` | no |
 | <a name="input_namespace_filters_include_only"></a> [namespace\_filters\_include\_only](#input\_namespace\_filters\_include\_only) | Collect metrics only from these AWS CloudWatch namespaces. Mutually exclusive with `namespace_filters_exclude_only`. | `list(string)` | `null` | no |
 | <a name="input_namespace_filters_exclude_only"></a> [namespace\_filters\_exclude\_only](#input\_namespace\_filters\_exclude\_only) | Exclude these AWS CloudWatch namespaces from metrics collection; all others are collected. Mutually exclusive with `namespace_filters_include_only`. | `list(string)` | `null` | no |
+| <a name="input_metric_tag_filters"></a> [metric\_tag\_filters](#input\_metric\_tag\_filters) | Per-namespace AWS resource tag filters limiting metric collection; within a listed namespace only resources matching the tags are collected. | `list(object({ namespace = string, tags = list(string) }))` | `[]` | no |
 | <a name="input_aws_attached_policy_arns"></a> [aws\_attached\_policy\_arns](#input\_aws\_attached\_policy\_arns) | List of AWS policy ARNs to attach to the Datadog AWS integration IAM role (e.g. arn:aws:iam::aws:policy/SecurityAudit). | `list(string)` | `[]` | no |
 
 ## Outputs

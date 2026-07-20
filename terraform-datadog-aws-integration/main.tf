@@ -75,6 +75,14 @@ resource "datadog_integration_aws_account" "sandbox" {
       include_only = var.namespace_filters_include_only
       exclude_only = var.namespace_filters_exclude_only
     }
+
+    dynamic "tag_filters" {
+      for_each = var.metric_tag_filters
+      content {
+        namespace = tag_filters.value.namespace
+        tags      = tag_filters.value.tags
+      }
+    }
   }
 
   resources_config {
