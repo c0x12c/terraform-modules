@@ -189,6 +189,31 @@ variable "secret_manager_db_password_name" {
   default     = "POSTGRESQL_PASSWORD"
 }
 
+variable "manage_master_user_password" {
+  description = "Let AWS own and natively rotate the master password in Secrets Manager. Mutually exclusive with a Terraform-generated password."
+  type        = bool
+  default     = false
+
+  # A `check` block would only warn. This must hard-fail: the two modes each own the
+  # credential, so silently letting one win hides which secret is actually authoritative.
+  validation {
+    condition     = !(var.manage_master_user_password && var.use_secret_manager)
+    error_message = "manage_master_user_password and use_secret_manager are mutually exclusive: AWS cannot own the master password while the module also writes its own Secrets Manager secret."
+  }
+}
+
+variable "master_user_secret_kms_key_id" {
+  description = "KMS key for the managed secret; null uses the AWS-managed key."
+  type        = string
+  default     = null
+}
+
+variable "expose_managed_master_password" {
+  description = "Opt in to resolving the managed secret's plaintext back into the db_password output. Disabled by default to keep the managed password out of Terraform state."
+  type        = bool
+  default     = false
+}
+
 variable "password_length" {
   description = "Database password length."
   type        = number

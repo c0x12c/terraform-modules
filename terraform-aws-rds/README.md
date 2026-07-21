@@ -32,6 +32,16 @@ module "instance" {
 
 - [Example](./examples/complete/)
 
+## Master password rotation
+
+Set `manage_master_user_password = true` to hand the master credential to AWS Secrets Manager so RDS rotates it natively on its own schedule without requiring `terraform apply`.
+
+Enabling AWS-managed rotation on an existing instance is a migration, not a simple toggle. AWS creates a new master password immediately, so anything still authenticating with the old static password breaks at that moment.
+
+Terraform only re-reads the managed secret during `apply`, so any downstream consumer that writes `db_password` into a Kubernetes Secret keeps the value from the last apply and goes stale between AWS rotations. That exposure mode is only safe for break-glass access patterns such as RDS IAM-authenticated applications. Otherwise, consume the secret ARN with External Secrets Operator or an equivalent runtime sync.
+
+When `manage_master_user_password = true` and `expose_managed_master_password = false` (the default), the `db_password` output is intentionally `null`. Use `db_password_secret_arn` to discover the AWS-managed secret instead.
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
@@ -90,8 +100,11 @@ module "instance" {
 | <a name="input_iam_database_authentication_enabled"></a> [iam\_database\_authentication\_enabled](#input\_iam\_database\_authentication\_enabled) | Enable database authentication using AWS IAM. | `bool` | `false` | no |
 | <a name="input_instance_class"></a> [instance\_class](#input\_instance\_class) | The instance class for the database. | `string` | `"db.m5.large"` | no |
 | <a name="input_max_allocated_storage"></a> [max\_allocated\_storage](#input\_max\_allocated\_storage) | The upper limit (in GB) to which Amazon RDS can automatically scale the storage of the DB instance. | `number` | `1000` | no |
+| <a name="input_manage_master_user_password"></a> [manage\_master\_user\_password](#input\_manage\_master\_user\_password) | Let AWS own and natively rotate the master password in Secrets Manager. Mutually exclusive with a Terraform-generated password. | `bool` | `false` | no |
+| <a name="input_master_user_secret_kms_key_id"></a> [master\_user\_secret\_kms\_key\_id](#input\_master\_user\_secret\_kms\_key\_id) | KMS key for the managed secret; null uses the AWS-managed key. | `string` | `null` | no |
 | <a name="input_monitoring_interval"></a> [monitoring\_interval](#input\_monitoring\_interval) | The interval in seconds between points when Enhanced Monitoring metrics are collected for the DB instance. | `number` | `0` | no |
 | <a name="input_multi_az"></a> [multi\_az](#input\_multi\_az) | Indicates whether the database instance should be deployed across multiple availability zones. | `bool` | `false` | no |
+| <a name="input_expose_managed_master_password"></a> [expose\_managed\_master\_password](#input\_expose\_managed\_master\_password) | Opt in to resolving the managed secret's plaintext back into the db_password output. Disabled by default to keep the managed password out of Terraform state. | `bool` | `false` | no |
 | <a name="input_password_length"></a> [password\_length](#input\_password\_length) | Database password length. | `number` | `24` | no |
 | <a name="input_performance_insights_enabled"></a> [performance\_insights\_enabled](#input\_performance\_insights\_enabled) | Specifies whether Performance Insights are enabled for the DB instance. | `bool` | `false` | no |
 | <a name="input_port"></a> [port](#input\_port) | The port of the database. | `number` | `5432` | no |
@@ -113,8 +126,8 @@ module "instance" {
 | Name | Description |
 |------|-------------|
 | <a name="output_db_name"></a> [db\_name](#output\_db\_name) | The name of the database |
-| <a name="output_db_password"></a> [db\_password](#output\_db\_password) | The master password for the database |
-| <a name="output_db_password_secret_arn"></a> [db\_password\_secret\_arn](#output\_db\_password\_secret\_arn) | The ARN of the AWS Secrets Manager secret storing the database password |
+| <a name="output_db_password"></a> [db\_password](#output\_db\_password) | The master password for the database. Returns `null` by default when AWS manages rotation. |
+| <a name="output_db_password_secret_arn"></a> [db\_password\_secret\_arn](#output\_db\_password\_secret\_arn) | The ARN of the AWS Secrets Manager secret storing the database password, including the AWS-managed secret when rotation is enabled |
 | <a name="output_db_port"></a> [db\_port](#output\_db\_port) | The port number the database instance is listening on |
 | <a name="output_db_username"></a> [db\_username](#output\_db\_username) | The master username for the database |
 | <a name="output_main_address"></a> [main\_address](#output\_main\_address) | The DNS address of the main RDS instance |

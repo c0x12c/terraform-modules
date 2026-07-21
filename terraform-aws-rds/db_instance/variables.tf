@@ -23,6 +23,18 @@ variable "password" {
   sensitive   = true
 }
 
+variable "manage_master_user_password" {
+  description = "Let AWS manage and rotate the master password in Secrets Manager."
+  type        = bool
+  default     = false
+}
+
+variable "master_user_secret_kms_key_id" {
+  description = "KMS key for the AWS-managed master user secret; null uses the AWS-managed key."
+  type        = string
+  default     = null
+}
+
 variable "instance_class" {
   description = "The instance class for the database."
   type        = string
