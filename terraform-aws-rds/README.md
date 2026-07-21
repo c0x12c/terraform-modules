@@ -42,6 +42,22 @@ Terraform only re-reads the managed secret during `apply`, so any downstream con
 
 When `manage_master_user_password = true` and `expose_managed_master_password = false` (the default), the `db_password` output is intentionally `null`. Use `db_password_secret_arn` to discover the AWS-managed secret instead.
 
+### Constraints
+
+`manage_master_user_password` cannot be combined with `replica_count > 0`. RDS does not support creating a read replica from a source that manages its master credentials in Secrets Manager (SQL Server is the exception). The module rejects this at plan time rather than letting it fail during apply.
+
+`master_user_secret_kms_key_id` is effectively immutable once RDS is managing the credential - AWS rejects a KMS key change after the fact, and the module cannot detect that at plan time. Choose the key before enabling.
+
+### Turning it back off
+
+Setting `manage_master_user_password` back to `false` is a second credential rotation, not a restore. Terraform never knew the AWS-managed value, so it generates a fresh `random_password` and pushes that as the new master password. Plan for the same auth-break window as the original migration.
+
+### Operability
+
+AWS rotates the managed secret on its own schedule (seven days by default); the cadence is not configurable through this module. Rotation can silently stop - the secret's `SecretStatus` moves to `impaired` after, say, an IAM or KMS permission change - with no application-visible symptom until the next authentication after a failed rotation. Alarm on the secret's status; the ARN is available from `db_password_secret_arn`.
+
+Enabling this requires the applying principal to hold `secretsmanager:CreateSecret`, `secretsmanager:TagResource`, and `kms:DescribeKey`, plus `kms:Decrypt`, `kms:GenerateDataKey`, and `kms:CreateGrant` when using a customer-managed key.
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
