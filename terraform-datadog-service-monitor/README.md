@@ -74,10 +74,10 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_cpu"></a> [cpu](#module\_cpu) | c0x12c/monitors/datadog | ~> 1.0.0 |
-| <a name="module_memory"></a> [memory](#module\_memory) | c0x12c/monitors/datadog | ~> 1.0.0 |
-| <a name="module_pod"></a> [pod](#module\_pod) | c0x12c/monitors/datadog | ~> 1.0.0 |
-| <a name="module_service"></a> [service](#module\_service) | c0x12c/monitors/datadog | ~> 1.0.0 |
+| <a name="module_cpu"></a> [cpu](#module\_cpu) | ../terraform-datadog-monitors | n/a |
+| <a name="module_memory"></a> [memory](#module\_memory) | ../terraform-datadog-monitors | n/a |
+| <a name="module_pod"></a> [pod](#module\_pod) | ../terraform-datadog-monitors | n/a |
+| <a name="module_service"></a> [service](#module\_service) | ../terraform-datadog-monitors | n/a |
 
 ## Resources
 

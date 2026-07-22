@@ -236,9 +236,9 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_apm_monitors"></a> [apm\_monitors](#module\_apm\_monitors) | c0x12c/monitors/datadog | ~> 1.0.0 |
-| <a name="module_log_monitors"></a> [log\_monitors](#module\_log\_monitors) | c0x12c/monitors/datadog | ~> 1.0.0 |
-| <a name="module_service_monitors"></a> [service\_monitors](#module\_service\_monitors) | c0x12c/monitors/datadog | ~> 1.0.0 |
+| <a name="module_apm_monitors"></a> [apm\_monitors](#module\_apm\_monitors) | ../terraform-datadog-monitors | n/a |
+| <a name="module_log_monitors"></a> [log\_monitors](#module\_log\_monitors) | ../terraform-datadog-monitors | n/a |
+| <a name="module_service_monitors"></a> [service\_monitors](#module\_service\_monitors) | ../terraform-datadog-monitors | n/a |
 
 ## Resources
 

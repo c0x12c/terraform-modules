@@ -39,7 +39,6 @@ module "gcp_monitor" {
 ```
 
 <!-- BEGIN_TF_DOCS -->
-
 ## Requirements
 
 | Name | Version |
@@ -58,7 +57,7 @@ module "gcp_monitor" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_postgres_monitor"></a> [postgres\_monitor](#module\_postgres\_monitor) | c0x12c/monitors/datadog | ~> 1.0.0 |
+| <a name="module_postgres_monitor"></a> [postgres\_monitor](#module\_postgres\_monitor) | ../terraform-datadog-monitors | n/a |
 
 ## Resources
 
@@ -79,5 +78,4 @@ module "gcp_monitor" {
 ## Outputs
 
 No outputs.
-
 <!-- END_TF_DOCS -->
