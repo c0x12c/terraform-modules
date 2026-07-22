@@ -20,8 +20,10 @@ output "db_username" {
 
 output "db_password" {
   description = "The master password for the database"
+  # An RDS-managed master user secret stores a JSON document ({username, password}),
+  # not a bare string, so pull the password field out to keep this output's contract.
   value = var.manage_master_user_password ? try(
-    data.aws_secretsmanager_secret_version.managed[0].secret_string,
+    jsondecode(data.aws_secretsmanager_secret_version.managed[0].secret_string)["password"],
     null
   ) : try(random_password.this[0].result, null)
   sensitive = true

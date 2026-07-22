@@ -202,8 +202,9 @@ variable "manage_master_user_password" {
   }
 
   # RDS cannot create a read replica from a source whose credentials are managed in
-  # Secrets Manager (SQL Server excepted). Without this the combination plans clean and
-  # fails at apply, which in a shared single-root blocks unrelated services too.
+  # Secrets Manager. Enforced uniformly here (this module targets postgres/mysql); without
+  # it the combination plans clean and fails at apply, which in a shared single-root blocks
+  # unrelated services too.
   validation {
     condition     = !(var.manage_master_user_password && var.replica_count > 0)
     error_message = "manage_master_user_password cannot be combined with replica_count > 0: RDS does not support creating read replicas from a source that manages its master credentials in Secrets Manager."

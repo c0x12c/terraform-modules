@@ -44,7 +44,7 @@ When `manage_master_user_password = true` and `expose_managed_master_password = 
 
 ### Constraints
 
-`manage_master_user_password` cannot be combined with `replica_count > 0`. RDS does not support creating a read replica from a source that manages its master credentials in Secrets Manager (SQL Server is the exception). The module rejects this at plan time rather than letting it fail during apply.
+`manage_master_user_password` cannot be combined with `replica_count > 0`. RDS does not support creating a read replica from a source that manages its master credentials in Secrets Manager, and the module rejects the combination at plan time rather than letting it fail during apply.
 
 `master_user_secret_kms_key_id` is effectively immutable once RDS is managing the credential - AWS rejects a KMS key change after the fact, and the module cannot detect that at plan time. Choose the key before enabling.
 

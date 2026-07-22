@@ -8,7 +8,7 @@ resource "aws_db_instance" "this" {
   username                      = var.username
   password                      = var.manage_master_user_password ? null : var.password
   manage_master_user_password   = var.manage_master_user_password ? true : null
-  master_user_secret_kms_key_id = var.master_user_secret_kms_key_id
+  master_user_secret_kms_key_id = var.manage_master_user_password ? var.master_user_secret_kms_key_id : null
   db_subnet_group_name          = var.db_subnet_group_name
   vpc_security_group_ids        = var.vpc_security_group_ids
   db_name                       = var.db_name
