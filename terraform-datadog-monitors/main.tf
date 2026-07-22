@@ -22,7 +22,10 @@ resource "datadog_monitor" "this" {
   }
 
   renotify_interval = each.value.renotify_interval
-  renotify_statuses = ["alert"]
+  # Datadog rejects renotify_statuses unless renotify_interval is set (> 0), so
+  # a monitor with renotify_interval = 0 must not carry statuses — that is how
+  # callers disable re-notification.
+  renotify_statuses = each.value.renotify_interval > 0 ? ["alert"] : null
 
   timeout_h                = 1
   renotify_occurrences     = try(each.value.renotify_occurrences)
