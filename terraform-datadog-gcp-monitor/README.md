@@ -51,7 +51,7 @@ module "gcp_monitor" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | >= 6.12 |
+| <a name="provider_google"></a> [google](#provider\_google) | 7.40.0 |
 
 ## Modules
 
