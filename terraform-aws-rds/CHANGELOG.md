@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.7.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-rds/v0.6.7...terraform-aws-rds/v0.7.0) (2026-07-22)
+
+
+### Features
+
+* **terraform-aws-rds:** AWS-managed master password rotation ([#237](https://github.com/c0x12c/terraform-modules/issues/237)) ([581ef6d](https://github.com/c0x12c/terraform-modules/commit/581ef6d90532269f197782a5279f17baa25a57f2))
+
 ## [0.6.7](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-rds/v0.6.6...terraform-aws-rds/v0.6.7) (2026-07-04)
 
 
