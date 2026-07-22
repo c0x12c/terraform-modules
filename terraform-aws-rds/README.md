@@ -32,6 +32,32 @@ module "instance" {
 
 - [Example](./examples/complete/)
 
+## Master password rotation
+
+Set `manage_master_user_password = true` to hand the master credential to AWS Secrets Manager so RDS rotates it natively on its own schedule without requiring `terraform apply`.
+
+Enabling AWS-managed rotation on an existing instance is a migration, not a simple toggle. AWS creates a new master password immediately, so anything still authenticating with the old static password breaks at that moment.
+
+Terraform only re-reads the managed secret during `apply`, so any downstream consumer that writes `db_password` into a Kubernetes Secret keeps the value from the last apply and goes stale between AWS rotations. That exposure mode is only safe for break-glass access patterns such as RDS IAM-authenticated applications. Otherwise, consume the secret ARN with External Secrets Operator or an equivalent runtime sync.
+
+When `manage_master_user_password = true` and `expose_managed_master_password = false` (the default), the `db_password` output is intentionally `null`. Use `db_password_secret_arn` to discover the AWS-managed secret instead.
+
+### Constraints
+
+`manage_master_user_password` cannot be combined with `replica_count > 0`. RDS does not support creating a read replica from a source that manages its master credentials in Secrets Manager, and the module rejects the combination at plan time rather than letting it fail during apply.
+
+`master_user_secret_kms_key_id` is effectively immutable once RDS is managing the credential - AWS rejects a KMS key change after the fact, and the module cannot detect that at plan time. Choose the key before enabling.
+
+### Turning it back off
+
+Setting `manage_master_user_password` back to `false` is a second credential rotation, not a restore. Terraform never knew the AWS-managed value, so it generates a fresh `random_password` and pushes that as the new master password. Plan for the same auth-break window as the original migration.
+
+### Operability
+
+AWS rotates the managed secret on its own schedule (seven days by default); the cadence is not configurable through this module. Rotation can silently stop - the secret's `SecretStatus` moves to `impaired` after, say, an IAM or KMS permission change - with no application-visible symptom until the next authentication after a failed rotation. Alarm on the secret's status; the ARN is available from `db_password_secret_arn`.
+
+Enabling this requires the applying principal to hold `secretsmanager:CreateSecret`, `secretsmanager:TagResource`, and `kms:DescribeKey`, plus `kms:Decrypt`, `kms:GenerateDataKey`, and `kms:CreateGrant` when using a customer-managed key.
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
@@ -45,7 +71,7 @@ module "instance" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.53.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.55.0 |
 | <a name="provider_random"></a> [random](#provider\_random) | 3.9.0 |
 
 ## Modules
@@ -68,6 +94,7 @@ module "instance" {
 | [aws_vpc_security_group_ingress_rule.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_ingress_rule) | resource |
 | [random_password.this](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
 | [aws_secretsmanager_random_password.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_random_password) | data source |
+| [aws_secretsmanager_secret_version.managed](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret_version) | data source |
 | [aws_vpc.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/vpc) | data source |
 
 ## Inputs
@@ -87,8 +114,11 @@ module "instance" {
 | <a name="input_disk_size"></a> [disk\_size](#input\_disk\_size) | The disk size of the database instance, in gigabytes. | `number` | `20` | no |
 | <a name="input_engine"></a> [engine](#input\_engine) | The database engine to be used (e.g., postgres). | `string` | `"postgres"` | no |
 | <a name="input_engine_version"></a> [engine\_version](#input\_engine\_version) | The version of the database engine to use (default is 16.4). | `string` | `"16.4"` | no |
+| <a name="input_expose_managed_master_password"></a> [expose\_managed\_master\_password](#input\_expose\_managed\_master\_password) | Opt in to resolving the managed secret's plaintext back into the db\_password output. Disabled by default to keep the managed password out of Terraform state. | `bool` | `false` | no |
 | <a name="input_iam_database_authentication_enabled"></a> [iam\_database\_authentication\_enabled](#input\_iam\_database\_authentication\_enabled) | Enable database authentication using AWS IAM. | `bool` | `false` | no |
 | <a name="input_instance_class"></a> [instance\_class](#input\_instance\_class) | The instance class for the database. | `string` | `"db.m5.large"` | no |
+| <a name="input_manage_master_user_password"></a> [manage\_master\_user\_password](#input\_manage\_master\_user\_password) | Let AWS own and natively rotate the master password in Secrets Manager. Mutually exclusive with a Terraform-generated password. | `bool` | `false` | no |
+| <a name="input_master_user_secret_kms_key_id"></a> [master\_user\_secret\_kms\_key\_id](#input\_master\_user\_secret\_kms\_key\_id) | KMS key for the managed secret; null uses the AWS-managed key. | `string` | `null` | no |
 | <a name="input_max_allocated_storage"></a> [max\_allocated\_storage](#input\_max\_allocated\_storage) | The upper limit (in GB) to which Amazon RDS can automatically scale the storage of the DB instance. | `number` | `1000` | no |
 | <a name="input_monitoring_interval"></a> [monitoring\_interval](#input\_monitoring\_interval) | The interval in seconds between points when Enhanced Monitoring metrics are collected for the DB instance. | `number` | `0` | no |
 | <a name="input_multi_az"></a> [multi\_az](#input\_multi\_az) | Indicates whether the database instance should be deployed across multiple availability zones. | `bool` | `false` | no |

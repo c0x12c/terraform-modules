@@ -22,3 +22,8 @@ output "db_port" {
   description = "The port number the database instance is listening on"
   value       = aws_db_instance.this.port
 }
+
+output "master_user_secret_arn" {
+  description = "ARN of the AWS-managed master user secret, or null when Terraform owns the password"
+  value       = try(aws_db_instance.this.master_user_secret[0].secret_arn, null)
+}

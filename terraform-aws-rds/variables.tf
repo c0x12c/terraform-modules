@@ -189,6 +189,40 @@ variable "secret_manager_db_password_name" {
   default     = "POSTGRESQL_PASSWORD"
 }
 
+variable "manage_master_user_password" {
+  description = "Let AWS own and natively rotate the master password in Secrets Manager. Mutually exclusive with a Terraform-generated password."
+  type        = bool
+  default     = false
+
+  # A `check` block would only warn. This must hard-fail: the two modes each own the
+  # credential, so silently letting one win hides which secret is actually authoritative.
+  validation {
+    condition     = !(var.manage_master_user_password && var.use_secret_manager)
+    error_message = "manage_master_user_password and use_secret_manager are mutually exclusive: AWS cannot own the master password while the module also writes its own Secrets Manager secret."
+  }
+
+  # RDS cannot create a read replica from a source whose credentials are managed in
+  # Secrets Manager. Enforced uniformly here (this module targets postgres/mysql); without
+  # it the combination plans clean and fails at apply, which in a shared single-root blocks
+  # unrelated services too.
+  validation {
+    condition     = !(var.manage_master_user_password && var.replica_count > 0)
+    error_message = "manage_master_user_password cannot be combined with replica_count > 0: RDS does not support creating read replicas from a source that manages its master credentials in Secrets Manager."
+  }
+}
+
+variable "master_user_secret_kms_key_id" {
+  description = "KMS key for the managed secret; null uses the AWS-managed key."
+  type        = string
+  default     = null
+}
+
+variable "expose_managed_master_password" {
+  description = "Opt in to resolving the managed secret's plaintext back into the db_password output. Disabled by default to keep the managed password out of Terraform state."
+  type        = bool
+  default     = false
+}
+
 variable "password_length" {
   description = "Database password length."
   type        = number
