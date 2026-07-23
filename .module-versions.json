@@ -77,7 +77,7 @@
   "terraform-datadog-gcp-integration": "1.1.0",
   "terraform-datadog-gcp-monitor": "1.0.1",
   "terraform-datadog-logging-monitor": "0.0.1",
-  "terraform-datadog-monitors": "1.0.0",
+  "terraform-datadog-monitors": "1.0.1",
   "terraform-datadog-mono-monitor": "1.1.0",
   "terraform-datadog-notification-rules": "1.0.0",
   "terraform-datadog-oncall": "1.0.1",
