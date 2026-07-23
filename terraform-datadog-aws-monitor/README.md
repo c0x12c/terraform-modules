@@ -1,23 +1,9 @@
 <!-- BEGIN_TF_DOCS -->
-## Usage
-
-```hcl
-module "aws_monitor" {
-  source  = "terraform.c0x12c.com/c0x12c/aws-monitor/datadog"
-  version = "1.3.1"
-
-  aws_account_id                    = "123456789012"
-  environment                       = "production"
-  notification_slack_channel_prefix = "@slack-team-alerts"
-}
-```
-
 ## Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.8 |
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
 | <a name="requirement_datadog"></a> [datadog](#requirement\_datadog) | >= 3.46.0 |
 
 ## Providers
@@ -28,13 +14,13 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_airflow"></a> [airflow](#module\_airflow) | c0x12c/monitors/datadog | ~> 1.0.0 |
-| <a name="module_billing"></a> [billing](#module\_billing) | c0x12c/monitors/datadog | ~> 1.0.0 |
-| <a name="module_elasticache"></a> [elasticache](#module\_elasticache) | c0x12c/monitors/datadog | ~> 1.0.0 |
-| <a name="module_emr"></a> [emr](#module\_emr) | c0x12c/monitors/datadog | ~> 1.0.0 |
-| <a name="module_kinesis"></a> [kinesis](#module\_kinesis) | c0x12c/monitors/datadog | ~> 1.0.0 |
-| <a name="module_msk"></a> [msk](#module\_msk) | c0x12c/monitors/datadog | ~> 1.0.0 |
-| <a name="module_rds"></a> [rds](#module\_rds) | c0x12c/monitors/datadog | ~> 1.0.0 |
+| <a name="module_airflow"></a> [airflow](#module\_airflow) | ../terraform-datadog-monitors | n/a |
+| <a name="module_billing"></a> [billing](#module\_billing) | ../terraform-datadog-monitors | n/a |
+| <a name="module_elasticache"></a> [elasticache](#module\_elasticache) | ../terraform-datadog-monitors | n/a |
+| <a name="module_emr"></a> [emr](#module\_emr) | ../terraform-datadog-monitors | n/a |
+| <a name="module_kinesis"></a> [kinesis](#module\_kinesis) | ../terraform-datadog-monitors | n/a |
+| <a name="module_msk"></a> [msk](#module\_msk) | ../terraform-datadog-monitors | n/a |
+| <a name="module_rds"></a> [rds](#module\_rds) | ../terraform-datadog-monitors | n/a |
 
 ## Resources
 
