@@ -27,9 +27,13 @@ aws_ecs_service provides an ECS service - effectively a task that is expected to
 https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service
 */
 resource "aws_ecs_service" "this" {
-  name                               = var.name
-  cluster                            = var.ecs_cluster_id
-  task_definition                    = aws_ecs_task_definition.this.arn
+  name    = var.name
+  cluster = var.ecs_cluster_id
+  # Default: pin the service to the revision this module registers.
+  # With var.allow_external_task_definition_revisions, take whichever revision of
+  # the family is newer, so an apply never reverts a deployment made by a
+  # pipeline that registered its own revision. See local.task_definition.
+  task_definition                    = local.task_definition
   desired_count                      = var.service_desired_count
   enable_execute_command             = var.enable_execute_command
   deployment_minimum_healthy_percent = var.deployment_minimum_healthy_percent
@@ -102,6 +106,25 @@ resource "aws_ecs_service" "this" {
   lifecycle {
     ignore_changes = [desired_count]
   }
+}
+
+/*
+Reads the newest ACTIVE revision of the task definition family, which is what an
+external deploy pipeline leaves behind after `register-task-definition` +
+`update-service`. Only read when var.allow_external_task_definition_revisions is
+set, so the default path makes no extra API call.
+
+depends_on guarantees the family exists on a first apply, before anything reads
+it. The trade-off is that on an apply which also changes the task definition,
+this read is deferred and the service's task_definition shows as "known after
+apply" in the plan — a service update is expected in that case anyway.
+*/
+data "aws_ecs_task_definition" "current" {
+  count = var.allow_external_task_definition_revisions ? 1 : 0
+
+  task_definition = aws_ecs_task_definition.this.family
+
+  depends_on = [aws_ecs_task_definition.this]
 }
 
 /*

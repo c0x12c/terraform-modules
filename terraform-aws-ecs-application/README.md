@@ -84,6 +84,41 @@ module "application" {
 }
 ```
 
+### When a CI pipeline deploys the service
+
+By default this module is the deployer: it registers a task definition revision
+and pins the service to it, so `terraform apply` is what ships a new image.
+
+If instead a CI pipeline deploys — building an image, calling
+`aws ecs register-task-definition` with the new tag, then `update-service` —
+those revisions are invisible to Terraform. The service moves forward, the
+module's state does not, and the next apply reverts the service to the module's
+own revision, undoing the deployment. That apply need not be related to ECS at
+all; any change anywhere in the root module triggers it.
+
+Set `allow_external_task_definition_revisions = true` for that setup:
+
+```hcl
+module "application" {
+  source  = "terraform.c0x12c.com/c0x12c/ecs-application/aws"
+  version = "~> 2.4"
+
+  allow_external_task_definition_revisions = true
+
+  # ...
+}
+```
+
+The service then runs whichever revision of the family is newer — the module's
+or the one currently deployed. The pipeline's revision is always higher, so an
+apply keeps it; a task definition change made here is also higher, so Terraform
+can still deploy. Ownership splits cleanly: Terraform decides what the task
+definition contains, the pipeline decides which revision runs.
+
+Note that with this enabled, a task definition change made through Terraform
+takes effect on the next apply as usual, but the plan shows the service's
+`task_definition` as "known after apply" rather than a concrete revision.
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
@@ -139,6 +174,7 @@ module "application" {
 | [aws_security_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [aws_iam_policy_document.assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.ecs_task_role_execute_command_ssm_message](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_ecs_task_definition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ecs_task_definition) | data source |
 | [aws_iam_policy_document.ecs_tasks_assume_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.secrets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.ssm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
@@ -156,6 +192,7 @@ module "application" {
 | <a name="input_alb_dns_name"></a> [alb\_dns\_name](#input\_alb\_dns\_name) | DNS name of the Application Load Balancer | `string` | n/a | yes |
 | <a name="input_alb_security_groups"></a> [alb\_security\_groups](#input\_alb\_security\_groups) | List of security group IDs of the ALB | `list(string)` | n/a | yes |
 | <a name="input_alb_zone_id"></a> [alb\_zone\_id](#input\_alb\_zone\_id) | Hosted zone id of the ALB | `string` | n/a | yes |
+| <a name="input_allow_external_task_definition_revisions"></a> [allow\_external\_task\_definition\_revisions](#input\_allow\_external\_task\_definition\_revisions) | Set to true when a deploy pipeline registers task definition revisions outside Terraform (e.g. a CI job running `aws ecs register-task-definition` then `update-service`). The service then runs whichever revision of the family is newer — this module's or the one currently deployed — so an apply no longer reverts the pipeline's deployment. Leave false when Terraform is the only thing that deploys this service. | `bool` | `false` | no |
 | <a name="input_assign_public_ip"></a> [assign\_public\_ip](#input\_assign\_public\_ip) | Enable to assign the public ip to the tasks | `bool` | `false` | no |
 | <a name="input_aws_lb_listener_arn"></a> [aws\_lb\_listener\_arn](#input\_aws\_lb\_listener\_arn) | ARN of the ALB | `string` | n/a | yes |
 | <a name="input_aws_lb_listener_rule_priority"></a> [aws\_lb\_listener\_rule\_priority](#input\_aws\_lb\_listener\_rule\_priority) | AWS LB listener rule's priority | `number` | `100` | no |
