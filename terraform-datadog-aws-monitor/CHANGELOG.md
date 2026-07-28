@@ -1,6 +1,13 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## [1.4.0](https://github.com/c0x12c/terraform-modules/compare/terraform-datadog-aws-monitor/v1.3.2...terraform-datadog-aws-monitor/v1.4.0) (2026-07-28)
+
+
+### Features
+
+* **aws-monitor:** add MSK under-replicated-partitions monitor ([#252](https://github.com/c0x12c/terraform-modules/issues/252)) ([b45c010](https://github.com/c0x12c/terraform-modules/commit/b45c010b83cd69211919c18a3473d6dc56ce6794))
+
 ## [1.3.2](https://github.com/c0x12c/terraform-modules/compare/terraform-datadog-aws-monitor/v1.3.1...terraform-datadog-aws-monitor/v1.3.2) (2026-07-23)
 
 
