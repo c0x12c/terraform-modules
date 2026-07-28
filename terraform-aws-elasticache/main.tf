@@ -73,5 +73,8 @@ resource "aws_elasticache_replication_group" "this" {
   transit_encryption_enabled = var.transit_encryption_enabled
   transit_encryption_mode    = var.transit_encryption_mode # make sure you update this when enabled transit encryption
   auth_token                 = var.transit_encryption_enabled ? random_string.this[0].result : null
-  auth_token_update_strategy = "ROTATE"
+  # auth_token_update_strategy lost its default in AWS provider v6 and is rejected when
+  # auth_token is null (RequiredWith: auth_token). Only set it when transit encryption
+  # (and therefore an auth_token) is enabled; v5 behavior is unchanged.
+  auth_token_update_strategy = var.transit_encryption_enabled ? "ROTATE" : null
 }
