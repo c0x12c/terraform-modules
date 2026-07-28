@@ -7,6 +7,13 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+* **terraform-aws-elasticache:** gate auth_token_update_strategy on transit encryption for AWS provider v6 ([#253](https://github.com/c0x12c/terraform-modules/issues/253)) ([40d8e43](https://github.com/c0x12c/terraform-modules/commit/40d8e437a182fbdff52a35023088897b9b754156))
+
+## [0.7.1](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-elasticache/v0.7.0...terraform-aws-elasticache/v0.7.1) (2026-07-28)
+
+
+### Bug Fixes
+
 * Gate `auth_token_update_strategy` on `transit_encryption_enabled`. AWS provider v6 removed its default and rejects the argument when `auth_token` is null, so `transit_encryption_enabled = false` clusters failed to plan (`"auth_token_update_strategy": "auth_token" must be specified`). Keep `"ROTATE"` only when transit encryption (and therefore an auth token) is enabled; backward-compatible with provider v5.
 
 ## [0.7.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-elasticache/v0.6.0...terraform-aws-elasticache/v0.7.0) (2026-06-20)
