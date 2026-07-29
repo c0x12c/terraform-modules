@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.7.2](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-elasticache/v0.7.1...terraform-aws-elasticache/v0.7.2) (2026-07-29)
+
+
+### Bug Fixes
+
+* **elasticache:** mark transition_encryption_auth_token output as sensitive ([#257](https://github.com/c0x12c/terraform-modules/issues/257)) ([d9b11ac](https://github.com/c0x12c/terraform-modules/commit/d9b11ac42eec23a10b493834eb09a6ffcf7fa564))
+
 ## [0.7.1](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-elasticache/v0.7.0...terraform-aws-elasticache/v0.7.1) (2026-07-28)
 
 
