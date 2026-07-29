@@ -94,6 +94,20 @@ locals {
       renotify_occurrences        = 5
     }
 
+    msk_under_replicated_partitions = {
+      priority_level = 2
+      title_tags     = "[Under-Replicated Partitions] [MSK]"
+      title          = "MSK has under-replicated partitions."
+
+      query_template = "avg($${timeframe}):sum:aws.kafka.under_replicated_partitions{aws_account:${var.aws_account_id}} by {cluster_name} > $${threshold_critical}"
+      query_args = {
+        timeframe = "last_5m"
+      }
+
+      threshold_critical = 0
+      renotify_interval  = 0
+    }
+
     msk_active_controller = {
       priority_level = 2
       title_tags     = "[Active Controller] [MSK]"
