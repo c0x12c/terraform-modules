@@ -3,6 +3,31 @@ locals {
 
   is_fargate = var.launch_type == "FARGATE" ? true : false
 
+  # Which task definition revision aws_ecs_service.this runs.
+  #
+  # Default: this module's own revision, so Terraform is authoritative.
+  #
+  # With var.allow_external_task_definition_revisions: the newer of this module's
+  # revision and the newest ACTIVE revision in the family. A deploy pipeline that
+  # registers its own revision always produces a higher number, so an apply keeps
+  # it instead of reverting the service; a task definition change made here also
+  # produces a higher number, so Terraform can still deploy. Terraform keeps
+  # ownership of what the task definition contains either way.
+  #
+  # Newest ACTIVE is deliberately not the same as "the revision the service is
+  # running", and the difference bites on rollback: update-service moves the
+  # pointer without deregistering the revision rolled away from, so that revision
+  # stays ACTIVE and the next apply pulls the service back onto it. See the
+  # rollback limitation in README.md.
+  task_definition = var.allow_external_task_definition_revisions ? format(
+    "%s:%d",
+    aws_ecs_task_definition.this.family,
+    max(
+      aws_ecs_task_definition.this.revision,
+      data.aws_ecs_task_definition.current[0].revision,
+    ),
+  ) : aws_ecs_task_definition.this.arn
+
   log_configuration = {
     logDriver = "awslogs"
     options = {

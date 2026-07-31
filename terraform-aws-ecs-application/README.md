@@ -84,6 +84,73 @@ module "application" {
 }
 ```
 
+### When a CI pipeline deploys the service
+
+By default this module is the deployer: it registers a task definition revision
+and pins the service to it, so `terraform apply` is what ships a new image.
+
+If instead a CI pipeline deploys — building an image, calling
+`aws ecs register-task-definition` with the new tag, then `update-service` —
+those revisions are invisible to Terraform. The service moves forward, the
+module's state does not, and the next apply reverts the service to the module's
+own revision, undoing the deployment. That apply need not be related to ECS at
+all; any change anywhere in the root module triggers it.
+
+Set `allow_external_task_definition_revisions = true` for that setup:
+
+```hcl
+module "application" {
+  source  = "terraform.c0x12c.com/c0x12c/ecs-application/aws"
+  version = "~> 2.4"
+
+  allow_external_task_definition_revisions = true
+
+  # ...
+}
+```
+
+The service then runs whichever revision of the family is newer — the module's
+own, or the newest ACTIVE revision in the family. The pipeline's revision is
+always higher, so an apply keeps it; a task definition change made here is also
+higher, so Terraform can still deploy. Ownership splits cleanly: Terraform
+decides what the task definition contains, the pipeline decides which revision
+runs.
+
+Note that with this enabled, a task definition change made through Terraform
+takes effect on the next apply as usual, but the plan shows the service's
+`task_definition` as "known after apply" rather than a concrete revision.
+
+#### Limitation: an apply can undo a rollback
+
+"Newest ACTIVE revision in the family" is not the same thing as "the revision
+the service is running", and the two only diverge in one situation that matters:
+a rollback.
+
+Rolling a service back with `update-service --task-definition myapp:5` moves the
+service's pointer; it does not deregister the revision you rolled away from. So
+`myapp:6` stays ACTIVE, and the next apply — including one that touches nothing
+related to ECS — computes `max(5, 6)` and puts the service back on the revision
+you just rolled off:
+
+| step | module registers | newest ACTIVE | service runs |
+|------|-----------------|---------------|--------------|
+| apply | 5 | 5 | `myapp:5` |
+| pipeline deploys | 5 | 6 | `myapp:6` |
+| rollback by hand | 5 | 6 | `myapp:5` |
+| **any later apply** | 5 | 6 | **`myapp:6`** |
+
+This is visible in the plan as a `task_definition` change on `aws_ecs_service`,
+but it is easy to miss in an unattended apply.
+
+To roll back and have it survive, do one of:
+
+- **Roll forward (preferred).** Register a new revision carrying the old
+  contents and point the service at it. `max(5, 7) = 7` is the rolled-back
+  content, and nothing depends on deregistration semantics.
+- **Deregister the bad revision.** `aws ecs deregister-task-definition
+  --task-definition myapp:6` makes it INACTIVE, so the data source returns 5
+  again and `max(5, 5) = 5` holds.
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
@@ -96,7 +163,7 @@ module "application" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.51.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.56.0 |
 
 ## Modules
 
@@ -137,6 +204,7 @@ module "application" {
 | [aws_lb_target_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group) | resource |
 | [aws_route53_record.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_security_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
+| [aws_ecs_task_definition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ecs_task_definition) | data source |
 | [aws_iam_policy_document.assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.ecs_task_role_execute_command_ssm_message](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.ecs_tasks_assume_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
@@ -156,6 +224,7 @@ module "application" {
 | <a name="input_alb_dns_name"></a> [alb\_dns\_name](#input\_alb\_dns\_name) | DNS name of the Application Load Balancer | `string` | n/a | yes |
 | <a name="input_alb_security_groups"></a> [alb\_security\_groups](#input\_alb\_security\_groups) | List of security group IDs of the ALB | `list(string)` | n/a | yes |
 | <a name="input_alb_zone_id"></a> [alb\_zone\_id](#input\_alb\_zone\_id) | Hosted zone id of the ALB | `string` | n/a | yes |
+| <a name="input_allow_external_task_definition_revisions"></a> [allow\_external\_task\_definition\_revisions](#input\_allow\_external\_task\_definition\_revisions) | Set to true when a deploy pipeline registers task definition revisions outside Terraform (e.g. a CI job running `aws ecs register-task-definition` then `update-service`). The service then runs whichever revision of the family is newer — this module's or the newest ACTIVE revision in the family — so an apply no longer reverts the pipeline's deployment. Leave false when Terraform is the only thing that deploys this service. | `bool` | `false` | no |
 | <a name="input_assign_public_ip"></a> [assign\_public\_ip](#input\_assign\_public\_ip) | Enable to assign the public ip to the tasks | `bool` | `false` | no |
 | <a name="input_aws_lb_listener_arn"></a> [aws\_lb\_listener\_arn](#input\_aws\_lb\_listener\_arn) | ARN of the ALB | `string` | n/a | yes |
 | <a name="input_aws_lb_listener_rule_priority"></a> [aws\_lb\_listener\_rule\_priority](#input\_aws\_lb\_listener\_rule\_priority) | AWS LB listener rule's priority | `number` | `100` | no |

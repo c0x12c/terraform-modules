@@ -134,6 +134,12 @@ variable "force_new_deployment" {
   default     = true
 }
 
+variable "allow_external_task_definition_revisions" {
+  description = "Set to true when a deploy pipeline registers task definition revisions outside Terraform (e.g. a CI job running `aws ecs register-task-definition` then `update-service`). The service then runs whichever revision of the family is newer — this module's or the newest ACTIVE revision in the family — so an apply no longer reverts the pipeline's deployment. Leave false when Terraform is the only thing that deploys this service."
+  type        = bool
+  default     = false
+}
+
 variable "additional_iam_policy_arns" {
   description = "Additional policies for ECS task role"
   type        = list(string)
