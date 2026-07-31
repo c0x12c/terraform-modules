@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.4.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-ecs-application/v2.3.0...terraform-aws-ecs-application/v2.4.0) (2026-07-31)
+
+
+### Features
+
+* **ecs-application:** opt in to keeping externally-registered task definition revisions ([#250](https://github.com/c0x12c/terraform-modules/issues/250)) ([e7f57fe](https://github.com/c0x12c/terraform-modules/commit/e7f57fe1ac85d59f50f8a40d2826b98df2264908))
+
 ## [2.3.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-ecs-application/v2.2.0...terraform-aws-ecs-application/v2.3.0) (2026-06-23)
 
 
