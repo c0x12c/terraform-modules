@@ -163,7 +163,7 @@ To roll back and have it survive, do one of:
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.75 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.57.1 |
 
 ## Modules
 
