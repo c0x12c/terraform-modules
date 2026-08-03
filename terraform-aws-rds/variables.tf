@@ -229,6 +229,12 @@ variable "password_length" {
   default     = 24
 }
 
+variable "db_password_rotation_id" {
+  description = "Change this to rotate the generated master password. Any new value regenerates it on the next apply; null (the default) leaves the existing password untouched. Ignored when use_secret_manager or manage_master_user_password is set. String rather than number so callers can use a date, e.g. \"2026-08\"."
+  type        = string
+  default     = null
+}
+
 # Logging
 variable "cloudwatch_exported_log_types" {
   description = "List of log types to enable for exporting to CloudWatch logs. If omitted, no logs will be exported. Valid values (depending on engine). MySQL and MariaDB: audit, error, general, slowquery. PostgreSQL: postgresql, upgrade. MSSQL: agent , error. Oracle: alert, audit, listener, trace."
