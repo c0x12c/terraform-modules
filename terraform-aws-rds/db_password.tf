@@ -42,7 +42,22 @@ resource "aws_secretsmanager_secret_version" "this" {
 }
 
 data "aws_secretsmanager_secret_version" "managed" {
-  count = var.manage_master_user_password && var.expose_managed_master_password ? 1 : 0
+  # Also gated on the ARN actually existing. RDS creates the managed secret as part of
+  # enabling manage_master_user_password, so on the apply that FIRST enables it the ARN is
+  # still null and this data source would try to read a secret that does not exist yet -
+  # `secret_id = null` is a hard plan error ("Missing required argument"), which blocked the
+  # whole plan rather than just this read. Gating on non-null degrades that to an empty
+  # result for one apply instead.
+  #
+  # Consequence: on that first apply db_password resolves to null, so a caller feeding it
+  # into a Kubernetes Secret or similar must enable managed credentials on the instance
+  # BEFORE turning this on (e.g. aws rds modify-db-instance --manage-master-user-password),
+  # so the ARN is present in state by the time this is read. See README.
+  count = (
+    var.manage_master_user_password &&
+    var.expose_managed_master_password &&
+    module.main_db_instance.master_user_secret_arn != null
+  ) ? 1 : 0
 
   secret_id = module.main_db_instance.master_user_secret_arn
 }
