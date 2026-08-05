@@ -42,6 +42,18 @@ Terraform only re-reads the managed secret during `apply`, so any downstream con
 
 When `manage_master_user_password = true` and `expose_managed_master_password = false` (the default), the `db_password` output is intentionally `null`. Use `db_password_secret_arn` to discover the AWS-managed secret instead.
 
+### Enabling both flags takes two steps
+
+RDS creates the managed secret as part of enabling managed credentials, so on the apply that first turns `manage_master_user_password` on, the secret ARN is still empty. The module gates its read of that secret on the ARN being non-null, which means `db_password` resolves to `null` for that one run - a caller writing it into a Kubernetes Secret would write an empty value.
+
+Enable managed credentials on the instance first, out of band:
+
+```
+aws rds modify-db-instance --db-instance-identifier <id> --manage-master-user-password --apply-immediately
+```
+
+Then set `manage_master_user_password = true` and `expose_managed_master_password = true` together. The ARN is in state by the time the module reads it. Without the gate this ordering was not merely advisable: passing a null `secret_id` is a hard plan error, which in a shared single-root root module aborts the plan for every other service too.
+
 ### Constraints
 
 `manage_master_user_password` cannot be combined with `replica_count > 0`. RDS does not support creating a read replica from a source that manages its master credentials in Secrets Manager, and the module rejects the combination at plan time rather than letting it fail during apply.
@@ -54,7 +66,7 @@ Setting `manage_master_user_password` back to `false` is a second credential rot
 
 ### Operability
 
-AWS rotates the managed secret on its own schedule (seven days by default); the cadence is not configurable through this module. Rotation can silently stop - the secret's `SecretStatus` moves to `impaired` after, say, an IAM or KMS permission change - with no application-visible symptom until the next authentication after a failed rotation. Alarm on the secret's status; the ARN is available from `db_password_secret_arn`.
+AWS rotates the managed secret on its own schedule, every seven days by default. That default is not fixed - RDS states the rotation schedule is one of the settings you can modify - but it is not configurable through this module. To change it, declare an `aws_secretsmanager_secret_rotation` against `db_password_secret_arn` in the calling configuration; no rotation Lambda is needed because the secret is AWS-managed. Set `rotate_immediately = false` there unless an immediate rotation is intended, since it defaults to `true`. Rotation can silently stop - the secret's `SecretStatus` moves to `impaired` after, say, an IAM or KMS permission change - with no application-visible symptom until the next authentication after a failed rotation. Alarm on the secret's status; the ARN is available from `db_password_secret_arn`.
 
 Enabling this requires the applying principal to hold `secretsmanager:CreateSecret`, `secretsmanager:TagResource`, and `kms:DescribeKey`, plus `kms:Decrypt`, `kms:GenerateDataKey`, and `kms:CreateGrant` when using a customer-managed key.
 
@@ -114,7 +126,7 @@ Enabling this requires the applying principal to hold `secretsmanager:CreateSecr
 | <a name="input_disk_size"></a> [disk\_size](#input\_disk\_size) | The disk size of the database instance, in gigabytes. | `number` | `20` | no |
 | <a name="input_engine"></a> [engine](#input\_engine) | The database engine to be used (e.g., postgres). | `string` | `"postgres"` | no |
 | <a name="input_engine_version"></a> [engine\_version](#input\_engine\_version) | The version of the database engine to use (default is 16.4). | `string` | `"16.4"` | no |
-| <a name="input_expose_managed_master_password"></a> [expose\_managed\_master\_password](#input\_expose\_managed\_master\_password) | Opt in to resolving the managed secret's plaintext back into the db\_password output. Disabled by default to keep the managed password out of Terraform state. | `bool` | `false` | no |
+| <a name="input_expose_managed_master_password"></a> [expose\_managed\_master\_password](#input\_expose\_managed\_master\_password) | Opt in to resolving the managed secret's plaintext back into the db\_password output. Disabled by default to keep the managed password out of Terraform state. Enable managed credentials on the instance before turning this on: on the apply that first enables them the secret does not exist yet, so db\_password resolves to null for that run. | `bool` | `false` | no |
 | <a name="input_iam_database_authentication_enabled"></a> [iam\_database\_authentication\_enabled](#input\_iam\_database\_authentication\_enabled) | Enable database authentication using AWS IAM. | `bool` | `false` | no |
 | <a name="input_instance_class"></a> [instance\_class](#input\_instance\_class) | The instance class for the database. | `string` | `"db.m5.large"` | no |
 | <a name="input_manage_master_user_password"></a> [manage\_master\_user\_password](#input\_manage\_master\_user\_password) | Let AWS own and natively rotate the master password in Secrets Manager. Mutually exclusive with a Terraform-generated password. | `bool` | `false` | no |

@@ -218,7 +218,7 @@ variable "master_user_secret_kms_key_id" {
 }
 
 variable "expose_managed_master_password" {
-  description = "Opt in to resolving the managed secret's plaintext back into the db_password output. Disabled by default to keep the managed password out of Terraform state."
+  description = "Opt in to resolving the managed secret's plaintext back into the db_password output. Disabled by default to keep the managed password out of Terraform state. Enable managed credentials on the instance before turning this on: on the apply that first enables them the secret does not exist yet, so db_password resolves to null for that run."
   type        = bool
   default     = false
 }
