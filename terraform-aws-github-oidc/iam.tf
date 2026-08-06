@@ -32,6 +32,14 @@ data "aws_iam_policy_document" "assume_role_github" {
       variable = "${module.provider.url}:aud"
     }
 
+    # Merged into the same sub key as var.conditions, so the immutable claim format is accepted too:
+    # https://github.blog/changelog/2026-04-23-immutable-subject-claims-for-github-actions-oidc-tokens/
+    condition {
+      test     = "StringLike"
+      values   = ["repo:${replace(var.repository_path, "/", "@*/")}@*"]
+      variable = "${module.provider.url}:sub"
+    }
+
     dynamic "condition" {
       for_each = var.conditions
 
