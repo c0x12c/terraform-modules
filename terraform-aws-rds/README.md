@@ -32,6 +32,89 @@ module "instance" {
 
 - [Example](./examples/complete/)
 
+## Master password: which mode to use
+
+The master credential can be owned by Terraform or by AWS, and the two are mutually exclusive. Pick a row, then see the section below for the details.
+
+| You want | Set | Who rotates |
+|---|---|---|
+| A generated password, never rotated | nothing (default) | nobody |
+| A generated password, rotated when you say | `db_password_rotation_id` | you, by changing the value |
+| A generated password, rotated on an interval | `db_password_rotation_id` from a `time_rotating` | your pipeline, on each run |
+| AWS to own and rotate the credential | `manage_master_user_password` | RDS, every 7 days |
+| AWS to rotate on your cadence | `+ master_user_secret_rotation_days` | RDS, every N days |
+| AWS to rotate in a controlled window | `+ ..._rotation_schedule` / `..._duration` | RDS, on your schedule |
+| A read replica | anything except `manage_master_user_password` | see Constraints |
+
+### Terraform-owned password
+
+Default. The module generates the password and holds it in state; `db_password` returns it.
+
+```hcl
+module "db" {
+  source = "terraform.c0x12c.com/c0x12c/rds/aws"
+
+  db_name     = "example"
+  db_username = "example"
+  # ...
+}
+```
+
+Rotate it on demand by changing `db_password_rotation_id` to any new value. A date reads well:
+
+```hcl
+db_password_rotation_id = "2026-08"
+```
+
+For an interval rather than a manual bump, drive it from `time_rotating` in the calling configuration. Deliberately not built into the module - it would add a provider dependency for every consumer, including those who never rotate:
+
+```hcl
+resource "time_rotating" "db_password" {
+  rotation_days = 30
+}
+
+module "db" {
+  db_password_rotation_id = time_rotating.db_password.id
+  # ...
+}
+```
+
+This fires on the run *after* the interval elapses, not on the day itself, so it needs runs to happen. Somewhere applied only on demand will drift.
+
+### AWS-owned password
+
+RDS generates the credential, stores it in Secrets Manager, and rotates it natively without a run. `db_password` is `null` unless you opt in with `expose_managed_master_password`; use `db_password_secret_arn` to find the secret.
+
+Enabling this on an existing instance is a migration, not a toggle - see the two-step below.
+
+```hcl
+manage_master_user_password = true
+```
+
+Every 30 days instead of AWS's 7:
+
+```hcl
+manage_master_user_password      = true
+master_user_secret_rotation_days = 30
+```
+
+Inside a controlled window - 06:00 UTC on the 1st of the month, finishing within two hours. Use this when a credential change has to miss a traffic peak or a batch job:
+
+```hcl
+manage_master_user_password          = true
+master_user_secret_rotation_schedule = "cron(0 6 1 * ? *)"
+master_user_secret_rotation_duration = "2h"
+```
+
+### With a read replica
+
+`manage_master_user_password` is rejected here, so stay on the Terraform-owned password and rotate it with `db_password_rotation_id`:
+
+```hcl
+replica_count           = 1
+db_password_rotation_id = "2026-08"
+```
+
 ## Master password rotation
 
 Set `manage_master_user_password = true` to hand the master credential to AWS Secrets Manager so RDS rotates it natively on its own schedule without requiring `terraform apply`.
