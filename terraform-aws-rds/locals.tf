@@ -20,15 +20,13 @@ locals {
 
   managed_secret_arn = module.main_db_instance.master_user_secret_arn
 
-  # Both gates below feed a `count`, so they must not reference the managed secret ARN.
-  # `count` has to be known at plan time. The ARN is unknown while an instance is being
-  # created, and gating on it fails every greenfield create with "Invalid count argument".
+  # count must be known at plan time, so neither gate may reference the managed secret ARN.
   #
-  # The tradeoff: the ARN is null until RDS creates the secret, and `secret_id = null` is a
-  # hard plan error that takes down the whole root. That only happens if you enable
-  # manage_master_user_password in Terraform without enabling it on the instance first.
-  # The README documents that out-of-band step; skipping it fails loudly rather than
-  # silently writing an empty password.
+  # The ARN is unknown while an instance is being created. Gating on it failed every
+  # greenfield create with "Invalid count argument".
+  #
+  # Tradeoff: on an existing instance the ARN is null until managed credentials are enabled
+  # out of band, and a null secret_id aborts the whole root's plan. See README.
   read_managed_secret = var.manage_master_user_password && var.expose_managed_master_password
 
   manage_master_secret_rotation = var.manage_master_user_password && (
