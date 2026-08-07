@@ -31,7 +31,7 @@ output "db_password" {
 
 output "db_password_secret_arn" {
   description = "The ARN of the AWS Secrets Manager secret storing the database password"
-  value       = var.manage_master_user_password ? module.main_db_instance.master_user_secret_arn : try(aws_secretsmanager_secret_version.this[0].arn, null)
+  value       = var.manage_master_user_password ? local.managed_secret_arn : try(aws_secretsmanager_secret_version.this[0].arn, null)
 }
 
 output "db_port" {

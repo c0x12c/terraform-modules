@@ -222,10 +222,8 @@ variable "master_user_secret_rotation_days" {
   type        = number
   default     = null
 
-  # Null default is deliberate and load-bearing. Any concrete default would silently
-  # re-cadence every existing managed instance the moment this module version is adopted -
-  # and since RDS's own default is 7 days, a default of 30 would LOOSEN rotation on
-  # adoption rather than tighten it. Opting in is the only safe shape.
+  # Null, not a number: a concrete default re-cadences every managed instance on version
+  # bump, and against RDS's own 7 days any usual value loosens rotation rather than tightens.
   validation {
     condition     = var.master_user_secret_rotation_days == null || var.manage_master_user_password
     error_message = "master_user_secret_rotation_days requires manage_master_user_password: there is no AWS-managed secret to re-cadence when Terraform owns the password."
@@ -271,8 +269,8 @@ variable "master_user_secret_rotation_duration" {
   type        = string
   default     = null
 
-  # A window with no schedule to anchor it is a no-op that reads like it does something,
-  # and the module would not create the rotation resource at all - fail instead of ignoring.
+  # A duration alone creates no rotation resource at all, so it would read as configured
+  # while doing nothing. Fail rather than ignore it.
   validation {
     condition = var.master_user_secret_rotation_duration == null || (
       var.master_user_secret_rotation_days != null || var.master_user_secret_rotation_schedule != null
