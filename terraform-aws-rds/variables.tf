@@ -217,6 +217,76 @@ variable "master_user_secret_kms_key_id" {
   default     = null
 }
 
+variable "master_user_secret_rotation_days" {
+  description = "Rotate the managed master secret every N days. Null (the default) leaves RDS's own cadence alone, which is every 7 days. Mutually exclusive with master_user_secret_rotation_schedule. Only meaningful with manage_master_user_password."
+  type        = number
+  default     = null
+
+  # Null default is deliberate and load-bearing. Any concrete default would silently
+  # re-cadence every existing managed instance the moment this module version is adopted -
+  # and since RDS's own default is 7 days, a default of 30 would LOOSEN rotation on
+  # adoption rather than tighten it. Opting in is the only safe shape.
+  validation {
+    condition     = var.master_user_secret_rotation_days == null || var.manage_master_user_password
+    error_message = "master_user_secret_rotation_days requires manage_master_user_password: there is no AWS-managed secret to re-cadence when Terraform owns the password."
+  }
+
+  # Secrets Manager accepts 1-1000 days. Rejecting here beats an apply-time API error.
+  validation {
+    condition = var.master_user_secret_rotation_days == null || (
+      var.master_user_secret_rotation_days >= 1 && var.master_user_secret_rotation_days <= 1000
+    )
+    error_message = "master_user_secret_rotation_days must be between 1 and 1000."
+  }
+
+  # Secrets Manager rejects both: "you can set the rotation schedule in RotationRules with
+  # AutomaticallyAfterDays or ScheduleExpression, but not both."
+  validation {
+    condition     = var.master_user_secret_rotation_days == null || var.master_user_secret_rotation_schedule == null
+    error_message = "master_user_secret_rotation_days and master_user_secret_rotation_schedule are mutually exclusive: Secrets Manager accepts AutomaticallyAfterDays or ScheduleExpression, not both. Use the schedule form to pin rotation to a time of day."
+  }
+}
+
+variable "master_user_secret_rotation_schedule" {
+  description = "A cron() or rate() expression placing rotation of the managed master secret on a specific schedule, in UTC - e.g. cron(0 6 1 * ? *) for 06:00 on the 1st, or rate(10 days). Use instead of master_user_secret_rotation_days when the rotation needs to land at a controlled time rather than N days after the last one."
+  type        = string
+  default     = null
+
+  validation {
+    condition     = var.master_user_secret_rotation_schedule == null || var.manage_master_user_password
+    error_message = "master_user_secret_rotation_schedule requires manage_master_user_password: there is no AWS-managed secret to schedule when Terraform owns the password."
+  }
+
+  # Secrets Manager's own pattern for ScheduleExpression, max length 256.
+  validation {
+    condition = var.master_user_secret_rotation_schedule == null || can(
+      regex("^[0-9A-Za-z()#?*/, -]{1,256}$", var.master_user_secret_rotation_schedule)
+    )
+    error_message = "master_user_secret_rotation_schedule must be a cron() or rate() expression using only the characters Secrets Manager accepts, at most 256 long."
+  }
+}
+
+variable "master_user_secret_rotation_duration" {
+  description = "Length of the rotation window in hours, e.g. \"3h\" - rotation happens at some point inside it. Optional: without it a schedule in hours closes the window after an hour, and a schedule in days closes it at the end of the UTC day. The window must not run into the next UTC day or the next rotation window."
+  type        = string
+  default     = null
+
+  # A window with no schedule to anchor it is a no-op that reads like it does something,
+  # and the module would not create the rotation resource at all - fail instead of ignoring.
+  validation {
+    condition = var.master_user_secret_rotation_duration == null || (
+      var.master_user_secret_rotation_days != null || var.master_user_secret_rotation_schedule != null
+    )
+    error_message = "master_user_secret_rotation_duration needs a schedule to anchor it: also set master_user_secret_rotation_days or master_user_secret_rotation_schedule."
+  }
+
+  # Secrets Manager's Duration pattern is [0-9]+h with a length of 2-3 characters.
+  validation {
+    condition     = var.master_user_secret_rotation_duration == null || can(regex("^[0-9]{1,2}h$", var.master_user_secret_rotation_duration))
+    error_message = "master_user_secret_rotation_duration must be a number of hours followed by h, e.g. \"3h\"."
+  }
+}
+
 variable "expose_managed_master_password" {
   description = "Opt in to resolving the managed secret's plaintext back into the db_password output. Disabled by default to keep the managed password out of Terraform state. Enable managed credentials on the instance before turning this on: on the apply that first enables them the secret does not exist yet, so db_password resolves to null for that run."
   type        = bool

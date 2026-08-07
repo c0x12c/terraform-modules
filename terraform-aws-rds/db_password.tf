@@ -61,3 +61,38 @@ data "aws_secretsmanager_secret_version" "managed" {
 
   secret_id = module.main_db_instance.master_user_secret_arn
 }
+
+resource "aws_secretsmanager_secret_rotation" "managed" {
+  # Deliberately gated on static inputs only, NOT on the ARN being non-null like the data
+  # source above. `count` must be known at plan time, and on a greenfield create the ARN is
+  # unknown - an ARN-based gate fails with "Invalid count argument" and blocks creating a new
+  # instance with managed credentials at all. A resource ARGUMENT accepts an unknown value,
+  # so passing the ARN straight through is fine there.
+  #
+  # The case this does not cover is flipping manage_master_user_password to true in Terraform
+  # WITHOUT first enabling it out of band: the ARN is then known-null and this errors. That is
+  # the sequence the README already tells you not to use, and under the documented two-step the
+  # ARN is always populated by the time Terraform reads it.
+  count = var.manage_master_user_password && (
+    var.master_user_secret_rotation_days != null ||
+    var.master_user_secret_rotation_schedule != null
+  ) ? 1 : 0
+
+  secret_id = module.main_db_instance.master_user_secret_arn
+
+  # Explicitly false: the provider defaults this to TRUE, so omitting it would rotate the
+  # master password immediately on the apply that adopts this variable - an unannounced
+  # credential change on every managed instance at once. Callers who want an immediate
+  # rotation should do it out of band.
+  rotate_immediately = false
+
+  rotation_rules {
+    automatically_after_days = var.master_user_secret_rotation_days
+    schedule_expression      = var.master_user_secret_rotation_schedule
+    duration                 = var.master_user_secret_rotation_duration
+  }
+
+  # No rotation_lambda_arn: the secret is RDS-owned, so RDS performs the rotation itself.
+  # Verified against a live RDS-owned secret (OwningService: rds) - describe-secret reports
+  # RotationEnabled true with AutomaticallyAfterDays applied and RotationLambdaARN absent.
+}

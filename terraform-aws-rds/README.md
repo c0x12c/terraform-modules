@@ -66,11 +66,38 @@ Setting `manage_master_user_password` back to `false` is a second credential rot
 
 ### Operability
 
-AWS rotates the managed secret on its own schedule, every seven days by default. Seven days is a default, not a fixed value, and this module does not expose it. To change the cadence, address the secret directly with `aws_secretsmanager_secret_rotation` against `db_password_secret_arn`. No rotation Lambda is involved: `rotation_lambda_arn` is optional and the provider only sends it when set (verified in 5.100.0 and on the current 6.x line, both inside this module's `>= 5.75` constraint). Set `rotate_immediately = false` unless an immediate rotation is intended, because it defaults to `true`.
+AWS rotates the managed secret on its own schedule, every seven days by default. The module can manage an `aws_secretsmanager_secret_rotation` against that secret so the cadence is codified rather than set by hand. Three inputs, all optional:
 
-Verified against a live RDS-owned secret: `aws secretsmanager rotate-secret --secret-id <arn> --rotation-rules AutomaticallyAfterDays=30 --no-rotate-immediately` was accepted on a secret with `OwningService: rds`, and `describe-secret` then reported the new interval with `NextRotationDate` moved out accordingly, still with no rotation Lambda attached. Two things that check did not cover: it used an administrator principal, and RDS requires `secretsmanager:RotateSecret` for this, so a least-privilege CI role may need that permission added; and whether RDS re-asserts its own default after a later scheduled rotation was not observed. Rotation can silently stop - the secret's `SecretStatus` moves to `impaired` after, say, an IAM or KMS permission change - with no application-visible symptom until the next authentication after a failed rotation. Alarm on the secret's status; the ARN is available from `db_password_secret_arn`.
+| Input | Purpose |
+|---|---|
+| `master_user_secret_rotation_days` | Rotate every N days, counted from the last rotation. |
+| `master_user_secret_rotation_schedule` | A `cron()` or `rate()` expression, in UTC, when rotation must land at a controlled time rather than N days after the last one. |
+| `master_user_secret_rotation_duration` | Length of the rotation window, e.g. `"3h"`. Rotation happens at some point inside it. |
 
-Enabling this requires the applying principal to hold `secretsmanager:CreateSecret`, `secretsmanager:TagResource`, and `kms:DescribeKey`, plus `kms:Decrypt`, `kms:GenerateDataKey`, and `kms:CreateGrant` when using a customer-managed key.
+`master_user_secret_rotation_days` and `master_user_secret_rotation_schedule` are mutually exclusive - Secrets Manager accepts `AutomaticallyAfterDays` or `ScheduleExpression`, never both - and the module rejects the combination at plan time.
+
+Pick the interval form when you only care how often, and the schedule form when you care when. Rotation briefly changes the master credential, so a window matters if that has to avoid a traffic peak or a batch job:
+
+```hcl
+# every 30 days, whenever AWS chooses within that day
+master_user_secret_rotation_days = 30
+
+# 06:00 UTC on the 1st of each month, finishing within two hours
+master_user_secret_rotation_schedule = "cron(0 6 1 * ? *)"
+master_user_secret_rotation_duration = "2h"
+```
+
+The window is anchored by the schedule and must not run into the next UTC day or the next rotation window. Without a duration, an hourly schedule closes the window after an hour and a daily one closes it at the end of the UTC day.
+
+Leave all three `null` (the default) to keep RDS's own seven-day cadence. The null default matters on adoption: because seven days is already tighter than most explicit choices, a built-in default of, say, thirty would *loosen* rotation on every managed instance the moment this module version is bumped. Opting in keeps that a deliberate decision.
+
+The module always sends `rotate_immediately = false`. The provider defaults it to `true`, so managing this without pinning it would rotate the master password on the apply that adopts the variable - an unannounced credential change across every managed instance at once. Rotate out of band if you want one immediately.
+
+No rotation Lambda is involved: `rotation_lambda_arn` is optional and the provider only sends it when set (verified in 5.100.0 and on the current 6.x line, both inside this module's `>= 5.75` constraint).
+
+Verified against a live RDS-owned secret: `aws secretsmanager rotate-secret --secret-id <arn> --rotation-rules AutomaticallyAfterDays=30 --no-rotate-immediately` was accepted on a secret with `OwningService: rds`, and `describe-secret` then reported the new interval with `NextRotationDate` moved out accordingly, still with no rotation Lambda attached. Two caveats. That check used an administrator principal, and this call requires `secretsmanager:RotateSecret` - now that the module manages the rotation, a least-privilege CI role needs that permission before it can apply with `master_user_secret_rotation_days` set. And whether RDS re-asserts its own default after a later scheduled rotation was not observed; if it does, the next plan will show drift on this resource rather than failing. Rotation can silently stop - the secret's `SecretStatus` moves to `impaired` after, say, an IAM or KMS permission change - with no application-visible symptom until the next authentication after a failed rotation. Alarm on the secret's status; the ARN is available from `db_password_secret_arn`.
+
+Enabling this requires the applying principal to hold `secretsmanager:CreateSecret`, `secretsmanager:TagResource`, and `kms:DescribeKey`, plus `kms:Decrypt`, `kms:GenerateDataKey`, and `kms:CreateGrant` when using a customer-managed key, and `secretsmanager:RotateSecret` when a rotation schedule is set.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -102,6 +129,7 @@ Enabling this requires the applying principal to hold `secretsmanager:CreateSecr
 | [aws_db_parameter_group.parameter_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_parameter_group) | resource |
 | [aws_db_subnet_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_subnet_group) | resource |
 | [aws_secretsmanager_secret.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret) | resource |
+| [aws_secretsmanager_secret_rotation.managed](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_rotation) | resource |
 | [aws_secretsmanager_secret_version.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version) | resource |
 | [aws_security_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [aws_vpc_security_group_egress_rule.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_egress_rule) | resource |
@@ -134,6 +162,9 @@ Enabling this requires the applying principal to hold `secretsmanager:CreateSecr
 | <a name="input_instance_class"></a> [instance\_class](#input\_instance\_class) | The instance class for the database. | `string` | `"db.m5.large"` | no |
 | <a name="input_manage_master_user_password"></a> [manage\_master\_user\_password](#input\_manage\_master\_user\_password) | Let AWS own and natively rotate the master password in Secrets Manager. Mutually exclusive with a Terraform-generated password. | `bool` | `false` | no |
 | <a name="input_master_user_secret_kms_key_id"></a> [master\_user\_secret\_kms\_key\_id](#input\_master\_user\_secret\_kms\_key\_id) | KMS key for the managed secret; null uses the AWS-managed key. | `string` | `null` | no |
+| <a name="input_master_user_secret_rotation_days"></a> [master\_user\_secret\_rotation\_days](#input\_master\_user\_secret\_rotation\_days) | Rotate the managed master secret every N days. Null (the default) leaves RDS's own cadence alone, which is every 7 days. Mutually exclusive with master\_user\_secret\_rotation\_schedule. Only meaningful with manage\_master\_user\_password. | `number` | `null` | no |
+| <a name="input_master_user_secret_rotation_duration"></a> [master\_user\_secret\_rotation\_duration](#input\_master\_user\_secret\_rotation\_duration) | Length of the rotation window in hours, e.g. "3h" - rotation happens at some point inside it. Optional: without it a schedule in hours closes the window after an hour, and a schedule in days closes it at the end of the UTC day. The window must not run into the next UTC day or the next rotation window. | `string` | `null` | no |
+| <a name="input_master_user_secret_rotation_schedule"></a> [master\_user\_secret\_rotation\_schedule](#input\_master\_user\_secret\_rotation\_schedule) | A cron() or rate() expression placing rotation of the managed master secret on a specific schedule, in UTC - e.g. cron(0 6 1 * ? *) for 06:00 on the 1st, or rate(10 days). Use instead of master\_user\_secret\_rotation\_days when the rotation needs to land at a controlled time rather than N days after the last one. | `string` | `null` | no |
 | <a name="input_max_allocated_storage"></a> [max\_allocated\_storage](#input\_max\_allocated\_storage) | The upper limit (in GB) to which Amazon RDS can automatically scale the storage of the DB instance. | `number` | `1000` | no |
 | <a name="input_monitoring_interval"></a> [monitoring\_interval](#input\_monitoring\_interval) | The interval in seconds between points when Enhanced Monitoring metrics are collected for the DB instance. | `number` | `0` | no |
 | <a name="input_multi_az"></a> [multi\_az](#input\_multi\_az) | Indicates whether the database instance should be deployed across multiple availability zones. | `bool` | `false` | no |
