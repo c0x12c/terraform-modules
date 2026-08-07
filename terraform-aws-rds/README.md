@@ -14,12 +14,13 @@ This module will create the following components:
 ```hcl
 module "instance" {
   source  = "terraform.c0x12c.com/c0x12c/rds/aws"
-  version = "0.6.6"
+  version = "0.7.0"
 
   db_name                             = "example_rds"
   db_username                         = "exampleuser"
-  instance_class                      = "db.t3.micro"
-  disk_size                           = 10
+  engine_version                      = "18.4"
+  instance_class                      = "db.t4g.micro"
+  disk_size                           = 20
   iam_database_authentication_enabled = false
   replica_count                       = 0
   vpc_id                              = "vpc-123456789"
@@ -27,6 +28,10 @@ module "instance" {
   storage_type                        = "gp3"
 }
 ```
+
+Set `engine_version` explicitly. The module's own default trails the versions AWS keeps
+orderable, and a retired minor version fails at `CreateDBInstance` rather than at plan.
+`db.t4g.micro` on `gp3` is the cheapest orderable combination for a scratch instance.
 
 ## Examples
 
@@ -125,17 +130,17 @@ Terraform only re-reads the managed secret during `apply`, so any downstream con
 
 When `manage_master_user_password = true` and `expose_managed_master_password = false` (the default), the `db_password` output is intentionally `null`. Use `db_password_secret_arn` to discover the AWS-managed secret instead.
 
-### Enabling both flags takes two steps
+### New instances are fine; enabling on an existing one takes two steps
 
-RDS creates the managed secret as part of enabling managed credentials, so on the apply that first turns `manage_master_user_password` on, the secret ARN is still empty. The module gates its read of that secret on the ARN being non-null, which means `db_password` resolves to `null` for that one run - a caller writing it into a Kubernetes Secret would write an empty value.
+On a **new** instance, set `manage_master_user_password` and `expose_managed_master_password` together and apply once. The instance and its managed secret are created during that apply, so the secret is readable by the time the module reads it and `db_password` resolves normally. Verified end to end against a real instance.
 
-Enable managed credentials on the instance first, out of band:
+On an **existing** instance, enable managed credentials out of band first:
 
 ```
 aws rds modify-db-instance --db-instance-identifier <id> --manage-master-user-password --apply-immediately
 ```
 
-Then set `manage_master_user_password = true` and `expose_managed_master_password = true` together. The ARN is in state by the time the module reads it. Without the gate this ordering was not merely advisable: passing a null `secret_id` is a hard plan error, which in a shared single-root root module aborts the plan for every other service too.
+Then turn the flags on. The difference is that Terraform refreshes the existing instance before planning and sees no managed secret, so the ARN reads as `null` rather than as not-yet-known - and a `null` `secret_id` is a hard plan error that aborts the plan for every other resource in the root, not just this one. Enabling out of band first means the ARN already exists when Terraform looks.
 
 ### Constraints
 
@@ -178,7 +183,29 @@ The module always sends `rotate_immediately = false`. The provider defaults it t
 
 No rotation Lambda is involved: `rotation_lambda_arn` is optional and the provider only sends it when set (verified in 5.100.0 and on the current 6.x line, both inside this module's `>= 5.75` constraint).
 
-Verified against a live RDS-owned secret: `aws secretsmanager rotate-secret --secret-id <arn> --rotation-rules AutomaticallyAfterDays=30 --no-rotate-immediately` was accepted on a secret with `OwningService: rds`, and `describe-secret` then reported the new interval with `NextRotationDate` moved out accordingly, still with no rotation Lambda attached. Two caveats. That check used an administrator principal, and this call requires `secretsmanager:RotateSecret` - now that the module manages the rotation, a least-privilege CI role needs that permission before it can apply with `master_user_secret_rotation_days` set. And whether RDS re-asserts its own default after a later scheduled rotation was not observed; if it does, the next plan will show drift on this resource rather than failing. Rotation can silently stop - the secret's `SecretStatus` moves to `impaired` after, say, an IAM or KMS permission change - with no application-visible symptom until the next authentication after a failed rotation. Alarm on the secret's status; the ARN is available from `db_password_secret_arn`.
+### Knowing when rotation breaks
+
+Rotation failing is silent. The secret stops rotating - typically after an IAM or KMS permission change moves its status to `impaired` - nothing fails at the time, and the first symptom is an authentication error much later with nothing pointing back to the cause.
+
+Set `master_user_secret_rotation_failure_sns_topic_arn` and the module wires an EventBridge rule for `RotationFailed` and `RotationAbandoned` on this secret, targeting your topic:
+
+```hcl
+master_user_secret_rotation_days                  = 30
+master_user_secret_rotation_failure_sns_topic_arn = aws_sns_topic.alerts.arn
+```
+
+The topic's own resource policy must allow `events.amazonaws.com` to publish. That belongs with the topic, not here, so a topic without it drops the notifications silently.
+
+### Verified behaviour
+
+Checked against a real RDS-owned secret rather than inferred:
+
+- Rotation is performed by RDS itself. `describe-secret` reports `RotationEnabled: true` with the configured interval and **no** `RotationLambdaARN`.
+- Rotation events arrive as CloudTrail `AwsServiceEvent` (`detail-type: AWS Service Event via CloudTrail`) and carry the secret ARN at `additionalEventData.SecretId`, which is what the rule above filters on.
+- RDS does **not** re-assert its own cadence after a rotation. Following a forced rotation the configured interval was unchanged, `NextRotationDate` was recalculated from it, and `terraform plan` reported no changes - so this resource does not produce perpetual drift.
+- Creating a new instance with `manage_master_user_password` and `expose_managed_master_password` set together works in a single apply; `db_password` resolves.
+
+One permission caveat: the module's rotation call needs `secretsmanager:RotateSecret`. A least-privilege CI role may not have it yet.
 
 Enabling this requires the applying principal to hold `secretsmanager:CreateSecret`, `secretsmanager:TagResource`, and `kms:DescribeKey`, plus `kms:Decrypt`, `kms:GenerateDataKey`, and `kms:CreateGrant` when using a customer-managed key, and `secretsmanager:RotateSecret` when a rotation schedule is set.
 
@@ -209,6 +236,8 @@ Enabling this requires the applying principal to hold `secretsmanager:CreateSecr
 
 | Name | Type |
 |------|------|
+| [aws_cloudwatch_event_rule.master_secret_rotation_failed](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_rule) | resource |
+| [aws_cloudwatch_event_target.master_secret_rotation_failed](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target) | resource |
 | [aws_db_parameter_group.parameter_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_parameter_group) | resource |
 | [aws_db_subnet_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_subnet_group) | resource |
 | [aws_secretsmanager_secret.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret) | resource |
@@ -247,6 +276,7 @@ Enabling this requires the applying principal to hold `secretsmanager:CreateSecr
 | <a name="input_master_user_secret_kms_key_id"></a> [master\_user\_secret\_kms\_key\_id](#input\_master\_user\_secret\_kms\_key\_id) | KMS key for the managed secret; null uses the AWS-managed key. | `string` | `null` | no |
 | <a name="input_master_user_secret_rotation_days"></a> [master\_user\_secret\_rotation\_days](#input\_master\_user\_secret\_rotation\_days) | Rotate the managed master secret every N days. Null (the default) leaves RDS's own cadence alone, which is every 7 days. Mutually exclusive with master\_user\_secret\_rotation\_schedule. Only meaningful with manage\_master\_user\_password. | `number` | `null` | no |
 | <a name="input_master_user_secret_rotation_duration"></a> [master\_user\_secret\_rotation\_duration](#input\_master\_user\_secret\_rotation\_duration) | Length of the rotation window in hours, e.g. "3h" - rotation happens at some point inside it. Optional: without it a schedule in hours closes the window after an hour, and a schedule in days closes it at the end of the UTC day. The window must not run into the next UTC day or the next rotation window. | `string` | `null` | no |
+| <a name="input_master_user_secret_rotation_failure_sns_topic_arn"></a> [master\_user\_secret\_rotation\_failure\_sns\_topic\_arn](#input\_master\_user\_secret\_rotation\_failure\_sns\_topic\_arn) | SNS topic to notify when rotation of the managed master secret fails or is abandoned. Null disables the notification. Rotation failing is otherwise silent - the secret stops rotating and nothing surfaces until the next authentication after a failed rotation. | `string` | `null` | no |
 | <a name="input_master_user_secret_rotation_schedule"></a> [master\_user\_secret\_rotation\_schedule](#input\_master\_user\_secret\_rotation\_schedule) | A cron() or rate() expression placing rotation of the managed master secret on a specific schedule, in UTC - e.g. cron(0 6 1 * ? *) for 06:00 on the 1st, or rate(10 days). Use instead of master\_user\_secret\_rotation\_days when the rotation needs to land at a controlled time rather than N days after the last one. | `string` | `null` | no |
 | <a name="input_max_allocated_storage"></a> [max\_allocated\_storage](#input\_max\_allocated\_storage) | The upper limit (in GB) to which Amazon RDS can automatically scale the storage of the DB instance. | `number` | `1000` | no |
 | <a name="input_monitoring_interval"></a> [monitoring\_interval](#input\_monitoring\_interval) | The interval in seconds between points when Enhanced Monitoring metrics are collected for the DB instance. | `number` | `0` | no |

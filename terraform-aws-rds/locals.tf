@@ -20,22 +20,24 @@ locals {
 
   managed_secret_arn = module.main_db_instance.master_user_secret_arn
 
-  # Gated on the ARN existing because RDS creates the managed secret while enabling managed
-  # credentials: on the run that first enables them `secret_id = null` is a hard plan error
-  # that aborts the whole root, not just this read. Cost of the gate is that `count` then
-  # depends on the ARN, which is unknown during a create, so a greenfield create fails with
-  # "Invalid count argument". Enable managed credentials out of band first - see README.
-  read_managed_secret = (
-    var.manage_master_user_password &&
-    var.expose_managed_master_password &&
-    local.managed_secret_arn != null
-  )
+  # Both gates below feed a `count`, so they must not reference the managed secret ARN.
+  # `count` has to be known at plan time. The ARN is unknown while an instance is being
+  # created, and gating on it fails every greenfield create with "Invalid count argument".
+  #
+  # The tradeoff: the ARN is null until RDS creates the secret, and `secret_id = null` is a
+  # hard plan error that takes down the whole root. That only happens if you enable
+  # manage_master_user_password in Terraform without enabling it on the instance first.
+  # The README documents that out-of-band step; skipping it fails loudly rather than
+  # silently writing an empty password.
+  read_managed_secret = var.manage_master_user_password && var.expose_managed_master_password
 
-  # Static gate, deliberately unlike read_managed_secret: `count` must be known at plan time
-  # and the ARN is unknown during a create, so gating on it would block greenfield entirely.
-  # A resource argument accepts an unknown value, so the ARN itself passes through fine.
   manage_master_secret_rotation = var.manage_master_user_password && (
     var.master_user_secret_rotation_days != null ||
     var.master_user_secret_rotation_schedule != null
+  )
+
+  notify_master_secret_rotation_failure = (
+    local.manage_master_secret_rotation &&
+    var.master_user_secret_rotation_failure_sns_topic_arn != null
   )
 }

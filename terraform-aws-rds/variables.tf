@@ -264,6 +264,19 @@ variable "master_user_secret_rotation_schedule" {
   }
 }
 
+variable "master_user_secret_rotation_failure_sns_topic_arn" {
+  description = "SNS topic to notify when rotation of the managed master secret fails or is abandoned. Null disables the notification. Rotation failing is otherwise silent - the secret stops rotating and nothing surfaces until the next authentication after a failed rotation."
+  type        = string
+  default     = null
+
+  validation {
+    condition = var.master_user_secret_rotation_failure_sns_topic_arn == null || (
+      var.master_user_secret_rotation_days != null || var.master_user_secret_rotation_schedule != null
+    )
+    error_message = "master_user_secret_rotation_failure_sns_topic_arn needs a rotation schedule to watch: also set master_user_secret_rotation_days or master_user_secret_rotation_schedule."
+  }
+}
+
 variable "master_user_secret_rotation_duration" {
   description = "Length of the rotation window in hours, e.g. \"3h\" - rotation happens at some point inside it. Optional: without it a schedule in hours closes the window after an hour, and a schedule in days closes it at the end of the UTC day. The window must not run into the next UTC day or the next rotation window."
   type        = string
