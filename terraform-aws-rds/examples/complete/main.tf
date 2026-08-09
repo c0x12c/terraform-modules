@@ -3,6 +3,7 @@ module "postgresql" {
 
   db_name                             = "example_rds"
   db_username                         = "exampleuser"
+  engine_version                      = "18.4"
   instance_class                      = "db.t3.micro"
   disk_size                           = 10
   iam_database_authentication_enabled = false
@@ -18,6 +19,7 @@ module "rds_managed_password" {
 
   db_name                     = "example_rds_managed"
   db_username                 = "exampleuser"
+  engine_version              = "18.4"
   instance_class              = "db.t3.micro"
   disk_size                   = 10
   manage_master_user_password = true

@@ -54,9 +54,8 @@ variable "engine" {
 }
 
 variable "engine_version" {
-  description = "The version of Postgres database, default 16.4."
+  description = "The version of the database engine to use. No default - AWS retires minor versions, so the value must be one AWS currently offers (see `aws rds describe-db-engine-versions`)."
   type        = string
-  default     = "16.4"
 }
 
 variable "port" {

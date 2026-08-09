@@ -18,6 +18,7 @@ module "instance" {
 
   db_name                             = "example_rds"
   db_username                         = "exampleuser"
+  engine_version                      = "18.4"
   instance_class                      = "db.t3.micro"
   disk_size                           = 10
   iam_database_authentication_enabled = false
@@ -27,6 +28,8 @@ module "instance" {
   storage_type                        = "gp3"
 }
 ```
+
+`engine_version` is required and has no default. When adopting this module on an EXISTING instance, set it to the version the instance is already running (read via `aws rds describe-db-instances`), not the newest available - a higher value makes terraform attempt an engine upgrade.
 
 ## Examples
 
@@ -71,8 +74,8 @@ Enabling this requires the applying principal to hold `secretsmanager:CreateSecr
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.55.0 |
-| <a name="provider_random"></a> [random](#provider\_random) | 3.9.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.75 |
+| <a name="provider_random"></a> [random](#provider\_random) | >= 3.6 |
 
 ## Modules
 
@@ -113,7 +116,7 @@ Enabling this requires the applying principal to hold `secretsmanager:CreateSecr
 | <a name="input_db_username"></a> [db\_username](#input\_db\_username) | The master username for the database. | `string` | n/a | yes |
 | <a name="input_disk_size"></a> [disk\_size](#input\_disk\_size) | The disk size of the database instance, in gigabytes. | `number` | `20` | no |
 | <a name="input_engine"></a> [engine](#input\_engine) | The database engine to be used (e.g., postgres). | `string` | `"postgres"` | no |
-| <a name="input_engine_version"></a> [engine\_version](#input\_engine\_version) | The version of the database engine to use (default is 16.4). | `string` | `"16.4"` | no |
+| <a name="input_engine_version"></a> [engine\_version](#input\_engine\_version) | The version of the database engine to use. No default - AWS retires minor versions, so the value must be one AWS currently offers (see `aws rds describe-db-engine-versions`). | `string` | n/a | yes |
 | <a name="input_expose_managed_master_password"></a> [expose\_managed\_master\_password](#input\_expose\_managed\_master\_password) | Opt in to resolving the managed secret's plaintext back into the db\_password output. Disabled by default to keep the managed password out of Terraform state. | `bool` | `false` | no |
 | <a name="input_iam_database_authentication_enabled"></a> [iam\_database\_authentication\_enabled](#input\_iam\_database\_authentication\_enabled) | Enable database authentication using AWS IAM. | `bool` | `false` | no |
 | <a name="input_instance_class"></a> [instance\_class](#input\_instance\_class) | The instance class for the database. | `string` | `"db.m5.large"` | no |
