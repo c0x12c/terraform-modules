@@ -45,15 +45,17 @@ def var(name: str, default=None, extra="") -> str:
 def test_declared_default(tmp: Path):
     d = write_module(tmp, "m1", var("engine_version", "16.4"))
     check("reads a declared default",
-          freshness.declared_default(d, "engine_version") == "16.4")
+          freshness.declared_default(d, "engine_version") == (None, "16.4"))
 
     d = write_module(tmp, "m2", var("engine_version"))
-    check("returns None when there is no default",
-          freshness.declared_default(d, "engine_version") is None)
+    check("reports NO_DEFAULT when the variable is required",
+          freshness.declared_default(d, "engine_version")
+          == (freshness.NO_DEFAULT, None))
 
     d = write_module(tmp, "m3", var("other", "1.0"))
-    check("returns None when the variable is absent",
-          freshness.declared_default(d, "engine_version") is None)
+    check("reports NO_VARIABLE when the variable is absent",
+          freshness.declared_default(d, "engine_version")
+          == (freshness.NO_VARIABLE, None))
 
     # A validation block must not be mistaken for the default.
     d = write_module(tmp, "m4", var(
@@ -63,7 +65,19 @@ def test_declared_default(tmp: Path):
               '    error_message = "default = \\"nope\\" in a message"\n'
               '  }'))
     check("picks the real default, not a string inside a validation block",
-          freshness.declared_default(d, "engine_version") == "18.4",
+          freshness.declared_default(d, "engine_version") == (None, "18.4"),
+          freshness.declared_default(d, "engine_version"))
+
+    # The blind spot that must never read as healthy: a default IS declared,
+    # the parser just cannot read it.
+    d = write_module(tmp, "m5",
+                     'variable "engine_version" {\n'
+                     '  type    = number\n'
+                     '  default = 1.32\n'
+                     '}\n')
+    check("an unquoted default is UNPARSED, not 'no default'",
+          freshness.declared_default(d, "engine_version")
+          == (freshness.UNPARSED, None),
           freshness.declared_default(d, "engine_version"))
 
 
@@ -77,6 +91,19 @@ def test_matches():
           freshness._matches("2.13", ["OpenSearch_2.13"]))
     check("empty offering list never matches",
           not freshness._matches("1.0", []))
+
+
+def test_version_sorted():
+    check("16.10 sorts above 16.9, not below",
+          freshness._version_sorted(["16.9", "16.10", "16.4"])[-1] == "16.10",
+          freshness._version_sorted(["16.9", "16.10", "16.4"]))
+    check("OpenSearch_-prefixed versions sort numerically",
+          freshness._version_sorted(
+              ["OpenSearch_2.13", "OpenSearch_2.9"])[-1] == "OpenSearch_2.13")
+    check("k8s minor versions sort numerically",
+          freshness._version_sorted(["1.32", "1.9", "1.30"])[-1] == "1.32")
+    check("mixed text and numbers does not crash",
+          len(freshness._version_sorted(["weird", "1.0"])) == 2)
 
 
 def test_first_useful_line():
@@ -141,6 +168,19 @@ def test_run_checks(tmp: Path, monkeypatched):
     check("a required variable with no default is OK",
           status == "OK" and "no default" in detail, (status, detail))
 
+    # An unreadable default must NOT be reported as "no default" - that would
+    # silently skip the very version the check exists to watch.
+    write_module(root, "terraform-aws-documentdb",
+                 'variable "engine_version" {\n'
+                 '  type    = number\n'
+                 '  default = 5.0\n'
+                 '}\n')
+    results = dict((n, (s, d)) for n, s, d in
+                   freshness.run_checks(root, "us-west-2"))
+    status, _ = results["terraform-aws-documentdb/engine_version"]
+    check("an unparseable default is UNPARSED, never OK",
+          status == "UNPARSED", status)
+
 
 def test_exit_codes(tmp: Path):
     """The real script against a repo with no modules: all SKIP -> exit 0."""
@@ -171,6 +211,7 @@ def main():
         tmp = Path(td)
         test_declared_default(tmp)
         test_matches()
+        test_version_sorted()
         test_first_useful_line()
         test_run_checks(tmp, patcher)
         freshness.offered_versions = original

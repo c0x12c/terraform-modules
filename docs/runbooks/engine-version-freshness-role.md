@@ -73,16 +73,20 @@ because the thing that changes is on AWS's side, not ours.
 2. **Add the GitHub repository secret:**
    - `VERSION_FRESHNESS_ROLE_ARN` = the role ARN from step 1
 
-## Ordering (important)
+## Until the secret exists
 
-Add the secret **before** merging, or **disable the schedule** until it exists.
-With the secret absent, the credential step fails and the run opens an
-`engine-version-freshness` failure issue every Monday - noise that trains
-people to ignore the alert, which is the one failure mode this check cannot
+The workflow **skips** the AWS check when `VERSION_FRESHNESS_ROLE_ARN` is
+absent, logging a warning on the run rather than failing. That is deliberate: a
+cron that opens the same failure issue every Monday for a missing secret trains
+people to ignore the label, which is the one failure mode this check cannot
 afford.
 
-Until the role exists, the workflow is still useful on PRs: the `self-test`
-job runs the checker's unit tests and needs no AWS access.
+The consequence is that until the role is provisioned the check is **not
+protecting anything** - a green (skipped) run does not mean the versions are
+fine. Check the run's warning annotation if you are unsure which state you are
+in.
+
+The PR `self-test` job runs regardless and needs no AWS access.
 
 ## Verify
 

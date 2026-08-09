@@ -20,9 +20,10 @@ schedule with credentials that can do nothing else.
                                                       [--region <region>]
                                                       [--report-file <path>]
 
-Exit 0 when every declared default is still offered, 1 when any is retired or
-a check could not be completed. Stdlib only apart from the `aws` CLI, which
-the GitHub runner already ships.
+Exit 0 when every declared default is still offered, 1 when any is retired,
+unreadable, or could not be checked - an unanswered question is a failure, not
+a pass. Stdlib only apart from the `aws` CLI, which the GitHub runner already
+ships.
 """
 import argparse
 import json
@@ -83,23 +84,41 @@ CHECKS = [
     },
 ]
 
-# `variable "x" { ... default = "y" ... }` - deliberately simple. A default
-# this check cannot parse is reported as UNPARSED, never silently skipped.
+# `variable "x" { ... default = "y" ... }` - deliberately simple.
 _VAR_BLOCK = r'variable\s+"%s"\s*\{(.*?)\n\}'
-_DEFAULT = r'default\s*=\s*"([^"]+)"'
+_DEFAULT_QUOTED = r'^\s*default\s*=\s*"([^"]*)"'
+_DEFAULT_ANY = r'^\s*default\s*='
+
+# declared_default outcomes. "no default" and "there is a default I could not
+# read" must stay distinguishable: the first is healthy, the second is a
+# checker blind spot that has to be reported, not silently passed.
+NO_VARIABLE = "no-variable"
+NO_DEFAULT = "no-default"
+UNPARSED = "unparsed"
 
 
 def declared_default(module_dir: Path, variable: str):
-    """Return the literal default for `variable`, or None if there is none."""
+    """Return (outcome, value).
+
+    outcome is NO_VARIABLE / NO_DEFAULT / UNPARSED, or None when a literal
+    default was read - in which case value holds it.
+    """
     path = module_dir / "variables.tf"
     if not path.exists():
-        return None
+        return NO_VARIABLE, None
     block = re.search(_VAR_BLOCK % re.escape(variable),
                       path.read_text(encoding="utf-8"), re.S)
     if not block:
-        return None
-    found = re.search(_DEFAULT, block.group(1))
-    return found.group(1) if found else None
+        return NO_VARIABLE, None
+    body = block.group(1)
+    found = re.search(_DEFAULT_QUOTED, body, re.M)
+    if found:
+        return None, found.group(1)
+    # A `default =` line the quoted pattern did not match (unquoted number,
+    # heredoc, interpolation). Never report that as "no default".
+    if re.search(_DEFAULT_ANY, body, re.M):
+        return UNPARSED, None
+    return NO_DEFAULT, None
 
 
 def _first_useful_line(output: str, returncode: int) -> str:
@@ -131,6 +150,23 @@ def offered_versions(command):
         return None, "unparseable response: %s" % exc
 
 
+def _version_key(version: str):
+    """Numeric-segment ordering, so 16.10 sorts above 16.9 (lexicographic
+    sorting puts it below, which would name the wrong versions as newest)."""
+    return [int(part) if part.isdigit() else part
+            for part in re.split(r'[._]', version)
+            if part not in ("", "OpenSearch", "Elasticsearch")]
+
+
+def _version_sorted(versions):
+    try:
+        return sorted(versions, key=_version_key)
+    except TypeError:
+        # Mixed numeric/text segments across entries - fall back rather than
+        # crash the whole check over a cosmetic detail.
+        return sorted(versions)
+
+
 def _matches(declared, offered):
     """OpenSearch reports `OpenSearch_2.13`; others report bare versions."""
     if declared in offered:
@@ -149,16 +185,25 @@ def run_checks(root: Path, region: str):
             results.append((name, "SKIP", "module not present in this repo"))
             continue
 
-        declared = declared_default(module_dir, check["variable"])
-        if declared is None:
+        outcome, declared = declared_default(module_dir, check["variable"])
+        if outcome in (NO_VARIABLE, NO_DEFAULT):
             # No default is the *desired* end state (see terraform-aws-rds,
             # where engine_version is required). Nothing can rot.
             results.append((name, "OK", "no default declared - nothing to rot"))
             continue
+        if outcome == UNPARSED:
+            # There IS a default, this checker just cannot read it. Reporting
+            # OK here would be the exact blind spot this check exists to close.
+            results.append((
+                name, "UNPARSED",
+                "a default is declared but could not be parsed - teach "
+                "declared_default() this form, or the version cannot be "
+                "checked"))
+            continue
 
         engine = None
         if check.get("engine_variable"):
-            engine = declared_default(module_dir, check["engine_variable"])
+            _, engine = declared_default(module_dir, check["engine_variable"])
 
         offered, error = offered_versions(check["describe"](region, engine))
         if error:
@@ -170,7 +215,8 @@ def run_checks(root: Path, region: str):
         if _matches(declared, offered):
             results.append((name, "OK", "%s is still offered" % declared))
         else:
-            newest = ", ".join(sorted(offered)[-3:]) if offered else "(none)"
+            newest = ", ".join(_version_sorted(offered)[-3:]) \
+                if offered else "(none)"
             results.append((
                 name, "RETIRED",
                 "default %s is NOT offered in %s. Currently available "
@@ -208,7 +254,7 @@ def main() -> int:
         args.report_file.write_text(render(results, args.region),
                                     encoding="utf-8")
 
-    bad = [r for r in results if r[1] in ("RETIRED", "ERROR")]
+    bad = [r for r in results if r[1] in ("RETIRED", "ERROR", "UNPARSED")]
     if bad:
         print("\n%d of %d checks need attention." % (len(bad), len(results)),
               file=sys.stderr)
