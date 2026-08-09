@@ -1,0 +1,128 @@
+# Assert that the engine versions our modules default to still exist on AWS.
+#
+# This covers a defect class PR-triggered CI structurally cannot catch: the
+# module does not change, AWS does. terraform-aws-rds defaulted to Postgres
+# 16.4 until AWS retired that minor version, at which point every greenfield
+# apply on the module defaults broke - with no PR to attach a test to, and
+# fmt/validate/tflint/plan all still green.
+#
+# Read-only. describe/list calls only; creates nothing.
+name: Engine version freshness
+
+on:
+  schedule:
+    # Weekly, offset from the registry health check so the two crons don't
+    # contend for the same runner minute.
+    - cron: "0 7 * * 1"
+  workflow_dispatch:
+    inputs:
+      region:
+        description: "AWS region to query (version availability is regional)"
+        required: false
+        default: "us-west-2"
+        type: string
+  pull_request:
+    # Self-test: exercise the checker's own logic when the checker changes.
+    # No AWS credentials on a PR, so this runs the unit tests only.
+    paths:
+      - "scripts/check_engine_version_freshness.py"
+      - "scripts/test_check_engine_version_freshness.py"
+      - ".github/workflows/engine-version-freshness.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  self-test:
+    name: Checker self-test
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.x"
+      - name: Run checker unit tests
+        run: python3 scripts/test_check_engine_version_freshness.py
+
+  freshness:
+    name: Engine version freshness
+    if: github.event_name != 'pull_request' && github.repository_owner == 'c0x12c'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      id-token: write # OIDC assume-role; no long-lived keys in this repo
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.x"
+
+      # Until the read-only role is provisioned (see the runbook), skip rather
+      # than fail. A cron that opens the same failure issue every Monday for a
+      # missing secret trains people to ignore the label - the one failure mode
+      # this check cannot afford.
+      - name: Check for the read-only role
+        id: role
+        env:
+          ROLE_ARN: ${{ secrets.VERSION_FRESHNESS_ROLE_ARN }}
+        run: |
+          if [ -n "$ROLE_ARN" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::warning title=engine-version-freshness::VERSION_FRESHNESS_ROLE_ARN is not set - skipping the AWS check. See docs/runbooks/engine-version-freshness-role.md."
+          fi
+
+      - name: Configure AWS credentials
+        if: steps.role.outputs.configured == 'true'
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          # Read-only role: the describe/list calls this check makes and
+          # nothing else. Scoped that tightly precisely because it runs
+          # unattended on a schedule.
+          role-to-assume: ${{ secrets.VERSION_FRESHNESS_ROLE_ARN }}
+          aws-region: ${{ inputs.region || 'us-west-2' }}
+
+      - name: Check declared engine-version defaults
+        if: steps.role.outputs.configured == 'true'
+        run: |
+          python3 scripts/check_engine_version_freshness.py \
+            --region "${{ inputs.region || 'us-west-2' }}" \
+            --report-file freshness-report.md
+
+      - name: Open or refresh failure issue
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create engine-version-freshness --color D93F0B \
+            --description "A module default names a retired engine version" --force || true
+          TITLE="Engine version freshness failure"
+          # Only refresh the automation-owned issue so humans keep incident control.
+          existing=$(gh issue list --state open --label engine-version-freshness \
+            --search "\"$TITLE\" in:title" --json number,author \
+            --jq '[.[] | select(.author.is_bot==true)][0].number // empty')
+          body=$(cat freshness-report.md 2>/dev/null \
+            || echo "Freshness check failed before producing a report.")
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "$body"
+          else
+            gh issue create --title "$TITLE" --label engine-version-freshness --body "$body"
+          fi
+
+      - name: Resolve issue on success
+        if: success() && steps.role.outputs.configured == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TITLE="Engine version freshness failure"
+          # Close only the bot-authored tracker, never a human-filed incident.
+          existing=$(gh issue list --state open --label engine-version-freshness \
+            --search "\"$TITLE\" in:title" --json number,author \
+            --jq '[.[] | select(.author.is_bot==true)][0].number // empty')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "Engine version freshness check passed; closing."
+            gh issue close "$existing"
+          fi

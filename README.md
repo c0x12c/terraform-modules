@@ -41,7 +41,7 @@ flowchart LR
 Steps 1, 3, 5 are the only human actions. Merging the release PR is the
 "ship it" decision; everything after is automated and idempotent.
 
-### Worked example — patch a module
+### Worked example - patch a module
 
 1. Branch and edit, using a [conventional commit](https://www.conventionalcommits.org/):
 
@@ -52,7 +52,7 @@ Steps 1, 3, 5 are the only human actions. Merging the release PR is the
    ```
 
 2. Open the PR. **Module CI** runs `fmt` / `validate` / `tflint` / docs check
-   for `terraform-aws-rds` only — a PR never triggers CI for untouched modules.
+   for `terraform-aws-rds` only - a PR never triggers CI for untouched modules.
 
 3. Merge. **release automation** opens (or updates) a release PR titled
    `chore(master): release terraform-aws-rds 0.6.7` containing the version
@@ -73,12 +73,12 @@ Steps 1, 3, 5 are the only human actions. Merging the release PR is the
 | `chore:`, `docs:`, `ci:`, `refactor:` | no release | no release |
 
 A commit touching a module's files counts toward that module's next version.
-Unmerged release PRs accumulate further commits — one version per merge of the
+Unmerged release PRs accumulate further commits - one version per merge of the
 release PR, not per commit.
 
 ## Cross-module changes
 
-Edit any number of modules in one PR — review and CI are atomic. On merge,
+Edit any number of modules in one PR - review and CI are atomic. On merge,
 release automation opens **one release PR per touched module**
 (independent versions); ship them all or hold some back.
 
@@ -103,7 +103,7 @@ module "service_account" {
 ```
 
 Published artifacts are immutable: releasing the sibling later does **not**
-retroactively change consumers' pins — each consumer re-pins at its own next
+retroactively change consumers' pins - each consumer re-pins at its own next
 release. For a breaking sibling change, update the sibling and its consumers
 in the same PR, then release the sibling first and the consumers after.
 
@@ -124,7 +124,7 @@ terraform fmt -recursive && terraform init -backend=false && terraform validate
 tflint
 ```
 
-**Pin provider upper bounds when a provider release breaks the schema** — a
+**Pin provider upper bounds when a provider release breaks the schema** - a
 floating `>= x` constraint can make `validate` fail without any change on our
 side (e.g. datadog provider 3.80 made `metric_namespace_configs.filters`
 required; fixed with `>= 3.46, < 3.80`).
@@ -137,6 +137,7 @@ required; fixed with `>= 3.46, < 3.80`).
 | Registry publish failure issue opened | The R2 publish failed (assemble / validate / upload). Read the linked run log, fix the cause, then re-run **Registry Publish** via *Actions → Registry Publish → Run workflow* with the module + version. Re-upload is idempotent (same tarball + index merge). |
 | New version not on `terraform.c0x12c.com` | Confirm the Registry Publish run was green and that `vars.R2_BUCKET` / the `R2_*` secrets are set. Check `https://terraform.c0x12c.com/v1/modules/c0x12c/<name>/<provider>/versions`. |
 | Need a dry-run without a release | *Actions → Registry Publish → Run workflow* with `ref: master`, or locally: `python3 scripts/mirror_release.py --module <m> --version <v> --dry-run`. Assembles + validates from the monorepo and uploads nothing. |
+| `engine-version-freshness` issue opened | A module's default engine version is no longer orderable on AWS - greenfield `apply` on that module's defaults is broken today, even though nothing here changed. The issue names the version and the currently-available ones. Prefer making the variable required over bumping the default (a default just rots again); see `terraform-aws-rds`. Setup: `docs/runbooks/engine-version-freshness-role.md`. |
 
 ## Adding a new module
 
@@ -144,7 +145,7 @@ required; fixed with `>= 3.46, < 3.80`).
    `variables.tf`, `outputs.tf`, `versions.tf`, `examples/`).
 2. Add the module to `module-release-config.json` (`packages`) and seed
    `.module-versions.json` with `"0.0.0"`.
-3. Open the PR — Module CI picks the folder up automatically.
+3. Open the PR - Module CI picks the folder up automatically.
 
 No mirror repo or registry registration is needed: once the first release PR
 merges, Registry Publish assembles the folder and uploads it to R2, and it is
@@ -168,12 +169,14 @@ tools/registry/                self-hosted registry (Cloudflare Worker + R2)
   module-release.yml           release automation versioning + publish fan-out
   registry-publish.yml         per-module R2 publish (reusable + manual)
   registry-register.yml        legacy public-registry registration (unused for R2)
+  engine-version-freshness.yml weekly read-only check that the engine versions
+                               our modules default to still exist on AWS
 ```
 
 > **Cutover status:** the monorepo is the source of truth for module code.
 > New releases publish **only** to the self-hosted registry at
-> **`terraform.c0x12c.com`** (Cloudflare Worker + R2, live — see
-> `tools/registry/`). The old public mirror repos are frozen — kept public and
+> **`terraform.c0x12c.com`** (Cloudflare Worker + R2, live - see
+> `tools/registry/`). The old public mirror repos are frozen - kept public and
 > read-only so versions published before the cutover keep resolving via
-> `registry.terraform.io` — and are retired as consumers move to
+> `registry.terraform.io` - and are retired as consumers move to
 > `terraform.c0x12c.com`. New versions do not appear on the public registry.
