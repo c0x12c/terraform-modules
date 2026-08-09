@@ -29,7 +29,7 @@ module "instance" {
 }
 ```
 
-`engine_version` is required and has no default. When adopting this module on an EXISTING instance, set it to the version the instance is already running (read via `aws rds describe-db-instances`), not the newest available - a higher value makes terraform attempt an engine upgrade.
+`engine_version` is required and has no default. When adopting this module on an existing instance, set it to the version the instance is already running (read via `aws rds describe-db-instances`), not the newest available - a higher value makes Terraform attempt an engine upgrade.
 
 ## Examples
 

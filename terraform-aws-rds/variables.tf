@@ -30,6 +30,14 @@ variable "engine" {
 variable "engine_version" {
   description = "The version of the database engine to use. No default - AWS retires minor versions, so the value must be one AWS currently offers (see `aws rds describe-db-engine-versions`)."
   type        = string
+
+  # Shape only. Whether the version still exists is an AWS-side fact that no
+  # local check can answer - this just stops an empty or malformed value from
+  # reaching CreateDBInstance.
+  validation {
+    condition     = can(regex("^[0-9]+(\\.[0-9]+)*$", var.engine_version))
+    error_message = "engine_version must be a version number such as \"18.4\" or \"16.10\", and must be one AWS currently offers (see `aws rds describe-db-engine-versions`)."
+  }
 }
 
 variable "port" {
