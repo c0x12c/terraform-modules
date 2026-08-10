@@ -107,6 +107,11 @@ Rotate it on demand by changing `db_password_rotation_id` to any new value. A da
 db_password_rotation_id = "2026-08"
 ```
 
+There is no "stop rotating" transition: **any** change to the value rotates, including
+clearing it back to `null` after it has been set. To stop rotating, leave the last value in
+place rather than removing the line. Never having set it at all is the only state that never
+rotates.
+
 For an interval rather than a manual bump, drive it from `time_rotating` in the calling configuration. Deliberately not built into the module - it would add a provider dependency for every consumer, including those who never rotate:
 
 ```hcl
@@ -299,7 +304,7 @@ Enabling this requires the applying principal to hold `secretsmanager:CreateSecr
 | <a name="input_cloudwatch_exported_log_types"></a> [cloudwatch\_exported\_log\_types](#input\_cloudwatch\_exported\_log\_types) | List of log types to enable for exporting to CloudWatch logs. If omitted, no logs will be exported. Valid values (depending on engine). MySQL and MariaDB: audit, error, general, slowquery. PostgreSQL: postgresql, upgrade. MSSQL: agent , error. Oracle: alert, audit, listener, trace. | `list(string)` | `null` | no |
 | <a name="input_copy_tags_to_snapshot"></a> [copy\_tags\_to\_snapshot](#input\_copy\_tags\_to\_snapshot) | Indicates whether all instance tags should be copied to snapshots. | `bool` | `true` | no |
 | <a name="input_db_name"></a> [db\_name](#input\_db\_name) | The name of the database. | `string` | n/a | yes |
-| <a name="input_db_password_rotation_id"></a> [db\_password\_rotation\_id](#input\_db\_password\_rotation\_id) | Change this to rotate the generated master password. Any new value regenerates it on the next apply; null (the default) leaves the existing password untouched. Ignored when use\_secret\_manager or manage\_master\_user\_password is set. String rather than number so callers can use a date, e.g. "2026-08". | `string` | `null` | no |
+| <a name="input_db_password_rotation_id"></a> [db\_password\_rotation\_id](#input\_db\_password\_rotation\_id) | Change this to rotate the generated master password. ANY change to this value regenerates the password on the next apply - including clearing it back to null once it has been set, which rotates rather than disabling rotation. Leaving it at the default null forever never rotates. Ignored when use\_secret\_manager or manage\_master\_user\_password is set. String rather than number so callers can use a date, e.g. "2026-08". | `string` | `null` | no |
 | <a name="input_db_subnet_group_name"></a> [db\_subnet\_group\_name](#input\_db\_subnet\_group\_name) | The subnet group name for instance. | `string` | `null` | no |
 | <a name="input_db_username"></a> [db\_username](#input\_db\_username) | The master username for the database. | `string` | n/a | yes |
 | <a name="input_disk_size"></a> [disk\_size](#input\_disk\_size) | The disk size of the database instance, in gigabytes. | `number` | `20` | no |

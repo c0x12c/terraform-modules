@@ -311,7 +311,7 @@ variable "password_length" {
 }
 
 variable "db_password_rotation_id" {
-  description = "Change this to rotate the generated master password. Any new value regenerates it on the next apply; null (the default) leaves the existing password untouched. Ignored when use_secret_manager or manage_master_user_password is set. String rather than number so callers can use a date, e.g. \"2026-08\"."
+  description = "Change this to rotate the generated master password. ANY change to this value regenerates the password on the next apply - including clearing it back to null once it has been set, which rotates rather than disabling rotation. Leaving it at the default null forever never rotates. Ignored when use_secret_manager or manage_master_user_password is set. String rather than number so callers can use a date, e.g. \"2026-08\"."
   type        = string
   default     = null
 }

@@ -1,8 +1,10 @@
 resource "random_password" "this" {
   count = !var.use_secret_manager && !var.manage_master_user_password ? 1 : 0
 
-  # keepers is ForceNew, so unset -> any value replaces the password. Null unless the caller
-  # opts in, otherwise adopting this module version rotates every existing database at once.
+  # keepers is ForceNew, so ANY change to it replaces the password - including going back to
+  # null after a value has been used. There is no "stop rotating" transition: once opted in,
+  # clearing the handle is itself a rotation. Null by default, otherwise adopting this module
+  # version would rotate every existing database at once.
   keepers = var.db_password_rotation_id == null ? null : {
     rotation = var.db_password_rotation_id
   }
