@@ -1,13 +1,25 @@
 locals {
-  eventbridge_rule_name = coalesce(var.eventbridge_rule_name, "${var.name}-notification")
-  sns_topic_name        = coalesce(var.sns_topic_name, "${var.name}-notification")
+  eventbridge_rule_name = coalesce(var.eventbridge_rule_name, "${var.name}-health-notification")
+  sns_topic_name        = coalesce(var.sns_topic_name, "${var.name}-health-notification")
 
-  default_event_pattern = jsonencode({
-    source        = ["aws.health"]
-    "detail-type" = ["AWS Health Event"]
-  })
+  # Drop empty filters — a `detail` key with an empty list matches nothing.
+  health_detail = {
+    for k, v in {
+      eventTypeCategory = var.event_type_categories
+      service           = var.services
+      eventTypeCode     = var.event_type_codes
+    } : k => v if length(v) > 0
+  }
 
-  event_pattern  = coalesce(var.event_pattern, local.default_event_pattern)
+  health_event_pattern = jsonencode(merge(
+    {
+      source        = ["aws.health"]
+      "detail-type" = ["AWS Health Event"]
+    },
+    length(local.health_detail) > 0 ? { detail = local.health_detail } : {}
+  ))
+
+  event_pattern  = coalesce(var.event_pattern, local.health_event_pattern)
   sns_topic_arn  = var.create_sns_topic ? aws_sns_topic.this[0].arn : var.sns_topic_arn
   chatbot_count  = length(var.slack_channels) + length(var.teams_channels)
   create_chatbot = var.create_iam_role && local.chatbot_count > 0

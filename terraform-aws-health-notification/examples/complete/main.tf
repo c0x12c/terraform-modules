@@ -2,10 +2,12 @@ provider "aws" {
   region = "us-west-2"
 }
 
-module "eventbridge_notification" {
+module "health_notification" {
   source = "../../"
 
   name = "example"
+
+  event_type_categories = ["issue", "scheduledChange"]
 
   slack_channels = {
     alerts = {

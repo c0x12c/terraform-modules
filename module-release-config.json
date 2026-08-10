@@ -76,9 +76,6 @@
     "terraform-aws-elasticache": {
       "component": "terraform-aws-elasticache"
     },
-    "terraform-aws-eventbridge-notification": {
-      "component": "terraform-aws-eventbridge-notification"
-    },
     "terraform-aws-eventbridge-slack-notification": {
       "component": "terraform-aws-eventbridge-slack-notification"
     },
@@ -90,6 +87,9 @@
     },
     "terraform-aws-guardduty": {
       "component": "terraform-aws-guardduty"
+    },
+    "terraform-aws-health-notification": {
+      "component": "terraform-aws-health-notification"
     },
     "terraform-aws-helm-argocd": {
       "component": "terraform-aws-helm-argocd"

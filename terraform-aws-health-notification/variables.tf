@@ -10,11 +10,50 @@ variable "tags" {
 }
 
 ################################################################################
+# AWS Health event filter
+################################################################################
+
+variable "event_type_categories" {
+  description = <<-EOT
+    AWS Health event categories to forward: issue, accountNotification,
+    scheduledChange, investigation. Empty forwards every category.
+  EOT
+  type        = list(string)
+  default     = []
+
+  validation {
+    condition = alltrue([
+      for c in var.event_type_categories :
+      contains(["issue", "accountNotification", "scheduledChange", "investigation"], c)
+    ])
+    error_message = "Valid categories are issue, accountNotification, scheduledChange and investigation."
+  }
+}
+
+variable "services" {
+  description = "AWS service codes to forward, e.g. EC2 or RDS. Empty forwards every service."
+  type        = list(string)
+  default     = []
+}
+
+variable "event_type_codes" {
+  description = "Specific AWS Health event type codes to forward, e.g. AWS_EC2_INSTANCE_STORE_DRIVE_PERFORMANCE_DEGRADED. Empty forwards every code."
+  type        = list(string)
+  default     = []
+}
+
+variable "event_pattern" {
+  description = "JSON-encoded event pattern that replaces the generated AWS Health pattern outright. Setting this ignores the filter inputs above."
+  type        = string
+  default     = null
+}
+
+################################################################################
 # EventBridge Rule
 ################################################################################
 
 variable "eventbridge_rule_name" {
-  description = "Name of the EventBridge rule. Defaults to {name}-notification."
+  description = "Name of the EventBridge rule. Defaults to {name}-health-notification."
   type        = string
   default     = null
 }
@@ -22,17 +61,11 @@ variable "eventbridge_rule_name" {
 variable "eventbridge_rule_description" {
   description = "Description of the EventBridge rule."
   type        = string
-  default     = "Forward matched events to the notification topic"
-}
-
-variable "event_pattern" {
-  description = "JSON-encoded event pattern for the EventBridge rule. Defaults to all AWS Health events."
-  type        = string
-  default     = null
+  default     = "Forward AWS Health Dashboard events to the notification topic"
 }
 
 variable "event_bus_name" {
-  description = "Event bus the rule attaches to. Defaults to the account's default bus."
+  description = "Event bus the rule attaches to. Defaults to the account's default bus, which is where AWS Health delivers."
   type        = string
   default     = null
 }
@@ -68,7 +101,7 @@ variable "sns_topic_arn" {
 }
 
 variable "sns_topic_name" {
-  description = "Name of the SNS topic to create. Defaults to {name}-notification."
+  description = "Name of the SNS topic to create. Defaults to {name}-health-notification."
   type        = string
   default     = null
 }
