@@ -14,7 +14,7 @@ This module will create the following components:
 ```hcl
 module "instance" {
   source  = "terraform.c0x12c.com/c0x12c/rds/aws"
-  version = "0.7.0"
+  version = "1.0.0"
 
   db_name                             = "example_rds"
   db_username                         = "exampleuser"
@@ -29,9 +29,45 @@ module "instance" {
 }
 ```
 
-Set `engine_version` explicitly. The module's own default trails the versions AWS keeps
-orderable, and a retired minor version fails at `CreateDBInstance` rather than at plan.
+Set `engine_version` explicitly. The module's default tracks a currently-orderable version,
+but AWS retires minor versions on its own schedule, and a retired one fails at
+`CreateDBInstance` rather than at plan - so a default that was fine when it was written can
+break greenfield creates later with no change on your side. Pinning the value in your own
+config is the only way to control when the engine version moves.
 `db.t4g.micro` on `gp3` is the cheapest orderable combination for a scratch instance.
+
+## Upgrading to 1.0.0
+
+**`engine_version` now defaults to `18.4`** (was the retired `16.4`). Read this before
+taking 1.0.0 on an existing instance.
+
+`allow_major_version_upgrade` defaults to `true`, so if you never set `engine_version`, the
+next `apply` after this upgrade does not error - it performs an **in-place Postgres 16 to 18
+major version upgrade**. That is a real, disruptive operation: it takes the instance offline
+for the duration, and it is not reversible without a restore.
+
+Before upgrading, pin the version the instance is actually running:
+
+```bash
+aws rds describe-db-instances \
+  --db-instance-identifier <your-instance> \
+  --query 'DBInstances[0].EngineVersion' --output text
+```
+
+```hcl
+module "instance" {
+  source  = "terraform.c0x12c.com/c0x12c/rds/aws"
+  version = "1.0.0"
+
+  engine_version = "16.10"  # whatever the command above returned
+  # ...
+}
+```
+
+Then `terraform plan` and confirm no engine change is proposed. Move to 18.4 later as a
+deliberate, scheduled change.
+
+New instances need no action - 18.4 is a good default for a fresh database.
 
 ## Examples
 
