@@ -268,7 +268,7 @@ Enabling this requires the applying principal to hold `secretsmanager:CreateSecr
 | <a name="input_db_username"></a> [db\_username](#input\_db\_username) | The master username for the database. | `string` | n/a | yes |
 | <a name="input_disk_size"></a> [disk\_size](#input\_disk\_size) | The disk size of the database instance, in gigabytes. | `number` | `20` | no |
 | <a name="input_engine"></a> [engine](#input\_engine) | The database engine to be used (e.g., postgres). | `string` | `"postgres"` | no |
-| <a name="input_engine_version"></a> [engine\_version](#input\_engine\_version) | The version of the database engine to use (default is 16.4). | `string` | `"16.4"` | no |
+| <a name="input_engine_version"></a> [engine\_version](#input\_engine\_version) | The version of the database engine to use (default is 18.4). | `string` | `"18.4"` | no |
 | <a name="input_expose_managed_master_password"></a> [expose\_managed\_master\_password](#input\_expose\_managed\_master\_password) | Opt in to resolving the managed secret's plaintext back into the db\_password output. Disabled by default to keep the managed password out of Terraform state. Enable managed credentials on the instance before turning this on: on the apply that first enables them the secret does not exist yet, so db\_password resolves to null for that run. | `bool` | `false` | no |
 | <a name="input_iam_database_authentication_enabled"></a> [iam\_database\_authentication\_enabled](#input\_iam\_database\_authentication\_enabled) | Enable database authentication using AWS IAM. | `bool` | `false` | no |
 | <a name="input_instance_class"></a> [instance\_class](#input\_instance\_class) | The instance class for the database. | `string` | `"db.m5.large"` | no |

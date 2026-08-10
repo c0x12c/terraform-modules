@@ -28,9 +28,9 @@ variable "engine" {
 }
 
 variable "engine_version" {
-  description = "The version of the database engine to use (default is 16.4)."
+  description = "The version of the database engine to use (default is 18.4)."
   type        = string
-  default     = "16.4"
+  default     = "18.4"
 }
 
 variable "port" {
