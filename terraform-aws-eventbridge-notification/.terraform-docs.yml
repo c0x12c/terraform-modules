@@ -1,0 +1,11 @@
+# lockfile: false keeps the Providers table on the versions.tf constraints
+# (>= x, ~> y) instead of the exact versions resolved into .terraform.lock.hcl
+# by the `terraform init` that CI runs before the docs check.
+formatter: markdown table
+
+settings:
+  lockfile: false
+
+output:
+  file: README.md
+  mode: inject

@@ -76,6 +76,9 @@
     "terraform-aws-elasticache": {
       "component": "terraform-aws-elasticache"
     },
+    "terraform-aws-eventbridge-notification": {
+      "component": "terraform-aws-eventbridge-notification"
+    },
     "terraform-aws-eventbridge-slack-notification": {
       "component": "terraform-aws-eventbridge-slack-notification"
     },
