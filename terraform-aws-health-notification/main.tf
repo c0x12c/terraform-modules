@@ -3,13 +3,16 @@ locals {
   sns_topic_name        = coalesce(var.sns_topic_name, "${var.name}-health-notification")
 
   # Drop empty filters — a `detail` key with an empty list matches nothing.
-  health_detail = {
-    for k, v in {
-      eventTypeCategory = var.event_type_categories
-      service           = var.services
-      eventTypeCode     = var.event_type_codes
-    } : k => v if length(v) > 0
-  }
+  health_detail = merge(
+    {
+      for k, v in {
+        eventTypeCategory = var.event_type_categories
+        service           = var.services
+        eventTypeCode     = var.event_type_codes
+      } : k => v if length(v) > 0
+    },
+    var.exclude_backup_events ? { backupEvent = ["false"] } : {}
+  )
 
   health_event_pattern = jsonencode(merge(
     {
@@ -21,8 +24,7 @@ locals {
 
   event_pattern  = coalesce(var.event_pattern, local.health_event_pattern)
   sns_topic_arn  = var.create_sns_topic ? aws_sns_topic.this[0].arn : var.sns_topic_arn
-  chatbot_count  = length(var.slack_channels) + length(var.teams_channels)
-  create_chatbot = var.create_iam_role && local.chatbot_count > 0
+  create_chatbot = var.create_iam_role && length(var.slack_channels) > 0
   chatbot_role   = local.create_chatbot ? aws_iam_role.chatbot[0].arn : var.iam_role_arn
 }
 

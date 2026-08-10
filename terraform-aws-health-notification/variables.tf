@@ -14,10 +14,7 @@ variable "tags" {
 ################################################################################
 
 variable "event_type_categories" {
-  description = <<-EOT
-    AWS Health event categories to forward: issue, accountNotification,
-    scheduledChange, investigation. Empty forwards every category.
-  EOT
+  description = "Categories to forward: issue, accountNotification, scheduledChange, investigation. Empty forwards all."
   type        = list(string)
   default     = []
 
@@ -40,6 +37,12 @@ variable "event_type_codes" {
   description = "Specific AWS Health event type codes to forward, e.g. AWS_EC2_INSTANCE_STORE_DRIVE_PERFORMANCE_DEGRADED. Empty forwards every code."
   type        = list(string)
   default     = []
+}
+
+variable "exclude_backup_events" {
+  description = "Drop backup copies of other Regions' events. us-west-2 backs up all Regions and us-east-1 backs up us-west-2, so rules there see duplicates."
+  type        = bool
+  default     = false
 }
 
 variable "event_pattern" {
@@ -117,11 +120,7 @@ variable "sns_kms_master_key_id" {
 ################################################################################
 
 variable "subscriptions" {
-  description = <<-EOT
-    Plain SNS subscriptions keyed by an arbitrary name — email, https webhook,
-    lambda, sqs, and so on. Non-confirming protocols such as email stay pending
-    until the recipient accepts the subscription.
-  EOT
+  description = "Plain SNS subscriptions keyed by name: email, https, lambda, sqs. Email stays pending until the recipient confirms."
   type = map(object({
     protocol             = string
     endpoint             = string
@@ -137,34 +136,10 @@ variable "subscriptions" {
 ################################################################################
 
 variable "slack_channels" {
-  description = <<-EOT
-    AWS Chatbot Slack channel configurations keyed by an arbitrary name.
-    workspace_id is the Slack team ID returned when Chatbot is authorized
-    against the workspace, which must be done once in the console.
-  EOT
+  description = "Chatbot Slack channel configs keyed by name. workspace_id is the Slack team ID from the console authorization."
   type = map(object({
     workspace_id                = string
     channel_id                  = string
-    configuration_name          = optional(string)
-    logging_level               = optional(string, "ERROR")
-    guardrail_policy_arns       = optional(list(string), [])
-    user_authorization_required = optional(bool, false)
-    iam_role_arn                = optional(string)
-  }))
-  default = {}
-}
-
-variable "teams_channels" {
-  description = <<-EOT
-    AWS Chatbot Microsoft Teams channel configurations keyed by an arbitrary
-    name. The Teams client must be authorized once in the console first.
-  EOT
-  type = map(object({
-    team_id                     = string
-    channel_id                  = string
-    tenant_id                   = string
-    team_name                   = optional(string)
-    channel_name                = optional(string)
     configuration_name          = optional(string)
     logging_level               = optional(string, "ERROR")
     guardrail_policy_arns       = optional(list(string), [])

@@ -4,8 +4,8 @@ terraform {
   required_providers {
     aws = {
       source = "hashicorp/aws"
-      # aws_chatbot_teams_channel_configuration landed in 5.62.
-      version = ">= 5.62, < 7.0.0"
+      # aws_chatbot_slack_channel_configuration landed in 5.61.
+      version = ">= 5.61, < 7.0.0"
     }
   }
 }

@@ -37,8 +37,3 @@ output "slack_channel_arns" {
   description = "ARNs of the Chatbot Slack channel configurations, keyed as in var.slack_channels."
   value       = { for k, v in aws_chatbot_slack_channel_configuration.this : k => v.chat_configuration_arn }
 }
-
-output "teams_channel_arns" {
-  description = "ARNs of the Chatbot Teams channel configurations, keyed as in var.teams_channels."
-  value       = { for k, v in aws_chatbot_teams_channel_configuration.this : k => v.chat_configuration_arn }
-}

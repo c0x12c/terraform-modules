@@ -40,7 +40,7 @@ module "example" {
 | `terraform-aws-github-oidc` | `terraform.c0x12c.com/c0x12c/github-oidc/aws` | 1.0.1 | This [Terraform](https://www.terraform.io/) module manages OpenID Connect (OIDC) integration |
 | `terraform-aws-github-self-hosted-runners` | `terraform.c0x12c.com/c0x12c/github-self-hosted-runners/aws` | 0.1.66 | Terraform module which creates resources for managing GitHub Actions Self-Hosted Runners on AWS. |
 | `terraform-aws-guardduty` | `terraform.c0x12c.com/c0x12c/guardduty/aws` | 0.1.23 | Terraform module which creates GuardDuty resources on AWS. |
-| `terraform-aws-health-notification` | `terraform.c0x12c.com/c0x12c/health-notification/aws` | 0.0.0 | Delivers AWS Health Dashboard events to Slack, Teams, email, or any SNS subscriber. |
+| `terraform-aws-health-notification` | `terraform.c0x12c.com/c0x12c/health-notification/aws` | 0.0.0 | Delivers AWS Health Dashboard events to Slack, email, or any SNS subscriber. |
 | `terraform-aws-helm-argocd` | `terraform.c0x12c.com/c0x12c/helm-argocd/aws` | 1.4.1 | Terraform module which install an ArgoCD to EKS cluster and configure the necessary role and permissions. |
 | `terraform-aws-helm-aws-lb-controller` | `terraform.c0x12c.com/c0x12c/helm-aws-lb-controller/aws` | 1.2.1 | Terraform module which install an ALB Controller to EKS cluster and configure the necessary role and permis... |
 | `terraform-aws-helm-datadog` | `terraform.c0x12c.com/c0x12c/helm-datadog/aws` | 0.10.1 | This module helps install and configure Datadog agents for EKS cluster via Helm chart. |

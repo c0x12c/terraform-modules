@@ -1,29 +1,30 @@
 # terraform-aws-health-notification
 
-Delivers AWS Health Dashboard events to Slack, Teams, email, or any SNS subscriber.
-
-AWS publishes account and service health notices — degraded services, scheduled
-maintenance, expiring certificates, planned EC2 retirements — to EventBridge.
-This module picks them up and fans them out to whichever channels the team reads,
-with no Lambda in the path.
+Delivers AWS Health Dashboard events to Slack, email, or any SNS subscriber.
 
 ```
 AWS Health ──► EventBridge rule ──► SNS topic ──┬─► AWS Chatbot (Slack)
-                                                ├─► AWS Chatbot (Microsoft Teams)
                                                 ├─► email
                                                 ├─► https webhook
                                                 └─► lambda / sqs
 ```
 
-Every delivery input is a map, so channels can be added or dropped without
-touching the rule.
+Delivery inputs are maps — add or drop channels without touching the rule.
 
 ## Prerequisites
 
-AWS Chatbot must already be authorized against the Slack workspace or Teams
-tenant. Do this once per account in the console (Chatbot → Configure new client);
-the OAuth handshake cannot be done from Terraform. The IDs it returns are the
-`workspace_id` / `team_id` inputs. Channels other than Chatbot need no setup.
+Chatbot needs manual setup first. Skipping a step gives a config that applies
+cleanly but never delivers.
+
+1. Slack: add the *Amazon Q Developer* app. Needs workspace admin approval.
+2. AWS console → Amazon Q Developer in chat applications → *Configure new client*
+   → Slack → *Allow*. Once per account. Gives you `workspace_id`.
+3. In the channel: `/invite @Amazon Q`. **Easiest step to miss — without it
+   Terraform still reports success and nothing arrives.**
+4. Channel ID, not name: right-click channel → *Copy Link* → trailing segment
+   (`C0XXXXXXX`). Private channels work once the bot is invited.
+
+Email, https, lambda and sqs need no setup. No paid AWS Support plan required.
 
 ## Usage
 
@@ -54,8 +55,7 @@ module "health_notification" {
 }
 ```
 
-Every health event is forwarded by default. Narrow it down by category, service,
-or event type code:
+All events are forwarded by default. To narrow:
 
 ```hcl
 event_type_categories = ["issue", "scheduledChange"]
@@ -64,22 +64,27 @@ services              = ["EC2", "RDS", "EKS"]
 
 ## Notes
 
-- **Regional scope.** An EventBridge rule only sees events delivered to its own
-  region. AWS Health publishes account-level and global-service events to
-  **us-east-1** regardless of where the affected resource lives, so deploy a
-  second instance with a provider aliased to `us-east-1` to catch those.
-- **Organizational view.** This module reads the health feed of the account it
-  runs in. Aggregating member accounts needs AWS Health organizational view plus
-  event forwarding into the management account's bus, which is out of scope here.
-- **Input transformer.** `input_transformer` reshapes the payload before it
-  reaches SNS. Chatbot needs the raw event to render a card, so leave it null
-  whenever a Chatbot channel is attached.
-- **Email subscriptions** stay `pending confirmation` until the recipient clicks
-  the confirmation link; Terraform reports them as created either way.
-- Reach for
+Region coverage — a rule only sees its own Region, and Regions differ:
+
+- **us-west-2** — account-specific events from every standard-partition Region.
+  Public events excluded.
+- **us-east-1** — the only Region receiving global events (e.g. IAM). Deploy a
+  second instance with an aliased provider to catch them.
+- Both back up other Regions, so both see duplicates. Set
+  `exclude_backup_events = true`, or de-duplicate on `detail.communicationId`.
+
+Other:
+
+- Public events can take up to an hour to start flowing after apply.
+- Organizational view (member accounts) is out of scope — needs event forwarding
+  into the management account's bus.
+- `input_transformer` breaks Chatbot cards. Leave null when a Chatbot channel is
+  attached.
+- Email subscriptions stay `pending confirmation` until the recipient clicks
+  through; Terraform reports them created regardless.
+- Need a custom message body? Use
   [`terraform-aws-eventbridge-slack-notification`](../terraform-aws-eventbridge-slack-notification)
-  instead when the message body needs custom formatting — that module renders
-  events with a Lambda and an incoming webhook.
+  instead — Lambda plus incoming webhook.
 
 ## Examples
 
@@ -91,13 +96,13 @@ See [`examples/complete`](examples/complete) for a runnable example.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.8 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.62, < 7.0.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.61, < 7.0.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.62, < 7.0.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.61, < 7.0.0 |
 
 ## Modules
 
@@ -108,7 +113,6 @@ No modules.
 | Name | Type |
 |------|------|
 | [aws_chatbot_slack_channel_configuration.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/chatbot_slack_channel_configuration) | resource |
-| [aws_chatbot_teams_channel_configuration.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/chatbot_teams_channel_configuration) | resource |
 | [aws_cloudwatch_event_rule.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_rule) | resource |
 | [aws_cloudwatch_event_target.sns](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target) | resource |
 | [aws_iam_role.chatbot](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
@@ -127,23 +131,23 @@ No modules.
 | <a name="input_create_sns_topic"></a> [create\_sns\_topic](#input\_create\_sns\_topic) | Whether to create the SNS topic. Set false to publish into an existing topic. | `bool` | `true` | no |
 | <a name="input_event_bus_name"></a> [event\_bus\_name](#input\_event\_bus\_name) | Event bus the rule attaches to. Defaults to the account's default bus, which is where AWS Health delivers. | `string` | `null` | no |
 | <a name="input_event_pattern"></a> [event\_pattern](#input\_event\_pattern) | JSON-encoded event pattern that replaces the generated AWS Health pattern outright. Setting this ignores the filter inputs above. | `string` | `null` | no |
-| <a name="input_event_type_categories"></a> [event\_type\_categories](#input\_event\_type\_categories) | AWS Health event categories to forward: issue, accountNotification,<br/>scheduledChange, investigation. Empty forwards every category. | `list(string)` | `[]` | no |
+| <a name="input_event_type_categories"></a> [event\_type\_categories](#input\_event\_type\_categories) | Categories to forward: issue, accountNotification, scheduledChange, investigation. Empty forwards all. | `list(string)` | `[]` | no |
 | <a name="input_event_type_codes"></a> [event\_type\_codes](#input\_event\_type\_codes) | Specific AWS Health event type codes to forward, e.g. AWS\_EC2\_INSTANCE\_STORE\_DRIVE\_PERFORMANCE\_DEGRADED. Empty forwards every code. | `list(string)` | `[]` | no |
 | <a name="input_eventbridge_rule_description"></a> [eventbridge\_rule\_description](#input\_eventbridge\_rule\_description) | Description of the EventBridge rule. | `string` | `"Forward AWS Health Dashboard events to the notification topic"` | no |
 | <a name="input_eventbridge_rule_name"></a> [eventbridge\_rule\_name](#input\_eventbridge\_rule\_name) | Name of the EventBridge rule. Defaults to {name}-health-notification. | `string` | `null` | no |
+| <a name="input_exclude_backup_events"></a> [exclude\_backup\_events](#input\_exclude\_backup\_events) | Drop backup copies of other Regions' events. us-west-2 backs up all Regions and us-east-1 backs up us-west-2, so rules there see duplicates. | `bool` | `false` | no |
 | <a name="input_iam_policy_arns"></a> [iam\_policy\_arns](#input\_iam\_policy\_arns) | Managed policy ARNs attached to the created Chatbot role. | `list(string)` | <pre>[<br/>  "arn:aws:iam::aws:policy/AmazonQDeveloperAccess",<br/>  "arn:aws:iam::aws:policy/ReadOnlyAccess"<br/>]</pre> | no |
 | <a name="input_iam_role_arn"></a> [iam\_role\_arn](#input\_iam\_role\_arn) | ARN of an existing IAM role for AWS Chatbot, used by any channel that does not set its own iam\_role\_arn. | `string` | `null` | no |
 | <a name="input_iam_role_name"></a> [iam\_role\_name](#input\_iam\_role\_name) | Name of the IAM role to create. Defaults to {name}-chatbot-role. | `string` | `null` | no |
 | <a name="input_input_transformer"></a> [input\_transformer](#input\_input\_transformer) | Optional input transformer applied before publishing to SNS. Chatbot needs the raw event, so leave null when a Chatbot channel is attached. | <pre>object({<br/>    input_paths    = map(string)<br/>    input_template = string<br/>  })</pre> | `null` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name prefix applied to created resources. | `string` | n/a | yes |
 | <a name="input_services"></a> [services](#input\_services) | AWS service codes to forward, e.g. EC2 or RDS. Empty forwards every service. | `list(string)` | `[]` | no |
-| <a name="input_slack_channels"></a> [slack\_channels](#input\_slack\_channels) | AWS Chatbot Slack channel configurations keyed by an arbitrary name.<br/>workspace\_id is the Slack team ID returned when Chatbot is authorized<br/>against the workspace, which must be done once in the console. | <pre>map(object({<br/>    workspace_id                = string<br/>    channel_id                  = string<br/>    configuration_name          = optional(string)<br/>    logging_level               = optional(string, "ERROR")<br/>    guardrail_policy_arns       = optional(list(string), [])<br/>    user_authorization_required = optional(bool, false)<br/>    iam_role_arn                = optional(string)<br/>  }))</pre> | `{}` | no |
+| <a name="input_slack_channels"></a> [slack\_channels](#input\_slack\_channels) | Chatbot Slack channel configs keyed by name. workspace\_id is the Slack team ID from the console authorization. | <pre>map(object({<br/>    workspace_id                = string<br/>    channel_id                  = string<br/>    configuration_name          = optional(string)<br/>    logging_level               = optional(string, "ERROR")<br/>    guardrail_policy_arns       = optional(list(string), [])<br/>    user_authorization_required = optional(bool, false)<br/>    iam_role_arn                = optional(string)<br/>  }))</pre> | `{}` | no |
 | <a name="input_sns_kms_master_key_id"></a> [sns\_kms\_master\_key\_id](#input\_sns\_kms\_master\_key\_id) | KMS key ID or alias used to encrypt the created SNS topic. Null leaves the topic unencrypted. | `string` | `null` | no |
 | <a name="input_sns_topic_arn"></a> [sns\_topic\_arn](#input\_sns\_topic\_arn) | ARN of an existing SNS topic. Required when create\_sns\_topic is false. | `string` | `null` | no |
 | <a name="input_sns_topic_name"></a> [sns\_topic\_name](#input\_sns\_topic\_name) | Name of the SNS topic to create. Defaults to {name}-health-notification. | `string` | `null` | no |
-| <a name="input_subscriptions"></a> [subscriptions](#input\_subscriptions) | Plain SNS subscriptions keyed by an arbitrary name — email, https webhook,<br/>lambda, sqs, and so on. Non-confirming protocols such as email stay pending<br/>until the recipient accepts the subscription. | <pre>map(object({<br/>    protocol             = string<br/>    endpoint             = string<br/>    raw_message_delivery = optional(bool, false)<br/>    filter_policy        = optional(string)<br/>    filter_policy_scope  = optional(string)<br/>  }))</pre> | `{}` | no |
+| <a name="input_subscriptions"></a> [subscriptions](#input\_subscriptions) | Plain SNS subscriptions keyed by name: email, https, lambda, sqs. Email stays pending until the recipient confirms. | <pre>map(object({<br/>    protocol             = string<br/>    endpoint             = string<br/>    raw_message_delivery = optional(bool, false)<br/>    filter_policy        = optional(string)<br/>    filter_policy_scope  = optional(string)<br/>  }))</pre> | `{}` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags applied to all taggable resources. | `map(string)` | `{}` | no |
-| <a name="input_teams_channels"></a> [teams\_channels](#input\_teams\_channels) | AWS Chatbot Microsoft Teams channel configurations keyed by an arbitrary<br/>name. The Teams client must be authorized once in the console first. | <pre>map(object({<br/>    team_id                     = string<br/>    channel_id                  = string<br/>    tenant_id                   = string<br/>    team_name                   = optional(string)<br/>    channel_name                = optional(string)<br/>    configuration_name          = optional(string)<br/>    logging_level               = optional(string, "ERROR")<br/>    guardrail_policy_arns       = optional(list(string), [])<br/>    user_authorization_required = optional(bool, false)<br/>    iam_role_arn                = optional(string)<br/>  }))</pre> | `{}` | no |
 
 ## Outputs
 
@@ -157,5 +161,4 @@ No modules.
 | <a name="output_sns_topic_arn"></a> [sns\_topic\_arn](#output\_sns\_topic\_arn) | ARN of the SNS topic events are published to. |
 | <a name="output_sns_topic_name"></a> [sns\_topic\_name](#output\_sns\_topic\_name) | Name of the created SNS topic, or null when an existing topic is reused. |
 | <a name="output_subscription_arns"></a> [subscription\_arns](#output\_subscription\_arns) | ARNs of the plain SNS subscriptions, keyed as in var.subscriptions. |
-| <a name="output_teams_channel_arns"></a> [teams\_channel\_arns](#output\_teams\_channel\_arns) | ARNs of the Chatbot Teams channel configurations, keyed as in var.teams\_channels. |
 <!-- END_TF_DOCS -->
