@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-health-notification/v0.2.0...terraform-aws-health-notification/v0.2.1) (2026-08-11)
+
+
+### Bug Fixes
+
+* **terraform-aws-health-notification:** match real events when excluding backup events ([#274](https://github.com/c0x12c/terraform-modules/issues/274)) ([87e709f](https://github.com/c0x12c/terraform-modules/commit/87e709fc95f2b26aaff1e48354d7f26dd32f6af7))
+
 ## [0.2.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-health-notification/v0.1.0...terraform-aws-health-notification/v0.2.0) (2026-08-11)
 
 
