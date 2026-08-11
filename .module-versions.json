@@ -53,7 +53,7 @@
   "terraform-aws-rds": "1.0.0",
   "terraform-aws-rds-cluster": "0.1.0",
   "terraform-aws-route53": "0.1.14",
-  "terraform-aws-s3": "1.1.0",
+  "terraform-aws-s3": "1.2.0",
   "terraform-aws-saml-idp": "1.0.0",
   "terraform-aws-schedulers": "1.1.0",
   "terraform-aws-secret-manager": "0.2.0",
