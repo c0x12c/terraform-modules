@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-health-notification/v0.1.0...terraform-aws-health-notification/v0.2.0) (2026-08-11)
+
+
+### Features
+
+* **terraform-aws-health-notification:** support multi-region topics and external topic policy ([#272](https://github.com/c0x12c/terraform-modules/issues/272)) ([f811c06](https://github.com/c0x12c/terraform-modules/commit/f811c067197ed0b567962c5b06981d1f8823d012))
+
 ## 0.1.0 (2026-08-11)
 
 
