@@ -31,13 +31,14 @@ module "s3" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.8 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.75 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.75 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.58.0 |
 
 ## Modules
 
@@ -83,6 +84,7 @@ No modules.
 | <a name="input_cors_configuration"></a> [cors\_configuration](#input\_cors\_configuration) | Configuration for CORS settings | <pre>object({<br/>    allowed_headers = optional(list(string))<br/>    expose_headers  = optional(list(string))<br/>    allowed_methods = list(string)<br/>    allowed_origins = list(string)<br/>    max_age_seconds = optional(number)<br/>  })</pre> | <pre>{<br/>  "allowed_headers": [],<br/>  "allowed_methods": [],<br/>  "allowed_origins": [],<br/>  "expose_headers": [],<br/>  "max_age_seconds": 3600<br/>}</pre> | no |
 | <a name="input_create_bucket_policy"></a> [create\_bucket\_policy](#input\_create\_bucket\_policy) | Whether to create bucket policy. | `bool` | `true` | no |
 | <a name="input_custom_bucket_policies"></a> [custom\_bucket\_policies](#input\_custom\_bucket\_policies) | List of custom bucket policy statements appended to the bucket policy document. Each entry follows the aws\_iam\_policy\_document statement shape. | <pre>list(object({<br/>    sid       = string<br/>    effect    = string<br/>    actions   = list(string)<br/>    resources = optional(list(string))<br/>    principals = optional(object({<br/>      type        = string<br/>      identifiers = list(string)<br/>    }))<br/>    conditions = optional(list(object({<br/>      test     = string<br/>      variable = string<br/>      values   = list(string)<br/>    })))<br/>  }))</pre> | `null` | no |
+| <a name="input_custom_bucket_policy"></a> [custom\_bucket\_policy](#input\_custom\_bucket\_policy) | DEPRECATED: use `custom_bucket_policies` instead. Single custom bucket policy statement. | <pre>object({<br/>    sid       = string<br/>    effect    = string<br/>    actions   = list(string)<br/>    resources = optional(list(string))<br/>    principals = optional(object({<br/>      type        = string<br/>      identifiers = list(string)<br/>    }))<br/>    conditions = optional(list(object({<br/>      test     = string<br/>      variable = string<br/>      values   = list(string)<br/>    })))<br/>  })</pre> | `null` | no |
 | <a name="input_custom_read_write_policy_name"></a> [custom\_read\_write\_policy\_name](#input\_custom\_read\_write\_policy\_name) | The custom read write policy name to overwrite default one | `string` | `null` | no |
 | <a name="input_custom_readonly_policy_name"></a> [custom\_readonly\_policy\_name](#input\_custom\_readonly\_policy\_name) | The custom read only policy name to overwrite default one | `string` | `null` | no |
 | <a name="input_disabled_s3_http_access"></a> [disabled\_s3\_http\_access](#input\_disabled\_s3\_http\_access) | Whether to restrict HTTP access to S3 bucket. | `bool` | `true` | no |

@@ -98,18 +98,18 @@ variable "server_side_encryption" {
   default = null
 
   validation {
-    condition = var.server_side_encryption == null || contains(
+    condition = try(contains(
       ["AES256", "aws:kms"],
       var.server_side_encryption.sse_algorithm,
-    )
+    ), true)
     error_message = "server_side_encryption.sse_algorithm must be one of AES256 or aws:kms."
   }
 
   validation {
-    condition = var.server_side_encryption == null || (
+    condition = try(
       var.server_side_encryption.sse_algorithm != "aws:kms" ||
-      try(var.server_side_encryption.kms_master_key_id, null) != null
-    )
+      var.server_side_encryption.kms_master_key_id != null
+    , true)
     error_message = "server_side_encryption.kms_master_key_id must be set when sse_algorithm is aws:kms."
   }
 }
@@ -130,18 +130,18 @@ variable "object_lock_default_retention" {
   default = null
 
   validation {
-    condition = var.object_lock_default_retention == null || contains(
+    condition = try(contains(
       ["GOVERNANCE", "COMPLIANCE"],
       var.object_lock_default_retention.mode,
-    )
+    ), true)
     error_message = "object_lock_default_retention.mode must be one of GOVERNANCE or COMPLIANCE."
   }
 
   validation {
-    condition = var.object_lock_default_retention == null || (
-      (try(var.object_lock_default_retention.days, null) != null) !=
-      (try(var.object_lock_default_retention.years, null) != null)
-    )
+    condition = try(
+      (var.object_lock_default_retention.days != null) !=
+      (var.object_lock_default_retention.years != null)
+    , true)
     error_message = "object_lock_default_retention must set exactly one of days or years."
   }
 }
