@@ -11,7 +11,9 @@ locals {
         eventTypeCode     = var.event_type_codes
       } : k => v if length(v) > 0
     },
-    var.exclude_backup_events ? { backupEvent = ["false"] } : {}
+    # Non-backup events omit backupEvent entirely, so matching only "false"
+    # drops every real event. Cover absent, boolean and string forms.
+    var.exclude_backup_events ? { backupEvent = [{ exists = false }, "false", false] } : {}
   )
 
   health_event_pattern = jsonencode(merge(
