@@ -15,15 +15,17 @@ aws_s3_bucket main creates an S3 bucket with a specified name, adding environmen
 https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket
 */
 resource "aws_s3_bucket" "with_prefix" {
-  count         = var.bucket_name == null ? 1 : 0
-  bucket_prefix = var.bucket_prefix
-  force_destroy = var.force_destroy
+  count               = var.bucket_name == null ? 1 : 0
+  bucket_prefix       = var.bucket_prefix
+  force_destroy       = var.force_destroy
+  object_lock_enabled = var.object_lock_enabled
 }
 
 resource "aws_s3_bucket" "without_prefix" {
-  count         = var.bucket_name != null ? 1 : 0
-  bucket        = var.bucket_name
-  force_destroy = var.force_destroy
+  count               = var.bucket_name != null ? 1 : 0
+  bucket              = var.bucket_name
+  force_destroy       = var.force_destroy
+  object_lock_enabled = var.object_lock_enabled
 }
 
 /*
@@ -199,6 +201,79 @@ resource "aws_s3_bucket_versioning" "this" {
   bucket = local.bucket.id
   versioning_configuration {
     status = var.versioning_status
+  }
+
+  lifecycle {
+    # This must live on a non-counted resource; count = 0 would skip the check on the object-lock resource.
+    precondition {
+      condition     = var.object_lock_default_retention == null || var.object_lock_enabled
+      error_message = "object_lock_default_retention requires object_lock_enabled = true; otherwise the retention rule is silently ignored."
+    }
+  }
+}
+
+/*
+aws_s3_bucket_server_side_encryption_configuration configures bucket default server-side encryption without creating a KMS key.
+https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_server_side_encryption_configuration
+*/
+resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
+  count  = var.server_side_encryption != null ? 1 : 0
+  bucket = local.bucket.id
+
+  dynamic "rule" {
+    for_each = var.server_side_encryption.sse_algorithm == "aws:kms" ? [1] : []
+    content {
+      bucket_key_enabled = try(var.server_side_encryption.bucket_key_enabled, true)
+
+      apply_server_side_encryption_by_default {
+        kms_master_key_id = var.server_side_encryption.kms_master_key_id
+        sse_algorithm     = var.server_side_encryption.sse_algorithm
+      }
+    }
+  }
+
+  # Else-case rather than == "AES256": a third algorithm added to the validation list would
+  # otherwise match neither block and emit a rule-less resource that only fails at apply.
+  dynamic "rule" {
+    for_each = var.server_side_encryption.sse_algorithm != "aws:kms" ? [1] : []
+    content {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = var.server_side_encryption.sse_algorithm
+      }
+    }
+  }
+}
+
+/*
+aws_s3_bucket_object_lock_configuration configures S3 Object Lock retention defaults for newly created buckets.
+https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object_lock_configuration
+*/
+resource "aws_s3_bucket_object_lock_configuration" "this" {
+  count               = var.object_lock_enabled ? 1 : 0
+  bucket              = local.bucket.id
+  object_lock_enabled = "Enabled"
+
+  depends_on = [
+    aws_s3_bucket_versioning.this,
+  ]
+
+  dynamic "rule" {
+    for_each = var.object_lock_default_retention != null ? [var.object_lock_default_retention] : []
+
+    content {
+      default_retention {
+        mode  = rule.value.mode
+        days  = try(rule.value.days, null)
+        years = try(rule.value.years, null)
+      }
+    }
+  }
+
+  lifecycle {
+    precondition {
+      condition     = var.versioning_status == "Enabled"
+      error_message = "object_lock_enabled requires versioning_status to be Enabled."
+    }
   }
 }
 

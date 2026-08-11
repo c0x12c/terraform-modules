@@ -67,7 +67,7 @@ module "example" {
 | `terraform-aws-rds` | `terraform.c0x12c.com/c0x12c/rds/aws` | 0.7.0 | Terraform module which creates RDS resources on AWS. |
 | `terraform-aws-rds-cluster` | `terraform.c0x12c.com/c0x12c/rds-cluster/aws` | 0.1.0 | Terraform module which provisions an Amazon RDS cluster on AWS. A single module supports both **Aurora** cl... |
 | `terraform-aws-route53` | `terraform.c0x12c.com/c0x12c/route53/aws` | 0.1.14 | Terraform module which creates Route53 resources on AWS. |
-| `terraform-aws-s3` | `terraform.c0x12c.com/c0x12c/s3/aws` | 1.1.0 | Terraform module which creates S3 resources on AWS. |
+| `terraform-aws-s3` | `terraform.c0x12c.com/c0x12c/s3/aws` | 1.2.0 | Terraform module which creates S3 resources on AWS. |
 | `terraform-aws-saml-idp` | `terraform.c0x12c.com/c0x12c/saml-idp/aws` | 1.0.0 | Terraform module which creates Identity SAML Provider resource on AWS. |
 | `terraform-aws-schedulers` | `terraform.c0x12c.com/c0x12c/schedulers/aws` | 1.1.0 | AWS Scheduler Terraform Module |
 | `terraform-aws-secret-manager` | `terraform.c0x12c.com/c0x12c/secret-manager/aws` | 0.2.0 | This module provision AWS Secret Manager resources to manage secret value. |

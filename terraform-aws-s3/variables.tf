@@ -88,6 +88,69 @@ variable "versioning_status" {
   default     = "Disabled"
 }
 
+variable "server_side_encryption" {
+  description = "Server-side encryption configuration. Null (default) creates no encryption resource, leaving the S3 account default in place. bucket_key_enabled applies to SSE-KMS only and is ignored otherwise."
+  type = object({
+    sse_algorithm      = string
+    kms_master_key_id  = optional(string)
+    bucket_key_enabled = optional(bool, true)
+  })
+  default = null
+
+  validation {
+    condition = try(contains(
+      ["AES256", "aws:kms"],
+      var.server_side_encryption.sse_algorithm,
+    ), true)
+    error_message = "server_side_encryption.sse_algorithm must be one of AES256 or aws:kms."
+  }
+
+  validation {
+    condition = try(
+      var.server_side_encryption.sse_algorithm != "aws:kms" ||
+      var.server_side_encryption.kms_master_key_id != null
+    , true)
+    error_message = "server_side_encryption.kms_master_key_id must be set when sse_algorithm is aws:kms."
+  }
+
+  validation {
+    condition     = try(var.server_side_encryption.sse_algorithm == "aws:kms" || var.server_side_encryption.kms_master_key_id == null, true)
+    error_message = "server_side_encryption.kms_master_key_id may only be set when sse_algorithm is aws:kms."
+  }
+}
+
+variable "object_lock_enabled" {
+  description = "Enable S3 Object Lock. CREATION-TIME ONLY - toggling this on an existing bucket forces replacement. Requires versioning_status = \"Enabled\"."
+  type        = bool
+  default     = false
+}
+
+variable "object_lock_default_retention" {
+  description = "Default retention rule applied to new objects. Null means Object Lock is enabled with no default rule (per-object retention only)."
+  type = object({
+    mode  = string
+    days  = optional(number)
+    years = optional(number)
+  })
+  default = null
+
+  validation {
+    condition = try(contains(
+      ["GOVERNANCE", "COMPLIANCE"],
+      var.object_lock_default_retention.mode,
+    ), true)
+    error_message = "object_lock_default_retention.mode must be one of GOVERNANCE or COMPLIANCE."
+  }
+
+  validation {
+    condition = try(
+      (var.object_lock_default_retention.days != null) !=
+      (var.object_lock_default_retention.years != null)
+    , true)
+    error_message = "object_lock_default_retention must set exactly one of days or years."
+  }
+}
+
 variable "enabled_iam_policy" {
   description = "Enabled create the IAM Policies."
   type        = bool
