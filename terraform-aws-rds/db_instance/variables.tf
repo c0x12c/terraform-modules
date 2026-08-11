@@ -54,9 +54,9 @@ variable "engine" {
 }
 
 variable "engine_version" {
-  description = "The version of Postgres database, default 16.4."
+  description = "The version of Postgres database, default 18.4."
   type        = string
-  default     = "16.4"
+  default     = "18.4"
 }
 
 variable "port" {
@@ -155,9 +155,9 @@ variable "performance_insights_enabled" {
 
 # Upgrade and Maintenance
 variable "allow_major_version_upgrade" {
-  description = "Indicates that major version upgrades are allowed."
+  description = "Whether a major engine version upgrade is allowed. Defaults to false: with it off, raising engine_version across a major fails the apply instead of silently performing an offline, non-reversible in-place upgrade. Turn it on deliberately for the apply that performs the upgrade."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "auto_minor_version_upgrade" {
