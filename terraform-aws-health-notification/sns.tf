@@ -10,9 +10,9 @@ resource "aws_sns_topic" "this" {
 }
 
 resource "aws_sns_topic_policy" "this" {
-  count = var.create_sns_topic ? 1 : 0
+  count = var.create_sns_topic || var.manage_existing_topic_policy ? 1 : 0
 
-  arn = aws_sns_topic.this[0].arn
+  arn = local.sns_topic_arn
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -25,7 +25,7 @@ resource "aws_sns_topic_policy" "this" {
           Service = "events.amazonaws.com"
         }
         Action   = "sns:Publish"
-        Resource = aws_sns_topic.this[0].arn
+        Resource = local.sns_topic_arn
         Condition = {
           ArnEquals = {
             "aws:SourceArn" = aws_cloudwatch_event_rule.this.arn
@@ -39,7 +39,7 @@ resource "aws_sns_topic_policy" "this" {
           Service = "cloudwatch.amazonaws.com"
         }
         Action   = "sns:Publish"
-        Resource = aws_sns_topic.this[0].arn
+        Resource = local.sns_topic_arn
         Condition = {
           StringEquals = {
             "aws:SourceAccount" = data.aws_caller_identity.current.account_id

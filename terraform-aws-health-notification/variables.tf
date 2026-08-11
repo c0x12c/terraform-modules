@@ -110,9 +110,20 @@ variable "sns_topic_name" {
 }
 
 variable "sns_kms_master_key_id" {
-  description = "KMS key ID or alias used to encrypt the created SNS topic. Null leaves the topic unencrypted."
+  description = "KMS key ID or alias used to encrypt the created SNS topic. Null leaves the topic unencrypted. A customer-managed key also needs its key policy to allow events.amazonaws.com to call kms:GenerateDataKey* and kms:Decrypt, which this module cannot add; without it EventBridge deliveries fail after a successful apply. alias/aws/sns needs nothing."
   type        = string
   default     = null
+}
+
+variable "manage_existing_topic_policy" {
+  description = "Attach the EventBridge publish policy to the existing topic named by sns_topic_arn. Replaces that topic's policy outright, so leave false when something else owns it and grant sns:Publish to events.amazonaws.com yourself."
+  type        = bool
+  default     = false
+
+  validation {
+    condition     = !var.manage_existing_topic_policy || !var.create_sns_topic
+    error_message = "manage_existing_topic_policy applies only when create_sns_topic is false; the created topic always gets its policy."
+  }
 }
 
 ################################################################################
@@ -134,6 +145,12 @@ variable "subscriptions" {
 ################################################################################
 # Delivery - AWS Chatbot
 ################################################################################
+
+variable "additional_sns_topic_arns" {
+  description = "Extra SNS topic ARNs each Chatbot channel also subscribes to. A Slack channel can hold only one configuration per account, so a second Region's topic must be added here rather than by a second instance with its own slack_channels."
+  type        = list(string)
+  default     = []
+}
 
 variable "slack_channels" {
   description = "Chatbot Slack channel configs keyed by name. workspace_id is the Slack team ID from the console authorization."
