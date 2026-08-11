@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-s3/v1.2.0...terraform-aws-s3/v1.3.0) (2026-08-11)
+
+
+### Features
+
+* **terraform-aws-s3:** add server-side encryption and Object Lock support ([#277](https://github.com/c0x12c/terraform-modules/issues/277)) ([6a951d4](https://github.com/c0x12c/terraform-modules/commit/6a951d4636ab47b758216f85f520a6637695d512))
+
 ## [1.2.0]() (2026-05-11)
 
 ### Features
@@ -123,4 +130,3 @@ All notable changes to this project will be documented in this file.
 ### Features
 
 * Initial commit with all the code
-
