@@ -89,7 +89,7 @@ variable "versioning_status" {
 }
 
 variable "server_side_encryption" {
-  description = "Server-side encryption configuration. Null (default) creates no encryption resource, leaving the S3 account default in place."
+  description = "Server-side encryption configuration. Null (default) creates no encryption resource, leaving the S3 account default in place. bucket_key_enabled applies to SSE-KMS only and is ignored otherwise."
   type = object({
     sse_algorithm      = string
     kms_master_key_id  = optional(string)
@@ -111,6 +111,11 @@ variable "server_side_encryption" {
       var.server_side_encryption.kms_master_key_id != null
     , true)
     error_message = "server_side_encryption.kms_master_key_id must be set when sse_algorithm is aws:kms."
+  }
+
+  validation {
+    condition     = try(var.server_side_encryption.sse_algorithm == "aws:kms" || var.server_side_encryption.kms_master_key_id == null, true)
+    error_message = "server_side_encryption.kms_master_key_id may only be set when sse_algorithm is aws:kms."
   }
 }
 

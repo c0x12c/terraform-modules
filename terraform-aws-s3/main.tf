@@ -220,12 +220,26 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
   count  = var.server_side_encryption != null ? 1 : 0
   bucket = local.bucket.id
 
-  rule {
-    bucket_key_enabled = try(var.server_side_encryption.bucket_key_enabled, true)
+  dynamic "rule" {
+    for_each = var.server_side_encryption.sse_algorithm == "aws:kms" ? [1] : []
+    content {
+      bucket_key_enabled = try(var.server_side_encryption.bucket_key_enabled, true)
 
-    apply_server_side_encryption_by_default {
-      kms_master_key_id = try(var.server_side_encryption.kms_master_key_id, null)
-      sse_algorithm     = var.server_side_encryption.sse_algorithm
+      apply_server_side_encryption_by_default {
+        kms_master_key_id = var.server_side_encryption.kms_master_key_id
+        sse_algorithm     = var.server_side_encryption.sse_algorithm
+      }
+    }
+  }
+
+  # Else-case rather than == "AES256": a third algorithm added to the validation list would
+  # otherwise match neither block and emit a rule-less resource that only fails at apply.
+  dynamic "rule" {
+    for_each = var.server_side_encryption.sse_algorithm != "aws:kms" ? [1] : []
+    content {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = var.server_side_encryption.sse_algorithm
+      }
     }
   }
 }
