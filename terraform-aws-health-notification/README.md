@@ -24,6 +24,15 @@ cleanly but never delivers.
 4. Channel ID, not name: right-click channel → *Copy Link* → trailing segment
    (`C0XXXXXXX`). Private channels work once the bot is invited.
 
+Read `workspace_id` back from the API rather than hunting for it in the console:
+
+```bash
+aws chatbot describe-slack-workspaces
+```
+
+An empty `SlackWorkspaces` list means step 2 has not been done in this account.
+Terraform still plans fine in that state; the apply fails at the Chatbot API.
+
 Email, https, lambda and sqs need no setup. No paid AWS Support plan required.
 
 ## Usage
@@ -61,6 +70,25 @@ All events are forwarded by default. To narrow:
 event_type_categories = ["issue", "scheduledChange"]
 services              = ["EC2", "RDS", "EKS"]
 ```
+
+## Verifying
+
+There is no way to synthesize a Health event — EventBridge rejects `put-events`
+with an `aws.` prefixed source, so the path can only be exercised by a real one.
+What you can check immediately after apply:
+
+```bash
+# The channel config exists and points at the right channel.
+aws chatbot describe-slack-channel-configurations
+
+# The rule is enabled and its pattern is what you expect.
+aws events describe-rule --name <name>-health-notification
+```
+
+Then confirm the bot is actually in the channel — `/invite @Amazon Q` is the
+step that fails silently. Once events start arriving, `MatchedEvents` on the
+`AWS/Events` namespace (dimension `RuleName`) tells you the rule fired, which
+separates "no events yet" from "events matched but Slack never rendered them".
 
 ## Notes
 
