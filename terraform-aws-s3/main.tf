@@ -202,6 +202,14 @@ resource "aws_s3_bucket_versioning" "this" {
   versioning_configuration {
     status = var.versioning_status
   }
+
+  lifecycle {
+    # This must live on a non-counted resource; count = 0 would skip the check on the object-lock resource.
+    precondition {
+      condition     = var.object_lock_default_retention == null || var.object_lock_enabled
+      error_message = "object_lock_default_retention requires object_lock_enabled = true; otherwise the retention rule is silently ignored."
+    }
+  }
 }
 
 /*
