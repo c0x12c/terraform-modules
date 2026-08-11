@@ -88,6 +88,9 @@
     "terraform-aws-guardduty": {
       "component": "terraform-aws-guardduty"
     },
+    "terraform-aws-health-notification": {
+      "component": "terraform-aws-health-notification"
+    },
     "terraform-aws-helm-argocd": {
       "component": "terraform-aws-helm-argocd"
     },
