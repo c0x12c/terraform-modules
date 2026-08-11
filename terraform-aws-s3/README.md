@@ -56,9 +56,11 @@ No modules.
 | [aws_s3_bucket_cors_configuration.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_cors_configuration) | resource |
 | [aws_s3_bucket_lifecycle_configuration.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_lifecycle_configuration) | resource |
 | [aws_s3_bucket_logging.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_logging) | resource |
+| [aws_s3_bucket_object_lock_configuration.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object_lock_configuration) | resource |
 | [aws_s3_bucket_ownership_controls.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_ownership_controls) | resource |
 | [aws_s3_bucket_policy.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_policy) | resource |
 | [aws_s3_bucket_public_access_block.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block) | resource |
+| [aws_s3_bucket_server_side_encryption_configuration.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_server_side_encryption_configuration) | resource |
 | [aws_s3_bucket_versioning.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_versioning) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.read_write_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
@@ -91,6 +93,8 @@ No modules.
 | <a name="input_enabled_read_write_policy"></a> [enabled\_read\_write\_policy](#input\_enabled\_read\_write\_policy) | Enabled create the Read Write Policy to allow access to bucket objects. | `bool` | `false` | no |
 | <a name="input_force_destroy"></a> [force\_destroy](#input\_force\_destroy) | Enable to force destroy the bucket. | `bool` | `false` | no |
 | <a name="input_ignore_public_acls"></a> [ignore\_public\_acls](#input\_ignore\_public\_acls) | Whether Amazon S3 should ignore public ACLs for this bucket. | `bool` | `true` | no |
+| <a name="input_object_lock_default_retention"></a> [object\_lock\_default\_retention](#input\_object\_lock\_default\_retention) | Default retention rule applied to new objects. Null means Object Lock is enabled with no default rule (per-object retention only). | <pre>object({<br/>    mode  = string<br/>    days  = optional(number)<br/>    years = optional(number)<br/>  })</pre> | `null` | no |
+| <a name="input_object_lock_enabled"></a> [object\_lock\_enabled](#input\_object\_lock\_enabled) | Enable S3 Object Lock. CREATION-TIME ONLY - toggling this on an existing bucket forces replacement. Requires versioning\_status = "Enabled". | `bool` | `false` | no |
 | <a name="input_object_ownership"></a> [object\_ownership](#input\_object\_ownership) | Object ownership. Valid values: BucketOwnerPreferred, ObjectWriter or BucketOwnerEnforced | `string` | `null` | no |
 | <a name="input_public_policy_description"></a> [public\_policy\_description](#input\_public\_policy\_description) | Description for public policy | `string` | `"Policy that allows writing to the s3 public assets bucket"` | no |
 | <a name="input_public_policy_name_prefix"></a> [public\_policy\_name\_prefix](#input\_public\_policy\_name\_prefix) | The name prefix for the public policy | `string` | `"S3PublicAssetsWrite"` | no |
@@ -101,6 +105,7 @@ No modules.
 | <a name="input_readonly_policy_name_prefix"></a> [readonly\_policy\_name\_prefix](#input\_readonly\_policy\_name\_prefix) | The name prefix for the readonly policy | `string` | `"S3AssetsRead"` | no |
 | <a name="input_restrict_public_buckets"></a> [restrict\_public\_buckets](#input\_restrict\_public\_buckets) | Whether Amazon S3 should restrict public bucket policies for this bucket. | `bool` | `true` | no |
 | <a name="input_s3_lifecycle_rules"></a> [s3\_lifecycle\_rules](#input\_s3\_lifecycle\_rules) | List of S3 bucket lifecycle configuration. | <pre>list(object({<br/>    id              = string<br/>    status          = string               # "Enabled" or "Disabled"<br/>    filter_prefix   = optional(string, "") # "" will apply to all<br/>    transition_days = optional(number, 0)<br/>    expiration_days = number<br/>    storage_class   = string # "STANDARD_IA", "DEEP_ARCHIVE", "GLACIER", ...<br/>  }))</pre> | `null` | no |
+| <a name="input_server_side_encryption"></a> [server\_side\_encryption](#input\_server\_side\_encryption) | Server-side encryption configuration. Null (default) creates no encryption resource, leaving the S3 account default in place. | <pre>object({<br/>    sse_algorithm      = string<br/>    kms_master_key_id  = optional(string)<br/>    bucket_key_enabled = optional(bool, true)<br/>  })</pre> | `null` | no |
 | <a name="input_versioning_status"></a> [versioning\_status](#input\_versioning\_status) | The status of bucket versioning. | `string` | `"Disabled"` | no |
 | <a name="input_write_access_logs_source_bucket_arns"></a> [write\_access\_logs\_source\_bucket\_arns](#input\_write\_access\_logs\_source\_bucket\_arns) | If specified, the bucket will have a policy that allows the specified source buckets to write access logs to it. | `list(string)` | `[]` | no |
 
