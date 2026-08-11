@@ -97,9 +97,28 @@ Region coverage — a rule only sees its own Region, and Regions differ:
 - **us-west-2** — account-specific events from every standard-partition Region.
   Public events excluded.
 - **us-east-1** — the only Region receiving global events (e.g. IAM). Deploy a
-  second instance with an aliased provider to catch them.
+  second instance with an aliased provider to catch them, but give that instance
+  `slack_channels = {}` and feed its topic to the first instance via
+  `additional_sns_topic_arns`. A Slack channel accepts only **one** Chatbot
+  configuration per AWS account, so two instances both naming the same channel
+  fail the second apply with `has already been configured for AWS account`.
 - Both back up other Regions, so both see duplicates. Set
   `exclude_backup_events = true`, or de-duplicate on `detail.communicationId`.
+
+Silent-failure paths — all three apply cleanly and deliver nothing:
+
+- `create_sns_topic = false` attaches no topic policy by default, so nothing
+  grants `events.amazonaws.com` permission to publish. Set
+  `manage_existing_topic_policy = true` to let the module own that policy, or
+  add the `sns:Publish` grant yourself with an `aws:SourceArn` condition on the
+  rule ARN.
+- A customer-managed `sns_kms_master_key_id` needs its **key policy** to allow
+  `events.amazonaws.com` to call `kms:GenerateDataKey*` and `kms:Decrypt`. The
+  key is external, so the module cannot add it. `alias/aws/sns` needs nothing.
+- Missing `/invite @Amazon Q` in the channel, as above.
+
+All three surface only as EventBridge `FailedInvocations`, or as no metric at
+all — worth an alarm on that metric once the rule is live.
 
 Other:
 
@@ -155,6 +174,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_additional_sns_topic_arns"></a> [additional\_sns\_topic\_arns](#input\_additional\_sns\_topic\_arns) | Extra SNS topic ARNs each Chatbot channel also subscribes to. A Slack channel can hold only one configuration per account, so a second Region's topic must be added here rather than by a second instance with its own slack\_channels. | `list(string)` | `[]` | no |
 | <a name="input_create_iam_role"></a> [create\_iam\_role](#input\_create\_iam\_role) | Whether to create the shared IAM role assumed by AWS Chatbot. Ignored when no Chatbot channel is configured. | `bool` | `true` | no |
 | <a name="input_create_sns_topic"></a> [create\_sns\_topic](#input\_create\_sns\_topic) | Whether to create the SNS topic. Set false to publish into an existing topic. | `bool` | `true` | no |
 | <a name="input_event_bus_name"></a> [event\_bus\_name](#input\_event\_bus\_name) | Event bus the rule attaches to. Defaults to the account's default bus, which is where AWS Health delivers. | `string` | `null` | no |
@@ -168,10 +188,11 @@ No modules.
 | <a name="input_iam_role_arn"></a> [iam\_role\_arn](#input\_iam\_role\_arn) | ARN of an existing IAM role for AWS Chatbot, used by any channel that does not set its own iam\_role\_arn. | `string` | `null` | no |
 | <a name="input_iam_role_name"></a> [iam\_role\_name](#input\_iam\_role\_name) | Name of the IAM role to create. Defaults to {name}-chatbot-role. | `string` | `null` | no |
 | <a name="input_input_transformer"></a> [input\_transformer](#input\_input\_transformer) | Optional input transformer applied before publishing to SNS. Chatbot needs the raw event, so leave null when a Chatbot channel is attached. | <pre>object({<br/>    input_paths    = map(string)<br/>    input_template = string<br/>  })</pre> | `null` | no |
+| <a name="input_manage_existing_topic_policy"></a> [manage\_existing\_topic\_policy](#input\_manage\_existing\_topic\_policy) | Attach the EventBridge publish policy to the existing topic named by sns\_topic\_arn. Replaces that topic's policy outright, so leave false when something else owns it and grant sns:Publish to events.amazonaws.com yourself. | `bool` | `false` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name prefix applied to created resources. | `string` | n/a | yes |
 | <a name="input_services"></a> [services](#input\_services) | AWS service codes to forward, e.g. EC2 or RDS. Empty forwards every service. | `list(string)` | `[]` | no |
 | <a name="input_slack_channels"></a> [slack\_channels](#input\_slack\_channels) | Chatbot Slack channel configs keyed by name. workspace\_id is the Slack team ID from the console authorization. | <pre>map(object({<br/>    workspace_id                = string<br/>    channel_id                  = string<br/>    configuration_name          = optional(string)<br/>    logging_level               = optional(string, "ERROR")<br/>    guardrail_policy_arns       = optional(list(string), [])<br/>    user_authorization_required = optional(bool, false)<br/>    iam_role_arn                = optional(string)<br/>  }))</pre> | `{}` | no |
-| <a name="input_sns_kms_master_key_id"></a> [sns\_kms\_master\_key\_id](#input\_sns\_kms\_master\_key\_id) | KMS key ID or alias used to encrypt the created SNS topic. Null leaves the topic unencrypted. | `string` | `null` | no |
+| <a name="input_sns_kms_master_key_id"></a> [sns\_kms\_master\_key\_id](#input\_sns\_kms\_master\_key\_id) | KMS key ID or alias used to encrypt the created SNS topic. Null leaves the topic unencrypted. A customer-managed key also needs its key policy to allow events.amazonaws.com to call kms:GenerateDataKey* and kms:Decrypt, which this module cannot add; without it EventBridge deliveries fail after a successful apply. alias/aws/sns needs nothing. | `string` | `null` | no |
 | <a name="input_sns_topic_arn"></a> [sns\_topic\_arn](#input\_sns\_topic\_arn) | ARN of an existing SNS topic. Required when create\_sns\_topic is false. | `string` | `null` | no |
 | <a name="input_sns_topic_name"></a> [sns\_topic\_name](#input\_sns\_topic\_name) | Name of the SNS topic to create. Defaults to {name}-health-notification. | `string` | `null` | no |
 | <a name="input_subscriptions"></a> [subscriptions](#input\_subscriptions) | Plain SNS subscriptions keyed by name: email, https, lambda, sqs. Email stays pending until the recipient confirms. | <pre>map(object({<br/>    protocol             = string<br/>    endpoint             = string<br/>    raw_message_delivery = optional(bool, false)<br/>    filter_policy        = optional(string)<br/>    filter_policy_scope  = optional(string)<br/>  }))</pre> | `{}` | no |

@@ -6,7 +6,7 @@ resource "aws_chatbot_slack_channel_configuration" "this" {
   slack_team_id      = each.value.workspace_id
   slack_channel_id   = each.value.channel_id
 
-  sns_topic_arns = [local.sns_topic_arn]
+  sns_topic_arns = concat([local.sns_topic_arn], var.additional_sns_topic_arns)
 
   # Left unset so the API keeps its AdministratorAccess default; an empty list would drift.
   guardrail_policy_arns       = length(each.value.guardrail_policy_arns) > 0 ? each.value.guardrail_policy_arns : null
