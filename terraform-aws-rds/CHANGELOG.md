@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.8.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-rds/v0.7.0...terraform-aws-rds/v0.8.0) (2026-08-11)
+
+
+### Features
+
+* **rds:** master password rotation - on-demand trigger and managed-secret schedule ([#263](https://github.com/c0x12c/terraform-modules/issues/263)) ([42cf657](https://github.com/c0x12c/terraform-modules/commit/42cf657cf521fd9655d0e29e8d0ee6876e8ee21d))
+
 ## [0.7.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-rds/v0.6.7...terraform-aws-rds/v0.7.0) (2026-07-22)
 
 
