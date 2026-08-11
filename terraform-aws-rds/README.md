@@ -38,15 +38,27 @@ config is the only way to control when the engine version moves.
 
 ## Upgrading to 1.0.0
 
-**`engine_version` now defaults to `18.4`** (was the retired `16.4`). Read this before
-taking 1.0.0 on an existing instance.
+Two defaults changed. Together they make a major engine upgrade something you ask for rather
+than something you receive. Read this before taking 1.0.0 on an existing instance.
 
-`allow_major_version_upgrade` defaults to `true`, so if you never set `engine_version`, the
-next `apply` after this upgrade does not error - it performs an **in-place Postgres 16 to 18
-major version upgrade**. That is a real, disruptive operation: it takes the instance offline
-for the duration, and it is not reversible without a restore.
+**`allow_major_version_upgrade` now defaults to `false`** (was `true`). This is the safety
+net: if you never set `engine_version`, the next `apply` after this upgrade **fails** rather
+than performing an in-place Postgres 16 to 18 upgrade. A major upgrade takes the instance
+offline for the duration and is not reversible without a restore - failing the apply is the
+correct outcome for something nobody asked for. The old `true` also inverted AWS's own
+default, and contradicted `auto_minor_version_upgrade` in this same module, which has always
+defaulted to `false`.
 
-Before upgrading, pin the version the instance is actually running:
+**`engine_version` now defaults to `18.4`** (was the retired `16.4`, which failed at
+`CreateDBInstance` for every new instance).
+
+### If you set `engine_version` explicitly
+
+Nothing to do. Both changes are invisible to you.
+
+### If you rely on the default
+
+Pin the version your instance is actually running before taking 1.0.0:
 
 ```bash
 aws rds describe-db-instances \
@@ -64,8 +76,21 @@ module "instance" {
 }
 ```
 
-Then `terraform plan` and confirm no engine change is proposed. Move to 18.4 later as a
-deliberate, scheduled change.
+Then `plan` and confirm no engine change is proposed. If you skip this step the apply fails
+with a major-version-upgrade error rather than upgrading you - noisy, but safe and
+recoverable by pinning.
+
+### Performing a major upgrade on purpose
+
+Raise `engine_version` and set the flag in the same apply, then remove the flag afterwards so
+the next unrelated change cannot ride on it:
+
+```hcl
+engine_version              = "18.4"
+allow_major_version_upgrade = true
+```
+
+Take a snapshot first. The upgrade is offline and not reversible without a restore.
 
 New instances need no action - 18.4 is a good default for a fresh database.
 
@@ -297,7 +322,7 @@ Enabling this requires the applying principal to hold `secretsmanager:CreateSecr
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_postgres_parameters"></a> [additional\_postgres\_parameters](#input\_additional\_postgres\_parameters) | Additional postgres parameters to add to parameter groups. | <pre>map(object({<br/>    value        = any<br/>    apply_method = string<br/>  }))</pre> | `null` | no |
-| <a name="input_allow_major_version_upgrade"></a> [allow\_major\_version\_upgrade](#input\_allow\_major\_version\_upgrade) | Indicates whether major version upgrades are allowed. | `bool` | `true` | no |
+| <a name="input_allow_major_version_upgrade"></a> [allow\_major\_version\_upgrade](#input\_allow\_major\_version\_upgrade) | Whether a major engine version upgrade is allowed. Defaults to false: with it off, raising engine\_version across a major fails the apply instead of silently performing an offline, non-reversible in-place upgrade. Turn it on deliberately for the apply that performs the upgrade. | `bool` | `false` | no |
 | <a name="input_apply_immediately"></a> [apply\_immediately](#input\_apply\_immediately) | Apply any changes to this database immediately. | `bool` | `true` | no |
 | <a name="input_auto_minor_version_upgrade"></a> [auto\_minor\_version\_upgrade](#input\_auto\_minor\_version\_upgrade) | Indicates whether minor engine upgrades will be applied automatically to the DB instance during the maintenance window. | `bool` | `false` | no |
 | <a name="input_backup_retention_day"></a> [backup\_retention\_day](#input\_backup\_retention\_day) | The number of days to retain database backups (default is 7 days). | `number` | `7` | no |

@@ -120,9 +120,9 @@ variable "performance_insights_enabled" {
 
 # Upgrades
 variable "allow_major_version_upgrade" {
-  description = "Indicates whether major version upgrades are allowed."
+  description = "Whether a major engine version upgrade is allowed. Defaults to false: with it off, raising engine_version across a major fails the apply instead of silently performing an offline, non-reversible in-place upgrade. Turn it on deliberately for the apply that performs the upgrade."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "auto_minor_version_upgrade" {
