@@ -85,6 +85,9 @@ resource "aws_cloudfront_distribution" "this" {
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = local.s3_origin_id
+    # Without this the policy is created and attached to nothing on any distribution that
+    # declares no ordered_cache_behaviors - it existed, and the site served no security headers.
+    response_headers_policy_id = var.enabled_response_headers_policy ? aws_cloudfront_response_headers_policy.this[0].id : null
 
     dynamic "function_association" {
       for_each = var.default_cache_behavior.function_association != null ? [1] : []

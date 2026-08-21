@@ -16,7 +16,7 @@ This module will create the components below:
 ```hcl
 module "static_website" {
   source  = "terraform.c0x12c.com/c0x12c/static-website/aws"
-  version = "1.0.0"
+  version = "1.1.0"
 
   name              = "example"
   bucket_prefix     = "example"
@@ -81,7 +81,7 @@ module "static_website" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.58.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.61.0 |
 
 ## Modules
 
@@ -119,6 +119,7 @@ module "static_website" {
 | <a name="input_ordered_cache_behaviors"></a> [ordered\_cache\_behaviors](#input\_ordered\_cache\_behaviors) | List of ordered cache behaviors with path patterns and settings. | <pre>list(object({<br/>    path_pattern     = string<br/>    allowed_methods  = list(string)<br/>    cached_methods   = list(string)<br/>    target_origin_id = string<br/>    query_string     = bool<br/>    cookies_forward  = string<br/>    min_ttl          = number<br/>    default_ttl      = number<br/>    max_ttl          = number<br/>    compress         = bool<br/>    function_association = optional(object({<br/>      event_type   = string<br/>      function_arn = string<br/>    }), null)<br/>  }))</pre> | `[]` | no |
 | <a name="input_price_class"></a> [price\_class](#input\_price\_class) | The price class for this distribution. | `string` | `"PriceClass_100"` | no |
 | <a name="input_referrer_policy"></a> [referrer\_policy](#input\_referrer\_policy) | Referrer Policy settings | <pre>object({<br/>    override        = bool<br/>    referrer_policy = string<br/>  })</pre> | <pre>{<br/>  "override": true,<br/>  "referrer_policy": "strict-origin-when-cross-origin"<br/>}</pre> | no |
+| <a name="input_response_headers_policy_name"></a> [response\_headers\_policy\_name](#input\_response\_headers\_policy\_name) | Name for the response headers policy. Names are unique per AWS ACCOUNT, so set this when instantiating the module more than once in one account (e.g. for\_each over several sites) - otherwise the second create fails on a duplicate name. Null keeps the historical default. | `string` | `null` | no |
 | <a name="input_route53_zone_id"></a> [route53\_zone\_id](#input\_route53\_zone\_id) | R53 zone ID | `string` | n/a | yes |
 | <a name="input_s3_custom_read_write_policy_name"></a> [s3\_custom\_read\_write\_policy\_name](#input\_s3\_custom\_read\_write\_policy\_name) | The custom read write policy name to overwrite default one | `string` | `null` | no |
 | <a name="input_s3_custom_readonly_policy_name"></a> [s3\_custom\_readonly\_policy\_name](#input\_s3\_custom\_readonly\_policy\_name) | The custom read only policy name to overwrite default one | `string` | `null` | no |
