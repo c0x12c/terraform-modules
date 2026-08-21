@@ -64,7 +64,7 @@
   "terraform-aws-sns": "0.1.44",
   "terraform-aws-sqs": "0.3.0",
   "terraform-aws-ssm-parameter": "1.0.0",
-  "terraform-aws-static-website": "1.1.1",
+  "terraform-aws-static-website": "1.2.0",
   "terraform-aws-vanta": "0.1.49",
   "terraform-aws-vpc": "0.5.0",
   "terraform-aws-vpc-endpoints": "0.1.29",

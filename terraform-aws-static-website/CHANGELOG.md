@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-static-website/v1.1.1...terraform-aws-static-website/v1.2.0) (2026-08-21)
+
+
+### Features
+
+* **terraform-aws-static-website:** attach response headers policy to the default cache behavior and allow overriding its name ([#280](https://github.com/c0x12c/terraform-modules/issues/280)) ([9132c40](https://github.com/c0x12c/terraform-modules/commit/9132c402e0bc52f63105be945d7a4c8cf787bb38))
+
 ## [1.1.1]() (2026-04-22)
 
 ### Fix
