@@ -15,6 +15,7 @@ module "cloudfront" {
   distribution_aliases            = var.cloudfront_distribution_aliases
   ordered_cache_behaviors         = var.ordered_cache_behaviors
   enabled_response_headers_policy = var.enabled_response_headers_policy
+  response_headers_policy_name    = var.response_headers_policy_name
   referrer_policy                 = var.referrer_policy
   content_security_policy         = var.content_security_policy
   strict_transport_security       = var.strict_transport_security

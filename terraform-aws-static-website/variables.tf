@@ -153,6 +153,12 @@ variable "enabled_response_headers_policy" {
   default     = false
 }
 
+variable "response_headers_policy_name" {
+  description = "Name for the response headers policy. Names are unique per AWS ACCOUNT, so set this when instantiating the module more than once in one account (e.g. for_each over several sites) - otherwise the second create fails on a duplicate name. Null keeps the historical default."
+  type        = string
+  default     = null
+}
+
 variable "referrer_policy" {
   description = "Referrer Policy settings"
   type = object({
