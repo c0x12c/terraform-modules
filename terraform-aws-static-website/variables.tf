@@ -157,6 +157,14 @@ variable "response_headers_policy_name" {
   description = "Name for the response headers policy. Names are unique per AWS ACCOUNT, so set this when instantiating the module more than once in one account (e.g. for_each over several sites) - otherwise the second create fails on a duplicate name. Null keeps the historical default."
   type        = string
   default     = null
+
+  # An empty string is not a CloudFront error - coalesce() treats it as absent, so the
+  # instance silently falls back to the shared default name, which is the duplicate-name
+  # collision this variable exists to avoid.
+  validation {
+    condition     = var.response_headers_policy_name == null || trimspace(coalesce(var.response_headers_policy_name, " ")) != ""
+    error_message = "response_headers_policy_name must be null or a non-blank string."
+  }
 }
 
 variable "referrer_policy" {
