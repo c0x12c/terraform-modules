@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.6.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-helm-argocd/v1.5.0...terraform-aws-helm-argocd/v1.6.0) (2026-08-22)
+
+
+### Features
+
+* **helm-argocd:** configurable default notification channel ([#213](https://github.com/c0x12c/terraform-modules/issues/213)) ([5c483fe](https://github.com/c0x12c/terraform-modules/commit/5c483fe14c34de664ccb5c944cb0dc85d65ea009))
+
+
+### Bug Fixes
+
+* **terraform-aws-helm-argocd:** use trigger names in default notifications subscription ([#232](https://github.com/c0x12c/terraform-modules/issues/232)) ([a2a19ac](https://github.com/c0x12c/terraform-modules/commit/a2a19aca892fc6fa80e4a778ce2b9e8a621a3b46))
+
 ## [1.4.1](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-helm-argocd/v1.4.0...terraform-aws-helm-argocd/v1.4.1) (2026-07-10)
 
 
