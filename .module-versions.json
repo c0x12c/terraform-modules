@@ -71,7 +71,7 @@
   "terraform-aws-vpn": "0.1.4",
   "terraform-aws-wafv2": "1.0.1",
   "terraform-cloudflare-record-with-cache-rule": "1.0.0",
-  "terraform-datadog-aws-integration": "2.0.0",
+  "terraform-datadog-aws-integration": "2.1.0",
   "terraform-datadog-aws-monitor": "1.4.0",
   "terraform-datadog-dashboard": "1.0.0",
   "terraform-datadog-ecs-monitor": "1.1.1",
