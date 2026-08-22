@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-rds/v1.0.0...terraform-aws-rds/v1.1.0) (2026-08-11)
+
+
+### Features
+
+* **rds:** master password rotation - on-demand trigger and managed-secret schedule ([#263](https://github.com/c0x12c/terraform-modules/issues/263)) ([42cf657](https://github.com/c0x12c/terraform-modules/commit/42cf657cf521fd9655d0e29e8d0ee6876e8ee21d))
+* **terraform-aws-rds:** AWS-managed master password rotation ([#237](https://github.com/c0x12c/terraform-modules/issues/237)) ([581ef6d](https://github.com/c0x12c/terraform-modules/commit/581ef6d90532269f197782a5279f17baa25a57f2))
+
+
+### Bug Fixes
+
+* **terraform-aws-rds:** enable IAM DB auth on read replicas ([#217](https://github.com/c0x12c/terraform-modules/issues/217)) ([1d558c9](https://github.com/c0x12c/terraform-modules/commit/1d558c9b3a85261f8f0a8b04a3661961fe3f4d07))
+
 ## [1.0.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-rds/v0.7.0...terraform-aws-rds/v1.0.0) (2026-08-11)
 
 
