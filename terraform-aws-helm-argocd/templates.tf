@@ -30,7 +30,7 @@ locals {
     app_sync_running = {
       title                  = ":hourglass_flowing_sand: Sync In Progress: {{ .app.metadata.name}}"
       color                  = "#0DADEA"
-      repository_title       = " Repository"
+      repository_title       = "Repository"
       sync_status_title      = "Sync Status"
       condition_title_prefix = ""
       include_revision       = false
@@ -58,7 +58,7 @@ locals {
       title                  = "Out of Sync: {{ .app.metadata.name}}"
       color                  = "#f4c030"
       repository_title       = "Repository"
-      sync_status_title      = " Sync Status"
+      sync_status_title      = "Sync Status"
       condition_title_prefix = ""
       include_revision       = false
       footer                 = "ArgoCD Sync Issue"
