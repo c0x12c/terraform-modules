@@ -41,6 +41,28 @@ module "argocd" {
 
 - [Example](./examples/complete)
 
+## Notifications
+
+ArgoCD notifications support either `slack_token` or `slack_webhook_url`, but not both. When
+`slack_webhook_url` is set the webhook decides the destination channel, so
+`default_notification_channel` does not apply.
+
+The default subscription covers the five sync-lifecycle triggers on both paths. `on-health-degraded`
+and `on-out-of-sync` are templated but deliberately left out of it, because they fire per application
+rather than per deploy - subscribe to them with a per-app annotation on the applications that want them.
+
+Webhook subscriptions also use a different annotation form:
+
+```yaml
+notifications.argoproj.io/subscribe.<trigger>.webhook.slack: ""
+```
+
+Slack bot subscriptions continue to use:
+
+```yaml
+notifications.argoproj.io/subscribe.<trigger>.slack: <channel>
+```
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
@@ -116,6 +138,7 @@ module "argocd" {
 | <a name="input_repositories"></a> [repositories](#input\_repositories) | To connect to repository by using Credentials Template, which is currently using Github App | `list(string)` | `[]` | no |
 | <a name="input_server_side_diff"></a> [server\_side\_diff](#input\_server\_side\_diff) | Enable server side diff | `bool` | `true` | no |
 | <a name="input_slack_token"></a> [slack\_token](#input\_slack\_token) | The token to authenticate to slack, which will help application push notification to slack | `string` | `""` | no |
+| <a name="input_slack_webhook_url"></a> [slack\_webhook\_url](#input\_slack\_webhook\_url) | Incoming webhook URL used instead of a bot token. When set, notifications are delivered through ArgoCD's `service.webhook` rather than `service.slack`, because ArgoCD's slack service authenticates with a bot token and has no webhook mode. The channel is then fixed by the webhook itself, so `default_notification_channel` is ignored. | `string` | `""` | no |
 | <a name="input_sub_domain"></a> [sub\_domain](#input\_sub\_domain) | Sub domain for ArgoCD | `string` | `"argocd"` | no |
 | <a name="input_tolerations"></a> [tolerations](#input\_tolerations) | Tolerations for the ingress controller | <pre>list(object({<br/>    key      = string<br/>    operator = string<br/>    value    = optional(string)<br/>    effect   = optional(string)<br/>  }))</pre> | `[]` | no |
 

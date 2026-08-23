@@ -333,6 +333,69 @@ configs:
     %{endfor}
 notifications:
   enabled: true
+  %{if var.slack_webhook_url != ""}
+  secret:
+    items:
+      slack-webhook-url: ${var.slack_webhook_url}
+  subscriptions:
+    - recipients:
+        - webhook:slack
+      triggers:
+        - on-sync-status-unknown
+        - on-deployed
+        - on-sync-failed
+        - on-sync-running
+        - on-sync-succeeded
+  notifiers:
+    service.webhook.slack: |
+      url: $slack-webhook-url
+      headers:
+      - name: Content-Type
+        value: application/json
+  templates:
+    template.app-deployed: |
+      webhook:
+        slack:
+          method: POST
+          body: |
+            {"attachments": ${indent(14, local.notification_templates.app_deployed)}}
+    template.app-health-degraded: |
+      webhook:
+        slack:
+          method: POST
+          body: |
+            {"attachments": ${indent(14, local.notification_templates.app_health_degraded)}}
+    template.app-sync-failed: |
+      webhook:
+        slack:
+          method: POST
+          body: |
+            {"attachments": ${indent(14, local.notification_templates.app_sync_failed)}}
+    template.app-sync-running: |
+      webhook:
+        slack:
+          method: POST
+          body: |
+            {"attachments": ${indent(14, local.notification_templates.app_sync_running)}}
+    template.app-sync-status-unknown: |
+      webhook:
+        slack:
+          method: POST
+          body: |
+            {"attachments": ${indent(14, local.notification_templates.app_sync_status_unknown)}}
+    template.app-sync-succeeded: |
+      webhook:
+        slack:
+          method: POST
+          body: |
+            {"attachments": ${indent(14, local.notification_templates.app_sync_succeeded)}}
+    template.app-out-of-sync: |
+      webhook:
+        slack:
+          method: POST
+          body: |
+            {"attachments": ${indent(14, local.notification_templates.app_out_of_sync)}}
+  %{else}
   secret:
     items:
       slack-token: ${var.slack_token}
@@ -379,6 +442,7 @@ notifications:
       slack:
         attachments: |-
           ${indent(10, local.notification_templates.app_out_of_sync)}
+  %{endif}
   triggers:
     trigger.on-deployed: |
       - description: Application is synced and healthy. Triggered once per commit.
