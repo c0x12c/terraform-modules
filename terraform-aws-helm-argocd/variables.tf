@@ -150,8 +150,26 @@ variable "slack_token" {
   sensitive   = true
 }
 
+variable "slack_webhook_url" {
+  description = "Incoming webhook URL used instead of a bot token. When set, notifications are delivered through ArgoCD's `service.webhook` rather than `service.slack`, because ArgoCD's slack service authenticates with a bot token and has no webhook mode. The channel is then fixed by the webhook itself, so `default_notification_channel` no longer selects a channel and is not consulted at all; use `enable_default_subscription` to turn the default subscription on or off."
+  type        = string
+  default     = ""
+  sensitive   = true
+
+  validation {
+    condition     = !(var.slack_token != "" && var.slack_webhook_url != "")
+    error_message = "slack_token and slack_webhook_url are mutually exclusive; pick one to avoid duplicate notifications."
+  }
+}
+
+variable "enable_default_subscription" {
+  description = "Whether to create the default notification subscription applied to every application. On the bot-token path `default_notification_channel` must also be non-empty, since it supplies the channel. On the webhook path this is the only switch, because the webhook fixes the channel."
+  type        = bool
+  default     = true
+}
+
 variable "default_notification_channel" {
-  description = "Slack channel for the default ArgoCD notification subscription applied to every application. Leave empty to skip the default subscription entirely; per-app `subscribe.*` annotations are unaffected."
+  description = "Slack channel for the default ArgoCD notification subscription applied to every application. Leave empty to skip the default subscription entirely; per-app `subscribe.*` annotations are unaffected. Not consulted on the webhook path - see `enable_default_subscription`."
   type        = string
   default     = ""
 }

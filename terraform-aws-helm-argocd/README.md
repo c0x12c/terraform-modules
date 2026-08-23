@@ -9,7 +9,7 @@ Terraform module which install an ArgoCD to EKS cluster and configure the necess
 ```hcl
 module "argocd" {
   source  = "terraform.c0x12c.com/c0x12c/helm-argocd/aws"
-  version = "1.3.0"
+  version = "1.7.0"
 
   domain_name = "example.com"
 
@@ -40,6 +40,35 @@ module "argocd" {
 ## Examples
 
 - [Example](./examples/complete)
+
+## Notifications
+
+ArgoCD notifications support either `slack_token` or `slack_webhook_url`, but not both. When
+`slack_webhook_url` is set the webhook decides the destination channel, so
+`default_notification_channel` is not consulted at all.
+
+`enable_default_subscription` turns the default subscription on or off on both paths. On the
+bot-token path `default_notification_channel` must also be non-empty, because it supplies the
+channel; on the webhook path `enable_default_subscription` is the only switch.
+
+The default subscription covers the five sync-lifecycle triggers on both paths. `on-health-degraded`
+and `on-out-of-sync` are templated but deliberately left out of it, because they fire per application
+rather than per deploy - subscribe to them with a per-app annotation on the applications that want them.
+
+Webhook subscriptions also use a different annotation form:
+
+```yaml
+notifications.argoproj.io/subscribe.<trigger>.webhook.slack: ""
+```
+
+Slack bot subscriptions continue to use:
+
+```yaml
+notifications.argoproj.io/subscribe.<trigger>.slack: <channel>
+```
+
+See `examples/complete` for the bot-token path and `examples/slack-webhook-notifications` for the
+webhook one.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -94,8 +123,9 @@ module "argocd" {
 | <a name="input_chart_url"></a> [chart\_url](#input\_chart\_url) | URL of the Argo CD Helm chart | `string` | `"https://argoproj.github.io/argo-helm"` | no |
 | <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Version of the Argo CD Helm chart | `string` | `"7.8.26"` | no |
 | <a name="input_create_route53_record"></a> [create\_route53\_record](#input\_create\_route53\_record) | Determines whether or not to create a route53 record for the ingress or not | `bool` | `false` | no |
-| <a name="input_default_notification_channel"></a> [default\_notification\_channel](#input\_default\_notification\_channel) | Slack channel for the default ArgoCD notification subscription applied to every application. Leave empty to skip the default subscription entirely; per-app `subscribe.*` annotations are unaffected. | `string` | `""` | no |
+| <a name="input_default_notification_channel"></a> [default\_notification\_channel](#input\_default\_notification\_channel) | Slack channel for the default ArgoCD notification subscription applied to every application. Leave empty to skip the default subscription entirely; per-app `subscribe.*` annotations are unaffected. Not consulted on the webhook path - see `enable_default_subscription`. | `string` | `""` | no |
 | <a name="input_domain_name"></a> [domain\_name](#input\_domain\_name) | Domain name for ArgoCD | `string` | n/a | yes |
+| <a name="input_enable_default_subscription"></a> [enable\_default\_subscription](#input\_enable\_default\_subscription) | Whether to create the default notification subscription applied to every application. On the bot-token path `default_notification_channel` must also be non-empty, since it supplies the channel. On the webhook path this is the only switch, because the webhook fixes the channel. | `bool` | `true` | no |
 | <a name="input_enabled_aws_management_role"></a> [enabled\_aws\_management\_role](#input\_enabled\_aws\_management\_role) | Enable the AWS management role for cross cluster management | `bool` | `false` | no |
 | <a name="input_enabled_managed_in_cluster"></a> [enabled\_managed\_in\_cluster](#input\_enabled\_managed\_in\_cluster) | Enable in\_cluster manage to rename in\_cluster | `bool` | `true` | no |
 | <a name="input_external_clusters"></a> [external\_clusters](#input\_external\_clusters) | Maps of external cluster that want to connect | <pre>map(object({<br/>    assume_role       = optional(string, "")<br/>    server            = string<br/>    labels            = optional(map(any), {})<br/>    annotations       = optional(map(any), {})<br/>    namespace         = optional(string, "")<br/>    cluster_resources = optional(bool, false)<br/>    config = object({<br/>      aws_auth_config = object({<br/>        cluster_name = string<br/>        role_arn     = string<br/>      })<br/>      tls_client_config = object({<br/>        insecure = optional(bool, false)<br/>        ca_data  = string<br/>      })<br/>    })<br/>  }))</pre> | `{}` | no |
@@ -116,6 +146,7 @@ module "argocd" {
 | <a name="input_repositories"></a> [repositories](#input\_repositories) | To connect to repository by using Credentials Template, which is currently using Github App | `list(string)` | `[]` | no |
 | <a name="input_server_side_diff"></a> [server\_side\_diff](#input\_server\_side\_diff) | Enable server side diff | `bool` | `true` | no |
 | <a name="input_slack_token"></a> [slack\_token](#input\_slack\_token) | The token to authenticate to slack, which will help application push notification to slack | `string` | `""` | no |
+| <a name="input_slack_webhook_url"></a> [slack\_webhook\_url](#input\_slack\_webhook\_url) | Incoming webhook URL used instead of a bot token. When set, notifications are delivered through ArgoCD's `service.webhook` rather than `service.slack`, because ArgoCD's slack service authenticates with a bot token and has no webhook mode. The channel is then fixed by the webhook itself, so `default_notification_channel` no longer selects a channel and is not consulted at all; use `enable_default_subscription` to turn the default subscription on or off. | `string` | `""` | no |
 | <a name="input_sub_domain"></a> [sub\_domain](#input\_sub\_domain) | Sub domain for ArgoCD | `string` | `"argocd"` | no |
 | <a name="input_tolerations"></a> [tolerations](#input\_tolerations) | Tolerations for the ingress controller | <pre>list(object({<br/>    key      = string<br/>    operator = string<br/>    value    = optional(string)<br/>    effect   = optional(string)<br/>  }))</pre> | `[]` | no |
 

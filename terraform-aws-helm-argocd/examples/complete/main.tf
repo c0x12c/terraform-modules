@@ -63,10 +63,12 @@ module "argocd" {
   # Repository Connection
   repositories = ["argocd-atlas"]
 
-  # Slack Connection
+  # Slack Connection. This is the bot-token path; see examples/slack-webhook-notifications for
+  # delivery through an incoming webhook instead. The two are mutually exclusive.
   slack_token = "xobx-1234"
 
-  # Slack channel for the default notification subscription (applies to all apps)
+  # Slack channel for the default notification subscription (applies to all apps). Leaving it
+  # empty skips that subscription, as does enable_default_subscription = false.
   default_notification_channel = "eng-cicd-notification"
 
   # Managed Node (OPTIONAL)
