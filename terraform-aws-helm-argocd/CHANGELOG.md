@@ -2,13 +2,6 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.7.1](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-helm-argocd/v1.7.0...terraform-aws-helm-argocd/v1.7.1) (2026-08-23)
-
-
-### Bug Fixes
-
-* **terraform-aws-helm-argocd:** address the webhook notifier by its service name ([#290](https://github.com/c0x12c/terraform-modules/issues/290))
-
 ## [1.7.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-helm-argocd/v1.6.0...terraform-aws-helm-argocd/v1.7.0) (2026-08-23)
 
 
