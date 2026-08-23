@@ -68,43 +68,11 @@ locals {
 
 locals {
   # One card shape drives all seven notifications; the table above carries only the deltas.
-  # This stays a text template rather than jsonencode because the body is not valid JSON until
-  # ArgoCD expands it - the {{range}} over conditions sits outside any string.
+  # The card lives in a .tpl file because it is not valid JSON until ArgoCD expands it - the
+  # {{range}} over conditions sits outside any string - so jsonencode cannot build it.
   notification_sample_templates = {
-    for key, spec in local.notification_template_specs : key => <<-EOT
-    [{
-      "title": "${spec.title}",
-      "title_link": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
-      "color": "${spec.color}",
-      "fields": [
-        {
-          "title": "${spec.sync_status_title}",
-          "value": "{{.app.status.sync.status}}",
-          "short": true
-        },
-        {
-          "title": "${spec.repository_title}",
-          "value": "<{{.app.spec.source.repoURL}}|View Repo>",
-          "short": true
-        }%{if spec.include_revision},
-        {
-          "title": "Revision",
-          "value": "{{.app.status.sync.revision}}",
-          "short": true
-        }%{endif}
-        {{range $index, $c := .app.status.conditions}}
-        {{if not $index}},{{end}}
-        {{if $index}},{{end}}
-        {
-          "title": "${spec.condition_title_prefix}{{$c.type}}",
-          "value": "{{$c.message}}",
-          "short": true
-        }
-        {{end}}
-      ]%{if spec.footer != null},
-      "footer": "${spec.footer}"%{endif}
-    }]
-    EOT
+    for key, spec in local.notification_template_specs :
+    key => templatefile("${path.module}/templates/slack-card.json.tpl", { spec = spec })
   }
 }
 

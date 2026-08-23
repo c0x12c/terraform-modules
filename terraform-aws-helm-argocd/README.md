@@ -67,6 +67,9 @@ Slack bot subscriptions continue to use:
 notifications.argoproj.io/subscribe.<trigger>.slack: <channel>
 ```
 
+See `examples/complete` for the bot-token path and `examples/slack-webhook-notifications` for the
+webhook one.
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 

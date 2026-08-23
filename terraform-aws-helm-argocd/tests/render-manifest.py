@@ -122,6 +122,11 @@ def build_scratch(module_dir):
         for f in sorted(os.listdir(module_dir)) if f.endswith(".tf")
     )
     open(os.path.join(d, "main.tf"), "w").write(stub_required(body))
+    # `path.module` resolves to the scratch root, so anything the manifest loads by that path -
+    # the Slack card .tpl - has to come along or templatefile() fails with "no file exists".
+    assets = os.path.join(module_dir, "templates")
+    if os.path.isdir(assets):
+        shutil.copytree(assets, os.path.join(d, "templates"))
     subprocess.run(["terraform", "init", "-backend=false", "-input=false"],
                    cwd=d, capture_output=True, check=True)
     return d
