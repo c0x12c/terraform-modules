@@ -337,6 +337,7 @@ notifications:
   secret:
     items:
       slack-webhook-url: ${var.slack_webhook_url}
+  %{if var.enable_default_subscription}
   subscriptions:
     - recipients:
         - webhook:slack
@@ -346,6 +347,7 @@ notifications:
         - on-sync-failed
         - on-sync-running
         - on-sync-succeeded
+  %{endif}
   notifiers:
     service.webhook.slack: |
       url: $slack-webhook-url
@@ -399,7 +401,7 @@ notifications:
   secret:
     items:
       slack-token: ${var.slack_token}
-  %{if var.default_notification_channel != ""}
+  %{if var.enable_default_subscription && var.default_notification_channel != ""}
   subscriptions:
     - recipients:
         - slack:${var.default_notification_channel}

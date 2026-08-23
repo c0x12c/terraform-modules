@@ -45,7 +45,11 @@ module "argocd" {
 
 ArgoCD notifications support either `slack_token` or `slack_webhook_url`, but not both. When
 `slack_webhook_url` is set the webhook decides the destination channel, so
-`default_notification_channel` does not apply.
+`default_notification_channel` is not consulted at all.
+
+`enable_default_subscription` turns the default subscription on or off on both paths. On the
+bot-token path `default_notification_channel` must also be non-empty, because it supplies the
+channel; on the webhook path `enable_default_subscription` is the only switch.
 
 The default subscription covers the five sync-lifecycle triggers on both paths. `on-health-degraded`
 and `on-out-of-sync` are templated but deliberately left out of it, because they fire per application
