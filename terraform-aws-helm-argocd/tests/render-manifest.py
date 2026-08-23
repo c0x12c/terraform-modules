@@ -41,6 +41,10 @@ CASES = {
 }
 # Required variables are stubbed to `any` in the scratch root, and terraform parses a -var value
 # for an any-typed variable as an HCL expression - so these must carry their own quotes.
+# Every module variable the manifest reads that has NO default must appear here. One that is
+# missing gets stubbed to null in the scratch root and the render aborts partway - the render
+# function raises on that rather than returning a truncated manifest, so add the new variable
+# here when a render starts failing after someone adds a required input.
 BASE_VARS = {
     "domain_name": '"example.com"',
     "in_cluster_name": '"in-cluster"',
