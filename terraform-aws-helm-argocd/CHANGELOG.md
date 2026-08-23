@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.7.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-helm-argocd/v1.6.0...terraform-aws-helm-argocd/v1.7.0) (2026-08-23)
+
+
+### Features
+
+* **terraform-aws-helm-argocd:** Slack webhook notifications and a default-subscription switch ([#288](https://github.com/c0x12c/terraform-modules/issues/288)) ([e6466f6](https://github.com/c0x12c/terraform-modules/commit/e6466f6745d747f0fc11febc4e1d91feb8408e98))
+
 ## [1.6.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-helm-argocd/v1.5.0...terraform-aws-helm-argocd/v1.6.0) (2026-08-22)
 
 
