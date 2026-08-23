@@ -9,7 +9,7 @@ Terraform module which install an ArgoCD to EKS cluster and configure the necess
 ```hcl
 module "argocd" {
   source  = "terraform.c0x12c.com/c0x12c/helm-argocd/aws"
-  version = "1.7.0"
+  version = "1.7.1"
 
   domain_name = "example.com"
 
