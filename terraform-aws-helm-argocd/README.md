@@ -55,10 +55,12 @@ The default subscription covers the five sync-lifecycle triggers on both paths. 
 and `on-out-of-sync` are templated but deliberately left out of it, because they fire per application
 rather than per deploy - subscribe to them with a per-app annotation on the applications that want them.
 
-Webhook subscriptions also use a different annotation form:
+Webhook subscriptions carry no channel, since the webhook fixes it. `slack` here is the service
+NAME from `service.webhook.slack` - ArgoCD keys its notifier registry by that name, not by the
+service type:
 
 ```yaml
-notifications.argoproj.io/subscribe.<trigger>.webhook.slack: ""
+notifications.argoproj.io/subscribe.<trigger>.slack: ""
 ```
 
 Slack bot subscriptions continue to use:

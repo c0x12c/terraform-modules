@@ -126,7 +126,10 @@ locals {
       var.enable_default_subscription ? {
         subscriptions = [
           {
-            recipients = ["webhook:slack"]
+            # The service NAME from `service.webhook.slack`, not the type. ArgoCD keys its
+            # notifier registry by that name, so a recipient of "webhook:slack" is looked up as
+            # a service called "webhook" and fails with "notification service is not supported".
+            recipients = ["slack"]
             triggers   = local.notification_trigger_names
           }
         ]
