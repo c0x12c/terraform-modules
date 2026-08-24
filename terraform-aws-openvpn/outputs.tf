@@ -19,8 +19,8 @@ output "ssh_public_key" {
 # whether to source one from the OS keychain or whether the server wants none. It asks the user on
 # every connect until told.
 #
-# A setenv rather than a directive: clients that do not recognise it ignore the line instead of
-# failing to parse the profile.
+# It is a setenv rather than a directive so that clients which do not recognise it ignore the line
+# instead of failing to parse the profile.
 output "ovpn_file" {
   value       = <<-EOT
 client
