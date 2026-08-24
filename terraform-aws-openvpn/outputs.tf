@@ -14,8 +14,15 @@ output "ssh_public_key" {
   description = "The public key for the management SSH key pair."
 }
 
+# setenv CLIENT_CERT 0 below is load-bearing for OpenVPN Connect. The server runs
+# verify-client-cert none, so the profile carries no client certificate, and Connect cannot tell
+# whether to source one from the OS keychain or whether the server wants none. It asks the user on
+# every connect until told.
+#
+# It is a setenv rather than a directive so that clients which do not recognise it ignore the line
+# instead of failing to parse the profile.
 output "ovpn_file" {
-  value     = <<-EOT
+  value       = <<-EOT
 client
 dev tun
 proto udp
@@ -37,8 +44,12 @@ reneg-sec 28800
 <ca>
 ${tls_self_signed_cert.ca.cert_pem}
 </ca>
+
+# This profile intentionally has no client certificate
+setenv CLIENT_CERT 0
 EOT
-  sensitive = true
+  description = "OpenVPN client profile (.ovpn) for connecting to this server."
+  sensitive   = true
 }
 
 output "ca_cert" {
