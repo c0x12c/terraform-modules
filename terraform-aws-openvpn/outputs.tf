@@ -22,7 +22,7 @@ output "ssh_public_key" {
 # A setenv rather than a directive: clients that do not recognise it ignore the line instead of
 # failing to parse the profile.
 output "ovpn_file" {
-  value     = <<-EOT
+  value       = <<-EOT
 client
 dev tun
 proto udp
@@ -48,7 +48,8 @@ ${tls_self_signed_cert.ca.cert_pem}
 # This profile intentionally has no client certificate
 setenv CLIENT_CERT 0
 EOT
-  sensitive = true
+  description = "OpenVPN client profile (.ovpn) for connecting to this server."
+  sensitive   = true
 }
 
 output "ca_cert" {
