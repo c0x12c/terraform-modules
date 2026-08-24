@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.7.2](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-helm-argocd/v1.7.1...terraform-aws-helm-argocd/v1.7.2) (2026-08-24)
+
+
+### Bug Fixes
+
+* **terraform-aws-helm-argocd:** drop stray leading space from two card titles ([#293](https://github.com/c0x12c/terraform-modules/issues/293)) ([d346698](https://github.com/c0x12c/terraform-modules/commit/d3466986f0a82e48dd264a21f79bacf94fee0113))
+
 ## [1.7.1](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-helm-argocd/v1.7.0...terraform-aws-helm-argocd/v1.7.1) (2026-08-23)
 
 
