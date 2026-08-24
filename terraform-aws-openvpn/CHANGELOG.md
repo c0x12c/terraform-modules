@@ -1,6 +1,13 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## [0.6.1](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-openvpn/v0.6.0...terraform-aws-openvpn/v0.6.1) (2026-08-24)
+
+
+### Bug Fixes
+
+* **terraform-aws-openvpn:** stop clients asking for a client certificate ([#295](https://github.com/c0x12c/terraform-modules/issues/295)) ([74f0e41](https://github.com/c0x12c/terraform-modules/commit/74f0e41885d96e36fa22a76a594365cc409d80d6))
+
 ## [0.6.0]() (2026-04-29)
 Add variables `dns_server_cidrs` for OpenVPN, so it could able to resolve some DNS inside VPC while using VPC Peering.
 
