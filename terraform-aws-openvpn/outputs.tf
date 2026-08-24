@@ -37,6 +37,12 @@ reneg-sec 28800
 <ca>
 ${tls_self_signed_cert.ca.cert_pem}
 </ca>
+
+# The server runs verify-client-cert none, so this profile carries no client certificate.
+# Without this line OpenVPN Connect cannot tell whether that means "fetch one from the OS
+# keychain" or "the server wants none", and asks the user on every connect. A setenv rather
+# than a directive so clients that do not recognise it ignore it instead of failing to parse.
+setenv CLIENT_CERT 0
 EOT
   sensitive = true
 }
