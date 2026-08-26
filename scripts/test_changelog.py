@@ -25,7 +25,12 @@ def test_split_changelog_returns_every_versioned_heading():
     # Derived from the file, not frozen. This changelog gains an entry on every
     # release, so a hardcoded set rots into a false failure the moment a module
     # ships - which is exactly what happened while nothing ran these tests.
-    headings = re.findall(r"^##\s+\[v?(\d+\.\d+\.\d+)[^\]]*\]", text, re.MULTILINE)
+    # Same version grammar as the parser, including any prerelease suffix - a
+    # narrower pattern here would capture "1.2.3" where split_changelog keys
+    # "1.2.3-rc.1" and fail for a reason that has nothing to do with the parser.
+    # Still an independent derivation: this finds headings, the parser also has to
+    # slice and key the sections between them, which is what the comparison checks.
+    headings = re.findall(r"^##\s+\[v?(\d+\.\d+\.\d+[^\]]*)\]", text, re.MULTILINE)
     assert headings, "no version headings found - the changelog format changed"
     assert set(sections) == set(headings)
     # Keyed by version, so a version that appears twice in the changelog collapses
