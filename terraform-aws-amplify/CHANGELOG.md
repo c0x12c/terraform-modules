@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.5.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-amplify/v1.4.2...terraform-aws-amplify/v1.5.0) (2026-08-26)
+
+
+### Features
+
+* **terraform-aws-amplify:** support oauth_token and an opt-out build webhook ([#297](https://github.com/c0x12c/terraform-modules/issues/297)) ([4b03252](https://github.com/c0x12c/terraform-modules/commit/4b03252057324d2d838105fa33b70729ed994489))
+
 ## [1.4.2]() (2026-04-24)
 
 ### Features
