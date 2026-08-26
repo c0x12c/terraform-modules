@@ -31,9 +31,12 @@ consumed by every project.
 - **Transient 503s carry `Retry-After`**; the catch-all 503 deliberately does not,
   because that branch catches code defects and hinting a retry would multiply load
   against an already-broken Worker.
-- **A 15-minute endpoint probe** covers `/healthz`, `/versions`, and the archive
-  route. This narrows detection from roughly a week to roughly 15 minutes. It is
-  best-effort and runs inside the same scheduler it monitors.
+- **An endpoint probe** covers `/healthz`, `/versions`, and the archive route. The
+  cron asks for 15 minutes, but GitHub throttles scheduled workflows: measured over
+  the first hours after merge the actual interval was 41-79 minutes. Treat the real
+  detection window as **roughly an hour**, not 15 minutes. It is best-effort and runs
+  inside the same scheduler it monitors, which is the other reason it does not
+  substitute for an external check.
 - **Consumer fallback options are documented** in
   [`../registry-outage-fallback.md`](../registry-outage-fallback.md).
 
