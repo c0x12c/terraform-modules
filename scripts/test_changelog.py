@@ -1,4 +1,5 @@
 from pathlib import Path
+import re
 import sys
 
 sys.path.insert(0, str(Path(__file__).parent))
@@ -16,32 +17,29 @@ def test_split_changelog_empty_input_returns_empty_dict():
     assert split_changelog("# Changelog\n\nNo releases yet.\n") == {}
 
 
-def test_split_changelog_returns_all_argocd_versions():
-    sections = split_changelog(ARGOCD_CHANGELOG.read_text(encoding="utf-8"))
+def test_split_changelog_returns_every_versioned_heading():
+    text = ARGOCD_CHANGELOG.read_text(encoding="utf-8")
 
-    expected_versions = {
-        "1.4.2",
-        "1.4.1",
-        "1.4.0",
-        "1.3.0",
-        "1.2.2",
-        "1.2.1",
-        "1.2.0",
-        "1.0.2",
-        "1.0.1",
-        "1.0.0",
-        "0.4.4",
-        "0.4.3",
-        "0.4.2",
-        "0.3.15",
-        "0.3.12",
-        "0.3.8",
-        "0.3.6",
-        "0.3.5",
-        "0.3.3",
-        "0.3.2",
-    }
-    assert set(sections) == expected_versions
+    sections = split_changelog(text)
+
+    # Derived from the file, not frozen. This changelog gains an entry on every
+    # release, so a hardcoded set rots into a false failure the moment a module
+    # ships - which is exactly what happened while nothing ran these tests.
+    # Same version grammar as the parser, including any prerelease suffix - a
+    # narrower pattern here would capture "1.2.3" where split_changelog keys
+    # "1.2.3-rc.1" and fail for a reason that has nothing to do with the parser.
+    # Still an independent derivation: this finds headings, the parser also has to
+    # slice and key the sections between them, which is what the comparison checks.
+    headings = re.findall(r"^##\s+\[v?(\d+\.\d+\.\d+[^\]]*)\]", text, re.MULTILINE)
+    assert headings, "no version headings found - the changelog format changed"
+    assert set(sections) == set(headings)
+    # Keyed by version, so a version that appears twice in the changelog collapses
+    # to one entry and the earlier section is lost. The argocd changelog does this
+    # for 1.4.0 and 1.4.1. Asserting against the UNIQUE set records that behaviour
+    # rather than pretending each heading survives.
+    assert len(sections) == len(set(headings))
+    # Anchors that must survive whatever the newest release is.
+    assert {"0.3.2", "1.0.0", "1.4.2"}.issubset(sections)
 
 
 def test_split_changelog_preserves_multi_paragraph_sections():
