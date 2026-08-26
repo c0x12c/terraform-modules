@@ -1,0 +1,79 @@
+name: registry-uptime
+
+# Interim MTTD reduction only: 7 days to about 15 minutes.
+# Runs inside GitHub's scheduler, is best-effort, and is not a substitute for an external synthetic monitor outside the Cloudflare failure domain.
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  uptime:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Check registry endpoints
+        run: |
+          health_body=$(mktemp)
+          versions_body=$(mktemp)
+          curl -fsS --max-time 20 --retry 2 -o "$health_body" \
+            https://terraform.c0x12c.com/healthz
+          curl -fsS --max-time 20 --retry 2 -o "$versions_body" \
+            https://terraform.c0x12c.com/v1/modules/c0x12c/rds/aws/versions
+          grep -q '"versions"' "$versions_body"
+          # Exercise the archive route too. /healthz and /versions both stay green
+          # if the tarball path regresses, and the tarball path is the one carrying
+          # the Cache API branch.
+          archive_body=$(mktemp)
+          curl -fsS --max-time 20 --retry 2 -o "$archive_body" \
+            https://terraform.c0x12c.com/v1/modules/c0x12c/rds/aws/1.1.0/archive.tar.gz
+          test -s "$archive_body"
+          {
+            echo "Registry uptime probe passed."
+            echo
+            echo "- Checked: /healthz"
+            echo "- Checked: /v1/modules/c0x12c/rds/aws/versions"
+            echo "- Checked: /v1/modules/c0x12c/rds/aws/1.1.0/archive.tar.gz"
+          } > uptime-report.md
+      - name: Open or refresh failure issue
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create registry-uptime --color FBCA04 \
+            --description "Registry uptime probe failure" --force || true
+          TITLE="Registry uptime probe failure"
+          # Only refresh the automation-owned issue so humans keep incident control.
+          existing=$(gh issue list --state open --label registry-uptime \
+            --search "\"$TITLE\" in:title" --json number,author \
+            --jq '[.[] | select(.author.is_bot==true)][0].number // empty')
+          body=$(cat uptime-report.md 2>/dev/null || echo "Registry uptime probe failed before producing a report.")
+          if [ -n "$existing" ]; then
+            # This probe runs every 15 min, so commenting each cycle would bury the
+            # issue under ~190 comments over a weekend. Re-comment at most hourly.
+            last=$(gh issue view "$existing" --json updatedAt --jq .updatedAt)
+            last_s=$(date -u -d "$last" +%s 2>/dev/null || date -u -jf "%Y-%m-%dT%H:%M:%SZ" "$last" +%s)
+            if [ $(( $(date -u +%s) - last_s )) -ge 3600 ]; then
+              gh issue comment "$existing" --body "$body"
+            fi
+          else
+            gh issue create --title "$TITLE" --label registry-uptime --body "$body"
+          fi
+      - name: Resolve issue on success
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TITLE="Registry uptime probe failure"
+          # Close only the bot-authored tracker, never a human-filed incident.
+          existing=$(gh issue list --state open --label registry-uptime \
+            --search "\"$TITLE\" in:title" --json number,author \
+            --jq '[.[] | select(.author.is_bot==true)][0].number // empty')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "Registry uptime probe passed; closing."
+            gh issue close "$existing"
+          fi
