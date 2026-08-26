@@ -19,8 +19,23 @@ variable "dns_zone" {
 }
 
 variable "github_token" {
-  description = "Github access token for authorizing with Github"
+  description = "GitHub token for authorizing with GitHub, passed to the app's access_token. The Amplify API caps this at 255 characters; use github_oauth_token for anything longer."
   type        = string
+  default     = null
+  sensitive   = true
+}
+
+variable "github_oauth_token" {
+  description = "GitHub token passed to the app's oauth_token instead of access_token, which allows up to 1000 characters. Use for GitHub App installation tokens (ghs_), which exceed the 255-character access_token limit. Takes precedence over github_token."
+  type        = string
+  default     = null
+  sensitive   = true
+}
+
+variable "enable_build_webhook" {
+  description = "Create the incoming build webhook used to kick the first build. Set false on aws provider versions that cannot read aws_amplify_webhook back (its post-create read fails on the webhooks/<uuid> ARN form, leaving the resource permanently tainted)."
+  type        = bool
+  default     = true
 }
 
 variable "build_variables" {

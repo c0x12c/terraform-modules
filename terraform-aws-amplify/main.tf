@@ -6,7 +6,11 @@ resource "aws_amplify_app" "this" {
   name       = var.name
   repository = var.repository
 
-  access_token = var.github_token
+  # access_token is capped at 255 characters by the Amplify API, which a GitHub App installation
+  # token (ghs_, ~380) exceeds - the provider rejects it at plan time. oauth_token takes up to
+  # 1000, so App-generated credentials go there. Exactly one of the two is ever set.
+  access_token = var.github_oauth_token == null ? var.github_token : null
+  oauth_token  = var.github_oauth_token
 
   build_spec = templatefile(local.build_spec, {
     application_root         = local.normalized_root
@@ -33,7 +37,8 @@ resource "aws_amplify_app" "this" {
 
   lifecycle {
     ignore_changes = [
-      access_token
+      access_token,
+      oauth_token,
     ]
   }
 }
@@ -89,7 +94,11 @@ aws_amplify_webhook provides an Amplify Webhook resource.
 https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/amplify_webhook
 */
 resource "aws_amplify_webhook" "main" {
-  count = var.enable_backend ? 0 : 1
+  # Opt-out: aws provider 5.100.0 cannot read this resource back - its post-create read fails with
+  # `unexpected format for ARN resource (webhooks/<uuid>)`, leaving it tainted with no arn so every
+  # later apply tries to replace it and fails the same way. Consumers on such a provider set
+  # enable_build_webhook = false and trigger the first build with `aws amplify start-job`.
+  count = var.enable_backend || !var.enable_build_webhook ? 0 : 1
 
   app_id      = aws_amplify_app.this.id
   branch_name = aws_amplify_branch.this.branch_name
