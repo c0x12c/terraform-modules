@@ -24,8 +24,12 @@
 
 const REGISTRY_HOST = "terraform.c0x12c.com";
 const DISCOVERY = { "modules.v1": "/v1/modules/" };
-const jsonRes = (o, status = 200) =>
-  new Response(JSON.stringify(o), { status, headers: { "content-type": "application/json" } });
+const jsonRes = (o, status = 200, headers = {}) =>
+  new Response(JSON.stringify(o), {
+    status,
+    headers: { "content-type": "application/json", ...headers },
+  });
+const unavailable = (o) => jsonRes(o, 503, { "Retry-After": "5" });
 
 // Retry transient R2 get failures. Returns the object (possibly null if the key
 // is genuinely absent); throws only after exhausting retries on real errors.
@@ -926,10 +930,10 @@ export default {
       if (p === "/healthz") {
         try {
           const idx = await loadIndex(env);
-          if (!idx) return jsonRes({ status: "unavailable", reason: "index.json not loadable" }, 503);
+          if (!idx) return unavailable({ status: "unavailable", reason: "index.json not loadable" });
           return jsonRes({ status: "ok", modules: Object.keys(idx).length });
         } catch (e) {
-          return jsonRes({ status: "unavailable", reason: String((e && e.message) || e) }, 503);
+          return unavailable({ status: "unavailable", reason: String((e && e.message) || e) });
         }
       }
 
@@ -949,7 +953,7 @@ export default {
       let m = p.match(/^\/v1\/modules\/([^/]+)\/([^/]+)\/([^/]+)\/versions$/);
       if (m) {
         const idx = await loadIndex(env);
-        if (!idx) return jsonRes({ errors: ["registry unavailable"] }, 503);
+        if (!idx) return unavailable({ errors: ["registry unavailable"] });
         const vs = idx[`${m[1]}/${m[2]}/${m[3]}`];
         if (!vs) return jsonRes({ errors: ["Not Found"] }, 404);
         return jsonRes({ modules: [{ versions: vs.map((v) => ({ version: v })) }] });
@@ -965,12 +969,25 @@ export default {
       // Serve the tarball straight from R2 (module files at archive root -> no //subdir needed)
       m = p.match(/^\/v1\/modules\/([^/]+)\/([^/]+)\/([^/]+)\/([^/]+)\/archive\.tar\.gz$/);
       if (m) {
+        const cache = caches.default;
+        const hit = req.method === "GET" ? await cache.match(req) : null;
+        if (hit) return hit;
         const key = `modules/${m[1]}/${m[2]}/${m[3]}/${m[4]}.tar.gz`;
         const obj = await r2Get(env, key);
         if (!obj) return jsonRes({ errors: ["Not Found"] }, 404);
-        // Count this real delivery (both terraform CLI and browser/curl hit here).
+        // Count only miss-path deliveries; edge-cache hits intentionally skip D1 writes.
         bumpDownload(env, ctx, `${m[1]}/${m[2]}/${m[3]}`, m[4]);
-        return new Response(obj.body, { headers: { "content-type": "application/gzip" } });
+        const response = new Response(obj.body, {
+          headers: {
+            "content-type": "application/gzip",
+            "cache-control": "public, max-age=86400",
+            etag: obj.httpEtag,
+          },
+        });
+        if (req.method === "GET" && response.status === 200) {
+          ctx.waitUntil(cache.put(req, response.clone()));
+        }
+        return response;
       }
 
       // Unmatched: JSON for protocol-shaped paths (terraform-facing), HTML otherwise.
@@ -983,7 +1000,7 @@ export default {
       });
     } catch (e) {
       // Retryable: terraform treats 5xx as transient and retries.
-      return jsonRes({ errors: ["internal error", String((e && e.message) || e)] }, 503);
+      return unavailable({ errors: ["internal error", String((e && e.message) || e)] });
     }
   },
 };

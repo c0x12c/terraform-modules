@@ -41,13 +41,47 @@ const TARBALL_KEYS = new Set([
   "modules/c0x12c/rds/aws/0.6.5.tar.gz",
   "modules/c0x12c/rds/aws/0.6.6.tar.gz",
 ]);
+let bucketGetCount = 0;
 const bucket = {
   async get(key) {
+    bucketGetCount++;
     if (key === "index.json") return { async text() { return INDEX; } };
-    if (TARBALL_KEYS.has(key)) return { body: "tarbytes", async text() { return "tarbytes"; } };
+    if (TARBALL_KEYS.has(key)) {
+      return {
+        body: "tarbytes",
+        httpEtag: '"etag-tarbytes"',
+        async text() { return "tarbytes"; },
+      };
+    }
     return null; // changelogs etc. absent -> graceful fallback
   },
 };
+
+function makeCacheStore() {
+  const store = new Map();
+  let puts = 0;
+  return {
+    api: {
+      async match(request) {
+        return store.get(request.url) ?? null;
+      },
+      async put(request, response) {
+        puts++;
+        store.set(request.url, response);
+      },
+    },
+    prime(url, response) {
+      store.set(url, response);
+    },
+    clear() {
+      store.clear();
+      puts = 0;
+    },
+    putCount() {
+      return puts;
+    },
+  };
+}
 
 function makeCtx() {
   const pending = [];
@@ -70,13 +104,70 @@ async function main() {
   // Fresh DB with the real schema applied.
   const db = new DatabaseSync(":memory:");
   db.exec(readFileSync(new URL("./schema.sql", import.meta.url), "utf8"));
+  const cacheStore = makeCacheStore();
+  globalThis.caches = { default: cacheStore.api };
   const { ctx, settle } = makeCtx();
   const env = { BUCKET: bucket, DB: makeD1(db) };
   const call = (p) => worker.fetch(new Request(reqUrl(p)), env, ctx);
+  const archiveUrl65 = reqUrl(`${ARCHIVE}/0.6.5/archive.tar.gz`);
+  const archiveUrl66 = reqUrl(`${ARCHIVE}/0.6.6/archive.tar.gz`);
+
+  bucketGetCount = 0;
+  const archiveRes = await call(`${ARCHIVE}/0.6.5/archive.tar.gz`);
+  assert.equal(archiveRes.status, 200);
+  assert.equal(archiveRes.headers.get("cache-control"), "public, max-age=86400");
+  assert.ok(archiveRes.headers.get("etag"));
+  ok("archive response carries cache-control and etag");
+
+  await settle();
+  assert.equal(cacheStore.putCount(), 1);
+  const cached65 = await cacheStore.api.match(new Request(archiveUrl65));
+  assert.equal(cached65.status, 200);
+  ok("archive miss writes a 200 response through Cache API");
+
+  const bucketGetsBeforeHit = bucketGetCount;
+  cacheStore.prime(
+    archiveUrl66,
+    new Response("cached-tarbytes", {
+      status: 200,
+      headers: {
+        "content-type": "application/gzip",
+        "cache-control": "public, max-age=86400",
+        etag: '"etag-cached"',
+      },
+    })
+  );
+  const hitRes = await call(`${ARCHIVE}/0.6.6/archive.tar.gz`);
+  assert.equal(hitRes.status, 200);
+  assert.equal(await hitRes.text(), "cached-tarbytes");
+  await settle();
+  const cHit = db.prepare("SELECT count(*) AS n FROM downloads WHERE version=?").get("0.6.6");
+  assert.equal(cHit.n, 0, "cache hit must not increment downloads");
+  assert.equal(bucketGetCount, bucketGetsBeforeHit, "cache hit must not fetch from R2");
+  ok("archive cache hit skips R2 fetch and bumpDownload");
+
+  const unavailableEnv = {
+    BUCKET: {
+      async get() {
+        throw new Error("boom");
+      },
+    },
+    DB: makeD1(db),
+  };
+  const unavailableRes = await worker.fetch(new Request(reqUrl("/healthz")), unavailableEnv, ctx);
+  assert.equal(unavailableRes.status, 503);
+  assert.equal(unavailableRes.headers.get("retry-after"), "5");
+  ok("503 responses carry Retry-After");
 
   // (a) Increments: two pulls of 0.6.5, one of 0.6.6. Validates the upsert.
+  db.exec("DELETE FROM downloads");
+  cacheStore.clear();
   const r1 = await call(`${ARCHIVE}/0.6.5/archive.tar.gz`);
+  await settle();
+  cacheStore.clear();
   const r2 = await call(`${ARCHIVE}/0.6.5/archive.tar.gz`);
+  await settle();
+  cacheStore.clear();
   const r3 = await call(`${ARCHIVE}/0.6.6/archive.tar.gz`);
   assert.equal(r1.status, 200);
   assert.equal(r2.status, 200);
@@ -126,6 +217,16 @@ async function main() {
   const vdetail2 = await (await call2("/modules/c0x12c/rds/aws/0.6.5")).text();
   assert.match(vdetail2, /0 pulls/, "no-DB version detail shows 0");
   ok("graceful degrade: no DB binding -> downloads serve, counts read 0");
+
+  const versionsRes = await call("/v1/modules/c0x12c/rds/aws/versions");
+  assert.equal(versionsRes.status, 200);
+  assert.deepEqual(await versionsRes.json(), {
+    modules: [{ versions: [{ version: "0.6.6" }, { version: "0.6.5" }] }],
+  });
+  const downloadRes = await call("/v1/modules/c0x12c/rds/aws/0.6.5/download");
+  assert.equal(downloadRes.status, 204);
+  assert.equal(downloadRes.headers.get("X-Terraform-Get"), archiveUrl65);
+  ok("/versions and /download protocol responses stay unchanged");
 
   console.log(`\nALL PASS (${passed} checks)`);
 }
