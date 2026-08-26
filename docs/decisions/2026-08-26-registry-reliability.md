@@ -42,13 +42,29 @@ consumed by every project.
 
 ## Open - needs an owner decision
 
-1. **Workers plan tier and actual requests/day are unmeasured.** A root using N
-   modules costs roughly `N * 3` requests per `terraform init`. At the free tier's
-   100k/day that is on the order of 1,600 inits/day across all consumers, and the
-   failure at the cap is not graceful: every init fails at once. Measure before
-   deciding whether the paid tier is needed.
-2. **R2 bucket versioning is not enabled.** This is the cheap half of durability and
-   closes the accidental-object-loss case outright.
+1. **MEASURED 2026-08-27. Peak day 26,050 requests; 7-day average 13,836/day.**
+   Against the free tier's 100k/day that is 26% of the cap at peak. Not imminent,
+   but a 4x busy day reaches it, and the failure at the cap is not graceful: every
+   `terraform init` fails at once. Daily figures for 2026-08-19..26 were 16310,
+   22107, 14979, 4647, 1768, 7317, 26050, 17511 - note the 15x spread between the
+   quietest and busiest day, so an average is the wrong number to plan against.
+
+   Early caching effect: average requests/hour was 605 in the 23 hours before the
+   cache deploy and 433 in the 14 hours after, a ~28% drop consistent with removing
+   the archive third. Treat as directional only - it is confounded by time-of-day
+   and weekday traffic variation, and one day is not a baseline.
+
+   **Plan tier is still UNKNOWN.** The available API token is scoped to Workers and
+   R2 and cannot read account subscriptions, so this needs a dashboard check. Do not
+   read the absence of a subscription listing as proof of the free tier.
+2. **R2 bucket versioning state is UNKNOWN, not confirmed off.** The registry R2
+   token has object read/write only, so `GetBucketVersioning` returns AccessDenied.
+   Needs a dashboard check. Enabling it remains the cheap half of durability.
+
+   **MEASURED: the entire bucket is 818 objects / 2.9 MB** (`index.json` is 8 KB).
+   That is small enough to change the shape of the durability question - a complete
+   offsite copy is a 3 MB transfer, not a storage project. Any scheduled job that can
+   reach R2 can hold a full snapshot somewhere outside the Cloudflare account.
 3. **Account-level loss has no recovery path.** The zone, the Worker, and the bucket
    share one Cloudflare account, so account loss takes DNS for the whole domain with
    it. An offsite object copy does not fix this on its own - restoring service would
