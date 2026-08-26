@@ -19,14 +19,14 @@ variable "dns_zone" {
 }
 
 variable "github_token" {
-  description = "GitHub token for authorizing with GitHub, passed to the app's access_token. The Amplify API caps this at 255 characters; use github_oauth_token for anything longer."
+  description = "GitHub token for authorizing with GitHub, passed to the app's access_token. The Amplify API caps this at 255 characters; use github_oauth_token for anything longer. Leaving both token variables null is valid only for an app whose repository is ALREADY connected - the token is write-only and the connection is stored server-side, so null preserves it. Creating a new app with neither set fails at apply."
   type        = string
   default     = null
   sensitive   = true
 }
 
 variable "github_oauth_token" {
-  description = "GitHub token passed to the app's oauth_token instead of access_token, which allows up to 1000 characters. Use for GitHub App installation tokens (ghs_), which exceed the 255-character access_token limit. Takes precedence over github_token."
+  description = "GitHub token passed to the app's oauth_token instead of access_token, which allows up to 1000 characters. Use for GitHub App installation tokens (ghs_), which exceed the 255-character access_token limit. Takes precedence over github_token; see that variable for what leaving both null means."
   type        = string
   default     = null
   sensitive   = true

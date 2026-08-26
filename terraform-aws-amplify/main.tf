@@ -98,7 +98,7 @@ resource "aws_amplify_webhook" "main" {
   # `unexpected format for ARN resource (webhooks/<uuid>)`, leaving it tainted with no arn so every
   # later apply tries to replace it and fails the same way. Consumers on such a provider set
   # enable_build_webhook = false and trigger the first build with `aws amplify start-job`.
-  count = var.enable_backend || !var.enable_build_webhook ? 0 : 1
+  count = (var.enable_backend || !var.enable_build_webhook) ? 0 : 1
 
   app_id      = aws_amplify_app.this.id
   branch_name = aws_amplify_branch.this.branch_name
