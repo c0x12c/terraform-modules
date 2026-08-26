@@ -61,14 +61,14 @@ module "website" {
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.8 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.75 |
-| <a name="requirement_github"></a> [github](#requirement\_github) | >= 6.5.0, < 6.9.1 |
+| <a name="requirement_github"></a> [github](#requirement\_github) | >= 6.5.0, < 6.11.2 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_archive"></a> [archive](#provider\_archive) | n/a |
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.75 |
+| <a name="provider_archive"></a> [archive](#provider\_archive) | 2.8.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.61.0 |
 
 ## Modules
 
@@ -96,7 +96,6 @@ No modules.
 | [aws_lambda_permission.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_permission) | resource |
 | [archive_file.lambda_zip](https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/file) | data source |
 | [aws_iam_policy_document.amplify_backend](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
 ## Inputs
 
@@ -112,11 +111,13 @@ No modules.
 | <a name="input_dns_zone"></a> [dns\_zone](#input\_dns\_zone) | DNS zone for creating domain | `string` | n/a | yes |
 | <a name="input_enable_auto_build"></a> [enable\_auto\_build](#input\_enable\_auto\_build) | To enable auto build for deployment branch | `bool` | `true` | no |
 | <a name="input_enable_backend"></a> [enable\_backend](#input\_enable\_backend) | To enable aws\_amplify\_backend\_environment | `bool` | `true` | no |
+| <a name="input_enable_build_webhook"></a> [enable\_build\_webhook](#input\_enable\_build\_webhook) | Create the incoming build webhook used to kick the first build. Set false on aws provider versions that cannot read aws\_amplify\_webhook back (its post-create read fails on the webhooks/<uuid> ARN form, leaving the resource permanently tainted). | `bool` | `true` | no |
 | <a name="input_enable_redirect_to_root"></a> [enable\_redirect\_to\_root](#input\_enable\_redirect\_to\_root) | To enable redirect to the root | `bool` | `false` | no |
 | <a name="input_enabled_notification"></a> [enabled\_notification](#input\_enabled\_notification) | To enable the webhook notification to slack, which will create resources relating lambda function and eventbridge to semd a message | `bool` | `false` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Environment for the Amplify app | `string` | n/a | yes |
 | <a name="input_framework"></a> [framework](#input\_framework) | Optional framework for the branch | `string` | `null` | no |
-| <a name="input_github_token"></a> [github\_token](#input\_github\_token) | Github access token for authorizing with Github | `string` | n/a | yes |
+| <a name="input_github_oauth_token"></a> [github\_oauth\_token](#input\_github\_oauth\_token) | GitHub token passed to the app's oauth\_token instead of access\_token, which allows up to 1000 characters. Use for GitHub App installation tokens (ghs\_), which exceed the 255-character access\_token limit. Takes precedence over github\_token; see that variable for what leaving both null means. | `string` | `null` | no |
+| <a name="input_github_token"></a> [github\_token](#input\_github\_token) | GitHub token for authorizing with GitHub, passed to the app's access\_token. The Amplify API caps this at 255 characters; use github\_oauth\_token for anything longer. Leaving both token variables null is valid only for an app whose repository is ALREADY connected - the token is write-only and the connection is stored server-side, so null preserves it. Creating a new app with neither set fails at apply. | `string` | `null` | no |
 | <a name="input_install_command"></a> [install\_command](#input\_install\_command) | The install command to install packages | `string` | `"yarn install"` | no |
 | <a name="input_name"></a> [name](#input\_name) | The name for the Amplify app | `string` | n/a | yes |
 | <a name="input_repository"></a> [repository](#input\_repository) | Source repository for Amplify app | `string` | n/a | yes |
