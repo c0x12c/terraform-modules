@@ -1,0 +1,49 @@
+name: registry-tests
+
+# Runs the registry Worker suite and the release-tooling suite on every PR that
+# touches them. Before this existed the only automated check on worker.js was
+# `node --check` in registry-deploy.yml - a syntax check, which passes on a
+# reference to an undefined variable. That exact defect reached review once and
+# would have returned 503 on every archive fetch.
+on:
+  pull_request:
+    paths:
+      - "tools/registry/**"
+      - "scripts/**"
+      - ".github/workflows/registry-tests.yml"
+  push:
+    branches: [master]
+    paths:
+      - "tools/registry/**"
+      - "scripts/**"
+      - ".github/workflows/registry-tests.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  worker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          # test_worker.mjs drives real SQLite through node:sqlite, added in 22.
+          node-version: "22"
+      - name: Worker suite
+        run: node tools/registry/test_worker.mjs
+
+  scripts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.x"
+      - name: Install deps
+        run: |
+          pip install pytest
+          pip install -r scripts/requirements.txt
+      - name: Release-tooling suite
+        run: python3 -m pytest scripts/ -q
