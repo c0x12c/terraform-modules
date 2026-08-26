@@ -984,7 +984,9 @@ export default {
             etag: obj.httpEtag,
           },
         });
-        if (req.method === "GET" && response.status === 200) {
+        // Guard ctx the way bumpDownload does: outside the Workers runtime ctx can
+        // be absent, and an unguarded waitUntil would turn a good tarball into a 503.
+        if (ctx && req.method === "GET" && response.status === 200) {
           ctx.waitUntil(cache.put(req, response.clone()));
         }
         return response;

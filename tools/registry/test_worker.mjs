@@ -63,7 +63,10 @@ function makeCacheStore() {
   return {
     api: {
       async match(request) {
-        return store.get(request.url) ?? null;
+        // Real Cache API hands back a fresh response each time; returning the stored
+        // instance would let one test drain a one-shot body for the next.
+        const hit = store.get(request.url);
+        return hit ? hit.clone() : null;
       },
       async put(request, response) {
         puts++;
