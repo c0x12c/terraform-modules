@@ -1000,7 +1000,10 @@ export default {
       });
     } catch (e) {
       // Retryable: terraform treats 5xx as transient and retries.
-      return unavailable({ errors: ["internal error", String((e && e.message) || e)] });
+      // No Retry-After here on purpose. This branch catches code defects, not
+      // transient faults - hinting a retry would multiply load against a Worker
+      // that is broken for every consumer until it is rolled back.
+      return jsonRes({ errors: ["internal error", String((e && e.message) || e)] }, 503);
     }
   },
 };

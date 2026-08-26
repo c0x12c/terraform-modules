@@ -25,11 +25,19 @@ jobs:
           curl -fsS --max-time 20 --retry 2 -o "$versions_body" \
             https://terraform.c0x12c.com/v1/modules/c0x12c/rds/aws/versions
           grep -q '"versions"' "$versions_body"
+          # Exercise the archive route too. /healthz and /versions both stay green
+          # if the tarball path regresses, and the tarball path is the one carrying
+          # the Cache API branch.
+          archive_body=$(mktemp)
+          curl -fsS --max-time 20 --retry 2 -o "$archive_body" \
+            https://terraform.c0x12c.com/v1/modules/c0x12c/rds/aws/1.1.0/archive.tar.gz
+          test -s "$archive_body"
           {
             echo "Registry uptime probe passed."
             echo
             echo "- Checked: /healthz"
             echo "- Checked: /v1/modules/c0x12c/rds/aws/versions"
+            echo "- Checked: /v1/modules/c0x12c/rds/aws/1.1.0/archive.tar.gz"
           } > uptime-report.md
       - name: Open or refresh failure issue
         if: failure()
@@ -45,7 +53,13 @@ jobs:
             --jq '[.[] | select(.author.is_bot==true)][0].number // empty')
           body=$(cat uptime-report.md 2>/dev/null || echo "Registry uptime probe failed before producing a report.")
           if [ -n "$existing" ]; then
-            gh issue comment "$existing" --body "$body"
+            # This probe runs every 15 min, so commenting each cycle would bury the
+            # issue under ~190 comments over a weekend. Re-comment at most hourly.
+            last=$(gh issue view "$existing" --json updatedAt --jq .updatedAt)
+            last_s=$(date -u -d "$last" +%s 2>/dev/null || date -u -jf "%Y-%m-%dT%H:%M:%SZ" "$last" +%s)
+            if [ $(( $(date -u +%s) - last_s )) -ge 3600 ]; then
+              gh issue comment "$existing" --body "$body"
+            fi
           else
             gh issue create --title "$TITLE" --label registry-uptime --body "$body"
           fi
