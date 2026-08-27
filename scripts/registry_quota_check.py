@@ -2,8 +2,12 @@
 
 Workers Free is a hard daily cap rather than a throttle: past it the Worker stops
 serving until UTC midnight and every `terraform init` fails at once. The cliff is
-invisible until it is hit, so this reads yesterday's count and fails the job while
-there is still room to act.
+invisible until it is hit, so this checks a recently completed day and fails the
+job while there is still room to act.
+
+The window given by --since/--until may span several days; only the most recent
+one is judged. Earlier days are printed for context. The window exists because
+the current UTC day is still accumulating and would read artificially low.
 
 The limit is an argument, not a constant. 100k is the free-tier figure; on a paid
 plan the right value is far higher and a hardcoded number would cry wolf daily.
@@ -129,12 +133,16 @@ def main(argv):
     if not daily:
         raise SystemExit("analytics returned no days in the requested window")
 
-    peak_day = max(daily, key=lambda d: daily[d])
-    state, message = classify(daily[peak_day], args.limit, args.warn_pct, args.fail_pct)
+    # Judge the most recent day only. Alarming on the window's peak would re-fire
+    # every run until that day aged out, turning one busy day into days of noise.
+    # Earlier days are printed as context, not judged.
+    latest = max(daily)
+    state, message = classify(daily[latest], args.limit, args.warn_pct, args.fail_pct)
 
     for day in sorted(daily):
-        print("%s  %d" % (day, daily[day]))
-    print("peak day %s: %s" % (peak_day, message))
+        marker = " <- judged" if day == latest else ""
+        print("%s  %d%s" % (day, daily[day], marker))
+    print("%s: %s" % (latest, message))
 
     return 0 if state == "ok" else 1
 

@@ -4,8 +4,12 @@ name: registry-quota-watch
 # serving until UTC midnight and every `terraform init` fails at once. Measured
 # 2026-08-27 the peak day was 26,050 requests against 100,000, with a 15x spread
 # between the quietest and busiest day - so the cliff is reachable on a bad day
-# and invisible until it is hit. This reads yesterday's count and goes red while
+# and invisible until it is hit. This judges yesterday's count and goes red while
 # there is still room to act.
+#
+# The query spans two days because the current UTC day is still accumulating and
+# would read artificially low. Only the most recent completed day is judged; the
+# earlier one is printed as context.
 #
 # The limit is the repo variable REGISTRY_DAILY_REQUEST_LIMIT, defaulting to the
 # free-tier figure. Once the plan tier is confirmed as paid, raise the variable
