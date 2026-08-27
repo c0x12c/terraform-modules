@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.6.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-amplify/v1.5.0...terraform-aws-amplify/v1.6.0) (2026-08-27)
+
+
+### Features
+
+* **amplify:** report the build failure reason in the Slack notification ([d81df8d](https://github.com/c0x12c/terraform-modules/commit/d81df8d3a915b21469032194c84fa333bd1e66da))
+
 ## [1.5.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-amplify/v1.4.2...terraform-aws-amplify/v1.5.0) (2026-08-26)
 
 
