@@ -9,6 +9,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from registry_snapshot import (  # noqa: E402
     content_type_for,
+    safe_relative_path,
     missing_index_coverage,
     restore,
     snapshot,
@@ -172,3 +173,53 @@ def test_missing_index_coverage_accepts_partial_version_presence():
 
 def test_content_type_for_unknown_suffix_is_octet_stream():
     assert content_type_for("weird.bin") == "application/octet-stream"
+
+
+class _TruncatedNoTokenClient(_FakeS3Client):
+    """Reports more results but hands back no way to fetch them."""
+
+    def list_objects_v2(self, Bucket, ContinuationToken=None):
+        page = super().list_objects_v2(Bucket, ContinuationToken)
+        page["IsTruncated"] = True
+        page.pop("NextContinuationToken", None)
+        return page
+
+
+def test_snapshot_aborts_when_truncated_without_a_continuation_token(tmp_path):
+    # A partial listing that looks complete is worse than no backup at all.
+    client = _TruncatedNoTokenClient(_bucket().objects)
+
+    with pytest.raises(SystemExit, match="continuation token"):
+        snapshot(client, "b", tmp_path)
+
+
+def test_snapshot_refuses_a_key_that_escapes_the_directory(tmp_path):
+    client = _FakeS3Client(
+        {
+            "index.json": _index(**{"c0x12c/rds/aws": ["1.0.0"]}),
+            "modules/c0x12c/rds/aws/1.0.0.tar.gz": b"ok",
+            "../escaped.txt": b"nope",
+        }
+    )
+
+    with pytest.raises(SystemExit, match="parent reference"):
+        snapshot(client, "b", tmp_path)
+
+
+def test_snapshot_refuses_an_absolute_key(tmp_path):
+    client = _FakeS3Client(
+        {
+            "index.json": _index(**{"c0x12c/rds/aws": ["1.0.0"]}),
+            "modules/c0x12c/rds/aws/1.0.0.tar.gz": b"ok",
+            "/etc/passwd": b"nope",
+        }
+    )
+
+    with pytest.raises(SystemExit, match="absolute object key"):
+        snapshot(client, "b", tmp_path)
+
+
+def test_safe_relative_path_accepts_ordinary_keys(tmp_path):
+    resolved = safe_relative_path(tmp_path, "modules/c0x12c/rds/aws/1.0.0.tar.gz")
+
+    assert tmp_path.resolve() in resolved.parents

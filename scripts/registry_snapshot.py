@@ -29,6 +29,23 @@ CONTENT_TYPES = {
 }
 
 
+def safe_relative_path(root: Path, key: str) -> Path:
+    """Resolve an object key under root, refusing anything that escapes it.
+
+    Object keys come from the bucket, not from us. An absolute key or one
+    containing .. would place a file outside the snapshot directory, so a tool
+    whose whole job is to write a trustworthy artifact has to check.
+    """
+    if key.startswith("/") or Path(key).is_absolute():
+        raise SystemExit("refusing absolute object key: %s" % key)
+    if ".." in Path(key).parts:
+        raise SystemExit("refusing object key with a parent reference: %s" % key)
+    target = (root / key).resolve()
+    if root.resolve() not in target.parents:
+        raise SystemExit("object key escapes the snapshot directory: %s" % key)
+    return target
+
+
 def sha256_hex(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
@@ -56,7 +73,13 @@ def iter_objects(client, bucket):
             return
         token = page.get("NextContinuationToken")
         if not token:
-            return
+            # Truncated with nowhere to continue. Returning here would hand back a
+            # partial listing that looks complete, which for a backup is worse than
+            # no backup - fail loudly so the scheduled run goes red.
+            raise SystemExit(
+                "listing reported more results but returned no continuation token; "
+                "refusing to write a partial snapshot"
+            )
 
 
 def missing_index_coverage(index, keys):
@@ -106,7 +129,8 @@ def snapshot(client, bucket, out_dir, now=None):
 
     manifest_objects = {}
     for key, body in sorted(payloads.items()):
-        target = objects_dir / key
+        objects_dir.mkdir(parents=True, exist_ok=True)
+        target = safe_relative_path(objects_dir, key)
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes(body)
         manifest_objects[key] = {"size": len(body), "sha256": sha256_hex(body)}
@@ -143,7 +167,7 @@ def restore(client, bucket, snapshot_dir, apply=False):
 
     planned = []
     for key, meta in sorted(manifest["objects"].items()):
-        path = objects_dir / key
+        path = safe_relative_path(objects_dir, key)
         if not path.exists():
             raise SystemExit("snapshot is incomplete: %s missing from objects/" % key)
         body = path.read_bytes()
