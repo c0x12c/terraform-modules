@@ -287,9 +287,13 @@ async function resilience() {
 
   const warm = await fresh.fetch(new Request(reqUrl(`${ARCHIVE}/versions`)), env2, ctx);
   assert.equal(warm.status, 200);
+  assert.equal(warm.headers.get("X-Registry-Stale"), null);
   await settle();
-  assert.equal(store.putCount(), 1);
-  ok("/versions is edge-cached on the success path");
+  // /versions must never be edge-cached: the zone rewrites max-age to 4 hours
+  // (browser_cache_ttl=14400), and this is the endpoint whose job is showing a
+  // new release promptly.
+  assert.equal(store.putCount(), 0);
+  ok("/versions is never edge-cached, fresh or stale");
 
   store.clear();
   flaky.broken = true;
@@ -302,11 +306,22 @@ async function resilience() {
   assert.deepEqual(staleBody, {
     modules: [{ versions: [{ version: "0.6.6" }, { version: "0.6.5" }] }],
   });
-  ok("/versions serves the last good index when R2 fails");
+  assert.equal(stale.headers.get("X-Registry-Stale"), "1");
+  ok("/versions serves the last good index when R2 fails, and says so");
 
   await settle();
   assert.equal(store.putCount(), 0);
   ok("a stale /versions response is not written to the edge cache");
+
+  // A module released after the last good read is absent from the fallback. Its
+  // 404 must still say "stale", or it is indistinguishable from a module that was
+  // never published - the misdiagnosis this whole fallback exists to avoid.
+  const missing = await fresh.fetch(
+    new Request(reqUrl("/v1/modules/c0x12c/brand-new/aws/versions")), env2, ctx
+  );
+  assert.equal(missing.status, 404);
+  assert.equal(missing.headers.get("X-Registry-Stale"), "1");
+  ok("a 404 served from the stale index still carries the stale marker");
 
   // healthz reports ORIGIN health and must stay red while consumers are served.
   const health = await fresh.fetch(new Request(reqUrl("/healthz")), env2, ctx);
