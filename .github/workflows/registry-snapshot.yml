@@ -1,0 +1,50 @@
+name: registry-snapshot
+
+# Daily offsite copy of the registry R2 bucket, held as a GitHub artifact so the
+# copy does not live in the Cloudflare account it protects.
+#
+# COVERS: object loss - an accidental delete, a bad script, a corrupted upload.
+# DOES NOT COVER: Cloudflare account loss. The zone and the Worker go with the
+# account, and a bucket copy does not bring DNS back. See docs/registry-restore.md.
+#
+# Artifacts rather than Releases: this repo publishes a release per module, and
+# a daily snapshot release would bury them.
+on:
+  schedule:
+    - cron: "20 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.x"
+      - name: Install deps
+        run: pip install -r tools/registry/requirements.txt
+      - name: Stamp the date
+        id: stamp
+        run: echo "date=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+      - name: Snapshot the bucket
+        env:
+          R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
+          # Read-only credential pair. A backup must never need write access to
+          # the thing it is backing up.
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_HEALTHCHECK_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_HEALTHCHECK_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
+        run: |
+          python3 scripts/registry_snapshot.py snapshot \
+            --bucket "${{ vars.R2_BUCKET }}" \
+            --out snapshot
+      - uses: actions/upload-artifact@v4
+        with:
+          name: registry-snapshot-${{ steps.stamp.outputs.date }}
+          path: snapshot
+          retention-days: 30
+          if-no-files-found: error
