@@ -52,14 +52,48 @@ async function r2Get(env, key, tries = 3) {
 let INDEX_CACHE = null; // { data, ts }
 const INDEX_TTL_MS = 60_000;
 
-async function loadIndex(env) {
+// Last index we successfully read, kept without a TTL. R2 reads fail transiently
+// and Terraform's client retries only twice, so a few seconds of trouble used to
+// fail every init org-wide - while the tarballs those inits wanted were already
+// sitting in the edge cache. The index changes only on release, so answering from
+// a slightly old copy during a fault is strictly better than answering not at all.
+let LAST_GOOD_INDEX = null;
+
+// `state` is an out-parameter: loadIndex sets state.stale when the value it
+// returns came from the fallback rather than a live read. Inferring that from
+// object identity does not work - INDEX_CACHE keeps holding the same object
+// after its TTL lapses, so a stale serve is indistinguishable from a fresh one.
+async function loadIndex(env, { allowStale = false, state = null } = {}) {
   const now = Date.now();
-  if (INDEX_CACHE && now - INDEX_CACHE.ts < INDEX_TTL_MS) return INDEX_CACHE.data;
-  const obj = await r2Get(env, "index.json");
-  if (!obj) return null;
-  const data = JSON.parse(await obj.text());
-  INDEX_CACHE = { data, ts: now };
-  return data;
+  // Overridable so tests can force a live read; the fallback below is only
+  // reachable once this window lapses, and a test that cannot expire it would
+  // pass without ever exercising the path it claims to cover.
+  const ttl = env && env.INDEX_TTL_MS !== undefined ? Number(env.INDEX_TTL_MS) : INDEX_TTL_MS;
+  if (INDEX_CACHE && now - INDEX_CACHE.ts < ttl) return INDEX_CACHE.data;
+  try {
+    const obj = await r2Get(env, "index.json");
+    if (!obj) throw new Error("index.json absent");
+    const data = JSON.parse(await obj.text());
+    INDEX_CACHE = { data, ts: now };
+    LAST_GOOD_INDEX = data;
+    return data;
+  } catch (e) {
+    // Never invent an empty index. An empty answer reads as "no such module",
+    // which surfaces as a version-constraint failure and looks like a publishing
+    // bug rather than an outage - the most expensive thing to debug at 3am.
+    if (allowStale && LAST_GOOD_INDEX) {
+      if (state) state.stale = true;
+      return LAST_GOOD_INDEX;
+    }
+    throw e;
+  }
+}
+
+// Edge-cache a protocol response. Stale answers are deliberately not stored:
+// caching one would extend the incident past R2's own recovery.
+function cacheProtocol(cache, ctx, req, res, stale) {
+  if (stale || !ctx || req.method !== "GET" || res.status >= 400) return;
+  ctx.waitUntil(cache.put(req, res.clone()));
 }
 
 const esc = (s) =>
@@ -929,6 +963,10 @@ export default {
       // Readiness probe: 200 only when the critical dependency (index.json) loads.
       if (p === "/healthz") {
         try {
+          // Deliberately NOT tolerant of stale. This reports ORIGIN health, which
+          // is a different question from whether consumers are being served. If it
+          // went green while R2 was failing, the uptime probe would go quiet during
+          // exactly the incident it exists to catch.
           const idx = await loadIndex(env);
           if (!idx) return unavailable({ status: "unavailable", reason: "index.json not loadable" });
           return jsonRes({ status: "ok", modules: Object.keys(idx).length });
@@ -952,18 +990,45 @@ export default {
       // List versions
       let m = p.match(/^\/v1\/modules\/([^/]+)\/([^/]+)\/([^/]+)\/versions$/);
       if (m) {
-        const idx = await loadIndex(env);
-        if (!idx) return unavailable({ errors: ["registry unavailable"] });
+        const cache = caches.default;
+        const hit = req.method === "GET" ? await cache.match(req) : null;
+        if (hit) return hit;
+        const state = { stale: false };
+        let idx;
+        try {
+          idx = await loadIndex(env, { allowStale: true, state });
+        } catch (e) {
+          return unavailable({ errors: ["registry unavailable"] });
+        }
+        const stale = state.stale;
         const vs = idx[`${m[1]}/${m[2]}/${m[3]}`];
         if (!vs) return jsonRes({ errors: ["Not Found"] }, 404);
-        return jsonRes({ modules: [{ versions: vs.map((v) => ({ version: v })) }] });
+        // Short TTL so a release is visible quickly; the in-isolate TTL is the
+        // same 60s, so this adds no extra staleness on the happy path.
+        const res = jsonRes(
+          { modules: [{ versions: vs.map((v) => ({ version: v })) }] },
+          200,
+          { "Cache-Control": "public, max-age=60" }
+        );
+        cacheProtocol(cache, ctx, req, res, stale);
+        return res;
       }
 
       // Download: 204 + X-Terraform-Get pointing at the archive route on this same host
       m = p.match(/^\/v1\/modules\/([^/]+)\/([^/]+)\/([^/]+)\/([^/]+)\/download$/);
       if (m) {
+        const cache = caches.default;
+        const hit = req.method === "GET" ? await cache.match(req) : null;
+        if (hit) return hit;
         const get = `${url.origin}/v1/modules/${m[1]}/${m[2]}/${m[3]}/${m[4]}/archive.tar.gz`;
-        return new Response(null, { status: 204, headers: { "X-Terraform-Get": get } });
+        // Pure function of the URL - no state is consulted to build it, so it can
+        // be cached as long as the tarball it points at.
+        const res = new Response(null, {
+          status: 204,
+          headers: { "X-Terraform-Get": get, "Cache-Control": "public, max-age=86400" },
+        });
+        cacheProtocol(cache, ctx, req, res, false);
+        return res;
       }
 
       // Serve the tarball straight from R2 (module files at archive root -> no //subdir needed)

@@ -231,7 +231,97 @@ async function main() {
   assert.equal(downloadRes.headers.get("X-Terraform-Get"), archiveUrl65);
   ok("/versions and /download protocol responses stay unchanged");
 
+  await resilience();
+
   console.log(`\nALL PASS (${passed} checks)`);
+}
+
+// --- R2-fault resilience --------------------------------------------------
+// A transient R2 read used to 503 every resolve, which Terraform turns into a
+// hard failure after two retries. These cover the fallback and, just as much,
+// the things that must NOT happen alongside it.
+
+function failingBucket(good) {
+  // Serves normally until `broken` is set, then throws on every read.
+  const b = {
+    broken: false,
+    async get(key) {
+      if (b.broken) throw new Error("R2 unavailable");
+      return good.get(key);
+    },
+  };
+  return b;
+}
+
+async function resilience() {
+  // Fresh module instance: LAST_GOOD_INDEX is module-scoped, and one of these
+  // cases is specifically "no good index was ever seen".
+  const fresh = (await import("./worker.js?resilience=1")).default;
+
+  const good = {
+    async get(key) {
+      if (key === "index.json") return { async text() { return INDEX; } };
+      if (TARBALL_KEYS.has(key)) return { body: "tarbytes", httpEtag: '"e"', async text() { return "tarbytes"; } };
+      return null;
+    },
+  };
+
+  // Case 1: R2 broken from the very start - nothing good was ever cached.
+  const cold = makeCacheStore();
+  globalThis.caches = { default: cold.api };
+  const coldCtx = makeCtx();
+  const dead = failingBucket(good);
+  dead.broken = true;
+  const coldRes = await fresh.fetch(new Request(reqUrl(`${ARCHIVE}/versions`)), { BUCKET: dead, INDEX_TTL_MS: 0 }, coldCtx.ctx);
+  assert.equal(coldRes.status, 503);
+  ok("/versions 503s when R2 fails and no good index was ever seen");
+
+  // Case 2: one good read, then R2 breaks. The resolve must still work.
+  const store = makeCacheStore();
+  globalThis.caches = { default: store.api };
+  const { ctx, settle } = makeCtx();
+  const flaky = failingBucket(good);
+  // TTL 0: without this the in-isolate cache answers and the stale path below
+  // is never reached, so the assertions would pass without testing anything.
+  const env2 = { BUCKET: flaky, INDEX_TTL_MS: 0 };
+
+  const warm = await fresh.fetch(new Request(reqUrl(`${ARCHIVE}/versions`)), env2, ctx);
+  assert.equal(warm.status, 200);
+  await settle();
+  assert.equal(store.putCount(), 1);
+  ok("/versions is edge-cached on the success path");
+
+  store.clear();
+  flaky.broken = true;
+  const stale = await fresh.fetch(new Request(reqUrl(`${ARCHIVE}/versions`)), env2, ctx);
+  assert.equal(stale.status, 200);
+  const staleBody = await stale.json();
+  // Must be the real version list, not an empty one. An empty answer reads as
+  // "no such module" and surfaces as a version-constraint failure - it looks
+  // like a publishing bug rather than an outage.
+  assert.deepEqual(staleBody, {
+    modules: [{ versions: [{ version: "0.6.6" }, { version: "0.6.5" }] }],
+  });
+  ok("/versions serves the last good index when R2 fails");
+
+  await settle();
+  assert.equal(store.putCount(), 0);
+  ok("a stale /versions response is not written to the edge cache");
+
+  // healthz reports ORIGIN health and must stay red while consumers are served.
+  const health = await fresh.fetch(new Request(reqUrl("/healthz")), env2, ctx);
+  assert.equal(health.status, 503);
+  ok("/healthz stays 503 while /versions is serving stale");
+
+  // /download consults no state, so it caches too.
+  store.clear();
+  flaky.broken = false;
+  const dl = await fresh.fetch(new Request(reqUrl(`${ARCHIVE}/0.6.5/download`)), env2, ctx);
+  assert.equal(dl.status, 204);
+  assert.equal(dl.headers.get("X-Terraform-Get"), reqUrl(`${ARCHIVE}/0.6.5/archive.tar.gz`));
+  await settle();
+  assert.equal(store.putCount(), 1);
+  ok("/download is edge-cached and its header is unchanged");
 }
 
 main().catch((e) => {
