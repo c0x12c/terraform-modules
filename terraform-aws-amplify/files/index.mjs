@@ -11,12 +11,8 @@
  * - DEBUG: Set to 'true' to enable debug logging.
  */
 
-import {
-  AmplifyClient,
-  GetAppCommand,
-  ListDomainAssociationsCommand,
-  GetJobCommand,
-} from '@aws-sdk/client-amplify';
+// SDK imported lazily in the handler: the zip is this file alone (archive_file source_file),
+// so a top-level import would make the pure functions below untestable without the SDK.
 
 const DEBUG = process.env.DEBUG === 'true';
 
@@ -40,6 +36,74 @@ const debug = {
     }
   },
 };
+
+// Slack caps a section at 3000 chars. Stay well under it, and cap the line count too:
+// build logs can echo build-time env, so an uncapped paste would put it in the channel.
+const MAX_ERROR_LINES = 12;
+const MAX_DETAIL_CHARS = 1500;
+const LOG_FETCH_TIMEOUT_MS = 5000;
+// The cause sits above the first [ERROR] and is not tagged as one: an OOM kill logs
+// "[WARNING]: 1320 Killed npm run build" while [ERROR] says only "exit code 137".
+const ERROR_CONTEXT_LINES = 3;
+
+/**
+ * Extracts the failure lines from an Amplify step log.
+ *
+ * [ERROR] is the only usable discriminator: a build that SUCCEEDS carries 47 [WARNING] lines
+ * and zero [ERROR]. With no [ERROR] the shape is unknown, so fall back to the tail and report
+ * `source` - a tail is a guess and the caller labels it differently.
+ *
+ * Returns null when there is nothing to report; a logUrl can serve an empty body.
+ */
+export function extractFailureDetail(logText, opts = {}) {
+  const maxLines = opts.maxLines ?? MAX_ERROR_LINES;
+  const maxChars = opts.maxChars ?? MAX_DETAIL_CHARS;
+  const contextLines = opts.contextLines ?? ERROR_CONTEXT_LINES;
+
+  if (typeof logText !== 'string') return null;
+  const lines = logText.split('\n').map((l) => l.trimEnd()).filter((l) => l.length > 0);
+  if (lines.length === 0) return null;
+
+  const isError = (l) => l.includes('[ERROR]');
+  const firstError = lines.findIndex(isError);
+  const source = firstError === -1 ? 'log-tail' : 'error-lines';
+
+  // Stop at the last [ERROR] so trailing "caching completed" chatter stays out.
+  const picked =
+    firstError === -1
+      ? lines.slice(-maxLines)
+      : lines.slice(Math.max(0, firstError - contextLines), lines.findLastIndex(isError) + 1);
+
+  const text = picked.slice(-maxLines).join('\n');
+  // Trim from the front: the end of a log is where the cause is.
+  return { text: text.length > maxChars ? text.slice(-maxChars) : text, source };
+}
+
+// Bounded so a slow S3 read cannot hang the notification.
+async function fetchStepLog(url) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), LOG_FETCH_TIMEOUT_MS);
+  try {
+    const response = await fetch(url, { signal: controller.signal });
+    if (!response.ok) return null;
+    return await response.text();
+  } catch (error) {
+    debug.warn('Failed to fetch step log:', error);
+    return null;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+// statusReason first, log scraping only as fallback. Every branch can find nothing: a
+// cancelled DEPLOY exposes a logUrl that serves an empty body.
+async function describeFailure(job) {
+  const failedStep = job?.steps?.find((step) => step.status === 'FAILED');
+  if (!failedStep) return null;
+  if (failedStep.statusReason) return { text: failedStep.statusReason, source: 'status-reason' };
+  if (!failedStep.logUrl) return null;
+  return extractFailureDetail(await fetchStepLog(failedStep.logUrl));
+}
 
 /**
  * Returns an emoji and a descriptive message based on the job status.
@@ -81,12 +145,14 @@ export const handler = async (event) => {
 
   debug.log('Extracted details:', { appId, branchName, jobStatus, jobId, region });
 
-  // Initialize AWS Amplify client
+  const { AmplifyClient, GetAppCommand, ListDomainAssociationsCommand, GetJobCommand } =
+    await import('@aws-sdk/client-amplify');
   const amplifyClient = new AmplifyClient({ region });
 
   let appName = appId;
   let domainName = null;
   let commitMessage = null;
+  let failureDetail = null;
 
   try {
     // Get the Amplify app details to fetch the app name
@@ -116,6 +182,11 @@ export const handler = async (event) => {
 
       // Extract commit message from job details
       commitMessage = jobResponse.job?.summary?.commitMessage || jobResponse.job?.commitMessage;
+
+      // Same response already carries the step list, so the reason costs no extra API call.
+      if (jobStatus === 'FAILED') {
+        failureDetail = await describeFailure(jobResponse.job);
+      }
     }
   } catch (error) {
     debug.warn('Failed to fetch app details, domains, or job info:', error);
@@ -148,6 +219,19 @@ export const handler = async (event) => {
           ...(domainName ? [{ type: 'mrkdwn', text: `*Domain:* https://${domainName}` }] : []),
         ],
       },
+      ...(failureDetail
+        ? [
+            {
+              type: 'section',
+              text: {
+                type: 'mrkdwn',
+                text: `*${
+                  failureDetail.source === 'log-tail' ? 'Last log lines' : 'Failure'
+                }:*\n\`\`\`${failureDetail.text}\`\`\``,
+              },
+            },
+          ]
+        : []),
       ...(commitMessage
         ? [
             {
