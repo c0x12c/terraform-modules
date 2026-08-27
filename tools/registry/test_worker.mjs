@@ -287,9 +287,13 @@ async function resilience() {
 
   const warm = await fresh.fetch(new Request(reqUrl(`${ARCHIVE}/versions`)), env2, ctx);
   assert.equal(warm.status, 200);
+  assert.equal(warm.headers.get("X-Registry-Stale"), null);
   await settle();
-  assert.equal(store.putCount(), 1);
-  ok("/versions is edge-cached on the success path");
+  // /versions must never be edge-cached: the zone rewrites max-age to 4 hours
+  // (browser_cache_ttl=14400), and this is the endpoint whose job is showing a
+  // new release promptly.
+  assert.equal(store.putCount(), 0);
+  ok("/versions is never edge-cached, fresh or stale");
 
   store.clear();
   flaky.broken = true;
@@ -302,7 +306,8 @@ async function resilience() {
   assert.deepEqual(staleBody, {
     modules: [{ versions: [{ version: "0.6.6" }, { version: "0.6.5" }] }],
   });
-  ok("/versions serves the last good index when R2 fails");
+  assert.equal(stale.headers.get("X-Registry-Stale"), "1");
+  ok("/versions serves the last good index when R2 fails, and says so");
 
   await settle();
   assert.equal(store.putCount(), 0);

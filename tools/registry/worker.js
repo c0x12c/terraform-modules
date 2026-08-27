@@ -990,9 +990,11 @@ export default {
       // List versions
       let m = p.match(/^\/v1\/modules\/([^/]+)\/([^/]+)\/([^/]+)\/versions$/);
       if (m) {
-        const cache = caches.default;
-        const hit = req.method === "GET" ? await cache.match(req) : null;
-        if (hit) return hit;
+        // Deliberately NOT edge-cached. The zone sets browser_cache_ttl=14400,
+        // which rewrites any max-age we send into 4 hours downstream - and this is
+        // the endpoint whose job is reflecting a new release promptly. The read it
+        // would save is already shielded by the in-isolate index cache, so caching
+        // here bought little and cost release visibility.
         const state = { stale: false };
         let idx;
         try {
@@ -1000,18 +1002,17 @@ export default {
         } catch (e) {
           return unavailable({ errors: ["registry unavailable"] });
         }
-        const stale = state.stale;
         const vs = idx[`${m[1]}/${m[2]}/${m[3]}`];
         if (!vs) return jsonRes({ errors: ["Not Found"] }, 404);
-        // Short TTL so a release is visible quickly; the in-isolate TTL is the
-        // same 60s, so this adds no extra staleness on the happy path.
-        const res = jsonRes(
+        // Surface the fallback rather than hiding it. During an incident the
+        // difference between "resolving normally" and "resolving from a copy that
+        // predates the fault" is the first thing worth knowing, and /healthz only
+        // says the origin is unwell, not that consumers are being carried.
+        return jsonRes(
           { modules: [{ versions: vs.map((v) => ({ version: v })) }] },
           200,
-          { "Cache-Control": "public, max-age=60" }
+          state.stale ? { "X-Registry-Stale": "1" } : {}
         );
-        cacheProtocol(cache, ctx, req, res, stale);
-        return res;
       }
 
       // Download: 204 + X-Terraform-Get pointing at the archive route on this same host
