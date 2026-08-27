@@ -1,0 +1,48 @@
+name: registry-quota-watch
+
+# Workers Free is a HARD daily cap, not a throttle: past it the Worker stops
+# serving until UTC midnight and every `terraform init` fails at once. Measured
+# 2026-08-27 the peak day was 26,050 requests against 100,000, with a 15x spread
+# between the quietest and busiest day - so the cliff is reachable on a bad day
+# and invisible until it is hit. This judges yesterday's count and goes red while
+# there is still room to act.
+#
+# The query spans two days because the current UTC day is still accumulating and
+# would read artificially low. Only the most recent completed day is judged; the
+# earlier one is printed as context.
+#
+# The limit is the repo variable REGISTRY_DAILY_REQUEST_LIMIT, defaulting to the
+# free-tier figure. Once the plan tier is confirmed as paid, raise the variable
+# and this stops firing rather than crying wolf daily.
+#
+# Needs Account Analytics Read on CLOUDFLARE_API_TOKEN. If the token lacks it the
+# job fails naming the permission, rather than reporting zero requests - a quota
+# alarm that cannot fire is worse than none, because it is believed.
+on:
+  schedule:
+    - cron: "0 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quota:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.x"
+      - name: Check yesterday's request volume
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          since=$(date -u -d '2 days ago' +%Y-%m-%d)
+          until=$(date -u -d 'yesterday' +%Y-%m-%d)
+          python3 scripts/registry_quota_check.py \
+            --account "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}" \
+            --script c0x12c-tf-registry \
+            --since "$since" \
+            --until "$until" \
+            --limit "${{ vars.REGISTRY_DAILY_REQUEST_LIMIT || '100000' }}"
