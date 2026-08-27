@@ -1,7 +1,7 @@
 {
   "terraform-aws-acm": "0.1.63",
   "terraform-aws-alb": "1.0.0",
-  "terraform-aws-amplify": "1.5.0",
+  "terraform-aws-amplify": "1.6.0",
   "terraform-aws-cloudfront-logging": "0.1.0",
   "terraform-aws-cloudtrail": "0.6.6",
   "terraform-aws-cloudwatch-alarm": "0.8.0",
