@@ -215,6 +215,16 @@ class MirrorReleasePureTests(unittest.TestCase):
         result = rewrite_tf_text(text, {}, "c0x12c", rel_path="tests/main.tf")
         self.assertEqual(result, text)
 
+    def test_is_examples_path_accepts_singular_example(self):
+        # Five modules spell it "example". Missing this made their `../..` read as
+        # a real module source and blocked the publish outright.
+        self.assertTrue(_is_examples_path("example/complete/main.tf"))
+
+    def test_rewrite_singular_example_dir_returns_verbatim(self):
+        text = 'module "m" {\n  source = "../.."\n}\n'
+        result = rewrite_tf_text(text, {}, "c0x12c", rel_path="example/complete/main.tf")
+        self.assertEqual(result, text)
+
     def test_is_examples_path(self):
         self.assertTrue(_is_examples_path("examples/complete/main.tf"))
         self.assertTrue(_is_examples_path("test/main.tf"))
