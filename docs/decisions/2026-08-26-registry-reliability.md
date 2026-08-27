@@ -42,7 +42,8 @@ consumed by every project.
 
 ## Open - needs an owner decision
 
-1. **MEASURED 2026-08-27. Peak day 26,050 requests; 7-day average 13,836/day.**
+1. **MEASURED 2026-08-27 over 2026-08-19..26 (8 days). Peak day 26,050 requests;
+   mean 13,836/day.**
    Against the free tier's 100k/day that is 26% of the cap at peak. Not imminent,
    but a 4x busy day reaches it, and the failure at the cap is not graceful: every
    `terraform init` fails at once. Daily figures for 2026-08-19..26 were 16310,
