@@ -313,6 +313,16 @@ async function resilience() {
   assert.equal(store.putCount(), 0);
   ok("a stale /versions response is not written to the edge cache");
 
+  // A module released after the last good read is absent from the fallback. Its
+  // 404 must still say "stale", or it is indistinguishable from a module that was
+  // never published - the misdiagnosis this whole fallback exists to avoid.
+  const missing = await fresh.fetch(
+    new Request(reqUrl("/v1/modules/c0x12c/brand-new/aws/versions")), env2, ctx
+  );
+  assert.equal(missing.status, 404);
+  assert.equal(missing.headers.get("X-Registry-Stale"), "1");
+  ok("a 404 served from the stale index still carries the stale marker");
+
   // healthz reports ORIGIN health and must stay red while consumers are served.
   const health = await fresh.fetch(new Request(reqUrl("/healthz")), env2, ctx);
   assert.equal(health.status, 503);

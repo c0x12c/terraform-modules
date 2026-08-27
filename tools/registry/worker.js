@@ -1002,17 +1002,18 @@ export default {
         } catch (e) {
           return unavailable({ errors: ["registry unavailable"] });
         }
+        // The stale marker has to ride on the 404 too, and that is the case it
+        // matters most for: a module published after the last good read is absent
+        // from the fallback, so without this the response is indistinguishable
+        // from one that was never published at all.
+        const staleHeader = state.stale ? { "X-Registry-Stale": "1" } : {};
         const vs = idx[`${m[1]}/${m[2]}/${m[3]}`];
-        if (!vs) return jsonRes({ errors: ["Not Found"] }, 404);
+        if (!vs) return jsonRes({ errors: ["Not Found"] }, 404, staleHeader);
         // Surface the fallback rather than hiding it. During an incident the
         // difference between "resolving normally" and "resolving from a copy that
         // predates the fault" is the first thing worth knowing, and /healthz only
         // says the origin is unwell, not that consumers are being carried.
-        return jsonRes(
-          { modules: [{ versions: vs.map((v) => ({ version: v })) }] },
-          200,
-          state.stale ? { "X-Registry-Stale": "1" } : {}
-        );
+        return jsonRes({ modules: [{ versions: vs.map((v) => ({ version: v })) }] }, 200, staleHeader);
       }
 
       // Download: 204 + X-Terraform-Get pointing at the archive route on this same host
