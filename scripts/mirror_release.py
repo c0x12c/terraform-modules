@@ -97,17 +97,22 @@ def normalize_version(value: str) -> str:
     return value[1:] if value.startswith("v") else value
 
 
-_EXAMPLES_DIRS = {"examples", "test", "tests"}
+# "example" singular is here because five modules spell it that way. Omitting it
+# made their example's `source = "../.."` read as a real module source, so the
+# leftover-relative guard refused the publish and the release silently never
+# reached the registry - terraform-datadog-gcp-monitor 1.0.1 sat tagged but
+# unpublished for a month before the health check's report was noticed.
+_EXAMPLES_DIRS = {"example", "examples", "test", "tests"}
 
 
 def _is_examples_path(rel_path: str) -> bool:
-    """Return True if rel_path is under examples/, test/, or tests/ (relative to module root)."""
+    """Return True if rel_path is under example(s)/, test/, or tests/ (relative to module root)."""
     parts = Path(rel_path).parts
     return bool(parts) and parts[0] in _EXAMPLES_DIRS
 
 
 def rewrite_tf_text(text: str, manifest: dict, org: str, rel_path: str = "") -> str:
-    # Files under examples/, test/, tests/ are copied verbatim — no rewrite, no relative-source check.
+    # Files under example(s)/, test/, tests/ are copied verbatim — no rewrite, no relative-source check.
     if rel_path and _is_examples_path(rel_path):
         return text
 
