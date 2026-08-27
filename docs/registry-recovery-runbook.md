@@ -42,7 +42,8 @@ dig +short terraform.c0x12c.com
 ```
 
 A 5xx with DNS still resolving is a Worker or R2 problem, not account loss - stop
-here and use `registry-restore.md`. Only proceed if the account itself is gone.
+here and use [`registry-restore.md`](registry-restore.md). Only proceed if the
+account itself is gone.
 
 ### 2. Get the most recent snapshot first
 
