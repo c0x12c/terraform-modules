@@ -12,6 +12,8 @@ permissions:
 jobs:
   health-check:
     runs-on: ubuntu-latest
+    env:
+      SLACK_WEBHOOK: ${{ secrets.SPARTAN_SLACK_WEBHOOK_CICD }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
@@ -64,3 +66,18 @@ jobs:
             gh issue comment "$existing" --body "Registry health-check passed; closing."
             gh issue close "$existing"
           fi
+      - name: Notify Slack
+        # The webhook is promoted to a JOB-level env var (see `env:` on the job) so it
+        # can be read here. `secrets.*` is NOT valid in a step-level `if:` - GitHub
+        # rejects the whole workflow file, which would break the alerting job entirely.
+        # Verified empirically before settling on this shape.
+        #
+        # An unset webhook must never fail the alerting job: failing here would silence
+        # the very alert the job exists to deliver.
+        if: failure() && env.SLACK_WEBHOOK != ''
+        uses: c0x12c/gh-actions-slack-notify@v0.3.0
+        with:
+          webhook_url: ${{ env.SLACK_WEBHOOK }}
+          title: '🟠 *Registry coverage check failed*'
+          message: |
+            A tagged module version may be missing from the registry. Consumers pinning a range resolve to the older version silently - no error anywhere.\n\nThis check caught a module stranded for 31 days once already.\nRun: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|view logs>
