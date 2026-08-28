@@ -61,7 +61,8 @@ jobs:
               gh issue comment "$existing" --body "$body"
             fi
           else
-            gh issue create --title "$TITLE" --label registry-uptime --body "$body"
+            gh issue create --title "$TITLE" --label registry-uptime --body "$body" \
+              --assignee "${{ vars.REGISTRY_ALERT_OWNER }}"
           fi
       - name: Resolve issue on success
         if: success()
