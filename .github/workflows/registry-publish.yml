@@ -40,7 +40,7 @@ jobs:
       cancel-in-progress: false
     steps:
       # No GitHub App token: R2-only publish does not push to any mirror repo,
-      # it only reads THIS (monorepo) checkout — the default GITHUB_TOKEN covers
+      # it only reads THIS (monorepo) checkout - the default GITHUB_TOKEN covers
       # same-repo read.
       - name: Checkout monorepo release ref
         uses: actions/checkout@v7
@@ -97,5 +97,6 @@ jobs:
             gh issue create \
               --title "$ISSUE_TITLE" \
               --label mirror-failure \
-              --body "$body"
+              --body "$body" \
+              --assignee "${{ vars.REGISTRY_ALERT_OWNER }}"
           fi
