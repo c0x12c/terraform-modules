@@ -94,4 +94,8 @@ jobs:
           webhook_url: ${{ env.SLACK_WEBHOOK }}
           title: '🔴 *terraform.c0x12c.com is not responding*'
           message: |
-            The registry serves every `terraform init` in every project. While it is down, applies fail with no automatic recovery - the client retries twice and stops.\n\nConsumer workarounds: `docs/registry-outage-fallback.md`\nRun: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|view logs>
+            The registry serves every `terraform init` in every project. While it is down,
+            applies fail with no automatic recovery - the client retries twice and stops.
+
+            Consumer workarounds: `docs/registry-outage-fallback.md`
+            Run: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|view logs>

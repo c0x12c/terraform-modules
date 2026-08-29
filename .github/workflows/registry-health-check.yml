@@ -80,4 +80,8 @@ jobs:
           webhook_url: ${{ env.SLACK_WEBHOOK }}
           title: '🟠 *Registry coverage check failed*'
           message: |
-            A tagged module version may be missing from the registry. Consumers pinning a range resolve to the older version silently - no error anywhere.\n\nThis check caught a module stranded for 31 days once already.\nRun: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|view logs>
+            A tagged module version may be missing from the registry. Consumers pinning a
+            range resolve to the older version silently - no error anywhere.
+
+            This check caught a module stranded for 31 days once already.
+            Run: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|view logs>
