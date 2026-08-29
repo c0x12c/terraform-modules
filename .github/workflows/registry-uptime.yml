@@ -14,6 +14,8 @@ permissions:
 jobs:
   uptime:
     runs-on: ubuntu-latest
+    env:
+      SLACK_WEBHOOK: ${{ secrets.SPARTAN_SLACK_WEBHOOK_CICD }}
     steps:
       - uses: actions/checkout@v7
       - name: Check registry endpoints
@@ -78,3 +80,22 @@ jobs:
             gh issue comment "$existing" --body "Registry uptime probe passed; closing."
             gh issue close "$existing"
           fi
+      - name: Notify Slack
+        # The webhook is promoted to a JOB-level env var (see `env:` on the job) so it
+        # can be read here. `secrets.*` is NOT valid in a step-level `if:` - GitHub
+        # rejects the whole workflow file, which would break the alerting job entirely.
+        # Verified empirically before settling on this shape.
+        #
+        # An unset webhook must never fail the alerting job: failing here would silence
+        # the very alert the job exists to deliver.
+        if: failure() && env.SLACK_WEBHOOK != ''
+        uses: c0x12c/gh-actions-slack-notify@v0.3.0
+        with:
+          webhook_url: ${{ env.SLACK_WEBHOOK }}
+          title: '🔴 *terraform.c0x12c.com is not responding*'
+          message: |
+            The registry serves every `terraform init` in every project. While it is down,
+            applies fail with no automatic recovery - the client retries twice and stops.
+
+            Consumer workarounds: `docs/registry-outage-fallback.md`
+            Run: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|view logs>
