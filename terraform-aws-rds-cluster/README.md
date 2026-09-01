@@ -11,6 +11,7 @@ Terraform module which provisions an Amazon RDS cluster on AWS. A single module 
 - Cluster + instance parameter groups with create/BYO toggles
 - Enhanced Monitoring IAM role created automatically when `monitoring_interval > 0`
 - Performance Insights, CloudWatch log exports, IAM database authentication
+- Optional IAM database authentication policy for configured database roles
 - Precondition checks reject Aurora ↔ Multi-AZ misconfigurations at plan time
 
 ## Usage
@@ -142,8 +143,8 @@ module "cluster" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.39.0 |
-| <a name="provider_random"></a> [random](#provider\_random) | 3.8.1 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.0 |
+| <a name="provider_random"></a> [random](#provider\_random) | >= 3.6 |
 
 ## Modules
 
@@ -155,6 +156,7 @@ No modules.
 |------|------|
 | [aws_db_parameter_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_parameter_group) | resource |
 | [aws_db_subnet_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_subnet_group) | resource |
+| [aws_iam_policy.iam_auth_connect](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role.monitoring](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role_policy_attachment.monitoring](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_rds_cluster.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/rds_cluster) | resource |
@@ -165,7 +167,9 @@ No modules.
 | [aws_vpc_security_group_ingress_rule.from_cidr](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_ingress_rule) | resource |
 | [aws_vpc_security_group_ingress_rule.from_sg](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_ingress_rule) | resource |
 | [random_id.snapshot_suffix](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) | resource |
+| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.monitoring_assume](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
 ## Inputs
 
@@ -195,6 +199,7 @@ No modules.
 | <a name="input_engine"></a> [engine](#input\_engine) | Database engine. Aurora engines (`aurora-postgresql`, `aurora-mysql`) provision an Aurora cluster with separate cluster instances. Non-Aurora engines (`postgres`, `mysql`) provision a Multi-AZ DB cluster managed by the cluster resource itself. | `string` | n/a | yes |
 | <a name="input_engine_mode"></a> [engine\_mode](#input\_engine\_mode) | Engine mode for Aurora clusters. Ignored for Multi-AZ DB cluster. | `string` | `"provisioned"` | no |
 | <a name="input_engine_version"></a> [engine\_version](#input\_engine\_version) | The database engine version. | `string` | n/a | yes |
+| <a name="input_iam_auth_db_roles"></a> [iam\_auth\_db\_roles](#input\_iam\_auth\_db\_roles) | Database roles that may connect with IAM authentication. Empty creates no IAM policy. | `list(string)` | `[]` | no |
 | <a name="input_iam_database_authentication_enabled"></a> [iam\_database\_authentication\_enabled](#input\_iam\_database\_authentication\_enabled) | Whether IAM database authentication is enabled. | `bool` | `false` | no |
 | <a name="input_instance_class"></a> [instance\_class](#input\_instance\_class) | Default instance class for Aurora cluster instances when not overridden per-instance. | `string` | `"db.r6g.large"` | no |
 | <a name="input_instances"></a> [instances](#input\_instances) | Map of Aurora cluster instances to create. Key is the suffix appended to the cluster name. Empty for Multi-AZ DB cluster. | <pre>map(object({<br/>    instance_class          = optional(string)<br/>    availability_zone       = optional(string)<br/>    publicly_accessible     = optional(bool)<br/>    promotion_tier          = optional(number)<br/>    db_parameter_group_name = optional(string)<br/>  }))</pre> | `{}` | no |
@@ -233,6 +238,7 @@ No modules.
 | <a name="output_db_parameter_group_name"></a> [db\_parameter\_group\_name](#output\_db\_parameter\_group\_name) | Name of the instance parameter group (Aurora only) |
 | <a name="output_db_subnet_group_name"></a> [db\_subnet\_group\_name](#output\_db\_subnet\_group\_name) | Name of the DB subnet group used by the cluster |
 | <a name="output_endpoint"></a> [endpoint](#output\_endpoint) | The writer endpoint |
+| <a name="output_iam_auth_policy_arn"></a> [iam\_auth\_policy\_arn](#output\_iam\_auth\_policy\_arn) | ARN of the IAM database authentication connect policy, or null when no roles are configured |
 | <a name="output_instances"></a> [instances](#output\_instances) | Map of Aurora cluster instances by key. Empty for Multi-AZ DB cluster. |
 | <a name="output_master_user_secret_arn"></a> [master\_user\_secret\_arn](#output\_master\_user\_secret\_arn) | ARN of the AWS-managed master user secret (when manage\_master\_user\_password is true) |
 | <a name="output_master_username"></a> [master\_username](#output\_master\_username) | The master username |

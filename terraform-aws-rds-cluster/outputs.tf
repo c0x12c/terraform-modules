@@ -13,6 +13,11 @@ output "cluster_resource_id" {
   value       = aws_rds_cluster.this.cluster_resource_id
 }
 
+output "iam_auth_policy_arn" {
+  description = "ARN of the IAM database authentication connect policy, or null when no roles are configured"
+  value       = try(aws_iam_policy.iam_auth_connect[0].arn, null)
+}
+
 output "endpoint" {
   description = "The writer endpoint"
   value       = aws_rds_cluster.this.endpoint

@@ -253,6 +253,17 @@ variable "iam_database_authentication_enabled" {
   default     = false
 }
 
+variable "iam_auth_db_roles" {
+  description = "Database roles that may connect with IAM authentication. Empty creates no IAM policy."
+  type        = list(string)
+  default     = []
+
+  validation {
+    condition     = length(var.iam_auth_db_roles) == 0 || var.iam_database_authentication_enabled
+    error_message = "iam_auth_db_roles requires iam_database_authentication_enabled to be true because a rds-db:connect policy for a cluster that does not accept IAM authentication applies successfully but logins fail with a password error at runtime."
+  }
+}
+
 # --- Logging ------------------------------------------------------------------
 
 variable "enabled_cloudwatch_logs_exports" {
