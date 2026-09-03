@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.8.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-helm-argocd/v1.7.2...terraform-aws-helm-argocd/v1.8.0) (2026-09-03)
+
+
+### Features
+
+* **terraform-aws-helm-argocd:** make the subscription triggers configurable ([#320](https://github.com/c0x12c/terraform-modules/issues/320)) ([b1f6170](https://github.com/c0x12c/terraform-modules/commit/b1f6170cbdc5326ec8790024669984e850483b9b))
+
 ## [1.7.2](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-helm-argocd/v1.7.1...terraform-aws-helm-argocd/v1.7.2) (2026-08-24)
 
 
