@@ -9,6 +9,13 @@ on:
       version:
         required: true
         type: string
+      # Declared on both triggers so `inputs.ref` is always a defined input rather
+      # than relying on how an undeclared one evaluates. Callers may set it; doing
+      # so forces the dry-run path below, so it cannot publish a mislabelled version.
+      ref:
+        required: false
+        default: ""
+        type: string
   workflow_dispatch:
     inputs:
       module:
@@ -20,7 +27,7 @@ on:
         required: true
         type: string
       ref:
-        description: "Override checkout ref (e.g. master) for dry-runs; defaults to <module>/<version> tag"
+        description: "Dry-run only: override checkout ref (e.g. master). Assembles and validates but NEVER uploads. Defaults to the <module>/<version> tag."
         required: false
         default: ""
         type: string
@@ -62,14 +69,30 @@ jobs:
         env:
           MODULE: ${{ inputs.module }}
           VERSION: ${{ inputs.version }}
+          REF_OVERRIDE: ${{ inputs.ref }}
+          R2_BUCKET: ${{ vars.R2_BUCKET }}
           R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
           AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
         run: |
+          # A ref override means the checked-out tree is NOT the <module>/<version>
+          # tag, so uploading would publish that tree under a version number no tag
+          # accounts for - nobody could then say from git what is in it. That is how
+          # helm-argocd 1.5.0 came to hold the v1.4.0 tree (dispatch 2026-07-04, run
+          # 28706100167, head_sha 2503ac9). Validate only; never upload.
+          extra=""
+          if [ -n "$REF_OVERRIDE" ]; then
+            # The ref value is caller-supplied, so it is deliberately NOT interpolated
+            # into the workflow command: a newline plus ::error:: would be parsed by
+            # Actions. It is already shown in the run's inputs.
+            echo "::notice::ref override set - dry-run, nothing will be uploaded"
+            extra="--dry-run"
+          fi
           python3 scripts/mirror_release.py \
             --module "$MODULE" \
             --version "$VERSION" \
-            --r2-bucket "${{ vars.R2_BUCKET }}"
+            --r2-bucket "$R2_BUCKET" \
+            $extra
 
       - name: Open or update registry publish failure issue
         if: failure()
