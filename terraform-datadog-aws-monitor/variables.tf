@@ -26,9 +26,35 @@ variable "notification_slack_channel_prefix" {
 }
 
 variable "override_default_monitors" {
-  type        = map(map(any))
-  default     = {}
-  description = "Override default monitors with custom configuration"
+  type    = any
+  default = {}
+
+  # Deliberately `any` rather than `map(map(any))`: the inner `map(any)` forces
+  # every value within a single monitor to unify to one type, so a nested
+  # attribute such as `query_args` cannot be overridden alongside a scalar like
+  # `override_default_message`. That made `query_args` unreachable for callers.
+  # The validation below keeps the shape guarantee the old type provided.
+  validation {
+    condition = can(keys(var.override_default_monitors)) && alltrue([
+      for _, monitor in var.override_default_monitors : can(keys(monitor))
+    ])
+    error_message = "override_default_monitors must be a map of monitor name => map of attributes."
+  }
+
+  description = <<-EOT
+    Override default monitors with custom configuration. Values are merged over the
+    module defaults, so only the attributes you want to change need to be set.
+
+    Nested attributes are supported, e.g. widening a monitor's evaluation window
+    without restating its query:
+
+    ```
+    msk_active_controller = {
+      override_default_message = "..."
+      query_args               = { timeframe = "last_15m" }
+    }
+    ```
+  EOT
 }
 
 variable "tag_slack_channel" {
