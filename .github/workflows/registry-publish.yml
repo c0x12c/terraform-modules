@@ -9,6 +9,13 @@ on:
       version:
         required: true
         type: string
+      # Declared on both triggers so `inputs.ref` is always a defined input rather
+      # than relying on how an undeclared one evaluates. Callers may set it; doing
+      # so forces the dry-run path below, so it cannot publish a mislabelled version.
+      ref:
+        required: false
+        default: ""
+        type: string
   workflow_dispatch:
     inputs:
       module:
@@ -75,7 +82,10 @@ jobs:
           # 28706100167, head_sha 2503ac9). Validate only; never upload.
           extra=""
           if [ -n "$REF_OVERRIDE" ]; then
-            echo "::notice::ref override '$REF_OVERRIDE' - dry-run, nothing will be uploaded"
+            # The ref value is caller-supplied, so it is deliberately NOT interpolated
+            # into the workflow command: a newline plus ::error:: would be parsed by
+            # Actions. It is already shown in the run's inputs.
+            echo "::notice::ref override set - dry-run, nothing will be uploaded"
             extra="--dry-run"
           fi
           python3 scripts/mirror_release.py \
