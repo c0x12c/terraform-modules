@@ -64,6 +64,7 @@ resource "aws_elasticache_replication_group" "this" {
   ]
 
   apply_immediately          = var.apply_immediately
+  maintenance_window         = var.maintenance_window
   snapshot_window            = var.snapshot_window
   automatic_failover_enabled = (var.cluster_mode_enabled || var.replicas_per_node_group > 0) ? var.automatic_failover_enabled : false
 

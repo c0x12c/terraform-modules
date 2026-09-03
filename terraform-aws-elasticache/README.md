@@ -42,7 +42,7 @@ module "elasticache" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.56.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.62.0 |
 | <a name="provider_random"></a> [random](#provider\_random) | 3.9.0 |
 
 ## Modules
@@ -71,6 +71,7 @@ No modules.
 | <a name="input_custom_redis_parameters"></a> [custom\_redis\_parameters](#input\_custom\_redis\_parameters) | Custom redis parameters to apply to the parameter group | <pre>list(object({<br/>    name  = string<br/>    value = string<br/>  }))</pre> | `null` | no |
 | <a name="input_engine"></a> [engine](#input\_engine) | Name of the cache engine to be used for the clusters in the replication group. Valid values are redis or valkey | `string` | `"redis"` | no |
 | <a name="input_engine_version"></a> [engine\_version](#input\_engine\_version) | The version of Redis, default 7.1 | `string` | `"7.1"` | no |
+| <a name="input_maintenance_window"></a> [maintenance\_window](#input\_maintenance\_window) | Weekly UTC window for system maintenance (ddd:HH:MM-ddd:HH:MM). Null lets AWS assign one at random. | `string` | `null` | no |
 | <a name="input_multi_az_enabled"></a> [multi\_az\_enabled](#input\_multi\_az\_enabled) | Flag to enable multi az feature, default is false | `bool` | `false` | no |
 | <a name="input_node_type"></a> [node\_type](#input\_node\_type) | The node type of this cluster, will affect the memory and bandwidth | `string` | n/a | yes |
 | <a name="input_parameter_group_name"></a> [parameter\_group\_name](#input\_parameter\_group\_name) | Parameter group for redis cluster, default is 'default.redis7.cluster.on' | `string` | `"default.redis7.cluster.on"` | no |

@@ -65,6 +65,12 @@ variable "security_group_allow_all_within_vpc_id" {
   type        = string
 }
 
+variable "maintenance_window" {
+  description = "Weekly UTC window for system maintenance (ddd:HH:MM-ddd:HH:MM). Null lets AWS assign one at random."
+  type        = string
+  default     = null
+}
+
 variable "snapshot_window" {
   description = "The time to do the backup, default 01:00-02:00"
   type        = string
