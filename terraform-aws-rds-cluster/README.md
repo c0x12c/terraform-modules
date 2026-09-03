@@ -142,8 +142,8 @@ module "cluster" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.39.0 |
-| <a name="provider_random"></a> [random](#provider\_random) | 3.8.1 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.62.0 |
+| <a name="provider_random"></a> [random](#provider\_random) | 3.9.0 |
 
 ## Modules
 
@@ -197,7 +197,7 @@ No modules.
 | <a name="input_engine_version"></a> [engine\_version](#input\_engine\_version) | The database engine version. | `string` | n/a | yes |
 | <a name="input_iam_database_authentication_enabled"></a> [iam\_database\_authentication\_enabled](#input\_iam\_database\_authentication\_enabled) | Whether IAM database authentication is enabled. | `bool` | `false` | no |
 | <a name="input_instance_class"></a> [instance\_class](#input\_instance\_class) | Default instance class for Aurora cluster instances when not overridden per-instance. | `string` | `"db.r6g.large"` | no |
-| <a name="input_instances"></a> [instances](#input\_instances) | Map of Aurora cluster instances to create. Key is the suffix appended to the cluster name. Empty for Multi-AZ DB cluster. | <pre>map(object({<br/>    instance_class          = optional(string)<br/>    availability_zone       = optional(string)<br/>    publicly_accessible     = optional(bool)<br/>    promotion_tier          = optional(number)<br/>    db_parameter_group_name = optional(string)<br/>  }))</pre> | `{}` | no |
+| <a name="input_instances"></a> [instances](#input\_instances) | Map of Aurora cluster instances to create. Key is the suffix appended to the cluster name. Empty for Multi-AZ DB cluster. preferred\_maintenance\_window is per instance and independent of the cluster window (ddd:HH:MM-ddd:HH:MM, UTC); null lets AWS assign one at random. | <pre>map(object({<br/>    instance_class               = optional(string)<br/>    availability_zone            = optional(string)<br/>    publicly_accessible          = optional(bool)<br/>    promotion_tier               = optional(number)<br/>    db_parameter_group_name      = optional(string)<br/>    preferred_maintenance_window = optional(string)<br/>  }))</pre> | `{}` | no |
 | <a name="input_iops"></a> [iops](#input\_iops) | Provisioned IOPS for io1/io2 storage on Multi-AZ DB cluster. Optional for gp3 ≥3000. | `number` | `null` | no |
 | <a name="input_kms_key_id"></a> [kms\_key\_id](#input\_kms\_key\_id) | ARN of the KMS key used for storage encryption. If null, the default RDS-managed key is used. | `string` | `null` | no |
 | <a name="input_manage_master_user_password"></a> [manage\_master\_user\_password](#input\_manage\_master\_user\_password) | Use AWS-managed master user password (stored in Secrets Manager, auto-rotated by RDS). Recommended. | `bool` | `true` | no |

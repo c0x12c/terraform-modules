@@ -136,6 +136,8 @@ resource "aws_rds_cluster_instance" "this" {
   publicly_accessible = coalesce(each.value.publicly_accessible, false)
   promotion_tier      = coalesce(each.value.promotion_tier, 0)
 
+  preferred_maintenance_window = each.value.preferred_maintenance_window
+
   auto_minor_version_upgrade = var.auto_minor_version_upgrade
   apply_immediately          = var.apply_immediately
   copy_tags_to_snapshot      = var.copy_tags_to_snapshot

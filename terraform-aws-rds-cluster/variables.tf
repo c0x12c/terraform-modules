@@ -83,13 +83,14 @@ variable "security_group_rules" {
 # --- Aurora cluster instances -------------------------------------------------
 
 variable "instances" {
-  description = "Map of Aurora cluster instances to create. Key is the suffix appended to the cluster name. Empty for Multi-AZ DB cluster."
+  description = "Map of Aurora cluster instances to create. Key is the suffix appended to the cluster name. Empty for Multi-AZ DB cluster. preferred_maintenance_window is per instance and independent of the cluster window (ddd:HH:MM-ddd:HH:MM, UTC); null lets AWS assign one at random."
   type = map(object({
-    instance_class          = optional(string)
-    availability_zone       = optional(string)
-    publicly_accessible     = optional(bool)
-    promotion_tier          = optional(number)
-    db_parameter_group_name = optional(string)
+    instance_class               = optional(string)
+    availability_zone            = optional(string)
+    publicly_accessible          = optional(bool)
+    promotion_tier               = optional(number)
+    db_parameter_group_name      = optional(string)
+    preferred_maintenance_window = optional(string)
   }))
   default = {}
 }
