@@ -174,6 +174,33 @@ variable "default_notification_channel" {
   default     = ""
 }
 
+variable "subscription_triggers" {
+  description = "Which triggers the module-wide Slack subscription sends. Selects from the nine triggers the module defines; a consumer cannot add new ones, so an unknown name is rejected. Defaults to the five sync-lifecycle triggers - `on-created`, `on-deleted`, `on-health-degraded` and `on-out-of-sync` are defined but left to per-app `subscribe.*` annotations. Narrow the list to cut volume: `on-deployed` is health-gated and fires once per revision, so pairing it with `on-sync-succeeded` sends two messages for one outcome."
+  type        = list(string)
+  default = [
+    "on-sync-status-unknown",
+    "on-deployed",
+    "on-sync-failed",
+    "on-sync-running",
+    "on-sync-succeeded",
+  ]
+
+  validation {
+    condition = length(setsubtract(var.subscription_triggers, [
+      "on-sync-status-unknown",
+      "on-deployed",
+      "on-sync-failed",
+      "on-sync-running",
+      "on-sync-succeeded",
+      "on-created",
+      "on-deleted",
+      "on-health-degraded",
+      "on-out-of-sync",
+    ])) == 0
+    error_message = "subscription_triggers may only name triggers this module defines: on-created, on-deleted, on-deployed, on-health-degraded, on-out-of-sync, on-sync-failed, on-sync-running, on-sync-status-unknown, on-sync-succeeded. ArgoCD ignores an unknown name silently, so the subscription would send nothing for it."
+  }
+}
+
 variable "domain_name" {
   description = "Domain name for ArgoCD"
   type        = string
@@ -242,6 +269,8 @@ variable "ingress_scheme" {
 variable "notification_templates" {
   description = "Custom templates for ArgoCD notification. Leave the field null to use sample (default) template provided by this module."
   type = object({
+    app_created             = optional(string, null)
+    app_deleted             = optional(string, null)
     app_deployed            = optional(string, null)
     app_health_degraded     = optional(string, null)
     app_sync_failed         = optional(string, null)

@@ -17,10 +17,10 @@ module "argocd" {
 
   # enable_default_subscription = false
 
-  # The default subscription covers the five sync-lifecycle triggers. `on-health-degraded` and
-  # `on-out-of-sync` are templated but deliberately left out of it, because they fire per
-  # application rather than per deploy. Subscribe an individual Application to one by annotating
-  # it. Both paths address the notifier by its service NAME, so both read `.slack`.
+  # `subscription_triggers` sets which triggers this subscription sends; it defaults to the five
+  # sync-lifecycle ones. `on-created`, `on-deleted`, `on-health-degraded` and `on-out-of-sync` are
+  # templated but left out of it - subscribe an individual Application to one by annotating it.
+  # Both paths address the notifier by its service NAME, so both read `.slack`.
   # The webhook needs no channel - it fixes its own destination:
   #
   #   notifications.argoproj.io/subscribe.on-health-degraded.slack: ""

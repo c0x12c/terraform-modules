@@ -51,9 +51,20 @@ ArgoCD notifications support either `slack_token` or `slack_webhook_url`, but no
 bot-token path `default_notification_channel` must also be non-empty, because it supplies the
 channel; on the webhook path `enable_default_subscription` is the only switch.
 
-The default subscription covers the five sync-lifecycle triggers on both paths. `on-health-degraded`
-and `on-out-of-sync` are templated but deliberately left out of it, because they fire per application
-rather than per deploy - subscribe to them with a per-app annotation on the applications that want them.
+`subscription_triggers` sets which triggers the default subscription sends. It defaults to the five
+sync-lifecycle triggers on both paths. Narrow it to cut volume - `on-deployed` gates on Healthy and
+fires once per revision, so pairing it with `on-sync-succeeded` sends two messages for one outcome:
+
+```hcl
+subscription_triggers = ["on-deployed", "on-sync-failed"]
+```
+
+The module defines nine triggers and the variable selects among them; it cannot introduce new ones,
+so an unknown name fails at plan time. Four are templated but left out of the default:
+`on-created`, `on-deleted`, `on-health-degraded` and `on-out-of-sync`. The last two fire per
+application rather than per deploy, and `on-created` carries `when: "true"`, so subscribing every
+application to it notifies for all of them - subscribe to any of the four with a per-app annotation
+on the applications that want them.
 
 Webhook subscriptions carry no channel, since the webhook fixes it. `slack` here is the service
 NAME from `service.webhook.slack` - ArgoCD keys its notifier registry by that name, not by the
@@ -86,8 +97,8 @@ webhook one.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.61.0 |
-| <a name="provider_helm"></a> [helm](#provider\_helm) | 3.2.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.62.0 |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | 3.3.0 |
 | <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 3.2.1 |
 
 ## Modules
@@ -140,7 +151,7 @@ webhook one.
 | <a name="input_ingress_scheme"></a> [ingress\_scheme](#input\_ingress\_scheme) | Scheme for the ALB ingress (internet-facing or internal) | `string` | `"internet-facing"` | no |
 | <a name="input_issuer_url"></a> [issuer\_url](#input\_issuer\_url) | The issuer URL should be where Dex talks to the OIDC provider | `string` | `"http://argocd-dex-server:5556"` | no |
 | <a name="input_node_selector"></a> [node\_selector](#input\_node\_selector) | Node selector for the ingress controller | `map(string)` | `{}` | no |
-| <a name="input_notification_templates"></a> [notification\_templates](#input\_notification\_templates) | Custom templates for ArgoCD notification. Leave the field null to use sample (default) template provided by this module. | <pre>object({<br/>    app_deployed            = optional(string, null)<br/>    app_health_degraded     = optional(string, null)<br/>    app_sync_failed         = optional(string, null)<br/>    app_sync_running        = optional(string, null)<br/>    app_sync_status_unknown = optional(string, null)<br/>    app_sync_succeeded      = optional(string, null)<br/>    app_out_of_sync         = optional(string, null)<br/>  })</pre> | `{}` | no |
+| <a name="input_notification_templates"></a> [notification\_templates](#input\_notification\_templates) | Custom templates for ArgoCD notification. Leave the field null to use sample (default) template provided by this module. | <pre>object({<br/>    app_created             = optional(string, null)<br/>    app_deleted             = optional(string, null)<br/>    app_deployed            = optional(string, null)<br/>    app_health_degraded     = optional(string, null)<br/>    app_sync_failed         = optional(string, null)<br/>    app_sync_running        = optional(string, null)<br/>    app_sync_status_unknown = optional(string, null)<br/>    app_sync_succeeded      = optional(string, null)<br/>    app_out_of_sync         = optional(string, null)<br/>  })</pre> | `{}` | no |
 | <a name="input_oidc_github_client_id"></a> [oidc\_github\_client\_id](#input\_oidc\_github\_client\_id) | GitHub App Client ID for OIDC | `string` | n/a | yes |
 | <a name="input_oidc_github_client_secret"></a> [oidc\_github\_client\_secret](#input\_oidc\_github\_client\_secret) | GitHub App Client Secret for OIDC | `string` | n/a | yes |
 | <a name="input_oidc_github_organization"></a> [oidc\_github\_organization](#input\_oidc\_github\_organization) | GitHub organization to restrict access to | `string` | n/a | yes |
@@ -150,6 +161,7 @@ webhook one.
 | <a name="input_slack_token"></a> [slack\_token](#input\_slack\_token) | The token to authenticate to slack, which will help application push notification to slack | `string` | `""` | no |
 | <a name="input_slack_webhook_url"></a> [slack\_webhook\_url](#input\_slack\_webhook\_url) | Incoming webhook URL used instead of a bot token. When set, notifications are delivered through ArgoCD's `service.webhook` rather than `service.slack`, because ArgoCD's slack service authenticates with a bot token and has no webhook mode. The channel is then fixed by the webhook itself, so `default_notification_channel` no longer selects a channel and is not consulted at all; use `enable_default_subscription` to turn the default subscription on or off. | `string` | `""` | no |
 | <a name="input_sub_domain"></a> [sub\_domain](#input\_sub\_domain) | Sub domain for ArgoCD | `string` | `"argocd"` | no |
+| <a name="input_subscription_triggers"></a> [subscription\_triggers](#input\_subscription\_triggers) | Which triggers the module-wide Slack subscription sends. Selects from the nine triggers the module defines; a consumer cannot add new ones, so an unknown name is rejected. Defaults to the five sync-lifecycle triggers - `on-created`, `on-deleted`, `on-health-degraded` and `on-out-of-sync` are defined but left to per-app `subscribe.*` annotations. Narrow the list to cut volume: `on-deployed` is health-gated and fires once per revision, so pairing it with `on-sync-succeeded` sends two messages for one outcome. | `list(string)` | <pre>[<br/>  "on-sync-status-unknown",<br/>  "on-deployed",<br/>  "on-sync-failed",<br/>  "on-sync-running",<br/>  "on-sync-succeeded"<br/>]</pre> | no |
 | <a name="input_tolerations"></a> [tolerations](#input\_tolerations) | Tolerations for the ingress controller | <pre>list(object({<br/>    key      = string<br/>    operator = string<br/>    value    = optional(string)<br/>    effect   = optional(string)<br/>  }))</pre> | `[]` | no |
 
 ## Outputs
