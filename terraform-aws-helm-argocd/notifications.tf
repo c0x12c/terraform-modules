@@ -1,13 +1,9 @@
 locals {
-  notification_trigger_names = [
-    "on-sync-status-unknown",
-    "on-deployed",
-    "on-sync-failed",
-    "on-sync-running",
-    "on-sync-succeeded",
-  ]
+  notification_trigger_names = var.subscription_triggers
 
   notification_template_keys = {
+    app_created             = "template.app-created"
+    app_deleted             = "template.app-deleted"
     app_deployed            = "template.app-deployed"
     app_health_degraded     = "template.app-health-degraded"
     app_sync_failed         = "template.app-sync-failed"
@@ -35,6 +31,22 @@ locals {
   }
 
   notification_triggers = {
+    "trigger.on-created" = yamlencode([
+      {
+        description = "Application is created."
+        oncePer     = "app.metadata.name"
+        send        = ["app-created"]
+        when        = "true"
+      }
+    ])
+    "trigger.on-deleted" = yamlencode([
+      {
+        description = "Application is deleted."
+        oncePer     = "app.metadata.name"
+        send        = ["app-deleted"]
+        when        = "app.metadata.deletionTimestamp != nil"
+      }
+    ])
     "trigger.on-deployed" = yamlencode([
       {
         description = "Application is synced and healthy. Triggered once per commit."

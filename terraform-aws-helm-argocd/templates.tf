@@ -9,6 +9,24 @@ locals {
       include_revision       = true
       footer                 = null
     }
+    app_created = {
+      title                  = ":sparkles: Application Created: {{ .app.metadata.name}}"
+      color                  = "#0DADEA"
+      repository_title       = "Repository"
+      sync_status_title      = "Sync Status"
+      condition_title_prefix = ""
+      include_revision       = false
+      footer                 = null
+    }
+    app_deleted = {
+      title                  = ":wastebasket: Application Deleted: {{ .app.metadata.name}}"
+      color                  = "#f4c030"
+      repository_title       = "Repository"
+      sync_status_title      = "Sync Status"
+      condition_title_prefix = ""
+      include_revision       = false
+      footer                 = null
+    }
     app_health_degraded = {
       title                  = ":warning: Health Degraded: {{ .app.metadata.name}}"
       color                  = "#f4c030"
@@ -67,7 +85,7 @@ locals {
 }
 
 locals {
-  # One card shape drives all seven notifications; the table above carries only the deltas.
+  # One card shape drives all nine notifications; the table above carries only the deltas.
   # The card lives in a .tpl file because it is not valid JSON until ArgoCD expands it - the
   # {{range}} over conditions sits outside any string - so jsonencode cannot build it.
   notification_sample_templates = {
