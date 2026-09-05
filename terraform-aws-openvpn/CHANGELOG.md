@@ -1,6 +1,13 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## [0.6.2](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-openvpn/v0.6.1...terraform-aws-openvpn/v0.6.2) (2026-09-05)
+
+
+### Bug Fixes
+
+* **terraform-aws-openvpn:** keep each pushed option on its own line ([#327](https://github.com/c0x12c/terraform-modules/issues/327)) ([baff30c](https://github.com/c0x12c/terraform-modules/commit/baff30cc2851c875f8475da53e9757fa01ce4332))
+
 ## [0.6.1](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-openvpn/v0.6.0...terraform-aws-openvpn/v0.6.1) (2026-08-24)
 
 
