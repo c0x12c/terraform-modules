@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-rds-cluster/v0.1.0...terraform-aws-rds-cluster/v0.2.0) (2026-09-05)
+
+
+### Features
+
+* **rds-cluster:** build the IAM auth connect policy in the module ([#319](https://github.com/c0x12c/terraform-modules/issues/319)) ([6b53cb2](https://github.com/c0x12c/terraform-modules/commit/6b53cb2e058134bb68fb6ae0fb201274a5f090db))
+
 ## [0.1.0] - 2026-04-08
 
 ### Features
