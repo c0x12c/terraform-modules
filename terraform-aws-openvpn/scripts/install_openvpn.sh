@@ -31,14 +31,12 @@ persist-tun
 status /var/log/openvpn/openvpn-status.log
 verb 3
 explicit-exit-notify 1
-%{~ for dns in dns_servers ~}
+%{ for dns in dns_servers ~}
 push "dhcp-option DNS ${dns}"
-%{~ endfor ~}
-
-%{~ for cidr in route_network_cidrs ~}
+%{ endfor ~}
+%{ for cidr in route_network_cidrs ~}
 push "route ${cidr}"
-%{~ endfor ~}
-
+%{ endfor ~}
 ca /etc/openvpn/server/ca.crt
 cert /etc/openvpn/server/server.crt
 key /etc/openvpn/server/server.key
