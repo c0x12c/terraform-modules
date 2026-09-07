@@ -68,7 +68,7 @@ module "website" {
 | Name | Version |
 |------|---------|
 | <a name="provider_archive"></a> [archive](#provider\_archive) | 2.8.0 |
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.62.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.63.0 |
 
 ## Modules
 
@@ -120,6 +120,8 @@ No modules.
 | <a name="input_github_token"></a> [github\_token](#input\_github\_token) | GitHub token for authorizing with GitHub, passed to the app's access\_token. The Amplify API caps this at 255 characters; use github\_oauth\_token for anything longer. Leaving both token variables null is valid only for an app whose repository is ALREADY connected - the token is write-only and the connection is stored server-side, so null preserves it. Creating a new app with neither set fails at apply. | `string` | `null` | no |
 | <a name="input_install_command"></a> [install\_command](#input\_install\_command) | The install command to install packages | `string` | `"yarn install"` | no |
 | <a name="input_name"></a> [name](#input\_name) | The name for the Amplify app | `string` | n/a | yes |
+| <a name="input_notification_lambda_memory_size"></a> [notification\_lambda\_memory\_size](#input\_notification\_lambda\_memory\_size) | Memory (MB) for the Slack notifier Lambda. CPU is allocated in proportion, so the AWS default of 128 also makes it slow enough to hit the timeout. | `number` | `256` | no |
+| <a name="input_notification_lambda_timeout"></a> [notification\_lambda\_timeout](#input\_notification\_lambda\_timeout) | Seconds before the Slack notifier Lambda is killed. It makes three Amplify API calls before posting, so the AWS default of 3 is not enough. | `number` | `15` | no |
 | <a name="input_repository"></a> [repository](#input\_repository) | Source repository for Amplify app | `string` | n/a | yes |
 | <a name="input_slack_webhook_url"></a> [slack\_webhook\_url](#input\_slack\_webhook\_url) | To define webhook url for notifying statuses to Slack | `string` | `null` | no |
 | <a name="input_sub_domain"></a> [sub\_domain](#input\_sub\_domain) | Subdomain for the Amplify app | `string` | `""` | no |
