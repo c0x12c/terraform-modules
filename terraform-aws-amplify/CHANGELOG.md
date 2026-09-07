@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.6.1](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-amplify/v1.6.0...terraform-aws-amplify/v1.6.1) (2026-09-07)
+
+
+### Bug Fixes
+
+* **amplify:** give the Slack notifier a timeout and memory that fit its work ([d4f607f](https://github.com/c0x12c/terraform-modules/commit/d4f607f2f045a424237b75f6910148f22c62632f))
+
 ## [1.6.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-amplify/v1.5.0...terraform-aws-amplify/v1.6.0) (2026-08-27)
 
 
