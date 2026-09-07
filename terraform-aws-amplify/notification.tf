@@ -92,6 +92,14 @@ resource "aws_lambda_function" "amplify_notifier" {
   source_code_hash = data.archive_file.lambda_zip.output_base64sha256
   runtime          = "nodejs22.x"
 
+  # The handler makes three Amplify API calls (GetApp, ListDomainAssociations, GetJob) to enrich
+  # the message before it posts to Slack, which does not fit in Lambda's 3s/128MB defaults: every
+  # invocation was killed at exactly 3000ms and no notification was ever sent. A timeout leaves no
+  # error anywhere the reader looks - the message simply never arrives - so these are set, not left
+  # to the defaults.
+  timeout     = var.notification_lambda_timeout
+  memory_size = var.notification_lambda_memory_size
+
   environment {
     variables = {
       SLACK_WEBHOOK_URL = var.slack_webhook_url

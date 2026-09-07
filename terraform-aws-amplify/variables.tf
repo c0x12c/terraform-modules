@@ -124,6 +124,18 @@ variable "slack_webhook_url" {
   default     = null
 }
 
+variable "notification_lambda_timeout" {
+  description = "Seconds before the Slack notifier Lambda is killed. It makes three Amplify API calls before posting, so the AWS default of 3 is not enough."
+  type        = number
+  default     = 15
+}
+
+variable "notification_lambda_memory_size" {
+  description = "Memory (MB) for the Slack notifier Lambda. CPU is allocated in proportion, so the AWS default of 128 also makes it slow enough to hit the timeout."
+  type        = number
+  default     = 256
+}
+
 variable "enabled_notification" {
   description = "To enable the webhook notification to slack, which will create resources relating lambda function and eventbridge to semd a message"
   type        = bool
