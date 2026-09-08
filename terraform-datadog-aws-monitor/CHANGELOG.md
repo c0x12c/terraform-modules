@@ -1,6 +1,13 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## [1.4.1](https://github.com/c0x12c/terraform-modules/compare/terraform-datadog-aws-monitor/v1.4.0...terraform-datadog-aws-monitor/v1.4.1) (2026-09-08)
+
+
+### Bug Fixes
+
+* **aws-monitor:** type override_default_monitors as any ([#332](https://github.com/c0x12c/terraform-modules/issues/332)) ([e6bec03](https://github.com/c0x12c/terraform-modules/commit/e6bec03cbdcda294c8d50d6e231c050cd4eb71fe))
+
 ## [1.4.0](https://github.com/c0x12c/terraform-modules/compare/terraform-datadog-aws-monitor/v1.3.2...terraform-datadog-aws-monitor/v1.4.0) (2026-07-28)
 
 
