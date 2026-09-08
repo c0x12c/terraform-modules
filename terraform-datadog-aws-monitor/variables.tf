@@ -26,9 +26,9 @@ variable "notification_slack_channel_prefix" {
 }
 
 variable "override_default_monitors" {
-  type        = map(map(any))
+  type        = any
   default     = {}
-  description = "Override default monitors with custom configuration"
+  description = "Per-monitor overrides merged onto the module defaults, keyed by monitor name. Only the attributes that change need to appear. The type is any rather than a nested map because Terraform resolves any to a single type across the whole value, so map(map(any)) cannot hold an additional_tags list alongside a numeric threshold or a bool enabled."
 }
 
 variable "tag_slack_channel" {

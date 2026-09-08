@@ -10,6 +10,13 @@ module "aws_monitor" {
   override_default_monitors = {
     aws_actual_spend = {
       threshold_critical = 500
+      additional_tags    = ["team:platform"]
+    }
+    rds_query_hits = {
+      enabled = false
+    }
+    rds_cpu = {
+      additional_tags = ["team:platform"]
     }
   }
 

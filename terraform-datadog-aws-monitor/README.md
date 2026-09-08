@@ -35,7 +35,7 @@ No resources.
 | <a name="input_enabled_modules"></a> [enabled\_modules](#input\_enabled\_modules) | List of modules to enable, must be one of billing, elasticache, rds | `list(string)` | `[]` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | The environment monitored by this module | `string` | n/a | yes |
 | <a name="input_notification_slack_channel_prefix"></a> [notification\_slack\_channel\_prefix](#input\_notification\_slack\_channel\_prefix) | The prefix for Slack channels that will receive notifications and alerts | `string` | n/a | yes |
-| <a name="input_override_default_monitors"></a> [override\_default\_monitors](#input\_override\_default\_monitors) | Override default monitors with custom configuration | `map(map(any))` | `{}` | no |
+| <a name="input_override_default_monitors"></a> [override\_default\_monitors](#input\_override\_default\_monitors) | Per-monitor overrides merged onto the module defaults, keyed by monitor name. Only the attributes that change need to appear. The type is any rather than a nested map because Terraform resolves any to a single type across the whole value, so map(map(any)) cannot hold an additional\_tags list alongside a numeric threshold or a bool enabled. | `any` | `{}` | no |
 | <a name="input_service_name"></a> [service\_name](#input\_service\_name) | Service tag to filter RDS query (trace) monitors by. `*` matches all services. | `string` | `"*"` | no |
 | <a name="input_tag_slack_channel"></a> [tag\_slack\_channel](#input\_tag\_slack\_channel) | Whether to tag the Slack channel in the message | `bool` | `true` | no |
 
