@@ -29,6 +29,16 @@ variable "override_default_monitors" {
   type        = any
   default     = {}
   description = "Per-monitor overrides merged onto the module defaults, keyed by monitor name. Only the attributes that change need to appear. The type is any rather than a nested map because Terraform resolves any to a single type across the whole value, so map(map(any)) cannot hold an additional_tags list alongside a numeric threshold or a bool enabled."
+
+  validation {
+    # `any` is what lets one entry carry an additional_tags list beside a numeric threshold, but it
+    # also lets a wrong shape through to try(var.override_default_monitors[name], {}), where
+    # indexing a list or a scalar by a monitor name errors and try() swallows it - the override is
+    # then silently ignored rather than rejected. This checks the shape without constraining the
+    # value types.
+    condition     = can([for e in values(var.override_default_monitors) : keys(e)])
+    error_message = "override_default_monitors must be a map keyed by monitor name whose values are maps of monitor attributes."
+  }
 }
 
 variable "tag_slack_channel" {
