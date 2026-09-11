@@ -288,7 +288,7 @@ Enabling this requires the applying principal to hold `secretsmanager:CreateSecr
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.58.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.64.0 |
 | <a name="provider_random"></a> [random](#provider\_random) | 3.9.0 |
 
 ## Modules
