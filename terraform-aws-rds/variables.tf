@@ -230,9 +230,16 @@ variable "master_user_secret_rotation_days" {
   }
 
   # Secrets Manager accepts 1-1000 days. Rejecting here beats an apply-time API error.
+  #
+  # coalesce rather than a `== null ||` guard: Terraform does not short-circuit `||` in a variable
+  # validation during plan, so it evaluates `null >= 1` and fails with "argument must not be null"
+  # for every consumer leaving this at its default. `terraform validate` passes on the same
+  # config, so module CI that only validates cannot see it. Matches the idiom already used by
+  # terraform-aws-static-website/variables.tf:165.
   validation {
-    condition = var.master_user_secret_rotation_days == null || (
-      var.master_user_secret_rotation_days >= 1 && var.master_user_secret_rotation_days <= 1000
+    condition = (
+      coalesce(var.master_user_secret_rotation_days, 1) >= 1 &&
+      coalesce(var.master_user_secret_rotation_days, 1) <= 1000
     )
     error_message = "master_user_secret_rotation_days must be between 1 and 1000."
   }
