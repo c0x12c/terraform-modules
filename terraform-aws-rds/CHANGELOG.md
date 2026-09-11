@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.1](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-rds/v1.1.0...terraform-aws-rds/v1.1.1) (2026-09-11)
+
+
+### Bug Fixes
+
+* **rds:** validate rotation days without relying on || short-circuit ([#334](https://github.com/c0x12c/terraform-modules/issues/334)) ([b1d30ae](https://github.com/c0x12c/terraform-modules/commit/b1d30ae8bde0b25c51cd18c897b04990dbb19cfa))
+
 ## [1.1.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-rds/v1.0.0...terraform-aws-rds/v1.1.0) (2026-08-11)
 
 
