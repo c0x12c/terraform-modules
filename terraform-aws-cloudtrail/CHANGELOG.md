@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.7.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-cloudtrail/v0.6.7...terraform-aws-cloudtrail/v0.7.0) (2026-09-14)
+
+
+### Features
+
+* **terraform-aws-cloudtrail:** configurable S3 lifecycle rules ([#345](https://github.com/c0x12c/terraform-modules/issues/345)) ([c06899d](https://github.com/c0x12c/terraform-modules/commit/c06899d2be9606fa36e7483136aef7af606d78b3))
+
 ## [0.6.7](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-cloudtrail/v0.6.6...terraform-aws-cloudtrail/v0.6.7) (2026-09-14)
 
 

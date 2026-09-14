@@ -3,7 +3,7 @@
   "terraform-aws-alb": "1.0.0",
   "terraform-aws-amplify": "1.6.1",
   "terraform-aws-cloudfront-logging": "0.1.0",
-  "terraform-aws-cloudtrail": "0.6.7",
+  "terraform-aws-cloudtrail": "0.7.0",
   "terraform-aws-cloudwatch-alarm": "0.8.0",
   "terraform-aws-datasync-s3": "0.0.0",
   "terraform-aws-documentdb": "0.1.1",
