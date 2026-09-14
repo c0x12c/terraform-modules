@@ -202,7 +202,7 @@ variable "iam_policy_arns" {
 ################################################################################
 
 variable "enable_heartbeat" {
-  description = "Whether to create a daily EventBridge Scheduler heartbeat that proves SNS delivery still works. Disabled by default to avoid unexpected billable resources on existing consumer apply runs. Enable explicitly per consumer."
+  description = "Whether to create a daily EventBridge Scheduler heartbeat that proves SNS delivery still works. Disabled by default to avoid unexpected billable resources on existing consumer apply runs. Enable explicitly per consumer. With a customer-managed key on the topic, the schedule's role is granted kms:Decrypt and kms:GenerateDataKey* via kms:ViaService; the key policy must still allow that role, directly or through the usual IAM delegation to the account root."
   type        = bool
   default     = false
 }

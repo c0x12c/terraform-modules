@@ -53,6 +53,31 @@ data "aws_iam_policy_document" "scheduler_publish" {
       local.sns_topic_arn,
     ]
   }
+
+  # Publishing to a topic encrypted with a customer-managed key needs KMS permission as well, or
+  # every scheduled publish fails while the schedule itself reports as created. The key may be
+  # given as an id or an alias rather than an ARN, so this cannot name a key resource; the
+  # kms:ViaService condition confines it to KMS calls SNS makes in this Region instead.
+  dynamic "statement" {
+    for_each = var.sns_kms_master_key_id == null ? [] : [1]
+
+    content {
+      sid    = "AllowSchedulerUseOfTopicKey"
+      effect = "Allow"
+
+      actions = [
+        "kms:Decrypt",
+        "kms:GenerateDataKey*",
+      ]
+      resources = ["*"]
+
+      condition {
+        test     = "StringEquals"
+        variable = "kms:ViaService"
+        values   = ["sns.${data.aws_region.current.name}.amazonaws.com"]
+      }
+    }
+  }
 }
 
 resource "aws_iam_role" "scheduler" {
