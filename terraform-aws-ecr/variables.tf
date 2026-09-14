@@ -9,6 +9,18 @@ variable "tags" {
   default     = {}
 }
 
+variable "max_image_count" {
+  description = "Number of most recent images to keep. Older images are expired."
+  type        = number
+  default     = 50
+
+  # ECR requires a positive integer and documents no upper bound.
+  validation {
+    condition     = var.max_image_count > 0 && floor(var.max_image_count) == var.max_image_count
+    error_message = "max_image_count must be a positive integer."
+  }
+}
+
 variable "custom_ecr_scanning" {
   description = "Enable custom ECR scanning"
   type        = bool

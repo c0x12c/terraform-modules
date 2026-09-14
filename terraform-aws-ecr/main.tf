@@ -17,12 +17,12 @@ resource "aws_ecr_repository" "this" {
 /*
 aws_ecr_lifecycle_policy_document defines the lifecycle rules for the ECR repository.
 This data source provides structure to manage image retention within the repository.
-It includes two rules: one to retain the last 50 images and another to remove untagged images older than one day.
+It includes two rules: one to retain the most recent images and another to remove untagged images older than one day.
 */
 data "aws_ecr_lifecycle_policy_document" "this" {
   rule {
     priority    = 90
-    description = "keep last 50 images"
+    description = "keep last ${var.max_image_count} images"
 
     action {
       type = "expire"
@@ -31,7 +31,7 @@ data "aws_ecr_lifecycle_policy_document" "this" {
     selection {
       tag_status   = "any"
       count_type   = "imageCountMoreThan"
-      count_number = 50
+      count_number = var.max_image_count
     }
   }
 
