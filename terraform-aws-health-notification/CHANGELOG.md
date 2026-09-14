@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-health-notification/v0.2.1...terraform-aws-health-notification/v0.3.0) (2026-09-14)
+
+
+### Features
+
+* **terraform-aws-health-notification:** add heartbeat and delivery alarm ([#339](https://github.com/c0x12c/terraform-modules/issues/339)) ([f28b172](https://github.com/c0x12c/terraform-modules/commit/f28b17258f5933adbd44bce8ec394574b4b5369e))
+
 ## [0.2.1](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-health-notification/v0.2.0...terraform-aws-health-notification/v0.2.1) (2026-08-11)
 
 
