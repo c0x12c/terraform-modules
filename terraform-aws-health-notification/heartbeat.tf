@@ -58,6 +58,10 @@ data "aws_iam_policy_document" "scheduler_publish" {
   # every scheduled publish fails while the schedule itself reports as created. The key may be
   # given as an id or an alias rather than an ARN, so this cannot name a key resource; the
   # kms:ViaService condition confines it to KMS calls SNS makes in this Region instead.
+  #
+  # Keyed off sns_kms_master_key_id, which aws_sns_topic only reads when this module CREATES the
+  # topic. Reusing an existing encrypted topic therefore still requires setting it, purely so this
+  # grant is emitted - see the note on enable_heartbeat.
   dynamic "statement" {
     for_each = var.sns_kms_master_key_id == null ? [] : [1]
 
@@ -74,7 +78,7 @@ data "aws_iam_policy_document" "scheduler_publish" {
       condition {
         test     = "StringEquals"
         variable = "kms:ViaService"
-        values   = ["sns.${data.aws_region.current.name}.amazonaws.com"]
+        values   = ["sns.${data.aws_region.current.name}.${data.aws_partition.current.dns_suffix}"]
       }
     }
   }
