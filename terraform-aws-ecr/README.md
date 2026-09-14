@@ -33,7 +33,7 @@ module "ecr" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.75 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.64.0 |
 
 ## Modules
 
@@ -52,7 +52,8 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_enabled_ecr_scanning"></a> [enabled\_ecr\_scanning](#input\_enabled\_ecr\_scanning) | Enable ECR image scanning. | `bool` | `false` | no |
+| <a name="input_custom_ecr_scanning"></a> [custom\_ecr\_scanning](#input\_custom\_ecr\_scanning) | Enable custom ECR scanning | `bool` | `false` | no |
+| <a name="input_max_image_count"></a> [max\_image\_count](#input\_max\_image\_count) | Number of most recent images to keep. Older images are expired. | `number` | `50` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of the ECR | `string` | n/a | yes |
 | <a name="input_scan_frequency"></a> [scan\_frequency](#input\_scan\_frequency) | The frequency of the scan. Valid values: 'CONTINUOUS\_SCAN', 'SCAN\_ON\_PUSH', 'MANUAL' | `string` | `"SCAN_ON_PUSH"` | no |
 | <a name="input_scan_type"></a> [scan\_type](#input\_scan\_type) | The type of scan to run. Valid values: 'BASIC', 'ENHANCED' | `string` | `"BASIC"` | no |
