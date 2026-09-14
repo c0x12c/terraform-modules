@@ -114,10 +114,16 @@ resource "aws_cloudtrail" "this" {
   is_multi_region_trail         = var.is_multi_region_trail
   include_global_service_events = var.include_global_service_events
   cloud_watch_logs_role_arn     = local.cloud_watch_logs_role_arn
-  cloud_watch_logs_group_arn    = "${local.cloud_watch_logs_group_arn}:*" # CloudTrail requires the Log Stream wildcard
-  kms_key_id                    = var.kms_key_arn
-  is_organization_trail         = var.is_organization_trail
-  s3_key_prefix                 = var.s3_key_prefix
+  # Apply the log-stream wildcard only when there is a group ARN to apply it to.
+  #
+  # The default is no CloudWatch integration (create_cloudwatch_log_group = false), which leaves
+  # this local null, and interpolating null fails with "Invalid template interpolation value".
+  #
+  # terraform validate does not evaluate expressions, so module CI cannot catch this class.
+  cloud_watch_logs_group_arn = local.cloud_watch_logs_group_arn != null ? "${local.cloud_watch_logs_group_arn}:*" : null
+  kms_key_id                 = var.kms_key_arn
+  is_organization_trail      = var.is_organization_trail
+  s3_key_prefix              = var.s3_key_prefix
 
   dynamic "insight_selector" {
     for_each = var.insight_selector
