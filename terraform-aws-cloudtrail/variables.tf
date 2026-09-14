@@ -132,3 +132,53 @@ variable "create_cloudwatch_log_group" {
   type        = bool
   default     = false
 }
+
+variable "lifecycle_rules" {
+  type = list(object({
+    id     = string
+    status = optional(string, "Enabled")
+
+    # Applies to every object in the bucket when omitted.
+    prefix = optional(string)
+
+    transitions = optional(list(object({
+      days          = number
+      storage_class = string
+    })), [])
+
+    expiration_days                    = optional(number)
+    noncurrent_version_expiration_days = optional(number)
+    abort_incomplete_mpu_days          = optional(number)
+  }))
+
+  description = "Lifecycle rules for the log bucket. Empty (the default) creates no lifecycle configuration at all, because a lifecycle configuration with zero rules is rejected by the provider."
+  default     = []
+
+  # An explicit null from an unset upstream variable would otherwise reach length() and for_each
+  # and fail the plan, rather than reading as "no rules" the way the default does.
+  nullable = false
+
+  # Every action field is optional, so the type alone admits a rule that does nothing. The provider
+  # rejects such a rule at apply with a message that does not name the rule, so catch it here.
+  validation {
+    condition = alltrue([
+      for r in var.lifecycle_rules :
+      length(r.transitions) > 0 ||
+      r.expiration_days != null ||
+      r.noncurrent_version_expiration_days != null ||
+      r.abort_incomplete_mpu_days != null
+    ])
+    error_message = "Each lifecycle rule needs at least one action: transitions, expiration_days, noncurrent_version_expiration_days or abort_incomplete_mpu_days."
+  }
+}
+
+variable "transition_default_minimum_object_size" {
+  type        = string
+  description = "Minimum object size S3 applies to lifecycle transitions: all_storage_classes_128K, or varies_by_storage_class to apply the 128 KB floor to Standard-IA, One Zone-IA and Intelligent-Tiering only. CloudTrail writes small gzipped objects, so the 128 KB default silently no-ops a Glacier transition."
+  default     = "varies_by_storage_class"
+
+  validation {
+    condition     = contains(["all_storage_classes_128K", "varies_by_storage_class"], var.transition_default_minimum_object_size)
+    error_message = "Must be all_storage_classes_128K or varies_by_storage_class."
+  }
+}
