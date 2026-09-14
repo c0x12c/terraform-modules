@@ -154,6 +154,10 @@ variable "lifecycle_rules" {
   description = "Lifecycle rules for the log bucket. Empty (the default) creates no lifecycle configuration at all, because a lifecycle configuration with zero rules is rejected by the provider."
   default     = []
 
+  # An explicit null from an unset upstream variable would otherwise reach length() and for_each
+  # and fail the plan, rather than reading as "no rules" the way the default does.
+  nullable = false
+
   # Every action field is optional, so the type alone admits a rule that does nothing. The provider
   # rejects such a rule at apply with a message that does not name the rule, so catch it here.
   validation {
@@ -170,7 +174,7 @@ variable "lifecycle_rules" {
 
 variable "transition_default_minimum_object_size" {
   type        = string
-  description = "Minimum object size S3 applies to lifecycle transitions: all_storage_classes_128K, or varies_by_storage_class to apply the 128 KB floor to Standard-IA and Intelligent-Tiering only. CloudTrail writes small gzipped objects, so the 128 KB default silently no-ops a Glacier transition."
+  description = "Minimum object size S3 applies to lifecycle transitions: all_storage_classes_128K, or varies_by_storage_class to apply the 128 KB floor to Standard-IA, One Zone-IA and Intelligent-Tiering only. CloudTrail writes small gzipped objects, so the 128 KB default silently no-ops a Glacier transition."
   default     = "varies_by_storage_class"
 
   validation {

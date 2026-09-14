@@ -89,7 +89,7 @@ No modules.
 | <a name="input_restrict_public_buckets"></a> [restrict\_public\_buckets](#input\_restrict\_public\_buckets) | Whether Amazon S3 should restrict public bucket policies for this bucket. | `bool` | `true` | no |
 | <a name="input_s3_key_prefix"></a> [s3\_key\_prefix](#input\_s3\_key\_prefix) | Prefix for S3 bucket used by Cloudtrail to store logs | `string` | `null` | no |
 | <a name="input_sns_topic_name"></a> [sns\_topic\_name](#input\_sns\_topic\_name) | Specifies the name of the Amazon SNS topic defined for notification of log file delivery | `string` | `null` | no |
-| <a name="input_transition_default_minimum_object_size"></a> [transition\_default\_minimum\_object\_size](#input\_transition\_default\_minimum\_object\_size) | Minimum object size S3 applies to lifecycle transitions: all\_storage\_classes\_128K, or varies\_by\_storage\_class to apply the 128 KB floor to Standard-IA and Intelligent-Tiering only. CloudTrail writes small gzipped objects, so the 128 KB default silently no-ops a Glacier transition. | `string` | `"varies_by_storage_class"` | no |
+| <a name="input_transition_default_minimum_object_size"></a> [transition\_default\_minimum\_object\_size](#input\_transition\_default\_minimum\_object\_size) | Minimum object size S3 applies to lifecycle transitions: all\_storage\_classes\_128K, or varies\_by\_storage\_class to apply the 128 KB floor to Standard-IA, One Zone-IA and Intelligent-Tiering only. CloudTrail writes small gzipped objects, so the 128 KB default silently no-ops a Glacier transition. | `string` | `"varies_by_storage_class"` | no |
 | <a name="input_versioning_status"></a> [versioning\_status](#input\_versioning\_status) | The status of bucket versioning. | `string` | `"Disabled"` | no |
 
 ## Outputs
