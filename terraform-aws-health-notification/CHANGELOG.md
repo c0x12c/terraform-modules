@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-health-notification/v0.3.0...terraform-aws-health-notification/v0.3.1) (2026-09-14)
+
+
+### Bug Fixes
+
+* **terraform-aws-health-notification:** scope scheduler trust to the schedule group ([#341](https://github.com/c0x12c/terraform-modules/issues/341)) ([c48a1b1](https://github.com/c0x12c/terraform-modules/commit/c48a1b1a07d8156471bad489bb47dbdf816c0b27))
+
 ## [0.3.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-health-notification/v0.2.1...terraform-aws-health-notification/v0.3.0) (2026-09-14)
 
 
