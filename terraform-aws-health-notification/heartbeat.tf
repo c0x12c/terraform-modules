@@ -24,9 +24,8 @@ data "aws_iam_policy_document" "scheduler_assume" {
     actions = ["sts:AssumeRole"]
 
     # Without these any Scheduler principal in any account could assume the role and
-    # publish to the topic - the confused-deputy shape. The ARN is built from name,
-    # region and account rather than read off aws_scheduler_schedule.heartbeat, which
-    # would be a cycle since the schedule references this role.
+    # publish to the topic - the confused-deputy shape. SourceAccount still pins this to
+    # one account; the group scope is as narrow as Scheduler allows.
     condition {
       test     = "StringEquals"
       variable = "aws:SourceAccount"
@@ -36,7 +35,7 @@ data "aws_iam_policy_document" "scheduler_assume" {
     condition {
       test     = "ArnEquals"
       variable = "aws:SourceArn"
-      values   = [local.heartbeat_schedule_arn]
+      values   = [local.heartbeat_schedule_group_arn]
     }
   }
 }
@@ -121,8 +120,10 @@ locals {
   # the same var.name would collide on the role. The Region is part of the name to keep them apart.
   heartbeat_name = "${var.name}-health-heartbeat-${data.aws_region.current.name}"
 
-  # Schedules land in the "default" group because group_name is not set below.
-  heartbeat_schedule_arn = "arn:${data.aws_partition.current.partition}:scheduler:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:schedule/default/${local.heartbeat_name}"
+  # The GROUP arn, not the schedule's own: Scheduler presents the group as aws:SourceArn, and
+  # scoping the condition to a schedule makes it unsatisfiable, failing CreateSchedule every
+  # time. Schedules land in "default" because group_name is not set below.
+  heartbeat_schedule_group_arn = "arn:${data.aws_partition.current.partition}:scheduler:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:schedule-group/default"
 }
 
 data "aws_partition" "current" {}
