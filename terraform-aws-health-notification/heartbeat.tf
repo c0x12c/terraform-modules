@@ -58,18 +58,18 @@ data "aws_iam_policy_document" "scheduler_publish" {
 resource "aws_iam_role" "scheduler" {
   count = var.enable_heartbeat ? 1 : 0
 
-  name               = "${var.name}-health-heartbeat"
+  name               = local.heartbeat_name
   assume_role_policy = data.aws_iam_policy_document.scheduler_assume[0].json
 
   tags = merge(var.tags, {
-    Name = "${var.name}-health-heartbeat"
+    Name = local.heartbeat_name
   })
 }
 
 resource "aws_iam_role_policy" "scheduler_publish" {
   count = var.enable_heartbeat ? 1 : 0
 
-  name   = "${var.name}-health-heartbeat"
+  name   = local.heartbeat_name
   role   = aws_iam_role.scheduler[0].id
   policy = data.aws_iam_policy_document.scheduler_publish[0].json
 }
@@ -77,8 +77,12 @@ resource "aws_iam_role_policy" "scheduler_publish" {
 locals {
   heartbeat_description_computed = coalesce(var.heartbeat_description, "${var.name} health delivery heartbeat")
 
+  # IAM role names are account-global, so two instances of this module in different Regions with
+  # the same var.name would collide on the role. The Region is part of the name to keep them apart.
+  heartbeat_name = "${var.name}-health-heartbeat-${data.aws_region.current.name}"
+
   # Schedules land in the "default" group because group_name is not set below.
-  heartbeat_schedule_arn = "arn:${data.aws_partition.current.partition}:scheduler:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:schedule/default/${var.name}-health-heartbeat"
+  heartbeat_schedule_arn = "arn:${data.aws_partition.current.partition}:scheduler:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:schedule/default/${local.heartbeat_name}"
 }
 
 data "aws_partition" "current" {}
@@ -88,7 +92,7 @@ data "aws_region" "current" {}
 resource "aws_scheduler_schedule" "heartbeat" {
   count = var.enable_heartbeat ? 1 : 0
 
-  name                         = "${var.name}-health-heartbeat"
+  name                         = local.heartbeat_name
   description                  = "Daily heartbeat that proves the SNS delivery path works after external drift."
   schedule_expression          = var.heartbeat_schedule_expression
   schedule_expression_timezone = "UTC"

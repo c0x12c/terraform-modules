@@ -2,6 +2,14 @@
 # Delivery failure alarm
 ################################################################################
 
+locals {
+  # local.sns_topic_name is the name this module would GIVE a topic it creates. When an existing
+  # topic is supplied instead, its real name is the last segment of the ARN - using the computed
+  # name there would point the alarm at a metric that does not exist, and it would sit green
+  # forever.
+  alarm_topic_name = var.create_sns_topic ? local.sns_topic_name : element(split(":", local.sns_topic_arn), 5)
+}
+
 resource "aws_cloudwatch_metric_alarm" "delivery_failures" {
   count = var.enable_delivery_alarm ? 1 : 0
 
@@ -19,7 +27,7 @@ resource "aws_cloudwatch_metric_alarm" "delivery_failures" {
   ok_actions          = [local.sns_topic_arn]
 
   dimensions = {
-    TopicName = local.sns_topic_name
+    TopicName = local.alarm_topic_name
   }
 
   # This alarm notifies through the very topic it watches, so it can only report
