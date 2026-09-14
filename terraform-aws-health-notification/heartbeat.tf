@@ -64,6 +64,17 @@ resource "aws_iam_role" "scheduler" {
   tags = merge(var.tags, {
     Name = local.heartbeat_name
   })
+
+  # IAM role names and Scheduler schedule names both cap at 64 characters, and the suffix added
+  # here spends up to 32 of them. Fail at plan with the arithmetic rather than at apply with an
+  # AWS validation error, and only when the heartbeat is actually switched on - var.name itself
+  # stays unconstrained for every consumer that does not use it.
+  lifecycle {
+    precondition {
+      condition     = length(local.heartbeat_name) <= 64
+      error_message = "name is too long for the heartbeat: \"${local.heartbeat_name}\" is ${length(local.heartbeat_name)} characters and IAM roles and EventBridge Scheduler schedules both cap at 64. Shorten var.name by ${length(local.heartbeat_name) - 64} characters or leave enable_heartbeat false."
+    }
+  }
 }
 
 resource "aws_iam_role_policy" "scheduler_publish" {
