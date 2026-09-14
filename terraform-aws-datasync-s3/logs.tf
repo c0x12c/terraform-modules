@@ -27,7 +27,7 @@ data "aws_iam_policy_document" "logs" {
     ]
     # Account-wide on purpose: CloudWatch Logs caps resource policies at 10 per region,
     # so one policy has to serve every DataSync log group. The SourceArn/SourceAccount
-    # conditions below are what keeps it scoped.
+    # conditions below are what keep it scoped.
     resources = ["arn:${data.aws_partition.current.partition}:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:*:*"]
 
     condition {

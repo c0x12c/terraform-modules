@@ -111,7 +111,7 @@ variable "cloudwatch_log_group_kms_key_id" {
 }
 
 variable "create_cloudwatch_log_resource_policy" {
-  description = "Whether to create the log resource policy letting DataSync write to the log group. One policy covers every task in the region, so set false on additional instances."
+  description = "Whether to create the log resource policy letting DataSync write to CloudWatch Logs. The policy is account-wide, and CloudWatch Logs caps resource policies at 10 per region, so set false on additional instances."
   type        = bool
   default     = true
 }
