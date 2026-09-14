@@ -1,5 +1,6 @@
 data "aws_caller_identity" "current" {}
 data "aws_partition" "current" {}
+data "aws_region" "current" {}
 
 locals {
   create = var.create
@@ -11,6 +12,9 @@ locals {
 
   iam_role_name  = coalesce(var.iam_role_name, "${var.name}-datasync")
   log_group_name = coalesce(var.cloudwatch_log_group_name, "/aws/datasync/${var.name}")
+
+  # Output builds the URI by joining, so the subdirectory works with or without slashes.
+  task_report_prefix = trim(var.task_report_subdirectory, "/")
 
   has_schedule = var.schedule_expression != null && var.schedule_expression != ""
   logging      = local.create && var.enable_cloudwatch_logging

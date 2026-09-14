@@ -36,10 +36,14 @@ aws datasync start-task-execution --task-arn "$(terraform output -raw task_arn)"
 
 ## Operational notes
 
-- **Cross-account source.** The task runs in the destination account, so the source
-  account must add a bucket policy granting `iam_role_arn` `s3:ListBucket` /
-  `s3:GetBucketLocation` on the bucket and `s3:GetObject*` on its objects. Apply this
-  module first, then the bucket policy, then start the task.
+- **Cross-account source — bucket policy goes first.** The task runs in the destination
+  account, so the source account must add a bucket policy granting the DataSync role
+  `s3:ListBucket` / `s3:GetBucketLocation` on the bucket and `s3:GetObject*` on its
+  objects. DataSync validates that access when it creates the location, so the policy has
+  to be in place *before* the first apply, not after. The role ARN is predictable —
+  `arn:aws:iam::<destination-account>:role/<name>-datasync`, or whatever `iam_role_name`
+  is set to — so write the source policy against that, then apply. If the first apply
+  already failed on `CreateLocationS3`, add the policy and re-apply.
 - **Deletes are not propagated.** `preserve_deleted_files = PRESERVE` keeps destination
   objects that disappear from the source, so a mid-migration cleanup on the source cannot
   wipe the destination. Override it through `task_options` for a true mirror.
@@ -47,9 +51,9 @@ aws datasync start-task-execution --task-arn "$(terraform output -raw task_arn)"
   same objects. Keep `create = false` while the transfer is idle.
 - **Logging.** `BASIC` is the finest CloudWatch level DataSync offers (transfer errors
   only); per-object detail comes from the task report on the destination bucket under
-  `task_report_subdirectory`. CloudWatch Logs caps resource policies at 10 per region and
-  the one created here covers every task in the account, so set
-  `create_cloudwatch_log_resource_policy = false` on additional instances.
+  `task_report_subdirectory`. CloudWatch Logs caps resource policies at 10 per region, so the
+  one created here is scoped to every DataSync log group in the account rather than just
+  this one: set `create_cloudwatch_log_resource_policy = false` on additional instances.
 - **Encrypted buckets.** Pass the bucket key ARNs in `kms_key_arns`, otherwise the
   transfer fails on `AccessDenied` at the first object.
 
@@ -69,7 +73,7 @@ See [`examples/complete`](examples/complete) for a runnable example.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.63.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.64.0 |
 
 ## Modules
 
@@ -91,6 +95,7 @@ No modules.
 | [aws_iam_policy_document.logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.s3](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
+| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
 ## Inputs
 

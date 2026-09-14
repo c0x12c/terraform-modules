@@ -50,5 +50,5 @@ output "cloudwatch_log_group_arn" {
 
 output "task_report_s3_uri" {
   description = "s3:// prefix the task reports are written to."
-  value       = var.enable_task_report ? "s3://${local.destination_bucket_name}${var.task_report_subdirectory}/" : null
+  value       = var.enable_task_report ? "s3://${join("/", compact([local.destination_bucket_name, local.task_report_prefix]))}/" : null
 }

@@ -79,7 +79,6 @@ data "aws_iam_policy_document" "s3" {
         "kms:DescribeKey",
         "kms:Encrypt",
         "kms:GenerateDataKey",
-        "kms:ReEncrypt*",
       ]
       resources = var.kms_key_arns
     }

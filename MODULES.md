@@ -15,7 +15,7 @@ module "example" {
 |---|---|---|---|
 | `terraform-aws-acm` | `terraform.c0x12c.com/c0x12c/acm/aws` | 0.1.63 | Terraform module which creates ACM certificates and validates them using Route53 DNS. |
 | `terraform-aws-alb` | `terraform.c0x12c.com/c0x12c/alb/aws` | 1.0.0 | Terraform module which creates external Application Load Balancer resources on AWS: |
-| `terraform-aws-amplify` | `terraform.c0x12c.com/c0x12c/amplify/aws` | 1.6.0 | Terraform module to provision AWS Amplify apps, backend environments, branches, domain associations. |
+| `terraform-aws-amplify` | `terraform.c0x12c.com/c0x12c/amplify/aws` | 1.6.1 | Terraform module to provision AWS Amplify apps, backend environments, branches, domain associations. |
 | `terraform-aws-cloudfront-logging` | `terraform.c0x12c.com/c0x12c/cloudfront-logging/aws` | 0.1.0 | module "cloudfront_logging" { |
 | `terraform-aws-cloudtrail` | `terraform.c0x12c.com/c0x12c/cloudtrail/aws` | 0.6.6 | Terraform module which creates external AWS CloudTrail resources: |
 | `terraform-aws-cloudwatch-alarm` | `terraform.c0x12c.com/c0x12c/cloudwatch-alarm/aws` | 0.8.0 | Terraform module which creates Amazon CloudWatch Alarm resources. |
@@ -65,7 +65,7 @@ module "example" {
 | `terraform-aws-openvpn` | `terraform.c0x12c.com/c0x12c/openvpn/aws` | 0.6.2 | Terraform module which creates OpenVPN to access internal VPC network. |
 | `terraform-aws-password-generator` | `terraform.c0x12c.com/c0x12c/password-generator/aws` | 0.2.0 | Module which generates password then stores to Secret Manager. |
 | `terraform-aws-password-policy` | `terraform.c0x12c.com/c0x12c/password-policy/aws` | 0.1.52 | This module configures an IAM account password policy in AWS, enforcing security requirements such as minimum |
-| `terraform-aws-rds` | `terraform.c0x12c.com/c0x12c/rds/aws` | 1.1.0 | Terraform module which creates RDS resources on AWS. |
+| `terraform-aws-rds` | `terraform.c0x12c.com/c0x12c/rds/aws` | 1.1.1 | Terraform module which creates RDS resources on AWS. |
 | `terraform-aws-rds-cluster` | `terraform.c0x12c.com/c0x12c/rds-cluster/aws` | 0.1.0 | Terraform module which provisions an Amazon RDS cluster on AWS. A single module supports both **Aurora** cl... |
 | `terraform-aws-route53` | `terraform.c0x12c.com/c0x12c/route53/aws` | 0.1.14 | Terraform module which creates Route53 resources on AWS. |
 | `terraform-aws-s3` | `terraform.c0x12c.com/c0x12c/s3/aws` | 1.3.0 | Terraform module which creates S3 resources on AWS. |
@@ -87,7 +87,7 @@ module "example" {
 | `terraform-aws-wafv2` | `terraform.c0x12c.com/c0x12c/wafv2/aws` | 1.0.1 | Introduced a new module for managing AWS WAFv2 configurations. |
 | `terraform-cloudflare-record-with-cache-rule` | `terraform.c0x12c.com/c0x12c/record-with-cache-rule/cloudflare` | 1.0.0 | Terraform module which creates Amazon CloudWatch Alarm resources. |
 | `terraform-datadog-aws-integration` | `terraform.c0x12c.com/c0x12c/aws-integration/datadog` | 2.1.0 | Terraform module which creates Datadog AWS integration resources and the required IAM role/policy. |
-| `terraform-datadog-aws-monitor` | `terraform.c0x12c.com/c0x12c/aws-monitor/datadog` | 1.4.0 | <!-- BEGIN_TF_DOCS --> |
+| `terraform-datadog-aws-monitor` | `terraform.c0x12c.com/c0x12c/aws-monitor/datadog` | 1.4.1 | <!-- BEGIN_TF_DOCS --> |
 | `terraform-datadog-dashboard` | `terraform.c0x12c.com/c0x12c/dashboard/datadog` | 1.0.0 | Terraform module which creates Datadog Dashboard. |
 | `terraform-datadog-ecs-monitor` | `terraform.c0x12c.com/c0x12c/ecs-monitor/datadog` | 1.1.1 | Terraform module for creating comprehensive Datadog monitors for AWS ECS services. This module provides pre... |
 | `terraform-datadog-gcp-integration` | `terraform.c0x12c.com/c0x12c/gcp-integration/datadog` | 1.1.0 | Terraform module which creates Datadog GCP integration and service account resources on GCP. |

@@ -25,13 +25,15 @@ data "aws_iam_policy_document" "logs" {
       "logs:CreateLogStream",
       "logs:PutLogEvents",
     ]
-    resources = ["${aws_cloudwatch_log_group.this[0].arn}:*"]
+    # Account-wide on purpose: CloudWatch Logs caps resource policies at 10 per region,
+    # so one policy has to serve every DataSync log group. The SourceArn/SourceAccount
+    # conditions below are what keeps it scoped.
+    resources = ["arn:${data.aws_partition.current.partition}:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:*:*"]
 
     condition {
       test     = "ArnLike"
       variable = "aws:SourceArn"
-      # Region read off the log group ARN so the module needs no aws_region data source.
-      values = ["arn:${data.aws_partition.current.partition}:datasync:${split(":", aws_cloudwatch_log_group.this[0].arn)[3]}:${data.aws_caller_identity.current.account_id}:task/*"]
+      values   = ["arn:${data.aws_partition.current.partition}:datasync:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:task/*"]
     }
 
     condition {
@@ -42,8 +44,7 @@ data "aws_iam_policy_document" "logs" {
   }
 }
 
-# CloudWatch Logs allows only 10 resource policies per region, and this one
-# already covers every DataSync task in the account: set
+# One policy per region covers every DataSync task in the account: set
 # create_cloudwatch_log_resource_policy = false on additional instances.
 resource "aws_cloudwatch_log_resource_policy" "this" {
   count = local.logging && var.create_cloudwatch_log_resource_policy ? 1 : 0
