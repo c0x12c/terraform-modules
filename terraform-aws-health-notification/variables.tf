@@ -196,3 +196,31 @@ variable "iam_policy_arns" {
     "arn:aws:iam::aws:policy/ReadOnlyAccess",
   ]
 }
+
+################################################################################
+# Heartbeat and delivery alarm
+################################################################################
+
+variable "enable_heartbeat" {
+  description = "Whether to create a daily EventBridge Scheduler heartbeat that proves SNS delivery still works. Disabled by default to avoid unexpected billable resources on existing consumer apply runs. Enable explicitly per consumer."
+  type        = bool
+  default     = false
+}
+
+variable "heartbeat_schedule_expression" {
+  description = "Cron or rate expression for the heartbeat schedule, e.g. 'rate(1 day)' or 'cron(0 9 ? * MON-FRI *)'. Ignored when enable_heartbeat is false."
+  type        = string
+  default     = "rate(1 day)"
+}
+
+variable "heartbeat_description" {
+  description = "Description attached to the heartbeat message published to SNS. When null, defaults to '{name} health delivery heartbeat'."
+  type        = string
+  default     = null
+}
+
+variable "enable_delivery_alarm" {
+  description = "Whether to create a CloudWatch alarm on the SNS topic's NumberOfNotificationsFailed metric. Disabled by default to avoid unexpected billable resources on existing consumer apply runs. Enable explicitly per consumer."
+  type        = bool
+  default     = false
+}

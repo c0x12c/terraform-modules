@@ -37,3 +37,13 @@ output "slack_channel_arns" {
   description = "ARNs of the Chatbot Slack channel configurations, keyed as in var.slack_channels."
   value       = { for k, v in aws_chatbot_slack_channel_configuration.this : k => v.chat_configuration_arn }
 }
+
+output "heartbeat_schedule_arn" {
+  description = "ARN of the EventBridge Scheduler schedule for the heartbeat, or null when disabled."
+  value       = try(aws_scheduler_schedule.heartbeat[0].arn, null)
+}
+
+output "delivery_alarm_arn" {
+  description = "ARN of the CloudWatch alarm monitoring SNS delivery failures, or null when disabled."
+  value       = try(aws_cloudwatch_metric_alarm.delivery_failures[0].arn, null)
+}
