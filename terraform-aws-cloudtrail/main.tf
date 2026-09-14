@@ -150,3 +150,57 @@ resource "aws_cloudtrail" "this" {
 
   depends_on = [aws_s3_bucket_policy.this]
 }
+
+# Zero rules is not a valid lifecycle configuration, so a consumer on the default gets no resource
+# at all rather than a plan-time error.
+resource "aws_s3_bucket_lifecycle_configuration" "this" {
+  count = length(var.lifecycle_rules) > 0 ? 1 : 0
+
+  bucket                                 = aws_s3_bucket.this.id
+  transition_default_minimum_object_size = var.transition_default_minimum_object_size
+
+  dynamic "rule" {
+    for_each = var.lifecycle_rules
+
+    content {
+      id     = rule.value.id
+      status = rule.value.status
+
+      filter {
+        prefix = rule.value.prefix
+      }
+
+      dynamic "transition" {
+        for_each = rule.value.transitions
+        content {
+          days          = transition.value.days
+          storage_class = transition.value.storage_class
+        }
+      }
+
+      dynamic "expiration" {
+        for_each = rule.value.expiration_days != null ? [rule.value.expiration_days] : []
+        content {
+          days = expiration.value
+        }
+      }
+
+      dynamic "noncurrent_version_expiration" {
+        for_each = rule.value.noncurrent_version_expiration_days != null ? [rule.value.noncurrent_version_expiration_days] : []
+        content {
+          noncurrent_days = noncurrent_version_expiration.value
+        }
+      }
+
+      dynamic "abort_incomplete_multipart_upload" {
+        for_each = rule.value.abort_incomplete_mpu_days != null ? [rule.value.abort_incomplete_mpu_days] : []
+        content {
+          days_after_initiation = abort_incomplete_multipart_upload.value
+        }
+      }
+    }
+  }
+
+  # Versioning must settle before rules that act on noncurrent versions are attached.
+  depends_on = [aws_s3_bucket_versioning.this]
+}
