@@ -196,3 +196,31 @@ variable "iam_policy_arns" {
     "arn:aws:iam::aws:policy/ReadOnlyAccess",
   ]
 }
+
+################################################################################
+# Heartbeat and delivery alarm
+################################################################################
+
+variable "enable_heartbeat" {
+  description = "Whether to create a daily EventBridge Scheduler heartbeat that proves SNS delivery still works. Disabled by default to avoid unexpected billable resources on existing consumer apply runs. Enable explicitly per consumer. With a customer-managed key on the topic, the schedule's role is granted kms:Decrypt and kms:GenerateDataKey* via kms:ViaService; the key policy must still allow that role, directly or through the usual IAM delegation to the account root. When reusing an EXISTING encrypted topic (create_sns_topic = false), set sns_kms_master_key_id anyway: aws_sns_topic ignores it in that case, but it is what emits the role's KMS grant, and without it the schedule is created and every publish fails."
+  type        = bool
+  default     = false
+}
+
+variable "heartbeat_schedule_expression" {
+  description = "Cron or rate expression for the heartbeat schedule, e.g. 'rate(1 day)' or 'cron(0 9 ? * MON-FRI *)'. Ignored when enable_heartbeat is false."
+  type        = string
+  default     = "rate(1 day)"
+}
+
+variable "heartbeat_description" {
+  description = "Description attached to the heartbeat message published to SNS. When null, defaults to '{name} health delivery heartbeat'."
+  type        = string
+  default     = null
+}
+
+variable "enable_delivery_alarm" {
+  description = "Whether to create a CloudWatch alarm on the SNS topic's NumberOfNotificationsFailed metric. Disabled by default to avoid unexpected billable resources on existing consumer apply runs. Enable explicitly per consumer. Needs cloudwatch.amazonaws.com to hold sns:Publish on the topic. This module grants that only when it manages the topic policy, so with create_sns_topic = false and manage_existing_topic_policy = false the alarm is created but its actions are rejected and it notifies nothing. A topic encrypted with a customer-managed KMS key needs cloudwatch.amazonaws.com granted kms:GenerateDataKey* and kms:Decrypt in the KEY policy as well; this module cannot edit an external CMK policy, so that grant is the caller's."
+  type        = bool
+  default     = false
+}

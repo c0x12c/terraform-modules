@@ -23,6 +23,9 @@ module "health_notification" {
     }
   }
 
+  enable_heartbeat      = true
+  enable_delivery_alarm = true
+
   tags = {
     Environment = "dev"
   }

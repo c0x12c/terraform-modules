@@ -162,13 +162,21 @@ No modules.
 | [aws_chatbot_slack_channel_configuration.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/chatbot_slack_channel_configuration) | resource |
 | [aws_cloudwatch_event_rule.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_rule) | resource |
 | [aws_cloudwatch_event_target.sns](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target) | resource |
+| [aws_cloudwatch_metric_alarm.delivery_failures](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_metric_alarm) | resource |
 | [aws_iam_role.chatbot](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role.scheduler](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role_policy.scheduler_publish](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
 | [aws_iam_role_policy_attachment.chatbot](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_scheduler_schedule.heartbeat](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/scheduler_schedule) | resource |
 | [aws_sns_topic.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic) | resource |
 | [aws_sns_topic_policy.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic_policy) | resource |
 | [aws_sns_topic_subscription.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic_subscription) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.chatbot_assume_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.scheduler_assume](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.scheduler_publish](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
+| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
 ## Inputs
 
@@ -177,6 +185,8 @@ No modules.
 | <a name="input_additional_sns_topic_arns"></a> [additional\_sns\_topic\_arns](#input\_additional\_sns\_topic\_arns) | Extra SNS topic ARNs each Chatbot channel also subscribes to. A Slack channel can hold only one configuration per account, so a second Region's topic must be added here rather than by a second instance with its own slack\_channels. | `list(string)` | `[]` | no |
 | <a name="input_create_iam_role"></a> [create\_iam\_role](#input\_create\_iam\_role) | Whether to create the shared IAM role assumed by AWS Chatbot. Ignored when no Chatbot channel is configured. | `bool` | `true` | no |
 | <a name="input_create_sns_topic"></a> [create\_sns\_topic](#input\_create\_sns\_topic) | Whether to create the SNS topic. Set false to publish into an existing topic. | `bool` | `true` | no |
+| <a name="input_enable_delivery_alarm"></a> [enable\_delivery\_alarm](#input\_enable\_delivery\_alarm) | Whether to create a CloudWatch alarm on the SNS topic's NumberOfNotificationsFailed metric. Disabled by default to avoid unexpected billable resources on existing consumer apply runs. Enable explicitly per consumer. Needs cloudwatch.amazonaws.com to hold sns:Publish on the topic. This module grants that only when it manages the topic policy, so with create\_sns\_topic = false and manage\_existing\_topic\_policy = false the alarm is created but its actions are rejected and it notifies nothing. A topic encrypted with a customer-managed KMS key needs cloudwatch.amazonaws.com granted kms:GenerateDataKey* and kms:Decrypt in the KEY policy as well; this module cannot edit an external CMK policy, so that grant is the caller's. | `bool` | `false` | no |
+| <a name="input_enable_heartbeat"></a> [enable\_heartbeat](#input\_enable\_heartbeat) | Whether to create a daily EventBridge Scheduler heartbeat that proves SNS delivery still works. Disabled by default to avoid unexpected billable resources on existing consumer apply runs. Enable explicitly per consumer. With a customer-managed key on the topic, the schedule's role is granted kms:Decrypt and kms:GenerateDataKey* via kms:ViaService; the key policy must still allow that role, directly or through the usual IAM delegation to the account root. When reusing an EXISTING encrypted topic (create\_sns\_topic = false), set sns\_kms\_master\_key\_id anyway: aws\_sns\_topic ignores it in that case, but it is what emits the role's KMS grant, and without it the schedule is created and every publish fails. | `bool` | `false` | no |
 | <a name="input_event_bus_name"></a> [event\_bus\_name](#input\_event\_bus\_name) | Event bus the rule attaches to. Defaults to the account's default bus, which is where AWS Health delivers. | `string` | `null` | no |
 | <a name="input_event_pattern"></a> [event\_pattern](#input\_event\_pattern) | JSON-encoded event pattern that replaces the generated AWS Health pattern outright. Setting this ignores the filter inputs above. | `string` | `null` | no |
 | <a name="input_event_type_categories"></a> [event\_type\_categories](#input\_event\_type\_categories) | Categories to forward: issue, accountNotification, scheduledChange, investigation. Empty forwards all. | `list(string)` | `[]` | no |
@@ -184,6 +194,8 @@ No modules.
 | <a name="input_eventbridge_rule_description"></a> [eventbridge\_rule\_description](#input\_eventbridge\_rule\_description) | Description of the EventBridge rule. | `string` | `"Forward AWS Health Dashboard events to the notification topic"` | no |
 | <a name="input_eventbridge_rule_name"></a> [eventbridge\_rule\_name](#input\_eventbridge\_rule\_name) | Name of the EventBridge rule. Defaults to {name}-health-notification. | `string` | `null` | no |
 | <a name="input_exclude_backup_events"></a> [exclude\_backup\_events](#input\_exclude\_backup\_events) | Drop backup copies of other Regions' events. us-west-2 backs up all Regions and us-east-1 backs up us-west-2, so rules there see duplicates. | `bool` | `false` | no |
+| <a name="input_heartbeat_description"></a> [heartbeat\_description](#input\_heartbeat\_description) | Description attached to the heartbeat message published to SNS. When null, defaults to '{name} health delivery heartbeat'. | `string` | `null` | no |
+| <a name="input_heartbeat_schedule_expression"></a> [heartbeat\_schedule\_expression](#input\_heartbeat\_schedule\_expression) | Cron or rate expression for the heartbeat schedule, e.g. 'rate(1 day)' or 'cron(0 9 ? * MON-FRI *)'. Ignored when enable\_heartbeat is false. | `string` | `"rate(1 day)"` | no |
 | <a name="input_iam_policy_arns"></a> [iam\_policy\_arns](#input\_iam\_policy\_arns) | Managed policy ARNs attached to the created Chatbot role. | `list(string)` | <pre>[<br/>  "arn:aws:iam::aws:policy/AmazonQDeveloperAccess",<br/>  "arn:aws:iam::aws:policy/ReadOnlyAccess"<br/>]</pre> | no |
 | <a name="input_iam_role_arn"></a> [iam\_role\_arn](#input\_iam\_role\_arn) | ARN of an existing IAM role for AWS Chatbot, used by any channel that does not set its own iam\_role\_arn. | `string` | `null` | no |
 | <a name="input_iam_role_name"></a> [iam\_role\_name](#input\_iam\_role\_name) | Name of the IAM role to create. Defaults to {name}-chatbot-role. | `string` | `null` | no |
@@ -202,8 +214,10 @@ No modules.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_delivery_alarm_arn"></a> [delivery\_alarm\_arn](#output\_delivery\_alarm\_arn) | ARN of the CloudWatch alarm monitoring SNS delivery failures, or null when disabled. |
 | <a name="output_eventbridge_rule_arn"></a> [eventbridge\_rule\_arn](#output\_eventbridge\_rule\_arn) | ARN of the EventBridge rule. |
 | <a name="output_eventbridge_rule_name"></a> [eventbridge\_rule\_name](#output\_eventbridge\_rule\_name) | Name of the EventBridge rule. |
+| <a name="output_heartbeat_schedule_arn"></a> [heartbeat\_schedule\_arn](#output\_heartbeat\_schedule\_arn) | ARN of the EventBridge Scheduler schedule for the heartbeat, or null when disabled. |
 | <a name="output_iam_role_arn"></a> [iam\_role\_arn](#output\_iam\_role\_arn) | ARN of the shared IAM role assumed by AWS Chatbot. |
 | <a name="output_iam_role_name"></a> [iam\_role\_name](#output\_iam\_role\_name) | Name of the created IAM role, or null when none was created. |
 | <a name="output_slack_channel_arns"></a> [slack\_channel\_arns](#output\_slack\_channel\_arns) | ARNs of the Chatbot Slack channel configurations, keyed as in var.slack\_channels. |
