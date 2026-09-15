@@ -80,7 +80,7 @@ module "replica_db_instance" {
   # the primary's is what a restore would use. More concretely, the provider raises
   # "final_snapshot_identifier is required when skip_final_snapshot is false" at DELETE time, and
   # nothing here supplies an identifier for replicas. Passing the input through therefore made
-  # skip_final_snapshot = false mean "protect the primary" AND "make replicas undestroyable": a
+  # skip_final_snapshot = false meant "protect the primary" AND "make replicas undestroyable": a
   # consumer setting it for production could not reduce replica_count without an apply-time error
   # naming a module they were not reading.
   skip_final_snapshot          = true
