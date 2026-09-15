@@ -36,18 +36,18 @@ aws datasync start-task-execution --task-arn "$(terraform output -raw task_arn)"
 
 ## Operational notes
 
-- **Cross-account source - bucket policy goes first.** The task runs in the destination
+- **Cross-account source — bucket policy goes first.** The task runs in the destination
   account, so the source account must add a bucket policy granting the DataSync role
   `s3:ListBucket` / `s3:GetBucketLocation` on the bucket and `s3:GetObject*` on its
   objects. DataSync validates that access when it creates the location, so the policy has
-  to be in place *before* the first apply, not after. The role ARN is predictable -
+  to be in place *before* the first apply, not after. The role ARN is predictable —
   `arn:aws:iam::<destination-account>:role/<name>-datasync`, or whatever `iam_role_name`
-  is set to - so write the source policy against that, then apply. If the first apply
+  is set to — so write the source policy against that, then apply. If the first apply
   already failed on `CreateLocationS3`, add the policy and re-apply.
 - **Deletes are not propagated.** `preserve_deleted_files = PRESERVE` keeps destination
   objects that disappear from the source, so a mid-migration cleanup on the source cannot
   wipe the destination. Override it through `task_options` for a true mirror.
-- **Do not run alongside S3 Replication** on the same bucket pair - the two fight over the
+- **Do not run alongside S3 Replication** on the same bucket pair — the two fight over the
   same objects. Keep `create = false` while the transfer is idle.
 - **Logging.** `BASIC` is the finest CloudWatch level DataSync offers (transfer errors
   only); per-object detail comes from the task report on the destination bucket under

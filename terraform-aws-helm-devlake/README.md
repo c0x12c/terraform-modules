@@ -7,9 +7,9 @@ data to power engineering-health metrics.
 
 The module wraps the `devlake` chart and deploys:
 
-- **lake** - the backend collector/API
-- **config-ui** - the configuration and connection UI
-- **mysql** - in-cluster database (or point it at an external server)
+- **lake** — the backend collector/API
+- **config-ui** — the configuration and connection UI
+- **mysql** — in-cluster database (or point it at an external server)
 
 Grafana (the dashboarding layer) is bundled with the chart but disabled by
 default; enable it with `enable_grafana` when you are ready to build dashboards.

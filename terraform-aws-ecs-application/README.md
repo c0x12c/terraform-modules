@@ -89,8 +89,8 @@ module "application" {
 By default this module is the deployer: it registers a task definition revision
 and pins the service to it, so `terraform apply` is what ships a new image.
 
-If instead a CI pipeline deploys - building an image, calling
-`aws ecs register-task-definition` with the new tag, then `update-service` -
+If instead a CI pipeline deploys — building an image, calling
+`aws ecs register-task-definition` with the new tag, then `update-service` —
 those revisions are invisible to Terraform. The service moves forward, the
 module's state does not, and the next apply reverts the service to the module's
 own revision, undoing the deployment. That apply need not be related to ECS at
@@ -109,7 +109,7 @@ module "application" {
 }
 ```
 
-The service then runs whichever revision of the family is newer - the module's
+The service then runs whichever revision of the family is newer — the module's
 own, or the newest ACTIVE revision in the family. The pipeline's revision is
 always higher, so an apply keeps it; a task definition change made here is also
 higher, so Terraform can still deploy. Ownership splits cleanly: Terraform
@@ -128,8 +128,8 @@ a rollback.
 
 Rolling a service back with `update-service --task-definition myapp:5` moves the
 service's pointer; it does not deregister the revision you rolled away from. So
-`myapp:6` stays ACTIVE, and the next apply - including one that touches nothing
-related to ECS - computes `max(5, 6)` and puts the service back on the revision
+`myapp:6` stays ACTIVE, and the next apply — including one that touches nothing
+related to ECS — computes `max(5, 6)` and puts the service back on the revision
 you just rolled off:
 
 | step | module registers | newest ACTIVE | service runs |
