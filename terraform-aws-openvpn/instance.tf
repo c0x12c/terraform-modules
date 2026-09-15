@@ -37,6 +37,10 @@ resource "aws_instance" "this" {
   key_name      = var.create_management_key_pair ? aws_key_pair.management_ssh_key[0].key_name : null
   subnet_id     = var.subnet_id
 
+  tags = {
+    Name = var.vpn_name
+  }
+
   vpc_security_group_ids = concat(
     var.extra_sg_ids,
     [aws_security_group.this.id],
@@ -69,6 +73,10 @@ resource "aws_instance" "replacable" {
   instance_type = var.instance_type
   key_name      = var.create_management_key_pair ? aws_key_pair.management_ssh_key[0].key_name : null
   subnet_id     = var.subnet_id
+
+  tags = {
+    Name = var.vpn_name
+  }
 
   vpc_security_group_ids = concat(
     var.extra_sg_ids,
