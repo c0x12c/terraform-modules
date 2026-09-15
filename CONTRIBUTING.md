@@ -34,16 +34,32 @@ terraform-<provider>-<name>/
   exact version pin at release time — never hardcode the registry source for a
   sibling in-repo.
 
-## Pre-commit
-
-```bash
-pip install pre-commit && pre-commit install
-pre-commit run -a              # terraform_fmt + terraform_tflint
-```
+## Local checks
 
 CI runs `terraform fmt -check`, `terraform validate`, `tflint`, and a
-`terraform-docs` check (when the module has `.terraform-docs.yml`) for every
-changed module.
+`terraform-docs` check for every changed module.
+
+`pre-commit` is configured per module, not at the repo root, so run it from
+inside the module you changed:
+
+```bash
+pip install pre-commit
+cd terraform-<provider>-<name> && pre-commit run -a   # terraform_fmt + terraform_tflint
+```
+
+Regenerate the docs with the version CI pins, `v0.20.0`. A newer terraform-docs
+(Homebrew currently ships v0.21.0) emits an extra Requirements row from
+`override.tofu` and fails the check with the same message a genuinely stale
+README produces, so a regeneration with the wrong version reads as "the regen
+did not work":
+
+```bash
+terraform-docs markdown table --output-file README.md --output-mode inject <module>
+```
+
+CI regenerates after `terraform init`, so the Providers table holds the exact
+versions the runner resolved. Regenerate from a directory whose
+`.terraform.lock.hcl` matches, or the table will differ from CI's.
 
 ## Commits & versioning
 
