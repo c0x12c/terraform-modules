@@ -16,7 +16,7 @@ module "example" {
 | `terraform-aws-acm` | `terraform.c0x12c.com/c0x12c/acm/aws` | 0.1.63 | Terraform module which creates ACM certificates and validates them using Route53 DNS. |
 | `terraform-aws-alb` | `terraform.c0x12c.com/c0x12c/alb/aws` | 1.0.0 | Terraform module which creates external Application Load Balancer resources on AWS: |
 | `terraform-aws-amplify` | `terraform.c0x12c.com/c0x12c/amplify/aws` | 1.6.1 | Terraform module to provision AWS Amplify apps, backend environments, branches, domain associations. |
-| `terraform-aws-cloudfront-logging` | `terraform.c0x12c.com/c0x12c/cloudfront-logging/aws` | 0.1.0 | module "cloudfront_logging" { |
+| `terraform-aws-cloudfront-logging` | `terraform.c0x12c.com/c0x12c/cloudfront-logging/aws` | 0.1.0 | Delivers CloudFront access logs to CloudWatch Logs through a log delivery source, destination, and an S3 lo... |
 | `terraform-aws-cloudtrail` | `terraform.c0x12c.com/c0x12c/cloudtrail/aws` | 0.7.0 | Terraform module which creates external AWS CloudTrail resources: |
 | `terraform-aws-cloudwatch-alarm` | `terraform.c0x12c.com/c0x12c/cloudwatch-alarm/aws` | 0.8.0 | Terraform module which creates Amazon CloudWatch Alarm resources. |
 | `terraform-aws-datasync-s3` | `terraform.c0x12c.com/c0x12c/datasync-s3/aws` | 0.0.0 | Terraform module which copies one S3 bucket to another with AWS DataSync, including the IAM role, both loca... |
@@ -75,7 +75,7 @@ module "example" {
 | `terraform-aws-security-group` | `terraform.c0x12c.com/c0x12c/security-group/aws` | 0.1.58 | Terraform module which creates Security Groups resources on AWS. |
 | `terraform-aws-sendgrid` | `terraform.c0x12c.com/c0x12c/sendgrid/aws` | 0.2.0 | Terraform module which creates SendGrid resources on AWS. |
 | `terraform-aws-ses` | `terraform.c0x12c.com/c0x12c/ses/aws` | 1.0.0 | Terraform module which creates SES resources on AWS. |
-| `terraform-aws-ses-monitoring` | `terraform.c0x12c.com/c0x12c/ses-monitoring/aws` | 1.0.0 | module "main" { |
+| `terraform-aws-ses-monitoring` | `terraform.c0x12c.com/c0x12c/ses-monitoring/aws` | 1.0.0 | Publishes SES sending events to a Datadog dashboard via an event-processing Lambda. |
 | `terraform-aws-sns` | `terraform.c0x12c.com/c0x12c/sns/aws` | 0.1.44 | Terraform module which creates SNS resources on AWS. |
 | `terraform-aws-sqs` | `terraform.c0x12c.com/c0x12c/sqs/aws` | 0.3.0 | Terraform module which creates SQS resources on AWS. |
 | `terraform-aws-ssm-parameter` | `terraform.c0x12c.com/c0x12c/ssm-parameter/aws` | 1.0.0 | Terraform module which creates SSM parameter resources on AWS. |
@@ -87,13 +87,13 @@ module "example" {
 | `terraform-aws-wafv2` | `terraform.c0x12c.com/c0x12c/wafv2/aws` | 1.0.1 | Introduced a new module for managing AWS WAFv2 configurations. |
 | `terraform-cloudflare-record-with-cache-rule` | `terraform.c0x12c.com/c0x12c/record-with-cache-rule/cloudflare` | 1.0.0 | Terraform module which creates Amazon CloudWatch Alarm resources. |
 | `terraform-datadog-aws-integration` | `terraform.c0x12c.com/c0x12c/aws-integration/datadog` | 2.1.0 | Terraform module which creates Datadog AWS integration resources and the required IAM role/policy. |
-| `terraform-datadog-aws-monitor` | `terraform.c0x12c.com/c0x12c/aws-monitor/datadog` | 1.4.1 | <!-- BEGIN_TF_DOCS --> |
+| `terraform-datadog-aws-monitor` | `terraform.c0x12c.com/c0x12c/aws-monitor/datadog` | 1.4.1 | Bundles the per-service Datadog monitors for an AWS account (Airflow, billing, ElastiCache, EMR, Kinesis an... |
 | `terraform-datadog-dashboard` | `terraform.c0x12c.com/c0x12c/dashboard/datadog` | 1.0.0 | Terraform module which creates Datadog Dashboard. |
 | `terraform-datadog-ecs-monitor` | `terraform.c0x12c.com/c0x12c/ecs-monitor/datadog` | 1.1.1 | Terraform module for creating comprehensive Datadog monitors for AWS ECS services. This module provides pre... |
 | `terraform-datadog-gcp-integration` | `terraform.c0x12c.com/c0x12c/gcp-integration/datadog` | 1.1.0 | Terraform module which creates Datadog GCP integration and service account resources on GCP. |
 | `terraform-datadog-gcp-monitor` | `terraform.c0x12c.com/c0x12c/gcp-monitor/datadog` | 1.0.1 | Terraform module that creates Datadog monitors, supporting the following: |
-| `terraform-datadog-logging-monitor` | `terraform.c0x12c.com/c0x12c/logging-monitor/datadog` | 0.0.2 | module "logging_monitor" { |
-| `terraform-datadog-monitors` | `terraform.c0x12c.com/c0x12c/monitors/datadog` | 1.0.1 | <!-- BEGIN_TF_DOCS --> |
+| `terraform-datadog-logging-monitor` | `terraform.c0x12c.com/c0x12c/logging-monitor/datadog` | 0.0.2 | Creates a Datadog log-based monitor from a query, threshold, and notification target. |
+| `terraform-datadog-monitors` | `terraform.c0x12c.com/c0x12c/monitors/datadog` | 1.0.1 | Creates a set of Datadog metric monitors from a single list of monitor definitions. |
 | `terraform-datadog-mono-monitor` | `terraform.c0x12c.com/c0x12c/mono-monitor/datadog` | 1.1.1 | Terraform module that creates standalone Datadog monitors, supporting the following: |
 | `terraform-datadog-notification-rules` | `terraform.c0x12c.com/c0x12c/notification-rules/datadog` | 1.0.0 | Terraform module that creates Datadog notification rules. These rules allow to filter alerts by tag and sen... |
 | `terraform-datadog-oncall` | `terraform.c0x12c.com/c0x12c/oncall/datadog` | 1.0.1 | Terraform module that creates Datadog notification rules. These rules allow to filter alerts by tag and sen... |
@@ -128,4 +128,4 @@ module "example" {
 | `terraform-github-action-variables` | `terraform.c0x12c.com/c0x12c/action-variables/github` | 1.0.0 | This module creates list of GitHub Actions variables from input. |
 | `terraform-github-actions` | `terraform.c0x12c.com/c0x12c/actions/github` | 1.0.0 | This module creates list of GitHub Actions secrets and variables from input. |
 | `terraform-kubernetes-helm-reloader` | `terraform.c0x12c.com/c0x12c/helm-reloader/kubernetes` | 1.1.1 | This Terraform module deploys [Stakater Reloader](https://github.com/stakater/Reloader) to a Kubernetes clu... |
-| `terraform-qdrant-accounts-cluster` | `terraform.c0x12c.com/c0x12c/accounts-cluster/qdrant` | 1.0.0 | module "accounts_cluster" { |
+| `terraform-qdrant-accounts-cluster` | `terraform.c0x12c.com/c0x12c/accounts-cluster/qdrant` | 1.0.0 | Creates a Qdrant Cloud cluster and its database API key. |

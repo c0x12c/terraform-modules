@@ -1,3 +1,5 @@
+Bundles the per-service Datadog monitors for an AWS account (Airflow, billing, ElastiCache, EMR, Kinesis and more).
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 

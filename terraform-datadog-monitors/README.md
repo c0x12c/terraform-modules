@@ -1,3 +1,5 @@
+Creates a set of Datadog metric monitors from a single list of monitor definitions.
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 

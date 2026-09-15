@@ -1,3 +1,5 @@
+Creates a Datadog log-based monitor from a query, threshold, and notification target.
+
 ## Usage
 
 ```hcl

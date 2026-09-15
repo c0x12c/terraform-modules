@@ -1,3 +1,5 @@
+Publishes SES sending events to a Datadog dashboard via an event-processing Lambda.
+
 ## Usage
 
 module "main" {

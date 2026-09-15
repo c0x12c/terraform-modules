@@ -1,3 +1,5 @@
+Delivers CloudFront access logs to CloudWatch Logs through a log delivery source, destination, and an S3 log bucket.
+
 # Cloudfront logging module
 
 ## Usage

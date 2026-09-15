@@ -1,3 +1,5 @@
+Creates a Qdrant Cloud cluster and its database API key.
+
 ## Usage
 
 ```hcl

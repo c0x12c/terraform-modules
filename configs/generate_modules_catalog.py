@@ -29,15 +29,26 @@ def registry_source(module: str) -> str:
     return "%s/%s/%s/%s" % (REGISTRY_HOST, NAMESPACE, name, provider)
 
 
+SKIP_PREFIXES = ("#", ">", "![", "[!", "|", "---", "<!--", "<", "-", "*", "1.")
+# terraform-docs emits these for an empty section; they are not a description.
+SKIP_EXACT = ("No modules.", "No providers.", "No resources.", "No inputs.", "No outputs.")
+
+
 def description(module: str) -> str:
-    """First meaningful prose line of the module README (skip headings, badges,
-    blockquotes, blanks). Empty string if none."""
+    """First meaningful prose line of the module README. Skips headings, badges,
+    blockquotes, tables, HTML, list items, and the CONTENTS of fenced code
+    blocks - a README whose first block is a usage example must not advertise
+    `module "x" {` as its description. Empty string if none."""
     readme = ROOT / module / "README.md"
     if not readme.is_file():
         return ""
+    fenced = False
     for raw in readme.read_text(encoding="utf-8").splitlines():
         line = raw.strip()
-        if not line or line.startswith(("#", ">", "![", "[!", "|", "---", "```")):
+        if line.startswith("```"):
+            fenced = not fenced
+            continue
+        if fenced or not line or line.startswith(SKIP_PREFIXES) or line in SKIP_EXACT:
             continue
         if len(line) > 110:
             line = line[:107].rstrip() + "..."
