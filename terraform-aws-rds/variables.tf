@@ -88,7 +88,7 @@ variable "backup_retention_day" {
 }
 
 variable "skip_final_snapshot" {
-  description = "Defines whether a final DB snapshot is created before the DB instance is deleted."
+  description = "Defines whether a final DB snapshot is created before the PRIMARY instance is deleted. Read replicas always skip it - their data is a copy of the primary's, so the snapshot has no recovery value, and the module supplies no final_snapshot_identifier for them."
   type        = bool
   default     = true
 }

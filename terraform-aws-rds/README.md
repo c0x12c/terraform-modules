@@ -289,7 +289,7 @@ Enabling this requires the applying principal to hold `secretsmanager:CreateSecr
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | 6.64.0 |
-| <a name="provider_random"></a> [random](#provider\_random) | 3.9.0 |
+| <a name="provider_random"></a> [random](#provider\_random) | 3.9.1 |
 
 ## Modules
 
@@ -355,7 +355,7 @@ Enabling this requires the applying principal to hold `secretsmanager:CreateSecr
 | <a name="input_replica_count"></a> [replica\_count](#input\_replica\_count) | The number of read replicas for the database. | `number` | n/a | yes |
 | <a name="input_replica_deletion_protection"></a> [replica\_deletion\_protection](#input\_replica\_deletion\_protection) | If the DB replicas should have deletion protection enabled. The instances can't be deleted when this value is set to true. | `bool` | `true` | no |
 | <a name="input_secret_manager_db_password_name"></a> [secret\_manager\_db\_password\_name](#input\_secret\_manager\_db\_password\_name) | Secret name created in AWS Secret Manager. | `string` | `"POSTGRESQL_PASSWORD"` | no |
-| <a name="input_skip_final_snapshot"></a> [skip\_final\_snapshot](#input\_skip\_final\_snapshot) | Defines whether a final DB snapshot is created before the DB instance is deleted. | `bool` | `true` | no |
+| <a name="input_skip_final_snapshot"></a> [skip\_final\_snapshot](#input\_skip\_final\_snapshot) | Defines whether a final DB snapshot is created before the PRIMARY instance is deleted. Read replicas always skip it - their data is a copy of the primary's, so the snapshot has no recovery value, and the module supplies no final\_snapshot\_identifier for them. | `bool` | `true` | no |
 | <a name="input_storage_encrypted"></a> [storage\_encrypted](#input\_storage\_encrypted) | Whether the DB instance is encrypted. | `bool` | `true` | no |
 | <a name="input_storage_type"></a> [storage\_type](#input\_storage\_type) | The storage type of the RDS instance (standard, gp2, or gp3). | `string` | `"gp3"` | no |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | A list of subnet IDs for the DB subnet group. | `list(string)` | n/a | yes |
