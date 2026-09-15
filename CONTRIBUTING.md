@@ -27,27 +27,44 @@ terraform-<provider>-<name>/
   `terraform-datadog-service-monitor`). This maps to the registry source
   `terraform.c0x12c.com/c0x12c/<name>/<provider>`.
 - **Provider versions:** pin an upper bound when a provider release can break
-  the schema — a floating `>= x` can fail `validate` with no change on our side.
+  the schema - a floating `>= x` can fail `validate` with no change on our side.
 - **Sibling dependencies:** reference another module by **relative path**
   (`source = "../terraform-<provider>-<name>"`) so cross-module changes are
   testable in one PR. The publish job rewrites it to a registry source with an
-  exact version pin at release time — never hardcode the registry source for a
+  exact version pin at release time - never hardcode the registry source for a
   sibling in-repo.
 
-## Pre-commit
-
-```bash
-pip install pre-commit && pre-commit install
-pre-commit run -a              # terraform_fmt + terraform_tflint
-```
+## Local checks
 
 CI runs `terraform fmt -check`, `terraform validate`, `tflint`, and a
-`terraform-docs` check (when the module has `.terraform-docs.yml`) for every
-changed module.
+`terraform-docs` check for every changed module.
+
+`pre-commit` is configured per module, not at the repo root, so run it from
+inside the module you changed:
+
+```bash
+pip install pre-commit
+cd terraform-<provider>-<name> && pre-commit run -a   # terraform_fmt + terraform_tflint
+```
+
+Regenerate the docs with the version CI pins, `v0.20.0`. A newer terraform-docs
+(Homebrew currently ships v0.21.0) emits an extra Requirements row from
+`override.tofu` and fails the check with the same message a genuinely stale
+README produces, so a regeneration with the wrong version reads as "the regen
+did not work":
+
+```bash
+terraform-docs markdown table --output-file README.md --output-mode inject <module>
+```
+
+The docs check runs before `terraform init`, so the Providers table holds the
+module's version constraints rather than whatever the runner resolved. Do not
+regenerate in a module directory that has a `.terraform.lock.hcl` or a
+`.terraform/` directory from a local `init` - the output will differ from CI.
 
 ## Commits & versioning
 
-Use [Conventional Commits](https://www.conventionalcommits.org/) — release
+Use [Conventional Commits](https://www.conventionalcommits.org/) - release
 automation derives the version bump from the prefix and opens a per-module
 release PR:
 
@@ -59,7 +76,7 @@ release PR:
 | `chore:` `docs:` `ci:` `refactor:` | none | none |
 
 A commit counts toward the next version of whatever module's files it touches.
-Edit several modules in one PR — review and CI are atomic, and release
+Edit several modules in one PR - review and CI are atomic, and release
 automation opens one release PR per touched module.
 
 ## Adding a module
@@ -67,7 +84,7 @@ automation opens one release PR per touched module.
 Copy the [`_template/`](_template) scaffold to `terraform-<provider>-<name>/`
 (it has the layout above pre-wired), fill in the resources, then add it to
 `module-release-config.json` (`packages`), seed `.module-versions.json` with
-`"0.0.0"`, and open the PR. No mirror repo or registration is needed — once the
+`"0.0.0"`, and open the PR. No mirror repo or registration is needed - once the
 first release PR merges it publishes straight to R2. Keep the module list in
 sync across the disk folders, `module-release-config.json`, and
 `.module-versions.json` (the `drift` CI job enforces this).
