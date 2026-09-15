@@ -97,9 +97,9 @@ webhook one.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.61.0 |
-| <a name="provider_helm"></a> [helm](#provider\_helm) | 3.2.0 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 3.2.1 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.75.0 |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | ~> 3.0 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | >= 2.33.0 |
 
 ## Modules
 
