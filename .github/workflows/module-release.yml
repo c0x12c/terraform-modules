@@ -76,8 +76,11 @@ jobs:
       version: ${{ fromJSON(needs.release.outputs.release_versions)[matrix.module] }}
     secrets: inherit
 
+  # needs publish for the same reason cascade does: a row must not advertise a
+  # version that failed to reach the registry. Ordered before cascade so the
+  # two writers to master cannot race - cascade pushes unconditionally.
   catalog:
-    needs: [release]
+    needs: [release, publish]
     if: needs.release.outputs.releases_created == 'true'
     runs-on: ubuntu-latest
     steps:
@@ -124,7 +127,7 @@ jobs:
   cascade:
     # needs publish: only cascade versions that are confirmed live on the
     # R2 registry - a failed publish must not get pinned.
-    needs: [release, publish]
+    needs: [release, publish, catalog]
     if: needs.release.outputs.releases_created == 'true' && vars.CASCADE_ENABLED == 'true'
     runs-on: ubuntu-latest
     steps:

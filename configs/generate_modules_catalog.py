@@ -13,6 +13,7 @@ Stdlib only.
 """
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -29,9 +30,11 @@ def registry_source(module: str) -> str:
     return "%s/%s/%s/%s" % (REGISTRY_HOST, NAMESPACE, name, provider)
 
 
-SKIP_PREFIXES = ("#", ">", "![", "[!", "|", "---", "<!--", "<", "-", "*", "1.")
+SKIP_PREFIXES = ("#", ">", "![", "[!", "|", "---", "<!--", "<", "-", "*")
+ORDERED_LIST = re.compile(r"^\d+[.)]\s")
 # terraform-docs emits these for an empty section; they are not a description.
-SKIP_EXACT = ("No modules.", "No providers.", "No resources.", "No inputs.", "No outputs.")
+SKIP_EXACT = ("No requirements.", "No modules.", "No providers.", "No resources.",
+              "No inputs.", "No outputs.")
 
 
 def description(module: str) -> str:
@@ -49,6 +52,8 @@ def description(module: str) -> str:
             fenced = not fenced
             continue
         if fenced or not line or line.startswith(SKIP_PREFIXES) or line in SKIP_EXACT:
+            continue
+        if ORDERED_LIST.match(line):
             continue
         if len(line) > 110:
             line = line[:107].rstrip() + "..."
