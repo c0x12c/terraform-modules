@@ -66,14 +66,24 @@ module "main_db_instance" {
 }
 
 module "replica_db_instance" {
-  source                       = "./db_instance"
-  count                        = var.replica_count
-  identifier                   = "${local.identifier}-replica-${count.index}"
-  instance_class               = var.instance_class
-  allocated_storage            = var.disk_size
-  max_allocated_storage        = var.max_allocated_storage
-  backup_retention_period      = "0"
-  skip_final_snapshot          = var.skip_final_snapshot
+  source                  = "./db_instance"
+  count                   = var.replica_count
+  identifier              = "${local.identifier}-replica-${count.index}"
+  instance_class          = var.instance_class
+  allocated_storage       = var.disk_size
+  max_allocated_storage   = var.max_allocated_storage
+  backup_retention_period = "0"
+
+  # Always true for a replica, regardless of var.skip_final_snapshot, which governs the primary.
+  #
+  # A replica's data is a copy of the primary's, so a final snapshot of one has no recovery value -
+  # the primary's is what a restore would use. More concretely, the provider raises
+  # "final_snapshot_identifier is required when skip_final_snapshot is false" at DELETE time, and
+  # nothing here supplies an identifier for replicas. Passing the input through therefore made
+  # skip_final_snapshot = false mean "protect the primary" AND "make replicas undestroyable": a
+  # consumer setting it for production could not reduce replica_count without an apply-time error
+  # naming a module they were not reading.
+  skip_final_snapshot          = true
   storage_type                 = var.storage_type
   storage_encrypted            = var.storage_encrypted
   engine                       = var.engine
