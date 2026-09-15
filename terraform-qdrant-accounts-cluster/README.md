@@ -1,4 +1,3 @@
-<!-- BEGIN_TF_DOCS -->
 ## Usage
 
 ```hcl
@@ -11,6 +10,7 @@ module "accounts_cluster" {
 }
 ```
 
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -22,7 +22,7 @@ module "accounts_cluster" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_qdrant-cloud"></a> [qdrant-cloud](#provider\_qdrant-cloud) | 1.7.0 |
+| <a name="provider_qdrant-cloud"></a> [qdrant-cloud](#provider\_qdrant-cloud) | >=1.1.0 |
 
 ## Modules
 

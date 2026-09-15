@@ -30,7 +30,6 @@ module "github_actions" {
 - [Example](./examples/complete/)
 
 <!-- BEGIN_TF_DOCS -->
-
 ## Requirements
 
 | Name | Version |
@@ -45,8 +44,8 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_action-secret"></a> [action-secret](#module\_action-secret) | c0x12c/action-secrets/github | ~> 1.0.1 |
-| <a name="module_action-variables"></a> [action-variables](#module\_action-variables) | c0x12c/action-variable/github | ~> 1.0.1 |
+| <a name="module_action-secret"></a> [action-secret](#module\_action-secret) | ../terraform-github-action-secrets | n/a |
+| <a name="module_action-variables"></a> [action-variables](#module\_action-variables) | ../terraform-github-action-variables | n/a |
 
 ## Resources
 
@@ -62,5 +61,4 @@ No resources.
 ## Outputs
 
 No outputs.
-
 <!-- END_TF_DOCS -->

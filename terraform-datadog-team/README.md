@@ -19,7 +19,6 @@ module "datadog_be_team" {
 ```
 
 <!-- BEGIN_TF_DOCS -->
-
 ## Requirements
 
 | Name | Version |
@@ -49,16 +48,15 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_team_description"></a> [team\_description](#input\_team\_description) | n/a | `string` | n/a | yes |
-| <a name="input_team_handle"></a> [team\_handle](#input\_team\_handle) | n/a | `string` | n/a | yes |
-| <a name="input_team_members"></a> [team\_members](#input\_team\_members) | n/a | `list(string)` | n/a | yes |
-| <a name="input_team_name"></a> [team\_name](#input\_team\_name) | n/a | `string` | n/a | yes |
+| <a name="input_team_description"></a> [team\_description](#input\_team\_description) | A description for the Datadog team. | `string` | n/a | yes |
+| <a name="input_team_handle"></a> [team\_handle](#input\_team\_handle) | The handle for the Datadog team, which must be unique. | `string` | n/a | yes |
+| <a name="input_team_members"></a> [team\_members](#input\_team\_members) | A list of email addresses for the users to be added to the team. | `list(string)` | n/a | yes |
+| <a name="input_team_name"></a> [team\_name](#input\_team\_name) | The name of the Datadog team. | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_team_id"></a> [team\_id](#output\_team\_id) | n/a |
-| <a name="output_team_members_ids"></a> [team\_members\_ids](#output\_team\_members\_ids) | n/a |
-
+| <a name="output_team_id"></a> [team\_id](#output\_team\_id) | The ID of the created Datadog team. |
+| <a name="output_team_members_ids"></a> [team\_members\_ids](#output\_team\_members\_ids) | The list of user IDs for the members of the team. |
 <!-- END_TF_DOCS -->

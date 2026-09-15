@@ -23,7 +23,6 @@ module "datadog_notification_rules" {
 ```
 
 <!-- BEGIN_TF_DOCS -->
-
 ## Requirements
 
 | Name | Version |
@@ -66,5 +65,4 @@ No modules.
 | <a name="output_escalation_policy_id"></a> [escalation\_policy\_id](#output\_escalation\_policy\_id) | The ID of the Datadog on-call escalation policy |
 | <a name="output_routing_rule_team_id"></a> [routing\_rule\_team\_id](#output\_routing\_rule\_team\_id) | The ID of the Datadog on-call team routing rules |
 | <a name="output_schedule_id"></a> [schedule\_id](#output\_schedule\_id) | The ID of the created Datadog on-call schedule |
-
 <!-- END_TF_DOCS -->

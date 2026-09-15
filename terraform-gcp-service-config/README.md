@@ -37,7 +37,6 @@ module "service" {
 - [Example](./examples/complete/)
 
 <!-- BEGIN_TF_DOCS -->
-
 ## Requirements
 
 | Name | Version |
@@ -56,8 +55,8 @@ module "service" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_dns"></a> [dns](#module\_dns) | c0x12c/cloud-dns/gcp | ~> 0.1.4 |
-| <a name="module_service_account"></a> [service\_account](#module\_service\_account) | c0x12c/service-account/gcp | ~> 1.0.0 |
+| <a name="module_dns"></a> [dns](#module\_dns) | ../terraform-gcp-cloud-dns | n/a |
+| <a name="module_service_account"></a> [service\_account](#module\_service\_account) | ../terraform-gcp-service-account | n/a |
 
 ## Resources
 
@@ -95,5 +94,4 @@ module "service" {
 | <a name="output_service_account_email"></a> [service\_account\_email](#output\_service\_account\_email) | The service account email. |
 | <a name="output_service_account_key"></a> [service\_account\_key](#output\_service\_account\_key) | The service account key. |
 | <a name="output_service_account_name"></a> [service\_account\_name](#output\_service\_account\_name) | The service account name. |
-
 <!-- END_TF_DOCS -->

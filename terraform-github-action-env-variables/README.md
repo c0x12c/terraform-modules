@@ -414,11 +414,13 @@ No modules.
 | Name | Type |
 |------|------|
 | [github_actions_environment_variable.this](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_environment_variable) | resource |
+| [github_repository_environment.this](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository_environment) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_create_environment"></a> [create\_environment](#input\_create\_environment) | Whether to create the GitHub environment. Set to false if the environment already exists or if you don't have permissions to create it. | `bool` | `true` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Name of the GitHub environment (e.g., 'production', 'staging', 'development') | `string` | n/a | yes |
 | <a name="input_repository"></a> [repository](#input\_repository) | Name of the GitHub repository | `string` | n/a | yes |
 | <a name="input_variables"></a> [variables](#input\_variables) | Map of variables to be set in the repository environment. Key is the variable name, value is the variable value. | `map(string)` | n/a | yes |

@@ -30,7 +30,6 @@ module "google_workspace" {
 - [Example](./examples/complete/)
 
 <!-- BEGIN_TF_DOCS -->
-
 ## Requirements
 
 | Name | Version |
@@ -46,7 +45,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_group"></a> [group](#module\_group) | c0x12c/google-workspace-group/gcp | ~> 1.0.0 |
+| <a name="module_group"></a> [group](#module\_group) | ../terraform-gcp-google-workspace-group | n/a |
 
 ## Resources
 
@@ -62,5 +61,4 @@ No resources.
 ## Outputs
 
 No outputs.
-
 <!-- END_TF_DOCS -->

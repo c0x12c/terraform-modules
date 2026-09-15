@@ -32,14 +32,13 @@ module "github_oidc" {
 - [Example](./examples/complete/)
 
 <!-- BEGIN_TF_DOCS -->
-
 ## Requirements
 
-| Name                                                                            | Version      |
-|---------------------------------------------------------------------------------|--------------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform)       | >= 1.9.8     |
-| <a name="requirement_google"></a> [google](#requirement\_google)                | \>= 6.12, <7 |
-| <a name="requirement_google-beta"></a> [google-beta](#requirement\_google-beta) | \>= 6.12, <7 |
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.8 |
+| <a name="requirement_google"></a> [google](#requirement\_google) | >= 6.12, < 8 |
+| <a name="requirement_google-beta"></a> [google-beta](#requirement\_google-beta) | >= 6.12, < 8 |
 
 ## Providers
 
@@ -47,9 +46,9 @@ No providers.
 
 ## Modules
 
-| Name                                                        | Source                                                                  | Version |
-|-------------------------------------------------------------|-------------------------------------------------------------------------|---------|
-| <a name="module_gh_oidc"></a> [gh\_oidc](#module\_gh\_oidc) | terraform-google-modules/github-actions-runners/google//modules/gh-oidc | 4.0.0   |
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_gh_oidc"></a> [gh\_oidc](#module\_gh\_oidc) | terraform-google-modules/github-actions-runners/google//modules/gh-oidc | 5.1.0 |
 
 ## Resources
 
@@ -57,20 +56,19 @@ No resources.
 
 ## Inputs
 
-| Name                                                                                                       | Description                                                                | Type        | Default | Required |
-|------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|-------------|---------|:--------:|
-| <a name="input_gcp_pool_id"></a> [gcp\_pool\_id](#input\_gcp\_pool\_id)                                    | The ID of the GCP node pool where resources will be deployed.              | `string`    | n/a     |   yes    |
-| <a name="input_gcp_project_id"></a> [gcp\_project\_id](#input\_gcp\_project\_id)                           | The GCP project ID under which the resources are managed.                  | `string`    | n/a     |   yes    |
-| <a name="input_gcp_provider_id"></a> [gcp\_provider\_id](#input\_gcp\_provider\_id)                        | The ID of the GCP provider used for managing infrastructure.               | `string`    | n/a     |   yes    |
-| <a name="input_gcp_service_account_id"></a> [gcp\_service\_account\_id](#input\_gcp\_service\_account\_id) | The ID of the GCP service account used for authentication and permissions. | `string`    | n/a     |   yes    |
-| <a name="input_github_org"></a> [github\_org](#input\_github\_org)                                         | The GitHub organization where the repositories are located.                | `string`    | n/a     |   yes    |
-| <a name="input_github_repos"></a> [github\_repos](#input\_github\_repos)                                   | A list of GitHub repositories to be managed or integrated.                 | `list(any)` | `[]`    |    no    |
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_gcp_pool_id"></a> [gcp\_pool\_id](#input\_gcp\_pool\_id) | The ID of the GCP node pool where resources will be deployed. | `string` | n/a | yes |
+| <a name="input_gcp_project_id"></a> [gcp\_project\_id](#input\_gcp\_project\_id) | The GCP project ID under which the resources are managed. | `string` | n/a | yes |
+| <a name="input_gcp_provider_id"></a> [gcp\_provider\_id](#input\_gcp\_provider\_id) | The ID of the GCP provider used for managing infrastructure. | `string` | n/a | yes |
+| <a name="input_gcp_service_account_id"></a> [gcp\_service\_account\_id](#input\_gcp\_service\_account\_id) | The ID of the GCP service account used for authentication and permissions. | `string` | n/a | yes |
+| <a name="input_github_org"></a> [github\_org](#input\_github\_org) | The GitHub organization where the repositories are located. | `string` | n/a | yes |
+| <a name="input_github_repos"></a> [github\_repos](#input\_github\_repos) | A list of GitHub repositories to be managed or integrated. | `list(any)` | `[]` | no |
 
 ## Outputs
 
-| Name                                                                                                                   | Description                                                                            |
-|------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------|
-| <a name="output_service_account_email"></a> [service\_account\_email](#output\_service\_account\_email)                | The email address of the GCP service account.                                          |
+| Name | Description |
+|------|-------------|
+| <a name="output_service_account_email"></a> [service\_account\_email](#output\_service\_account\_email) | The email address of the GCP service account. |
 | <a name="output_workload_identity_provider"></a> [workload\_identity\_provider](#output\_workload\_identity\_provider) | The full resource name of the Workload Identity Provider in the specified GCP project. |
-
 <!-- END_TF_DOCS -->

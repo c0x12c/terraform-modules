@@ -21,26 +21,25 @@ module "main" {
 }
 
 <!-- BEGIN_TF_DOCS -->
-
 ## Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.8 |
-| <a name="requirement_datadog"></a> [datadog](#requirement\_datadog) | ~> 3.69.0 |
+| <a name="requirement_datadog"></a> [datadog](#requirement\_datadog) | ~> 3.81.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_archive"></a> [archive](#provider\_archive) | 2.7.1 |
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.100.0 |
+| <a name="provider_archive"></a> [archive](#provider\_archive) | n/a |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_datadog_dashboard"></a> [datadog\_dashboard](#module\_datadog\_dashboard) | c0x12c/dashboard/datadog | ~> 1.0.0 |
+| <a name="module_datadog_dashboard"></a> [datadog\_dashboard](#module\_datadog\_dashboard) | ../terraform-datadog-dashboard | n/a |
 
 ## Resources
 
@@ -76,5 +75,4 @@ module "main" {
 ## Outputs
 
 No outputs.
-
 <!-- END_TF_DOCS -->

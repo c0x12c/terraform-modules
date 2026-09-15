@@ -28,7 +28,6 @@ module "service_account" {
 - [Example](./examples/complete/)
 
 <!-- BEGIN_TF_DOCS -->
-
 ## Requirements
 
 | Name | Version |
@@ -78,5 +77,4 @@ No modules.
 | <a name="output_service_account_key"></a> [service\_account\_key](#output\_service\_account\_key) | The private key in JSON format, base64 encoded. |
 | <a name="output_service_account_key_id"></a> [service\_account\_key\_id](#output\_service\_account\_key\_id) | An identifier for the service account key with format projects/{{project}}/serviceAccounts/{{account}}/keys/{{key}}. |
 | <a name="output_service_account_name"></a> [service\_account\_name](#output\_service\_account\_name) | The service account name. |
-
 <!-- END_TF_DOCS -->

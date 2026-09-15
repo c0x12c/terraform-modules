@@ -24,7 +24,6 @@ module "load_balancer" {
 - [Example](./examples/complete/)
 
 <!-- BEGIN_TF_DOCS -->
-
 ## Requirements
 
 | Name | Version |
@@ -74,5 +73,4 @@ No modules.
 |------|-------------|
 | <a name="output_ip_address"></a> [ip\_address](#output\_ip\_address) | n/a |
 | <a name="output_lb_name"></a> [lb\_name](#output\_lb\_name) | n/a |
-
 <!-- END_TF_DOCS -->

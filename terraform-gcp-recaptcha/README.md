@@ -28,7 +28,6 @@ module "recaptcha" {
 - [Example](./examples/complete/)
 
 <!-- BEGIN_TF_DOCS -->
-
 ## Requirements
 
 | Name | Version |
@@ -52,7 +51,6 @@ No modules.
 |------|------|
 | [google_recaptcha_enterprise_key.android](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/recaptcha_enterprise_key) | resource |
 | [google_recaptcha_enterprise_key.ios](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/recaptcha_enterprise_key) | resource |
-| [google_client_config.this](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/client_config) | data source |
 
 ## Inputs
 
@@ -63,6 +61,7 @@ No modules.
 | <a name="input_allowed_bundle_ids"></a> [allowed\_bundle\_ids](#input\_allowed\_bundle\_ids) | iOS settings. iOS bundle ids of apps allowed to use the key. Example: 'com.companyname.productname.appname'. | `list(string)` | `[]` | no |
 | <a name="input_allowed_package_names"></a> [allowed\_package\_names](#input\_allowed\_package\_names) | Android settings. Android package names of apps allowed to use the key. Example: 'com.companyname.appname'. | `list(string)` | `[]` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Environment where the resources will be created. | `string` | n/a | yes |
+| <a name="input_project_id"></a> [project\_id](#input\_project\_id) | The ID of the GCP project where the resources will be created. | `string` | n/a | yes |
 
 ## Outputs
 
@@ -70,5 +69,4 @@ No modules.
 |------|-------------|
 | <a name="output_android_key_id"></a> [android\_key\_id](#output\_android\_key\_id) | n/a |
 | <a name="output_ios_key_id"></a> [ios\_key\_id](#output\_ios\_key\_id) | n/a |
-
 <!-- END_TF_DOCS -->

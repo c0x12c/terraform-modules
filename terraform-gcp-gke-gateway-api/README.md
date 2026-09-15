@@ -22,7 +22,6 @@ module "gke_gateway_api" {
 - [Example](./examples/complete/)
 
 <!-- BEGIN_TF_DOCS -->
-
 ## Requirements
 
 | Name | Version |
@@ -68,5 +67,4 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_ext_gateway_address"></a> [ext\_gateway\_address](#output\_ext\_gateway\_address) | The external IP address of the external gateway resource. |
-
 <!-- END_TF_DOCS -->

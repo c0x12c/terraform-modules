@@ -55,10 +55,10 @@ variable "resource_type" {
 variable "conditions" {
   description = <<EOT
 List of conditions to include in the alert policy. Each condition defines how a specific metric should be monitored.
-- display_name – Name of the condition.
-- comparison – The comparison to apply between the time series and the threshold (e.g., COMPARISON_GT).
-- threshold_value – The value against which to compare the metric.
-- duration – The length of time that a time series must violate the threshold to be considered failing.
+- display_name - Name of the condition.
+- comparison - The comparison to apply between the time series and the threshold (e.g., COMPARISON_GT).
+- threshold_value - The value against which to compare the metric.
+- duration - The length of time that a time series must violate the threshold to be considered failing.
 EOT
 
   type = list(object({

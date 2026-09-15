@@ -41,19 +41,18 @@ module "project_service" {
 - [Example](./examples/complete/)
 
 <!-- BEGIN_TF_DOCS -->
-
 ## Requirements
 
-| Name                                                                      | Version   |
-|---------------------------------------------------------------------------|-----------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | \>= 1.9.8 |
-| <a name="requirement_google"></a> [google](#requirement\_google)          | \>= 6.12  |
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.8 |
+| <a name="requirement_google"></a> [google](#requirement\_google) | >= 6.12 |
 
 ## Providers
 
-| Name                                                       | Version  |
-|------------------------------------------------------------|----------|
-| <a name="provider_google"></a> [google](#provider\_google) | \>= 6.12 |
+| Name | Version |
+|------|---------|
+| <a name="provider_google"></a> [google](#provider\_google) | >= 6.12 |
 
 ## Modules
 
@@ -61,17 +60,17 @@ No modules.
 
 ## Resources
 
-| Name                                                                                                                             | Type     |
-|----------------------------------------------------------------------------------------------------------------------------------|----------|
+| Name | Type |
+|------|------|
 | [google_project_service.project](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_service) | resource |
 
 ## Inputs
 
-| Name                                                                                         | Description                                                                                                                                                              | Type           | Default | Required |
-|----------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------|---------|:--------:|
-| <a name="input_disable_on_destroy"></a> [disable\_on\_destroy](#input\_disable\_on\_destroy) | If `true` or unset, disable the service when the Terraform resource is destroyed. If `false`, the service will be left enabled when the Terraform resource is destroyed. | `bool`         | `false` |    no    |
-| <a name="input_project_id"></a> [project\_id](#input\_project\_id)                           | The ID of the project in which the resource belongs.                                                                                                                     | `string`       | n/a     |   yes    |
-| <a name="input_services"></a> [services](#input\_services)                                   | A list of services to enable.                                                                                                                                            | `list(string)` | n/a     |   yes    |
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_disable_on_destroy"></a> [disable\_on\_destroy](#input\_disable\_on\_destroy) | If `true` or unset, disable the service when the Terraform resource is destroyed. If `false`, the service will be left enabled when the Terraform resource is destroyed. | `bool` | `false` | no |
+| <a name="input_project_id"></a> [project\_id](#input\_project\_id) | The ID of the project in which the resource belongs. | `string` | n/a | yes |
+| <a name="input_services"></a> [services](#input\_services) | A list of services to enable. | `list(string)` | n/a | yes |
 
 ## Outputs
 

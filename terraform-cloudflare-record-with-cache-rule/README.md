@@ -45,19 +45,18 @@ module "cloudflare_cdn_for_static_site" {
 - [Example complete](./examples/complete/)
 
 <!-- BEGIN_TF_DOCS -->
-
 ## Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.8 |
-| <a name="requirement_cloudflare"></a> [cloudflare](#requirement\_cloudflare) | ~> 5.6.0 |
+| <a name="requirement_cloudflare"></a> [cloudflare](#requirement\_cloudflare) | ~> 5.13.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_cloudflare"></a> [cloudflare](#provider\_cloudflare) | ~> 5.6.0 |
+| <a name="provider_cloudflare"></a> [cloudflare](#provider\_cloudflare) | ~> 5.13.0 |
 
 ## Modules
 
@@ -92,5 +91,4 @@ No modules.
 |------|-------------|
 | <a name="output_dns_record_id"></a> [dns\_record\_id](#output\_dns\_record\_id) | n/a |
 | <a name="output_page_rule_id"></a> [page\_rule\_id](#output\_page\_rule\_id) | n/a |
-
 <!-- END_TF_DOCS -->

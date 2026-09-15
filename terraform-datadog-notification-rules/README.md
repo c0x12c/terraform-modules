@@ -23,7 +23,6 @@ module "datadog_notification_rules" {
 ```
 
 <!-- BEGIN_TF_DOCS -->
-
 ## Requirements
 
 | Name | Version |
@@ -58,5 +57,4 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_notification_rule_ids"></a> [notification\_rule\_ids](#output\_notification\_rule\_ids) | n/a |
-
 <!-- END_TF_DOCS -->

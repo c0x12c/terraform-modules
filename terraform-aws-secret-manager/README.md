@@ -67,18 +67,17 @@ No modules.
 | <a name="output_scheduler_role_arn"></a> [scheduler\_role\_arn](#output\_scheduler\_role\_arn)                                            | The ARN of the IAM role associated with the scheduler |
 
 <!-- BEGIN_TF_DOCS -->
-
 ## Requirements
 
-| Name                                                                      | Version  |
-|---------------------------------------------------------------------------|----------|
+| Name | Version |
+|------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.8 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws)                   | >= 5.75  |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.75 |
 
 ## Providers
 
-| Name                                              | Version |
-|---------------------------------------------------|---------|
+| Name | Version |
+|------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.75 |
 
 ## Modules
@@ -87,22 +86,21 @@ No modules.
 
 ## Resources
 
-| Name                                                                                                                                                | Type     |
-|-----------------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| [aws_secretsmanager_secret.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret)                 | resource |
+| Name | Type |
+|------|------|
+| [aws_secretsmanager_secret.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret) | resource |
 | [aws_secretsmanager_secret_version.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version) | resource |
 
 ## Inputs
 
-| Name                                                                        | Description                                                                           | Type          | Default | Required |
-|-----------------------------------------------------------------------------|---------------------------------------------------------------------------------------|---------------|---------|:--------:|
-| <a name="input_secret_prefix"></a> [secret\_prefix](#input\_secret\_prefix) | The prefix of your secret name in format '{secret\_prefix}-{secret\_key}'.            | `string`      | `null`  |    no    |
-| <a name="input_secrets"></a> [secrets](#input\_secrets)                     | A map of secrets to be stored in AWS Secrets Manager and passed into the application. | `map(string)` | n/a     |   yes    |
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_secret_prefix"></a> [secret\_prefix](#input\_secret\_prefix) | The prefix of your secret name in format '{secret\_prefix}-{secret\_key}'. | `string` | `null` | no |
+| <a name="input_secrets"></a> [secrets](#input\_secrets) | A map of secrets to be stored in AWS Secrets Manager and passed into the application. | `map(string)` | n/a | yes |
 
 ## Outputs
 
-| Name                                                                    | Description |
-|-------------------------------------------------------------------------|-------------|
-| <a name="output_secrets_map"></a> [secrets\_map](#output\_secrets\_map) | n/a         |
-
+| Name | Description |
+|------|-------------|
+| <a name="output_secrets"></a> [secrets](#output\_secrets) | In format of map(string) |
 <!-- END_TF_DOCS -->

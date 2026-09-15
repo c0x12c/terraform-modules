@@ -68,20 +68,19 @@ module "eks-access-entry" {
 - [Example](./examples/)
 
 <!-- BEGIN_TF_DOCS -->
-
 ## Requirements
 
-| Name                                                                         | Version   |
-|------------------------------------------------------------------------------|-----------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform)    | >= 1.9.8  |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws)                      | >= 5.75   |
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.8 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.75 |
 | <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.33.0 |
-| <a name="requirement_tls"></a> [tls](#requirement\_tls)                      | >= 4.0    |
+| <a name="requirement_tls"></a> [tls](#requirement\_tls) | >= 4.0 |
 
 ## Providers
 
-| Name                                              | Version |
-|---------------------------------------------------|---------|
+| Name | Version |
+|------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.75 |
 
 ## Modules
@@ -90,28 +89,22 @@ No modules.
 
 ## Resources
 
-| Name                                                                                                                                                | Type        |
-|-----------------------------------------------------------------------------------------------------------------------------------------------------|-------------|
-| [aws_eks_access_entry.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_access_entry)                           | resource    |
-| [aws_eks_access_policy_association.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_access_policy_association) | resource    |
-| [aws_iam_role.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role)                                           | resource    |
-| [aws_iam_policy_document.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document)                  | data source |
+| Name | Type |
+|------|------|
+| [aws_eks_access_entry.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_access_entry) | resource |
+| [aws_eks_access_policy_association.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_access_policy_association) | resource |
 
 ## Inputs
 
-| Name                                                                                             | Description                                                                         | Type                                                                                                                                                                                                                                                                                                                                                                            | Default | Required |
-|--------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|:--------:|
-| <a name="input_access_entries"></a> [access\_entries](#input\_access\_entries)                   | List of access entries for EKS access entries and policies                          | <pre>map(object({<br/>    principal_name    = string<br/>    kubernetes_groups = optional(list(string))<br/>    type              = optional(string)<br/>    policy_arn        = optional(string)<br/>    namespaces        = optional(list(string))<br/>    trusted_role_arn  = optional(list(string))<br/>    access_type       = optional(string, "cluster")<br/>  }))</pre> | `{}`    |    no    |
-| <a name="input_aws_account_id"></a> [aws\_account\_id](#input\_aws\_account\_id)                 | The AWS account ID to which the IAM SSO group will be assigned.                     | `string`                                                                                                                                                                                                                                                                                                                                                                        | n/a     |   yes    |
-| <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name)                         | The name of the EKS cluster.                                                        | `string`                                                                                                                                                                                                                                                                                                                                                                        | n/a     |   yes    |
-| <a name="input_custom_namespaces"></a> [custom\_namespaces](#input\_custom\_namespaces)          | Custom namespaces to be created during initialization                               | `list(string)`                                                                                                                                                                                                                                                                                                                                                                  | `[]`    |    no    |
-| <a name="input_iam_path"></a> [iam\_path](#input\_iam\_path)                                     | If provided, all IAM roles will be created on this path.                            | `string`                                                                                                                                                                                                                                                                                                                                                                        | `"/"`   |    no    |
-| <a name="input_permissions_boundary"></a> [permissions\_boundary](#input\_permissions\_boundary) | If provided, all IAM roles will be created with this permissions boundary attached. | `string`                                                                                                                                                                                                                                                                                                                                                                        | `null`  |    no    |
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_access_entries"></a> [access\_entries](#input\_access\_entries) | List of access entries for EKS access entries and policies | <pre>list(object({<br/>    principal_arn     = string<br/>    kubernetes_groups = optional(list(string))<br/>    type              = optional(string)<br/>    policy_arn        = optional(string)<br/>    namespaces        = optional(list(string))<br/>    access_type       = optional(string, "cluster")<br/>  }))</pre> | `[]` | no |
+| <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | The name of the EKS cluster. | `string` | n/a | yes |
+| <a name="input_custom_namespaces"></a> [custom\_namespaces](#input\_custom\_namespaces) | Custom namespaces to be created during initialization | `list(string)` | `[]` | no |
 
 ## Outputs
 
-| Name                                                                                     | Description                                                                                           |
-|------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
+| Name | Description |
+|------|-------------|
 | <a name="output_access_entry_arn"></a> [access\_entry\_arn](#output\_access\_entry\_arn) | Map of principal\_arn to the associated access entry ARN for each access entry in the AWS EKS cluster |
-
 <!-- END_TF_DOCS -->

@@ -22,19 +22,18 @@ module "saml_vpn" {
 - [Example](./examples/complete/)
 
 <!-- BEGIN_TF_DOCS -->
-
 ## Requirements
 
-| Name                                                                      | Version  |
-|---------------------------------------------------------------------------|----------|
+| Name | Version |
+|------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.8 |
-| <a name="provider_aws"></a> [aws](#provider\_aws)                         | \>= 5.75 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.75 |
 
 ## Providers
 
-| Name                                              | Version |
-|---------------------------------------------------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | \>=5.75 |
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.75 |
 
 ## Modules
 
@@ -42,20 +41,19 @@ No modules.
 
 ## Resources
 
-| Name                                                                                                                        | Type     |
-|-----------------------------------------------------------------------------------------------------------------------------|----------|
+| Name | Type |
+|------|------|
 | [aws_iam_saml_provider.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_saml_provider) | resource |
 
 ## Inputs
 
-| Name                                                                           | Description                                                      | Type          | Default | Required |
-|--------------------------------------------------------------------------------|------------------------------------------------------------------|---------------|---------|:--------:|
-| <a name="input_saml_providers"></a> [saml\_providers](#input\_saml\_providers) | A map of SAML providers name and SAML metadata document content. | `map(string)` | n/a     |   yes    |
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_saml_providers"></a> [saml\_providers](#input\_saml\_providers) | A map of SAML providers name and SAML metadata document content. | `map(string)` | n/a | yes |
 
 ## Outputs
 
-| Name                                                                                          | Description                              |
-|-----------------------------------------------------------------------------------------------|------------------------------------------|
-| <a name="output_saml_provider_arns"></a> [saml\_provider\_arns](#output\_saml\_provider_arns) | The map of SAML provider arn(s) created. |
-
+| Name | Description |
+|------|-------------|
+| <a name="output_saml_providers"></a> [saml\_providers](#output\_saml\_providers) | The map of SAML provider arn(s) created. |
 <!-- END_TF_DOCS -->

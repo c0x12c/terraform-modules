@@ -119,9 +119,9 @@ module "cluster" {
 
 - **Master password.** Defaults to `manage_master_user_password = true`, which has RDS create and rotate the secret in AWS Secrets Manager. The secret ARN is exposed via `master_user_secret_arn`. No password material is ever stored in Terraform state.
 - **`pending-reboot` parameters are silent footguns.** Parameters set with `apply_method = "pending-reboot"` will not take effect until the cluster (or instance) is rebooted. Plan output will show success even though the parameter is dormant.
-- **Multi-AZ DB cluster constraints.** Exactly 3 instances (managed by the cluster resource — do **not** add `aws_rds_cluster_instance` blocks). Memory-optimized instance classes only (`db.r6gd.*`, `db.r5d.*`, `db.m6gd.*`). Storage must be `io1`, `io2`, or `gp3`; **`gp3` with custom `iops` requires `allocated_storage >= 400` and `iops >= 12000`**. No Serverless v2, no Backtrack, no Global Cluster. Engine version support is a strict subset of vanilla RDS — query `aws rds describe-orderable-db-instance-options --engine postgres --db-instance-class db.r6gd.large --query 'OrderableDBInstanceOptions[?SupportsClusters==\`true\`].EngineVersion'` to confirm a version is supported before pinning.
+- **Multi-AZ DB cluster constraints.** Exactly 3 instances (managed by the cluster resource - do **not** add `aws_rds_cluster_instance` blocks). Memory-optimized instance classes only (`db.r6gd.*`, `db.r5d.*`, `db.m6gd.*`). Storage must be `io1`, `io2`, or `gp3`; **`gp3` with custom `iops` requires `allocated_storage >= 400` and `iops >= 12000`**. No Serverless v2, no Backtrack, no Global Cluster. Engine version support is a strict subset of vanilla RDS - query `aws rds describe-orderable-db-instance-options --engine postgres --db-instance-class db.r6gd.large --query 'OrderableDBInstanceOptions[?SupportsClusters==\`true\`].EngineVersion'` to confirm a version is supported before pinning.
 - **Enhanced Monitoring.** When `monitoring_interval > 0`, the module creates an IAM role with `AmazonRDSEnhancedMonitoringRole`. Set `create_monitoring_role = false` and provide `monitoring_role_arn` to reuse an existing role.
-- **Performance Insights retention.** 7 days is free; 31, 93, 186, 372, and 731 are paid tiers — check pricing before bumping.
+- **Performance Insights retention.** 7 days is free; 31, 93, 186, 372, and 731 are paid tiers - check pricing before bumping.
 - **Deletion protection** defaults to `true`. Flip to `false` and apply before destroying.
 
 ## Examples
@@ -143,8 +143,8 @@ module "cluster" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.62.0 |
-| <a name="provider_random"></a> [random](#provider\_random) | 3.9.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.0 |
+| <a name="provider_random"></a> [random](#provider\_random) | >= 3.6 |
 
 ## Modules
 
