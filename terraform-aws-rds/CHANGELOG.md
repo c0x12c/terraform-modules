@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.2](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-rds/v1.1.1...terraform-aws-rds/v1.1.2) (2026-09-15)
+
+
+### Bug Fixes
+
+* **terraform-aws-rds:** never take a final snapshot of a read replica ([#349](https://github.com/c0x12c/terraform-modules/issues/349)) ([cddef9f](https://github.com/c0x12c/terraform-modules/commit/cddef9fda6b8ed38176a3528043cfafc57b71a82))
+
 ## [1.1.1](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-rds/v1.1.0...terraform-aws-rds/v1.1.1) (2026-09-11)
 
 
