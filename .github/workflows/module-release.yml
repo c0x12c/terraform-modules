@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 # Must be a superset of the called registry-publish.yml permissions
-# (contents: read, issues: write) — callers cap reusable-workflow grants.
+# (contents: read, issues: write) - callers cap reusable-workflow grants.
 permissions:
   contents: write
   pull-requests: write
@@ -76,13 +76,54 @@ jobs:
       version: ${{ fromJSON(needs.release.outputs.release_versions)[matrix.module] }}
     secrets: inherit
 
+  catalog:
+    needs: [release]
+    if: needs.release.outputs.releases_created == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create GitHub App Token
+        uses: actions/create-github-app-token@v3
+        id: github-app-token
+        with:
+          client-id: ${{ vars.GH_APP_CLIENT_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
+      - name: Checkout master
+        uses: actions/checkout@v7
+        with:
+          ref: master
+          token: ${{ steps.github-app-token.outputs.token }}
+
+      - name: Regenerate and commit MODULES.md
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          python3 configs/generate_modules_catalog.py
+          if git diff --quiet -- MODULES.md; then
+            echo "MODULES.md already current"
+            exit 0
+          fi
+          git add MODULES.md
+          git commit -m "chore: regenerate module catalog"
+          # The cascade job pushes to master from the same run, so a plain push
+          # can lose the race. Rebase onto whatever landed and retry.
+          for _ in 1 2 3; do
+            if git push; then
+              exit 0
+            fi
+            git pull --rebase origin master
+          done
+          echo "::error title=catalog::could not push the regenerated MODULES.md after 3 attempts"
+          exit 1
+
   # Bump consuming parents so their next release re-pins this leaf
   # (docs/decisions/2026-06-07-release-cascade.md). Inert until the repo
   # variable CASCADE_ENABLED is 'true'; commits/pushes additionally require
-  # CASCADE_EXECUTE='true' — otherwise the run only prints planned bumps.
+  # CASCADE_EXECUTE='true' - otherwise the run only prints planned bumps.
   cascade:
     # needs publish: only cascade versions that are confirmed live on the
-    # R2 registry — a failed publish must not get pinned.
+    # R2 registry - a failed publish must not get pinned.
     needs: [release, publish]
     if: needs.release.outputs.releases_created == 'true' && vars.CASCADE_ENABLED == 'true'
     runs-on: ubuntu-latest

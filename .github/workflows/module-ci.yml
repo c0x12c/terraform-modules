@@ -163,3 +163,9 @@ jobs:
         # Fails the PR if the on-disk terraform-* dirs, the release-config
         # packages, and the versions manifest fall out of sync.
         run: python3 scripts/check_module_drift.py
+
+      - name: Check MODULES.md catalog
+        # Skipped on release-please branches: those bump .module-versions.json
+        # on their own branch, so the catalog is stale by construction there.
+        if: "!startsWith(github.head_ref, 'release-please--')"
+        run: python3 configs/generate_modules_catalog.py --check
