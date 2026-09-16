@@ -56,7 +56,9 @@ binary rather than relying on whatever is on `PATH`:
 
 ```bash
 cd terraform-<provider>-<name>
-curl -sSL https://github.com/terraform-docs/terraform-docs/releases/download/v0.20.0/terraform-docs-v0.20.0-$(uname | tr '[:upper:]' '[:lower:]')-amd64.tar.gz \
+os=$(uname | tr '[:upper:]' '[:lower:]')
+arch=$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/')
+curl -sSL "https://github.com/terraform-docs/terraform-docs/releases/download/v0.20.0/terraform-docs-v0.20.0-${os}-${arch}.tar.gz" \
   | tar -xz -C /tmp terraform-docs
 terraform init -backend=false            # CI runs this before the docs check
 /tmp/terraform-docs markdown table --output-file README.md --output-mode inject .

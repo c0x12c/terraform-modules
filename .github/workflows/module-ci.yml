@@ -162,7 +162,12 @@ jobs:
         run: python3 scripts/check_module_drift.py
 
       - name: Check MODULES.md catalog
-        # Skipped on release-please branches: those bump .module-versions.json
-        # on their own branch, so the catalog is stale by construction there.
-        if: "!startsWith(github.head_ref, 'release-please--')"
+        # Skipped on release-please's own PRs: those bump .module-versions.json
+        # on a branch release-please rewrites, so the catalog is stale there by
+        # construction. The author is checked as well as the branch name -
+        # head_ref is contributor-controlled, so the prefix alone would let any
+        # PR opt out of the catalog invariant by renaming its branch.
+        if: >-
+          !(startsWith(github.head_ref, 'release-please--')
+            && github.event.pull_request.user.type == 'Bot')
         run: python3 configs/generate_modules_catalog.py --check
