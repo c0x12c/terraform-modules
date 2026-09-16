@@ -34,16 +34,45 @@ terraform-<provider>-<name>/
   exact version pin at release time — never hardcode the registry source for a
   sibling in-repo.
 
-## Pre-commit
-
-```bash
-pip install pre-commit && pre-commit install
-pre-commit run -a              # terraform_fmt + terraform_tflint
-```
+## Local checks
 
 CI runs `terraform fmt -check`, `terraform validate`, `tflint`, and a
-`terraform-docs` check (when the module has `.terraform-docs.yml`) for every
-changed module.
+`terraform-docs` check for every changed module.
+
+`pre-commit` is configured per module, not at the repo root, so run it from
+inside the module you changed:
+
+```bash
+pip install pre-commit
+cd terraform-<provider>-<name> && pre-commit run -a   # terraform_fmt + terraform_tflint
+```
+
+Regenerate the docs with the version CI pins, `v0.20.0`. A newer terraform-docs
+(Homebrew currently ships v0.21.0) emits an extra Requirements row from
+`override.tofu` and fails the check with the same message a genuinely stale
+README produces, so a regeneration with the wrong version reads as "the regen
+did not work". Homebrew has no versioned formula for it, so fetch the pinned
+binary rather than relying on whatever is on `PATH`:
+
+```bash
+cd terraform-<provider>-<name>
+os=$(uname | tr '[:upper:]' '[:lower:]')
+arch=$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/')
+curl -sSL "https://github.com/terraform-docs/terraform-docs/releases/download/v0.20.0/terraform-docs-v0.20.0-${os}-${arch}.tar.gz" \
+  | tar -xz -C /tmp terraform-docs
+terraform init -backend=false            # CI runs this before the docs check
+/tmp/terraform-docs markdown table --output-file README.md --output-mode inject .
+```
+
+The `terraform init` matters: CI runs it first, so terraform-docs reads
+`.terraform.lock.hcl` and the Providers table holds the exact versions the
+runner resolved. Regenerating without a matching lock file produces the
+`versions.tf` constraints instead, and the check fails.
+
+The exception is a module with its own `.terraform-docs.yml` setting
+`lockfile: false` (`terraform-aws-health-notification`,
+`terraform-datadog-aws-integration`). Those deliberately keep the constraints,
+and terraform-docs picks the setting up from the config file.
 
 ## Commits & versioning
 
