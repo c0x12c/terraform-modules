@@ -10,12 +10,14 @@ on:
     paths:
       - "tools/registry/**"
       - "scripts/**"
+      - "configs/**"
       - ".github/workflows/registry-tests.yml"
   push:
     branches: [master]
     paths:
       - "tools/registry/**"
       - "scripts/**"
+      - "configs/**"
       - ".github/workflows/registry-tests.yml"
   workflow_dispatch:
 

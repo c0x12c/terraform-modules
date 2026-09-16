@@ -81,9 +81,12 @@ jobs:
   # two writers to master cannot race - cascade pushes unconditionally.
   catalog:
     needs: [release, publish]
+    # The catalog mirrors .module-versions.json on master; that manifest is the
+    # repo's record of what was released. needs publish so THIS run's modules
+    # are live before their rows appear - it cannot speak for a concurrent
+    # release whose manifest entry is already on master, and does not try to.
     # publish's result is asserted explicitly rather than leaning on the
-    # implicit success() a custom if is documented to keep - the cost of being
-    # wrong about that is a catalog row for a version the registry never got.
+    # implicit success() a custom if is documented to keep.
     if: needs.release.outputs.releases_created == 'true' && needs.publish.result == 'success'
     runs-on: ubuntu-latest
     steps:
@@ -105,20 +108,23 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          python3 configs/generate_modules_catalog.py
-          if git diff --quiet -- MODULES.md; then
-            echo "MODULES.md already current"
-            exit 0
-          fi
-          git add MODULES.md
-          git commit -m "chore: regenerate module catalog"
-          # The cascade job pushes to master from the same run, so a plain push
-          # can lose the race. Rebase onto whatever landed and retry.
+          # Each attempt regenerates from whatever master holds right now. A
+          # rejected push means the manifest may have moved, so replaying the
+          # already-built commit would publish a catalog from the older
+          # manifest - green job, stale row.
           for _ in 1 2 3; do
+            git fetch -q origin master
+            git reset -q --hard origin/master
+            python3 configs/generate_modules_catalog.py
+            if git diff --quiet -- MODULES.md; then
+              echo "MODULES.md already current"
+              exit 0
+            fi
+            git add MODULES.md
+            git commit -qm "chore: regenerate module catalog"
             if git push; then
               exit 0
             fi
-            git pull --rebase origin master
           done
           echo "::error title=catalog::could not push the regenerated MODULES.md after 3 attempts"
           exit 1

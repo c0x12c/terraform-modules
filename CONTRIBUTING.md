@@ -51,15 +51,26 @@ Regenerate the docs with the version CI pins, `v0.20.0`. A newer terraform-docs
 (Homebrew currently ships v0.21.0) emits an extra Requirements row from
 `override.tofu` and fails the check with the same message a genuinely stale
 README produces, so a regeneration with the wrong version reads as "the regen
-did not work":
+did not work". Homebrew has no versioned formula for it, so fetch the pinned
+binary rather than relying on whatever is on `PATH`:
 
 ```bash
-terraform-docs markdown table --output-file README.md --output-mode inject <module>
+cd terraform-<provider>-<name>
+curl -sSL https://github.com/terraform-docs/terraform-docs/releases/download/v0.20.0/terraform-docs-v0.20.0-$(uname | tr '[:upper:]' '[:lower:]')-amd64.tar.gz \
+  | tar -xz -C /tmp terraform-docs
+terraform init -backend=false            # CI runs this before the docs check
+/tmp/terraform-docs markdown table --output-file README.md --output-mode inject .
 ```
 
-CI regenerates after `terraform init`, so the Providers table holds the exact
-versions the runner resolved. Regenerate from a directory whose
-`.terraform.lock.hcl` matches, or the table will differ from CI's.
+The `terraform init` matters: CI runs it first, so terraform-docs reads
+`.terraform.lock.hcl` and the Providers table holds the exact versions the
+runner resolved. Regenerating without a matching lock file produces the
+`versions.tf` constraints instead, and the check fails.
+
+The exception is a module with its own `.terraform-docs.yml` setting
+`lockfile: false` (`terraform-aws-health-notification`,
+`terraform-datadog-aws-integration`). Those deliberately keep the constraints,
+and terraform-docs picks the setting up from the config file.
 
 ## Commits & versioning
 

@@ -140,7 +140,7 @@ jobs:
             fi
           elif [ -f "$MODULE/README.md" ] && grep -q "BEGIN_TF_DOCS" "$MODULE/README.md"; then
             if ! /tmp/terraform-docs markdown table --output-file README.md --output-mode inject --output-check "$MODULE"; then
-              echo "::error title=terraform-docs::$MODULE docs are out of date for a new/changed input or output. Regenerate with terraform-docs ${TERRAFORM_DOCS_VERSION} (the version CI pins), from a directory with no .terraform.lock.hcl: terraform-docs markdown table --output-file README.md --output-mode inject $MODULE"
+              echo "::error title=terraform-docs::$MODULE docs are out of date for a new/changed input or output. Regenerate with terraform-docs ${TERRAFORM_DOCS_VERSION} (the version CI pins), after a terraform init in that module so the Providers table matches the lock file CI resolves: terraform-docs markdown table --output-file README.md --output-mode inject $MODULE"
               exit 1
             fi
           else
