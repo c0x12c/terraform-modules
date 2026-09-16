@@ -92,13 +92,15 @@ jobs:
     #   (it cannot speak for a concurrent release already on master, and does
     #   not try to), or a human dispatched a run to repair a catalog left
     #   stale by a failed push - a rerun reports releases_created == 'false',
-    #   so without that branch the stale row would be permanent.
+    #   so without that branch the stale row would be permanent. 'skipped' and
+    #   not '!= failure': a cancelled publish can leave a manifest entry that
+    #   never reached the registry.
     if: >-
       !cancelled()
       && github.repository_owner == 'c0x12c'
       && needs.release.result == 'success'
       && ((needs.release.outputs.releases_created == 'true' && needs.publish.result == 'success')
-          || (github.event_name == 'workflow_dispatch' && needs.publish.result != 'failure'))
+          || (github.event_name == 'workflow_dispatch' && needs.publish.result == 'skipped'))
     runs-on: ubuntu-latest
     steps:
       - name: Create GitHub App Token

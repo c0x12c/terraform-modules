@@ -40,9 +40,13 @@ def describe(tmp_path, monkeypatch, body):
      ""),
     # ... nor the inject markers, which open several READMEs
     ("<!-- BEGIN_TF_DOCS -->\n## Requirements\n<!-- END_TF_DOCS -->\n", ""),
-    # ... nor terraform-docs' empty-section text
-    ("<!-- BEGIN_TF_DOCS -->\n## Modules\n\nNo modules.\n", ""),
+    # ... nor terraform-docs' empty-section text, every sentinel of it
     ("<!-- BEGIN_TF_DOCS -->\n## Requirements\n\nNo requirements.\n", ""),
+    ("<!-- BEGIN_TF_DOCS -->\n## Providers\n\nNo providers.\n", ""),
+    ("<!-- BEGIN_TF_DOCS -->\n## Modules\n\nNo modules.\n", ""),
+    ("<!-- BEGIN_TF_DOCS -->\n## Resources\n\nNo resources.\n", ""),
+    ("<!-- BEGIN_TF_DOCS -->\n## Inputs\n\nNo inputs.\n", ""),
+    ("<!-- BEGIN_TF_DOCS -->\n## Outputs\n\nNo outputs.\n", ""),
     # ... nor a JSON fragment, which reaches here from an unfenced example
     ('## Usage\n\n"<ses-id>": "<ses-identity-id>"\n', ""),
     # list items and tables are structure, not description
