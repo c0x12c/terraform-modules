@@ -87,7 +87,15 @@ jobs:
     # release whose manifest entry is already on master, and does not try to.
     # publish's result is asserted explicitly rather than leaning on the
     # implicit success() a custom if is documented to keep.
-    if: needs.release.outputs.releases_created == 'true' && needs.publish.result == 'success'
+    # !cancelled() rather than the implicit success(): this must be able to run
+    # on a manual dispatch where `publish` was skipped, which is the repair path
+    # for a catalog left stale by a failed push. A rerun after the release
+    # already exists reports releases_created == 'false', so gating recovery on
+    # that output alone would make the stale row permanent.
+    if: >-
+      !cancelled()
+      && ((needs.release.outputs.releases_created == 'true' && needs.publish.result == 'success')
+          || (github.event_name == 'workflow_dispatch' && needs.publish.result != 'failure'))
     runs-on: ubuntu-latest
     steps:
       - name: Create GitHub App Token

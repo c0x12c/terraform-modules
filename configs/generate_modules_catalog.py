@@ -39,7 +39,7 @@ def looks_like_prose(line: str) -> bool:
     this heuristic as ordinary lines, as do headings, tables and list items.
     Rather than enumerate every shape to reject, require the shape to accept:
     starts with a letter, three or more words, no assignment or brace."""
-    return (line[:1].isalpha() and line.count(" ") >= 2
+    return (line[:1].isalpha() and len(line.split()) >= 3
             and not set("={}") & set(line))
 
 

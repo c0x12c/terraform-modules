@@ -53,6 +53,10 @@ def describe(tmp_path, monkeypatch, body):
     ("![badge](https://example.com/b.svg)\n", ""),
     # too short to be prose
     ("Example module\n", ""),
+    # word count, not space count: a double space is still two words
+    ("Example  module\n", ""),
+    # ... and a tab still separates words
+    ("Creates\tan\texample\tbucket\n", "Creates\tan\texample\tbucket"),
 ])
 def test_description(tmp_path, monkeypatch, body, expected):
     assert describe(tmp_path, monkeypatch, body) == expected
