@@ -151,13 +151,20 @@ def main(argv=None) -> int:
     if generated_cmp == committed_cmp:
         return 0
 
+    mode = configured_output_mode(module)
+    if mode == "replace":
+        remediation = "terraform-docs markdown table %s" % module
+    else:
+        remediation = (
+            "terraform-docs markdown table --output-file README.md "
+            "--output-mode inject %s" % module
+        )
     print(
         "%s docs are out of date for a new/changed input or output "
         "(the Providers table is excluded from this comparison - its "
         "versions depend on the lock file, not on this module's inputs or "
-        "outputs). Regenerate with: terraform-docs markdown table "
-        "--output-file README.md --output-mode inject %s"
-        % (module, module),
+        "outputs). Regenerate with: %s"
+        % (module, remediation),
         file=sys.stderr,
     )
     return 1

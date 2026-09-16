@@ -86,6 +86,53 @@ class MirrorReleasePureTests(unittest.TestCase):
             # no git artifacts in the R2 tree
             self.assertFalse((dest / ".git").exists())
 
+    def test_assemble_r2_tree_rewrites_readme_modules_table_rows(self):
+        """Regression: deleting rewrite_worktree_readme_files call in assemble_r2_tree must be caught."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            module_dir = root / "terraform-aws-rds"
+            module_dir.mkdir()
+            (module_dir / "main.tf").write_text(
+                'module "net" {\n  source = "../terraform-aws-network"\n}\n',
+                encoding="utf-8",
+            )
+            # Root README with sibling module row
+            (module_dir / "README.md").write_text(
+                "## Modules\n\n"
+                "| Name | Source | Version |\n"
+                "|------|--------|---------|\n"
+                '| <a name="module_net"></a> [net](#module\\_net) | ../terraform-aws-network | n/a |\n',
+                encoding="utf-8",
+            )
+            # Examples README with the same row (should be unchanged)
+            examples_dir = module_dir / "examples" / "complete"
+            examples_dir.mkdir(parents=True)
+            (examples_dir / "README.md").write_text(
+                "## Modules\n\n"
+                "| Name | Source | Version |\n"
+                "|------|--------|---------|\n"
+                '| <a name="module_net"></a> [net](#module\\_net) | ../terraform-aws-network | n/a |\n',
+                encoding="utf-8",
+            )
+            dest = root / "out"
+            dest.mkdir()
+            manifest = {"terraform-aws-rds": "1.2.0", "terraform-aws-network": "9.8.7"}
+            assemble_r2_tree(module_dir, dest, manifest, "c0x12c", "true")
+
+            # Root README should have rewritten module row
+            root_readme = (dest / "README.md").read_text(encoding="utf-8")
+            self.assertIn(
+                "terraform.c0x12c.com/c0x12c/network/aws", root_readme
+            )
+            self.assertIn('| 9.8.7 |', root_readme)
+            self.assertNotIn("../terraform-aws-network", root_readme)
+            # Examples README should be unchanged
+            examples_readme = (dest / "examples" / "complete" / "README.md").read_text(
+                encoding="utf-8"
+            )
+            self.assertIn("../terraform-aws-network", examples_readme)
+            self.assertIn("| n/a |", examples_readme)
+
     def test_module_mapping_malformed(self):
         with self.assertRaisesRegex(Exception, "mapping"):
             module_to_registry("terraformawsbad", "c0x12c")
