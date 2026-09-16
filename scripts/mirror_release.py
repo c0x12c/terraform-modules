@@ -3,7 +3,7 @@
 
 Assembles the module from the monorepo, rewrites sibling sources to registry
 form, runs terraform validation, and uploads the tarball plus its index.json
-entry to R2. No GitHub mirror repo is touched — R2 is the only target.
+entry to R2. No GitHub mirror repo is touched - R2 is the only target.
 """
 
 import argparse
@@ -112,7 +112,7 @@ def _is_examples_path(rel_path: str) -> bool:
 
 
 def rewrite_tf_text(text: str, manifest: dict, org: str, rel_path: str = "") -> str:
-    # Files under example(s)/, test/, tests/ are copied verbatim — no rewrite, no relative-source check.
+    # Files under example(s)/, test/, tests/ are copied verbatim - no rewrite, no relative-source check.
     if rel_path and _is_examples_path(rel_path):
         return text
 
@@ -166,6 +166,59 @@ def rewrite_tf_text(text: str, manifest: dict, org: str, rel_path: str = "") -> 
     return rewritten
 
 
+# A terraform-docs Modules-table row for a sibling, e.g.:
+#   | <a name="module_provider"></a> [provider](#module\_provider) | ../terraform-aws-oidc-provider | n/a |
+README_MODULE_ROW_RE = re.compile(
+    r'^(?P<prefix>\|\s*<a name="module_[^"]+"></a>.*?\|\s*)'
+    r'\.\./(?P<sibling>terraform-[A-Za-z0-9_-]+)'
+    r'(?P<sep>\s*\|\s*)(?P<version_cell>[^|]*?)(?P<suffix>\s*\|\s*)$'
+)
+
+
+def rewrite_readme_text(text: str, manifest: dict, org: str, rel_path: str = "") -> str:
+    """Rewrite Modules-table rows whose Source cell is a sibling relative path.
+
+    Mirrors rewrite_tf_text: same sibling-module shape, the same
+    module_to_registry/normalize_version mapping, and the same ManifestError
+    on a sibling missing from the manifest, so the README and the .tf rewrite
+    can never drift from each other.
+    """
+    if rel_path and _is_examples_path(rel_path):
+        return text
+
+    output = []
+    for raw_line in text.splitlines(keepends=True):
+        if raw_line.endswith("\r\n"):
+            ending, core = "\r\n", raw_line[:-2]
+        elif raw_line.endswith("\n"):
+            ending, core = "\n", raw_line[:-1]
+        else:
+            ending, core = "", raw_line
+
+        match = README_MODULE_ROW_RE.match(core)
+        if not match:
+            output.append(raw_line)
+            continue
+
+        sibling_module = match.group("sibling")
+        sibling_mapping = module_to_registry(sibling_module, org)
+        sibling_version = manifest.get(sibling_module)
+        if sibling_version is None:
+            raise ManifestError(
+                "manifest-missing: sibling %s not found in manifest" % sibling_module
+            )
+        new_core = "%s%s/%s%s%s%s" % (
+            match.group("prefix"),
+            REGISTRY_HOST,
+            sibling_mapping.registry_source,
+            match.group("sep"),
+            normalize_version(str(sibling_version)),
+            match.group("suffix"),
+        )
+        output.append(new_core + ending)
+    return "".join(output)
+
+
 def load_manifest(path: Path) -> dict:
     try:
         with path.open("r", encoding="utf-8") as handle:
@@ -208,6 +261,17 @@ def rewrite_worktree_tf_files(worktree: Path, manifest: dict, org: str) -> None:
         rewritten = rewrite_tf_text(original, manifest, org, rel_path=rel_path)
         if rewritten != original:
             tf_file.write_text(rewritten, encoding="utf-8")
+
+
+def rewrite_worktree_readme_files(worktree: Path, manifest: dict, org: str) -> None:
+    for readme_file in sorted(worktree.rglob("README.md")):
+        if ".git" in readme_file.parts:
+            continue
+        rel_path = readme_file.relative_to(worktree).as_posix()
+        original = readme_file.read_text(encoding="utf-8")
+        rewritten = rewrite_readme_text(original, manifest, org, rel_path=rel_path)
+        if rewritten != original:
+            readme_file.write_text(rewritten, encoding="utf-8")
 
 
 def normalize_fmt(worktree: Path) -> None:
@@ -319,11 +383,12 @@ def assemble_r2_tree(
 
     The R2-only counterpart to the mirror assembly: copy the module from the
     monorepo, rewrite sibling sources, run terraform validation, and strip
-    generated artifacts — with NO git clone, NO mirror identity check, and NO
+    generated artifacts - with NO git clone, NO mirror identity check, and NO
     readme banner (the banner's "read-only mirror" wording is mirror-specific).
     """
     copy_module_contents(module_dir, dest)
     rewrite_worktree_tf_files(dest, manifest, org)
+    rewrite_worktree_readme_files(dest, manifest, org)
     normalize_fmt(dest)
     run_validation(dest, validate_cmd)
     remove_generated_terraform_artifacts(dest)
