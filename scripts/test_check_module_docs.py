@@ -141,17 +141,20 @@ def test_providers_section_absent_from_both_passes(tmp_path):
     assert result.returncode == 0, result.stderr
 
 
-def make_replace_mode_module(tmp_path: Path, name: str, readme_body: str) -> Path:
-    """A module whose .terraform-docs.yml owns the whole README: no markers, and
-    the file IS the generated output."""
+def make_config_module(tmp_path: Path, name: str, readme: str, mode: str) -> Path:
+    """A module carrying its own .terraform-docs.yml with the given output.mode."""
     module_dir = tmp_path / name
     module_dir.mkdir()
-    (module_dir / "README.md").write_text(readme_body, encoding="utf-8")
+    (module_dir / "README.md").write_text(readme, encoding="utf-8")
     (module_dir / ".terraform-docs.yml").write_text(
-        "formatter: markdown table\noutput:\n  file: README.md\n  mode: replace\n",
+        "formatter: markdown table\noutput:\n  file: README.md\n  mode: %s\n" % mode,
         encoding="utf-8",
     )
     return module_dir
+
+
+def make_replace_mode_module(tmp_path: Path, name: str, readme_body: str) -> Path:
+    return make_config_module(tmp_path, name, readme_body, "replace")
 
 
 def test_replace_mode_module_without_markers_compares_whole_file(tmp_path):
@@ -167,3 +170,25 @@ def test_replace_mode_module_still_catches_drift(tmp_path):
     )
     fake = make_fake_terraform_docs(tmp_path, drifted)
     assert run_check(module_dir, fake).returncode == 1
+
+
+def test_inject_config_with_missing_markers_still_fails(tmp_path):
+    """The hole a config-existence check would open: an inject module whose
+    markers were lost must fail, not slide into whole-file comparison."""
+    module_dir = make_config_module(
+        tmp_path, "terraform-aws-rds", "# rds\n\n" + BASE_BODY, "inject"
+    )
+    fake = make_fake_terraform_docs(tmp_path, BASE_BODY)
+    result = run_check(module_dir, fake)
+    assert result.returncode == 1
+    assert "markers" in result.stderr
+
+
+def test_replace_config_uses_whole_file_even_with_markers(tmp_path):
+    """mode: replace owns the file, so the whole file is compared regardless of
+    any markers that happen to be in it."""
+    module_dir = make_config_module(
+        tmp_path, "terraform-aws-rds", BASE_BODY, "replace"
+    )
+    fake = make_fake_terraform_docs(tmp_path, BASE_BODY)
+    assert run_check(module_dir, fake).returncode == 0

@@ -42,6 +42,30 @@ def strip_providers_section(text: str) -> str:
     return text[: match.start()] + text[end:]
 
 
+def configured_output_mode(module: str):
+    """The output.mode from a module's .terraform-docs.yml, or None.
+
+    Parsed rather than pulled in with a yaml dependency: this script is stdlib
+    only, and the one key that matters sits in a two-level block.
+    """
+    config = Path(module) / ".terraform-docs.yml"
+    if not config.is_file():
+        return None
+    in_output = False
+    for raw in config.read_text(encoding="utf-8").splitlines():
+        if re.match(r"^output:\s*$", raw):
+            in_output = True
+            continue
+        if not in_output:
+            continue
+        if raw.strip() and not raw[:1].isspace():
+            break
+        mode = re.match(r"\s+mode:\s*(\S+)", raw)
+        if mode:
+            return mode.group(1).strip().strip("\"'")
+    return None
+
+
 def extract_marked_region(readme_text: str):
     """Return the text between the BEGIN/END markers, or None if absent/malformed."""
     begin = readme_text.find(BEGIN_MARKER)
@@ -101,20 +125,23 @@ def main(argv=None) -> int:
 
     committed = readme_path.read_text(encoding="utf-8")
     committed_region = extract_marked_region(committed)
-    if committed_region is None:
-        # A module whose .terraform-docs.yml sets output.mode: replace has no
-        # markers by design - terraform-docs owns the whole file, so the whole
-        # file is what to compare. Both configs in this repo use inject today;
-        # this keeps a future `replace` module from reading as undocumented.
-        if not (Path(module) / ".terraform-docs.yml").is_file():
-            print(
-                "%s has no %s / %s markers in README.md; cannot verify "
-                "input/output docs. Add the markers (or a .terraform-docs.yml)."
-                % (module, BEGIN_MARKER, END_MARKER),
-                file=sys.stderr,
-            )
-            return 1
+    # Only an explicit output.mode: replace owns the whole README - terraform-docs
+    # writes the file wholesale, so there are no markers to find and the whole
+    # file is what to compare. Keying on the config file's mere EXISTENCE would
+    # be wrong in both directions: an inject module that LOST its markers would
+    # slide into whole-file comparison instead of failing, which is the case
+    # this check exists to catch.
+    if configured_output_mode(module) == "replace":
         committed_region = committed
+    elif committed_region is None:
+        print(
+            "%s has no %s / %s markers in README.md; cannot verify "
+            "input/output docs. Add the markers (or a .terraform-docs.yml "
+            "with output.mode replace)."
+            % (module, BEGIN_MARKER, END_MARKER),
+            file=sys.stderr,
+        )
+        return 1
 
     generated = run_terraform_docs(args.terraform_docs, module)
 
