@@ -135,12 +135,12 @@ jobs:
           # use it; otherwise we require a README.md carrying the inject markers.
           if [ -f "$MODULE/.terraform-docs.yml" ]; then
             if ! /tmp/terraform-docs markdown table --output-check "$MODULE"; then
-              echo "::error title=terraform-docs::$MODULE docs are out of date. Regenerate per its .terraform-docs.yml."
+              echo "::error title=terraform-docs::$MODULE docs are out of date. Regenerate with terraform-docs ${TERRAFORM_DOCS_VERSION} (the version CI pins) per its .terraform-docs.yml."
               exit 1
             fi
           elif [ -f "$MODULE/README.md" ] && grep -q "BEGIN_TF_DOCS" "$MODULE/README.md"; then
             if ! /tmp/terraform-docs markdown table --output-file README.md --output-mode inject --output-check "$MODULE"; then
-              echo "::error title=terraform-docs::$MODULE docs are out of date for a new/changed input or output. Run: terraform-docs markdown table --output-file README.md --output-mode inject $MODULE"
+              echo "::error title=terraform-docs::$MODULE docs are out of date for a new/changed input or output. Regenerate with terraform-docs ${TERRAFORM_DOCS_VERSION} (the version CI pins), after a terraform init in that module so the Providers table matches the lock file CI resolves: terraform-docs markdown table --output-file README.md --output-mode inject $MODULE"
               exit 1
             fi
           else
@@ -160,3 +160,16 @@ jobs:
         # Fails the PR if the on-disk terraform-* dirs, the release-config
         # packages, and the versions manifest fall out of sync.
         run: python3 scripts/check_module_drift.py
+
+      - name: Check MODULES.md catalog
+        # Skipped on release-please's own PRs: those bump .module-versions.json
+        # on a branch release-please rewrites, so the catalog is stale there by
+        # construction. The author login is checked as well as the branch name -
+        # head_ref is contributor-controlled, so the prefix alone would let any
+        # PR opt out of the catalog invariant by renaming its branch. The exact
+        # login, not user.type, for the same reason dependabot-automerge.yml
+        # pins 'dependabot[bot]': any bot would otherwise do.
+        if: >-
+          !(startsWith(github.head_ref, 'release-please--')
+            && github.event.pull_request.user.login == 'spartan-public-cicd[bot]')
+        run: python3 configs/generate_modules_catalog.py --check

@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 # Must be a superset of the called registry-publish.yml permissions
-# (contents: read, issues: write) — callers cap reusable-workflow grants.
+# (contents: read, issues: write) - callers cap reusable-workflow grants.
 permissions:
   contents: write
   pull-requests: write
@@ -76,15 +76,91 @@ jobs:
       version: ${{ fromJSON(needs.release.outputs.release_versions)[matrix.module] }}
     secrets: inherit
 
+  # needs publish for the same reason cascade does: a row must not advertise a
+  # version that failed to reach the registry. Ordered before cascade so the
+  # two writers to master cannot race - cascade pushes unconditionally.
+  catalog:
+    needs: [release, publish]
+    # The catalog mirrors .module-versions.json on master, which is the repo's
+    # record of what was released. Conditions, in order:
+    #   !cancelled()        - lifts the implicit success() so the dispatch
+    #                         repair path below can run with publish skipped;
+    #                         every dependency is then asserted by hand.
+    #   repository_owner    - a fork has no App credentials to push with.
+    #   release success     - never regenerate from a half-written manifest.
+    #   then either: this run published its modules, so their rows are live
+    #   (it cannot speak for a concurrent release already on master, and does
+    #   not try to), or a human dispatched a run to repair a catalog left
+    #   stale by a failed push - a rerun reports releases_created == 'false',
+    #   so without that branch the stale row would be permanent. 'skipped' and
+    #   not '!= failure': a cancelled publish can leave a manifest entry that
+    #   never reached the registry.
+    if: >-
+      !cancelled()
+      && github.repository_owner == 'c0x12c'
+      && needs.release.result == 'success'
+      && ((needs.release.outputs.releases_created == 'true' && needs.publish.result == 'success')
+          || (github.event_name == 'workflow_dispatch' && needs.publish.result == 'skipped'))
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create GitHub App Token
+        uses: actions/create-github-app-token@v3
+        id: github-app-token
+        with:
+          client-id: ${{ vars.GH_APP_CLIENT_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
+      - name: Checkout master
+        uses: actions/checkout@v7
+        with:
+          ref: master
+          token: ${{ steps.github-app-token.outputs.token }}
+
+      - name: Regenerate and commit MODULES.md
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Each attempt regenerates from whatever master holds right now. A
+          # rejected push means the manifest may have moved, so replaying the
+          # already-built commit would publish a catalog from the older
+          # manifest - green job, stale row.
+          for _ in 1 2 3; do
+            git fetch -q origin master
+            git reset -q --hard origin/master
+            python3 configs/generate_modules_catalog.py
+            if git diff --quiet -- MODULES.md; then
+              echo "MODULES.md already current"
+              exit 0
+            fi
+            git add MODULES.md
+            git commit -qm "chore: regenerate module catalog"
+            if git push; then
+              exit 0
+            fi
+          done
+          echo "::error title=catalog::could not push the regenerated MODULES.md after 3 attempts"
+          exit 1
+
   # Bump consuming parents so their next release re-pins this leaf
   # (docs/decisions/2026-06-07-release-cascade.md). Inert until the repo
   # variable CASCADE_ENABLED is 'true'; commits/pushes additionally require
-  # CASCADE_EXECUTE='true' — otherwise the run only prints planned bumps.
+  # CASCADE_EXECUTE='true' - otherwise the run only prints planned bumps.
   cascade:
     # needs publish: only cascade versions that are confirmed live on the
-    # R2 registry — a failed publish must not get pinned.
-    needs: [release, publish]
-    if: needs.release.outputs.releases_created == 'true' && vars.CASCADE_ENABLED == 'true'
+    # R2 registry - a failed publish must not get pinned.
+    needs: [release, publish, catalog]
+    # catalog is in needs for ORDERING only - it must not gate this. A catalog
+    # push that loses three races is recoverable by dispatch; a cascade that
+    # never runs is not, because a rerun reports releases_created == 'false'
+    # and the leaf silently keeps its stale pin in every consuming parent.
+    # publish is asserted explicitly, so !cancelled() can lift the implicit
+    # success() that would otherwise let catalog block this.
+    if: >-
+      !cancelled()
+      && needs.release.outputs.releases_created == 'true'
+      && vars.CASCADE_ENABLED == 'true'
+      && needs.publish.result == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Create GitHub App Token
