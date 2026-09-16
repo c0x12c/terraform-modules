@@ -129,22 +129,9 @@ jobs:
           echo "${TERRAFORM_DOCS_SHA256}  /tmp/terraform-docs.tgz" | sha256sum -c -
           tar -xzf /tmp/terraform-docs.tgz -C /tmp terraform-docs
 
-          # Guard: a changed module's docs must reflect its current inputs/outputs.
-          # No silent skip - adding/changing an input or output variable without
-          # regenerating the docs fails the PR. Modules with a .terraform-docs.yml
-          # use it; otherwise we require a README.md carrying the inject markers.
-          if [ -f "$MODULE/.terraform-docs.yml" ]; then
-            if ! /tmp/terraform-docs markdown table --output-check "$MODULE"; then
-              echo "::error title=terraform-docs::$MODULE docs are out of date. Regenerate with terraform-docs ${TERRAFORM_DOCS_VERSION} (the version CI pins) per its .terraform-docs.yml."
-              exit 1
-            fi
-          elif [ -f "$MODULE/README.md" ] && grep -q "BEGIN_TF_DOCS" "$MODULE/README.md"; then
-            if ! /tmp/terraform-docs markdown table --output-file README.md --output-mode inject --output-check "$MODULE"; then
-              echo "::error title=terraform-docs::$MODULE docs are out of date for a new/changed input or output. Regenerate with terraform-docs ${TERRAFORM_DOCS_VERSION} (the version CI pins), after a terraform init in that module so the Providers table matches the lock file CI resolves: terraform-docs markdown table --output-file README.md --output-mode inject $MODULE"
-              exit 1
-            fi
-          else
-            echo "::error title=terraform-docs::$MODULE has no .terraform-docs.yml and no README.md with <!-- BEGIN_TF_DOCS --> markers; cannot verify input/output docs. Add the markers (or a .terraform-docs.yml)."
+          # check_module_docs.py excludes Providers: see its module docstring.
+          if ! python3 scripts/check_module_docs.py "$MODULE" --terraform-docs /tmp/terraform-docs; then
+            echo "::error title=terraform-docs::$MODULE docs are out of date. Regenerate with terraform-docs ${TERRAFORM_DOCS_VERSION} (the version CI pins): terraform-docs markdown table --output-file README.md --output-mode inject $MODULE (or, for a module with its own .terraform-docs.yml, terraform-docs markdown table $MODULE)."
             exit 1
           fi
 
