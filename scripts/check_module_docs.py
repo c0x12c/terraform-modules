@@ -102,14 +102,19 @@ def main(argv=None) -> int:
     committed = readme_path.read_text(encoding="utf-8")
     committed_region = extract_marked_region(committed)
     if committed_region is None:
-        print(
-            "%s has no %s / %s markers in README.md; cannot verify "
-            "input/output docs. Add the markers (or a .terraform-docs.yml "
-            "with output.mode inject)."
-            % (module, BEGIN_MARKER, END_MARKER),
-            file=sys.stderr,
-        )
-        return 1
+        # A module whose .terraform-docs.yml sets output.mode: replace has no
+        # markers by design - terraform-docs owns the whole file, so the whole
+        # file is what to compare. Both configs in this repo use inject today;
+        # this keeps a future `replace` module from reading as undocumented.
+        if not (Path(module) / ".terraform-docs.yml").is_file():
+            print(
+                "%s has no %s / %s markers in README.md; cannot verify "
+                "input/output docs. Add the markers (or a .terraform-docs.yml)."
+                % (module, BEGIN_MARKER, END_MARKER),
+                file=sys.stderr,
+            )
+            return 1
+        committed_region = committed
 
     generated = run_terraform_docs(args.terraform_docs, module)
 

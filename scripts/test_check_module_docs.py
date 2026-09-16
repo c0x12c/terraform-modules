@@ -139,3 +139,31 @@ def test_providers_section_absent_from_both_passes(tmp_path):
     fake = make_fake_terraform_docs(tmp_path, NO_PROVIDERS_BODY)
     result = run_check(module_dir, fake)
     assert result.returncode == 0, result.stderr
+
+
+def make_replace_mode_module(tmp_path: Path, name: str, readme_body: str) -> Path:
+    """A module whose .terraform-docs.yml owns the whole README: no markers, and
+    the file IS the generated output."""
+    module_dir = tmp_path / name
+    module_dir.mkdir()
+    (module_dir / "README.md").write_text(readme_body, encoding="utf-8")
+    (module_dir / ".terraform-docs.yml").write_text(
+        "formatter: markdown table\noutput:\n  file: README.md\n  mode: replace\n",
+        encoding="utf-8",
+    )
+    return module_dir
+
+
+def test_replace_mode_module_without_markers_compares_whole_file(tmp_path):
+    module_dir = make_replace_mode_module(tmp_path, "terraform-aws-rds", BASE_BODY)
+    fake = make_fake_terraform_docs(tmp_path, BASE_BODY)
+    assert run_check(module_dir, fake).returncode == 0
+
+
+def test_replace_mode_module_still_catches_drift(tmp_path):
+    module_dir = make_replace_mode_module(tmp_path, "terraform-aws-rds", BASE_BODY)
+    drifted = BASE_BODY.replace(
+        "| name | Name of the thing | `string` | n/a | yes |\n", ""
+    )
+    fake = make_fake_terraform_docs(tmp_path, drifted)
+    assert run_check(module_dir, fake).returncode == 1
