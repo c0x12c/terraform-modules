@@ -23,6 +23,7 @@ from mirror_release import (
     EXIT_VALIDATE,
     assemble_r2_tree,
     module_to_registry,
+    rewrite_readme_text,
     rewrite_tf_text,
     upload_to_r2,
     _is_examples_path,
@@ -79,7 +80,7 @@ class MirrorReleasePureTests(unittest.TestCase):
             )  # sibling rewritten
             self.assertIn('version = "9.8.7"', main_tf)
             self.assertNotIn("../terraform-aws-network", main_tf)  # no leftover relative
-            # R2-only adds no mirror banner — README is byte-identical
+            # R2-only adds no mirror banner - README is byte-identical
             readme = (dest / "README.md").read_text(encoding="utf-8")
             self.assertEqual(readme, "rds module\n")
             # no git artifacts in the R2 tree
@@ -242,6 +243,56 @@ class MirrorReleasePureTests(unittest.TestCase):
                 "c0x12c",
                 rel_path="main.tf",
             )
+
+    def test_readme_sibling_row_is_rewritten(self):
+        text = (
+            "## Modules\n\n"
+            "| Name | Source | Version |\n"
+            "|------|--------|---------|\n"
+            '| <a name="module_provider"></a> [provider](#module\\_provider) | ../terraform-aws-oidc-provider | n/a |\n'
+        )
+        manifest = {"terraform-aws-oidc-provider": "2.1.0"}
+        result = rewrite_readme_text(text, manifest, "c0x12c")
+        self.assertIn(
+            '| <a name="module_provider"></a> [provider](#module\\_provider) | '
+            "terraform.c0x12c.com/c0x12c/oidc-provider/aws | 2.1.0 |\n",
+            result,
+        )
+        self.assertNotIn("../terraform-aws-oidc-provider", result)
+
+    def test_readme_registry_source_row_untouched(self):
+        text = (
+            "## Modules\n\n"
+            "| Name | Source | Version |\n"
+            "|------|--------|---------|\n"
+            '| <a name="module_provider"></a> [provider](#module\\_provider) | c0x12c/oidc-provider/aws | 2.1.0 |\n'
+        )
+        result = rewrite_readme_text(text, {}, "c0x12c")
+        self.assertEqual(result, text)
+
+    def test_readme_non_module_table_untouched(self):
+        text = (
+            "## Resources\n\n"
+            "| Name | Type |\n"
+            "|------|------|\n"
+            "| [aws_instance.this](https://example.com) | resource |\n"
+        )
+        result = rewrite_readme_text(text, {}, "c0x12c")
+        self.assertEqual(result, text)
+
+    def test_readme_missing_manifest_entry_raises(self):
+        text = (
+            '| <a name="module_provider"></a> [provider](#module\\_provider) | ../terraform-aws-oidc-provider | n/a |\n'
+        )
+        with self.assertRaisesRegex(Exception, "manifest-missing"):
+            rewrite_readme_text(text, {}, "c0x12c")
+
+    def test_readme_examples_dir_untouched(self):
+        text = (
+            '| <a name="module_provider"></a> [provider](#module\\_provider) | ../terraform-aws-oidc-provider | n/a |\n'
+        )
+        result = rewrite_readme_text(text, {}, "c0x12c", rel_path="examples/complete/README.md")
+        self.assertEqual(result, text)
 
 
 class MirrorReleaseCliTests(unittest.TestCase):
