@@ -145,7 +145,13 @@ jobs:
     # needs publish: only cascade versions that are confirmed live on the
     # R2 registry - a failed publish must not get pinned.
     needs: [release, publish, catalog]
-    if: needs.release.outputs.releases_created == 'true' && vars.CASCADE_ENABLED == 'true'
+    # catalog's result is asserted explicitly, like publish's above, rather
+    # than relying on the implicit success() a custom if is documented to
+    # keep. Cheaper to state than to be wrong about.
+    if: >-
+      needs.release.outputs.releases_created == 'true'
+      && vars.CASCADE_ENABLED == 'true'
+      && needs.catalog.result == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Create GitHub App Token
