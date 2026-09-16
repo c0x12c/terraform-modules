@@ -35,6 +35,9 @@ def describe(tmp_path, monkeypatch, body):
     # a fenced usage block must not become the description
     ('## Usage\n\n```hcl\nmodule "main" {\n  source = "x"\n}\n```\n\nCreates a thing here.\n',
      "Creates a thing here."),
+    # markdown fences can be tildes, and prose inside one is still code
+    ('## Usage\n\n~~~hcl\nThis line looks like prose but is inside a fence\n~~~\n\nCreates a thing here.\n',
+     "Creates a thing here."),
     # ... nor an unfenced one: terraform-aws-ses-monitoring has no fences
     ('## Usage\n\nmodule "main" {\n  source  = "registry/x/aws"\n  version = "1.0.0"\n}\n',
      ""),

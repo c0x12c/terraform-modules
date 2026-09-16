@@ -53,7 +53,7 @@ def description(module: str) -> str:
     fenced = False
     for raw in readme.read_text(encoding="utf-8").splitlines():
         line = raw.strip()
-        if line.startswith("```"):
+        if line.startswith(("```", "~~~")):
             fenced = not fenced
             continue
         if fenced or line in SKIP_EXACT or not looks_like_prose(line):

@@ -20,10 +20,13 @@ permissions:
   pull-requests: write
   issues: write
 
-# Two jobs here push to master (catalog, cascade) and cascade pushes once
-# with no rebase, so overlapping runs can reject its push and silently cost
-# a leaf its dependency bumps. Queue runs instead of cancelling: every run
-# corresponds to a real master commit and must get its release.
+# Two jobs here push to master (catalog, cascade) and cascade pushes once with
+# no rebase, so overlapping runs can reject its push and silently cost a leaf
+# its dependency bumps. GitHub holds one running and one pending run per group,
+# and a newer push replaces the pending one - so bursts coalesce rather than
+# queue. That is safe here: release-please derives releases from the whole
+# commit history, not from the triggering commit, so the surviving run covers
+# the commits of any run it replaced.
 concurrency:
   group: module-release
   cancel-in-progress: false
@@ -127,7 +130,10 @@ jobs:
             git fetch -q origin master
             git reset -q --hard origin/master
             python3 configs/generate_modules_catalog.py
-            if git diff --quiet -- MODULES.md; then
+            # --porcelain, not `git diff`: if MODULES.md were ever absent from
+            # master the generator recreates it UNTRACKED, which git diff
+            # cannot see, and the job would exit without pushing it.
+            if [ -z "$(git status --porcelain -- MODULES.md)" ]; then
               echo "MODULES.md already current"
               exit 0
             fi
