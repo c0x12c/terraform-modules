@@ -81,19 +81,22 @@ jobs:
   # two writers to master cannot race - cascade pushes unconditionally.
   catalog:
     needs: [release, publish]
-    # The catalog mirrors .module-versions.json on master; that manifest is the
-    # repo's record of what was released. needs publish so THIS run's modules
-    # are live before their rows appear - it cannot speak for a concurrent
-    # release whose manifest entry is already on master, and does not try to.
-    # publish's result is asserted explicitly rather than leaning on the
-    # implicit success() a custom if is documented to keep.
-    # !cancelled() rather than the implicit success(): this must be able to run
-    # on a manual dispatch where `publish` was skipped, which is the repair path
-    # for a catalog left stale by a failed push. A rerun after the release
-    # already exists reports releases_created == 'false', so gating recovery on
-    # that output alone would make the stale row permanent.
+    # The catalog mirrors .module-versions.json on master, which is the repo's
+    # record of what was released. Conditions, in order:
+    #   !cancelled()        - lifts the implicit success() so the dispatch
+    #                         repair path below can run with publish skipped;
+    #                         every dependency is then asserted by hand.
+    #   repository_owner    - a fork has no App credentials to push with.
+    #   release success     - never regenerate from a half-written manifest.
+    #   then either: this run published its modules, so their rows are live
+    #   (it cannot speak for a concurrent release already on master, and does
+    #   not try to), or a human dispatched a run to repair a catalog left
+    #   stale by a failed push - a rerun reports releases_created == 'false',
+    #   so without that branch the stale row would be permanent.
     if: >-
       !cancelled()
+      && github.repository_owner == 'c0x12c'
+      && needs.release.result == 'success'
       && ((needs.release.outputs.releases_created == 'true' && needs.publish.result == 'success')
           || (github.event_name == 'workflow_dispatch' && needs.publish.result != 'failure'))
     runs-on: ubuntu-latest
@@ -145,13 +148,17 @@ jobs:
     # needs publish: only cascade versions that are confirmed live on the
     # R2 registry - a failed publish must not get pinned.
     needs: [release, publish, catalog]
-    # catalog's result is asserted explicitly, like publish's above, rather
-    # than relying on the implicit success() a custom if is documented to
-    # keep. Cheaper to state than to be wrong about.
+    # catalog is in needs for ORDERING only - it must not gate this. A catalog
+    # push that loses three races is recoverable by dispatch; a cascade that
+    # never runs is not, because a rerun reports releases_created == 'false'
+    # and the leaf silently keeps its stale pin in every consuming parent.
+    # publish is asserted explicitly, so !cancelled() can lift the implicit
+    # success() that would otherwise let catalog block this.
     if: >-
-      needs.release.outputs.releases_created == 'true'
+      !cancelled()
+      && needs.release.outputs.releases_created == 'true'
       && vars.CASCADE_ENABLED == 'true'
-      && needs.catalog.result == 'success'
+      && needs.publish.result == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Create GitHub App Token

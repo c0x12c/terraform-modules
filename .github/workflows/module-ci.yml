@@ -164,10 +164,12 @@ jobs:
       - name: Check MODULES.md catalog
         # Skipped on release-please's own PRs: those bump .module-versions.json
         # on a branch release-please rewrites, so the catalog is stale there by
-        # construction. The author is checked as well as the branch name -
+        # construction. The author login is checked as well as the branch name -
         # head_ref is contributor-controlled, so the prefix alone would let any
-        # PR opt out of the catalog invariant by renaming its branch.
+        # PR opt out of the catalog invariant by renaming its branch. The exact
+        # login, not user.type, for the same reason dependabot-automerge.yml
+        # pins 'dependabot[bot]': any bot would otherwise do.
         if: >-
           !(startsWith(github.head_ref, 'release-please--')
-            && github.event.pull_request.user.type == 'Bot')
+            && github.event.pull_request.user.login == 'spartan-public-cicd[bot]')
         run: python3 configs/generate_modules_catalog.py --check
