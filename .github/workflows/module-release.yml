@@ -20,6 +20,14 @@ permissions:
   pull-requests: write
   issues: write
 
+# Two jobs here push to master (catalog, cascade) and cascade pushes once
+# with no rebase, so overlapping runs can reject its push and silently cost
+# a leaf its dependency bumps. Queue runs instead of cancelling: every run
+# corresponds to a real master commit and must get its release.
+concurrency:
+  group: module-release
+  cancel-in-progress: false
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -82,25 +90,15 @@ jobs:
   catalog:
     needs: [release, publish]
     # The catalog mirrors .module-versions.json on master, which is the repo's
-    # record of what was released. Conditions, in order:
-    #   !cancelled()        - lifts the implicit success() so the dispatch
-    #                         repair path below can run with publish skipped;
-    #                         every dependency is then asserted by hand.
-    #   repository_owner    - a fork has no App credentials to push with.
-    #   release success     - never regenerate from a half-written manifest.
-    #   then either: this run published its modules, so their rows are live
-    #   (it cannot speak for a concurrent release already on master, and does
-    #   not try to), or a human dispatched a run to repair a catalog left
-    #   stale by a failed push - a rerun reports releases_created == 'false',
-    #   so without that branch the stale row would be permanent. 'skipped' and
-    #   not '!= failure': a cancelled publish can leave a manifest entry that
-    #   never reached the registry.
+    # record of what was released. Runs only for a release whose modules this
+    # run published: a skipped or cancelled publish is not evidence the
+    # manifest's versions are live, and proving that would mean querying the
+    # registry per row. A catalog left stale by a failed push is caught by the
+    # drift check on the next PR - it is one generated file to regenerate.
     if: >-
-      !cancelled()
-      && github.repository_owner == 'c0x12c'
-      && needs.release.result == 'success'
-      && ((needs.release.outputs.releases_created == 'true' && needs.publish.result == 'success')
-          || (github.event_name == 'workflow_dispatch' && needs.publish.result == 'skipped'))
+      github.repository_owner == 'c0x12c'
+      && needs.release.outputs.releases_created == 'true'
+      && needs.publish.result == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Create GitHub App Token
@@ -150,12 +148,13 @@ jobs:
     # needs publish: only cascade versions that are confirmed live on the
     # R2 registry - a failed publish must not get pinned.
     needs: [release, publish, catalog]
-    # catalog is in needs for ORDERING only - it must not gate this. A catalog
-    # push that loses three races is recoverable by dispatch; a cascade that
-    # never runs is not, because a rerun reports releases_created == 'false'
-    # and the leaf silently keeps its stale pin in every consuming parent.
-    # publish is asserted explicitly, so !cancelled() can lift the implicit
-    # success() that would otherwise let catalog block this.
+    # catalog is in needs for ORDERING only - it must not gate this. A stale
+    # catalog is visible (the drift check reds the next PR) and is one file to
+    # regenerate; a cascade that never runs is neither, because a rerun reports
+    # releases_created == 'false' and the leaf silently keeps its stale pin in
+    # every consuming parent. !cancelled() lifts the implicit success() that
+    # would otherwise let a failed catalog skip this; publish, the dependency
+    # that does matter here, is asserted explicitly.
     if: >-
       !cancelled()
       && needs.release.outputs.releases_created == 'true'
