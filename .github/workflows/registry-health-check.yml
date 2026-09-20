@@ -75,7 +75,7 @@ jobs:
         # An unset webhook must never fail the alerting job: failing here would silence
         # the very alert the job exists to deliver.
         if: failure() && env.SLACK_WEBHOOK != ''
-        uses: c0x12c/gh-actions-slack-notify@v0.3.0
+        uses: c0x12c/gh-actions-slack-notify@v0.5.0
         with:
           webhook_url: ${{ env.SLACK_WEBHOOK }}
           title: '🟠 *Registry coverage check failed*'
