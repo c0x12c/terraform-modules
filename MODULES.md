@@ -65,7 +65,7 @@ module "example" {
 | `terraform-aws-openvpn` | `terraform.c0x12c.com/c0x12c/openvpn/aws` | 0.6.3 | Terraform module which creates OpenVPN to access internal VPC network. |
 | `terraform-aws-password-generator` | `terraform.c0x12c.com/c0x12c/password-generator/aws` | 0.2.0 | Module which generates password then stores to Secret Manager. |
 | `terraform-aws-password-policy` | `terraform.c0x12c.com/c0x12c/password-policy/aws` | 0.1.52 | This module configures an IAM account password policy in AWS, enforcing security requirements such as minimum |
-| `terraform-aws-rds` | `terraform.c0x12c.com/c0x12c/rds/aws` | 1.1.2 | Terraform module which creates RDS resources on AWS. |
+| `terraform-aws-rds` | `terraform.c0x12c.com/c0x12c/rds/aws` | 1.2.0 | Terraform module which creates RDS resources on AWS. |
 | `terraform-aws-rds-cluster` | `terraform.c0x12c.com/c0x12c/rds-cluster/aws` | 0.1.0 | Terraform module which provisions an Amazon RDS cluster on AWS. A single module supports both **Aurora** cl... |
 | `terraform-aws-route53` | `terraform.c0x12c.com/c0x12c/route53/aws` | 0.1.14 | Terraform module which creates Route53 resources on AWS. |
 | `terraform-aws-s3` | `terraform.c0x12c.com/c0x12c/s3/aws` | 1.3.0 | Terraform module which creates S3 resources on AWS. |
