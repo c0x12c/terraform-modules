@@ -44,7 +44,7 @@ module "example" {
 | `terraform-aws-health-notification` | `terraform.c0x12c.com/c0x12c/health-notification/aws` | 0.3.1 | Delivers AWS Health Dashboard events to Slack, email, or any SNS subscriber. |
 | `terraform-aws-helm-argocd` | `terraform.c0x12c.com/c0x12c/helm-argocd/aws` | 1.8.0 | Terraform module which install an ArgoCD to EKS cluster and configure the necessary role and permissions. |
 | `terraform-aws-helm-aws-lb-controller` | `terraform.c0x12c.com/c0x12c/helm-aws-lb-controller/aws` | 1.2.1 | Terraform module which install an ALB Controller to EKS cluster and configure the necessary role and permis... |
-| `terraform-aws-helm-datadog` | `terraform.c0x12c.com/c0x12c/helm-datadog/aws` | 0.10.1 | This module helps install and configure Datadog agents for EKS cluster via Helm chart. |
+| `terraform-aws-helm-datadog` | `terraform.c0x12c.com/c0x12c/helm-datadog/aws` | 0.11.0 | This module helps install and configure Datadog agents for EKS cluster via Helm chart. |
 | `terraform-aws-helm-devlake` | `terraform.c0x12c.com/c0x12c/helm-devlake/aws` | 0.1.1 | Installs and configures Apache DevLake on an EKS cluster via its Helm chart. |
 | `terraform-aws-helm-jenkins` | `terraform.c0x12c.com/c0x12c/helm-jenkins/aws` | 1.1.0 | This module helps install and configure Jenkins via Helm chart. |
 | `terraform-aws-helm-keda` | `terraform.c0x12c.com/c0x12c/helm-keda/aws` | 1.1.0 | This Terraform module is used to deploy the Keda Helm chart on an AWS EKS cluster. |
