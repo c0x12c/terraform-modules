@@ -1,6 +1,13 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## [0.11.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-helm-datadog/v0.10.1...terraform-aws-helm-datadog/v0.11.0) (2026-09-21)
+
+
+### Features
+
+* **helm-datadog:** add ignore_auto_config input ([#356](https://github.com/c0x12c/terraform-modules/issues/356)) ([1779582](https://github.com/c0x12c/terraform-modules/commit/1779582e4c9b5bd3c71a122af5c45aedcde0562c))
+
 ## [0.10.1](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-helm-datadog/v0.10.0...terraform-aws-helm-datadog/v0.10.1) (2026-07-08)
 
 
