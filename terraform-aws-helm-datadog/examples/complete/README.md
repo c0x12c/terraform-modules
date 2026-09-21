@@ -1,12 +1,14 @@
-# Requirements
+# Example: complete
 
-In order to use this module we need an existing EKS cluster.
+This example shows every input the module accepts, set to a realistic value. Use it as a reference for the full range of configuration options, not as a template to copy verbatim.
 
-# Usage
+## Requirements
 
-To run this example you need to execute:
+An existing EKS cluster and Datadog API/app keys.
 
-```
-$ terraform init
-$ terraform plan
+## Usage
+
+```bash
+terraform init
+terraform plan
 ```

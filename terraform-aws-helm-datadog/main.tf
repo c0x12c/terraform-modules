@@ -16,17 +16,16 @@ datadog:
   %{if var.container_include != null}
   containerInclude: ${var.container_include}
   %{endif}
+  %{if length(var.ignore_auto_config) > 0}
+  ignoreAutoConfig: ${jsonencode(var.ignore_auto_config)}
+  %{endif}
 agents:
   enabled: ${var.enabled_agent}
 clusterAgent:
   enabled: ${var.enabled_cluster_agent}
   metricsProvider:
     enabled: ${var.enabled_metric_provider}
-  env:
-%{~for env in var.datadog_envs}
-    - name: ${env.name}
-      value: ${yamlencode(env.value)}
-%{~endfor~}
+  env: ${jsonencode(var.datadog_envs)}
   confd:
     http_check.yaml: |-
       cluster_check: ${var.enabled_cluster_check}
