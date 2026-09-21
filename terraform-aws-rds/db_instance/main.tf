@@ -35,8 +35,18 @@ resource "aws_db_instance" "this" {
   enabled_cloudwatch_logs_exports = var.cloudwatch_exported_log_types
 
   lifecycle {
+    # storage_type is deliberately absent. This resource sets it from a caller input, so
+    # ignoring it made that input write-once: an apply moving storage_type from gp2 to gp3
+    # reported success and left the volume on gp2.
+    #
+    # final_snapshot_identifier has to stay - the root module derives it from timestamp(), so
+    # it would report an update on every plan. It is read only at destroy time.
+    #
+    # iops is never set by this module, and an unset optional+computed attribute produces no
+    # diff whether or not it is listed here. max_allocated_storage IS set from a caller input
+    # and carries the same write-once defect storage_type had; it stays ignored so that this
+    # change moves exactly one attribute.
     ignore_changes = [
-      storage_type,
       iops,
       max_allocated_storage,
       final_snapshot_identifier

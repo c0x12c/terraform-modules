@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-rds/v1.1.2...terraform-aws-rds/v1.2.0) (2026-09-21)
+
+
+### Features
+
+* **terraform-aws-rds:** manage storage_type on existing instances ([#358](https://github.com/c0x12c/terraform-modules/issues/358))
+
 ## [1.1.2](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-rds/v1.1.1...terraform-aws-rds/v1.1.2) (2026-09-15)
 
 
