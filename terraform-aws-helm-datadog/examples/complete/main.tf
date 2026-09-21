@@ -31,8 +31,8 @@ module "datadog" {
   http_check_urls = ["https://example.com/health"]
 
   datadog_envs = [{
-    name  = "DD_EKS_FARGATE"
-    value = "true"
+    name  = "DD_LOG_LEVEL"
+    value = "warn"
   }]
 
   extra_confd = {

@@ -9,7 +9,7 @@ This module helps install and configure Datadog agents for EKS cluster via Helm 
 ```hcl
 module "datadog" {
   source  = "terraform.c0x12c.com/c0x12c/helm-datadog/aws"
-  version = "0.10.0"
+  version = "0.11.0"
 
   environment  = var.environment
   cluster_name = "your-cluster-name"
@@ -55,7 +55,7 @@ Use `extra_confd` to inject additional cluster-agent confd files without forking
 ```hcl
 module "datadog" {
   source  = "terraform.c0x12c.com/c0x12c/helm-datadog/aws"
-  version = "0.10.0"
+  version = "0.11.0"
 
   environment  = var.environment
   cluster_name = var.cluster_name
@@ -85,7 +85,7 @@ Use `ignore_auto_config` to stop the node agent from auto-scraping an integratio
 ```hcl
 module "datadog" {
   source  = "terraform.c0x12c.com/c0x12c/helm-datadog/aws"
-  version = "0.10.0"
+  version = "0.11.0"
 
   environment  = var.environment
   cluster_name = var.cluster_name
