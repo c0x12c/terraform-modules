@@ -42,6 +42,12 @@ variable "extra_confd" {
   default     = {}
 }
 
+variable "ignore_auto_config" {
+  description = "Names of auto-configured integrations to skip (rendered as datadog.ignoreAutoConfig, which sets DD_IGNORE_AUTOCONF on the node agent). Example: [\"datadog_cluster_agent\"] stops the node agent auto-scraping the cluster agent's own /metrics."
+  type        = list(string)
+  default     = []
+}
+
 variable "timeout" {
   description = "Default timeout of datadog"
   default     = 1200

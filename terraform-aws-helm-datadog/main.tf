@@ -16,6 +16,9 @@ datadog:
   %{if var.container_include != null}
   containerInclude: ${var.container_include}
   %{endif}
+  %{if length(var.ignore_auto_config) > 0}
+  ignoreAutoConfig: ${jsonencode(var.ignore_auto_config)}
+  %{endif}
 agents:
   enabled: ${var.enabled_agent}
 clusterAgent:

@@ -78,6 +78,26 @@ module "datadog" {
 }
 ```
 
+### Skipping auto-configured checks (ignore_auto_config)
+
+Use `ignore_auto_config` to stop the node agent from auto-scraping an integration it detects on its own, for example the cluster agent's own `/metrics` endpoint.
+
+```hcl
+module "datadog" {
+  source  = "terraform.c0x12c.com/c0x12c/helm-datadog/aws"
+  version = "0.10.0"
+
+  environment  = var.environment
+  cluster_name = var.cluster_name
+
+  datadog_site    = var.datadog_site
+  datadog_api_key = var.datadog_api_key
+  datadog_app_key = var.datadog_app_key
+
+  ignore_auto_config = ["datadog_cluster_agent"]
+}
+```
+
 ## Examples
 
 - [Example](./examples/complete/)
@@ -89,6 +109,7 @@ module "datadog" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.8 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | ~> 3.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | >=3.6 |
 
@@ -96,8 +117,8 @@ module "datadog" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_helm"></a> [helm](#provider\_helm) | 3.2.0 |
-| <a name="provider_random"></a> [random](#provider\_random) | 3.9.0 |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | ~> 3.0 |
+| <a name="provider_random"></a> [random](#provider\_random) | >=3.6 |
 
 ## Modules
 
@@ -134,6 +155,7 @@ No modules.
 | <a name="input_fullname_override"></a> [fullname\_override](#input\_fullname\_override) | To override the fullname of the datadog chart | `string` | `null` | no |
 | <a name="input_helm_release_name"></a> [helm\_release\_name](#input\_helm\_release\_name) | The Helm release of the services. | `string` | `"datadog"` | no |
 | <a name="input_http_check_urls"></a> [http\_check\_urls](#input\_http\_check\_urls) | The list of urls for http check | `list(string)` | `[]` | no |
+| <a name="input_ignore_auto_config"></a> [ignore\_auto\_config](#input\_ignore\_auto\_config) | Names of auto-configured integrations to skip (rendered as datadog.ignoreAutoConfig, which sets DD\_IGNORE\_AUTOCONF on the node agent). Example: ["datadog\_cluster\_agent"] stops the node agent auto-scraping the cluster agent's own /metrics. | `list(string)` | `[]` | no |
 | <a name="input_name_override"></a> [name\_override](#input\_name\_override) | To override the name of the datadog chart | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | The Namespace of the services. | `string` | `"datadog"` | no |
 | <a name="input_node_selector"></a> [node\_selector](#input\_node\_selector) | Node selector for the ingress controller | `map(string)` | `{}` | no |
