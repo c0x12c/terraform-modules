@@ -100,8 +100,13 @@ module "datadog" {
 
 ## Examples
 
-- [Example](./examples/complete/)
-- [Extra confd example](./examples/with-extra-confd/)
+- [minimal](./examples/minimal/) - only the required inputs, everything else defaulted
+- [complete](./examples/complete/) - every input the module accepts, set to a realistic value
+- [with-http-checks](./examples/with-http-checks/) - HTTP checks run once as a cluster check
+- [with-log-collection](./examples/with-log-collection/) - log collection with a namespace exclusion
+- [ignore-auto-config](./examples/ignore-auto-config/) - skip an auto-configured integration
+- [dedicated-nodes](./examples/dedicated-nodes/) - pin the agents to a tainted node group
+- [with-extra-confd](./examples/with-extra-confd/) - inject a custom cluster-agent confd file
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
