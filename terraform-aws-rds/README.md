@@ -36,6 +36,53 @@ break greenfield creates later with no change on your side. Pinning the value in
 config is the only way to control when the engine version moves.
 `db.t4g.micro` on `gp3` is the cheapest orderable combination for a scratch instance.
 
+## `storage_type` changes now reach the instance
+
+Read this before upgrading an existing database past 1.1.2.
+
+`db_instance` listed `storage_type` in `ignore_changes`, so Terraform never generated a diff
+for it: whatever an instance was created with is what it kept. Setting `storage_type = "gp3"`
+on a gp2 instance produced a clean plan and a green apply and left the volume on gp2 - the
+declaration changed, the storage did not. The same held for every read replica, which takes
+`storage_type` from the same input.
+
+The module's interface is unchanged: no input was added, removed or re-defaulted, and no
+output moved. Existing configuration keeps working exactly as written. What changed is that
+the value you already wrote is now acted on.
+
+### What you will see
+
+The first `plan` after upgrading reports an in-place update on any instance whose real storage
+type differs from your config - one per instance, one per replica. Nothing is replaced; the
+plan ends in `0 to destroy`.
+
+Check what each instance is actually running before you upgrade:
+
+```bash
+aws rds describe-db-instances \
+  --db-instance-identifier <your-instance> \
+  --query 'DBInstances[0].[StorageType,AllocatedStorage,MaxAllocatedStorage]' --output text
+```
+
+If `StorageType` matches your config, the upgrade is invisible. If it does not, decide which
+side is right: set `storage_type` to what the instance runs today to keep things as they are,
+or leave your config and let the apply convert the volume.
+
+There is no flag for the old behaviour. `ignore_changes` accepts a static list only - Terraform
+rejects a `var.` reference there with "A static list expression is required" - so an attribute
+is either managed or it is not.
+
+### If you take the storage change
+
+`apply_immediately` defaults to `true` here, so the modification starts when you apply rather
+than in the next maintenance window. A gp2 to gp3 conversion is online - AWS performs it
+without a restart, though write latency can rise while it runs - but RDS then holds the volume
+in `storage-optimization`, which can take hours and blocks further storage modifications until
+it clears. Convert one instance at a time, and do not queue a `disk_size` change behind it.
+
+`max_allocated_storage` is still ignored, and still write-once. It has the same defect and is
+left for a separate change.
+
 ## Upgrading to 1.0.0
 
 Two defaults changed. Together they make a major engine upgrade something you ask for rather
