@@ -40,7 +40,7 @@ Email, https, lambda and sqs need no setup. No paid AWS Support plan required.
 ```hcl
 module "health_notification" {
   source  = "terraform.c0x12c.com/c0x12c/health-notification/aws"
-  version = "~> 0.3"
+  version = "~> 0.4"
 
   name = "example"
 
