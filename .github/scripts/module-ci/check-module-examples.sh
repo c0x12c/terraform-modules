@@ -5,8 +5,8 @@
 # change that breaks or outdates an example is caught here. A module with no examples only warns:
 # modules predating the rule should not block an unrelated fix on writing a first example.
 #
-# Usage: scripts/check_module_examples.sh <module-dir>
-set -uo pipefail
+# Usage: .github/scripts/module-ci/check-module-examples.sh <module-dir>
+set -euo pipefail
 
 module="${1:?usage: $0 <module-dir>}"
 

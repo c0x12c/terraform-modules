@@ -111,7 +111,7 @@ jobs:
         env:
           MODULE: ${{ matrix.module }}
         shell: bash
-        run: scripts/check_module_examples.sh "$MODULE"
+        run: .github/scripts/module-ci/check-module-examples.sh "$MODULE"
 
       - name: Set up TFLint
         uses: terraform-linters/setup-tflint@v6
