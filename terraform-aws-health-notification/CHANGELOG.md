@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-health-notification/v0.3.1...terraform-aws-health-notification/v0.4.0) (2026-09-22)
+
+
+### Features
+
+* **terraform-aws-health-notification:** make delivery alarm OK notifications opt-in ([#360](https://github.com/c0x12c/terraform-modules/issues/360)) ([a327911](https://github.com/c0x12c/terraform-modules/commit/a3279113e777e3910c1f9e189121241585c1d2bf))
+
 ## [0.3.1](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-health-notification/v0.3.0...terraform-aws-health-notification/v0.3.1) (2026-09-14)
 
 
