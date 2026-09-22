@@ -39,16 +39,6 @@ terraform-<provider>-<name>/
   exact version pin at release time — never hardcode the registry source for a
   sibling in-repo.
 
-## CI scripts
-
-Shell logic in a workflow step lives in a script, not inline in `run:`. Keep
-`run:` to at most 3 plain commands; anything longer, or with `if`/`for`/`while`/
-`case`/functions/heredocs, goes to
-`.github/scripts/<workflow-name>/<verb>-<noun>.sh` (kebab-case, one per step,
-`#!/usr/bin/env bash` + `set -euo pipefail`, executable, shellcheck-clean, inputs
-via `env:` or args - never `${{ }}` inside the script). Copilot review applies
-the same rules from `.github/instructions/github-actions.instructions.md`.
-
 ## Local checks
 
 CI runs `terraform fmt -check`, `terraform validate`, `tflint`, and a
