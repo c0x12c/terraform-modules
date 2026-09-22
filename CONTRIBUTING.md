@@ -42,7 +42,8 @@ terraform-<provider>-<name>/
 ## Local checks
 
 CI runs `terraform fmt -check`, `terraform validate`, `tflint`, and a
-`terraform-docs` check for every changed module.
+`terraform-docs` check for every changed module, and `terraform validate` in
+each of its `examples/*/` directories (a module with no examples only warns).
 
 `pre-commit` is configured per module, not at the repo root, so run it from
 inside the module you changed:
