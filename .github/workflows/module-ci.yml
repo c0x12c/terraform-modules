@@ -107,6 +107,32 @@ jobs:
         shell: bash
         run: terraform -chdir="$MODULE" validate -no-color
 
+      # The module root validating says nothing about examples/, which consumers copy first.
+      # Every example dir is validated so an input change that breaks or outdates one fails here.
+      - name: Validate examples
+        env:
+          MODULE: ${{ matrix.module }}
+        shell: bash
+        run: |
+          shopt -s nullglob
+          examples=("$MODULE"/examples/*/)
+          # Warn rather than fail: 20 modules predate the rule, and blocking an unrelated fix on
+          # writing a first example would stall it. A broken existing example still fails.
+          if [ ${#examples[@]} -eq 0 ]; then
+            echo "::warning title=examples::$MODULE has no examples/ directory. CONTRIBUTING.md requires at least one runnable example."
+            exit 0
+          fi
+          status=0
+          for dir in "${examples[@]}"; do
+            echo "::group::$dir"
+            if ! terraform -chdir="$dir" init -backend=false -input=false || ! terraform -chdir="$dir" validate -no-color; then
+              echo "::error title=examples::$dir does not validate."
+              status=1
+            fi
+            echo "::endgroup::"
+          done
+          exit $status
+
       - name: Set up TFLint
         uses: terraform-linters/setup-tflint@v6
 
