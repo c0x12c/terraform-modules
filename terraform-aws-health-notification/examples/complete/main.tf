@@ -25,6 +25,9 @@ module "health_notification" {
 
   enable_heartbeat      = true
   enable_delivery_alarm = true
+  # Off by default: the failure metric is absent on a healthy topic, so OK actions would post a
+  # "nothing is wrong" message on creation and after every incident.
+  enable_ok_actions = false
 
   tags = {
     Environment = "dev"

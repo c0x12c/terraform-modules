@@ -24,7 +24,7 @@ resource "aws_cloudwatch_metric_alarm" "delivery_failures" {
   comparison_operator = "GreaterThanOrEqualToThreshold"
   treat_missing_data  = "notBreaching"
   alarm_actions       = [local.sns_topic_arn]
-  ok_actions          = [local.sns_topic_arn]
+  ok_actions          = var.enable_ok_actions ? [local.sns_topic_arn] : []
 
   dimensions = {
     TopicName = local.alarm_topic_name

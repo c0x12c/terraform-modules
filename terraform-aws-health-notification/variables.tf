@@ -224,3 +224,9 @@ variable "enable_delivery_alarm" {
   type        = bool
   default     = false
 }
+
+variable "enable_ok_actions" {
+  description = "Whether the delivery alarm also notifies the topic when it returns to OK. NumberOfNotificationsFailed publishes no datapoints on a healthy topic, so with ok_actions set the alarm posts an INSUFFICIENT_DATA -> OK message on creation, on every replacement and after every incident - a 'nothing is wrong' message on an alert channel. Off by default; alarm_actions alone reports the failures."
+  type        = bool
+  default     = false
+}
