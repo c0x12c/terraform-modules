@@ -28,6 +28,11 @@ terraform-<provider>-<name>/
   `terraform.c0x12c.com/c0x12c/<name>/<provider>`.
 - **Provider versions:** pin an upper bound when a provider release can break
   the schema — a floating `>= x` can fail `validate` with no change on our side.
+- **Examples track every change:** a PR that adds or changes an input, output
+  or default also updates `examples/` to exercise it - set the new input
+  explicitly, with a one-line comment when the default is the point. The
+  example is the first thing a consumer copies; an input it never shows is
+  an input nobody discovers. Run `terraform validate` in the example dir.
 - **Sibling dependencies:** reference another module by **relative path**
   (`source = "../terraform-<provider>-<name>"`) so cross-module changes are
   testable in one PR. The publish job rewrites it to a registry source with an
