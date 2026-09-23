@@ -19,7 +19,7 @@ module "example" {
 | `terraform-aws-cloudfront-logging` | `terraform.c0x12c.com/c0x12c/cloudfront-logging/aws` | 0.1.0 |  |
 | `terraform-aws-cloudtrail` | `terraform.c0x12c.com/c0x12c/cloudtrail/aws` | 0.7.0 | Terraform module which creates external AWS CloudTrail resources: |
 | `terraform-aws-cloudwatch-alarm` | `terraform.c0x12c.com/c0x12c/cloudwatch-alarm/aws` | 0.8.0 | Terraform module which creates Amazon CloudWatch Alarm resources. |
-| `terraform-aws-datasync-s3` | `terraform.c0x12c.com/c0x12c/datasync-s3/aws` | 0.0.0 | Terraform module which copies one S3 bucket to another with AWS DataSync, including the IAM role, both loca... |
+| `terraform-aws-datasync-s3` | `terraform.c0x12c.com/c0x12c/datasync-s3/aws` | 0.1.0 | Terraform module which copies one S3 bucket to another with AWS DataSync, including the IAM role, both loca... |
 | `terraform-aws-documentdb` | `terraform.c0x12c.com/c0x12c/documentdb/aws` | 0.1.1 | Terraform module which provisions an Amazon DocumentDB (MongoDB-compatible) cluster on AWS. |
 | `terraform-aws-ec2` | `terraform.c0x12c.com/c0x12c/ec2/aws` | 1.0.0 | Terraform module to provision AWS EC2 instances with comprehensive configuration options. |
 | `terraform-aws-ecr` | `terraform.c0x12c.com/c0x12c/ecr/aws` | 0.2.0 | Terraform module which creates Amazon ECR resources. |
