@@ -86,7 +86,7 @@ module "example" {
 | `terraform-aws-vpn` | `terraform.c0x12c.com/c0x12c/vpn/aws` | 0.1.4 | This supports 1024-bit and 2048-bit RSA key sizes only. |
 | `terraform-aws-wafv2` | `terraform.c0x12c.com/c0x12c/wafv2/aws` | 1.0.1 | Introduced a new module for managing AWS WAFv2 configurations. |
 | `terraform-cloudflare-record-with-cache-rule` | `terraform.c0x12c.com/c0x12c/record-with-cache-rule/cloudflare` | 1.0.0 | Terraform module which creates Amazon CloudWatch Alarm resources. |
-| `terraform-datadog-aws-integration` | `terraform.c0x12c.com/c0x12c/aws-integration/datadog` | 2.1.0 | Terraform module which creates Datadog AWS integration resources and the required IAM role/policy. |
+| `terraform-datadog-aws-integration` | `terraform.c0x12c.com/c0x12c/aws-integration/datadog` | 2.1.1 | Terraform module which creates Datadog AWS integration resources and the required IAM role/policy. |
 | `terraform-datadog-aws-monitor` | `terraform.c0x12c.com/c0x12c/aws-monitor/datadog` | 1.4.1 |  |
 | `terraform-datadog-dashboard` | `terraform.c0x12c.com/c0x12c/dashboard/datadog` | 1.0.0 | Terraform module which creates Datadog Dashboard. |
 | `terraform-datadog-ecs-monitor` | `terraform.c0x12c.com/c0x12c/ecs-monitor/datadog` | 1.1.1 | Terraform module for creating comprehensive Datadog monitors for AWS ECS services. This module provides pre... |
