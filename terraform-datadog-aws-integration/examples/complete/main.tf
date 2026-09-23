@@ -11,4 +11,7 @@ module "datadog_aws_integration" {
     "AWS/RDS",
     "AWS/S3",
   ]
+
+  # Default is [] (no account tags). Set tags to add them to every metric from this account:
+  account_tags = []
 }
