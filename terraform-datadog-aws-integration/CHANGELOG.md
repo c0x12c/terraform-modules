@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.1](https://github.com/c0x12c/terraform-modules/compare/terraform-datadog-aws-integration/v2.1.0...terraform-datadog-aws-integration/v2.1.1) (2026-09-23)
+
+
+### Bug Fixes
+
+* **terraform-datadog-aws-integration:** set account_tags so plans stop showing a perpetual diff ([#364](https://github.com/c0x12c/terraform-modules/issues/364)) ([680e071](https://github.com/c0x12c/terraform-modules/commit/680e071703e32f8f3b486345d95f8183383161d5))
+
 ## [2.1.0](https://github.com/c0x12c/terraform-modules/compare/terraform-datadog-aws-integration/v2.0.0...terraform-datadog-aws-integration/v2.1.0) (2026-08-22)
 
 
