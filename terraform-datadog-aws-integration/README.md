@@ -63,6 +63,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_account_tags"></a> [account\_tags](#input\_account\_tags) | Tags applied to all metrics collected from this AWS account, e.g. ["team:platform"]. An empty list means no account tags. Tags set outside Terraform are replaced by this value. | `list(string)` | `[]` | no |
 | <a name="input_aws_attached_policy_arns"></a> [aws\_attached\_policy\_arns](#input\_aws\_attached\_policy\_arns) | List of AWS policy ARNs to attach to the Datadog AWS integration IAM role (e.g. arn:aws:iam::aws:policy/SecurityAudit). | `list(string)` | `[]` | no |
 | <a name="input_datadog_aws_integration_iam_role"></a> [datadog\_aws\_integration\_iam\_role](#input\_datadog\_aws\_integration\_iam\_role) | Name of the IAM role used for integrating Datadog with AWS. | `string` | `"DatadogAWSIntegrationRole"` | no |
 | <a name="input_datadog_permissions"></a> [datadog\_permissions](#input\_datadog\_permissions) | List of AWS IAM permissions required for Datadog integration with AWS services. Reference: https://docs.datadoghq.com/integrations/amazon_web_services/#aws-integration-iam-policy. | `list(string)` | `null` | no |

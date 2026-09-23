@@ -56,6 +56,7 @@ https://registry.terraform.io/providers/DataDog/datadog/latest/docs/resources/in
 resource "datadog_integration_aws_account" "sandbox" {
   aws_account_id = data.aws_caller_identity.this.account_id
   aws_partition  = "aws"
+  account_tags   = var.account_tags
 
   auth_config {
     aws_auth_config_role {

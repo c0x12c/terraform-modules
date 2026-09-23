@@ -42,3 +42,12 @@ variable "metric_tag_filters" {
   }))
   default = []
 }
+
+# Always set on the resource. account_tags is optional and computed in the provider, and when it
+# is left unset the provider can plan it as "[] -> (known after apply)" on every run, so every
+# apply sends an update to the Datadog API even when nothing changed.
+variable "account_tags" {
+  description = "Tags applied to all metrics collected from this AWS account, e.g. [\"team:platform\"]. An empty list means no account tags. Tags set outside Terraform are replaced by this value."
+  type        = list(string)
+  default     = []
+}
