@@ -9,42 +9,83 @@ variable "name" {
 }
 
 variable "domain" {
-  description = "Root domain of the tenant hosts, e.g. example.com. A host \"auth.acme\" is served at auth.acme.<domain>."
+  description = "Root domain of the hosts, e.g. example.com. Every host is host_template followed by .<domain>."
   type        = string
 }
 
-variable "zone_id" {
-  description = "Route53 hosted zone ID for the certificate validation records and the host records."
-  type        = string
-}
-
-variable "tenant_hosts" {
-  description = "Hosts per tenant, as tenant => { service => host }. The host is relative to domain and must be <label>.<tenant>, so the tenant's *.<tenant>.<domain> certificate covers it. The service key must exist in services."
-  type        = map(map(string))
+variable "tenants" {
+  description = "Tenant names. Each tenant gets one host per service, built from host_template. \"*\" is a wildcard tenant: one host rule, certificate and DNS record per service serve every tenant. It needs {tenant} as the leftmost label of host_template."
+  type        = set(string)
 
   validation {
-    condition     = length(var.tenant_hosts) > 0
-    error_message = "Set at least one tenant: the HTTPS listener needs a certificate."
+    condition     = length(var.tenants) > 0
+    error_message = "Set at least one tenant."
   }
 
   validation {
-    condition = alltrue(flatten([
-      for tenant, hosts in var.tenant_hosts : [
-        for host in values(hosts) :
-        can(regex("^[a-z0-9-]+$", tenant)) && endswith(host, ".${tenant}") && can(regex("^[a-z0-9-]+$", trimsuffix(host, ".${tenant}")))
-      ]
-    ]))
-    error_message = "Each host must be <label>.<tenant> under its own tenant key, e.g. acme = { auth = \"auth.acme\" }."
+    condition     = alltrue([for tenant in var.tenants : tenant == "*" || can(regex("^[a-z0-9]([a-z0-9-]*[a-z0-9])?$", tenant))])
+    error_message = "Each tenant must be a DNS label (lowercase letters, digits and '-') or \"*\"."
+  }
+}
+
+variable "host_template" {
+  description = "Host of each route, relative to domain. {tenant} and {service} are replaced: \"{service}.{tenant}\" serves auth.acme.<domain>, \"{tenant}.{service}\" serves acme.auth.<domain>."
+  type        = string
+  default     = "{service}.{tenant}"
+
+  validation {
+    condition     = strcontains(var.host_template, "{tenant}") && strcontains(var.host_template, "{service}")
+    error_message = "host_template must contain {tenant} and {service}, so that every route gets its own host."
+  }
+
+  validation {
+    condition     = can(regex("^[a-z0-9-]+(\\.[a-z0-9-]+)*$", replace(replace(var.host_template, "{tenant}", "t"), "{service}", "s")))
+    error_message = "host_template must be dot-separated DNS labels relative to domain, e.g. \"{service}.{tenant}\"."
   }
 }
 
 variable "services" {
-  description = "Kubernetes backend for each service key used in tenant_hosts."
+  description = "Kubernetes backend of each service. The key is the {service} value in host_template. health_check_path overrides the module-wide health_check_path for that service."
   type = map(object({
-    namespace = string
-    name      = string
-    port      = number
+    namespace         = string
+    name              = string
+    port              = number
+    health_check_path = optional(string)
   }))
+
+  validation {
+    condition     = length(var.services) > 0
+    error_message = "Set at least one service."
+  }
+
+  validation {
+    condition     = alltrue([for service in keys(var.services) : can(regex("^[a-z0-9]([a-z0-9-]*[a-z0-9])?$", service))])
+    error_message = "Each service key must be a DNS label (lowercase letters, digits and '-'), because it becomes part of the host."
+  }
+}
+
+variable "zone_id" {
+  description = "Route53 hosted zone ID for the certificate validation records and the host records. Required when create_certificates or create_dns_records is true."
+  type        = string
+  default     = null
+}
+
+variable "create_certificates" {
+  description = "Create one DNS-validated ACM wildcard certificate per parent domain of the hosts, e.g. *.acme.<domain> for auth.acme.<domain>. Set to false to use only certificate_arns."
+  type        = bool
+  default     = true
+}
+
+variable "certificate_arns" {
+  description = "ARNs of existing ACM certificates to attach to the HTTPS listener, in addition to the created ones. Use this when a certificate you already have covers the hosts."
+  type        = list(string)
+  default     = []
+}
+
+variable "create_dns_records" {
+  description = "Create a Route53 A alias record to the ALB for each host. Set to false when DNS is managed elsewhere."
+  type        = bool
+  default     = true
 }
 
 variable "scheme" {
@@ -83,8 +124,14 @@ variable "ssl_policy" {
   default     = "ELBSecurityPolicy-TLS13-1-2-2021-06"
 }
 
+variable "wafv2_arn" {
+  description = "ARN of a WAFv2 web ACL to associate with the ALB. No WAF when null."
+  type        = string
+  default     = null
+}
+
 variable "health_check_path" {
-  description = "Target group health check path. ALB health checks send the target IP as Host, so this path must not require a tenant host."
+  description = "Target group health check path for every service that does not set its own. ALB health checks send the target IP as Host, so this path must not require a tenant host."
   type        = string
   default     = "/health"
 }
