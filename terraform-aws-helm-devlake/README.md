@@ -19,7 +19,7 @@ default; enable it with `enable_grafana` when you are ready to build dashboards.
 ```hcl
 module "devlake" {
   source  = "terraform.c0x12c.com/c0x12c/helm-devlake/aws"
-  version = "~> 0.1"
+  version = "~> 0.2"
 
   namespace     = "devlake"
   chart_version = "1.0.2"
