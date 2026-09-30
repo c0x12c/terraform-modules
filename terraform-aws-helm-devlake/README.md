@@ -74,7 +74,7 @@ See [`examples/basic`](examples/basic) for a runnable example.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_helm"></a> [helm](#provider\_helm) | 3.2.0 |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | 3.3.0 |
 | <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 3.2.1 |
 
 ## Modules
@@ -100,6 +100,7 @@ No modules.
 | <a name="input_encryption_secret"></a> [encryption\_secret](#input\_encryption\_secret) | DevLake ENCRYPTION\_SECRET. If empty, the chart auto-generates one. | `string` | `""` | no |
 | <a name="input_grafana_admin_password"></a> [grafana\_admin\_password](#input\_grafana\_admin\_password) | Admin password for the bundled Grafana. Empty leaves the chart default. | `string` | `""` | no |
 | <a name="input_grafana_persistence_enabled"></a> [grafana\_persistence\_enabled](#input\_grafana\_persistence\_enabled) | Attach a persistent volume to the bundled Grafana. Disable on Fargate, which has no EBS PVC support. | `bool` | `true` | no |
+| <a name="input_grafana_values"></a> [grafana\_values](#input\_grafana\_values) | Extra values for the bundled Grafana subchart (e.g. `extraConfigmapMounts`, `podAnnotations`). Keys the module manages (`enabled`, `persistence`, `env`) take precedence. | `any` | `{}` | no |
 | <a name="input_helm_release_timeout"></a> [helm\_release\_timeout](#input\_helm\_release\_timeout) | Timeout in seconds for the Helm release. | `number` | `600` | no |
 | <a name="input_hostname"></a> [hostname](#input\_hostname) | Hostname the DevLake UI is served on. Required when ingress is enabled. | `string` | `""` | no |
 | <a name="input_image_tag"></a> [image\_tag](#input\_image\_tag) | Image tag applied to the DevLake components. Empty uses the chart's default (matching the chart version). | `string` | `""` | no |

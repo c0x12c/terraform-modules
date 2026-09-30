@@ -3,6 +3,7 @@ locals {
     var.image_tag != "" ? { imageTag = var.image_tag } : {},
     {
       grafana = merge(
+        var.grafana_values,
         {
           enabled = var.enable_grafana
           persistence = {

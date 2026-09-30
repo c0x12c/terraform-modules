@@ -51,6 +51,12 @@ variable "enable_grafana" {
   default     = false
 }
 
+variable "grafana_values" {
+  description = "Extra values for the bundled Grafana subchart (e.g. `extraConfigmapMounts`, `podAnnotations`). Keys the module manages (`enabled`, `persistence`, `env`) take precedence."
+  type        = any
+  default     = {}
+}
+
 variable "grafana_persistence_enabled" {
   description = "Attach a persistent volume to the bundled Grafana. Disable on Fargate, which has no EBS PVC support."
   type        = bool

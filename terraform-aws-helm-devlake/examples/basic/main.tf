@@ -8,6 +8,10 @@ module "devlake" {
   enable_grafana         = true
   grafana_admin_password = "REPLACE_ME"
 
+  grafana_values = {
+    podAnnotations = { "example.com/owner" = "platform" }
+  }
+
   ingress_class_name = "alb"
   ingress_annotations = {
     "alb.ingress.kubernetes.io/scheme"           = "internal"
