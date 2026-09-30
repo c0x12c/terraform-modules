@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-helm-devlake/v0.1.1...terraform-aws-helm-devlake/v0.2.0) (2026-09-30)
+
+
+### Features
+
+* **terraform-aws-helm-devlake:** pass extra values through to the Grafana subchart ([#368](https://github.com/c0x12c/terraform-modules/issues/368)) ([729e4d2](https://github.com/c0x12c/terraform-modules/commit/729e4d2edec5ae592b2b5dec71cfd95e00e4838b))
+
 ## [0.1.1](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-helm-devlake/v0.1.0...terraform-aws-helm-devlake/v0.1.1) (2026-07-04)
 
 
