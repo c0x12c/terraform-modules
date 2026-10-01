@@ -20,8 +20,10 @@ module "eks_multi_tenant_alb" {
 
   # One certificate per tenant: *.acme.example.com + acme.example.com (apex SAN), same for globex. Plus one A record per host.
   create_certificates = true
-  certificate_arns    = []
   create_dns_records  = true
+
+  # An existing certificate to attach next to the created ones, e.g. one you already have that covers the hosts.
+  certificate_arns = ["arn:aws:acm:us-west-2:123456789012:certificate/00000000-0000-0000-0000-000000000000"]
 
   security_group_ids = ["sg-0123456789abcdef0"]
   access_logs_bucket = "example-alb-access-logs"
