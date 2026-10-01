@@ -34,7 +34,7 @@ module "example" {
 | `terraform-aws-eks-efs` | `terraform.c0x12c.com/c0x12c/eks-efs/aws` | 1.0.0 | Terraform EFS sub-module to create EFS resources on AWS. |
 | `terraform-aws-eks-fargate-profile` | `terraform.c0x12c.com/c0x12c/eks-fargate-profile/aws` | 1.0.0 | Configuration in this directory creates a Fargate EKS Profile |
 | `terraform-aws-eks-managed-node-group` | `terraform.c0x12c.com/c0x12c/eks-managed-node-group/aws` | 1.0.1 | Terraform module which creates Amazon EKS (Kubernetes) Managed Node Group (MNG) resources. |
-| `terraform-aws-eks-multi-tenant-alb` | `terraform.c0x12c.com/c0x12c/eks-multi-tenant-alb/aws` | 0.0.0 | Creates a dedicated ALB on EKS that routes per-tenant hosts to services, with optional ACM certificates and... |
+| `terraform-aws-eks-multi-tenant-alb` | `terraform.c0x12c.com/c0x12c/eks-multi-tenant-alb/aws` | 0.1.0 | Creates a dedicated ALB on EKS that routes per-tenant hosts to services, with optional ACM certificates and... |
 | `terraform-aws-eks-rbac` | `terraform.c0x12c.com/c0x12c/eks-rbac/aws` | 0.1.21 | Reference: [Using RBAC Authorization](https://kubernetes.io/docs/reference/access-authn-authz/rbac/) |
 | `terraform-aws-eks-service` | `terraform.c0x12c.com/c0x12c/eks-service/aws` | 0.2.8 | This module helps configure an 'EKS Service' by creating a correlation set |
 | `terraform-aws-elasticache` | `terraform.c0x12c.com/c0x12c/elasticache/aws` | 0.7.2 | Terraform module which creates Elasticache resources on AWS. |
