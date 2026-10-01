@@ -26,9 +26,11 @@ locals {
 
   # Zone that holds the certificate validation CNAMEs for each cert. With create_hosted_zone,
   # host_template is pinned to "{service}.{tenant}" so the 2nd label of "*.<tenant>.<domain>" is the tenant.
+  # format() looks redundant but is needed: a new sub-zone's ID is unknown at plan time, and terraform-aws-acm
+  # checks zone_id != null in for_each, which then fails. A format() result is known to be non-null.
   cert_zone_id = {
     for cert_domain in local.certificate_domains :
-    cert_domain => var.create_hosted_zone ? aws_route53_zone.tenant[split(".", cert_domain)[1]].zone_id : var.zone_id
+    cert_domain => var.create_hosted_zone ? format("%s", aws_route53_zone.tenant[split(".", cert_domain)[1]].zone_id) : var.zone_id
   }
 
   certificate_arns = concat(var.certificate_arns, [for cert in module.acm : cert.acm_certificate_arn])
