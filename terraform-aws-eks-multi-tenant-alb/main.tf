@@ -92,10 +92,48 @@ module "acm" {
   depends_on = [aws_route53_record.tenant_delegation]
 }
 
-# CloudFront certificates (us-east-1) are left to the consumer: Terraform's `configuration_aliases`
-# forces every caller of this module to pass an aws.us_east_1 alias, and the module CI validates
-# the module standalone (without a root config) so declaring the alias here breaks the pipeline.
-# The consumer can issue the matching cert in its own stack and attach it to CloudFront directly.
+# The same certificates in us-east-1, the only region CloudFront takes certificates from, e.g. for the
+# tenant's web app on <tenant>.<domain>. The region argument (aws >= 6.0) needs no aws.us_east_1 alias,
+# which would make terraform validate fail on the module alone. Not through terraform-aws-acm: it has no
+# region input.
+resource "aws_acm_certificate" "cloudfront" {
+  for_each = var.create_cloudfront_cert ? local.certificate_domains : toset([])
+
+  region                    = "us-east-1"
+  domain_name               = each.key
+  subject_alternative_names = local.cert_sans[each.key]
+  validation_method         = "DNS"
+  tags                      = var.tags
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  # Same as module.acm: ACM reads the validation records through the delegation.
+  depends_on = [aws_route53_record.tenant_delegation]
+}
+
+# A domain and its wildcard share one validation record, so one record per certificate is enough.
+resource "aws_route53_record" "cloudfront_validation" {
+  for_each = aws_acm_certificate.cloudfront
+
+  # module.acm may already have written the same record.
+  allow_overwrite = true
+  zone_id         = local.cert_zone_id[each.key]
+  name            = tolist(each.value.domain_validation_options)[0].resource_record_name
+  type            = tolist(each.value.domain_validation_options)[0].resource_record_type
+  records         = [tolist(each.value.domain_validation_options)[0].resource_record_value]
+  ttl             = 300
+}
+
+# CloudFront rejects a certificate that is not issued yet.
+resource "aws_acm_certificate_validation" "cloudfront" {
+  for_each = aws_acm_certificate.cloudfront
+
+  region                  = "us-east-1"
+  certificate_arn         = each.value.arn
+  validation_record_fqdns = [aws_route53_record.cloudfront_validation[each.key].fqdn]
+}
 
 # Creates the ALB, its HTTPS listener with every certificate (SNI), and a default 404.
 resource "kubernetes_ingress_v1" "alb" {
@@ -156,8 +194,8 @@ resource "kubernetes_ingress_v1" "alb" {
     }
 
     precondition {
-      condition     = var.create_hosted_zone || var.zone_id != null || (!var.create_certificates && !var.create_dns_records)
-      error_message = "Set zone_id, enable create_hosted_zone, or set create_certificates and create_dns_records to false."
+      condition     = var.create_hosted_zone || var.zone_id != null || (!var.create_certificates && !var.create_cloudfront_cert && !var.create_dns_records)
+      error_message = "Set zone_id, enable create_hosted_zone, or set create_certificates, create_cloudfront_cert and create_dns_records to false."
     }
 
     precondition {
@@ -171,8 +209,8 @@ resource "kubernetes_ingress_v1" "alb" {
     }
 
     precondition {
-      condition     = !(var.create_hosted_zone && var.create_certificates) || var.parent_zone_id != null
-      error_message = "Set parent_zone_id when create_hosted_zone and create_certificates are both true: ACM DNS validation needs the sub-zone reachable via public DNS, which requires NS delegation in the parent zone."
+      condition     = !(var.create_hosted_zone && (var.create_certificates || var.create_cloudfront_cert)) || var.parent_zone_id != null
+      error_message = "Set parent_zone_id when create_hosted_zone is true together with create_certificates or create_cloudfront_cert: ACM DNS validation needs the sub-zone reachable via public DNS, which requires NS delegation in the parent zone."
     }
 
     precondition {

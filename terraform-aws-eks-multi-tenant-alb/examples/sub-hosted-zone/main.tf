@@ -30,9 +30,10 @@ module "eks_multi_tenant_alb" {
   parent_zone_id     = data.aws_route53_zone.parent.zone_id
 
   # us-west-2 certificates for the ALB, each with the apex SAN (<tenant>.example.com) alongside the wildcard
-  # (*.<tenant>.example.com). CloudFront's us-east-1 copy is issued in the consumer stack.
+  # (*.<tenant>.example.com), and the same certificates in us-east-1 for the webapp CloudFront distribution.
   create_certificates          = true
   include_apex_in_certificates = true
+  create_cloudfront_cert       = true
 
   # Helm charts own the service ingresses: each service's chart renders its own ingress with
   # alb.ingress.kubernetes.io/group.name = "example-tenant" to attach to this ALB.

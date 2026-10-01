@@ -106,6 +106,12 @@ variable "certificate_arns" {
   default     = []
 }
 
+variable "create_cloudfront_cert" {
+  description = "Also create each certificate, with the same names, in us-east-1, the only region CloudFront takes certificates from, e.g. for the tenant's web app on <tenant>.<domain>. See the cloudfront_certificate_arns output."
+  type        = bool
+  default     = false
+}
+
 variable "create_dns_records" {
   description = "Create a Route53 A alias record to the ALB for each service host. Set to false when DNS is managed elsewhere."
   type        = bool

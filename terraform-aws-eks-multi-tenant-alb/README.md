@@ -73,14 +73,14 @@ record per service serve every tenant, and the backend rejects unknown tenants.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.8 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.75 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.0 |
 | <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.33 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.75 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.0 |
 | <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | >= 2.33 |
 
 ## Modules
@@ -93,6 +93,9 @@ record per service serve every tenant, and the backend rejects unknown tenants.
 
 | Name | Type |
 |------|------|
+| [aws_acm_certificate.cloudfront](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/acm_certificate) | resource |
+| [aws_acm_certificate_validation.cloudfront](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/acm_certificate_validation) | resource |
+| [aws_route53_record.cloudfront_validation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_route53_record.tenant_delegation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_route53_record.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_route53_record.webapp](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
@@ -108,6 +111,7 @@ record per service serve every tenant, and the backend rejects unknown tenants.
 | <a name="input_access_logs_bucket"></a> [access\_logs\_bucket](#input\_access\_logs\_bucket) | S3 bucket for ALB access logs. Access logs are off when null. | `string` | `null` | no |
 | <a name="input_certificate_arns"></a> [certificate\_arns](#input\_certificate\_arns) | ARNs of existing ACM certificates to attach to the HTTPS listener, in addition to the created ones. Use this when a certificate you already have covers the hosts. | `list(string)` | `[]` | no |
 | <a name="input_create_certificates"></a> [create\_certificates](#input\_create\_certificates) | Create one DNS-validated ACM certificate per parent domain of the hosts, e.g. *.acme.<domain> for auth.acme.<domain>. See include\_apex\_in\_certificates for the apex SAN. Set to false to use only certificate\_arns. | `bool` | `true` | no |
+| <a name="input_create_cloudfront_cert"></a> [create\_cloudfront\_cert](#input\_create\_cloudfront\_cert) | Also create each certificate, with the same names, in us-east-1, the only region CloudFront takes certificates from, e.g. for the tenant's web app on <tenant>.<domain>. See the cloudfront\_certificate\_arns output. | `bool` | `false` | no |
 | <a name="input_create_dns_records"></a> [create\_dns\_records](#input\_create\_dns\_records) | Create a Route53 A alias record to the ALB for each service host. Set to false when DNS is managed elsewhere. | `bool` | `true` | no |
 | <a name="input_create_hosted_zone"></a> [create\_hosted\_zone](#input\_create\_hosted\_zone) | Create one Route53 sub-zone per tenant, named <tenant>.<domain>. Certificate validation and host records then land in that zone. Set parent\_zone\_id to also write the NS delegation into the parent zone. Only valid with host\_template "{service}.{tenant}", so the sub-zone apex is the tenant apex. | `bool` | `false` | no |
 | <a name="input_create_service_ingresses"></a> [create\_service\_ingresses](#input\_create\_service\_ingresses) | Create one Kubernetes ingress per service with one host rule per tenant. Set to false when the service's Helm chart already renders the ingress with the tenant hosts (it must join the ALB with annotation alb.ingress.kubernetes.io/group.name = var.name). | `bool` | `false` | no |
@@ -136,6 +140,7 @@ record per service serve every tenant, and the backend rejects unknown tenants.
 | Name | Description |
 |------|-------------|
 | <a name="output_certificate_arns"></a> [certificate\_arns](#output\_certificate\_arns) | ARN of each certificate the module created, by certificate domain (e.g. "*.acme.example.com"). Empty when create\_certificates is false. |
+| <a name="output_cloudfront_certificate_arns"></a> [cloudfront\_certificate\_arns](#output\_cloudfront\_certificate\_arns) | ARN of each us-east-1 certificate for CloudFront, by certificate domain, with the same names as certificate\_arns. Empty when create\_cloudfront\_cert is false. |
 | <a name="output_dns_name"></a> [dns\_name](#output\_dns\_name) | DNS name of the ALB. |
 | <a name="output_group_name"></a> [group\_name](#output\_group\_name) | Ingress group name of the ALB. Add an ingress with this group name to put more rules on the same ALB. |
 | <a name="output_hosted_zone_ids"></a> [hosted\_zone\_ids](#output\_hosted\_zone\_ids) | Route53 hosted zone ID of each tenant sub-zone, by tenant name. Empty when create\_hosted\_zone is false. |
