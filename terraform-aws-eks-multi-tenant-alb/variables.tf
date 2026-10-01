@@ -100,12 +100,6 @@ variable "include_apex_in_certificates" {
   default     = true
 }
 
-variable "create_cloudfront_cert" {
-  description = "Also issue the same-SAN certificates in us-east-1, for CloudFront to consume. Requires an aws.us_east_1 provider alias passed to the module. Output as cloudfront_certificate_arns."
-  type        = bool
-  default     = false
-}
-
 variable "certificate_arns" {
   description = "ARNs of existing ACM certificates to attach to the HTTPS listener, in addition to the created ones. Use this when a certificate you already have covers the hosts."
   type        = list(string)

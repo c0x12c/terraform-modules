@@ -2,11 +2,6 @@ provider "aws" {
   region = "us-west-2"
 }
 
-provider "aws" {
-  alias  = "us_east_1"
-  region = "us-east-1"
-}
-
 # The parent zone already exists; the module creates one sub-zone per tenant inside it
 # and writes the NS delegation back into this parent zone.
 data "aws_route53_zone" "parent" {
@@ -16,11 +11,6 @@ data "aws_route53_zone" "parent" {
 
 module "eks_multi_tenant_alb" {
   source = "../../"
-
-  providers = {
-    aws           = aws
-    aws.us_east_1 = aws.us_east_1
-  }
 
   name   = "example-tenant"
   domain = "example.com"
@@ -39,11 +29,10 @@ module "eks_multi_tenant_alb" {
   create_hosted_zone = true
   parent_zone_id     = data.aws_route53_zone.parent.zone_id
 
-  # Per-tenant certificate in us-west-2 for the ALB plus a copy in us-east-1 for CloudFront.
-  # Both carry the apex (<tenant>.example.com) and the wildcard (*.<tenant>.example.com), so webapp and services share one cert.
+  # us-west-2 certificates for the ALB, each with the apex SAN (<tenant>.example.com) alongside the wildcard
+  # (*.<tenant>.example.com). CloudFront's us-east-1 copy is issued in the consumer stack.
   create_certificates          = true
   include_apex_in_certificates = true
-  create_cloudfront_cert       = true
 
   # Helm charts own the service ingresses: each service's chart renders its own ingress with
   # alb.ingress.kubernetes.io/group.name = "example-tenant" to attach to this ALB.

@@ -31,8 +31,7 @@ locals {
     cert_domain => var.create_hosted_zone ? aws_route53_zone.tenant[split(".", cert_domain)[1]].zone_id : var.zone_id
   }
 
-  certificate_arns            = concat(var.certificate_arns, [for cert in module.acm : cert.acm_certificate_arn])
-  cloudfront_certificate_arns = { for domain, cert in aws_acm_certificate_validation.cloudfront : domain => cert.certificate_arn }
+  certificate_arns = concat(var.certificate_arns, [for cert in module.acm : cert.acm_certificate_arn])
 
   load_balancer_attributes = merge(
     {
@@ -91,32 +90,10 @@ module "acm" {
   depends_on = [aws_route53_record.tenant_delegation]
 }
 
-# Second copy of each certificate in us-east-1 for CloudFront. Inline rather than another acm
-# module call, so we reuse the validation records module.acm already wrote (ACM validation
-# CNAMEs are deterministic per domain, not per region). Two modules would clash on destroy.
-resource "aws_acm_certificate" "cloudfront" {
-  for_each = (var.create_certificates && var.create_cloudfront_cert) ? local.certificate_domains : toset([])
-
-  provider = aws.us_east_1
-
-  domain_name               = each.key
-  validation_method         = "DNS"
-  subject_alternative_names = local.cert_sans[each.key]
-  tags                      = var.tags
-
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-
-resource "aws_acm_certificate_validation" "cloudfront" {
-  for_each = aws_acm_certificate.cloudfront
-
-  provider = aws.us_east_1
-
-  certificate_arn         = each.value.arn
-  validation_record_fqdns = [for v in module.acm[each.key].acm_certificate_domain_validation_options : v.resource_record_name]
-}
+# CloudFront certificates (us-east-1) are left to the consumer: Terraform's `configuration_aliases`
+# forces every caller of this module to pass an aws.us_east_1 alias, and the module CI validates
+# the module standalone (without a root config) so declaring the alias here breaks the pipeline.
+# The consumer can issue the matching cert in its own stack and attach it to CloudFront directly.
 
 # Creates the ALB, its HTTPS listener with every certificate (SNI), and a default 404.
 resource "kubernetes_ingress_v1" "alb" {
