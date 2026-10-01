@@ -70,6 +70,9 @@
     "terraform-aws-eks-managed-node-group": {
       "component": "terraform-aws-eks-managed-node-group"
     },
+    "terraform-aws-eks-multi-tenant-alb": {
+      "component": "terraform-aws-eks-multi-tenant-alb"
+    },
     "terraform-aws-eks-rbac": {
       "component": "terraform-aws-eks-rbac"
     },
