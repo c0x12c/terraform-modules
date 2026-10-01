@@ -93,7 +93,10 @@ record per service serve every tenant, and the backend rejects unknown tenants.
 
 | Name | Type |
 |------|------|
+| [aws_route53_record.tenant_delegation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_route53_record.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
+| [aws_route53_record.webapp](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
+| [aws_route53_zone.tenant](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_zone) | resource |
 | [kubernetes_ingress_v1.alb](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/ingress_v1) | resource |
 | [kubernetes_ingress_v1.service](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/ingress_v1) | resource |
 | [aws_lb_hosted_zone_id.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/lb_hosted_zone_id) | data source |
@@ -104,15 +107,20 @@ record per service serve every tenant, and the backend rejects unknown tenants.
 |------|-------------|------|---------|:--------:|
 | <a name="input_access_logs_bucket"></a> [access\_logs\_bucket](#input\_access\_logs\_bucket) | S3 bucket for ALB access logs. Access logs are off when null. | `string` | `null` | no |
 | <a name="input_certificate_arns"></a> [certificate\_arns](#input\_certificate\_arns) | ARNs of existing ACM certificates to attach to the HTTPS listener, in addition to the created ones. Use this when a certificate you already have covers the hosts. | `list(string)` | `[]` | no |
-| <a name="input_create_certificates"></a> [create\_certificates](#input\_create\_certificates) | Create one DNS-validated ACM wildcard certificate per parent domain of the hosts, e.g. *.acme.<domain> for auth.acme.<domain>. Set to false to use only certificate\_arns. | `bool` | `true` | no |
-| <a name="input_create_dns_records"></a> [create\_dns\_records](#input\_create\_dns\_records) | Create a Route53 A alias record to the ALB for each host. Set to false when DNS is managed elsewhere. | `bool` | `true` | no |
+| <a name="input_create_certificates"></a> [create\_certificates](#input\_create\_certificates) | Create one DNS-validated ACM certificate per parent domain of the hosts, e.g. *.acme.<domain> for auth.acme.<domain>. See include\_apex\_in\_certificates for the apex SAN. Set to false to use only certificate\_arns. | `bool` | `true` | no |
+| <a name="input_create_dns_records"></a> [create\_dns\_records](#input\_create\_dns\_records) | Create a Route53 A alias record to the ALB for each service host. Set to false when DNS is managed elsewhere. | `bool` | `true` | no |
+| <a name="input_create_hosted_zone"></a> [create\_hosted\_zone](#input\_create\_hosted\_zone) | Create one Route53 sub-zone per tenant, named <tenant>.<domain>. Certificate validation and host records then land in that zone. Set parent\_zone\_id to also write the NS delegation into the parent zone. Only valid with host\_template "{service}.{tenant}", so the sub-zone apex is the tenant apex. | `bool` | `false` | no |
+| <a name="input_create_service_ingresses"></a> [create\_service\_ingresses](#input\_create\_service\_ingresses) | Create one Kubernetes ingress per service with one host rule per tenant. Set to false when the service's Helm chart already renders the ingress with the tenant hosts (it must join the ALB with annotation alb.ingress.kubernetes.io/group.name = var.name). | `bool` | `false` | no |
 | <a name="input_deletion_protection"></a> [deletion\_protection](#input\_deletion\_protection) | Enable ALB deletion protection. Set to false and apply before removing the module. | `bool` | `true` | no |
 | <a name="input_domain"></a> [domain](#input\_domain) | Root domain of the hosts, e.g. example.com. Every host is host\_template followed by .<domain>. | `string` | n/a | yes |
 | <a name="input_health_check_path"></a> [health\_check\_path](#input\_health\_check\_path) | Target group health check path for every service that does not set its own. ALB health checks send the target IP as Host, so this path must not require a tenant host. | `string` | `"/health"` | no |
 | <a name="input_host_template"></a> [host\_template](#input\_host\_template) | Host of each route, relative to domain. {tenant} and {service} are replaced: "{service}.{tenant}" serves auth.acme.<domain>, "{tenant}.{service}" serves acme.auth.<domain>. | `string` | `"{service}.{tenant}"` | no |
+| <a name="input_hosted_zone_ns_ttl"></a> [hosted\_zone\_ns\_ttl](#input\_hosted\_zone\_ns\_ttl) | TTL in seconds of the NS delegation records written into parent\_zone\_id. | `number` | `172800` | no |
 | <a name="input_idle_timeout"></a> [idle\_timeout](#input\_idle\_timeout) | ALB idle timeout in seconds. | `number` | `60` | no |
+| <a name="input_include_apex_in_certificates"></a> [include\_apex\_in\_certificates](#input\_include\_apex\_in\_certificates) | Add the apex of each certificate's parent domain as a SAN, e.g. acme.<domain> alongside *.acme.<domain>. Needed when the apex itself serves traffic (e.g. the webapp host). Skipped automatically when the parent domain is the module's root domain. | `bool` | `true` | no |
 | <a name="input_ingress_namespace"></a> [ingress\_namespace](#input\_ingress\_namespace) | Namespace of the ingress that creates the ALB and its default 404 rule. | `string` | `"kube-system"` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of the ALB. Also used as the ingress group name and as the prefix of the ingress names. | `string` | n/a | yes |
+| <a name="input_parent_zone_id"></a> [parent\_zone\_id](#input\_parent\_zone\_id) | Route53 hosted zone ID of the parent domain. When set together with create\_hosted\_zone, the module writes an NS record for each tenant sub-zone into this zone, so the sub-zone is reachable. Leave null when delegation is handled elsewhere. | `string` | `null` | no |
 | <a name="input_scheme"></a> [scheme](#input\_scheme) | ALB scheme: internet-facing or internal. | `string` | `"internet-facing"` | no |
 | <a name="input_security_group_ids"></a> [security\_group\_ids](#input\_security\_group\_ids) | Security groups for the ALB. When empty, the AWS Load Balancer Controller creates one. | `list(string)` | `[]` | no |
 | <a name="input_services"></a> [services](#input\_services) | Kubernetes backend of each service. The key is the {service} value in host\_template. health\_check\_path overrides the module-wide health\_check\_path for that service. | <pre>map(object({<br/>    namespace         = string<br/>    name              = string<br/>    port              = number<br/>    health_check_path = optional(string)<br/>  }))</pre> | n/a | yes |
@@ -120,7 +128,8 @@ record per service serve every tenant, and the backend rejects unknown tenants.
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags applied to the ALB and the certificates. | `map(string)` | `{}` | no |
 | <a name="input_tenants"></a> [tenants](#input\_tenants) | Tenant names. Each tenant gets one host per service, built from host\_template. "*" is a wildcard tenant: one host rule, certificate and DNS record per service serve every tenant. It needs {tenant} as the leftmost label of host\_template. | `set(string)` | n/a | yes |
 | <a name="input_wafv2_arn"></a> [wafv2\_arn](#input\_wafv2\_arn) | ARN of a WAFv2 web ACL to associate with the ALB. No WAF when null. | `string` | `null` | no |
-| <a name="input_zone_id"></a> [zone\_id](#input\_zone\_id) | Route53 hosted zone ID for the certificate validation records and the host records. Required when create\_certificates or create\_dns\_records is true. | `string` | `null` | no |
+| <a name="input_webapp_alias_target"></a> [webapp\_alias\_target](#input\_webapp\_alias\_target) | Alias target for the tenant apex record <tenant>.<domain>, typically a CloudFront distribution. When set, one A alias record is created per tenant into the effective zone (sub-zone when create\_hosted\_zone is true, else zone\_id). Leave null to skip. | <pre>object({<br/>    name    = string<br/>    zone_id = string<br/>  })</pre> | `null` | no |
+| <a name="input_zone_id"></a> [zone\_id](#input\_zone\_id) | Route53 hosted zone ID for certificate validation and host records. Ignored when create\_hosted\_zone is true (the created sub-zone is used instead). Required when create\_certificates or create\_dns\_records is true and create\_hosted\_zone is false. | `string` | `null` | no |
 
 ## Outputs
 
@@ -129,6 +138,8 @@ record per service serve every tenant, and the backend rejects unknown tenants.
 | <a name="output_certificate_arns"></a> [certificate\_arns](#output\_certificate\_arns) | ARN of each certificate the module created, by certificate domain (e.g. "*.acme.example.com"). Empty when create\_certificates is false. |
 | <a name="output_dns_name"></a> [dns\_name](#output\_dns\_name) | DNS name of the ALB. |
 | <a name="output_group_name"></a> [group\_name](#output\_group\_name) | Ingress group name of the ALB. Add an ingress with this group name to put more rules on the same ALB. |
+| <a name="output_hosted_zone_ids"></a> [hosted\_zone\_ids](#output\_hosted\_zone\_ids) | Route53 hosted zone ID of each tenant sub-zone, by tenant name. Empty when create\_hosted\_zone is false. |
+| <a name="output_hosted_zone_name_servers"></a> [hosted\_zone\_name\_servers](#output\_hosted\_zone\_name\_servers) | Name servers of each tenant sub-zone, by tenant name. Use these to verify delegation when parent\_zone\_id is not managed here. |
 | <a name="output_hostnames"></a> [hostnames](#output\_hostnames) | Full host name of each route, by "<tenant>/<service>". |
 | <a name="output_zone_id"></a> [zone\_id](#output\_zone\_id) | Route53 hosted zone ID of the ALB, for alias records. |
 <!-- END_TF_DOCS -->
