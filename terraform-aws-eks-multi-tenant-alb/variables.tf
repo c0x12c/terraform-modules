@@ -65,15 +65,45 @@ variable "services" {
 }
 
 variable "zone_id" {
-  description = "Route53 hosted zone ID for the certificate validation records and the host records. Required when create_certificates or create_dns_records is true."
+  description = "Route53 hosted zone ID for certificate validation and host records. Ignored when create_hosted_zone is true (the created sub-zone is used instead). Required when create_certificates or create_dns_records is true and create_hosted_zone is false."
   type        = string
   default     = null
 }
 
+variable "create_hosted_zone" {
+  description = "Create one Route53 sub-zone per tenant, named <tenant>.<domain>. Certificate validation and host records then land in that zone. Set parent_zone_id to also write the NS delegation into the parent zone. Only valid with host_template \"{service}.{tenant}\", so the sub-zone apex is the tenant apex."
+  type        = bool
+  default     = false
+}
+
+variable "parent_zone_id" {
+  description = "Route53 hosted zone ID of the parent domain. When set together with create_hosted_zone, the module writes an NS record for each tenant sub-zone into this zone, so the sub-zone is reachable. Leave null when delegation is handled elsewhere."
+  type        = string
+  default     = null
+}
+
+variable "hosted_zone_ns_ttl" {
+  description = "TTL in seconds of the NS delegation records written into parent_zone_id."
+  type        = number
+  default     = 172800
+}
+
 variable "create_certificates" {
-  description = "Create one DNS-validated ACM wildcard certificate per parent domain of the hosts, e.g. *.acme.<domain> for auth.acme.<domain>. Set to false to use only certificate_arns."
+  description = "Create one DNS-validated ACM certificate per parent domain of the hosts, e.g. *.acme.<domain> for auth.acme.<domain>. See include_apex_in_certificates for the apex SAN. Set to false to use only certificate_arns."
   type        = bool
   default     = true
+}
+
+variable "include_apex_in_certificates" {
+  description = "Add the apex of each certificate's parent domain as a SAN, e.g. acme.<domain> alongside *.acme.<domain>. Needed when the apex itself serves traffic (e.g. the webapp host). Skipped automatically when the parent domain is the module's root domain."
+  type        = bool
+  default     = true
+}
+
+variable "create_cloudfront_cert" {
+  description = "Also issue the same-SAN certificates in us-east-1, for CloudFront to consume. Requires an aws.us_east_1 provider alias passed to the module. Output as cloudfront_certificate_arns."
+  type        = bool
+  default     = false
 }
 
 variable "certificate_arns" {
@@ -83,9 +113,24 @@ variable "certificate_arns" {
 }
 
 variable "create_dns_records" {
-  description = "Create a Route53 A alias record to the ALB for each host. Set to false when DNS is managed elsewhere."
+  description = "Create a Route53 A alias record to the ALB for each service host. Set to false when DNS is managed elsewhere."
   type        = bool
   default     = true
+}
+
+variable "create_service_ingresses" {
+  description = "Create one Kubernetes ingress per service with one host rule per tenant. Set to false when the service's Helm chart already renders the ingress with the tenant hosts (it must join the ALB with annotation alb.ingress.kubernetes.io/group.name = var.name)."
+  type        = bool
+  default     = false
+}
+
+variable "webapp_alias_target" {
+  description = "Alias target for the tenant apex record <tenant>.<domain>, typically a CloudFront distribution. When set, one A alias record is created per tenant into the effective zone (sub-zone when create_hosted_zone is true, else zone_id). Leave null to skip."
+  type = object({
+    name    = string
+    zone_id = string
+  })
+  default = null
 }
 
 variable "scheme" {

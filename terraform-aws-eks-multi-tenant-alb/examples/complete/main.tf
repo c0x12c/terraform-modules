@@ -2,8 +2,18 @@ provider "aws" {
   region = "us-west-2"
 }
 
+provider "aws" {
+  alias  = "us_east_1"
+  region = "us-east-1"
+}
+
 module "eks_multi_tenant_alb" {
   source = "../../"
+
+  providers = {
+    aws           = aws
+    aws.us_east_1 = aws.us_east_1
+  }
 
   name    = "example-tenant"
   domain  = "example.com"
@@ -18,7 +28,7 @@ module "eks_multi_tenant_alb" {
     rental = { namespace = "service-rental", name = "service-rental", port = 80, health_check_path = "/actuator/health" }
   }
 
-  # One wildcard certificate per tenant (*.acme.example.com, *.globex.example.com) and one record per host.
+  # One certificate per tenant: *.acme.example.com + acme.example.com (apex SAN), same for globex. Plus one A record per host.
   create_certificates = true
   certificate_arns    = []
   create_dns_records  = true

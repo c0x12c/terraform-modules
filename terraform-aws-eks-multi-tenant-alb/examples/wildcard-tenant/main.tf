@@ -2,8 +2,18 @@ provider "aws" {
   region = "us-west-2"
 }
 
+provider "aws" {
+  alias  = "us_east_1"
+  region = "us-east-1"
+}
+
 module "eks_multi_tenant_alb" {
   source = "../../"
+
+  providers = {
+    aws           = aws
+    aws.us_east_1 = aws.us_east_1
+  }
 
   name    = "example-tenant"
   domain  = "example.com"

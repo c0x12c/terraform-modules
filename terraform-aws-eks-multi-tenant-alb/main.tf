@@ -14,7 +14,25 @@ locals {
   # auth.acme.example.com needs *.acme.example.com, and the wildcard host *.auth.example.com needs *.auth.example.com.
   certificate_domains = toset([for host in local.hosts : "*.${join(".", slice(split(".", host), 1, length(split(".", host))))}"])
 
-  certificate_arns = concat(var.certificate_arns, [for cert in module.acm : cert.acm_certificate_arn])
+  # Add the parent apex as a SAN (e.g. acme.example.com next to *.acme.example.com), except when the parent is the module's root domain.
+  cert_sans = {
+    for cert_domain in local.certificate_domains :
+    cert_domain => (
+      var.include_apex_in_certificates && trimprefix(cert_domain, "*.") != var.domain
+      ) ? [
+      trimprefix(cert_domain, "*.")
+    ] : []
+  }
+
+  # Zone that holds the certificate validation CNAMEs for each cert. With create_hosted_zone,
+  # host_template is pinned to "{service}.{tenant}" so the 2nd label of "*.<tenant>.<domain>" is the tenant.
+  cert_zone_id = {
+    for cert_domain in local.certificate_domains :
+    cert_domain => var.create_hosted_zone ? aws_route53_zone.tenant[split(".", cert_domain)[1]].zone_id : var.zone_id
+  }
+
+  certificate_arns            = concat(var.certificate_arns, [for cert in module.acm : cert.acm_certificate_arn])
+  cloudfront_certificate_arns = { for domain, cert in aws_acm_certificate_validation.cloudfront : domain => cert.certificate_arn }
 
   load_balancer_attributes = merge(
     {
@@ -36,16 +54,68 @@ locals {
   }
 }
 
+# One sub-zone per tenant, named <tenant>.<domain>. Everything the module writes for a tenant
+# (certificate validation, host records, webapp alias) lands in that zone.
+resource "aws_route53_zone" "tenant" {
+  for_each = var.create_hosted_zone ? toset(var.tenants) : toset([])
+
+  name = "${each.key}.${var.domain}"
+  tags = var.tags
+}
+
+# NS delegation in the parent zone. Without this, resolvers would not find the sub-zone.
+resource "aws_route53_record" "tenant_delegation" {
+  for_each = (var.create_hosted_zone && var.parent_zone_id != null) ? toset(var.tenants) : toset([])
+
+  zone_id = var.parent_zone_id
+  name    = "${each.key}.${var.domain}"
+  type    = "NS"
+  ttl     = var.hosted_zone_ns_ttl
+  records = aws_route53_zone.tenant[each.key].name_servers
+}
+
 module "acm" {
   source   = "../terraform-aws-acm"
   for_each = var.create_certificates ? local.certificate_domains : toset([])
 
-  zone_id     = var.zone_id
-  domain_name = each.key
-  tags        = var.tags
+  zone_id                   = local.cert_zone_id[each.key]
+  domain_name               = each.key
+  subject_alternative_names = local.cert_sans[each.key]
+  tags                      = var.tags
 
   # The HTTPS listener rejects a certificate that is not issued yet.
   wait_for_validation = true
+
+  # Validation needs public DNS to resolve the CNAMEs. When the sub-zone is created here,
+  # the parent-zone NS delegation must land first or ACM polls until it times out.
+  depends_on = [aws_route53_record.tenant_delegation]
+}
+
+# Second copy of each certificate in us-east-1 for CloudFront. Inline rather than another acm
+# module call, so we reuse the validation records module.acm already wrote (ACM validation
+# CNAMEs are deterministic per domain, not per region). Two modules would clash on destroy.
+resource "aws_acm_certificate" "cloudfront" {
+  for_each = (var.create_certificates && var.create_cloudfront_cert) ? local.certificate_domains : toset([])
+
+  provider = aws.us_east_1
+
+  domain_name               = each.key
+  validation_method         = "DNS"
+  subject_alternative_names = local.cert_sans[each.key]
+  tags                      = var.tags
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_acm_certificate_validation" "cloudfront" {
+  for_each = aws_acm_certificate.cloudfront
+
+  provider = aws.us_east_1
+
+  certificate_arn         = each.value.arn
+  validation_record_fqdns = [for v in module.acm[each.key].acm_certificate_domain_validation_options : v.resource_record_name]
 }
 
 # Creates the ALB, its HTTPS listener with every certificate (SNI), and a default 404.
@@ -107,21 +177,43 @@ resource "kubernetes_ingress_v1" "alb" {
     }
 
     precondition {
-      condition     = var.zone_id != null || (!var.create_certificates && !var.create_dns_records)
-      error_message = "Set zone_id, or set create_certificates and create_dns_records to false."
+      condition     = var.create_hosted_zone || var.zone_id != null || (!var.create_certificates && !var.create_dns_records)
+      error_message = "Set zone_id, enable create_hosted_zone, or set create_certificates and create_dns_records to false."
+    }
+
+    precondition {
+      condition     = !var.create_hosted_zone || var.host_template == "{service}.{tenant}"
+      error_message = "create_hosted_zone requires host_template = \"{service}.{tenant}\" so the sub-zone apex matches the tenant apex."
+    }
+
+    precondition {
+      condition     = !var.create_hosted_zone || !contains(var.tenants, "*")
+      error_message = "create_hosted_zone does not support the \"*\" wildcard tenant: a sub-zone needs a real tenant name."
+    }
+
+    precondition {
+      condition     = !(var.create_hosted_zone && var.create_certificates) || var.parent_zone_id != null
+      error_message = "Set parent_zone_id when create_hosted_zone and create_certificates are both true: ACM DNS validation needs the sub-zone reachable via public DNS, which requires NS delegation in the parent zone."
     }
 
     precondition {
       condition     = var.create_certificates || length(var.certificate_arns) > 0
       error_message = "The HTTPS listener needs a certificate: set create_certificates to true or pass certificate_arns."
     }
+
+    precondition {
+      condition     = var.webapp_alias_target == null || var.host_template == "{service}.{tenant}"
+      error_message = "webapp_alias_target requires host_template = \"{service}.{tenant}\" so the tenant apex <tenant>.<domain> is a well-defined record name."
+    }
   }
 }
 
 # One ingress per service, in the service's namespace, with one host rule per tenant.
 # The ALB forwards Host unchanged, so the backend can resolve the tenant from it.
+# Off by default: most consumers already render service ingresses in their Helm chart, joined to this ALB via
+# alb.ingress.kubernetes.io/group.name = var.name.
 resource "kubernetes_ingress_v1" "service" {
-  for_each   = var.services
+  for_each   = var.create_service_ingresses ? var.services : {}
   depends_on = [kubernetes_ingress_v1.alb]
 
   metadata {
@@ -165,7 +257,7 @@ data "aws_lb_hosted_zone_id" "this" {}
 resource "aws_route53_record" "this" {
   for_each = var.create_dns_records ? local.routes : {}
 
-  zone_id = var.zone_id
+  zone_id = var.create_hosted_zone ? aws_route53_zone.tenant[each.value.tenant].zone_id : var.zone_id
   name    = each.value.host
   type    = "A"
 
@@ -173,5 +265,20 @@ resource "aws_route53_record" "this" {
     name                   = kubernetes_ingress_v1.alb.status[0].load_balancer[0].ingress[0].hostname
     zone_id                = data.aws_lb_hosted_zone_id.this.id
     evaluate_target_health = true
+  }
+}
+
+# Tenant apex A alias (e.g. acme.example.com) → external target such as a CloudFront distribution.
+resource "aws_route53_record" "webapp" {
+  for_each = var.webapp_alias_target == null ? toset([]) : toset(var.tenants)
+
+  zone_id = var.create_hosted_zone ? aws_route53_zone.tenant[each.key].zone_id : var.zone_id
+  name    = "${each.key}.${var.domain}"
+  type    = "A"
+
+  alias {
+    name                   = var.webapp_alias_target.name
+    zone_id                = var.webapp_alias_target.zone_id
+    evaluate_target_health = false
   }
 }
