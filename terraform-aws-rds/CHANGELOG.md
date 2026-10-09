@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.1](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-rds/v1.2.0...terraform-aws-rds/v1.2.1) (2026-10-09)
+
+
+### Bug Fixes
+
+* **terraform-aws-rds:** key MySQL/MariaDB parameter groups on major.minor ([#373](https://github.com/c0x12c/terraform-modules/issues/373)) ([c8f0723](https://github.com/c0x12c/terraform-modules/commit/c8f07233a344db3365937101283b0e905c9a432d))
+
 ## [1.2.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-rds/v1.1.2...terraform-aws-rds/v1.2.0) (2026-09-21)
 
 
