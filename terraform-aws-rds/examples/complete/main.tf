@@ -64,7 +64,7 @@ module "rds_managed_password_windowed" {
 module "mysql" {
   source = "../../"
 
-  db_name        = "example_mysql"
+  db_name        = "examplemysql"
   db_username    = "exampleuser"
   engine         = "mysql"
   engine_version = "8.0.43"
