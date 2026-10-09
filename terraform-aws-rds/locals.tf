@@ -1,6 +1,11 @@
 locals {
-  engine_version_major = var.engine == "postgres" ? tostring(parseint(split(".", var.engine_version)[0], 10)) : var.engine_version
-  identifier           = replace(var.db_name, "_", "-")
+  # Parameter group family key: postgres families are the major ("16"), MySQL/MariaDB are major.minor ("8.0").
+  engine_version_major = (
+    var.engine == "postgres" ? tostring(parseint(split(".", var.engine_version)[0], 10)) :
+    contains(["mysql", "mariadb"], var.engine) ? join(".", slice(split(".", var.engine_version), 0, 2)) :
+    var.engine_version
+  )
+  identifier = replace(var.db_name, "_", "-")
   max_workers = {
     "db.m5.4xlarge"  = 16
     "db.m5.12xlarge" = 48
