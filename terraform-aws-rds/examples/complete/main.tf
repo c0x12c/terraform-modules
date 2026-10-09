@@ -59,3 +59,19 @@ module "rds_managed_password_windowed" {
   master_user_secret_rotation_schedule = "cron(0 6 1 * ? *)"
   master_user_secret_rotation_duration = "2h"
 }
+
+# MySQL pinned to a minor version; the parameter group family still resolves to mysql8.0.
+module "mysql" {
+  source = "../../"
+
+  db_name        = "examplemysql"
+  db_username    = "exampleuser"
+  engine         = "mysql"
+  engine_version = "8.0.43"
+  instance_class = "db.t4g.micro"
+  disk_size      = 20
+  port           = 3306
+  replica_count  = 0
+  vpc_id         = "vpc-123456789"
+  subnet_ids     = []
+}
