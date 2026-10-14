@@ -1,3 +1,6 @@
+# Route53 rejects EvaluateTargetHealth = true when the alias target is a CloudFront
+# distribution, so an apply fails rather than the plan. CloudFront has no per-record health
+# to evaluate, so false is also the only meaningful value.
 resource "aws_route53_record" "this" {
   name    = local.dns_name
   zone_id = var.route53_zone_id
@@ -6,7 +9,7 @@ resource "aws_route53_record" "this" {
   alias {
     name                   = aws_cloudfront_distribution.this.domain_name
     zone_id                = aws_cloudfront_distribution.this.hosted_zone_id
-    evaluate_target_health = true
+    evaluate_target_health = false
   }
 }
 
@@ -20,7 +23,7 @@ resource "aws_route53_record" "www" {
   alias {
     name                   = aws_cloudfront_distribution.this.domain_name
     zone_id                = aws_cloudfront_distribution.this.hosted_zone_id
-    evaluate_target_health = true
+    evaluate_target_health = false
   }
 }
 
@@ -34,6 +37,6 @@ resource "aws_route53_record" "wildcard" {
   alias {
     name                   = aws_cloudfront_distribution.this.domain_name
     zone_id                = aws_cloudfront_distribution.this.hosted_zone_id
-    evaluate_target_health = true
+    evaluate_target_health = false
   }
 }
