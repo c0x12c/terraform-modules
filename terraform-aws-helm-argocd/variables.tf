@@ -46,6 +46,17 @@ variable "server_side_diff" {
   default     = true
 }
 
+variable "extra_cm" {
+  description = "Extra entries for `argocd-cm` (`configs.cm`), e.g. `resource.customizations.health.<group_kind>`. Keys the module manages (`dex.config`) cannot be set here."
+  type        = map(string)
+  default     = {}
+
+  validation {
+    condition     = !contains(keys(var.extra_cm), "dex.config")
+    error_message = "extra_cm cannot set dex.config; it is managed by the module."
+  }
+}
+
 # Enabled in-cluster
 variable "enabled_managed_in_cluster" {
   description = "Enable in_cluster manage to rename in_cluster"
