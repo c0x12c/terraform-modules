@@ -83,6 +83,21 @@ notifications.argoproj.io/subscribe.<trigger>.slack: <channel>
 See `examples/complete` for the bot-token path and `examples/slack-webhook-notifications` for the
 webhook one.
 
+## Extra `argocd-cm` entries
+
+`extra_cm` adds keys to `argocd-cm` next to the ones the module manages. Use it for settings the
+module has no input for, such as a custom health check. Argo CD does not assess the health of
+`Application` resources by default, so an app-of-apps cannot wait on a child Application in an
+earlier sync-wave without one:
+
+```hcl
+extra_cm = {
+  "resource.customizations.health.argoproj.io_Application" = file("${path.module}/application-health.lua")
+}
+```
+
+`dex.config` is built by the module and cannot be set through `extra_cm`.
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
@@ -143,6 +158,7 @@ webhook one.
 | <a name="input_enabled_managed_in_cluster"></a> [enabled\_managed\_in\_cluster](#input\_enabled\_managed\_in\_cluster) | Enable in\_cluster manage to rename in\_cluster | `bool` | `true` | no |
 | <a name="input_external_clusters"></a> [external\_clusters](#input\_external\_clusters) | Maps of external cluster that want to connect | <pre>map(object({<br/>    assume_role       = optional(string, "")<br/>    server            = string<br/>    labels            = optional(map(any), {})<br/>    annotations       = optional(map(any), {})<br/>    namespace         = optional(string, "")<br/>    cluster_resources = optional(bool, false)<br/>    config = object({<br/>      aws_auth_config = object({<br/>        cluster_name = string<br/>        role_arn     = string<br/>      })<br/>      tls_client_config = object({<br/>        insecure = optional(bool, false)<br/>        ca_data  = string<br/>      })<br/>    })<br/>  }))</pre> | `{}` | no |
 | <a name="input_external_github_oauth_creds"></a> [external\_github\_oauth\_creds](#input\_external\_github\_oauth\_creds) | Map of external GitHub OAuth credentials where key is the GitHub external org | <pre>map(object({<br/>    client_id     = string<br/>    client_secret = string<br/>  }))</pre> | `{}` | no |
+| <a name="input_extra_cm"></a> [extra\_cm](#input\_extra\_cm) | Extra entries for `argocd-cm` (`configs.cm`), e.g. `resource.customizations.health.<group_kind>`. Keys the module manages (`dex.config`) cannot be set here. | `map(string)` | `{}` | no |
 | <a name="input_github_app"></a> [github\_app](#input\_github\_app) | GitHub App configuration to use for Argo CD | <pre>object({<br/>    secret_name     = string<br/>    app_id          = number<br/>    installation_id = number<br/>    private_key     = string<br/>    organization    = string<br/>  })</pre> | n/a | yes |
 | <a name="input_handle_tls"></a> [handle\_tls](#input\_handle\_tls) | If ArgoCD should handle TLS itself | `bool` | `false` | no |
 | <a name="input_in_cluster_name"></a> [in\_cluster\_name](#input\_in\_cluster\_name) | To customize the in\_cluster name for easier management (only `enabled_managed_in_cluster = true`) | `string` | `"in-cluster"` | no |

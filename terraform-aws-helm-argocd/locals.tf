@@ -135,12 +135,12 @@ locals {
         "server.insecure"             = !var.handle_tls
         "controller.diff.server.side" = tostring(var.server_side_diff)
       }
-      cm = {
+      cm = merge(var.extra_cm, {
         "dex.config" = yamlencode({
           connectors = local.dex_connectors
           issuer     = var.issuer_url
         })
-      }
+      })
       rbac = {
         "policy.csv" = join("\n", var.rbac_policies)
       }

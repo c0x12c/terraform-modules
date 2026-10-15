@@ -32,6 +32,7 @@ CASES = {
                         "tolerations": '[{key="dedicated",operator="Equal",value="platform",effect="NoSchedule"}]'},
     "not_managed":     {"enabled_managed_in_cluster": "false"},
     "no_ssd":          {"server_side_diff": "false"},
+    "extra_cm":        {"extra_cm": '{"resource.customizations.health.argoproj.io_Application"="hs = {}\\nreturn hs\\n"}'},
     "oauth_creds":     {"external_github_oauth_creds": '{acme={client_id="cid",client_secret="csec",organization="acme"}}'},
     "ext_cluster_min": {"external_clusters": '{dev={server="https://d.example",config={aws_auth_config={cluster_name="dev",role_arn="arn:aws:iam::1:role/r"},tls_client_config={ca_data="Y2E="}}}}'},
     # Exercises the custom-template override path - the module must prefer the caller's string
