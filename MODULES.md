@@ -36,7 +36,7 @@ module "example" {
 | `terraform-aws-eks-managed-node-group` | `terraform.c0x12c.com/c0x12c/eks-managed-node-group/aws` | 1.0.1 | Terraform module which creates Amazon EKS (Kubernetes) Managed Node Group (MNG) resources. |
 | `terraform-aws-eks-multi-tenant-alb` | `terraform.c0x12c.com/c0x12c/eks-multi-tenant-alb/aws` | 0.1.0 | Creates a dedicated ALB on EKS that routes per-tenant hosts to services, with optional ACM certificates and... |
 | `terraform-aws-eks-rbac` | `terraform.c0x12c.com/c0x12c/eks-rbac/aws` | 0.1.21 | Reference: [Using RBAC Authorization](https://kubernetes.io/docs/reference/access-authn-authz/rbac/) |
-| `terraform-aws-eks-service` | `terraform.c0x12c.com/c0x12c/eks-service/aws` | 0.2.8 | This module helps configure an 'EKS Service' by creating a correlation set |
+| `terraform-aws-eks-service` | `terraform.c0x12c.com/c0x12c/eks-service/aws` | 0.3.0 | This module helps configure an 'EKS Service' by creating a correlation set |
 | `terraform-aws-elasticache` | `terraform.c0x12c.com/c0x12c/elasticache/aws` | 0.7.2 | Terraform module which creates Elasticache resources on AWS. |
 | `terraform-aws-eventbridge-slack-notification` | `terraform.c0x12c.com/c0x12c/eventbridge-slack-notification/aws` | 1.2.0 | This module creates a reusable notification system that sends AWS EventBridge events to Slack using Lambda. |
 | `terraform-aws-github-oidc` | `terraform.c0x12c.com/c0x12c/github-oidc/aws` | 1.0.1 | This [Terraform](https://www.terraform.io/) module manages OpenID Connect (OIDC) integration |
@@ -67,7 +67,7 @@ module "example" {
 | `terraform-aws-password-generator` | `terraform.c0x12c.com/c0x12c/password-generator/aws` | 0.2.0 | Module which generates password then stores to Secret Manager. |
 | `terraform-aws-password-policy` | `terraform.c0x12c.com/c0x12c/password-policy/aws` | 0.1.52 | This module configures an IAM account password policy in AWS, enforcing security requirements such as minimum |
 | `terraform-aws-rds` | `terraform.c0x12c.com/c0x12c/rds/aws` | 1.2.1 | Terraform module which creates RDS resources on AWS. |
-| `terraform-aws-rds-cluster` | `terraform.c0x12c.com/c0x12c/rds-cluster/aws` | 0.1.0 | Terraform module which provisions an Amazon RDS cluster on AWS. A single module supports both **Aurora** cl... |
+| `terraform-aws-rds-cluster` | `terraform.c0x12c.com/c0x12c/rds-cluster/aws` | 0.2.0 | Terraform module which provisions an Amazon RDS cluster on AWS. A single module supports both **Aurora** cl... |
 | `terraform-aws-route53` | `terraform.c0x12c.com/c0x12c/route53/aws` | 0.1.14 | Terraform module which creates Route53 resources on AWS. |
 | `terraform-aws-s3` | `terraform.c0x12c.com/c0x12c/s3/aws` | 1.3.0 | Terraform module which creates S3 resources on AWS. |
 | `terraform-aws-saml-idp` | `terraform.c0x12c.com/c0x12c/saml-idp/aws` | 1.0.0 | Terraform module which creates Identity SAML Provider resource on AWS. |
