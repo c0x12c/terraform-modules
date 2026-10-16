@@ -40,6 +40,12 @@ variable "eks_oidc_provider" {
   })
 }
 
+variable "create_secret" {
+  description = "Whether to create the env Secret from service.secrets. Set false when another controller (e.g. External Secrets) owns it; remove the existing Secret from state first, or Terraform destroys it."
+  type        = bool
+  default     = true
+}
+
 variable "secret_env_var_name" {
   description = "To specify secret env var name"
   type        = string
