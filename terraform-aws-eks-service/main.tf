@@ -100,6 +100,7 @@ resource "kubernetes_config_map" "this" {
 }
 
 resource "kubernetes_secret" "this" {
+  count      = var.create_secret ? 1 : 0
   depends_on = [kubernetes_namespace.this]
   metadata {
     name      = var.secret_env_var_name != null ? var.secret_env_var_name : "${var.service.name}-env-var"
@@ -109,6 +110,11 @@ resource "kubernetes_secret" "this" {
   data = var.service.secrets
 
   type = "Opaque"
+}
+
+moved {
+  from = kubernetes_secret.this
+  to   = kubernetes_secret.this[0]
 }
 
 resource "aws_route53_record" "this" {

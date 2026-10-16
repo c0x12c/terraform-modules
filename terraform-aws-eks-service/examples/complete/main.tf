@@ -20,6 +20,9 @@ module "eks_service" {
     create_service_account = false
     service_account_name   = "default"
   }
+  # Default; set false when External Secrets owns the env Secret
+  create_secret = true
+
   route53_zone_id = "my-route53-zone-id"
   region          = "us-west-2"
 
