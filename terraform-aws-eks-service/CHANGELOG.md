@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-eks-service/v0.2.8...terraform-aws-eks-service/v0.3.0) (2026-10-16)
+
+
+### Features
+
+* **terraform-aws-eks-service:** add create_secret to skip the env Secret ([#378](https://github.com/c0x12c/terraform-modules/issues/378)) ([e41253b](https://github.com/c0x12c/terraform-modules/commit/e41253b0e44a17c2d188526e167620edc05bf55f))
+
 ## [0.2.8]() (2025-10-03)
 
 ### Features
@@ -52,4 +59,3 @@ All notable changes to this project will be documented in this file.
 ### Features
 
 * Initial commit with all the code
-
