@@ -84,7 +84,7 @@ variable "create_github_app_secret" {
 }
 
 variable "github_app" {
-  description = "GitHub App configuration to use for Argo CD"
+  description = "GitHub App configuration to use for Argo CD. Required unless `create_github_app_secret` is false."
   type = object({
     secret_name     = string
     app_id          = number
@@ -92,7 +92,13 @@ variable "github_app" {
     private_key     = string
     organization    = string
   })
+  default   = null
   sensitive = true
+
+  validation {
+    condition     = !var.create_github_app_secret || var.github_app != null
+    error_message = "github_app is required while create_github_app_secret is true."
+  }
 }
 
 variable "oidc_github_client_id" {
