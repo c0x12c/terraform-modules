@@ -77,6 +77,12 @@ variable "aws_management_role" {
   default = null
 }
 
+variable "create_github_app_secret" {
+  description = "Whether to create the GitHub App repo-creds Secret from `github_app`. Set false when another controller (e.g. External Secrets) owns a Secret of the same name; remove the existing Secret from state first, or Terraform destroys it."
+  type        = bool
+  default     = true
+}
+
 variable "github_app" {
   description = "GitHub App configuration to use for Argo CD"
   type = object({

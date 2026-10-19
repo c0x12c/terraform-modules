@@ -10,6 +10,8 @@ resource "helm_release" "this" {
 }
 
 resource "kubernetes_secret" "github_app" {
+  count = var.create_github_app_secret ? 1 : 0
+
   metadata {
     namespace = var.argocd_namespace
     name      = lower(var.github_app.secret_name)
@@ -28,6 +30,11 @@ resource "kubernetes_secret" "github_app" {
   }
 
   depends_on = [helm_release.this]
+}
+
+moved {
+  from = kubernetes_secret.github_app
+  to   = kubernetes_secret.github_app[0]
 }
 
 resource "kubernetes_secret" "repository" {
