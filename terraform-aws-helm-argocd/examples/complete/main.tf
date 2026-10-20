@@ -76,6 +76,8 @@ module "argocd" {
   # tolerations   = local.tolerations
 
   # GitHub App
+  # Default; set false when External Secrets owns the repo-creds Secret instead
+  create_github_app_secret = true
   github_app = {
     secret_name     = "argocd"
     app_id          = 123456

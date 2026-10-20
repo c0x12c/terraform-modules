@@ -77,8 +77,14 @@ variable "aws_management_role" {
   default = null
 }
 
+variable "create_github_app_secret" {
+  description = "Whether to create the GitHub App repo-creds Secret from `github_app`. Set false when another controller (e.g. External Secrets) owns a Secret of the same name; remove the existing Secret from state first, or Terraform destroys it."
+  type        = bool
+  default     = true
+}
+
 variable "github_app" {
-  description = "GitHub App configuration to use for Argo CD"
+  description = "GitHub App configuration to use for Argo CD. Required unless `create_github_app_secret` is false."
   type = object({
     secret_name     = string
     app_id          = number
@@ -86,7 +92,13 @@ variable "github_app" {
     private_key     = string
     organization    = string
   })
+  default   = null
   sensitive = true
+
+  validation {
+    condition     = !var.create_github_app_secret || var.github_app != null
+    error_message = "github_app is required while create_github_app_secret is true."
+  }
 }
 
 variable "oidc_github_client_id" {
