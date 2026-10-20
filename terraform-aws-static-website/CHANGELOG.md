@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.1](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-static-website/v1.2.0...terraform-aws-static-website/v1.2.1) (2026-10-20)
+
+
+### Bug Fixes
+
+* **terraform-aws-static-website:** alias records must not evaluate target health ([#375](https://github.com/c0x12c/terraform-modules/issues/375)) ([c178d1c](https://github.com/c0x12c/terraform-modules/commit/c178d1c8f778a3c89eba23deca6ad97e364f1ccb))
+
 ## [1.2.1](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-static-website/v1.2.0...terraform-aws-static-website/v1.2.1) (2026-10-14)
 
 
