@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.9.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-helm-argocd/v1.8.0...terraform-aws-helm-argocd/v1.9.0) (2026-10-20)
+
+
+### Features
+
+* **terraform-aws-helm-argocd:** make the GitHub App repo-creds Secret optional ([#381](https://github.com/c0x12c/terraform-modules/issues/381)) ([b6caafd](https://github.com/c0x12c/terraform-modules/commit/b6caafd30975ddd034695cad3518247da57b898a))
+
 ## [1.8.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-helm-argocd/v1.7.2...terraform-aws-helm-argocd/v1.8.0) (2026-09-03)
 
 
