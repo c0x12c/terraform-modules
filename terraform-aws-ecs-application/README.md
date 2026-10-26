@@ -84,6 +84,25 @@ module "application" {
 }
 ```
 
+### Scoping execution-role secret access
+
+Set these inputs in the application module call to restrict secret injection access:
+
+```hcl
+task_execution_secret_arns = [
+  "arn:aws:secretsmanager:us-west-2:123456789012:secret:app/database-*"
+]
+task_execution_ssm_parameter_arns = [
+  "arn:aws:ssm:us-west-2:123456789012:parameter/app/DB_PASSWORD"
+]
+```
+
+Use the full Secrets Manager ARN including its random suffix, or a name-prefix
+wildcard as shown. Omit the `:json-key::` selector from a `valueFrom` ARN.
+Each input defaults to `["*"]` to preserve existing access. Set either input to
+`[]` to omit that service's read policy. The SSM-only examples disable the Secrets
+Manager policy and scope SSM access to the parameter used by `container_secrets`.
+
 ### When a CI pipeline deploys the service
 
 By default this module is the deployer: it registers a task definition revision
@@ -290,6 +309,8 @@ To roll back and have it survive, do one of:
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | List of subnets to associate with the task or service | `list(string)` | `[]` | no |
 | <a name="input_target_group_configuration"></a> [target\_group\_configuration](#input\_target\_group\_configuration) | Target group configuration. | <pre>object({<br/>    health_check_enabled             = optional(bool, true)<br/>    health_check_path                = optional(string, "/health")<br/>    health_check_protocol            = optional(string, "HTTP")<br/>    health_check_port                = optional(number, 8080)<br/>    health_check_interval            = optional(number, 120)<br/>    health_check_timeout             = optional(number, 60)<br/>    health_check_healthy_threshold   = optional(number, 2)<br/>    health_check_unhealthy_threshold = optional(number, 7)<br/>    health_check_matcher             = optional(string, "200")<br/>  })</pre> | <pre>{<br/>  "health_check_enabled": true,<br/>  "health_check_healthy_threshold": 2,<br/>  "health_check_interval": 120,<br/>  "health_check_matcher": "200",<br/>  "health_check_path": "/health",<br/>  "health_check_port": 8080,<br/>  "health_check_protocol": "HTTP",<br/>  "health_check_timeout": 60,<br/>  "health_check_unhealthy_threshold": 7<br/>}</pre> | no |
 | <a name="input_task_cpu"></a> [task\_cpu](#input\_task\_cpu) | Task cpu. | `number` | n/a | yes |
+| <a name="input_task_execution_secret_arns"></a> [task\_execution\_secret\_arns](#input\_task\_execution\_secret\_arns) | Secrets Manager secret ARNs the task execution role may read (secretsmanager:GetSecretValue) to inject container\_secrets. Use the secret ARN including its random suffix, or a name-prefix wildcard such as arn:aws:secretsmanager:<region>:<account>:secret:<name>-*; do not include the :json-key:: part of a valueFrom. The default ["*"] keeps the previous account-wide grant. [] creates no Secrets Manager policy. | `list(string)` | <pre>[<br/>  "*"<br/>]</pre> | no |
+| <a name="input_task_execution_ssm_parameter_arns"></a> [task\_execution\_ssm\_parameter\_arns](#input\_task\_execution\_ssm\_parameter\_arns) | SSM parameter ARNs the task execution role may read (ssm:GetParameter and ssm:GetParameters) to inject container\_secrets. Use SSM parameter ARNs such as arn:aws:ssm:<region>:<account>:parameter/<name>. The default ["*"] keeps the previous account-wide grant. [] creates no SSM policy. | `list(string)` | <pre>[<br/>  "*"<br/>]</pre> | no |
 | <a name="input_task_memory"></a> [task\_memory](#input\_task\_memory) | Task memory. | `number` | n/a | yes |
 | <a name="input_task_policy_secrets_description"></a> [task\_policy\_secrets\_description](#input\_task\_policy\_secrets\_description) | The description of IAM policy for task secrets. | `string` | `"Policy that allows access to the ssm we created"` | no |
 | <a name="input_task_policy_ssm_description"></a> [task\_policy\_ssm\_description](#input\_task\_policy\_ssm\_description) | The description of IAM policy for task ssm. | `string` | `"Policy that allows access to the ssm we created"` | no |

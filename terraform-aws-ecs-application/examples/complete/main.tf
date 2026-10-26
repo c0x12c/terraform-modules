@@ -22,6 +22,8 @@ module "this" {
       value = "dev"
     }
   ]
+  task_execution_secret_arns        = []
+  task_execution_ssm_parameter_arns = ["arn:aws:ssm:us-west-2:1234567899:parameter/DB_PASSWORD"]
   container_secrets = [
     {
       name      = "DB_PASSWORD",
