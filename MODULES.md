@@ -23,7 +23,7 @@ module "example" {
 | `terraform-aws-documentdb` | `terraform.c0x12c.com/c0x12c/documentdb/aws` | 0.1.1 | Terraform module which provisions an Amazon DocumentDB (MongoDB-compatible) cluster on AWS. |
 | `terraform-aws-ec2` | `terraform.c0x12c.com/c0x12c/ec2/aws` | 1.0.0 | Terraform module to provision AWS EC2 instances with comprehensive configuration options. |
 | `terraform-aws-ecr` | `terraform.c0x12c.com/c0x12c/ecr/aws` | 0.2.0 | Terraform module which creates Amazon ECR resources. |
-| `terraform-aws-ecs-application` | `terraform.c0x12c.com/c0x12c/ecs-application/aws` | 2.4.0 | Terraform module which creates ECS (Elastic Container Service) resources on AWS. |
+| `terraform-aws-ecs-application` | `terraform.c0x12c.com/c0x12c/ecs-application/aws` | 2.5.0 | Terraform module which creates ECS (Elastic Container Service) resources on AWS. |
 | `terraform-aws-ecs-cluster` | `terraform.c0x12c.com/c0x12c/ecs-cluster/aws` | 0.2.2 | Terraform module which creates ECS cluster resources on AWS. |
 | `terraform-aws-ecs-service-bot` | `terraform.c0x12c.com/c0x12c/ecs-service-bot/aws` | 0.1.0 | This Terraform module deploys a Service Bot on AWS ECS using Fargate. The Service Bot automates DevOps work... |
 | `terraform-aws-efs` | `terraform.c0x12c.com/c0x12c/efs/aws` | 0.1.78 | Terraform EFS sub-module to create EFS resources on AWS. |
