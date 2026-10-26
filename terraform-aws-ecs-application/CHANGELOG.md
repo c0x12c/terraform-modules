@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.5.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-ecs-application/v2.4.0...terraform-aws-ecs-application/v2.5.0) (2026-10-26)
+
+
+### Features
+
+* **ecs-application:** scope execution-role secret and SSM reads to caller-supplied ARNs ([#384](https://github.com/c0x12c/terraform-modules/issues/384)) ([660e7c6](https://github.com/c0x12c/terraform-modules/commit/660e7c6eae65404ca9e473eb74f3ca672c1358c3))
+
 ## [2.4.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-ecs-application/v2.3.0...terraform-aws-ecs-application/v2.4.0) (2026-07-31)
 
 
