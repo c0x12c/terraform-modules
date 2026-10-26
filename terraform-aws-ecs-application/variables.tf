@@ -293,6 +293,28 @@ variable "task_policy_secrets_description" {
   default     = "Policy that allows access to the ssm we created"
 }
 
+variable "task_execution_secret_arns" {
+  description = "Secrets Manager secret ARNs the task execution role may read (secretsmanager:GetSecretValue) to inject container_secrets. Use the secret ARN including its random suffix, or a name-prefix wildcard such as arn:aws:secretsmanager:<region>:<account>:secret:<name>-*; do not include the :json-key:: part of a valueFrom. The default [\"*\"] keeps the previous account-wide grant. [] creates no Secrets Manager policy."
+  type        = list(string)
+  default     = ["*"]
+
+  validation {
+    condition     = alltrue([for arn in var.task_execution_secret_arns : arn == "*" || can(regex("^arn:", arn))])
+    error_message = "Every element must be \"*\" or start with \"arn:\"."
+  }
+}
+
+variable "task_execution_ssm_parameter_arns" {
+  description = "SSM parameter ARNs the task execution role may read (ssm:GetParameter and ssm:GetParameters) to inject container_secrets. Use SSM parameter ARNs such as arn:aws:ssm:<region>:<account>:parameter/<name>. The default [\"*\"] keeps the previous account-wide grant. [] creates no SSM policy."
+  type        = list(string)
+  default     = ["*"]
+
+  validation {
+    condition     = alltrue([for arn in var.task_execution_ssm_parameter_arns : arn == "*" || can(regex("^arn:", arn))])
+    error_message = "Every element must be \"*\" or start with \"arn:\"."
+  }
+}
+
 variable "task_policy_ssm_description" {
   description = "The description of IAM policy for task ssm."
   type        = string

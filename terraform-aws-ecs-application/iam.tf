@@ -17,43 +17,55 @@ resource "aws_iam_role" "task_execution_role" {
 }
 
 data "aws_iam_policy_document" "secrets" {
+  count = length(var.task_execution_secret_arns) > 0 ? 1 : 0
+
   statement {
     sid       = "AccessSecrets"
     effect    = "Allow"
     actions   = ["secretsmanager:GetSecretValue"]
-    resources = ["*"]
+    resources = var.task_execution_secret_arns
   }
 }
 
 resource "aws_iam_policy" "secrets" {
+  count = length(var.task_execution_secret_arns) > 0 ? 1 : 0
+
   name        = "${var.name}-task-policy-secrets"
   description = var.task_policy_secrets_description
-  policy      = data.aws_iam_policy_document.secrets.json
+  policy      = data.aws_iam_policy_document.secrets[0].json
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_secrets_policy_attachment" {
+  count = length(var.task_execution_secret_arns) > 0 ? 1 : 0
+
   role       = aws_iam_role.task_execution_role.name
-  policy_arn = aws_iam_policy.secrets.arn
+  policy_arn = aws_iam_policy.secrets[0].arn
 }
 
 data "aws_iam_policy_document" "ssm" {
+  count = length(var.task_execution_ssm_parameter_arns) > 0 ? 1 : 0
+
   statement {
     sid       = "AccessSSM"
     effect    = "Allow"
     actions   = ["ssm:GetParameter", "ssm:GetParameters"]
-    resources = ["*"]
+    resources = var.task_execution_ssm_parameter_arns
   }
 }
 
 resource "aws_iam_policy" "ssm" {
+  count = length(var.task_execution_ssm_parameter_arns) > 0 ? 1 : 0
+
   name        = "${var.name}-task-policy-ssm"
   description = var.task_policy_ssm_description
-  policy      = data.aws_iam_policy_document.ssm.json
+  policy      = data.aws_iam_policy_document.ssm[0].json
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_ssm_policy_attachment" {
+  count = length(var.task_execution_ssm_parameter_arns) > 0 ? 1 : 0
+
   role       = aws_iam_role.task_execution_role.name
-  policy_arn = aws_iam_policy.ssm.arn
+  policy_arn = aws_iam_policy.ssm[0].arn
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy_attachment" {
