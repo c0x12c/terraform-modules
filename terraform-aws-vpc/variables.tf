@@ -42,6 +42,23 @@ variable "custom_private_subnets" {
   default     = []
 }
 
+variable "create_database_subnets" {
+  description = "Whether to create database subnets, one per availability zone, with a route table that has no route to the internet."
+  type        = bool
+  default     = false
+}
+
+variable "custom_database_subnets" {
+  description = "List of custom database subnets, one per availability zone. Used when both create_custom_subnets and create_database_subnets are true."
+  type        = list(string)
+  default     = []
+
+  validation {
+    condition     = !(var.create_custom_subnets && var.create_database_subnets) || length(var.custom_database_subnets) == length(var.availability_zone_postfixes)
+    error_message = "custom_database_subnets needs one CIDR per availability zone when create_custom_subnets and create_database_subnets are both true."
+  }
+}
+
 variable "create_flow_log" {
   description = "Whether to create VPC flow logs."
   type        = bool

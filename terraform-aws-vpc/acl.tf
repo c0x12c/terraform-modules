@@ -5,7 +5,7 @@ resource "aws_network_acl" "this" {
   count = var.custom_acls != null ? 1 : 0
 
   vpc_id     = aws_vpc.this.id
-  subnet_ids = flatten([aws_subnet.public.*.id, aws_subnet.private.*.id])
+  subnet_ids = flatten([aws_subnet.public.*.id, aws_subnet.private.*.id, aws_subnet.database.*.id])
 }
 
 /*

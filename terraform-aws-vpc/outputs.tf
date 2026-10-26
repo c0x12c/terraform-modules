@@ -32,3 +32,18 @@ output "public_route_table_id" {
   description = "The public route table ID"
   value       = aws_route_table.public.id
 }
+
+output "subnet_database" {
+  description = "The database subnet information"
+  value       = aws_subnet.database
+}
+
+output "database_route_table_id" {
+  description = "The database route table ID"
+  value       = try(aws_route_table.database[0].id, null)
+}
+
+output "database_subnet_group_name" {
+  description = "The name of the RDS subnet group built from the database subnets"
+  value       = try(aws_db_subnet_group.database[0].name, null)
+}

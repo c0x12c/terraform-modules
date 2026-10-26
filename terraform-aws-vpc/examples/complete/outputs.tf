@@ -17,3 +17,7 @@ output "eip_nat_public_ips" {
 output "vpc_cidr_block" {
   value = module.aws_vpc.vpc_cidr_block
 }
+
+output "database_subnet_group_name" {
+  value = module.aws_vpc.database_subnet_group_name
+}
