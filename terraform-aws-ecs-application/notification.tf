@@ -21,61 +21,7 @@ module "eventbridge-slack-notification" {
     SERVICE_NAME = var.name
   }
 
-  event_rules = [
-    {
-      name        = "${var.name}-ecs-deployment-events"
-      description = "ECS Deployment State Changes"
-      event_pattern = {
-        source      = ["aws.ecs"]
-        detail-type = ["ECS Deployment State Change"]
-        resources = [
-          {
-            prefix = aws_ecs_service.this.id
-          }
-        ]
-        detail = {
-          eventName  = var.notification_deployment_event_types
-          clusterArn = [var.ecs_cluster_id]
-        }
-      }
-    },
-    {
-      name        = "${var.name}-ecs-service-events"
-      description = "ECS Service State Changes"
-      event_pattern = {
-        source      = ["aws.ecs"]
-        detail-type = ["ECS Service Action"]
-        resources = [
-          {
-            prefix = aws_ecs_service.this.id
-          }
-        ]
-        detail = {
-          eventType  = var.notification_service_event_types
-          clusterArn = [var.ecs_cluster_id]
-        }
-      }
-    },
-    {
-      name        = "${var.name}-ecs-task-events"
-      description = "ECS Task State Changes"
-      event_pattern = {
-        source      = ["aws.ecs"]
-        detail-type = ["ECS Task State Change"]
-        resources = [
-          {
-            prefix = "${replace(var.ecs_cluster_id, ":cluster/", ":task/")}/"
-          }
-        ]
-        detail = {
-          lastStatus = ["STOPPED"]
-          stopCode   = var.notification_task_stop_codes
-          clusterArn = [var.ecs_cluster_id]
-          group      = ["service:${var.name}"]
-        }
-      }
-    }
-  ]
+  event_rules = local.notification_event_rules
 
   depends_on = [aws_iam_policy.lambda_ecs_policy]
 }
