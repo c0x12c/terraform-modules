@@ -107,6 +107,12 @@ jobs:
         shell: bash
         run: terraform -chdir="$MODULE" validate -no-color
 
+      - name: Run Terraform tests
+        env:
+          MODULE: ${{ matrix.module }}
+        shell: bash
+        run: terraform -chdir="$MODULE" test -no-color
+
       - name: Validate examples
         env:
           MODULE: ${{ matrix.module }}
