@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.5.1](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-ecs-application/v2.5.0...terraform-aws-ecs-application/v2.5.1) (2026-10-27)
+
+
+### Bug Fixes
+
+* **ecs-application:** match ECS failure events ([#387](https://github.com/c0x12c/terraform-modules/issues/387)) ([a8f878d](https://github.com/c0x12c/terraform-modules/commit/a8f878d9eaac8a2c1342d98c72f5ca77c12c641a))
+
 ## [2.5.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-ecs-application/v2.4.0...terraform-aws-ecs-application/v2.5.0) (2026-10-26)
 
 
