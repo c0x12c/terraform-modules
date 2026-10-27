@@ -23,9 +23,9 @@ module "example" {
 | `terraform-aws-documentdb` | `terraform.c0x12c.com/c0x12c/documentdb/aws` | 0.1.1 | Terraform module which provisions an Amazon DocumentDB (MongoDB-compatible) cluster on AWS. |
 | `terraform-aws-ec2` | `terraform.c0x12c.com/c0x12c/ec2/aws` | 1.0.0 | Terraform module to provision AWS EC2 instances with comprehensive configuration options. |
 | `terraform-aws-ecr` | `terraform.c0x12c.com/c0x12c/ecr/aws` | 0.2.0 | Terraform module which creates Amazon ECR resources. |
-| `terraform-aws-ecs-application` | `terraform.c0x12c.com/c0x12c/ecs-application/aws` | 2.5.0 | Terraform module which creates ECS (Elastic Container Service) resources on AWS. |
+| `terraform-aws-ecs-application` | `terraform.c0x12c.com/c0x12c/ecs-application/aws` | 2.5.1 | Terraform module which creates ECS (Elastic Container Service) resources on AWS. |
 | `terraform-aws-ecs-cluster` | `terraform.c0x12c.com/c0x12c/ecs-cluster/aws` | 0.2.2 | Terraform module which creates ECS cluster resources on AWS. |
-| `terraform-aws-ecs-service-bot` | `terraform.c0x12c.com/c0x12c/ecs-service-bot/aws` | 0.1.0 | This Terraform module deploys a Service Bot on AWS ECS using Fargate. The Service Bot automates DevOps work... |
+| `terraform-aws-ecs-service-bot` | `terraform.c0x12c.com/c0x12c/ecs-service-bot/aws` | 0.2.0 | This Terraform module deploys a Service Bot on AWS ECS using Fargate. The Service Bot automates DevOps work... |
 | `terraform-aws-efs` | `terraform.c0x12c.com/c0x12c/efs/aws` | 0.1.78 | Terraform EFS sub-module to create EFS resources on AWS. |
 | `terraform-aws-eks-access-entry` | `terraform.c0x12c.com/c0x12c/eks-access-entry/aws` | 0.3.0 | Terraform module which creates Amazon EKS (Kubernetes) resources |
 | `terraform-aws-eks-cloudwatch-logging-fargate` | `terraform.c0x12c.com/c0x12c/eks-cloudwatch-logging-fargate/aws` | 1.0.0 | Terraform Cloudwatch logging module for fargate. |
@@ -80,7 +80,7 @@ module "example" {
 | `terraform-aws-sns` | `terraform.c0x12c.com/c0x12c/sns/aws` | 0.1.44 | Terraform module which creates SNS resources on AWS. |
 | `terraform-aws-sqs` | `terraform.c0x12c.com/c0x12c/sqs/aws` | 0.3.0 | Terraform module which creates SQS resources on AWS. |
 | `terraform-aws-ssm-parameter` | `terraform.c0x12c.com/c0x12c/ssm-parameter/aws` | 1.0.0 | Terraform module which creates SSM parameter resources on AWS. |
-| `terraform-aws-static-website` | `terraform.c0x12c.com/c0x12c/static-website/aws` | 1.2.0 | Module which create a static website on AWS. |
+| `terraform-aws-static-website` | `terraform.c0x12c.com/c0x12c/static-website/aws` | 1.2.1 | Module which create a static website on AWS. |
 | `terraform-aws-vanta` | `terraform.c0x12c.com/c0x12c/vanta/aws` | 0.1.49 | This module will create the components below: |
 | `terraform-aws-vpc` | `terraform.c0x12c.com/c0x12c/vpc/aws` | 0.5.0 | Terraform module which creates VPC resources on AWS. |
 | `terraform-aws-vpc-endpoints` | `terraform.c0x12c.com/c0x12c/vpc-endpoints/aws` | 0.1.29 | Terraform module which creates VPC endpoint resources on AWS. |
