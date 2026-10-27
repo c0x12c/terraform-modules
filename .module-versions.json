@@ -11,7 +11,7 @@
   "terraform-aws-ecr": "0.2.0",
   "terraform-aws-ecs-application": "2.5.0",
   "terraform-aws-ecs-cluster": "0.2.2",
-  "terraform-aws-ecs-service-bot": "0.1.0",
+  "terraform-aws-ecs-service-bot": "0.2.0",
   "terraform-aws-efs": "0.1.78",
   "terraform-aws-eks-access-entry": "0.3.0",
   "terraform-aws-eks-cloudwatch-logging-fargate": "1.0.0",
