@@ -179,6 +179,9 @@ locals {
           redpanda       = { adminApi = { authentication = { impersonateUser = false } } }
           schemaRegistry = { authentication = { impersonateUser = false } }
         }
+        # The operator rewrites adminApi.authentication after merging values and forces
+        # impersonation on; Console's env overrides its config file, so pin it off here.
+        extraEnv = [{ name = "REDPANDA_ADMINAPI_AUTHENTICATION_IMPERSONATEUSER", value = "false" }]
       }
       config = { cluster = local.cluster_config }
     },
