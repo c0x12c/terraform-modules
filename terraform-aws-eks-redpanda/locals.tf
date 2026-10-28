@@ -169,8 +169,21 @@ locals {
         { create = true, name = local.service_account },
         [{ annotations = { "eks.amazonaws.com/role-arn" = try(aws_iam_role.tiered[0].arn, "") } }, {}][var.tiered_storage.enabled ? 0 : 1],
       )
-      console = { enabled = var.console_enabled }
-      config  = { cluster = local.cluster_config }
+      # Without an Enterprise licence Console has no login, so it cannot impersonate the viewer and
+      # refuses to start; it reads Kafka as the module's admin user, from the secret, never from values.
+      console = {
+        enabled = var.console_enabled
+        console = {
+          extraEnv = [
+            { name = "KAFKA_SASL_ENABLED", value = "true" },
+            { name = "KAFKA_SASL_MECHANISM", value = "SCRAM-SHA-512" },
+            { name = "KAFKA_SASL_IMPERSONATEUSER", value = "false" },
+            { name = "KAFKA_SASL_USERNAME", valueFrom = { secretKeyRef = { name = "${var.name}-admin", key = "username" } } },
+            { name = "KAFKA_SASL_PASSWORD", valueFrom = { secretKeyRef = { name = "${var.name}-admin", key = "password" } } },
+          ]
+        }
+      }
+      config = { cluster = local.cluster_config }
     },
     [{
       enterprise = { licenseSecretRef = { name = try(var.enterprise_license_secret.name, ""), key = try(var.enterprise_license_secret.key, "") } }
