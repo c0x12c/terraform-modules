@@ -170,7 +170,7 @@ locals {
         [{ annotations = { "eks.amazonaws.com/role-arn" = try(aws_iam_role.tiered[0].arn, "") } }, {}][var.tiered_storage.enabled ? 0 : 1],
       )
       # Without an Enterprise licence Console has no login, so it cannot impersonate the viewer and
-      # refuses to start; it reads Kafka as the module's admin user, from the secret, never from values.
+      # refuses to start. The operator already wires it to Kafka as its own bootstrap user.
       console = {
         enabled = var.console_enabled
         # console.console is Console's own config file; the chart defaults every backend to impersonation.
@@ -179,12 +179,6 @@ locals {
           redpanda       = { adminApi = { authentication = { impersonateUser = false } } }
           schemaRegistry = { authentication = { impersonateUser = false } }
         }
-        extraEnv = [
-          { name = "KAFKA_SASL_ENABLED", value = "true" },
-          { name = "KAFKA_SASL_MECHANISM", value = "SCRAM-SHA-512" },
-          { name = "KAFKA_SASL_USERNAME", valueFrom = { secretKeyRef = { name = "${var.name}-admin", key = "username" } } },
-          { name = "KAFKA_SASL_PASSWORD", valueFrom = { secretKeyRef = { name = "${var.name}-admin", key = "password" } } },
-        ]
       }
       config = { cluster = local.cluster_config }
     },
