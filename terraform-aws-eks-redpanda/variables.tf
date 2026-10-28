@@ -44,7 +44,7 @@ variable "redpanda_version" {
 variable "size" {
   description = <<-EOT
     Sizing profile, cheapest first:
-    small  - 3 brokers, 1 core, 2.5Gi each, EBS volumes, runs on existing nodes unless node_group.create is true;
+    small  - 3 brokers, 1 core, 2.5Gi each, EBS volumes, requires a dedicated EC2 pool;
     medium - 3 brokers on dedicated i4g.xlarge, local NVMe;
     large  - 3 brokers on dedicated i4g.2xlarge, local NVMe.
     Any field of var.brokers overrides the profile.
@@ -87,12 +87,19 @@ variable "node_group" {
     Dedicated broker nodes, one managed node group per subnet (one subnet per AZ).
     Required for local_nvme storage, since the module's user data prepares the instance store.
     Nodes are tainted dedicated=<name>:NoSchedule so nothing else lands on them.
+    On Fargate-first clusters create this group or provide an external tainted EC2 pool.
+    labels and taint override the default selector and NoSchedule toleration for either pool.
   EOT
   type = object({
     create             = optional(bool, false)
     subnet_ids         = optional(list(string), [])
     kubernetes_version = optional(string)
     root_volume_size   = optional(number, 50)
+    labels             = optional(map(string))
+    taint = optional(object({
+      key   = string
+      value = string
+    }))
   })
   default = {}
 
@@ -175,8 +182,8 @@ variable "tenants" {
   default = {}
 
   validation {
-    condition     = alltrue([for k in keys(var.tenants) : can(regex("^[a-z0-9]([a-z0-9-]*[a-z0-9])?$", k))])
-    error_message = "Tenant names must be lowercase DNS labels."
+    condition     = alltrue([for k in keys(var.tenants) : can(regex("^[a-z]([a-z0-9-]*[a-z0-9])?$", k))])
+    error_message = "Tenant names must be lowercase DNS labels starting with a letter, without dots."
   }
 
   validation {

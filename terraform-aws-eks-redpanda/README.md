@@ -17,7 +17,15 @@ What it creates:
 
 ## Usage
 
-### Cheapest: shared cluster on existing nodes
+### Cheapest: shared cluster on an existing dedicated EC2 pool
+
+Tenant workloads may run on Fargate, but brokers require EC2: Fargate provides
+neither EBS nor local NVMe. On a Fargate-first cluster, set `node_group.create = true`
+with subnet IDs, or supply an existing tainted EC2 pool. By default brokers select
+`redpanda.com/cluster = <name>` and tolerate `dedicated=<name>:NoSchedule`.
+For an external pool, set `node_group.labels` and `node_group.taint = { key = "dedicated", value = "redpanda" }`
+to match its labels and NoSchedule taint. Keep the broker namespace outside Fargate
+profile selectors. The module-created node groups use the same labels and taint.
 
 ```hcl
 module "redpanda" {

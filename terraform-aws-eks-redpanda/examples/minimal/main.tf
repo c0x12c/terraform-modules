@@ -1,4 +1,4 @@
-# Cheapest shape: 3 small brokers on the cluster's existing nodes, EBS volumes, no
+# Cheapest shape: 3 small brokers on an existing dedicated EC2 pool, EBS volumes, no
 # licence, two tenants. Roughly the cost of 3 x 50 GiB gp3 plus the node capacity it uses.
 module "redpanda" {
   source = "../.."

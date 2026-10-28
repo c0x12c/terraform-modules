@@ -76,6 +76,9 @@
     "terraform-aws-eks-rbac": {
       "component": "terraform-aws-eks-rbac"
     },
+    "terraform-aws-eks-redpanda": {
+      "component": "terraform-aws-eks-redpanda"
+    },
     "terraform-aws-eks-service": {
       "component": "terraform-aws-eks-service"
     },

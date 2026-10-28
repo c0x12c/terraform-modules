@@ -48,8 +48,8 @@ locals {
   admin_secret      = "${var.name}-admin"
   tenant_secrets    = { for k, _ in var.tenants : k => "${var.name}-tenant-${k}" }
 
-  node_taint = { key = "dedicated", value = var.name, effect = "NoSchedule" }
-  node_label = { "redpanda.com/cluster" = var.name }
+  node_taint = merge(var.node_group.taint == null ? { key = "dedicated", value = var.name } : var.node_group.taint, { effect = "NoSchedule" })
+  node_label = var.node_group.labels == null ? { "redpanda.com/cluster" = var.name } : var.node_group.labels
 
   tiered_bucket = var.tiered_storage.enabled ? coalesce(var.tiered_storage.bucket_name, try(aws_s3_bucket.tiered[0].bucket, null)) : null
 
@@ -128,7 +128,7 @@ locals {
     }
   }, {}][var.tiered_storage.enabled ? 0 : 1]
 
-  scheduling = [{
+  scheduling = {
     nodeSelector = local.node_label
     tolerations = [{
       key      = local.node_taint.key
@@ -136,13 +136,14 @@ locals {
       value    = local.node_taint.value
       effect   = local.node_taint.effect
     }]
-  }, {}][var.node_group.create ? 0 : 1]
+  }
 
   cluster_spec = merge(
     {
-      image    = { repository = "docker.redpanda.com/redpandadata/redpanda", tag = var.redpanda_version }
-      tls      = { enabled = var.tls_enabled }
-      external = { enabled = false }
+      image     = { repository = "docker.redpanda.com/redpandadata/redpanda", tag = var.redpanda_version }
+      tls       = { enabled = var.tls_enabled }
+      external  = { enabled = false }
+      listeners = { kafka = { authenticationMethod = "sasl" } }
       auth = {
         sasl = {
           enabled   = true
