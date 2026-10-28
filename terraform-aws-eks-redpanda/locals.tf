@@ -173,15 +173,13 @@ locals {
       # refuses to start; it reads Kafka as the module's admin user, from the secret, never from values.
       console = {
         enabled = var.console_enabled
-        console = {
-          extraEnv = [
-            { name = "KAFKA_SASL_ENABLED", value = "true" },
-            { name = "KAFKA_SASL_MECHANISM", value = "SCRAM-SHA-512" },
-            { name = "KAFKA_SASL_IMPERSONATEUSER", value = "false" },
-            { name = "KAFKA_SASL_USERNAME", valueFrom = { secretKeyRef = { name = "${var.name}-admin", key = "username" } } },
-            { name = "KAFKA_SASL_PASSWORD", valueFrom = { secretKeyRef = { name = "${var.name}-admin", key = "password" } } },
-          ]
-        }
+        extraEnv = [
+          { name = "KAFKA_SASL_ENABLED", value = "true" },
+          { name = "KAFKA_SASL_MECHANISM", value = "SCRAM-SHA-512" },
+          { name = "KAFKA_SASL_IMPERSONATEUSER", value = "false" },
+          { name = "KAFKA_SASL_USERNAME", valueFrom = { secretKeyRef = { name = "${var.name}-admin", key = "username" } } },
+          { name = "KAFKA_SASL_PASSWORD", valueFrom = { secretKeyRef = { name = "${var.name}-admin", key = "password" } } },
+        ]
       }
       config = { cluster = local.cluster_config }
     },
