@@ -1,0 +1,8 @@
+apiVersion: cluster.redpanda.com/v1alpha2
+kind: Redpanda
+metadata:
+  name: {{ .Values.clusterName }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  clusterSpec:
+    {{- toYaml .Values.clusterSpec | nindent 4 }}

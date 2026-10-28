@@ -1,0 +1,45 @@
+{{- if .Values.quotas }}
+# Client quotas have no custom resource, so a hook Job applies them with rpk after every
+# install or upgrade. It waits for the brokers, since the Redpanda resource reports Ready
+# before they are. Removing a tenant does not remove its quota.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.clusterName }}-quotas
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    helm.sh/hook: post-install,post-upgrade
+    helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+    checksum/quotas: {{ toJson .Values.quotas | sha256sum }}
+spec:
+  backoffLimit: 3
+  activeDeadlineSeconds: 1500
+  template:
+    spec:
+      restartPolicy: OnFailure
+      {{- with .Values.scheduling }}
+      {{- toYaml . | nindent 6 }}
+      {{- end }}
+      containers:
+        - name: rpk
+          image: {{ .Values.image }}
+          command: ["/bin/bash", "-ec"]
+          args:
+            - |
+              until rpk cluster info >/dev/null 2>&1; do echo "waiting for brokers"; sleep 10; done
+              {{- range .Values.quotas }}
+              rpk cluster quotas alter --name user={{ .user }}
+              {{- if .producer_byte_rate }} --add producer_byte_rate={{ int64 .producer_byte_rate }}{{ end }}
+              {{- if .consumer_byte_rate }} --add consumer_byte_rate={{ int64 .consumer_byte_rate }}{{ end }}
+              {{- end }}
+              rpk cluster quotas describe
+          env:
+            - name: RPK_BROKERS
+              value: {{ .Values.brokersAddress | quote }}
+            - name: RPK_SASL_MECHANISM
+              value: SCRAM-SHA-512
+            - name: RPK_USER
+              valueFrom: { secretKeyRef: { name: {{ .Values.adminSecret }}, key: username } }
+            - name: RPK_PASS
+              valueFrom: { secretKeyRef: { name: {{ .Values.adminSecret }}, key: password } }
+{{- end }}
