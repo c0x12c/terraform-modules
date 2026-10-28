@@ -173,10 +173,15 @@ locals {
       # refuses to start; it reads Kafka as the module's admin user, from the secret, never from values.
       console = {
         enabled = var.console_enabled
+        # console.console is Console's own config file; the chart defaults every backend to impersonation.
+        console = {
+          kafka          = { sasl = { impersonateUser = false } }
+          redpanda       = { adminApi = { authentication = { impersonateUser = false } } }
+          schemaRegistry = { authentication = { impersonateUser = false } }
+        }
         extraEnv = [
           { name = "KAFKA_SASL_ENABLED", value = "true" },
           { name = "KAFKA_SASL_MECHANISM", value = "SCRAM-SHA-512" },
-          { name = "KAFKA_SASL_IMPERSONATEUSER", value = "false" },
           { name = "KAFKA_SASL_USERNAME", valueFrom = { secretKeyRef = { name = "${var.name}-admin", key = "username" } } },
           { name = "KAFKA_SASL_PASSWORD", valueFrom = { secretKeyRef = { name = "${var.name}-admin", key = "password" } } },
         ]
