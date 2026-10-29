@@ -1,4 +1,4 @@
-# Dedicated Graviton NVMe brokers, one node group per AZ, tiered storage to S3 with
+# Dedicated Graviton brokers on EBS gp3, one node group per AZ, tiered storage to S3 with
 # 10 GiB per partition kept locally. Scale up with size, out with brokers.replicas.
 module "redpanda" {
   source = "../.."

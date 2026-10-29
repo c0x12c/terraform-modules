@@ -45,8 +45,8 @@ variable "size" {
   description = <<-EOT
     Sizing profile, cheapest first:
     small  - 3 brokers, 1 core, 2.5Gi each, EBS volumes, requires a dedicated EC2 pool;
-    medium - 3 brokers on dedicated i4g.xlarge, local NVMe;
-    large  - 3 brokers on dedicated i4g.2xlarge, local NVMe.
+    medium - 3 brokers, 2 cores, 10Gi each, on dedicated m7g.xlarge Graviton nodes, EBS gp3 volumes;
+    large  - 3 brokers, 6 cores, 24Gi each, on dedicated m7g.2xlarge Graviton nodes, EBS gp3 volumes.
     Any field of var.brokers overrides the profile.
   EOT
   type        = string
@@ -64,7 +64,7 @@ variable "brokers" {
     replicas       = optional(number)
     cpu_cores      = optional(number)
     memory         = optional(string)
-    storage_type   = optional(string) # ebs | local_nvme
+    storage_type   = optional(string) # ebs only
     storage_size   = optional(string) # ebs only
     storage_class  = optional(string) # ebs only, null = cluster default
     instance_types = optional(list(string))
@@ -72,8 +72,8 @@ variable "brokers" {
   default = {}
 
   validation {
-    condition     = var.brokers.storage_type == null || contains(["ebs", "local_nvme"], coalesce(var.brokers.storage_type, "ebs"))
-    error_message = "brokers.storage_type must be ebs or local_nvme."
+    condition     = var.brokers.storage_type == null || var.brokers.storage_type == "ebs"
+    error_message = "brokers.storage_type must be ebs: local NVMe (instance store) storage is not supported in this version."
   }
 
   validation {
@@ -85,7 +85,6 @@ variable "brokers" {
 variable "node_group" {
   description = <<-EOT
     Dedicated broker nodes, one managed node group per subnet (one subnet per AZ).
-    Required for local_nvme storage, since the module's user data prepares the instance store.
     Nodes are tainted dedicated=<name>:NoSchedule so nothing else lands on them.
     On Fargate-first clusters create this group or provide an external tainted EC2 pool.
     labels and taint override the default selector and NoSchedule toleration for either pool.

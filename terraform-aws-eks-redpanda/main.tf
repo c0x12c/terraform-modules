@@ -51,10 +51,6 @@ resource "helm_release" "cluster" {
 
   lifecycle {
     precondition {
-      condition     = !local.local_nvme || var.node_group.create
-      error_message = "local_nvme storage needs node_group.create = true: the module's user data formats and mounts the instance store."
-    }
-    precondition {
       condition     = !var.tiered_storage.enabled || (var.oidc_provider != null && var.enterprise_license_secret != null)
       error_message = "tiered_storage needs oidc_provider (for the IRSA role) and enterprise_license_secret."
     }

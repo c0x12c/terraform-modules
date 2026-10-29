@@ -14,10 +14,7 @@ data "cloudinit_config" "broker" {
 
   part {
     content_type = "text/cloud-config"
-    content = templatefile("${path.module}/userdata/redpanda-node.yaml.tftpl", {
-      mount_path = local.host_path
-      local_nvme = local.local_nvme
-    })
+    content      = file("${path.module}/userdata/redpanda-node.yaml.tftpl")
   }
 }
 
@@ -59,7 +56,7 @@ resource "aws_eks_node_group" "this" {
   subnet_ids      = [each.value.id]
   version         = var.node_group.kubernetes_version
   ami_type        = can(regex("^[a-z]+[0-9]+g", local.brokers.instance_types[0])) ? "AL2023_ARM_64_STANDARD" : "AL2023_x86_64_STANDARD"
-  capacity_type   = "ON_DEMAND" # Spot reclaims take instance-store replicas with them.
+  capacity_type   = "ON_DEMAND" # Spot reclaims would take brokers down together.
   instance_types  = local.brokers.instance_types
   labels          = local.node_label
 

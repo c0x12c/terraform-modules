@@ -1,50 +1,11 @@
 #cloud-config
-# Kernel and limits for Redpanda brokers; with local NVMe, also formats the instance store
-# (RAID0 across all of them when there are several) and mounts it at ${mount_path}.
+# Kernel and limits for Redpanda brokers.
 write_files:
   - path: /usr/local/sbin/redpanda-node-tune.sh
     permissions: '0755'
     content: |
       #!/bin/bash
       set -euo pipefail
-%{ if local_nvme }
-      # A node whose instance store failed to prepare must not run brokers: their hostPath would
-      # silently land on the root volume. Stopping kubelet keeps the node NotReady instead.
-      trap 'systemctl stop kubelet || true' ERR
-      MOUNT="${mount_path}"
-      # A reboot keeps the instance store and the fstab entry, so only a fresh node formats.
-      if ! mountpoint -q "$MOUNT"; then
-        # Instance-store disks have no partitions and no filesystem; the root EBS volume does.
-        DEVS=()
-        for dev in /dev/nvme*n1; do
-          [ -b "$dev" ] || continue
-          lsblk -rno TYPE "$dev" | grep -q part && continue
-          lsblk -rno MOUNTPOINT "$dev" | grep -q . && continue
-          DEVS+=("$dev")
-        done
-        [ "$${#DEVS[@]}" -gt 0 ] || { echo "ERROR: no instance-store NVMe found" >&2; exit 1; }
-        if [ "$${#DEVS[@]}" -gt 1 ]; then
-          # After a reboot the array can come back under another name (md127); creating over
-          # members that already carry a RAID superblock would wipe the broker's data.
-          if mdadm --examine "$${DEVS[0]}" >/dev/null 2>&1; then
-            mdadm --assemble --scan >/dev/null 2>&1 || true
-            DEV=$(mdadm --detail --scan | awk '{print $2}' | head -n1)
-            [ -b "$DEV" ] || { echo "ERROR: RAID members found but no array assembled" >&2; exit 1; }
-          else
-            DEV=/dev/md0
-            mdadm --create "$DEV" --level=0 --raid-devices="$${#DEVS[@]}" "$${DEVS[@]}" --run
-          fi
-        else
-          DEV="$${DEVS[0]}"
-        fi
-        blkid "$DEV" | grep -q xfs || mkfs.xfs -f "$DEV"
-        mkdir -p "$MOUNT"
-        mountpoint -q "$MOUNT" || mount -o noatime,nodiratime "$DEV" "$MOUNT"
-        chown 101:101 "$MOUNT"
-        UUID=$(blkid -s UUID -o value "$DEV")
-        grep -q "$UUID" /etc/fstab || echo "UUID=$UUID $MOUNT xfs noatime,nodiratime,nofail 0 2" >> /etc/fstab
-      fi
-%{ endif }
       cat >/etc/sysctl.d/99-redpanda.conf <<SYSEOF
       fs.aio-max-nr=1048576
       net.core.rmem_max=16777216

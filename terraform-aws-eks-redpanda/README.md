@@ -12,7 +12,7 @@ What it creates:
 - **One login per tenant.** Each tenant can only use topics, consumer groups and
   transactional ids prefixed `<tenant>.`, and gets the topics you list for it.
 - **Client quotas** for each tenant's produce and fetch byte rate.
-- **Optional:** dedicated Graviton node groups with local NVMe (one per AZ), and tiered
+- **Optional:** dedicated Graviton node groups (one per AZ), and tiered
   storage to S3 through IRSA.
 
 ## Usage
@@ -20,7 +20,7 @@ What it creates:
 ### Cheapest: shared cluster on an existing dedicated EC2 pool
 
 Tenant workloads may run on Fargate, but brokers require EC2: Fargate provides
-neither EBS nor local NVMe. On a Fargate-first cluster, set `node_group.create = true`
+no EBS volumes. On a Fargate-first cluster, set `node_group.create = true`
 with subnet IDs, or supply an existing tainted EC2 pool. By default brokers select
 `redpanda.com/cluster = <name>` and tolerate `dedicated=<name>:NoSchedule`.
 For an external pool, set `node_group.labels` and `node_group.taint = { key = "dedicated", value = "redpanda" }`
@@ -46,7 +46,7 @@ module "redpanda" {
 }
 ```
 
-### Dedicated NVMe brokers with tiered storage
+### Dedicated Graviton brokers with tiered storage
 
 ```hcl
 module "redpanda" {
@@ -89,7 +89,7 @@ tenant, so two clusters in one namespace collide.
 
 ## Placement on Fargate-first clusters
 
-Brokers need a dedicated, tainted EC2 pool: Fargate has no EBS or local NVMe. The
+Brokers need a dedicated, tainted EC2 pool: Fargate has no EBS. The
 cluster's EBS CSI node DaemonSet must tolerate that pool's taint, or PVCs never bind and
 the broker pods stay Pending.
 
@@ -109,7 +109,7 @@ directly.
 ## Examples
 
 - [Minimal](./examples/minimal/) - cheapest shape, two tenants
-- [Production](./examples/production/) - dedicated NVMe nodes, 6 brokers, tiered storage
+- [Production](./examples/production/) - dedicated Graviton nodes, 6 brokers, tiered storage
 
 ## Sizing and scaling
 
@@ -119,8 +119,8 @@ Prices are us-east-1 on-demand compute for the brokers only, read 2026-10-27.
 | Profile | Brokers | Each broker | Storage | Nodes | Approx. monthly |
 | --- | --- | --- | --- | --- | --- |
 | `small` (default) | 3 | 1 core, 2.5Gi | 50Gi gp3 PVC | existing nodes; or 3 x m7g.large with `node_group.create` | ~$12 of gp3, or ~$180 with dedicated nodes |
-| `medium` | 3 | 3 cores, 24Gi | local NVMe, 937 GB | 3 x i4g.xlarge | ~$676 |
-| `large` | 3 | 7 cores, 52Gi | local NVMe, 1.9 TB | 3 x i4g.2xlarge | ~$1,350 |
+| `medium` | 3 | 2 cores, 10Gi | 200Gi gp3 PVC | 3 x m7g.xlarge | ~$405 |
+| `large` | 3 | 6 cores, 24Gi | 500Gi gp3 PVC | 3 x m7g.2xlarge | ~$835 |
 
 Ways to grow, in order of cost:
 
@@ -128,8 +128,7 @@ Ways to grow, in order of cost:
    brokers saturate.
 2. **Retention.** Turn on `tiered_storage`, so old segments move to S3 at about
    $0.023/GB-month instead of growing disks. This needs an Enterprise licence.
-3. **Scale up.** Move `small` to `medium` to `large`. Changing storage type from EBS to
-   NVMe means migrating to a new cluster, not upgrading in place, so choose it early.
+3. **Scale up.** Move `small` to `medium` to `large`.
 4. **Scale out.** Set `brokers.replicas`, for example to 6. Partitions only move onto
    new brokers by themselves with Continuous Data Balancing (Enterprise); without it,
    move them with `rpk cluster partitions move`.
@@ -174,8 +173,8 @@ its own module instance when it needs a physical boundary.
 - **Brokers need one node each,** because the chart's anti-affinity is hard on hostname.
   Each node group therefore holds `ceil(replicas / AZs)` nodes, plus one spare for
   replacements.
-- **Spot capacity is not offered.** A reclaimed node takes its instance-store replicas
-  with it.
+- **Spot capacity is not offered.** A reclaimed node takes its brokers down with it.
+- Local NVMe (instance store) storage is not supported in this version.
 
 ## Verification status
 
@@ -185,8 +184,7 @@ What has been checked (2026-10-28):
 - The local chart's rendered output for both example shapes validates against the
   operator v26.1.9 CRD schemas, with no fields that Kubernetes would silently prune. A
   planted bad field was caught, so the check can fail.
-- The node user data renders, and its script passes `bash -n` and shellcheck in both
-  storage modes.
+- The node user data renders, and its script passes `bash -n` and shellcheck.
 - The tenant isolation pattern itself (users, prefixed ACLs, no topic creation, user
   quotas) was run against a live cluster on kind; see
   `docs/redpanda-multi-tenant-low-cost.md`.
@@ -194,8 +192,6 @@ What has been checked (2026-10-28):
 Not yet checked:
 
 - The module has not been applied anywhere.
-- The NVMe user data has not been booted on an EC2 instance. Both `mdadm` on AL2023 and
-  the RAID0 path are unproven.
 - Tiered storage through IRSA (`cloud_storage_credentials_source: sts`) has not run.
 - The quota hook Job has only been rendered, never run.
 
@@ -261,7 +257,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_brokers"></a> [brokers](#input\_brokers) | Per-field overrides of the sizing profile. replicas scales out; cpu\_cores and memory scale up. | <pre>object({<br/>    replicas       = optional(number)<br/>    cpu_cores      = optional(number)<br/>    memory         = optional(string)<br/>    storage_type   = optional(string) # ebs | local_nvme<br/>    storage_size   = optional(string) # ebs only<br/>    storage_class  = optional(string) # ebs only, null = cluster default<br/>    instance_types = optional(list(string))<br/>  })</pre> | `{}` | no |
+| <a name="input_brokers"></a> [brokers](#input\_brokers) | Per-field overrides of the sizing profile. replicas scales out; cpu\_cores and memory scale up. | <pre>object({<br/>    replicas       = optional(number)<br/>    cpu_cores      = optional(number)<br/>    memory         = optional(string)<br/>    storage_type   = optional(string) # ebs only<br/>    storage_size   = optional(string) # ebs only<br/>    storage_class  = optional(string) # ebs only, null = cluster default<br/>    instance_types = optional(list(string))<br/>  })</pre> | `{}` | no |
 | <a name="input_cluster_config"></a> [cluster\_config](#input\_cluster\_config) | Extra Redpanda cluster properties, merged over the module defaults. | `map(any)` | `{}` | no |
 | <a name="input_console_enabled"></a> [console\_enabled](#input\_console\_enabled) | Deploy Redpanda Console. Off by default: without an Enterprise licence it has no per-user login, so it is an operator tool only. | `bool` | `false` | no |
 | <a name="input_create_namespace"></a> [create\_namespace](#input\_create\_namespace) | Create the namespace. Set to false when it already exists. | `bool` | `true` | no |
@@ -269,12 +265,12 @@ No modules.
 | <a name="input_enterprise_license_secret"></a> [enterprise\_license\_secret](#input\_enterprise\_license\_secret) | Existing Secret holding the Redpanda Enterprise licence. Needed for tiered storage and Console authentication. | <pre>object({<br/>    name = string<br/>    key  = string<br/>  })</pre> | `null` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of the Redpanda cluster. Used for the Kubernetes resources and as part of every AWS resource name. | `string` | `"redpanda"` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Kubernetes namespace for the operator and the cluster. | `string` | `"redpanda"` | no |
-| <a name="input_node_group"></a> [node\_group](#input\_node\_group) | Dedicated broker nodes, one managed node group per subnet (one subnet per AZ).<br/>Required for local\_nvme storage, since the module's user data prepares the instance store.<br/>Nodes are tainted dedicated=<name>:NoSchedule so nothing else lands on them.<br/>On Fargate-first clusters create this group or provide an external tainted EC2 pool.<br/>labels and taint override the default selector and NoSchedule toleration for either pool. | <pre>object({<br/>    create             = optional(bool, false)<br/>    subnet_ids         = optional(list(string), [])<br/>    kubernetes_version = optional(string)<br/>    root_volume_size   = optional(number, 50)<br/>    labels             = optional(map(string))<br/>    taint = optional(object({<br/>      key   = string<br/>      value = string<br/>    }))<br/>  })</pre> | `{}` | no |
+| <a name="input_node_group"></a> [node\_group](#input\_node\_group) | Dedicated broker nodes, one managed node group per subnet (one subnet per AZ).<br/>Nodes are tainted dedicated=<name>:NoSchedule so nothing else lands on them.<br/>On Fargate-first clusters create this group or provide an external tainted EC2 pool.<br/>labels and taint override the default selector and NoSchedule toleration for either pool. | <pre>object({<br/>    create             = optional(bool, false)<br/>    subnet_ids         = optional(list(string), [])<br/>    kubernetes_version = optional(string)<br/>    root_volume_size   = optional(number, 50)<br/>    labels             = optional(map(string))<br/>    taint = optional(object({<br/>      key   = string<br/>      value = string<br/>    }))<br/>  })</pre> | `{}` | no |
 | <a name="input_oidc_provider"></a> [oidc\_provider](#input\_oidc\_provider) | The EKS cluster's OIDC provider, for the IRSA role that tiered storage uses. | <pre>object({<br/>    arn = string<br/>    url = string<br/>  })</pre> | `null` | no |
 | <a name="input_operator"></a> [operator](#input\_operator) | Redpanda Operator release. Set install to false when an operator already watches this namespace. | <pre>object({<br/>    install       = optional(bool, true)<br/>    chart_version = optional(string, "v26.1.9")<br/>  })</pre> | `{}` | no |
 | <a name="input_rack_awareness"></a> [rack\_awareness](#input\_rack\_awareness) | Spread replicas across zones using the topology.kubernetes.io/zone node label. Also enables follower fetching for clients that set client.rack. | `bool` | `true` | no |
 | <a name="input_redpanda_version"></a> [redpanda\_version](#input\_redpanda\_version) | Redpanda image tag. | `string` | `"v26.2.2"` | no |
-| <a name="input_size"></a> [size](#input\_size) | Sizing profile, cheapest first:<br/>small  - 3 brokers, 1 core, 2.5Gi each, EBS volumes, requires a dedicated EC2 pool;<br/>medium - 3 brokers on dedicated i4g.xlarge, local NVMe;<br/>large  - 3 brokers on dedicated i4g.2xlarge, local NVMe.<br/>Any field of var.brokers overrides the profile. | `string` | `"small"` | no |
+| <a name="input_size"></a> [size](#input\_size) | Sizing profile, cheapest first:<br/>small  - 3 brokers, 1 core, 2.5Gi each, EBS volumes, requires a dedicated EC2 pool;<br/>medium - 3 brokers, 2 cores, 10Gi each, on dedicated m7g.xlarge Graviton nodes, EBS gp3 volumes;<br/>large  - 3 brokers, 6 cores, 24Gi each, on dedicated m7g.2xlarge Graviton nodes, EBS gp3 volumes.<br/>Any field of var.brokers overrides the profile. | `string` | `"small"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags for every AWS resource. | `map(string)` | `{}` | no |
 | <a name="input_tenants"></a> [tenants](#input\_tenants) | Tenants keyed by name. Each gets a SCRAM user, ACLs limited to topics, groups and<br/>transactional ids prefixed "<tenant>.", and the listed topics, created as "<tenant>.<topic>".<br/>Tenants cannot create topics themselves. Byte rates are per broker, in bytes per second. | <pre>map(object({<br/>    topics = optional(map(object({<br/>      partitions         = optional(number, 3)<br/>      replication_factor = optional(number, 3)<br/>      config             = optional(map(string), {})<br/>    })), {})<br/>    producer_byte_rate = optional(number)<br/>    consumer_byte_rate = optional(number)<br/>    transactions       = optional(bool, false)<br/>    extra_acls         = optional(any, [])<br/>  }))</pre> | `{}` | no |
 | <a name="input_tiered_storage"></a> [tiered\_storage](#input\_tiered\_storage) | Offload closed segments to S3. Needs an Enterprise licence and oidc\_provider. local\_retention\_bytes caps what stays on broker disk per partition. | <pre>object({<br/>    enabled               = optional(bool, false)<br/>    bucket_name           = optional(string) # null = create one<br/>    force_destroy         = optional(bool, false)<br/>    local_retention_bytes = optional(number)<br/>  })</pre> | `{}` | no |

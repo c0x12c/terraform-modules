@@ -11,19 +11,19 @@ locals {
     }
     medium = {
       replicas       = 3
-      cpu_cores      = 3
-      memory         = "24Gi"
-      storage_type   = "local_nvme"
-      storage_size   = null
-      instance_types = ["i4g.xlarge"]
+      cpu_cores      = 2
+      memory         = "10Gi"
+      storage_type   = "ebs"
+      storage_size   = "200Gi"
+      instance_types = ["m7g.xlarge"]
     }
     large = {
       replicas       = 3
-      cpu_cores      = 7
-      memory         = "52Gi"
-      storage_type   = "local_nvme"
-      storage_size   = null
-      instance_types = ["i4g.2xlarge"]
+      cpu_cores      = 6
+      memory         = "24Gi"
+      storage_type   = "ebs"
+      storage_size   = "500Gi"
+      instance_types = ["m7g.2xlarge"]
     }
   }
 
@@ -37,10 +37,8 @@ locals {
     storage_class  = var.brokers.storage_class
     instance_types = coalesce(var.brokers.instance_types, local.profile.instance_types)
   }
-  local_nvme = local.brokers.storage_type == "local_nvme"
 
   aws_name        = "${var.eks_cluster_name}-${var.name}"
-  host_path       = "/mnt/redpanda"
   service_account = var.name
   brokers_address = "${var.name}.${var.namespace}.svc.cluster.local:9093"
 
@@ -110,18 +108,12 @@ locals {
   ]
 
   # Conditionals between differently shaped objects index a tuple, which Terraform allows.
-  storage_values = [
-    {
-      hostPath         = local.host_path
-      persistentVolume = { enabled = false }
-    },
-    {
-      persistentVolume = merge(
-        { enabled = true, size = local.brokers.storage_size },
-        [{ storageClass = local.brokers.storage_class }, {}][local.brokers.storage_class != null ? 0 : 1],
-      )
-    },
-  ][local.local_nvme ? 0 : 1]
+  storage_values = {
+    persistentVolume = merge(
+      { enabled = true, size = local.brokers.storage_size },
+      [{ storageClass = local.brokers.storage_class }, {}][local.brokers.storage_class != null ? 0 : 1],
+    )
+  }
 
   tiered_values = [{
     tiered = {
@@ -170,12 +162,7 @@ locals {
           }
         }
       }
-      statefulset = merge(
-        { replicas = local.brokers.replicas },
-        local.scheduling,
-        # hostPath directories are created as root; the broker runs as uid 101.
-        [{ initContainers = { setDataDirOwnership = { enabled = true } } }, {}][local.local_nvme ? 0 : 1],
-      )
+      statefulset = merge({ replicas = local.brokers.replicas }, local.scheduling)
       resources = {
         cpu    = { cores = local.brokers.cpu_cores, overprovisioned = local.brokers.cpu_cores < 2 }
         memory = { container = { max = local.brokers.memory } }

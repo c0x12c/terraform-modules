@@ -177,3 +177,27 @@ run "external_pool" {
     error_message = "External pool labels and taint must reach broker scheduling."
   }
 }
+
+run "local_nvme_rejected" {
+  command = plan
+  variables {
+    brokers = { storage_type = "local_nvme" }
+  }
+  expect_failures = [var.brokers]
+}
+
+run "medium_uses_ebs" {
+  command = plan
+  variables {
+    size = "medium"
+  }
+  assert {
+    condition = (
+      yamldecode(helm_release.cluster.values[0]).clusterSpec.storage.persistentVolume.enabled == true &&
+      yamldecode(helm_release.cluster.values[0]).clusterSpec.storage.persistentVolume.size == "200Gi" &&
+      !contains(keys(yamldecode(helm_release.cluster.values[0]).clusterSpec.storage), "hostPath") &&
+      !strcontains(helm_release.cluster.values[0], "hostPath")
+    )
+    error_message = "medium must render a persistentVolume (EBS) and no hostPath."
+  }
+}
