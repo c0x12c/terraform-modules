@@ -1,0 +1,21 @@
+{{- if .Values.quotas }}
+# Client quotas have no custom resource, so a hook Job applies them with rpk after every
+# install or upgrade. It waits for the brokers, since the Redpanda resource reports Ready
+# before they are. Removing a tenant does not remove its quota. The CronJob next to it
+# (quotas-cronjob.yaml) re-applies the same commands on a schedule.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.clusterName }}-quotas
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    helm.sh/hook: post-install,post-upgrade
+    helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+    checksum/quotas: {{ toJson .Values.quotas | sha256sum }}
+spec:
+  backoffLimit: 3
+  activeDeadlineSeconds: 1500
+  template:
+    spec:
+      {{- include "redpanda-cluster.quotasPodSpec" . | nindent 6 }}
+{{- end }}

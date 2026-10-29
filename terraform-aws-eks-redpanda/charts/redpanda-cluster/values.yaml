@@ -1,0 +1,9 @@
+clusterName: redpanda
+clusterSpec: {}
+brokersAddress: ""
+adminSecret: ""
+image: ""
+scheduling: {}
+tenants: {}
+topics: {}
+quotas: []

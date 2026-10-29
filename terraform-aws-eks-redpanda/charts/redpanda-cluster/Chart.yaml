@@ -1,0 +1,5 @@
+apiVersion: v2
+name: redpanda-cluster
+description: Redpanda cluster, tenant users, topics and quotas, as operator custom resources. Rendered by the eks-redpanda Terraform module.
+type: application
+version: 0.1.0

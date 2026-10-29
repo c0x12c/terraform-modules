@@ -1,0 +1,64 @@
+#cloud-config
+# Kernel and limits for Redpanda brokers; with local NVMe, also formats the instance store
+# (RAID0 across all of them when there are several) and mounts it at ${mount_path}.
+write_files:
+  - path: /usr/local/sbin/redpanda-node-tune.sh
+    permissions: '0755'
+    content: |
+      #!/bin/bash
+      set -euo pipefail
+%{ if local_nvme ~}
+      MOUNT="${mount_path}"
+      # A reboot keeps the instance store and the fstab entry, so only a fresh node formats.
+      if ! mountpoint -q "$MOUNT"; then
+        # Instance-store disks have no partitions and no filesystem; the root EBS volume does.
+        DEVS=()
+        for dev in /dev/nvme*n1; do
+          [ -b "$dev" ] || continue
+          lsblk -rno TYPE "$dev" | grep -q part && continue
+          lsblk -rno MOUNTPOINT "$dev" | grep -q . && continue
+          DEVS+=("$dev")
+        done
+        [ "$${#DEVS[@]}" -gt 0 ] || { echo "ERROR: no instance-store NVMe found" >&2; exit 1; }
+        if [ "$${#DEVS[@]}" -gt 1 ]; then
+          DEV=/dev/md0
+          [ -b "$DEV" ] || mdadm --create "$DEV" --level=0 --raid-devices="$${#DEVS[@]}" "$${DEVS[@]}" --run
+        else
+          DEV="$${DEVS[0]}"
+        fi
+        blkid "$DEV" | grep -q xfs || mkfs.xfs -f "$DEV"
+        mkdir -p "$MOUNT"
+        mountpoint -q "$MOUNT" || mount -o noatime,nodiratime "$DEV" "$MOUNT"
+        chown 101:101 "$MOUNT"
+        UUID=$(blkid -s UUID -o value "$DEV")
+        grep -q "$UUID" /etc/fstab || echo "UUID=$UUID $MOUNT xfs noatime,nodiratime,nofail 0 2" >> /etc/fstab
+      fi
+%{ endif ~}
+      cat >/etc/sysctl.d/99-redpanda.conf <<SYSEOF
+      fs.aio-max-nr=1048576
+      net.core.rmem_max=16777216
+      net.core.wmem_max=16777216
+      net.ipv4.tcp_rmem=4096 87380 16777216
+      net.ipv4.tcp_wmem=4096 65536 16777216
+      SYSEOF
+      sysctl --system >/dev/null 2>&1 || true
+      cat >/etc/security/limits.d/99-redpanda.conf <<LIMEOF
+      * soft nofile 1048576
+      * hard nofile 1048576
+      LIMEOF
+  - path: /etc/systemd/system/redpanda-node-tune.service
+    permissions: '0644'
+    content: |
+      [Unit]
+      Description=Redpanda node tuning
+      After=local-fs.target
+      Before=kubelet.service
+      [Service]
+      Type=oneshot
+      ExecStart=/usr/local/sbin/redpanda-node-tune.sh
+      RemainAfterExit=yes
+      [Install]
+      WantedBy=multi-user.target
+runcmd:
+  - systemctl daemon-reload
+  - systemctl enable --now redpanda-node-tune.service
