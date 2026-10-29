@@ -92,8 +92,10 @@ run "operator_follows_broker_placement" {
   }
 }
 
+# apply, not plan: the bucket name is computed, and CI's Terraform 1.10 applies resource
+# overrides during apply only (override_during arrived in 1.11). Providers are mocked.
 run "tiered_storage_writes_and_reads" {
-  command = plan
+  command = apply
   variables {
     oidc_provider             = { arn = "arn:aws:iam::000000000000:oidc-provider/example", url = "oidc.example" }
     enterprise_license_secret = { name = "license", key = "license" }
@@ -110,14 +112,12 @@ run "tiered_storage_writes_and_reads" {
     values = { json = "{}" }
   }
   override_resource {
-    target          = aws_s3_bucket.tiered[0]
-    override_during = plan
-    values          = { id = "tiered-bucket", bucket = "tiered-bucket", arn = "arn:aws:s3:::tiered-bucket" }
+    target = aws_s3_bucket.tiered[0]
+    values = { id = "tiered-bucket", bucket = "tiered-bucket", arn = "arn:aws:s3:::tiered-bucket" }
   }
   override_resource {
-    target          = aws_iam_role.tiered[0]
-    override_during = plan
-    values          = { arn = "arn:aws:iam::000000000000:role/tiered" }
+    target = aws_iam_role.tiered[0]
+    values = { arn = "arn:aws:iam::000000000000:role/tiered" }
   }
 
   assert {
