@@ -99,12 +99,14 @@ locals {
     }
   ]...)
 
+  # Every tenant is listed, not only those with a rate: the script deletes an unset rate, so a
+  # quota removed from the input is also removed from the cluster.
   quotas = [
     for k, t in var.tenants : {
       user               = k
       producer_byte_rate = t.producer_byte_rate
       consumer_byte_rate = t.consumer_byte_rate
-    } if t.producer_byte_rate != null || t.consumer_byte_rate != null
+    }
   ]
 
   # Conditionals between differently shaped objects index a tuple, which Terraform allows.

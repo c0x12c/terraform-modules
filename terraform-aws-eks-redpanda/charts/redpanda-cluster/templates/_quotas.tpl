@@ -13,8 +13,8 @@ containers:
         until rpk cluster info >/dev/null 2>&1; do echo "waiting for brokers"; sleep 10; done
         {{- range .Values.quotas }}
         rpk cluster quotas alter --name user={{ .user }}
-        {{- if .producer_byte_rate }} --add producer_byte_rate={{ int64 .producer_byte_rate }}{{ end }}
-        {{- if .consumer_byte_rate }} --add consumer_byte_rate={{ int64 .consumer_byte_rate }}{{ end }}
+        {{- if .producer_byte_rate }} --add producer_byte_rate={{ int64 .producer_byte_rate }}{{ else }} --delete producer_byte_rate{{ end }}
+        {{- if .consumer_byte_rate }} --add consumer_byte_rate={{ int64 .consumer_byte_rate }}{{ else }} --delete consumer_byte_rate{{ end }}
         {{- end }}
         rpk cluster quotas describe
     env:
