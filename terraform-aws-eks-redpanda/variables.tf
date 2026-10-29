@@ -193,6 +193,16 @@ variable "tenants" {
     error_message = "Tenant names admin and kubernetes-controller are reserved for the cluster's own users."
   }
 
+  # The quota script skips a zero rate as unset; a tenant whose only rate is 0 would render a bare
+  # alter, which rpk rejects, aborting every later tenant's quota.
+  validation {
+    condition = alltrue([for t in values(var.tenants) :
+      (t.producer_byte_rate == null || coalesce(t.producer_byte_rate, 1) > 0)
+      && (t.consumer_byte_rate == null || coalesce(t.consumer_byte_rate, 1) > 0)
+    ])
+    error_message = "producer_byte_rate and consumer_byte_rate must be positive when set; omit them for no quota."
+  }
+
   validation {
     condition = alltrue(flatten([for t in values(var.tenants) : [
       for k in keys(t.topics) : can(regex("^[a-z0-9]([a-z0-9-]*[a-z0-9])?$", k))

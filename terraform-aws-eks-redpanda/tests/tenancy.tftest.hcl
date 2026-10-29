@@ -80,6 +80,14 @@ run "reserved_tenant_name_admin" {
   expect_failures = [var.tenants]
 }
 
+run "zero_quota_rejected" {
+  command = plan
+  variables {
+    tenants = { alpha = { producer_byte_rate = 0 } }
+  }
+  expect_failures = [var.tenants]
+}
+
 run "reserved_tenant_name_bootstrap" {
   command = plan
   variables {
