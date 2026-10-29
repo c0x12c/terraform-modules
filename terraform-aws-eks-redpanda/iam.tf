@@ -72,16 +72,19 @@ data "aws_iam_policy_document" "tiered" {
   count = var.tiered_storage.enabled ? 1 : 0
 
   statement {
-    actions   = ["s3:ListBucket"]
+    actions   = ["s3:ListBucket", "s3:ListBucketMultipartUploads", "s3:GetBucketLocation"]
     resources = ["arn:${data.aws_partition.current.partition}:s3:::${local.tiered_bucket}"]
   }
   statement {
+    # Multipart actions: large segment uploads are multipart, and an aborted one must be cleanable.
     actions = [
       "s3:GetObject",
       "s3:PutObject",
       "s3:DeleteObject",
       "s3:GetObjectTagging",
       "s3:PutObjectTagging",
+      "s3:AbortMultipartUpload",
+      "s3:ListMultipartUploadParts",
     ]
     resources = ["arn:${data.aws_partition.current.partition}:s3:::${local.tiered_bucket}/*"]
   }
