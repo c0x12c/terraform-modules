@@ -71,7 +71,7 @@ resource "aws_ecs_service" "this" {
     content {
       container_name   = "${var.name}-container"
       container_port   = var.container_port
-      target_group_arn = try(aws_lb_target_group.this[0].arn, null)
+      target_group_arn = var.external_target_group != null ? var.external_target_group.arn : try(aws_lb_target_group.this[0].arn, null)
     }
   }
 
@@ -117,7 +117,7 @@ set, so the default path makes no extra API call.
 depends_on guarantees the family exists on a first apply, before anything reads
 it. The trade-off is that on an apply which also changes the task definition,
 this read is deferred and the service's task_definition shows as "known after
-apply" in the plan — a service update is expected in that case anyway.
+apply" in the plan - a service update is expected in that case anyway.
 */
 data "aws_ecs_task_definition" "current" {
   count = var.allow_external_task_definition_revisions ? 1 : 0
