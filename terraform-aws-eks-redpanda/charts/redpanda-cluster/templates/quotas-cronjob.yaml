@@ -1,0 +1,25 @@
+{{- if .Values.quotas }}
+# Quotas live in the cluster's controller state, so a cluster rebuild drops them while users
+# and topics (operator custom resources) come back. This operator version has no quota
+# resource, so the same rpk commands as the hook Job are re-applied every 10 minutes.
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Values.clusterName }}-quotas
+  namespace: {{ .Release.Namespace }}
+spec:
+  schedule: "*/10 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 3
+      activeDeadlineSeconds: 1500
+      template:
+        metadata:
+          annotations:
+            checksum/quotas: {{ toJson .Values.quotas | sha256sum }}
+        spec:
+          {{- include "redpanda-cluster.quotasPodSpec" . | nindent 10 }}
+{{- end }}

@@ -1,0 +1,20 @@
+{{- range $name, $t := .Values.topics }}
+---
+apiVersion: cluster.redpanda.com/v1alpha2
+kind: Topic
+metadata:
+  name: {{ $name }}
+  namespace: {{ $.Release.Namespace }}
+spec:
+  cluster:
+    clusterRef:
+      name: {{ $.Values.clusterName }}
+  partitions: {{ $t.partitions }}
+  replicationFactor: {{ $t.replication_factor }}
+  {{- with $t.config }}
+  additionalConfig:
+    {{- range $k, $v := . }}
+    {{ $k }}: {{ $v | quote }}
+    {{- end }}
+  {{- end }}
+{{- end }}

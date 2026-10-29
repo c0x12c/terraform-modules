@@ -1,0 +1,36 @@
+#cloud-config
+# Kernel and limits for Redpanda brokers.
+write_files:
+  - path: /usr/local/sbin/redpanda-node-tune.sh
+    permissions: '0755'
+    content: |
+      #!/bin/bash
+      set -euo pipefail
+      cat >/etc/sysctl.d/99-redpanda.conf <<SYSEOF
+      fs.aio-max-nr=1048576
+      net.core.rmem_max=16777216
+      net.core.wmem_max=16777216
+      net.ipv4.tcp_rmem=4096 87380 16777216
+      net.ipv4.tcp_wmem=4096 65536 16777216
+      SYSEOF
+      sysctl --system >/dev/null 2>&1 || true
+      cat >/etc/security/limits.d/99-redpanda.conf <<LIMEOF
+      * soft nofile 1048576
+      * hard nofile 1048576
+      LIMEOF
+  - path: /etc/systemd/system/redpanda-node-tune.service
+    permissions: '0644'
+    content: |
+      [Unit]
+      Description=Redpanda node tuning
+      After=local-fs.target
+      Before=kubelet.service
+      [Service]
+      Type=oneshot
+      ExecStart=/usr/local/sbin/redpanda-node-tune.sh
+      RemainAfterExit=yes
+      [Install]
+      WantedBy=multi-user.target
+runcmd:
+  - systemctl daemon-reload
+  - systemctl enable --now redpanda-node-tune.service
