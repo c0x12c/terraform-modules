@@ -122,6 +122,9 @@ locals {
         cloud_storage_region             = data.aws_region.current.region
         cloud_storage_bucket             = local.tiered_bucket
         cloud_storage_credentials_source = "sts"
+        # Both default to false, which leaves the bucket configured but never written to or read.
+        cloud_storage_enable_remote_write = true
+        cloud_storage_enable_remote_read  = true
       }
     }
   }, {}][var.tiered_storage.enabled ? 0 : 1]

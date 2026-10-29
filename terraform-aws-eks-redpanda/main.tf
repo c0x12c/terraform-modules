@@ -15,10 +15,12 @@ resource "helm_release" "operator" {
   version    = var.operator.chart_version
   namespace  = var.namespace
 
-  values = [yamlencode({
+  # Same placement as the brokers: on a Fargate-first cluster the broker pool can be the only EC2
+  # capacity the operator's namespace reaches, and the chart sets no tolerations of its own.
+  values = [yamlencode(merge({
     crds               = { enabled = true }
     additionalCmdFlags = ["--namespace=${var.namespace}"]
-  })]
+  }, local.scheduling))]
 
   depends_on = [kubernetes_namespace_v1.this]
 }

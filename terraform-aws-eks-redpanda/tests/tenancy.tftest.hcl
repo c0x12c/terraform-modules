@@ -80,6 +80,55 @@ run "reserved_tenant_name_admin" {
   expect_failures = [var.tenants]
 }
 
+run "operator_follows_broker_placement" {
+  command = plan
+
+  assert {
+    condition = (
+      yamldecode(helm_release.operator[0].values[0]).tolerations == yamldecode(helm_release.cluster.values[0]).clusterSpec.statefulset.tolerations
+      && yamldecode(helm_release.operator[0].values[0]).nodeSelector == yamldecode(helm_release.cluster.values[0]).clusterSpec.statefulset.nodeSelector
+    )
+    error_message = "The operator must schedule wherever the brokers do."
+  }
+}
+
+run "tiered_storage_writes_and_reads" {
+  command = plan
+  variables {
+    oidc_provider             = { arn = "arn:aws:iam::000000000000:oidc-provider/example", url = "oidc.example" }
+    enterprise_license_secret = { name = "license", key = "license" }
+    tiered_storage            = { enabled = true }
+  }
+
+  # Mocked policy documents render placeholder text, which the IAM role rejects as JSON.
+  override_data {
+    target = data.aws_iam_policy_document.tiered_assume[0]
+    values = { json = "{}" }
+  }
+  override_data {
+    target = data.aws_iam_policy_document.tiered[0]
+    values = { json = "{}" }
+  }
+  override_resource {
+    target          = aws_s3_bucket.tiered[0]
+    override_during = plan
+    values          = { id = "tiered-bucket", bucket = "tiered-bucket", arn = "arn:aws:s3:::tiered-bucket" }
+  }
+  override_resource {
+    target          = aws_iam_role.tiered[0]
+    override_during = plan
+    values          = { arn = "arn:aws:iam::000000000000:role/tiered" }
+  }
+
+  assert {
+    condition = (
+      yamldecode(helm_release.cluster.values[0]).clusterSpec.storage.tiered.config.cloud_storage_enable_remote_write == true
+      && yamldecode(helm_release.cluster.values[0]).clusterSpec.storage.tiered.config.cloud_storage_enable_remote_read == true
+    )
+    error_message = "Tiered storage must enable remote write and read, or nothing reaches the bucket."
+  }
+}
+
 run "tls_reaches_quota_client" {
   command = plan
   variables {
