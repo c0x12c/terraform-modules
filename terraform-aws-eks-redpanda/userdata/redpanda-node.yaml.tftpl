@@ -21,8 +21,16 @@ write_files:
         done
         [ "$${#DEVS[@]}" -gt 0 ] || { echo "ERROR: no instance-store NVMe found" >&2; exit 1; }
         if [ "$${#DEVS[@]}" -gt 1 ]; then
-          DEV=/dev/md0
-          [ -b "$DEV" ] || mdadm --create "$DEV" --level=0 --raid-devices="$${#DEVS[@]}" "$${DEVS[@]}" --run
+          # After a reboot the array can come back under another name (md127); creating over
+          # members that already carry a RAID superblock would wipe the broker's data.
+          if mdadm --examine "$${DEVS[0]}" >/dev/null 2>&1; then
+            mdadm --assemble --scan >/dev/null 2>&1 || true
+            DEV=$(mdadm --detail --scan | awk '{print $2}' | head -n1)
+            [ -b "$DEV" ] || { echo "ERROR: RAID members found but no array assembled" >&2; exit 1; }
+          else
+            DEV=/dev/md0
+            mdadm --create "$DEV" --level=0 --raid-devices="$${#DEVS[@]}" "$${DEVS[@]}" --run
+          fi
         else
           DEV="$${DEVS[0]}"
         fi

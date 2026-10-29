@@ -72,6 +72,22 @@ run "invalid_tenant_name_uppercase_dot" {
   expect_failures = [var.tenants]
 }
 
+run "reserved_tenant_name_admin" {
+  command = plan
+  variables {
+    tenants = { admin = {} }
+  }
+  expect_failures = [var.tenants]
+}
+
+run "reserved_tenant_name_bootstrap" {
+  command = plan
+  variables {
+    tenants = { kubernetes-controller = {} }
+  }
+  expect_failures = [var.tenants]
+}
+
 run "admin_api_auth_default" {
   command = plan
 

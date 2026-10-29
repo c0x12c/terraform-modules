@@ -186,6 +186,13 @@ variable "tenants" {
     error_message = "Tenant names must be lowercase DNS labels starting with a letter, without dots."
   }
 
+  # A tenant is a SCRAM user of the same name, so these would overwrite the module's superuser or
+  # the operator's bootstrap user and take their rights.
+  validation {
+    condition     = length(setintersection(keys(var.tenants), ["admin", "kubernetes-controller"])) == 0
+    error_message = "Tenant names admin and kubernetes-controller are reserved for the cluster's own users."
+  }
+
   validation {
     condition = alltrue(flatten([for t in values(var.tenants) : [
       for k in keys(t.topics) : can(regex("^[a-z0-9]([a-z0-9-]*[a-z0-9])?$", k))
