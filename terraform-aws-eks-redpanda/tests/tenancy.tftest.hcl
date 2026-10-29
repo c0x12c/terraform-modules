@@ -80,6 +80,19 @@ run "reserved_tenant_name_admin" {
   expect_failures = [var.tenants]
 }
 
+run "tls_reaches_quota_client" {
+  command = plan
+  variables {
+    tls_enabled = true
+    tenants     = { alpha = { producer_byte_rate = 1048576 } }
+  }
+
+  assert {
+    condition     = yamldecode(helm_release.cluster.values[0]).tlsEnabled == true
+    error_message = "The quota client must be told TLS is on, or its broker wait loop never succeeds."
+  }
+}
+
 run "zero_quota_rejected" {
   command = plan
   variables {

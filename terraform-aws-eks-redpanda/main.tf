@@ -36,6 +36,7 @@ resource "helm_release" "cluster" {
     clusterSpec    = local.cluster_spec
     brokersAddress = local.brokers_address
     adminSecret    = local.admin_secret
+    tlsEnabled     = var.tls_enabled
     image          = "docker.redpanda.com/redpandadata/redpanda:${var.redpanda_version}"
     scheduling     = local.scheduling
     tenants = {

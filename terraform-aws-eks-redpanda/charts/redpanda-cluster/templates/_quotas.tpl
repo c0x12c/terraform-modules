@@ -26,4 +26,21 @@ containers:
         valueFrom: { secretKeyRef: { name: {{ .Values.adminSecret }}, key: username } }
       - name: RPK_PASS
         valueFrom: { secretKeyRef: { name: {{ .Values.adminSecret }}, key: password } }
+      {{- if .Values.tlsEnabled }}
+      # The redpanda chart's default certificate; without it the broker wait loop never succeeds
+      # and the post-install hook times out the release.
+      - name: RPK_TLS_ENABLED
+        value: "true"
+      - name: RPK_TLS_CA
+        value: /etc/redpanda-tls/ca.crt
+    volumeMounts:
+      - name: tls-ca
+        mountPath: /etc/redpanda-tls
+        readOnly: true
+volumes:
+  - name: tls-ca
+    secret:
+      secretName: {{ .Values.clusterName }}-default-cert
+      items: [{ key: ca.crt, path: ca.crt }]
+      {{- end }}
 {{- end -}}
