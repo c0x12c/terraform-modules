@@ -2,7 +2,7 @@
 aws_route53_record provides a Route53 record resource for ALB of the ECS service.
 */
 resource "aws_route53_record" "this" {
-  count = var.use_alb ? 1 : 0
+  count = local.create_alb_routing ? 1 : 0
 
   name    = var.dns_name
   zone_id = var.route53_zone_id

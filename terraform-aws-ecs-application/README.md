@@ -108,8 +108,8 @@ Manager policy and scope SSM access to the parameter used by `container_secrets`
 By default this module is the deployer: it registers a task definition revision
 and pins the service to it, so `terraform apply` is what ships a new image.
 
-If instead a CI pipeline deploys — building an image, calling
-`aws ecs register-task-definition` with the new tag, then `update-service` —
+If instead a CI pipeline deploys - building an image, calling
+`aws ecs register-task-definition` with the new tag, then `update-service` -
 those revisions are invisible to Terraform. The service moves forward, the
 module's state does not, and the next apply reverts the service to the module's
 own revision, undoing the deployment. That apply need not be related to ECS at
@@ -128,7 +128,7 @@ module "application" {
 }
 ```
 
-The service then runs whichever revision of the family is newer — the module's
+The service then runs whichever revision of the family is newer - the module's
 own, or the newest ACTIVE revision in the family. The pipeline's revision is
 always higher, so an apply keeps it; a task definition change made here is also
 higher, so Terraform can still deploy. Ownership splits cleanly: Terraform
@@ -147,8 +147,8 @@ a rollback.
 
 Rolling a service back with `update-service --task-definition myapp:5` moves the
 service's pointer; it does not deregister the revision you rolled away from. So
-`myapp:6` stays ACTIVE, and the next apply — including one that touches nothing
-related to ECS — computes `max(5, 6)` and puts the service back on the revision
+`myapp:6` stays ACTIVE, and the next apply - including one that touches nothing
+related to ECS - computes `max(5, 6)` and puts the service back on the revision
 you just rolled off:
 
 | step | module registers | newest ACTIVE | service runs |
@@ -243,7 +243,7 @@ To roll back and have it survive, do one of:
 | <a name="input_alb_dns_name"></a> [alb\_dns\_name](#input\_alb\_dns\_name) | DNS name of the Application Load Balancer | `string` | n/a | yes |
 | <a name="input_alb_security_groups"></a> [alb\_security\_groups](#input\_alb\_security\_groups) | List of security group IDs of the ALB | `list(string)` | n/a | yes |
 | <a name="input_alb_zone_id"></a> [alb\_zone\_id](#input\_alb\_zone\_id) | Hosted zone id of the ALB | `string` | n/a | yes |
-| <a name="input_allow_external_task_definition_revisions"></a> [allow\_external\_task\_definition\_revisions](#input\_allow\_external\_task\_definition\_revisions) | Set to true when a deploy pipeline registers task definition revisions outside Terraform (e.g. a CI job running `aws ecs register-task-definition` then `update-service`). The service then runs whichever revision of the family is newer — this module's or the newest ACTIVE revision in the family — so an apply no longer reverts the pipeline's deployment. Leave false when Terraform is the only thing that deploys this service. | `bool` | `false` | no |
+| <a name="input_allow_external_task_definition_revisions"></a> [allow\_external\_task\_definition\_revisions](#input\_allow\_external\_task\_definition\_revisions) | Set to true when a deploy pipeline registers task definition revisions outside Terraform (e.g. a CI job running `aws ecs register-task-definition` then `update-service`). The service then runs whichever revision of the family is newer - this module's or the newest ACTIVE revision in the family - so an apply no longer reverts the pipeline's deployment. Leave false when Terraform is the only thing that deploys this service. | `bool` | `false` | no |
 | <a name="input_assign_public_ip"></a> [assign\_public\_ip](#input\_assign\_public\_ip) | Enable to assign the public ip to the tasks | `bool` | `false` | no |
 | <a name="input_aws_lb_listener_arn"></a> [aws\_lb\_listener\_arn](#input\_aws\_lb\_listener\_arn) | ARN of the ALB | `string` | n/a | yes |
 | <a name="input_aws_lb_listener_rule_priority"></a> [aws\_lb\_listener\_rule\_priority](#input\_aws\_lb\_listener\_rule\_priority) | AWS LB listener rule's priority | `number` | `100` | no |
@@ -284,6 +284,7 @@ To roll back and have it survive, do one of:
 | <a name="input_enabled_port_mapping"></a> [enabled\_port\_mapping](#input\_enabled\_port\_mapping) | Whether to use TCP port mapping to service container. | `bool` | `true` | no |
 | <a name="input_enabled_service_connect"></a> [enabled\_service\_connect](#input\_enabled\_service\_connect) | Whether to create service connect namespace for service internal discovery. | `bool` | `false` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | The environment name | `string` | `"dev"` | no |
+| <a name="input_external_target_group_arn"></a> [external\_target\_group\_arn](#input\_external\_target\_group\_arn) | ARN of an existing target group to attach the service to. When set, the module creates no target group, listener rule or Route53 record. Requires use\_alb = true. | `string` | `null` | no |
 | <a name="input_force_new_deployment"></a> [force\_new\_deployment](#input\_force\_new\_deployment) | Enable to force a new task deployment of the service | `bool` | `true` | no |
 | <a name="input_health_check_enabled"></a> [health\_check\_enabled](#input\_health\_check\_enabled) | Specify whether enabling health check for this ECS service or not | `bool` | `true` | no |
 | <a name="input_health_check_grace_period_seconds"></a> [health\_check\_grace\_period\_seconds](#input\_health\_check\_grace\_period\_seconds) | Seconds to ignore failing load balancer health checks on newly instantiated tasks to prevent premature shutdown, up to 2147483647. Only valid for services configured to use load balancers | `number` | `60` | no |
