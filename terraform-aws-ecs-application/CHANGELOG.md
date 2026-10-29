@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.6.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-ecs-application/v2.5.1...terraform-aws-ecs-application/v2.6.0) (2026-10-29)
+
+
+### Features
+
+* **ecs-application:** attach the service to an externally owned target group ([#389](https://github.com/c0x12c/terraform-modules/issues/389)) ([e3cffb5](https://github.com/c0x12c/terraform-modules/commit/e3cffb5b894e9de2ff6b9b9f29e6e7ccdbf6e80e))
+
 ## [2.5.1](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-ecs-application/v2.5.0...terraform-aws-ecs-application/v2.5.1) (2026-10-27)
 
 
