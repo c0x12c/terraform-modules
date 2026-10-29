@@ -1,5 +1,5 @@
 locals {
-  create_alb_routing = var.use_alb && var.external_target_group_arn == null
+  create_alb_routing = var.use_alb && var.external_target_group == null
 }
 
 resource "aws_lb_target_group" "this" {

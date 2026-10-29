@@ -57,7 +57,7 @@ run "default_alb_caller_unchanged" {
 
   assert {
     condition     = length(aws_lb_target_group.this) == 1 && length(aws_lb_listener_rule.this) == 1 && length(aws_route53_record.this) == 1
-    error_message = "A caller that does not set external_target_group_arn must keep the module-owned target group, listener rule and Route53 record."
+    error_message = "A caller that does not set external_target_group must keep the module-owned target group, listener rule and Route53 record."
   }
 
   assert {
@@ -70,7 +70,7 @@ run "external_target_group_skips_routing" {
   command = plan
 
   variables {
-    external_target_group_arn = "arn:aws:elasticloadbalancing:us-west-2:111122223333:targetgroup/ext/0123456789abcdef"
+    external_target_group = { arn = "arn:aws:elasticloadbalancing:us-west-2:111122223333:targetgroup/ext/0123456789abcdef" }
   }
 
   assert {
@@ -112,23 +112,36 @@ run "no_alb_caller_unchanged" {
   }
 }
 
+run "external_target_group_created_in_same_plan" {
+  command = plan
+
+  module {
+    source = "./tests/fixtures/same_apply_target_group"
+  }
+
+  assert {
+    condition     = length(module.app.ecs_service_name) > 0
+    error_message = "Planning must succeed when the external target group ARN is unknown until apply."
+  }
+}
+
 run "external_requires_use_alb" {
   command = plan
 
   variables {
-    use_alb                   = false
-    external_target_group_arn = "arn:aws:elasticloadbalancing:us-west-2:111122223333:targetgroup/ext/0123456789abcdef"
+    use_alb               = false
+    external_target_group = { arn = "arn:aws:elasticloadbalancing:us-west-2:111122223333:targetgroup/ext/0123456789abcdef" }
   }
 
-  expect_failures = [var.external_target_group_arn]
+  expect_failures = [var.external_target_group]
 }
 
 run "external_rejects_non_target_group_arn" {
   command = plan
 
   variables {
-    external_target_group_arn = "arn:aws:iam::111122223333:role/x"
+    external_target_group = { arn = "arn:aws:iam::111122223333:role/x" }
   }
 
-  expect_failures = [var.external_target_group_arn]
+  expect_failures = [var.external_target_group]
 }

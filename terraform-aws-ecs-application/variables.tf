@@ -197,19 +197,21 @@ variable "use_alb" {
   default     = true
 }
 
-variable "external_target_group_arn" {
-  description = "ARN of an existing target group to attach the service to. When set, the module creates no target group, listener rule or Route53 record. Requires use_alb = true."
-  type        = string
-  default     = null
+variable "external_target_group" {
+  description = "An existing target group to attach the service to, as { arn = ... }. When set, the module creates no target group, listener rule or Route53 record. Requires use_alb = true."
+  type = object({
+    arn = string
+  })
+  default = null
 
   validation {
-    condition     = var.external_target_group_arn == null || var.use_alb
-    error_message = "external_target_group_arn requires use_alb = true."
+    condition     = var.external_target_group == null || var.use_alb
+    error_message = "external_target_group requires use_alb = true."
   }
 
   validation {
-    condition     = var.external_target_group_arn == null || can(regex("^arn:aws[a-z-]*:elasticloadbalancing:[a-z0-9-]+:[0-9]{12}:targetgroup/", var.external_target_group_arn))
-    error_message = "external_target_group_arn must be an Elastic Load Balancing target group ARN."
+    condition     = var.external_target_group == null || can(regex("^arn:aws[a-z-]*:elasticloadbalancing:[a-z0-9-]+:[0-9]{12}:targetgroup/", var.external_target_group.arn))
+    error_message = "external_target_group.arn must be an Elastic Load Balancing target group ARN."
   }
 }
 

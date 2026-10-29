@@ -71,7 +71,7 @@ resource "aws_ecs_service" "this" {
     content {
       container_name   = "${var.name}-container"
       container_port   = var.container_port
-      target_group_arn = var.external_target_group_arn != null ? var.external_target_group_arn : try(aws_lb_target_group.this[0].arn, null)
+      target_group_arn = var.external_target_group != null ? var.external_target_group.arn : try(aws_lb_target_group.this[0].arn, null)
     }
   }
 
