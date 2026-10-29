@@ -74,6 +74,11 @@ The `helm` and `kubernetes` providers must point at the EKS cluster. Clients rea
 credentials from the Secret named in `tenant_secret_names[<tenant>]`, which holds the
 `username`, `password`, `mechanism` and `brokers` keys.
 
+## Scaling broker nodes
+
+The dedicated node groups are sized from `brokers.replicas`; change that input rather than
+scaling the groups by hand, because the next apply resets an out-of-band size.
+
 ## Placement on Fargate-first clusters
 
 Brokers need a dedicated, tainted EC2 pool: Fargate has no EBS or local NVMe. The

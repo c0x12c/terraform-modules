@@ -7,7 +7,7 @@ write_files:
     content: |
       #!/bin/bash
       set -euo pipefail
-%{ if local_nvme ~}
+%{ if local_nvme }
       MOUNT="${mount_path}"
       # A reboot keeps the instance store and the fstab entry, so only a fresh node formats.
       if ! mountpoint -q "$MOUNT"; then
@@ -41,7 +41,7 @@ write_files:
         UUID=$(blkid -s UUID -o value "$DEV")
         grep -q "$UUID" /etc/fstab || echo "UUID=$UUID $MOUNT xfs noatime,nodiratime,nofail 0 2" >> /etc/fstab
       fi
-%{ endif ~}
+%{ endif }
       cat >/etc/sysctl.d/99-redpanda.conf <<SYSEOF
       fs.aio-max-nr=1048576
       net.core.rmem_max=16777216
