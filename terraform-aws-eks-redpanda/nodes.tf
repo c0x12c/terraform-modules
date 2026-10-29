@@ -50,15 +50,15 @@ resource "aws_launch_template" "broker" {
 resource "aws_eks_node_group" "this" {
   for_each = data.aws_subnet.broker
 
-  cluster_name    = var.eks_cluster_name
-  node_group_name = "${var.name}-${each.value.availability_zone}"
-  node_role_arn   = aws_iam_role.node[0].arn
-  subnet_ids      = [each.value.id]
-  version         = var.node_group.kubernetes_version
-  ami_type        = can(regex("^[a-z]+[0-9]+g", local.brokers.instance_types[0])) ? "AL2023_ARM_64_STANDARD" : "AL2023_x86_64_STANDARD"
-  capacity_type   = "ON_DEMAND" # Spot reclaims would take brokers down together.
-  instance_types  = local.brokers.instance_types
-  labels          = local.node_label
+  cluster_name           = var.eks_cluster_name
+  node_group_name_prefix = "${var.name}-${each.value.availability_zone}-"
+  node_role_arn          = aws_iam_role.node[0].arn
+  subnet_ids             = [each.value.id]
+  version                = var.node_group.kubernetes_version
+  ami_type               = can(regex("^[a-z]+[0-9]+g", local.brokers.instance_types[0])) ? "AL2023_ARM_64_STANDARD" : "AL2023_x86_64_STANDARD"
+  capacity_type          = "ON_DEMAND" # Spot reclaims would take brokers down together.
+  instance_types         = local.brokers.instance_types
+  labels                 = local.node_label
 
   scaling_config {
     desired_size = ceil(local.brokers.replicas / length(var.node_group.subnet_ids))
@@ -82,6 +82,12 @@ resource "aws_eks_node_group" "this" {
   }
 
   tags = var.tags
+
+  # A size change replaces every group (instance_types is immutable); building the new ones
+  # first keeps somewhere for the brokers to go instead of deleting all broker capacity at once.
+  lifecycle {
+    create_before_destroy = true
+  }
 
   depends_on = [aws_iam_role_policy_attachment.node]
 }

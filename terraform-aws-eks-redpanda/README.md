@@ -84,6 +84,10 @@ every broker at once is the brokers' PodDisruptionBudget (`maxUnavailable: 1`), 
 respects while draining; the other groups' drains wait. Never set `force_update_version` on
 these groups: it drains past the budget.
 
+Changing `size` (or `brokers.instance_types`) replaces every broker node group. New groups are
+created before the old ones are deleted, and EBS volumes reattach in the same zone, but the
+brokers do restart: treat it as a maintenance window, not a seamless change.
+
 Run one instance of this module per namespace: tenant users and topics are named after the
 tenant, so two clusters in one namespace collide.
 
