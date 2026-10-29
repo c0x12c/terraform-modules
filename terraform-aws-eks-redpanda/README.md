@@ -79,6 +79,14 @@ credentials from the Secret named in `tenant_secret_names[<tenant>]`, which hold
 The dedicated node groups are sized from `brokers.replicas`; change that input rather than
 scaling the groups by hand, because the next apply resets an out-of-band size.
 
+A launch-template change updates the per-AZ node groups together. What keeps that from taking
+every broker at once is the brokers' PodDisruptionBudget (`maxUnavailable: 1`), which EKS
+respects while draining; the other groups' drains wait. Never set `force_update_version` on
+these groups: it drains past the budget.
+
+Run one instance of this module per namespace: tenant users and topics are named after the
+tenant, so two clusters in one namespace collide.
+
 ## Placement on Fargate-first clusters
 
 Brokers need a dedicated, tainted EC2 pool: Fargate has no EBS or local NVMe. The

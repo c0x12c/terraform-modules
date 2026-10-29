@@ -8,6 +8,9 @@ write_files:
       #!/bin/bash
       set -euo pipefail
 %{ if local_nvme }
+      # A node whose instance store failed to prepare must not run brokers: their hostPath would
+      # silently land on the root volume. Stopping kubelet keeps the node NotReady instead.
+      trap 'systemctl stop kubelet || true' ERR
       MOUNT="${mount_path}"
       # A reboot keeps the instance store and the fstab entry, so only a fresh node formats.
       if ! mountpoint -q "$MOUNT"; then
