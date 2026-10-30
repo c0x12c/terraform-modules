@@ -17,6 +17,18 @@ mock_provider "aws" {
     }
   }
 
+  mock_resource "aws_lambda_function" {
+    defaults = {
+      arn = "arn:aws:lambda:us-west-2:111122223333:function/notification-test"
+    }
+  }
+
+  mock_resource "aws_cloudwatch_event_rule" {
+    defaults = {
+      arn = "arn:aws:events:us-west-2:111122223333:rule/notification-test"
+    }
+  }
+
   mock_resource "aws_lb_target_group" {
     defaults = {
       arn = "arn:aws:elasticloadbalancing:us-west-2:111122223333:targetgroup/servicetest-tg/1111111111111111"
@@ -77,6 +89,21 @@ run "set_boundary" {
   assert {
     condition     = aws_iam_role.task_role.permissions_boundary == "arn:aws:iam::111122223333:policy/test-boundary" && aws_iam_role.task_execution_role.permissions_boundary == "arn:aws:iam::111122223333:policy/test-boundary"
     error_message = "Task and execution roles must use the supplied permissions boundary."
+  }
+}
+
+run "notification_lambda_role_boundary" {
+  command = plan
+
+  variables {
+    enabled_notification          = true
+    slack_webhook_url             = "https://example.invalid/test"
+    iam_role_permissions_boundary = "arn:aws:iam::111122223333:policy/test-boundary"
+  }
+
+  assert {
+    condition     = module.eventbridge-slack-notification[0].iam_role_permissions_boundary == "arn:aws:iam::111122223333:policy/test-boundary"
+    error_message = "The notification Lambda execution role must use the supplied permissions boundary."
   }
 }
 

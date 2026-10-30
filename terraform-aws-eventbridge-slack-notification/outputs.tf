@@ -18,6 +18,11 @@ output "iam_role_name" {
   value       = aws_iam_role.lambda_exec_role.name
 }
 
+output "iam_role_permissions_boundary" {
+  description = "Permissions boundary ARN set on the Lambda execution IAM role, or null"
+  value       = aws_iam_role.lambda_exec_role.permissions_boundary
+}
+
 output "event_rule_arns" {
   description = "ARNs of the CloudWatch Event Rules"
   value       = { for k, v in aws_cloudwatch_event_rule.this : k => v.arn }

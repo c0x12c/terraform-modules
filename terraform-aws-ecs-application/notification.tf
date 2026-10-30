@@ -7,6 +7,8 @@ module "eventbridge-slack-notification" {
   environment       = var.environment
   slack_webhook_url = var.slack_webhook_url
 
+  iam_role_permissions_boundary = var.iam_role_permissions_boundary
+
   lambda_source_file = "${path.module}/files/index.mjs"
   lambda_handler     = "index.handler"
   lambda_runtime     = "nodejs22.x"
