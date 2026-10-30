@@ -32,6 +32,11 @@ variable "role_policy_arns" {
 variable "role_name" {
   description = "The name of the role to be created."
   type        = string
+
+  validation {
+    condition     = length(trimspace(var.role_name)) > 0
+    error_message = "role_name must not be empty."
+  }
 }
 
 variable "role_name_prefix" {
@@ -43,6 +48,11 @@ variable "role_name_prefix" {
 variable "repository_path" {
   description = "The path to the repository (organization/repo_name)."
   type        = string
+
+  validation {
+    condition     = can(regex("^[^/]+/[^/]+$", var.repository_path))
+    error_message = "repository_path must be organization/repo_name."
+  }
 }
 
 variable "conditions" {
@@ -53,6 +63,12 @@ variable "conditions" {
     values   = list(string)
   }))
   default = []
+}
+
+variable "trust_account_root" {
+  description = "Whether the role trust policy also allows sts:AssumeRole from the account root, which lets any principal in the account whose own IAM policy allows sts:AssumeRole on this role assume it. Set false in an account shared with other workloads so only the GitHub OIDC subject can assume the role."
+  type        = bool
+  default     = true
 }
 
 # migration
