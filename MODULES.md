@@ -40,7 +40,7 @@ module "example" {
 | `terraform-aws-eks-service` | `terraform.c0x12c.com/c0x12c/eks-service/aws` | 0.3.0 | This module helps configure an 'EKS Service' by creating a correlation set |
 | `terraform-aws-elasticache` | `terraform.c0x12c.com/c0x12c/elasticache/aws` | 0.7.2 | Terraform module which creates Elasticache resources on AWS. |
 | `terraform-aws-eventbridge-slack-notification` | `terraform.c0x12c.com/c0x12c/eventbridge-slack-notification/aws` | 1.2.0 | This module creates a reusable notification system that sends AWS EventBridge events to Slack using Lambda. |
-| `terraform-aws-github-oidc` | `terraform.c0x12c.com/c0x12c/github-oidc/aws` | 1.0.1 | This [Terraform](https://www.terraform.io/) module manages OpenID Connect (OIDC) integration |
+| `terraform-aws-github-oidc` | `terraform.c0x12c.com/c0x12c/github-oidc/aws` | 1.1.0 | This [Terraform](https://www.terraform.io/) module manages OpenID Connect (OIDC) integration |
 | `terraform-aws-github-self-hosted-runners` | `terraform.c0x12c.com/c0x12c/github-self-hosted-runners/aws` | 0.1.66 | Terraform module which creates resources for managing GitHub Actions Self-Hosted Runners on AWS. |
 | `terraform-aws-guardduty` | `terraform.c0x12c.com/c0x12c/guardduty/aws` | 0.1.23 | Terraform module which creates GuardDuty resources on AWS. |
 | `terraform-aws-health-notification` | `terraform.c0x12c.com/c0x12c/health-notification/aws` | 0.4.0 | Delivers AWS Health Dashboard events to Slack, email, or any SNS subscriber. |
