@@ -43,6 +43,12 @@ variable "additional_iam_policy_arns" {
   default     = {}
 }
 
+variable "iam_role_permissions_boundary" {
+  description = "ARN of the IAM policy to set as the permissions boundary on the Lambda execution role. Leave null for no boundary."
+  type        = string
+  default     = null
+}
+
 variable "event_rules" {
   description = "List of EventBridge rule configurations"
   type = list(object({

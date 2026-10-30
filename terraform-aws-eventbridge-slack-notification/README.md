@@ -119,6 +119,7 @@ No modules.
 | <a name="input_additional_iam_policy_arns"></a> [additional\_iam\_policy\_arns](#input\_additional\_iam\_policy\_arns) | Additional IAM policy ARNs to attach to the Lambda execution role | `map(string)` | `{}` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | The environment name | `string` | n/a | yes |
 | <a name="input_event_rules"></a> [event\_rules](#input\_event\_rules) | List of EventBridge rule configurations | <pre>list(object({<br/>    name          = string<br/>    description   = string<br/>    event_pattern = any<br/>  }))</pre> | n/a | yes |
+| <a name="input_iam_role_permissions_boundary"></a> [iam\_role\_permissions\_boundary](#input\_iam\_role\_permissions\_boundary) | ARN of the IAM policy to set as the permissions boundary on the Lambda execution role. Leave null for no boundary. | `string` | `null` | no |
 | <a name="input_lambda_environment_variables"></a> [lambda\_environment\_variables](#input\_lambda\_environment\_variables) | Additional environment variables for the Lambda function | `map(string)` | `{}` | no |
 | <a name="input_lambda_handler"></a> [lambda\_handler](#input\_lambda\_handler) | Lambda function handler | `string` | `"index.handler"` | no |
 | <a name="input_lambda_runtime"></a> [lambda\_runtime](#input\_lambda\_runtime) | Lambda function runtime | `string` | `"nodejs22.x"` | no |
@@ -133,6 +134,7 @@ No modules.
 | <a name="output_event_rule_arns"></a> [event\_rule\_arns](#output\_event\_rule\_arns) | ARNs of the CloudWatch Event Rules |
 | <a name="output_iam_role_arn"></a> [iam\_role\_arn](#output\_iam\_role\_arn) | ARN of the Lambda execution IAM role |
 | <a name="output_iam_role_name"></a> [iam\_role\_name](#output\_iam\_role\_name) | Name of the Lambda execution IAM role |
+| <a name="output_iam_role_permissions_boundary"></a> [iam\_role\_permissions\_boundary](#output\_iam\_role\_permissions\_boundary) | Permissions boundary ARN set on the Lambda execution IAM role, or null |
 | <a name="output_lambda_function_arn"></a> [lambda\_function\_arn](#output\_lambda\_function\_arn) | ARN of the Lambda function |
 | <a name="output_lambda_function_name"></a> [lambda\_function\_name](#output\_lambda\_function\_name) | Name of the Lambda function |
 <!-- END_TF_DOCS -->

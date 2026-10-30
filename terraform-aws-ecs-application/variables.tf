@@ -321,6 +321,12 @@ variable "overwrite_task_role_name" {
   default     = null
 }
 
+variable "iam_role_permissions_boundary" {
+  description = "ARN of the IAM policy to set as the permissions boundary on every IAM role this module creates (task execution role, task role and, for the EC2 launch type, the instance profile role). Leave null for no boundary."
+  type        = string
+  default     = null
+}
+
 variable "task_policy_secrets_description" {
   description = "The description of IAM policy for task secrets."
   type        = string

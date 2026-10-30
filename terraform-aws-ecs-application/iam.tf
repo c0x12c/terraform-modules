@@ -12,8 +12,9 @@ data "aws_iam_policy_document" "ecs_tasks_assume_role" {
 }
 
 resource "aws_iam_role" "task_execution_role" {
-  name               = var.overwrite_task_execution_role_name != null ? var.overwrite_task_execution_role_name : "${var.name}-ecs-task-execution-role"
-  assume_role_policy = data.aws_iam_policy_document.ecs_tasks_assume_role.json
+  name                 = var.overwrite_task_execution_role_name != null ? var.overwrite_task_execution_role_name : "${var.name}-ecs-task-execution-role"
+  assume_role_policy   = data.aws_iam_policy_document.ecs_tasks_assume_role.json
+  permissions_boundary = var.iam_role_permissions_boundary
 }
 
 data "aws_iam_policy_document" "secrets" {
@@ -93,8 +94,9 @@ data "aws_iam_policy_document" "task_role_assume_role_policy" {
 }
 
 resource "aws_iam_role" "task_role" {
-  name               = var.overwrite_task_role_name != null ? var.overwrite_task_role_name : "${var.name}-ecs-task-role"
-  assume_role_policy = data.aws_iam_policy_document.task_role_assume_role_policy.json
+  name                 = var.overwrite_task_role_name != null ? var.overwrite_task_role_name : "${var.name}-ecs-task-role"
+  assume_role_policy   = data.aws_iam_policy_document.task_role_assume_role_policy.json
+  permissions_boundary = var.iam_role_permissions_boundary
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_task_role_additional_policies_attachment" {
@@ -156,7 +158,8 @@ resource "aws_iam_role" "this" {
   name        = "ec2-ecs-instance-role"
   description = "Iam role for EC2"
 
-  assume_role_policy = data.aws_iam_policy_document.assume_role_policy[0].json
+  assume_role_policy   = data.aws_iam_policy_document.assume_role_policy[0].json
+  permissions_boundary = var.iam_role_permissions_boundary
 }
 
 resource "aws_iam_role_policy_attachment" "this" {
