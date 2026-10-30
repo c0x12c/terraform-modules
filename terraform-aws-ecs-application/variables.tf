@@ -215,6 +215,22 @@ variable "external_target_group" {
   }
 }
 
+variable "create_dns_record" {
+  description = "Whether to create the Route53 A-alias record for dns_name pointing at alb_dns_name and alb_zone_id. null follows ALB routing: the record is created exactly when the module owns the target group and listener rule. Set true to also create it when external_target_group is used."
+  type        = bool
+  default     = null
+
+  validation {
+    condition = var.create_dns_record != true || (
+      try(length(var.dns_name) > 0, false) &&
+      try(length(var.route53_zone_id) > 0, false) &&
+      try(length(var.alb_dns_name) > 0, false) &&
+      try(length(var.alb_zone_id) > 0, false)
+    )
+    error_message = "create_dns_record = true requires non-empty dns_name, route53_zone_id, alb_dns_name and alb_zone_id."
+  }
+}
+
 variable "container_command" {
   description = "Container command."
   type        = list(string)
