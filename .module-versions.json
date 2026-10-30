@@ -26,7 +26,7 @@
   "terraform-aws-eks-service": "0.3.0",
   "terraform-aws-elasticache": "0.7.2",
   "terraform-aws-eventbridge-slack-notification": "1.2.0",
-  "terraform-aws-github-oidc": "1.0.1",
+  "terraform-aws-github-oidc": "1.1.0",
   "terraform-aws-github-self-hosted-runners": "0.1.66",
   "terraform-aws-guardduty": "0.1.23",
   "terraform-aws-health-notification": "0.4.0",

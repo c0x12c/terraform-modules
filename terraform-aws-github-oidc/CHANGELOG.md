@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-github-oidc/v1.0.1...terraform-aws-github-oidc/v1.1.0) (2026-10-30)
+
+
+### Features
+
+* **github-oidc:** opt out of the account-root trust statement ([#395](https://github.com/c0x12c/terraform-modules/issues/395)) ([9d1c1d2](https://github.com/c0x12c/terraform-modules/commit/9d1c1d204ae15fbaff75852173678c7eba9eab41))
+
 ## [1.0.1]() (2025-07-10)
 
 ### Features
