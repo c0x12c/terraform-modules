@@ -9,12 +9,16 @@ Generates an IAM policy document in JSON format for use with resources that expe
 https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document
  */
 data "aws_iam_policy_document" "assume_role_github" {
-  statement {
-    actions = ["sts:AssumeRole"]
-    effect  = "Allow"
-    principals {
-      identifiers = ["arn:aws:iam::${data.aws_caller_identity.this.account_id}:root"]
-      type        = "AWS"
+  dynamic "statement" {
+    for_each = var.trust_account_root ? [1] : []
+
+    content {
+      actions = ["sts:AssumeRole"]
+      effect  = "Allow"
+      principals {
+        identifiers = ["arn:aws:iam::${data.aws_caller_identity.this.account_id}:root"]
+        type        = "AWS"
+      }
     }
   }
 
