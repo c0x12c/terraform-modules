@@ -1,5 +1,6 @@
 locals {
   create_alb_routing = var.use_alb && var.external_target_group == null
+  create_dns_record  = coalesce(var.create_dns_record, local.create_alb_routing)
 }
 
 resource "aws_lb_target_group" "this" {
@@ -41,7 +42,7 @@ resource "aws_lb_listener_rule" "this" {
 
   condition {
     host_header {
-      values = [aws_route53_record.this[0].fqdn]
+      values = [local.create_dns_record ? aws_route53_record.this[0].fqdn : var.dns_name]
     }
   }
 }

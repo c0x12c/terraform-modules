@@ -182,7 +182,7 @@ To roll back and have it survive, do one of:
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.57.1 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.71.0 |
 
 ## Modules
 
@@ -262,6 +262,7 @@ To roll back and have it survive, do one of:
 | <a name="input_container_protocol"></a> [container\_protocol](#input\_container\_protocol) | Protocol of container to be exposed | `string` | `"HTTP"` | no |
 | <a name="input_container_secrets"></a> [container\_secrets](#input\_container\_secrets) | The container secret environment variables | <pre>list(object({<br/>    name      = string<br/>    valueFrom = string<br/>  }))</pre> | `[]` | no |
 | <a name="input_cpu_architecture"></a> [cpu\_architecture](#input\_cpu\_architecture) | CPU architecture for the Fargate task runtime platform. Valid values are `X86_64` and `ARM64` (Graviton). Defaults to `X86_64`. | `string` | `"X86_64"` | no |
+| <a name="input_create_dns_record"></a> [create\_dns\_record](#input\_create\_dns\_record) | Whether to create the Route53 A-alias record for dns\_name pointing at alb\_dns\_name and alb\_zone\_id. null follows ALB routing: the record is created exactly when the module owns the target group and listener rule. Set true to also create it when external\_target\_group is used. | `bool` | `null` | no |
 | <a name="input_create_iam_instance_profile"></a> [create\_iam\_instance\_profile](#input\_create\_iam\_instance\_profile) | Whether to create an IAM instance profile for the ECS service. | `bool` | `false` | no |
 | <a name="input_dd_agent_image"></a> [dd\_agent\_image](#input\_dd\_agent\_image) | Datadog agent image. | `string` | `"public.ecr.aws/datadog/agent:latest"` | no |
 | <a name="input_dd_api_key_arn"></a> [dd\_api\_key\_arn](#input\_dd\_api\_key\_arn) | n/a | `string` | `null` | no |
