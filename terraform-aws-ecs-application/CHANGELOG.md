@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.7.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-ecs-application/v2.6.0...terraform-aws-ecs-application/v2.7.0) (2026-10-30)
+
+
+### Features
+
+* **ecs-application:** create the DNS record for an external target group ([#393](https://github.com/c0x12c/terraform-modules/issues/393)) ([6b78be0](https://github.com/c0x12c/terraform-modules/commit/6b78be082fb636804b16416a5a94d29ebc8f7a32))
+
 ## [2.6.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-ecs-application/v2.5.1...terraform-aws-ecs-application/v2.6.0) (2026-10-29)
 
 
