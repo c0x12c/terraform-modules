@@ -23,7 +23,7 @@ module "example" {
 | `terraform-aws-documentdb` | `terraform.c0x12c.com/c0x12c/documentdb/aws` | 0.1.1 | Terraform module which provisions an Amazon DocumentDB (MongoDB-compatible) cluster on AWS. |
 | `terraform-aws-ec2` | `terraform.c0x12c.com/c0x12c/ec2/aws` | 1.0.0 | Terraform module to provision AWS EC2 instances with comprehensive configuration options. |
 | `terraform-aws-ecr` | `terraform.c0x12c.com/c0x12c/ecr/aws` | 0.2.0 | Terraform module which creates Amazon ECR resources. |
-| `terraform-aws-ecs-application` | `terraform.c0x12c.com/c0x12c/ecs-application/aws` | 2.7.0 | Terraform module which creates ECS (Elastic Container Service) resources on AWS. |
+| `terraform-aws-ecs-application` | `terraform.c0x12c.com/c0x12c/ecs-application/aws` | 2.8.0 | Terraform module which creates ECS (Elastic Container Service) resources on AWS. |
 | `terraform-aws-ecs-cluster` | `terraform.c0x12c.com/c0x12c/ecs-cluster/aws` | 0.2.2 | Terraform module which creates ECS cluster resources on AWS. |
 | `terraform-aws-ecs-service-bot` | `terraform.c0x12c.com/c0x12c/ecs-service-bot/aws` | 0.2.0 | This Terraform module deploys a Service Bot on AWS ECS using Fargate. The Service Bot automates DevOps work... |
 | `terraform-aws-efs` | `terraform.c0x12c.com/c0x12c/efs/aws` | 0.1.78 | Terraform EFS sub-module to create EFS resources on AWS. |
@@ -39,7 +39,7 @@ module "example" {
 | `terraform-aws-eks-redpanda` | `terraform.c0x12c.com/c0x12c/eks-redpanda/aws` | 0.1.0 | This module runs a Redpanda cluster on an existing EKS cluster for several tenants at |
 | `terraform-aws-eks-service` | `terraform.c0x12c.com/c0x12c/eks-service/aws` | 0.3.0 | This module helps configure an 'EKS Service' by creating a correlation set |
 | `terraform-aws-elasticache` | `terraform.c0x12c.com/c0x12c/elasticache/aws` | 0.7.2 | Terraform module which creates Elasticache resources on AWS. |
-| `terraform-aws-eventbridge-slack-notification` | `terraform.c0x12c.com/c0x12c/eventbridge-slack-notification/aws` | 1.2.0 | This module creates a reusable notification system that sends AWS EventBridge events to Slack using Lambda. |
+| `terraform-aws-eventbridge-slack-notification` | `terraform.c0x12c.com/c0x12c/eventbridge-slack-notification/aws` | 1.3.0 | This module creates a reusable notification system that sends AWS EventBridge events to Slack using Lambda. |
 | `terraform-aws-github-oidc` | `terraform.c0x12c.com/c0x12c/github-oidc/aws` | 1.1.0 | This [Terraform](https://www.terraform.io/) module manages OpenID Connect (OIDC) integration |
 | `terraform-aws-github-self-hosted-runners` | `terraform.c0x12c.com/c0x12c/github-self-hosted-runners/aws` | 0.1.66 | Terraform module which creates resources for managing GitHub Actions Self-Hosted Runners on AWS. |
 | `terraform-aws-guardduty` | `terraform.c0x12c.com/c0x12c/guardduty/aws` | 0.1.23 | Terraform module which creates GuardDuty resources on AWS. |
