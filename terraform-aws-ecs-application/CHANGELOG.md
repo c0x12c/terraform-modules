@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.8.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-ecs-application/v2.7.0...terraform-aws-ecs-application/v2.8.0) (2026-10-30)
+
+
+### Features
+
+* **ecs-application:** optional permissions boundary on the module's IAM roles ([#397](https://github.com/c0x12c/terraform-modules/issues/397)) ([3b05ef8](https://github.com/c0x12c/terraform-modules/commit/3b05ef86f7d87a5ce77c57fcb9e8d3806928161e))
+
 ## [2.7.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-ecs-application/v2.6.0...terraform-aws-ecs-application/v2.7.0) (2026-10-30)
 
 

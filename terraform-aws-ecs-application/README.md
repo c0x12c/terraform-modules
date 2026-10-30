@@ -120,7 +120,7 @@ Set `allow_external_task_definition_revisions = true` for that setup:
 ```hcl
 module "application" {
   source  = "terraform.c0x12c.com/c0x12c/ecs-application/aws"
-  version = "~> 2.7"
+  version = "~> 2.8"
 
   allow_external_task_definition_revisions = true
 
