@@ -1,0 +1,9 @@
+clusterName: redpanda
+replicas: 3
+monitoring:
+  dashboardNamespace: monitoring
+  diskUsedPercent: 80
+  lagMessages: 1000
+  lagExcludedGroupsRegex: "^$"
+  runbookUrl: ""
+  dashboardUrl: ""

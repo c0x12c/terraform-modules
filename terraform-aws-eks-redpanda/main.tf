@@ -20,7 +20,7 @@ resource "helm_release" "operator" {
   values = [yamlencode(merge({
     crds               = { enabled = true }
     additionalCmdFlags = ["--namespace=${var.namespace}"]
-  }, local.scheduling))]
+  }, local.scheduling, [{ monitoring = { enabled = true } }, {}][var.monitoring.enabled ? 0 : 1]))]
 
   depends_on = [kubernetes_namespace_v1.this]
 }
@@ -71,4 +71,28 @@ resource "helm_release" "cluster" {
     aws_eks_node_group.this,
     aws_iam_role_policy.tiered,
   ]
+}
+
+# Its own release so a bad rule or a missing dashboard namespace cannot block broker changes.
+resource "helm_release" "monitoring" {
+  count = var.monitoring.enabled ? 1 : 0
+
+  name      = "${var.name}-monitoring"
+  chart     = "${path.module}/charts/redpanda-monitoring"
+  namespace = var.namespace
+
+  values = [yamlencode({
+    clusterName = var.name
+    replicas    = local.brokers.replicas
+    monitoring = {
+      dashboardNamespace     = var.monitoring.dashboard_namespace
+      diskUsedPercent        = var.monitoring.disk_used_percent
+      lagMessages            = var.monitoring.lag_messages
+      lagExcludedGroupsRegex = var.monitoring.lag_excluded_groups_regex
+      runbookUrl             = var.monitoring.runbook_url
+      dashboardUrl           = var.monitoring.dashboard_url
+    }
+  })]
+
+  depends_on = [helm_release.cluster]
 }

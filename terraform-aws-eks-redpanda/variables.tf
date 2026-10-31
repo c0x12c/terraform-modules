@@ -149,6 +149,26 @@ variable "enterprise_license_secret" {
   default = null
 }
 
+variable "monitoring" {
+  description = <<-EOT
+    Scrape config, alert rules and a Grafana dashboard. Off by default. Needs the Prometheus Operator
+    CRDs on the cluster, and dashboard_namespace must exist and be watched by Grafana's dashboard sidecar.
+    Thresholds apply to the whole cluster. lag_excluded_groups_regex drops abandoned consumer groups,
+    which otherwise keep their last offset and alert forever.
+  EOT
+  type = object({
+    enabled                   = optional(bool, false)
+    scrape_interval           = optional(string, "30s")
+    dashboard_namespace       = optional(string, "monitoring")
+    disk_used_percent         = optional(number, 80)
+    lag_messages              = optional(number, 1000)
+    lag_excluded_groups_regex = optional(string, "")
+    runbook_url               = optional(string, "https://github.com/c0x12c/terraform-modules/blob/master/terraform-aws-eks-redpanda/README.md#monitoring")
+    dashboard_url             = optional(string, "")
+  })
+  default = {}
+}
+
 variable "console_enabled" {
   description = "Deploy Redpanda Console. Off by default: without an Enterprise licence it has no per-user login, so it is an operator tool only."
   type        = bool

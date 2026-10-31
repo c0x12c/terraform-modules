@@ -199,6 +199,22 @@ Not yet checked:
 - Tiered storage through IRSA (`cloud_storage_credentials_source: sts`) has not run.
 - The quota hook Job has only been rendered, never run.
 
+## Monitoring
+
+Set `monitoring = { enabled = true }`. It adds a ServiceMonitor for the brokers and the operator, alert rules, and a Grafana dashboard in `dashboard_namespace`. It needs the Prometheus Operator CRDs, and no alert can fire while Prometheus or Alertmanager is down, including a stack that is scheduled off.
+
+Rules are tested with `bash tests/rules/run.sh`, which needs Docker and Helm. CI does not run it.
+
+| Alert | First check | Then |
+|---|---|---|
+| `RedpandaBrokerDown` | `rpk cluster health`. Healthy brokers mean Prometheus cannot reach port 9644, so check the scrape targets. | Find the pod and its node. Node changes replace brokers, so check for one in progress. |
+| `RedpandaUnavailablePartitions` | `rpk cluster health` lists the leaderless partitions. | Tenants on those topics are down. Restore the missing brokers first. |
+| `RedpandaUnderReplicated` | `rpk cluster health`. A broker restart causes this briefly. | If no restart is under way, check broker logs and disk. |
+| `RedpandaDiskHigh` | The dashboard shows which broker. | Check retention on the largest topics with `rpk topic describe -c`, or grow the volume. |
+| `RedpandaConsumerLag` | `rpk group describe <group>`. The `tenant` label names the owner. | No members means the consumer is down. Add abandoned groups to `lag_excluded_groups_regex`, or delete them. Lag is in messages, so a busy topic reaches the threshold sooner. |
+| `RedpandaQuotaThrottling` | `rpk cluster quotas describe` lists the limits. Metrics do not name the tenant. | The quota is doing its job. Raise it only if the tenant needs more throughput. Limits are per broker, on compressed bytes. |
+| `RedpandaOperatorReconcileErrors` | Operator logs. `SASL_AUTHENTICATION_FAILED` means its bootstrap password does not match the cluster. | Topic and user changes are not applying until this clears. |
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
@@ -215,7 +231,7 @@ Not yet checked:
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.70.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.71.0 |
 | <a name="provider_cloudinit"></a> [cloudinit](#provider\_cloudinit) | 2.4.1 |
 | <a name="provider_helm"></a> [helm](#provider\_helm) | 3.3.0 |
 | <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 3.4.0 |
@@ -240,6 +256,7 @@ No modules.
 | [aws_s3_bucket_public_access_block.tiered](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block) | resource |
 | [aws_s3_bucket_server_side_encryption_configuration.tiered](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_server_side_encryption_configuration) | resource |
 | [helm_release.cluster](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [helm_release.monitoring](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.operator](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [kubernetes_namespace_v1.this](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace_v1) | resource |
 | [kubernetes_secret_v1.admin](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret_v1) | resource |
@@ -267,6 +284,7 @@ No modules.
 | <a name="input_create_namespace"></a> [create\_namespace](#input\_create\_namespace) | Create the namespace. Set to false when it already exists. | `bool` | `true` | no |
 | <a name="input_eks_cluster_name"></a> [eks\_cluster\_name](#input\_eks\_cluster\_name) | Name of the EKS cluster Redpanda is installed into. | `string` | n/a | yes |
 | <a name="input_enterprise_license_secret"></a> [enterprise\_license\_secret](#input\_enterprise\_license\_secret) | Existing Secret holding the Redpanda Enterprise licence. Needed for tiered storage and Console authentication. | <pre>object({<br/>    name = string<br/>    key  = string<br/>  })</pre> | `null` | no |
+| <a name="input_monitoring"></a> [monitoring](#input\_monitoring) | Scrape config, alert rules and a Grafana dashboard. Off by default. Needs the Prometheus Operator<br/>CRDs on the cluster, and dashboard\_namespace must exist and be watched by Grafana's dashboard sidecar.<br/>Thresholds apply to the whole cluster. lag\_excluded\_groups\_regex drops abandoned consumer groups,<br/>which otherwise keep their last offset and alert forever. | <pre>object({<br/>    enabled                   = optional(bool, false)<br/>    scrape_interval           = optional(string, "30s")<br/>    dashboard_namespace       = optional(string, "monitoring")<br/>    disk_used_percent         = optional(number, 80)<br/>    lag_messages              = optional(number, 1000)<br/>    lag_excluded_groups_regex = optional(string, "")<br/>    runbook_url               = optional(string, "https://github.com/c0x12c/terraform-modules/blob/master/terraform-aws-eks-redpanda/README.md#monitoring")<br/>    dashboard_url             = optional(string, "")<br/>  })</pre> | `{}` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of the Redpanda cluster. Used for the Kubernetes resources and as part of every AWS resource name. | `string` | `"redpanda"` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Kubernetes namespace for the operator and the cluster. | `string` | `"redpanda"` | no |
 | <a name="input_node_group"></a> [node\_group](#input\_node\_group) | Dedicated broker nodes, one managed node group per subnet (one subnet per AZ).<br/>Nodes are tainted dedicated=<name>:NoSchedule so nothing else lands on them.<br/>On Fargate-first clusters create this group or provide an external tainted EC2 pool.<br/>labels and taint override the default selector and NoSchedule toleration for either pool. | <pre>object({<br/>    create             = optional(bool, false)<br/>    subnet_ids         = optional(list(string), [])<br/>    kubernetes_version = optional(string)<br/>    root_volume_size   = optional(number, 50)<br/>    labels             = optional(map(string))<br/>    taint = optional(object({<br/>      key   = string<br/>      value = string<br/>    }))<br/>  })</pre> | `{}` | no |
