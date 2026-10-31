@@ -37,7 +37,7 @@ resource "aws_cloudwatch_event_target" "this" {
   for_each = { for rule in var.event_rules : rule.name => rule }
 
   rule      = aws_cloudwatch_event_rule.this[each.key].name
-  target_id = "SendToLambda-${each.key}"
+  target_id = substr("SendToLambda-${each.key}", 0, 64)
   arn       = aws_lambda_function.notifier.arn
 
   depends_on = [aws_lambda_function.notifier]
