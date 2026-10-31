@@ -36,7 +36,7 @@ module "example" {
 | `terraform-aws-eks-managed-node-group` | `terraform.c0x12c.com/c0x12c/eks-managed-node-group/aws` | 1.0.1 | Terraform module which creates Amazon EKS (Kubernetes) Managed Node Group (MNG) resources. |
 | `terraform-aws-eks-multi-tenant-alb` | `terraform.c0x12c.com/c0x12c/eks-multi-tenant-alb/aws` | 0.1.0 | Creates a dedicated ALB on EKS that routes per-tenant hosts to services, with optional ACM certificates and... |
 | `terraform-aws-eks-rbac` | `terraform.c0x12c.com/c0x12c/eks-rbac/aws` | 0.1.21 | Reference: [Using RBAC Authorization](https://kubernetes.io/docs/reference/access-authn-authz/rbac/) |
-| `terraform-aws-eks-redpanda` | `terraform.c0x12c.com/c0x12c/eks-redpanda/aws` | 0.1.0 | This module runs a Redpanda cluster on an existing EKS cluster for several tenants at |
+| `terraform-aws-eks-redpanda` | `terraform.c0x12c.com/c0x12c/eks-redpanda/aws` | 0.1.1 | This module runs a Redpanda cluster on an existing EKS cluster for several tenants at |
 | `terraform-aws-eks-service` | `terraform.c0x12c.com/c0x12c/eks-service/aws` | 0.3.0 | This module helps configure an 'EKS Service' by creating a correlation set |
 | `terraform-aws-elasticache` | `terraform.c0x12c.com/c0x12c/elasticache/aws` | 0.7.2 | Terraform module which creates Elasticache resources on AWS. |
 | `terraform-aws-eventbridge-slack-notification` | `terraform.c0x12c.com/c0x12c/eventbridge-slack-notification/aws` | 1.3.1 | This module creates a reusable notification system that sends AWS EventBridge events to Slack using Lambda. |
