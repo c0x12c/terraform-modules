@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-eks-redpanda/v0.1.1...terraform-aws-eks-redpanda/v0.2.0) (2026-10-31)
+
+
+### Features
+
+* **terraform-aws-eks-redpanda:** add optional monitoring for Prometheus Operator and Grafana ([#406](https://github.com/c0x12c/terraform-modules/issues/406)) ([e0eb7ce](https://github.com/c0x12c/terraform-modules/commit/e0eb7cee2e1d7a779af78112da4cad449d1885ee))
+
 ## [0.1.1](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-eks-redpanda/v0.1.0...terraform-aws-eks-redpanda/v0.1.1) (2026-10-31)
 
 
