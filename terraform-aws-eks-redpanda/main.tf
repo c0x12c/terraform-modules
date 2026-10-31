@@ -20,7 +20,7 @@ resource "helm_release" "operator" {
   values = [yamlencode(merge({
     crds               = { enabled = true }
     additionalCmdFlags = ["--namespace=${var.namespace}"]
-  }, local.scheduling, [{ monitoring = { enabled = true } }, {}][var.monitoring.enabled ? 0 : 1]))]
+  }, local.scheduling, [{ monitoring = { enabled = true, labels = var.monitoring.labels } }, {}][var.monitoring.enabled ? 0 : 1]))]
 
   depends_on = [kubernetes_namespace_v1.this]
 }
@@ -85,6 +85,7 @@ resource "helm_release" "monitoring" {
     clusterName = var.name
     replicas    = local.brokers.replicas
     monitoring = {
+      labels                 = var.monitoring.labels
       dashboardNamespace     = var.monitoring.dashboard_namespace
       diskUsedPercent        = var.monitoring.disk_used_percent
       lagMessages            = var.monitoring.lag_messages

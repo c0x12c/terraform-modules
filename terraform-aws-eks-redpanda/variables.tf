@@ -153,12 +153,15 @@ variable "monitoring" {
   description = <<-EOT
     Scrape config, alert rules and a Grafana dashboard. Off by default. Needs the Prometheus Operator
     CRDs on the cluster, and dashboard_namespace must exist and be watched by Grafana's dashboard sidecar.
+    labels go on the monitors and rules, for a Prometheus whose selectors match on a label, such as
+    kube-prometheus-stack's default release label; without a match it silently ignores them.
     Thresholds apply to the whole cluster. lag_excluded_groups_regex drops abandoned consumer groups,
     which otherwise keep their last offset and alert forever.
   EOT
   type = object({
     enabled                   = optional(bool, false)
     scrape_interval           = optional(string, "30s")
+    labels                    = optional(map(string), {})
     dashboard_namespace       = optional(string, "monitoring")
     disk_used_percent         = optional(number, 80)
     lag_messages              = optional(number, 1000)

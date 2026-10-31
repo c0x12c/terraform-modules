@@ -3,6 +3,9 @@ kind: PrometheusRule
 metadata:
   name: {{ printf "%s-rules" .Release.Name | trunc 63 | trimSuffix "-" }}
   namespace: {{ .Release.Namespace | quote }}
+{{- with .Values.monitoring.labels }}
+  labels: {{- toYaml . | nindent 4 }}
+{{- end }}
 spec:
   groups:
     - name: redpanda

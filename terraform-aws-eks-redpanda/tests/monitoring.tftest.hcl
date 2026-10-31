@@ -27,6 +27,7 @@ run "enabled" {
     monitoring = {
       enabled                   = true
       scrape_interval           = "15s"
+      labels                    = { release = "stack" }
       lag_messages              = 5000
       lag_excluded_groups_regex = ".*verify.*"
     }
@@ -34,8 +35,9 @@ run "enabled" {
 
   assert {
     condition = (
-      yamldecode(helm_release.cluster.values[0]).clusterSpec.monitoring == { enabled = true, scrapeInterval = "15s" } &&
-      yamldecode(helm_release.operator[0].values[0]).monitoring.enabled == true &&
+      yamldecode(helm_release.cluster.values[0]).clusterSpec.monitoring == { enabled = true, scrapeInterval = "15s", labels = { release = "stack" } } &&
+      yamldecode(helm_release.operator[0].values[0]).monitoring == { enabled = true, labels = { release = "stack" } } &&
+      yamldecode(helm_release.monitoring[0].values[0]).monitoring.labels == { release = "stack" } &&
       length(helm_release.monitoring) == 1
     )
     error_message = "Enabling monitoring must wire the broker monitor, the operator monitor and the rules release."
