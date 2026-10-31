@@ -16,6 +16,8 @@ spec:
           for: 2m
           labels:
             severity: critical
+            namespace: {{ .Release.Namespace | quote }}
+            service: {{ .Values.clusterName | quote }}
           annotations:
             title: "Redpanda broker down"
             summary: 'Brokers up: {{ "{{ $value }}" }} brokers; threshold: {{ .Values.replicas }} brokers.'
@@ -31,6 +33,8 @@ spec:
           for: 1m
           labels:
             severity: critical
+            namespace: {{ .Release.Namespace | quote }}
+            service: {{ .Values.clusterName | quote }}
           annotations:
             title: "Redpanda unavailable partitions"
             summary: 'Unavailable partitions: {{ "{{ $value }}" }} partitions; threshold: 0 partitions.'
@@ -46,6 +50,8 @@ spec:
           for: 5m
           labels:
             severity: warning
+            namespace: {{ .Release.Namespace | quote }}
+            service: {{ .Values.clusterName | quote }}
           annotations:
             title: "Redpanda under-replicated replicas"
             summary: 'Under-replicated replicas: {{ "{{ $value }}" }} replicas; threshold: 0 replicas.'
@@ -61,6 +67,8 @@ spec:
           for: 10m
           labels:
             severity: warning
+            namespace: {{ .Release.Namespace | quote }}
+            service: {{ .Values.clusterName | quote }}
           annotations:
             title: "Redpanda disk usage high"
             summary: 'Disk used on {{ "{{ $labels.pod }}" }}: {{ "{{ printf \"%.1f\" $value }}" }}%; threshold: {{ .Values.monitoring.diskUsedPercent }}%.'
@@ -83,6 +91,8 @@ spec:
           for: 10m
           labels:
             severity: warning
+            namespace: {{ .Release.Namespace | quote }}
+            service: {{ .Values.clusterName | quote }}
           annotations:
             title: "Redpanda consumer lag high"
             summary: 'Consumer lag for {{ "{{ $labels.redpanda_group }}" }}: {{ "{{ humanize $value }}" }} messages; threshold: {{ .Values.monitoring.lagMessages }} messages.'
@@ -98,6 +108,8 @@ spec:
           for: 10m
           labels:
             severity: warning
+            namespace: {{ .Release.Namespace | quote }}
+            service: {{ .Values.clusterName | quote }}
           annotations:
             title: "Redpanda quota throttling"
             summary: 'Quota throttle time: {{ "{{ humanize $value }}" }} seconds/second; threshold: 0 seconds/second.'
@@ -113,6 +125,8 @@ spec:
           for: 15m
           labels:
             severity: warning
+            namespace: {{ .Release.Namespace | quote }}
+            service: {{ .Values.clusterName | quote }}
           annotations:
             title: "Redpanda operator reconcile errors"
             summary: 'Reconcile errors: {{ "{{ humanize $value }}" }} errors/second; threshold: 0 errors/second.'
