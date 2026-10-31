@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-eks-redpanda/v0.1.0...terraform-aws-eks-redpanda/v0.1.1) (2026-10-31)
+
+
+### Bug Fixes
+
+* **terraform-aws-eks-redpanda:** run Console on the broker placement ([#404](https://github.com/c0x12c/terraform-modules/issues/404)) ([a294b75](https://github.com/c0x12c/terraform-modules/commit/a294b75209570d951b31bb59605725becd5ad842))
+
 ## 0.1.0 (2026-10-29)
 
 
