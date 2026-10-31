@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.8.1](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-ecs-application/v2.8.0...terraform-aws-ecs-application/v2.8.1) (2026-10-31)
+
+
+### Bug Fixes
+
+* **deps:** bump terraform-aws-eventbridge-slack-notification to v1.3.1 in terraform-aws-ecs-application ([#402](https://github.com/c0x12c/terraform-modules/issues/402)) ([b0942da](https://github.com/c0x12c/terraform-modules/commit/b0942da3ddce29325580acdffd794f7ad0a77799))
+
 ## [2.8.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-ecs-application/v2.7.0...terraform-aws-ecs-application/v2.8.0) (2026-10-30)
 
 
