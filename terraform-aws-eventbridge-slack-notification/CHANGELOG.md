@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.1](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-eventbridge-slack-notification/v1.3.0...terraform-aws-eventbridge-slack-notification/v1.3.1) (2026-10-31)
+
+
+### Bug Fixes
+
+* **eventbridge-slack-notification:** keep target_id within the 64 character limit ([#400](https://github.com/c0x12c/terraform-modules/issues/400)) ([4866c13](https://github.com/c0x12c/terraform-modules/commit/4866c13df7be1f13a98710cb90bcb7e1eca754d3))
+
 ## [1.3.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-eventbridge-slack-notification/v1.2.0...terraform-aws-eventbridge-slack-notification/v1.3.0) (2026-10-30)
 
 
