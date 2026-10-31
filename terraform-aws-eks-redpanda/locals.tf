@@ -140,6 +140,7 @@ locals {
   }
 
   cluster_spec = merge(
+    [{ monitoring = { enabled = true, scrapeInterval = var.monitoring.scrape_interval, labels = var.monitoring.labels } }, {}][var.monitoring.enabled ? 0 : 1],
     {
       image     = { repository = "docker.redpanda.com/redpandadata/redpanda", tag = var.redpanda_version }
       tls       = { enabled = var.tls_enabled }

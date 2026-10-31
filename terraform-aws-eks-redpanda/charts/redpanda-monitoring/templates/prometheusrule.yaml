@@ -1,0 +1,138 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ printf "%s-rules" .Release.Name | trunc 63 | trimSuffix "-" }}
+  namespace: {{ .Release.Namespace | quote }}
+{{- with .Values.monitoring.labels }}
+  labels: {{- toYaml . | nindent 4 }}
+{{- end }}
+spec:
+  groups:
+    - name: redpanda
+      rules:
+        - alert: RedpandaBrokerDown
+          expr: |-
+            (count(up{namespace={{ .Release.Namespace | quote }},service={{ .Values.clusterName | quote }}} == 1) or vector(0)) < {{ .Values.replicas }}
+          for: 2m
+          labels:
+            severity: critical
+            namespace: {{ .Release.Namespace | quote }}
+            service: {{ .Values.clusterName | quote }}
+          annotations:
+            title: "Redpanda broker down"
+            summary: 'Brokers up: {{ "{{ $value }}" }} brokers; threshold: {{ .Values.replicas }} brokers.'
+{{- with .Values.monitoring.runbookUrl }}
+            runbook_url: {{ . | quote }}
+{{- end }}
+{{- with .Values.monitoring.dashboardUrl }}
+            dashboard_url: {{ . | quote }}
+{{- end }}
+        - alert: RedpandaUnavailablePartitions
+          expr: |-
+            max(redpanda_cluster_unavailable_partitions{namespace={{ .Release.Namespace | quote }},service={{ .Values.clusterName | quote }}}) > 0
+          for: 1m
+          labels:
+            severity: critical
+            namespace: {{ .Release.Namespace | quote }}
+            service: {{ .Values.clusterName | quote }}
+          annotations:
+            title: "Redpanda unavailable partitions"
+            summary: 'Unavailable partitions: {{ "{{ $value }}" }} partitions; threshold: 0 partitions.'
+{{- with .Values.monitoring.runbookUrl }}
+            runbook_url: {{ . | quote }}
+{{- end }}
+{{- with .Values.monitoring.dashboardUrl }}
+            dashboard_url: {{ . | quote }}
+{{- end }}
+        - alert: RedpandaUnderReplicated
+          expr: |-
+            sum(redpanda_kafka_under_replicated_replicas{namespace={{ .Release.Namespace | quote }},service={{ .Values.clusterName | quote }}}) > 0
+          for: 5m
+          labels:
+            severity: warning
+            namespace: {{ .Release.Namespace | quote }}
+            service: {{ .Values.clusterName | quote }}
+          annotations:
+            title: "Redpanda under-replicated replicas"
+            summary: 'Under-replicated replicas: {{ "{{ $value }}" }} replicas; threshold: 0 replicas.'
+{{- with .Values.monitoring.runbookUrl }}
+            runbook_url: {{ . | quote }}
+{{- end }}
+{{- with .Values.monitoring.dashboardUrl }}
+            dashboard_url: {{ . | quote }}
+{{- end }}
+        - alert: RedpandaDiskHigh
+          expr: |-
+            100 * (1 - redpanda_storage_disk_free_bytes{namespace={{ .Release.Namespace | quote }},service={{ .Values.clusterName | quote }}} / redpanda_storage_disk_total_bytes{namespace={{ .Release.Namespace | quote }},service={{ .Values.clusterName | quote }}}) > {{ .Values.monitoring.diskUsedPercent }}
+          for: 10m
+          labels:
+            severity: warning
+            namespace: {{ .Release.Namespace | quote }}
+            service: {{ .Values.clusterName | quote }}
+          annotations:
+            title: "Redpanda disk usage high"
+            summary: 'Disk used on {{ "{{ $labels.pod }}" }}: {{ "{{ printf \"%.1f\" $value }}" }}%; threshold: {{ .Values.monitoring.diskUsedPercent }}%.'
+{{- with .Values.monitoring.runbookUrl }}
+            runbook_url: {{ . | quote }}
+{{- end }}
+{{- with .Values.monitoring.dashboardUrl }}
+            dashboard_url: {{ . | quote }}
+{{- end }}
+        - alert: RedpandaConsumerLag
+          expr: |-
+            sum by (redpanda_group, tenant) (
+              label_replace(
+                max by (redpanda_topic, redpanda_partition) (redpanda_kafka_max_offset{namespace={{ .Release.Namespace | quote }},service={{ .Values.clusterName | quote }},redpanda_namespace="kafka"})
+                - on (redpanda_topic, redpanda_partition) group_right()
+                max by (redpanda_group, redpanda_topic, redpanda_partition) (redpanda_kafka_consumer_group_committed_offset{namespace={{ .Release.Namespace | quote }},service={{ .Values.clusterName | quote }},redpanda_group!~{{ .Values.monitoring.lagExcludedGroupsRegex | quote }}}),
+                "tenant", "$1", "redpanda_group", "([^.]+)\\..*"
+              )
+            ) > {{ .Values.monitoring.lagMessages }}
+          for: 10m
+          labels:
+            severity: warning
+            namespace: {{ .Release.Namespace | quote }}
+            service: {{ .Values.clusterName | quote }}
+          annotations:
+            title: "Redpanda consumer lag high"
+            summary: 'Consumer lag for {{ "{{ $labels.redpanda_group }}" }}: {{ "{{ humanize $value }}" }} messages; threshold: {{ .Values.monitoring.lagMessages }} messages.'
+{{- with .Values.monitoring.runbookUrl }}
+            runbook_url: {{ . | quote }}
+{{- end }}
+{{- with .Values.monitoring.dashboardUrl }}
+            dashboard_url: {{ . | quote }}
+{{- end }}
+        - alert: RedpandaQuotaThrottling
+          expr: |-
+            sum(rate(redpanda_kafka_quotas_client_quota_throttle_time_sum{namespace={{ .Release.Namespace | quote }},service={{ .Values.clusterName | quote }},redpanda_quota_rule="kafka_user"}[5m])) > 0
+          for: 10m
+          labels:
+            severity: warning
+            namespace: {{ .Release.Namespace | quote }}
+            service: {{ .Values.clusterName | quote }}
+          annotations:
+            title: "Redpanda quota throttling"
+            summary: 'Quota throttle time: {{ "{{ humanize $value }}" }} seconds/second; threshold: 0 seconds/second.'
+{{- with .Values.monitoring.runbookUrl }}
+            runbook_url: {{ . | quote }}
+{{- end }}
+{{- with .Values.monitoring.dashboardUrl }}
+            dashboard_url: {{ . | quote }}
+{{- end }}
+        - alert: RedpandaOperatorReconcileErrors
+          expr: |-
+            sum(rate(controller_runtime_reconcile_errors_total{namespace={{ .Release.Namespace | quote }}}[5m])) > 0
+          for: 15m
+          labels:
+            severity: warning
+            namespace: {{ .Release.Namespace | quote }}
+            service: {{ .Values.clusterName | quote }}
+          annotations:
+            title: "Redpanda operator reconcile errors"
+            summary: 'Reconcile errors: {{ "{{ humanize $value }}" }} errors/second; threshold: 0 errors/second.'
+{{- with .Values.monitoring.runbookUrl }}
+            runbook_url: {{ . | quote }}
+{{- end }}
+{{- with .Values.monitoring.dashboardUrl }}
+            dashboard_url: {{ . | quote }}
+{{- end }}

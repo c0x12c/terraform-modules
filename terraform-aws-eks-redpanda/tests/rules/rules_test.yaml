@@ -1,0 +1,666 @@
+{
+  "rule_files": [
+    "rules.yaml"
+  ],
+  "evaluation_interval": "1m",
+  "tests": [
+    {
+      "name": "one of three broker scrapes failing",
+      "interval": "1m",
+      "input_series": [
+        {
+          "series": "up{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-0\"}",
+          "values": "1+0x25"
+        },
+        {
+          "series": "up{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-1\"}",
+          "values": "1+0x25"
+        },
+        {
+          "series": "up{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-2\"}",
+          "values": "0+0x25"
+        }
+      ],
+      "alert_rule_test": [
+        {
+          "eval_time": "0m",
+          "alertname": "RedpandaBrokerDown",
+          "exp_alerts": []
+        },
+        {
+          "eval_time": "20m",
+          "alertname": "RedpandaBrokerDown",
+          "exp_alerts": [
+            {
+              "exp_labels": {
+                "namespace": "redpanda-test",
+                "service": "redpanda",
+                "severity": "critical"
+              },
+              "exp_annotations": {
+                "title": "Redpanda broker down",
+                "summary": "Brokers up: 2 brokers; threshold: 3 brokers.",
+                "runbook_url": "https://example.invalid/runbook",
+                "dashboard_url": "https://example.invalid/dashboard"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "broker target absent entirely",
+      "interval": "1m",
+      "input_series": [
+        {
+          "series": "up{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-0\"}",
+          "values": "1+0x25"
+        },
+        {
+          "series": "up{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-1\"}",
+          "values": "1+0x25"
+        }
+      ],
+      "alert_rule_test": [
+        {
+          "eval_time": "0m",
+          "alertname": "RedpandaBrokerDown",
+          "exp_alerts": []
+        },
+        {
+          "eval_time": "20m",
+          "alertname": "RedpandaBrokerDown",
+          "exp_alerts": [
+            {
+              "exp_labels": {
+                "namespace": "redpanda-test",
+                "service": "redpanda",
+                "severity": "critical"
+              },
+              "exp_annotations": {
+                "title": "Redpanda broker down",
+                "summary": "Brokers up: 2 brokers; threshold: 3 brokers.",
+                "runbook_url": "https://example.invalid/runbook",
+                "dashboard_url": "https://example.invalid/dashboard"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "all broker targets absent uses vector zero",
+      "interval": "1m",
+      "input_series": [],
+      "alert_rule_test": [
+        {
+          "eval_time": "0m",
+          "alertname": "RedpandaBrokerDown",
+          "exp_alerts": []
+        },
+        {
+          "eval_time": "20m",
+          "alertname": "RedpandaBrokerDown",
+          "exp_alerts": [
+            {
+              "exp_labels": {
+                "namespace": "redpanda-test",
+                "service": "redpanda",
+                "severity": "critical"
+              },
+              "exp_annotations": {
+                "title": "Redpanda broker down",
+                "summary": "Brokers up: 0 brokers; threshold: 3 brokers.",
+                "runbook_url": "https://example.invalid/runbook",
+                "dashboard_url": "https://example.invalid/dashboard"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "all three brokers healthy",
+      "interval": "1m",
+      "input_series": [
+        {
+          "series": "up{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-0\"}",
+          "values": "1+0x25"
+        },
+        {
+          "series": "up{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-1\"}",
+          "values": "1+0x25"
+        },
+        {
+          "series": "up{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-2\"}",
+          "values": "1+0x25"
+        }
+      ],
+      "alert_rule_test": [
+        {
+          "eval_time": "0m",
+          "alertname": "RedpandaBrokerDown",
+          "exp_alerts": []
+        },
+        {
+          "eval_time": "20m",
+          "alertname": "RedpandaBrokerDown",
+          "exp_alerts": []
+        }
+      ]
+    },
+    {
+      "name": "unavailable partitions on one broker",
+      "interval": "1m",
+      "input_series": [
+        {
+          "series": "redpanda_cluster_unavailable_partitions{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-1\"}",
+          "values": "2+0x25"
+        }
+      ],
+      "alert_rule_test": [
+        {
+          "eval_time": "0m",
+          "alertname": "RedpandaUnavailablePartitions",
+          "exp_alerts": []
+        },
+        {
+          "eval_time": "20m",
+          "alertname": "RedpandaUnavailablePartitions",
+          "exp_alerts": [
+            {
+              "exp_labels": {
+                "namespace": "redpanda-test",
+                "service": "redpanda",
+                "severity": "critical"
+              },
+              "exp_annotations": {
+                "title": "Redpanda unavailable partitions",
+                "summary": "Unavailable partitions: 2 partitions; threshold: 0 partitions.",
+                "runbook_url": "https://example.invalid/runbook",
+                "dashboard_url": "https://example.invalid/dashboard"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "unavailable partitions use worst broker report",
+      "interval": "1m",
+      "input_series": [
+        {
+          "series": "redpanda_cluster_unavailable_partitions{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-0\"}",
+          "values": "0+0x25"
+        },
+        {
+          "series": "redpanda_cluster_unavailable_partitions{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-1\"}",
+          "values": "5+0x25"
+        }
+      ],
+      "alert_rule_test": [
+        {
+          "eval_time": "0m",
+          "alertname": "RedpandaUnavailablePartitions",
+          "exp_alerts": []
+        },
+        {
+          "eval_time": "20m",
+          "alertname": "RedpandaUnavailablePartitions",
+          "exp_alerts": [
+            {
+              "exp_labels": {
+                "namespace": "redpanda-test",
+                "service": "redpanda",
+                "severity": "critical"
+              },
+              "exp_annotations": {
+                "title": "Redpanda unavailable partitions",
+                "summary": "Unavailable partitions: 5 partitions; threshold: 0 partitions.",
+                "runbook_url": "https://example.invalid/runbook",
+                "dashboard_url": "https://example.invalid/dashboard"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "no unavailable partitions on reporting broker",
+      "interval": "1m",
+      "input_series": [
+        {
+          "series": "redpanda_cluster_unavailable_partitions{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-1\"}",
+          "values": "0+0x25"
+        }
+      ],
+      "alert_rule_test": [
+        {
+          "eval_time": "0m",
+          "alertname": "RedpandaUnavailablePartitions",
+          "exp_alerts": []
+        },
+        {
+          "eval_time": "20m",
+          "alertname": "RedpandaUnavailablePartitions",
+          "exp_alerts": []
+        }
+      ]
+    },
+    {
+      "name": "under replicated replicas",
+      "interval": "1m",
+      "input_series": [
+        {
+          "series": "redpanda_kafka_under_replicated_replicas{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-0\"}",
+          "values": "2+0x25"
+        }
+      ],
+      "alert_rule_test": [
+        {
+          "eval_time": "0m",
+          "alertname": "RedpandaUnderReplicated",
+          "exp_alerts": []
+        },
+        {
+          "eval_time": "20m",
+          "alertname": "RedpandaUnderReplicated",
+          "exp_alerts": [
+            {
+              "exp_labels": {
+                "namespace": "redpanda-test",
+                "service": "redpanda",
+                "severity": "warning"
+              },
+              "exp_annotations": {
+                "title": "Redpanda under-replicated replicas",
+                "summary": "Under-replicated replicas: 2 replicas; threshold: 0 replicas.",
+                "runbook_url": "https://example.invalid/runbook",
+                "dashboard_url": "https://example.invalid/dashboard"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "replicas healthy",
+      "interval": "1m",
+      "input_series": [
+        {
+          "series": "redpanda_kafka_under_replicated_replicas{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-0\"}",
+          "values": "0+0x25"
+        }
+      ],
+      "alert_rule_test": [
+        {
+          "eval_time": "0m",
+          "alertname": "RedpandaUnderReplicated",
+          "exp_alerts": []
+        },
+        {
+          "eval_time": "20m",
+          "alertname": "RedpandaUnderReplicated",
+          "exp_alerts": []
+        }
+      ]
+    },
+    {
+      "name": "disk above threshold",
+      "interval": "1m",
+      "input_series": [
+        {
+          "series": "redpanda_storage_disk_free_bytes{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-0\"}",
+          "values": "100+0x25"
+        },
+        {
+          "series": "redpanda_storage_disk_total_bytes{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-0\"}",
+          "values": "1000+0x25"
+        }
+      ],
+      "alert_rule_test": [
+        {
+          "eval_time": "0m",
+          "alertname": "RedpandaDiskHigh",
+          "exp_alerts": []
+        },
+        {
+          "eval_time": "20m",
+          "alertname": "RedpandaDiskHigh",
+          "exp_alerts": [
+            {
+              "exp_labels": {
+                "namespace": "redpanda-test",
+                "service": "redpanda",
+                "pod": "broker-0",
+                "severity": "warning"
+              },
+              "exp_annotations": {
+                "title": "Redpanda disk usage high",
+                "summary": "Disk used on broker-0: 90.0%; threshold: 80%.",
+                "runbook_url": "https://example.invalid/runbook",
+                "dashboard_url": "https://example.invalid/dashboard"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "disk below threshold",
+      "interval": "1m",
+      "input_series": [
+        {
+          "series": "redpanda_storage_disk_free_bytes{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-0\"}",
+          "values": "500+0x25"
+        },
+        {
+          "series": "redpanda_storage_disk_total_bytes{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-0\"}",
+          "values": "1000+0x25"
+        }
+      ],
+      "alert_rule_test": [
+        {
+          "eval_time": "0m",
+          "alertname": "RedpandaDiskHigh",
+          "exp_alerts": []
+        },
+        {
+          "eval_time": "20m",
+          "alertname": "RedpandaDiskHigh",
+          "exp_alerts": []
+        }
+      ]
+    },
+    {
+      "name": "lag extracts tenant and joins different broker offsets",
+      "interval": "1m",
+      "input_series": [
+        {
+          "series": "redpanda_kafka_max_offset{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-0\",redpanda_namespace=\"kafka\",redpanda_topic=\"events\",redpanda_partition=\"0\"}",
+          "values": "1000+0x25"
+        },
+        {
+          "series": "redpanda_kafka_max_offset{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-2\",redpanda_namespace=\"kafka\",redpanda_topic=\"events\",redpanda_partition=\"0\"}",
+          "values": "999+0x25"
+        },
+        {
+          "series": "redpanda_kafka_consumer_group_committed_offset{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-1\",redpanda_group=\"tenant-a.worker\",redpanda_topic=\"events\",redpanda_partition=\"0\"}",
+          "values": "800+0x25"
+        }
+      ],
+      "alert_rule_test": [
+        {
+          "eval_time": "0m",
+          "alertname": "RedpandaConsumerLag",
+          "exp_alerts": []
+        },
+        {
+          "eval_time": "20m",
+          "alertname": "RedpandaConsumerLag",
+          "exp_alerts": [
+            {
+              "exp_labels": {
+                "namespace": "redpanda-test",
+                "service": "redpanda",
+                "redpanda_group": "tenant-a.worker",
+                "tenant": "tenant-a",
+                "severity": "warning"
+              },
+              "exp_annotations": {
+                "title": "Redpanda consumer lag high",
+                "summary": "Consumer lag for tenant-a.worker: 200 messages; threshold: 100 messages.",
+                "runbook_url": "https://example.invalid/runbook",
+                "dashboard_url": "https://example.invalid/dashboard"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "lag deduplicates committed offsets during coordinator move",
+      "interval": "1m",
+      "input_series": [
+        {
+          "series": "redpanda_kafka_max_offset{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-0\",redpanda_namespace=\"kafka\",redpanda_topic=\"events\",redpanda_partition=\"0\"}",
+          "values": "10000+0x25"
+        },
+        {
+          "series": "redpanda_kafka_consumer_group_committed_offset{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-1\",redpanda_group=\"tenant-a.worker\",redpanda_topic=\"events\",redpanda_partition=\"0\"}",
+          "values": "8000+0x25"
+        },
+        {
+          "series": "redpanda_kafka_consumer_group_committed_offset{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-2\",redpanda_group=\"tenant-a.worker\",redpanda_topic=\"events\",redpanda_partition=\"0\"}",
+          "values": "8000+0x25"
+        }
+      ],
+      "alert_rule_test": [
+        {
+          "eval_time": "0m",
+          "alertname": "RedpandaConsumerLag",
+          "exp_alerts": []
+        },
+        {
+          "eval_time": "20m",
+          "alertname": "RedpandaConsumerLag",
+          "exp_alerts": [
+            {
+              "exp_labels": {
+                "namespace": "redpanda-test",
+                "service": "redpanda",
+                "redpanda_group": "tenant-a.worker",
+                "tenant": "tenant-a",
+                "severity": "warning"
+              },
+              "exp_annotations": {
+                "title": "Redpanda consumer lag high",
+                "summary": "Consumer lag for tenant-a.worker: 2k messages; threshold: 100 messages.",
+                "runbook_url": "https://example.invalid/runbook",
+                "dashboard_url": "https://example.invalid/dashboard"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "lag below threshold",
+      "interval": "1m",
+      "input_series": [
+        {
+          "series": "redpanda_kafka_max_offset{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-0\",redpanda_namespace=\"kafka\",redpanda_topic=\"events\",redpanda_partition=\"0\"}",
+          "values": "1000+0x25"
+        },
+        {
+          "series": "redpanda_kafka_max_offset{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-2\",redpanda_namespace=\"kafka\",redpanda_topic=\"events\",redpanda_partition=\"0\"}",
+          "values": "999+0x25"
+        },
+        {
+          "series": "redpanda_kafka_consumer_group_committed_offset{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-1\",redpanda_group=\"tenant-a.worker\",redpanda_topic=\"events\",redpanda_partition=\"0\"}",
+          "values": "950+0x25"
+        }
+      ],
+      "alert_rule_test": [
+        {
+          "eval_time": "0m",
+          "alertname": "RedpandaConsumerLag",
+          "exp_alerts": []
+        },
+        {
+          "eval_time": "20m",
+          "alertname": "RedpandaConsumerLag",
+          "exp_alerts": []
+        }
+      ]
+    },
+    {
+      "name": "excluded consumer group never alerts",
+      "interval": "1m",
+      "input_series": [
+        {
+          "series": "redpanda_kafka_max_offset{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-0\",redpanda_namespace=\"kafka\",redpanda_topic=\"events\",redpanda_partition=\"0\"}",
+          "values": "1000+0x25"
+        },
+        {
+          "series": "redpanda_kafka_max_offset{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-2\",redpanda_namespace=\"kafka\",redpanda_topic=\"events\",redpanda_partition=\"0\"}",
+          "values": "999+0x25"
+        },
+        {
+          "series": "redpanda_kafka_consumer_group_committed_offset{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-1\",redpanda_group=\"excluded.worker\",redpanda_topic=\"events\",redpanda_partition=\"0\"}",
+          "values": "0+0x25"
+        }
+      ],
+      "alert_rule_test": [
+        {
+          "eval_time": "0m",
+          "alertname": "RedpandaConsumerLag",
+          "exp_alerts": []
+        },
+        {
+          "eval_time": "20m",
+          "alertname": "RedpandaConsumerLag",
+          "exp_alerts": []
+        }
+      ]
+    },
+    {
+      "name": "kafka user quota throttles",
+      "interval": "1m",
+      "input_series": [
+        {
+          "series": "redpanda_kafka_quotas_client_quota_throttle_time_sum{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-0\",redpanda_quota_rule=\"kafka_user\"}",
+          "values": "0+60x25"
+        }
+      ],
+      "alert_rule_test": [
+        {
+          "eval_time": "0m",
+          "alertname": "RedpandaQuotaThrottling",
+          "exp_alerts": []
+        },
+        {
+          "eval_time": "20m",
+          "alertname": "RedpandaQuotaThrottling",
+          "exp_alerts": [
+            {
+              "exp_labels": {
+                "namespace": "redpanda-test",
+                "service": "redpanda",
+                "severity": "warning"
+              },
+              "exp_annotations": {
+                "title": "Redpanda quota throttling",
+                "summary": "Quota throttle time: 1 seconds/second; threshold: 0 seconds/second.",
+                "runbook_url": "https://example.invalid/runbook",
+                "dashboard_url": "https://example.invalid/dashboard"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "kafka user quota healthy",
+      "interval": "1m",
+      "input_series": [
+        {
+          "series": "redpanda_kafka_quotas_client_quota_throttle_time_sum{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-0\",redpanda_quota_rule=\"kafka_user\"}",
+          "values": "0+0x25"
+        }
+      ],
+      "alert_rule_test": [
+        {
+          "eval_time": "0m",
+          "alertname": "RedpandaQuotaThrottling",
+          "exp_alerts": []
+        },
+        {
+          "eval_time": "20m",
+          "alertname": "RedpandaQuotaThrottling",
+          "exp_alerts": []
+        }
+      ]
+    },
+    {
+      "name": "client default quota ignored",
+      "interval": "1m",
+      "input_series": [
+        {
+          "series": "redpanda_kafka_quotas_client_quota_throttle_time_sum{namespace=\"redpanda-test\",service=\"redpanda\",pod=\"broker-0\",redpanda_quota_rule=\"kafka_client_default\"}",
+          "values": "0+60x25"
+        }
+      ],
+      "alert_rule_test": [
+        {
+          "eval_time": "0m",
+          "alertname": "RedpandaQuotaThrottling",
+          "exp_alerts": []
+        },
+        {
+          "eval_time": "20m",
+          "alertname": "RedpandaQuotaThrottling",
+          "exp_alerts": []
+        }
+      ]
+    },
+    {
+      "name": "operator reconcile errors",
+      "interval": "1m",
+      "input_series": [
+        {
+          "series": "controller_runtime_reconcile_errors_total{namespace=\"redpanda-test\",service=\"redpanda\",controller=\"redpanda\"}",
+          "values": "0+60x25"
+        }
+      ],
+      "alert_rule_test": [
+        {
+          "eval_time": "0m",
+          "alertname": "RedpandaOperatorReconcileErrors",
+          "exp_alerts": []
+        },
+        {
+          "eval_time": "20m",
+          "alertname": "RedpandaOperatorReconcileErrors",
+          "exp_alerts": [
+            {
+              "exp_labels": {
+                "namespace": "redpanda-test",
+                "service": "redpanda",
+                "severity": "warning"
+              },
+              "exp_annotations": {
+                "title": "Redpanda operator reconcile errors",
+                "summary": "Reconcile errors: 1 errors/second; threshold: 0 errors/second.",
+                "runbook_url": "https://example.invalid/runbook",
+                "dashboard_url": "https://example.invalid/dashboard"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "operator reconciles healthy",
+      "interval": "1m",
+      "input_series": [
+        {
+          "series": "controller_runtime_reconcile_errors_total{namespace=\"redpanda-test\",service=\"redpanda\",controller=\"redpanda\"}",
+          "values": "0+0x25"
+        }
+      ],
+      "alert_rule_test": [
+        {
+          "eval_time": "0m",
+          "alertname": "RedpandaOperatorReconcileErrors",
+          "exp_alerts": []
+        },
+        {
+          "eval_time": "20m",
+          "alertname": "RedpandaOperatorReconcileErrors",
+          "exp_alerts": []
+        }
+      ]
+    }
+  ]
+}
