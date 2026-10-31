@@ -213,6 +213,21 @@ run "console_without_impersonation" {
   }
 }
 
+run "console_follows_broker_placement" {
+  command = plan
+  variables {
+    console_enabled = true
+  }
+
+  assert {
+    condition = (
+      yamldecode(helm_release.cluster.values[0]).clusterSpec.console.nodeSelector == yamldecode(helm_release.cluster.values[0]).clusterSpec.statefulset.nodeSelector &&
+      yamldecode(helm_release.cluster.values[0]).clusterSpec.console.tolerations == yamldecode(helm_release.cluster.values[0]).clusterSpec.statefulset.tolerations
+    )
+    error_message = "Console must use the broker placement, or it can land on evictable capacity."
+  }
+}
+
 run "external_pool" {
   command = plan
   variables {
