@@ -179,7 +179,8 @@ locals {
       )
       # Without an Enterprise licence Console has no login, so it cannot impersonate the viewer and
       # refuses to start. The operator already wires it to Kafka as its own bootstrap user.
-      console = {
+      # Without its own placement Console lands on any untainted node, which can be CI spot capacity.
+      console = merge(local.scheduling, {
         enabled = var.console_enabled
         # console.console is Console's own config file; the chart defaults every backend to impersonation.
         console = {
@@ -190,7 +191,7 @@ locals {
         # The operator rewrites adminApi.authentication after merging values and forces
         # impersonation on; Console's env overrides its config file, so pin it off here.
         extraEnv = [{ name = "REDPANDA_ADMINAPI_AUTHENTICATION_IMPERSONATEUSER", value = "false" }]
-      }
+      })
       config = { cluster = local.cluster_config }
     },
     [{
