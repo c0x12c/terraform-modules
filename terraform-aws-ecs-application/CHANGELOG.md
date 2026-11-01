@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.8.2](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-ecs-application/v2.8.1...terraform-aws-ecs-application/v2.8.2) (2026-11-01)
+
+
+### Bug Fixes
+
+* **terraform-aws-ecs-application:** omit disabled service connect block ([#410](https://github.com/c0x12c/terraform-modules/issues/410)) ([209a017](https://github.com/c0x12c/terraform-modules/commit/209a0175f739924583dc907ccc2f5736dc5a800d))
+
 ## [2.8.1](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-ecs-application/v2.8.0...terraform-aws-ecs-application/v2.8.1) (2026-10-31)
 
 
