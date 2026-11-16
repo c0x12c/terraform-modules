@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-eks-redpanda/v0.2.0...terraform-aws-eks-redpanda/v0.2.1) (2026-11-16)
+
+
+### Bug Fixes
+
+* **terraform-aws-eks-redpanda:** accept a dotted topic key ([#413](https://github.com/c0x12c/terraform-modules/issues/413)) ([ebab57f](https://github.com/c0x12c/terraform-modules/commit/ebab57f444b286701c48f38ef88bad5291a67b08))
+
 ## [0.2.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-eks-redpanda/v0.1.1...terraform-aws-eks-redpanda/v0.2.0) (2026-10-31)
 
 
