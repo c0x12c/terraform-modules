@@ -225,11 +225,22 @@ variable "tenants" {
     error_message = "producer_byte_rate and consumer_byte_rate must be positive when set; omit them for no quota."
   }
 
+  # The name this module creates already contains a dot, so a label-only rule is stricter than
+  # either the API server or the broker requires.
   validation {
     condition = alltrue(flatten([for t in values(var.tenants) : [
-      for k in keys(t.topics) : can(regex("^[a-z0-9]([a-z0-9-]*[a-z0-9])?$", k))
+      for k in keys(t.topics) : can(regex("^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$", k))
     ]]))
-    error_message = "Topic names must be lowercase DNS labels; they become Kubernetes object names."
+    error_message = "Topic names must be lowercase RFC 1123 subdomains - dot-separated alphanumeric labels, no leading or trailing dot or hyphen, no consecutive dots."
+  }
+
+  validation {
+    condition = alltrue(flatten([for tenant, t in var.tenants : [
+      for topic in keys(t.topics) : length("${tenant}.${topic}") <= 253 && alltrue([
+        for label in split(".", "${tenant}.${topic}") : length(label) <= 63
+      ])
+    ]]))
+    error_message = "The created topic name <tenant>.<topic> must be at most 253 characters with each dot-separated label at most 63."
   }
 }
 
