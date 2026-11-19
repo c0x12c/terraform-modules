@@ -35,7 +35,7 @@ check "quotas_match_code" {
   assert {
     condition = length(local.quotas_out_of_sync) == 0
     error_message = format(
-      "Service quotas differ from code: %s. A request submitted in the last few hours may still be pending. Otherwise AWS approved a different value, denied the request, or the quota was changed outside Terraform: set value to the applied value. See the module README.",
+      "Service quotas differ from code: %s. A request submitted in the last few hours may still be pending. Otherwise AWS approved a different value, denied the request, or the quota was changed outside Terraform: set value to the applied value, then run a plan with refresh enabled and confirm it shows no update to the quota before applying, because every update submits a new increase request. See \"Resolve a drift warning\" in the module README.",
       join(", ", [for key, drift in local.quotas_out_of_sync : "${key} (code ${drift.code_value}, applied ${drift.applied_value})"]),
     )
   }

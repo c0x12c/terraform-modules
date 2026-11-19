@@ -111,14 +111,30 @@ module "global_service_quotas" {
 |---|---|---|
 | Request pending (just applied) | `quotas_match_code` warning: code above applied. No resource change while the request is `PENDING` or `CASE_OPENED`. | Wait. Large increases go through a support case and can take hours. |
 | Approved at the requested value | No warning, no change. | Nothing. |
-| Approved at a lower value | Warning with both values, and a planned update. | Set `value` to the applied value. Applying unchanged submits the same request again. |
-| Denied | Warning, applied value unchanged, and a planned update. | Set `value` to the applied value, then follow up with AWS Support before asking again. |
-| Raised or changed in the console | Warning with both values, and a planned update. | Set `value` to the applied value. |
+| Approved at a lower value | Warning with both values. With refresh, also a planned update. | Follow [Resolve a drift warning](#resolve-a-drift-warning). |
+| Denied | Warning, applied value unchanged. With refresh, also a planned update. | Follow [Resolve a drift warning](#resolve-a-drift-warning), then talk to AWS Support before asking again. |
+| Raised or changed in the console | Warning with both values. With refresh, also a planned update. | Follow [Resolve a drift warning](#resolve-a-drift-warning). |
 | Import while a console request is pending | The import records the applied value; Terraform cannot see a request it did not submit. Code set to the requested value plans an update that submits a second request. | Import with `value` equal to the applied value, and raise it in code after AWS decides. |
 | Remove a quota from code or destroy | Terraform forgets the quota; nothing is sent to AWS. | Nothing. AWS keeps the applied value. |
 | Lower a value | An update that AWS cannot fulfil: quotas cannot be decreased through this API. | Never lower a value. Set it to the applied value instead. |
 
 A wrong `quota_code` or `service_code` fails the plan: the data source finds no quota for it.
+
+### Resolve a drift warning
+
+The warning compares code with the value AWS applies, read live on every plan. The resource state
+is a separate copy that only a refresh updates, and every planned update of the resource submits a
+new increase request. Under `plan -refresh=false` the state still holds the value of the last
+request, so setting `value` to the applied value clears the warning while the plan still shows an
+update from that stale value. Applying it submits a request for a value AWS already applies.
+
+1. Set `value` to the applied value shown in the warning.
+2. Run a plan **with refresh enabled** (no `-refresh=false`), or sync the state first with
+   `terraform apply -refresh-only`.
+3. Confirm the warning is gone and the plan shows no update to
+   `aws_servicequotas_service_quota.this["<key>"]`.
+4. Only then apply. A pipeline that applies with `-refresh=false` needs a refresh-enabled run for
+   this change.
 
 ## Examples
 
