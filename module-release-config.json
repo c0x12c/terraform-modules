@@ -196,6 +196,9 @@
     "terraform-aws-sendgrid": {
       "component": "terraform-aws-sendgrid"
     },
+    "terraform-aws-service-quota": {
+      "component": "terraform-aws-service-quota"
+    },
     "terraform-aws-ses": {
       "component": "terraform-aws-ses"
     },
