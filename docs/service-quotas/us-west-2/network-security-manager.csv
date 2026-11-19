@@ -1,0 +1,16 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+network-security-manager,AWS Network Security Manager,L-1BA37BE6,Administrator priority levels,The number of priority levels that you can assign to administrator accounts.,10,None,false,false
+network-security-manager,AWS Network Security Manager,L-8D39D572,Deployments per account,The maximum number of deployments that you can create in this account in the current Region.,100,None,false,false
+network-security-manager,AWS Network Security Manager,L-1561EEAA,Policies per account,The maximum number of policies that you can create in this account in the current Region.,100,None,false,false
+network-security-manager,AWS Network Security Manager,L-52A995F6,Policies per deployment,The maximum number of policies that each deployment in this account can reference.,2,None,false,false
+network-security-manager,AWS Network Security Manager,L-DB9915C1,Resource type scopes per scope,The maximum number of resource type scopes that each scope in this account can contain.,20,None,false,false
+network-security-manager,AWS Network Security Manager,L-19B95F4A,Rules and templates combined per AWS WAF policy,The maximum number of rules and templates combined that each AWS WAF policy in this account can reference.,100,None,false,false
+network-security-manager,AWS Network Security Manager,L-B276FAC5,Rules per account,The maximum number of rules that you can create in this account in the current Region.,200,None,false,false
+network-security-manager,AWS Network Security Manager,L-83C7F613,Rules per template,The maximum number of rules that each template in this account can contain.,50,None,false,false
+network-security-manager,AWS Network Security Manager,L-0074E90A,Scope expression breadth,The maximum number of criteria at each level of a scope expression.,20,None,false,false
+network-security-manager,AWS Network Security Manager,L-9E165C73,Scope expression depth,The maximum number of nested levels in a scope expression.,2,None,false,false
+network-security-manager,AWS Network Security Manager,L-5831AD85,Scopes per account,The maximum number of scopes that you can create in this account in the current Region.,100,None,false,false
+network-security-manager,AWS Network Security Manager,L-3B39598A,Scopes per deployment,The maximum number of scopes that each deployment in this account can reference.,1,None,false,false
+network-security-manager,AWS Network Security Manager,L-65C82484,Snapshots per resource,"The maximum number of snapshots that you can save for each rule, template, policy, scope, or deployment in this account in the current Region.",10,None,false,false
+network-security-manager,AWS Network Security Manager,L-B9F0D15B,Templates per account,The maximum number of templates that you can create in this account in the current Region.,100,None,false,false
+network-security-manager,AWS Network Security Manager,L-948719E3,Templates per AWS WAF policy,The maximum number of templates that each AWS WAF policy in this account can reference.,2,None,false,false

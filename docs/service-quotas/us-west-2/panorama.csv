@@ -1,0 +1,22 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+panorama,AWS Panorama,L-90577688,Applications per device,The maximum number of application instances that you can run on a device.,10,None,false,false
+panorama,AWS Panorama,L-2D9523BB,Assets per package,The maximum number of assets that you upload per node package.,50,None,false,false
+panorama,AWS Panorama,L-20DD5D48,Camera nodes per application,The maximum number of camera nodes that you can add to an application.,8,None,false,false
+panorama,AWS Panorama,L-188FB0B7,Devices,The maximum number of devices that you can register in this account in the current AWS Region.,50,None,false,false
+panorama,AWS Panorama,L-060C17BA,Node packages,The maximum number of node packages that you can create in this account in the current AWS Region.,50,None,false,false
+panorama,AWS Panorama,L-BB504503,Package artifact size,The maximum size of a node package artifact.,8,Gigabytes,false,false
+panorama,AWS Panorama,L-C4C3E18C,Rate of CreateApplicationInstance API requests,The maximum number of CreateApplicationInstance API requests per second that you can perform in this account in the current AWS Region.,1,None,false,false
+panorama,AWS Panorama,L-E2DECF7B,Rate of CreateJobForDevices API requests,The maximum number of CreateJobForDevices API requests per second that you can perform in this account in the current AWS Region.,1,None,false,false
+panorama,AWS Panorama,L-601BD122,Rate of CreateNodeFromTemplateJob API requests,The maximum number of CreateNodeFromTemplateJob API requests per second that you can perform in this account in the current AWS Region.,1,None,false,false
+panorama,AWS Panorama,L-987FBA2E,Rate of CreatePackage API requests,The maximum number of CreatePackage API requests per second that you can perform in this account in the current AWS Region.,1,None,false,false
+panorama,AWS Panorama,L-C0E8D1C2,Rate of CreatePackageImportJob API requests,The maximum number of CreatePackageImportJob API requests per second that you can perform in this account in the current AWS Region.,1,None,false,false
+panorama,AWS Panorama,L-A5D7C2E3,Rate of DeleteDevice API requests,The maximum number of DeleteDevice API requests per second that you can perform in this account in the current AWS Region.,1,None,false,false
+panorama,AWS Panorama,L-A49093B4,Rate of DeletePackage API requests,The maximum number of DeletePackage API requests per second that you can perform in this account in the current AWS Region.,1,None,false,false
+panorama,AWS Panorama,L-F66DA511,Rate of deployments,"The maximum number of times that you can deploy an application per day, per device.",200,None,false,false
+panorama,AWS Panorama,L-1FCF3682,Rate of DeregisterPackageVersion API requests,The maximum number of DeregisterPackageVersion API requests per second that you can perform in this account in the current AWS Region.,1,None,false,false
+panorama,AWS Panorama,L-02C701B0,Rate of DescribePackage API requests,The maximum number of DescribePackage API requests per second that you can perform in this account in the current AWS Region.,1,None,false,false
+panorama,AWS Panorama,L-BFD4B771,Rate of ProvisionDevice API requests,The maximum number of ProvisionDevice API requests per second that you can perform in this account in the current AWS Region.,1,None,false,false
+panorama,AWS Panorama,L-27A58606,Rate of RegisterPackageVersion API requests,The maximum number of RegisterPackageVersion API requests per second that you can perform in this account in the current AWS Region.,1,None,false,false
+panorama,AWS Panorama,L-59074834,Rate of RemoveApplicationInstance API requests,The maximum number of RemoveApplicationInstance API requests per second that you can perform in this account in the current AWS Region.,1,None,false,false
+panorama,AWS Panorama,L-A6DEC7EB,Rate of total API requests,The maximum number of API requests per second that you can perform in this account in the current AWS Region.,5,None,false,false
+panorama,AWS Panorama,L-0E299C70,Versions per package,The maximum number of package versions that you can create per node package.,20,None,false,false

@@ -1,0 +1,13 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+amplify,AWS Amplify,L-1BED97F3,Apps,The maximum number of apps that you can create in AWS Amplify Console in this account in the current Region.,25,None,true,false
+amplify,AWS Amplify,L-A6716586,Branches per app,The maximum number of branches per app that you can create in this account in the current Region.,50,None,false,false
+amplify,AWS Amplify,L-895E890C,Build artifact size,The maximum size (in GB) of an app build artifact. A build artifact is deployed by AWS Amplify Console after a build.,5,Gigabytes,false,false
+amplify,AWS Amplify,L-EC4C0FC7,Cache artifact size,The maximum size (in GB) of a cache artifact.,5,Gigabytes,false,false
+amplify,AWS Amplify,L-2A8ABB91,Concurrent jobs,The maximum number of concurrent jobs that you can create in this account in the current Region.,5,None,true,false
+amplify,AWS Amplify,L-AD277529,Domains per app,The maximum number of domains per app that you can create in this account in the current Region.,5,None,true,false
+amplify,AWS Amplify,L-A0FC4951,Environment cache artifact size,The maximum size (in GB) of the environment cache artifact.,5,Gigabytes,false,false
+amplify,AWS Amplify,L-D95E5509,Manual deploy ZIP file size,The maximum size (in GB) of a manual deploy ZIP file.,5,Gigabytes,false,false
+amplify,AWS Amplify,L-2FC3A2FA,Maximum app creations per hour,The maximum number of apps that you can create in AWS Amplify Console per hour in this account in the current Region.,25,None,false,false
+amplify,AWS Amplify,L-CE88B60E,Request tokens per second,The maximum number of request tokens per second for an app. Amplify Hosting allocates tokens to requests based on the amount of resources (processing time and data transfer) that they consume.,20000,None,true,false
+amplify,AWS Amplify,L-85685B2E,Subdomains per domain,The maximum number of subdomains per domain that you can create in this account in the current Region.,50,None,false,false
+amplify,AWS Amplify,L-4113FC04,Webhooks per app,The maximum number of webhooks per app that you can create in this account in the current Region.,50,None,true,false

@@ -1,0 +1,18 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+mq,Amazon MQ,L-5775772E,API burst limit,"The API burst limit, aggregated per AWS account, across all Amazon MQ APIs to maintain service bandwidth. This doesn't apply to ActiveMQ or RabbitMQ broker messaging APIs. For example, Amazon MQ doesn't throttle the sending or receiving of messages.",100,None,false,false
+mq,Amazon MQ,L-D9C3728B,API rate limit,"The API rate limit, aggregated per AWS account, across all Amazon MQ APIs to maintain service bandwidth. This doesn't apply to ActiveMQ or RabbitMQ broker messaging APIs. For example, Amazon MQ doesn't throttle the sending or receiving of messages.",15,None,false,false
+mq,Amazon MQ,L-BAFD73B7,Destinations monitored in CloudWatch (ActiveMQ),"The maximum number of destinations (ActiveMQ queues, ActiveMQ topics) monitored in CloudWatch.",1000,None,false,false
+mq,Amazon MQ,L-2945EBE1,Destinations monitored in CloudWatch (RabbitMQ),The maximum number of destinations (RabbitMQ queues) monitored in CloudWatch.,500,None,false,false
+mq,Amazon MQ,L-BB510D1B,Groups per user (simple auth),The maximum number of groups per user (simple auth). This does not apply to RabbitMQ brokers.,20,None,false,false
+mq,Amazon MQ,L-7AAF71B3,Job scheduler usage limit per broker backed by Amazon EBS,The job scheduler usage limit (in GB) per broker backed by Amazon EBS. This does not apply to RabbitMQ brokers.,50,Gigabytes,false,false
+mq,Amazon MQ,L-4D525FD5,"Number of brokers, per region","The maximum number of brokers, per region.",200,None,true,false
+mq,Amazon MQ,L-5EF2BBC7,Revisions per configuration,The maximum number of revisions per configuration. This does not apply to RabbitMQ brokers.,300,None,false,false
+mq,Amazon MQ,L-8113B3FA,Security groups per broker,The maximum number of security groups per broker.,5,None,false,false
+mq,Amazon MQ,L-B0F7ED94,Storage capacity per larger broker,The maximum storage capacity (in GB) per mq.m5.* instance type broker.,200,Gigabytes,false,false
+mq,Amazon MQ,L-2757006A,Storage capacity per smaller broker,The maximum storage capacity (in GB) per smaller broker (mq.*.micro instance type brokers).,20,Gigabytes,false,false
+mq,Amazon MQ,L-014B4583,Tags per broker,The maximum number of tags per broker.,50,None,false,false
+mq,Amazon MQ,L-9A922C52,Temporary storage capacity per larger broker,The maximum temporary storage capacity (in GB) per larger broker (mq.*.*large instance type brokers). This does not apply to RabbitMQ brokers.,50,Gigabytes,false,false
+mq,Amazon MQ,L-DF9D3FFB,Temporary storage capacity per smaller broker,The maximum temporary storage capacity (in GB) per smaller broker (mq.*.micro instance type brokers). This does not apply to RabbitMQ brokers.,5,Gigabytes,false,false
+mq,Amazon MQ,L-D505D03E,Users per broker (simple auth),The maximum number of users per broker (simple auth). This does not apply to RabbitMQ brokers.,250,None,false,false
+mq,Amazon MQ,L-42B434B7,Wire-level connections per larger broker,The maximum number of wire-level connections per larger broker (mq.*.*large instance type brokers). This does not apply to RabbitMQ brokers.,2000,None,true,false
+mq,Amazon MQ,L-A5C214C9,Wire-level connections per smaller broker,The maximum number of wire-level connections per smaller broker (mq.*.micro instance type brokers). This does not apply to RabbitMQ brokers.,300,None,false,false

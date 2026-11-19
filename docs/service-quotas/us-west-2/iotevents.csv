@@ -1,0 +1,27 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+iotevents,AWS IoT Events,L-27919AE8,Detector model definition size,The maximum size (in Kilobytes) of a detector model definition.,512,Kilobytes,false,false
+iotevents,AWS IoT Events,L-1B3BA3EE,Detector model versions,The maximum number of versions of a single detector model for this account.,500,None,true,false
+iotevents,AWS IoT Events,L-279A67DA,Detector models,The maximum number of Detector models for this account.,50,None,true,false
+iotevents,AWS IoT Events,L-17157277,Detector models per input,The maximum number of Detector models associated with a single input.,10,None,false,false
+iotevents,AWS IoT Events,L-3ED590C1,Detectors per detector model,The maximum number of detectors created by a detector model.,100000,None,true,false
+iotevents,AWS IoT Events,L-C031B6B8,Inputs,The maximum number of inputs for this account.,50,None,true,false
+iotevents,AWS IoT Events,L-EB687A61,Maximum actions per alarm model,The maximum number of actions allowed in an alarm model.,10,None,true,false
+iotevents,AWS IoT Events,L-4E41133E,Maximum actions per event,The maximum number of actions allowed in an event in a detector model.,10,None,true,false
+iotevents,AWS IoT Events,L-2FA8EFB5,Maximum alarm model versions per alarm model,The maximum number of versions of a single alarm model for this account.,500,None,true,false
+iotevents,AWS IoT Events,L-134442DD,Maximum alarm models per account,The maximum number of alarm models for this account.,200,None,true,false
+iotevents,AWS IoT Events,L-F7E2E007,Maximum alarm models per input,The maximum number of alarm models associated with a single input.,10,None,false,false
+iotevents,AWS IoT Events,L-52F0DBB4,Maximum alarms per alarm model,The maximum number of alarms created by an alarm model.,100000,None,true,false
+iotevents,AWS IoT Events,L-C0F716CA,Maximum events per state,The maximum number of events allowed in a state in a detector model.,20,None,true,false
+iotevents,AWS IoT Events,L-C4A5E0B8,Maximum messages per alarm per second,The maximum number of messages sent in 1 second to an alarm.,10,None,false,false
+iotevents,AWS IoT Events,L-EBDD79FD,Maximum number of alarm models per property in an AWS IoT SiteWise asset model,The maximum number of alarm models that can be created for a given property in an AWS IoT SiteWise asset model,10,None,true,false
+iotevents,AWS IoT Events,L-DE2C2CBE,Maximum number of recipients per notification action in an alarm model,The maximum number of recipients that can be specified in a notification action in an alarm model,10,None,true,false
+iotevents,AWS IoT Events,L-41C77D73,Maximum total messages evaluated per second,The maximum number of message evaluations across all detectors and alarms in a second for this account.,1000,None,true,false
+iotevents,AWS IoT Events,L-FCDB3431,Maximum transition events per state,The maximum number of transition events allowed in a state in a detector model.,20,None,true,false
+iotevents,AWS IoT Events,L-1EE1AE32,Message size,The maximum size of a message (in Kilobytes).,1,Kilobytes,true,false
+iotevents,AWS IoT Events,L-7F0B14C2,Messages per detector per second,The maximum number of messages sent in 1 second to a detector.,10,None,false,false
+iotevents,AWS IoT Events,L-D86BAB00,Minimum timer duration,The smallest duration a detector model timer can be set (in seconds).,60,Seconds,true,false
+iotevents,AWS IoT Events,L-18935129,Number of detector model analyses in RUNNING status,The maximum number of detector model analyses in RUNNING status for this account.,10,None,true,false
+iotevents,AWS IoT Events,L-46EA5101,State variables per detector model definition,The maximum number of state variables in a detector model definition.,50,None,true,false
+iotevents,AWS IoT Events,L-0B548925,States per detector model,The maximum number of states allowed in a detector model.,20,None,true,false
+iotevents,AWS IoT Events,L-89B1F2C1,Timers scheduled per detector,The maximum number of timers scheduled by a detector.,5,None,true,false
+iotevents,AWS IoT Events,L-BE1D061A,Trigger expressions,The maximum number of trigger expressions per state,20,None,true,false

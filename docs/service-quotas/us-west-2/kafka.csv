@@ -1,0 +1,8 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+kafka,Amazon Managed Streaming for Kafka (MSK),L-EDD31C36,Number of brokers per account,The maximum number of brokers that can be created per account.,90,None,true,false
+kafka,Amazon Managed Streaming for Kafka (MSK),L-FAB9E493,Number of brokers per cluster,The maximum number of brokers that a cluster can contain.,30,None,true,false
+kafka,Amazon Managed Streaming for Kafka (MSK),L-03FD6822,Number of brokers per KRaft cluster,The maximum number of brokers that a KRaft cluster can contain.,60,None,true,false
+kafka,Amazon Managed Streaming for Kafka (MSK),L-B2FDE22A,Number of configurations per account,The maximum number of custom configurations that can be created per account.,100,None,true,false
+kafka,Amazon Managed Streaming for Kafka (MSK),L-9B45E609,Number of data channels per cluster,The maximum number of data channels that can be created per cluster.,50,None,true,false
+kafka,Amazon Managed Streaming for Kafka (MSK),L-8F940D28,Number of replicators per account,The maximum number of replicators that can be created per account.,15,None,true,false
+kafka,Amazon Managed Streaming for Kafka (MSK),L-36D29E8C,Number of revisions per configuration,The maximum number of revisions that can be made to a custom configuration.,50,None,true,false

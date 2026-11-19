@@ -1,0 +1,31 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+fsx,Amazon FSx,L-CD5E0524,Lustre backups,The maximum number of user-initiated backups that you can have for all Amazon FSx for Lustre file systems in this account.,500,None,true,false
+fsx,Amazon FSx,L-60836D3E,Lustre Cache_1 caches,The maximum number of Amazon File Cache caches with cache type Lustre and deployment type Cache_1 that you can create in this account.,100,None,true,false
+fsx,Amazon FSx,L-15D9FE87,Lustre Cache_1 storage capacity,The maximum amount of storage capacity (in GiB) that you can configure in this account for all Amazon File Cache caches with cache type Lustre and deployment type Cache_1.,100800,None,true,false
+fsx,Amazon FSx,L-736F3D6F,Lustre Persistent HDD storage capacity (per file system),The maximum amount of HDD storage capacity (in GiB) that you can configure for an Amazon FSx for Lustre persistent file system.,102000,None,true,false
+fsx,Amazon FSx,L-B7391FCE,Lustre Persistent Intelligent-Tiering SSD read cache storage capacity,The maximum amount of provisioned SSD read cache storage capacity (in GiB) that you can configure for all Amazon FSx for Lustre Intelligent-Tiering file systems in this account.,100800,None,true,false
+fsx,Amazon FSx,L-0CD18A5D,Lustre Persistent Intelligent-Tiering throughput capacity,The total amount of throughput capacity (in MBps) allowed for all Amazon FSx for Lustre Intelligent-Tiering file systems in this account.,100000,None,true,false
+fsx,Amazon FSx,L-9AFA1F09,Lustre Persistent_1 file systems,The maximum number of Amazon FSx for Lustre persistent_1 file systems that you can create in this account,100,None,true,false
+fsx,Amazon FSx,L-C8640C82,Lustre Persistent_1 storage capacity,The maximum amount of storage capacity (in GiB) that you can configure for all Amazon FSx for Lustre persistent_1 file systems in this account.,100800,None,true,false
+fsx,Amazon FSx,L-FD6F2F22,Lustre Persistent_2 file systems,The maximum number of Amazon FSx for Lustre persistent_2 file systems that you can create in this account,100,None,true,false
+fsx,Amazon FSx,L-8F1B9C74,Lustre Persistent_2 storage capacity,The maximum amount of storage capacity (in GiB) that you can configure for all Amazon FSx for Lustre persistent_2 file systems in this account.,100800,None,true,false
+fsx,Amazon FSx,L-C48231E5,Lustre Scratch file systems,The maximum number of Amazon FSx for Lustre scratch file systems that you can create in this account.,100,None,true,false
+fsx,Amazon FSx,L-AD2FC696,Lustre Scratch storage capacity,The maximum amount of storage capacity (in GiB) that you can configure for all Amazon FSx for Lustre scratch file systems in this account.,100800,None,true,false
+fsx,Amazon FSx,L-C431DBA3,ONTAP backups,The maximum number of user-initiated backups for all Amazon FSx for NetApp ONTAP file systems that you can have in this account.,10000,None,true,false
+fsx,Amazon FSx,L-C28C1403,ONTAP file systems,The maximum number of Amazon FSx for NetApp ONTAP file systems that you can create in this account.,100,None,true,false
+fsx,Amazon FSx,L-57578687,ONTAP SSD IOPS,The total amount of SSD IOPS allowed for all Amazon FSx for NetApp ONTAP file systems in this account.,2000000,None,true,false
+fsx,Amazon FSx,L-E2C89679,ONTAP SSD storage capacity,The maximum amount of SSD storage capacity (in GiB) for all Amazon FSx for NetApp ONTAP file systems that you can have in this account.,1048576,None,true,false
+fsx,Amazon FSx,L-C5F860DD,ONTAP throughput capacity,The total amount of throughput capacity (in MBps) allowed for all Amazon FSx for NetApp ONTAP file systems in this account.,10240,None,true,false
+fsx,Amazon FSx,L-DD0F7417,OpenZFS backups,The maximum number of user-initiated backups for all Amazon FSx for OpenZFS file systems that you can have in this account.,10000,None,true,false
+fsx,Amazon FSx,L-E24B4DE4,OpenZFS disk IOPS,The total amount of disk IOPS allowed for all Amazon FSx for OpenZFS file systems in this account.,400000,None,true,false
+fsx,Amazon FSx,L-59D0763F,OpenZFS file systems,The maximum number of Amazon FSx for OpenZFS file systems that you can create in this account.,100,None,true,false
+fsx,Amazon FSx,L-4E6C2FB3,OpenZFS provisioned SSD read cache storage capacity,The maximum amount of provisioned SSD read cache storage capacity (in GiB) that you can configure for all Amazon FSx for OpenZFS file systems in this account.,262144,None,true,false
+fsx,Amazon FSx,L-88479C21,OpenZFS SSD storage capacity,The maximum amount of SSD storage capacity (in GiB) that you can configure for all Amazon FSx for OpenZFS file systems in this account.,262144,None,true,false
+fsx,Amazon FSx,L-7D5FDD38,OpenZFS SSD storage capacity (per file system),The maximum amount of SSD storage capacity (in GiB) that you can configure for an Amazon FSx for OpenZFS file system.,524288,None,true,false
+fsx,Amazon FSx,L-4EDE4065,OpenZFS throughput capacity,The total amount of throughput capacity (in MBps) allowed for all Amazon FSx for OpenZFS file systems in this account.,10240,None,true,false
+fsx,Amazon FSx,L-E94C1C19,Windows backups,The maximum number of user-initiated backups for all Amazon FSx for Windows File Server file systems that you can have in this account.,500,None,true,false
+fsx,Amazon FSx,L-5B89F9CE,Windows file systems,The maximum number of Amazon FSx for Windows Server file systems that you can create in this account.,100,None,true,false
+fsx,Amazon FSx,L-84EAF187,Windows HDD storage capacity,The maximum amount of HDD storage capacity (in GiB) allowed for all Amazon FSx for Windows File Server file systems in this account.,524288,None,true,false
+fsx,Amazon FSx,L-E43BDB2E,Windows SSD storage capacity,The maximum amount of SSD storage capacity (in GiB) for all Amazon FSx for Windows File Server file systems that you can have in this account.,524288,None,true,false
+fsx,Amazon FSx,L-FD89CA8A,Windows throughput capacity,The total amount of throughput capacity (in MBps) allowed for all Amazon FSx for Windows file systems in this account.,10240,None,true,false
+fsx,Amazon FSx,L-901C77F5,Windows total SSD IOPS,The total amount of SSD IOPS allowed for all Amazon FSx for Windows File Server file systems that you can have in this account.,500000,None,true,false

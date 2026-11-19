@@ -1,0 +1,4 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+aiops,Amazon AI Operations,L-EF31E0C4,Concurrent active investigations,The maximum number of concurrent investigations with active AI analysis per account per region.,2,None,false,false
+aiops,Amazon AI Operations,L-5EC19707,Investigation groups,The maximum number of investigation groups that can be created per account in a region.,1,None,false,false
+aiops,Amazon AI Operations,L-4CD81CD5,Monthly investigations,The maximum number of AI-assisted investigations per month in this account in the current region.,150,None,false,false

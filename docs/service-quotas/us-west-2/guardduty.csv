@@ -1,0 +1,8 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+guardduty,Amazon GuardDuty,L-FA6D6E3D,Detectors,The maximum number of detector resources that you can create per AWS account per region.,1,None,false,false
+guardduty,Amazon GuardDuty,L-9ABF7A23,Filters,The maximum number of saved filters per AWS account per region.,100,None,false,false
+guardduty,Amazon GuardDuty,L-373487E5,Finding retention period,The maximum number of days a finding is retained. After 90 days findings are deleted.,90,None,false,false
+guardduty,Amazon GuardDuty,L-F51A2830,Member accounts by invitation,The maximum number of member accounts that can be associated with a GuardDuty administrator account by invitation.,5000,None,false,false
+guardduty,Amazon GuardDuty,L-8B0D7135,Member accounts through AWS Organizations,"Your current AWS Organizations member account quota shows the default maximum number of member accounts that you can associate with an administrator through AWS Organizations, including members added by invitation. The number of GuardDuty member accounts added through AWS Organizations can't exceed the total member accounts in your organization.",50000,None,false,false
+guardduty,Amazon GuardDuty,L-2C0E14B9,Threat intel sets,The maximum number of Threat intel sets that you can add per AWS account per region.,6,None,false,false
+guardduty,Amazon GuardDuty,L-AFBA2260,Trusted IP sets,The maximum number of Trusted IP sets that you can add per AWS account per region.,1,None,false,false

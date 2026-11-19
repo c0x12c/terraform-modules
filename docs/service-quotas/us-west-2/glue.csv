@@ -1,0 +1,48 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+glue,AWS Glue,L-E6C807E7,Concurrent compute capacity for Ray worker instances in M-DPUs per account.,The maximum number of data processing units that can be concurrently used by Ray jobs or interactive sessions in this account. The capacity provided by a Ray worker instance type is measured in memory optimized data processing units (M-DPUs).,50,None,false,false
+glue,AWS Glue,L-E15CE20A,Concurrent machine learning task runs per transform,The maximum number of concurrent task runs per machine learning transform for this account.,3,None,true,false
+glue,AWS Glue,L-785C1F39,Global max tags,Catalog: global max tags,10000,None,true,false
+glue,AWS Glue,L-D90AC94B,Global maximum administrators,Catalog: global maximum administrators,100,None,true,false
+glue,AWS Glue,L-FB210BD9,Global maximum paths,Catalog: global maximum paths,30000,None,true,false
+glue,AWS Glue,L-4F4B522D,Global s3 path max length,Catalog: global s3 path max length,2000,None,true,false
+glue,AWS Glue,L-B78896B9,Label file size,The maximum file size of an individual label file that can be imported.,10,Megabytes,true,false
+glue,AWS Glue,L-C3952F6C,Max concurrent data quality ruleset evaluation runs per account,The maximum number of concurrent data quality ruleset evaluation runs in your account.,50,None,true,false
+glue,AWS Glue,L-ACAC12B6,Max concurrent data quality ruleset recommendation runs per account,The maximum number of concurrent data quality ruleset recommendation runs in your account.,25,None,true,false
+glue,AWS Glue,L-5E4153CA,Max concurrent job runs per account,The maximum number of concurrent job runs in your account.,2000,None,true,false
+glue,AWS Glue,L-F574AED9,Max concurrent job runs per job,The maximum number of concurrent job runs for a job.,4000,None,true,false
+glue,AWS Glue,L-2E9FB93F,Max concurrent observations generation runs per account,The maximum number of concurrent observations generation runs,10,None,true,false
+glue,AWS Glue,L-4256D6D2,Max connection per account,The maximum number of connections in your account.,1000,None,true,false
+glue,AWS Glue,L-87F5991C,Max data quality rulesets per account,The maximum number of data quality rulesets per account.,1000000,None,true,false
+glue,AWS Glue,L-F953935E,Max databases per account,The maximum number of databases in your account.,10000,None,true,false
+glue,AWS Glue,L-A57B5BCE,Max databases per catalog,The maximum number of databases per catalog.,10000,None,true,false
+glue,AWS Glue,L-DBA56E2F,Max development endpoint per account,The maximum number of development endpoints in your account.,25,None,true,false
+glue,AWS Glue,L-76EC689B,Max DPUs per dev endpoint,The maximum number of DPUs in your development endpoint.,50,None,true,false
+glue,AWS Glue,L-D987EC31,Max functions per account,The maximum number of functions in your account.,100,None,true,false
+glue,AWS Glue,L-1DD415D5,Max functions per database,The maximum number of functions per database.,100,None,true,false
+glue,AWS Glue,L-611FDDE4,Max jobs per account,The maximum number of jobs in your account.,2000,None,true,false
+glue,AWS Glue,L-EEC98450,Max jobs per trigger,The maximum number of jobs that a trigger can start.,50,None,true,false
+glue,AWS Glue,L-EAC30D24,Max Named Tag Expressions,The maximum number of named tag expression allowed per account,25000,None,true,false
+glue,AWS Glue,L-FEBBFA7A,Max partitions per account,The maximum number of partitions in your account.,20000000,None,true,false
+glue,AWS Glue,L-2C3F5401,Max partitions per table,The maximum number of partitions per table.,10000000,None,true,false
+glue,AWS Glue,L-83192DBF,Max security configurations per account,The maximum number of security configurations in your account.,250,None,true,false
+glue,AWS Glue,L-096DBB95,Max spare compute capacity consumed in data processing units (DPUs) per account.,The maximum spare compute capacity in data processing units (DPUs) you can use concurrently in your account.,4000,None,true,false
+glue,AWS Glue,L-337244C9,Max table versions per account,The maximum number of table versions in your account.,1000000,None,true,false
+glue,AWS Glue,L-071ABE08,Max table versions per table,The maximum number of table versions per table.,100000,None,true,false
+glue,AWS Glue,L-94D025B7,Max tables per account,The maximum number of tables in your account.,1000000,None,true,false
+glue,AWS Glue,L-B8497671,Max tables per database,The maximum number of tables per database.,200000,None,true,false
+glue,AWS Glue,L-08F3B322,Max task DPUs per account,The maximum compute capacity in data processing units (DPUs) you can use concurrently in your account.,1000,None,true,false
+glue,AWS Glue,L-F1653A6D,Max triggers per account,The maximum number of triggers in your account.,1000,None,true,false
+glue,AWS Glue,L-958728D1,Maximum number of in-flight completion requests allowed per account,The maximum number of concurrent generative AI completion requests allowed per account in the current Region. These requests are used for code generation and Spark troubleshooting in AWS Glue.,10,None,true,false
+glue,AWS Glue,L-A457CBAB,Maximum number of queued job runs,Orchestration: maximum number of queued job runs,1000,None,true,false
+glue,AWS Glue,L-3890A802,Number of column statistics tasks running concurrently per account,The maximum number of column statistics tasks running concurrently in your account.,50,None,true,false
+glue,AWS Glue,L-F545C262,Number of connection types,The maximum number of connection types per AWS Region for this account.,1000,None,true,false
+glue,AWS Glue,L-11FA2C1A,Number of crawlers per account,The maximum number of crawlers in your account.,1000,None,true,false
+glue,AWS Glue,L-4071B0E3,Number of crawlers running concurrently per account,The maximum number of crawlers running concurrently in your account.,150,None,true,false
+glue,AWS Glue,L-F1AAB534,Number of integrations,The maximum number of integrations per AWS Region for this account.,40,None,true,false
+glue,AWS Glue,L-04CEE988,Number of machine learning transforms,The maximum number of machine learning transforms for this account.,100,None,true,false
+glue,AWS Glue,L-CB69DFA0,Number of metadata key value pairs per Schema Version.,The maximum number of Schema Version metadata key value pairs per Schema Version.,10,None,false,false
+glue,AWS Glue,L-64A88F0A,Number of Schema Registries.,The maximum number of Schema Registries per AWS Region for this account.,100,None,false,false
+glue,AWS Glue,L-AD871090,Number of Schema Versions.,The maximum number of Schema Versions per AWS Region for this account.,10000,None,false,false
+glue,AWS Glue,L-7DD7C33A,Number of workflows,The maximum number of workflows in your account.,1000,None,true,false
+glue,AWS Glue,L-B4840D4D,The maximum number of concurrent materialized view refresh task runs.,The maximum number of concurrent materialized view refresh task runs.,50,None,true,false
+glue,AWS Glue,L-83A59AA6,Total concurrent machine learning task runs for transforms per account,The total number of concurrent machine learning transform task runs for machine learning transforms for this account.,30,None,true,false

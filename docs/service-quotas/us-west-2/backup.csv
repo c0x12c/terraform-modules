@@ -1,0 +1,13 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+backup,AWS Backup,L-BD69F607,Backup plans per Region per account,Number of backup plans in this account in the current Region,300,None,true,false
+backup,AWS Backup,L-7705D2CB,Backup vaults per Region per account,Number of backup vaults in this account in the current Region,300,None,true,false
+backup,AWS Backup,L-FFD6444F,Concurrent backup copies per supported service per account,Number of concurrent backup copies per supported service per account,5,None,false,false
+backup,AWS Backup,L-366B61FD,Concurrent backup jobs per resource,Number of concurrent backup jobs per resource,1,None,false,false
+backup,AWS Backup,L-B4021FB0,Framework controls per Region per account,Number of framework controls in this account in the current Region,50,None,true,false
+backup,AWS Backup,L-E43E0ED6,Frameworks per Region per account,Number of frameworks in this account in the current Region,10,None,true,false
+backup,AWS Backup,L-9CAF0B92,Frameworks per report plan,Number of frameworks per report plan,1000,None,false,false
+backup,AWS Backup,L-C0A8C14B,Maximum backup nest level,Maximum number of nested levels allowed for backups,10,None,true,false
+backup,AWS Backup,L-FB1D55EC,Metadata tags per backup,Number of metadata tags per backup,50,None,false,false
+backup,AWS Backup,L-514878B6,Recovery points per backup vault,Number of recovery points per backup vault,1000000,None,true,false
+backup,AWS Backup,L-C296F1F5,Report plans per Region per account,Number of report plans in this account in the current Region,20,None,true,false
+backup,AWS Backup,L-9122A82F,Versions per backup plan,Number of versions per backup plan,2000,None,true,false

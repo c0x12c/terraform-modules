@@ -1,0 +1,23 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+waf-regional,AWS WAF Classic (Regional),L-9C634948,Conditions per rule,The maximum number of conditions you can add to a rule.,10,None,false,false
+waf-regional,AWS WAF Classic (Regional),L-EFDFFE2D,Filters per cross-site scripting match condition,The maximum number of filters you can add to a cross-site scripting match condition.,10,None,false,false
+waf-regional,AWS WAF Classic (Regional),L-5510BCA0,Filters per size constraint condition,The maximum number of filters you can add to a size constraint condition.,10,None,false,false
+waf-regional,AWS WAF Classic (Regional),L-954F3F3A,Filters per SQL injection match condition,The maximum number of filters you can add to a SQL injection match condition.,10,None,false,false
+waf-regional,AWS WAF Classic (Regional),L-C47A352B,Filters per string match condition,The maximum number of filters you can add to a string match condition.,10,None,false,false
+waf-regional,AWS WAF Classic (Regional),L-ACF59499,GeoMatchSets,The maximum number of GeoMatchSets you can add to your account.,50,None,false,false
+waf-regional,AWS WAF Classic (Regional),L-AEEA10B9,HTTP header name length,"The length, in bytes, that you want AWS WAF to inspect the HTTP header for in a size constraint condition.",40,None,false,false
+waf-regional,AWS WAF Classic (Regional),L-AF52C91B,IP address ranges per IP set match condition,The maximum number of IP address ranges (in CIDR notation) you can add to an IP Set match condition.,10000,None,false,false
+waf-regional,AWS WAF Classic (Regional),L-343F131E,IP addresses blocked per rate-based rule,The maximum number of IP addresses blocked per rate-based rule.,10000,None,false,false
+waf-regional,AWS WAF Classic (Regional),L-FFB853E8,Locations per GeoMatchSet,The maximum number of locations you can add to a GeoMatchSet.,50,None,false,false
+waf-regional,AWS WAF Classic (Regional),L-0043356F,Logging destination configurations per web ACL,The maximum number of logging destination configurations you can add to a web ACL.,1,None,false,false
+waf-regional,AWS WAF Classic (Regional),L-DF027FCD,Pattern sets per regex match condition,The maximum number of pattern sets you can add to regex match condition.,1,None,false,false
+waf-regional,AWS WAF Classic (Regional),L-D7382DD3,Patterns per pattern set,The maximum number of patterns you can add to a pattern set in a regex match condition.,10,None,false,false
+waf-regional,AWS WAF Classic (Regional),L-28FAE46F,Rate of requests,The maximum number of requests per second on an Application Load Balancer. This limit applies only to AWS WAF on an Application Load Balancer. This limit can be increased using the AWS console.,10000,None,true,false
+waf-regional,AWS WAF Classic (Regional),L-7EF6FB27,Rate-based rule rate,The maximum number of requests from a single IP address allowed in a five-minute period.,2000,None,false,false
+waf-regional,AWS WAF Classic (Regional),L-6DA23DDF,Rate-based rules,The maximum number of rate-based rules you can create in your account.,5,None,true,false
+waf-regional,AWS WAF Classic (Regional),L-797E08C8,Regex pattern length,The number of characters that you want AWS WAF to search for in the pattern in a regex match condition.,70,None,false,false
+waf-regional,AWS WAF Classic (Regional),L-8EEF0989,Regex pattern sets,The maximum number of regex pattern sets you can add to your account.,5,None,false,false
+waf-regional,AWS WAF Classic (Regional),L-7BF8015E,Rules,The maximum number of rules you can create in your account.,100,None,true,false
+waf-regional,AWS WAF Classic (Regional),L-9692AA5E,Rules per web ACL,The maximum number of rules you can add to a web ACL.,10,None,false,false
+waf-regional,AWS WAF Classic (Regional),L-02647DC9,Search length,"The length, in bytes, that you want AWS WAF to watch for in a size constraint condition.",50,None,false,false
+waf-regional,AWS WAF Classic (Regional),L-55785BA2,Web ACLs,The maximum number of Web ACLs you can create in your account.,50,None,true,false

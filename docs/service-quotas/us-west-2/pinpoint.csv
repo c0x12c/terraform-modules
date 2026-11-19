@@ -1,0 +1,133 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+pinpoint,Amazon Pinpoint,L-75AFB9F3,Active campaigns per account,"The maximum number of active campaigns per account. An active campaign is a campaign that hasn't completed or failed. Active campaigns have a status of SCHEDULED, EXECUTING, or PENDING_NEXT_RUN.",200,None,false,false
+pinpoint,Amazon Pinpoint,L-952D08C7,Active in-app campaigns per project,The maximum number of active in-app campaigns per project.,25,None,false,false
+pinpoint,Amazon Pinpoint,L-72A1F6B5,All other operations burst quota,The maximum number of all other operation requests that you can make at one time.,300,None,false,false
+pinpoint,Amazon Pinpoint,L-D10E8F93,All other operations rate quota,The maximum number of all other operation requests that you can make per second.,300,None,false,false
+pinpoint,Amazon Pinpoint,L-BBD1EBDF,Amazon Device Messaging (ADM) message payload size per message,The maximum Amazon Device Messaging (ADM) message payload size (in KB) per message.,6,Kilobytes,false,false
+pinpoint,Amazon Pinpoint,L-10E9041F,APNs sandbox message payload size per message,The maximum APNs sandbox message payload size (in KB) per message.,4,Kilobytes,false,false
+pinpoint,Amazon Pinpoint,L-604A66DF,Apple Push Notification service (APNs) message payload size per message,The maximum Apple Push Notification service (APNs) message payload size (in KB) per message.,4,Kilobytes,false,false
+pinpoint,Amazon Pinpoint,L-E6F8CC8E,Attribute name length,The maximum attribute name length in characters.,50,None,false,false
+pinpoint,Amazon Pinpoint,L-00CA3D60,Attribute value length,The maximum attribute value length in characters.,100,None,false,false
+pinpoint,Amazon Pinpoint,L-145312C1,Baidu Cloud Push message payload size per message,The maximum Baidu Cloud Push message payload size (in KB) per message.,4,Kilobytes,false,false
+pinpoint,Amazon Pinpoint,L-B5E24C24,CreateCampaign operation burst quota,The maximum number of CreateCampaign operation requests that you can make at one time.,25,None,false,false
+pinpoint,Amazon Pinpoint,L-A255138B,CreateCampaign operation rate quota,The maximum number of CreateCampaign operation requests that you can make per second.,25,None,false,false
+pinpoint,Amazon Pinpoint,L-C407DD59,CreateEmailTemplate operation burst quota,The maximum number of CreateEmailTemplate operation requests that you can make at one time.,10,None,false,false
+pinpoint,Amazon Pinpoint,L-8C220D3D,CreateEmailTemplate operation rate quota,The maximum number of CreateEmailTemplate operation requests that you can make per second.,10,None,false,false
+pinpoint,Amazon Pinpoint,L-190CC5A1,CreateInAppTemplate operation burst quota,The maximum number of CreateInAppTemplate operation requests that you can make at one time.,10,None,false,false
+pinpoint,Amazon Pinpoint,L-3C767F9E,CreateInAppTemplate operation rate quota,The maximum number of CreateInAppTemplate operation requests that you can make per second.,10,None,false,false
+pinpoint,Amazon Pinpoint,L-F5A3090E,CreatePushTemplate operation burst quota,The maximum number of CreatePushTemplate operation requests that you can make at one time.,10,None,false,false
+pinpoint,Amazon Pinpoint,L-B008BB16,CreatePushTemplate operation rate quota,The maximum number of CreatePushTemplate operation requests that you can make per second.,10,None,false,false
+pinpoint,Amazon Pinpoint,L-FC4EDB5E,CreateSegment operation burst quota,The maximum number of CreateSegment operation requests that you can make at one time.,25,None,false,false
+pinpoint,Amazon Pinpoint,L-AC82394D,CreateSegment operation rate quota,The maximum number of CreateSegment operation requests that you can make per second.,25,None,false,false
+pinpoint,Amazon Pinpoint,L-20A1359C,CreateSmsTemplate operation burst quota,The maximum number of CreateSmsTemplate operation requests that you can make at one time.,10,None,false,false
+pinpoint,Amazon Pinpoint,L-7E3252BF,CreateSmsTemplate operation rate quota,The maximum number of CreateSmsTemplate operation requests that you can make per second.,10,None,false,false
+pinpoint,Amazon Pinpoint,L-8FBB07F4,CreateVoiceTemplate operation burst quota,The maximum number of CreateVoiceTemplate operation requests that you can make at one time.,10,None,false,false
+pinpoint,Amazon Pinpoint,L-00469515,CreateVoiceTemplate operation rate quota,The maximum number of CreateVoiceTemplate operation requests that you can make per second.,10,None,false,false
+pinpoint,Amazon Pinpoint,L-AB04D53C,DeleteCampaign operation burst quota,The maximum number of DeleteCampaign operation requests that you can make at one time.,25,None,false,false
+pinpoint,Amazon Pinpoint,L-4D2BBF82,DeleteCampaign operation rate quota,The maximum number of DeleteCampaign operation requests that you can make per second.,25,None,false,false
+pinpoint,Amazon Pinpoint,L-740E6D0F,DeleteEndpoint operation burst quota,The maximum number of DeleteEndpoint operation requests that you can make at one time.,5,None,false,false
+pinpoint,Amazon Pinpoint,L-F2841F8A,DeleteEndpoint operation rate quota,The maximum number of DeleteEndpoint operation requests that you can make per second.,5,None,false,false
+pinpoint,Amazon Pinpoint,L-E02683D7,DeleteSegment operation burst quota,The maximum number of DeleteSegment operation requests that you can make at one time.,25,None,false,false
+pinpoint,Amazon Pinpoint,L-8A34A67D,DeleteSegment operation rate quota,The maximum number of DeleteSegment operation requests that you can make per second.,25,None,false,false
+pinpoint,Amazon Pinpoint,L-64B71623,Firebase Cloud Messaging (FCM) message payload size per message,The maximum Firebase Cloud Messaging (FCM) message payload size (in KB) per message.,4,Kilobytes,false,false
+pinpoint,Amazon Pinpoint,L-702C5879,GetEndpoint operation burst quota,The maximum number of GetEndpoint operation requests that you can make at one time.,10,None,false,false
+pinpoint,Amazon Pinpoint,L-4407470A,GetEndpoint operation rate quota,The maximum number of GetEndpoint operation requests that you can make per second.,10,None,false,false
+pinpoint,Amazon Pinpoint,L-0A577A5A,Import size per import job,The maximum import size (in GB) per import job.,1,None,false,false
+pinpoint,Amazon Pinpoint,L-4CFE22DD,Invocation payload size,The maximum invocation payload size (in MB).,7,Megabytes,false,false
+pinpoint,Amazon Pinpoint,L-F2C2908E,Maximum amount of time to wait for a Lambda function to process data,The maximum amount of time (in seconds) to wait for a Lambda function to process data.,15,Seconds,false,false
+pinpoint,Amazon Pinpoint,L-DD05AA08,Maximum length of a recommended attribute display name,The maximum length of a recommended attribute display name (the name that appears in the Attribute finder on the console).,25,None,false,false
+pinpoint,Amazon Pinpoint,L-B6F19F2C,Maximum length of a recommended attribute name,The maximum length of a recommended attribute name.,50,None,false,false
+pinpoint,Amazon Pinpoint,L-6BA826DB,Maximum length of a recommended attribute value that's retrieved from Amazon Personalize,Maximum length (in characters) of a recommended attribute value that's retrieved from Amazon Personalize.,100,None,false,false
+pinpoint,Amazon Pinpoint,L-515FC177,"Maximum message size, including attachments","The maximum message size (in MB), including attachments.",10,Megabytes,false,false
+pinpoint,Amazon Pinpoint,L-692A3DD2,Maximum number of active event triggered journeys per account,The maximum number of active event triggered journeys per account.,20,None,false,false
+pinpoint,Amazon Pinpoint,L-D9507B3D,Maximum number of active journeys per account,The maximum number of active journeys per account.,50,None,false,false
+pinpoint,Amazon Pinpoint,L-1A67054A,Maximum number of attempts to invoke a Lambda function,The maximum number of attempts to invoke a Lambda function.,3,Seconds,false,false
+pinpoint,Amazon Pinpoint,L-DC81CDCA,Maximum number of attribute keys and metric keys for each event per request,The maximum number of attribute keys and metric keys for each event per request.,40,None,false,false
+pinpoint,Amazon Pinpoint,L-4AC67C61,Maximum number of characters for an event attribute name in a custom channel response,The maximum number of characters for an event attribute name in a custom channel response.,128,None,false,false
+pinpoint,Amazon Pinpoint,L-1DACDC1C,Maximum number of characters for an event attribute value in a custom channel response,The maximum number of characters for an event attribute value in a custom channel response.,128,None,false,false
+pinpoint,Amazon Pinpoint,L-34FB2630,Maximum number of characters in a voice template,The maximum number of characters in a voice template.,10000,None,false,false
+pinpoint,Amazon Pinpoint,L-B09B5654,Maximum number of characters in ADM-specific template parts of a push notification template,The maximum number of characters in ADM-specific template parts of a push notification template.,4000,None,false,false
+pinpoint,Amazon Pinpoint,L-17A23394,Maximum number of characters in an email template,The maximum number of characters in an email template.,500000,None,false,false
+pinpoint,Amazon Pinpoint,L-4A31FA0E,Maximum number of characters in an SMS template,The maximum number of characters in an SMS template.,1600,None,false,false
+pinpoint,Amazon Pinpoint,L-5D4A1FC6,Maximum number of characters in APN-specific template parts of a push notification template,The maximum number of characters in APN-specific template parts of a push notification template.,2000,None,false,false
+pinpoint,Amazon Pinpoint,L-6FAB1B15,Maximum number of characters in Baidu-specific template parts of a push notification template,The maximum number of characters in Baidu-specific template parts of a push notification template.,4000,None,false,false
+pinpoint,Amazon Pinpoint,L-10976A2B,Maximum number of characters in FCM-specific template parts of a push notification template,The maximum number of characters in FCM-specific template parts of a push notification template.,4000,None,false,false
+pinpoint,Amazon Pinpoint,L-5D254524,Maximum number of characters in the default template parts of a push notification template,The maximum number of characters in the default template parts of a push notification template.,2000,None,false,false
+pinpoint,Amazon Pinpoint,L-E8BFE267,Maximum number of characters per attribute key,The maximum number of characters per attribute key.,50,None,false,false
+pinpoint,Amazon Pinpoint,L-D7778D32,Maximum number of characters per attribute value,The maximum number of characters per attribute value. If the number of characters exceeds 200 the event is dropped.,200,None,false,false
+pinpoint,Amazon Pinpoint,L-4FE3F5C9,Maximum number of custom attribute keys per app,The maximum number of custom attribute keys per app.,500,None,false,false
+pinpoint,Amazon Pinpoint,L-46514212,Maximum number of custom attribute values per attribute key,The maximum number of custom attribute values per attribute key.,100000,None,false,false
+pinpoint,Amazon Pinpoint,L-DEDDBACD,Maximum number of custom event types per app,The maximum number of custom event types per app.,1500,None,false,false
+pinpoint,Amazon Pinpoint,L-10D925B2,Maximum number of custom metric keys per app,The maximum number of custom metric keys per app.,500,None,false,false
+pinpoint,Amazon Pinpoint,L-E72E950C,Maximum number of dimensions that can be used to create a segment,The maximum number of dimensions that can be used to create a segment.,100,None,false,false
+pinpoint,Amazon Pinpoint,L-283A6638,Maximum number of event attributes per endpoint in a custom channel response,The maximum number of event attributes per endpoint in a custom channel response.,5,None,false,false
+pinpoint,Amazon Pinpoint,L-E5E7458F,Maximum number of events in a request,The maximum number of events in a request.,100,None,false,false
+pinpoint,Amazon Pinpoint,L-08122D1D,Maximum number of journey activities per journey,The maximum number of journey activities per journey.,40,None,false,false
+pinpoint,Amazon Pinpoint,L-EF46E894,Maximum number of message templates per account,The maximum number of message templates per account.,10000,None,false,false
+pinpoint,Amazon Pinpoint,L-D862A171,Maximum number of model configurations per account,The maximum number of model configurations per account.,100,None,false,false
+pinpoint,Amazon Pinpoint,L-C4CADB07,Maximum number of model configurations per message template,The maximum number of model configurations per message template.,1,None,false,false
+pinpoint,Amazon Pinpoint,L-DE86E513,Maximum number of push notifications that can be sent per second in a campaign,The maximum number of push notifications that can be sent per second in a campaign.,25000,None,false,false
+pinpoint,Amazon Pinpoint,L-A5332206,Maximum number of recommendations per endpoint or user,The maximum number of recommendations per endpoint or user.,5,None,false,false
+pinpoint,Amazon Pinpoint,L-580B96A2,Maximum number of recommended attributes per endpoint or user,The maximum number of recommended attributes per endpoint or user if the attribute values aren't processed by an AWS Lambda function.,1,None,false,false
+pinpoint,Amazon Pinpoint,L-B1934D4C,Maximum number of recommended attributes per endpoint or user (AWS Lambda function),The maximum number of recommended attributes per endpoint or user if the attribute values are processed by an AWS Lambda function.,10,None,false,false
+pinpoint,Amazon Pinpoint,L-2555226F,Maximum number of versions per template,The maximum number of versions per template.,5000,None,false,false
+pinpoint,Amazon Pinpoint,L-D4695B37,Maximum segment size per campaign,The maximum segment size for imported segments per campaign. For dynamic segments: unlimited.,100000000,None,false,false
+pinpoint,Amazon Pinpoint,L-EB037E37,Maximum segment size per journey,"The maximum segment size per journey. For imported segments: 100,000,000 per journey. For dynamic segments: unlimited.",100000000,None,false,false
+pinpoint,Amazon Pinpoint,L-99319FFB,Maximum size of a request,The maximum size (in MB) of a request.,4,Megabytes,false,false
+pinpoint,Amazon Pinpoint,L-4D68DFD0,Maximum size of an individual event,The maximum size (in KB) of an individual event.,1000,Kilobytes,false,false
+pinpoint,Amazon Pinpoint,L-44D8849B,Maximum size of an invocation payload (request and response) for a Lambda function,The maximum size (in MB) of an invocation payload (request and response) for a Lambda function.,6,Megabytes,false,false
+pinpoint,Amazon Pinpoint,L-A206F458,Maximum size per endpoint,The maximum size (in KB) per endpoint.,15,Kilobytes,false,false
+pinpoint,Amazon Pinpoint,L-9657965F,Number of Amazon Pinpoint projects,The maximum number of Amazon Pinpoint projects per account.,100,None,false,false
+pinpoint,Amazon Pinpoint,L-6D703411,Number of Amazon SNS topics for two-way SMS per account,The maximum number of Amazon SNS topics for two-way SMS per account.,100000,None,true,false
+pinpoint,Amazon Pinpoint,L-7AAEDF6B,Number of attributes assigned to the Attributes parameter,The maximum number of attributes assigned to the Attributes parameter.,250,None,false,false
+pinpoint,Amazon Pinpoint,L-41F2C85D,"Number of attributes assigned to the Attributes, Metrics, and UserAttributes parameters collectively","The maximum number of attributes assigned to the Attributes, Metrics, and UserAttributes parameters collectively per endpoint.",250,None,false,false
+pinpoint,Amazon Pinpoint,L-19FAC8C7,Number of attributes assigned to the Metrics parameter,The maximum number of attributes assigned to the Metrics parameter.,250,None,false,false
+pinpoint,Amazon Pinpoint,L-BB6E4BFB,Number of attributes assigned to the UserAttributes parameter,The maximum number of attributes assigned to the UserAttributes parameter.,250,None,false,false
+pinpoint,Amazon Pinpoint,L-B1044409,Number of characters in a voice message,"The maximum number of characters in a voice message. 3,000 billable characters, in words that are spoken 6,000 characters total, including billable characters and SSML tags.",6000,None,false,false
+pinpoint,Amazon Pinpoint,L-4BC0A2FD,Number of concurrent import jobs,The maximum number of concurrent import jobs per account.,10,None,false,false
+pinpoint,Amazon Pinpoint,L-9AE43654,Number of emails that can be sent each second (sending rate),"The maximum number of emails that can be sent each second (sending rate). If your account is in the sandbox, 1 email per second. If your account is out of the sandbox, the rate varies based on your specific use case. This rate is based on the number of recipients, as opposed to the number of unique messages sent.",1,None,true,false
+pinpoint,Amazon Pinpoint,L-F179D122,Number of emails that can be sent per 24-hour period (sending quota),"The maximum number of emails that can be sent per 24-hour period (sending quota). If your account is in the sandbox, 200 emails per 24-hour period. If your account is out of the sandbox, the quota varies based on your specific use case. This quota is based on the number of recipients, as opposed to the number of unique messages sent.",200,None,true,false
+pinpoint,Amazon Pinpoint,L-8F134A4E,Number of EndpointBatchItem objects in an EndpointBatchRequest payload,The maximum number of EndpointBatchItem objects in an EndpointBatchRequest payload. The payload size can't exceed 7 MB.,100,None,false,false
+pinpoint,Amazon Pinpoint,L-5160B7E0,Number of endpoints with the same user ID,The maximum number of endpoints with the same user ID.,10,None,false,false
+pinpoint,Amazon Pinpoint,L-CC53764D,Number of event-based campaigns,The maximum number of event-based campaigns. Campaigns that use event-based triggers have to use dynamic segments. They can't use imported segments.,25,None,false,false
+pinpoint,Amazon Pinpoint,L-F625D3DB,Number of identities that you can verify,"The maximum number of identities that you can verify per AWS region. Identities refers to email addresses or domains, or any combination of the two. Every email you send using Amazon Pinpoint must be sent from a verified identity.",10000,None,false,false
+pinpoint,Amazon Pinpoint,L-211AA0F8,Number of import files per import job,The maximum number of import files per import job.,10000,None,false,false
+pinpoint,Amazon Pinpoint,L-A742486B,Number of recipients per message,The maximum number of recipients per message.,50,None,false,false
+pinpoint,Amazon Pinpoint,L-39643E10,Number of SMS messages that can be sent each second (sending rate),The maximum number of SMS messages that can be sent each second (sending rate).,20,None,true,false
+pinpoint,Amazon Pinpoint,L-011AAE4D,Number of SMS messages that can be sent to a single recipient each second,The maximum number of SMS messages that can be sent to a single recipient each second.,1,None,false,false
+pinpoint,Amazon Pinpoint,L-D5F199FA,Number of values assigned to the Attributes parameter attributes per attribute,The maximum number of values assigned to the Attributes parameter attributes per attribute.,50,None,false,false
+pinpoint,Amazon Pinpoint,L-F62D0221,Number of values assigned to the UserAttributes parameter attributes per attribute,The maximum number of values assigned to the UserAttributes parameter attributes per attribute.,50,None,false,false
+pinpoint,Amazon Pinpoint,L-625F7367,Number of verified identities,"The maximimum number of verified identities. Identities refers to email addresses or domains, or any combination of the two. Every email you send using Amazon Pinpoint must be sent from a verified identity.",10000,None,false,false
+pinpoint,Amazon Pinpoint,L-C477DE56,Number of voice configuration sets per AWS region,The maximum number of configuration sets per AWS region.,10000,None,false,false
+pinpoint,Amazon Pinpoint,L-A2957BEB,Number of voice messages that can be sent during a 24-hour period,The maximum number of voice messages that can be sent during a 24-hour period. If your account is in the sandbox: 20 messages. If your account is out of the sandbox: unlimited.,20,None,false,false
+pinpoint,Amazon Pinpoint,L-79EC8125,Number of voice messages that can be sent from a single originating phone number per second,The maximum number of voice messages that can be sent from a single originating phone number per second.,1,None,false,false
+pinpoint,Amazon Pinpoint,L-9318E2F4,Number of voice messages that can be sent per minute,The maximum number of voice messages that can be sent per minute. If your account is in the sandbox: 5 calls per minute. If your account is out of the sandbox: 20 calls per minute.,5,None,false,false
+pinpoint,Amazon Pinpoint,L-FB330AEF,Number of voice messages that can be sent to a single recipient during a 24-hour period,The maximum number of voice messages that can be sent to a single recipient during a 24-hour period.,5,None,false,false
+pinpoint,Amazon Pinpoint,L-74FC19BA,PhoneNumberValidate operation burst quota,The maximum number of PhoneNumberValidate operation requests that you can make at one time.,20,None,false,false
+pinpoint,Amazon Pinpoint,L-E30F449E,PhoneNumberValidate operation rate quota,The maximum number of PhoneNumberValidate operation requests that you can make per second.,20,None,false,false
+pinpoint,Amazon Pinpoint,L-F123C43A,PutEvents operation burst quota,The maximum number of PutEvents operation requests that you can make at one time.,15,None,false,false
+pinpoint,Amazon Pinpoint,L-1CFEC081,PutEvents operation rate quota,The maximum number of PutEvents operation requests that you can make per second.,15,None,false,false
+pinpoint,Amazon Pinpoint,L-F1EE9BC5,SendMessages operation burst quota,The maximum number of SendMessages operation requests that you can make at one time.,4000,None,false,false
+pinpoint,Amazon Pinpoint,L-5D20177E,SendMessages operation rate quota,The maximum number of SendMessages operation requests that you can make per second.,4000,None,false,false
+pinpoint,Amazon Pinpoint,L-6B6A4B75,SendUsersMessages operation burst quota,The maximum number of SendUsersMessages operation requests that you can make at one time.,6000,None,false,false
+pinpoint,Amazon Pinpoint,L-9CF9DDA0,SendUsersMessages operation rate quota,The maximum number of SendUsersMessages operation requests that you can make per second.,6000,None,false,false
+pinpoint,Amazon Pinpoint,L-A7D30E78,SMS spending threshold,The maximum SMS spending threshold per account (in USD).,1,None,true,false
+pinpoint,Amazon Pinpoint,L-323B59AE,UpdateCampaign operation burst quota,The maximum number of UpdateCampaign operation requests that you can make at one time.,25,None,false,false
+pinpoint,Amazon Pinpoint,L-D0CC64F8,UpdateCampaign operation rate quota,The maximum number of UpdateCampaign operation requests that you can make per second.,25,None,false,false
+pinpoint,Amazon Pinpoint,L-733BED32,UpdateEmailTemplate operation burst quota,The maximum number of UpdateEmailTemplate operation requests that you can make at one time.,10,None,false,false
+pinpoint,Amazon Pinpoint,L-90D8DA58,UpdateEmailTemplate operation rate quota,The maximum number of UpdateEmailTemplate operation requests that you can make per second.,10,None,false,false
+pinpoint,Amazon Pinpoint,L-9142FA7C,UpdateEndpoint operation burst quota,The maximum number of UpdateEndpoint operation requests that you can make at one time.,10,None,false,false
+pinpoint,Amazon Pinpoint,L-333E663A,UpdateEndpoint operation rate quota,The maximum number of UpdateEndpoint operation requests that you can make per second.,10,None,false,false
+pinpoint,Amazon Pinpoint,L-27084BF9,UpdateEndpointsBatch operation burst quota,The maximum number of UpdateEndpointsBatch operation requests that you can make at one time.,2,None,false,false
+pinpoint,Amazon Pinpoint,L-55406C36,UpdateEndpointsBatch operation rate quota,The maximum number of UpdateEndpointsBatch operation requests that you can make per second.,2,None,false,false
+pinpoint,Amazon Pinpoint,L-0428A7CE,UpdateInAppTemplate operation burst quota,The maximum number of UpdateInAppTemplate operation requests that you can make at one time.,10,None,false,false
+pinpoint,Amazon Pinpoint,L-98A9B620,UpdateInAppTemplate operation rate quota,The maximum number of UpdateInAppTemplate operation requests that you can make per second.,10,None,false,false
+pinpoint,Amazon Pinpoint,L-6733389F,UpdatePushTemplate operation burst quota,The maximum number of UpdatePushTemplate operation requests that you can make at one time.,10,None,false,false
+pinpoint,Amazon Pinpoint,L-22143048,UpdatePushTemplate operation rate quota,The maximum number of UpdatePushTemplate operation requests that you can make per second.,10,None,false,false
+pinpoint,Amazon Pinpoint,L-11BF23E4,UpdateSegment operation burst quota,The maximum number of UpdateSegment operation requests that you can make at one time.,25,None,false,false
+pinpoint,Amazon Pinpoint,L-768FB8FB,UpdateSegment operation rate quota,The maximum number of UpdateSegment operation requests that you can make per second.,25,None,false,false
+pinpoint,Amazon Pinpoint,L-C8E63E9B,UpdateSmsTemplate operation burst quota,The maximum number of UpdateSmsTemplate operation requests that you can make at one time.,10,None,false,false
+pinpoint,Amazon Pinpoint,L-A9CF2F09,UpdateSmsTemplate operation rate quota,The maximum number of UpdateSmsTemplate operation requests that you can make per second.,10,None,false,false
+pinpoint,Amazon Pinpoint,L-D8EA67D3,UpdateVoiceTemplate operation burst quota,The maximum number of UpdateVoiceTemplate operation requests that you can make at one time.,10,None,false,false
+pinpoint,Amazon Pinpoint,L-C32B9F4C,UpdateVoiceTemplate operation rate quota,The maximum number of UpdateVoiceTemplate operation requests that you can make per second.,10,None,false,false
+pinpoint,Amazon Pinpoint,L-EB57023C,Voice message length,The maximum voice message length. If your account is in the sandbox: 30 seconds. If your account is out of the sandbox: 5 minutes.,30,None,false,false

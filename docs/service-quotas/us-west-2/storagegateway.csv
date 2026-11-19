@@ -1,0 +1,27 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+storagegateway,AWS Storage Gateway,L-14F83003,Cached volume gateway Cache Maximum in TiB,Maximum cache size for Cached Volume Gateway,64,None,false,false
+storagegateway,AWS Storage Gateway,L-803470D8,Cached volume gateway Cache Minimum in GiB,Minimum cache size for Cached Volume Gateway,150,None,false,false
+storagegateway,AWS Storage Gateway,L-FF1BE522,Cached volume gateway Upload Buffer Maximum in TiB,Maximum upload buffer size for Cached Volume Gateway,2,None,false,false
+storagegateway,AWS Storage Gateway,L-6D83F84B,Cached volume gateway Upload Buffer Minimum in GiB,Minimum upload buffer size for Cached Volume Gateway,150,None,false,false
+storagegateway,AWS Storage Gateway,L-2E88EE16,Cached volume size in TiB,Maximum size of a cached volume,32,None,false,false
+storagegateway,AWS Storage Gateway,L-761F1680,Cached volumes per gateway,Maximum number of cached volumes per gateway,32,None,false,false
+storagegateway,AWS Storage Gateway,L-F5915598,File gateway Cache Maximum in TiB,Maximum cache size for File Gateway,64,None,false,false
+storagegateway,AWS Storage Gateway,L-BD85E1A6,File gateway Cache Minimum in GiB,Minimum cache size for File Gateway,150,None,false,false
+storagegateway,AWS Storage Gateway,L-58DCC961,File shares per gateway,Maximum number of file shares per gateway,50,None,false,false
+storagegateway,AWS Storage Gateway,L-CEFD39A0,File shares per S3 bucket,Maximum number of file shares per Amazon S3 bucket,1,None,false,false
+storagegateway,AWS Storage Gateway,L-98F44425,File size,"The maximum size of an individual file, which is the maximum size of an individual object in Amazon S3",5,Terabytes,false,false
+storagegateway,AWS Storage Gateway,L-311F8856,Max size of a virtual tape in TiB,Maximum size of a virtual tape,15,None,false,false
+storagegateway,AWS Storage Gateway,L-2232E8E3,Max virtual tapes in a VTL,Maximum number of virtual tapes for a virtual tape library (VTL),1500,None,false,false
+storagegateway,AWS Storage Gateway,L-96D17DE9,Minimum size of a virtual tape in GiB,Minimum size of a virtual tape,100,None,false,false
+storagegateway,AWS Storage Gateway,L-C86341FE,Path length,Maximum path length,1024,Bytes,false,false
+storagegateway,AWS Storage Gateway,L-6F75AC83,Size of all cached volumes per gateway in TiB,Total size of all cached volumes for a gateway,1024,None,false,false
+storagegateway,AWS Storage Gateway,L-5308FBCA,Size of all stored volumes per gateway in TiB,Total size of all stored volumes for a gateway,512,None,false,false
+storagegateway,AWS Storage Gateway,L-99E991AF,Stored volume gateway Upload Buffer Maximum in TiB,Maximum upload buffer size for Stored Volume Gateway,2,None,false,false
+storagegateway,AWS Storage Gateway,L-E0AEEBAC,Stored volume gateway Upload Buffer Minimum in GiB,Minimum upload buffer size for Stored Volume Gateway,150,None,false,false
+storagegateway,AWS Storage Gateway,L-81A6E497,Stored volume size in TiB,Maximum size of a stored volume,16,None,false,false
+storagegateway,AWS Storage Gateway,L-7B01AFFB,Stored volumes per gateway,Maximum number of stored volumes per gateway,32,None,false,false
+storagegateway,AWS Storage Gateway,L-59D49F15,Tape gateway Cache Maximum in TiB,Maximum cache size for Tape Gateway,64,None,false,false
+storagegateway,AWS Storage Gateway,L-F3EDDF8C,Tape gateway Cache Minimum in GiB,Minimum cache size for Tape Gateway,150,None,false,false
+storagegateway,AWS Storage Gateway,L-2EC26EAB,Tape gateway Upload Buffer Maximum in TiB,Maximum upload buffer size for Tape Gateway,2,None,false,false
+storagegateway,AWS Storage Gateway,L-87640A7E,Tape gateway Upload Buffer Minimum in GiB,Minimum upload buffer size for Tape Gateway,150,None,false,false
+storagegateway,AWS Storage Gateway,L-4951D254,Total size of tapes in a virtual tape library in PiB,Total size of all tapes in a virtual tape library (VTL),1,None,false,false

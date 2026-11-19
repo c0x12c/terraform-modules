@@ -1,0 +1,3 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+s3-outposts,AWS S3 Outposts,L-C39AA790,Access Points,The maximum number of Amazon S3 on Outposts access points that you can create per S3 on Outposts bucket in the AWS account in the current Outpost.,10,None,false,false
+s3-outposts,AWS S3 Outposts,L-CBA62F6C,Buckets,The maximum number of Amazon S3 on Outposts buckets that you can create per AWS account in the current Outpost.,100,None,false,false

@@ -1,0 +1,6 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+elasticbeanstalk,AWS Elastic Beanstalk,L-D64F1F14,Application versions,"The maximum number of application versions that you can create in this account in the current Region. The limit applies across applications, not per application.",1000,None,true,false
+elasticbeanstalk,AWS Elastic Beanstalk,L-1CEABD17,Applications,The maximum number of applications that you can create in this account in the current Region.,75,None,true,false
+elasticbeanstalk,AWS Elastic Beanstalk,L-9838E43F,Configuration templates,The maximum number of configuration templates that you can create in this account in the current Region.,2000,None,true,false
+elasticbeanstalk,AWS Elastic Beanstalk,L-E593A077,Custom platform versions,"The maximum number of custom platform versions that you can create in this account in the current Region. The limit applies across custom platforms, not per custom platform.",50,None,true,false
+elasticbeanstalk,AWS Elastic Beanstalk,L-8EFC1C51,Environments,"The maximum number of environments that you can create in this account in the current Region. The limit applies across applications, not per application.",200,None,true,false

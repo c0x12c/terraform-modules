@@ -1,0 +1,2 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+ec2fastlaunch,EC2 Fast Launch,L-DC79B53E,Parallel instance launches,"A setting that you configure for the EC2 Fast Launch feature that defines the maximum number of Windows instances it can launch at the same time to create pre-provisioned snapshots in the owner’s account in the current Region. For more information, see https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/win-ami-config-fast-launch.html",40,None,true,false

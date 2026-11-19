@@ -1,0 +1,7 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+kendra-ranking,Amazon Kendra Intelligent Ranking,L-287E18CF,Maximum documents per group per Rescore request,The maximum number of documents per group per Rescore request.,3,None,false,false
+kendra-ranking,Amazon Kendra Intelligent Ranking,L-B4084F86,Maximum rescore capacity units per execution plan,The maximum number of rescore capacity units per execution plan.,1000,None,false,false
+kendra-ranking,Amazon Kendra Intelligent Ranking,L-C0B580BB,Maximum tokens per document body,The maximum number of tokens in the body of a single document.,200,None,false,false
+kendra-ranking,Amazon Kendra Intelligent Ranking,L-B329A296,Maximum tokens per document title,The maximum number of tokens in the title of a single document.,100,None,false,false
+kendra-ranking,Amazon Kendra Intelligent Ranking,L-B524EEB2,Maximum unique documents per Rescore request,The maximum number of unique documents (or unique groups) per Rescore request.,25,None,false,false
+kendra-ranking,Amazon Kendra Intelligent Ranking,L-B6E8F579,Rescore capacity units per account,The maximum number of rescore execution plans per account.,50,None,true,false

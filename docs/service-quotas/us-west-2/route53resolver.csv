@@ -1,0 +1,14 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+route53resolver,Route 53 Resolver,L-94E19253,Associations between resolver rules and VPCs per AWS Region,Maximum number of associations between resolver rules and VPCs per AWS Region,2000,None,true,false
+route53resolver,Route 53 Resolver,L-15219E1D,DNS Firewall rule group associations per VPC,The maximum number of DNS Firewall rule groups that you can associate to a VPC.,5,None,false,false
+route53resolver,Route 53 Resolver,L-F8A07EF1,DNS Firewall rule groups associations to a Route 53 Profile.,The maximum number of DNS Firewall rule groups that can be associated to a Route 53 Profile.,5,None,false,false
+route53resolver,Route 53 Resolver,L-02CC8B74,DNS Firewall rules groups per Region,The maximum number of DNS Firewall rules groups per Region.,1000,None,true,false
+route53resolver,Route 53 Resolver,L-9FA3C0A4,Domain lists per account,The maximum number of domain lists for an account.,1000,None,true,false
+route53resolver,Route 53 Resolver,L-1B2BDF0A,Domains in a file imported from S3,The maximum number of domains that you can import from a single file that's stored in an Amazon S3 bucket.,250000,None,true,false
+route53resolver,Route 53 Resolver,L-740A4B31,Domains per account,The maximum number of domains that you can specify across all of the domain lists for an account.,100000,None,true,false
+route53resolver,Route 53 Resolver,L-D2FE9758,IP addresses per resolver endpoint,Maximum number of IP addresses per resolver endpoint,6,None,true,false
+route53resolver,Route 53 Resolver,L-4A669CC0,Maximum number of resolver endpoints per AWS Region,Resolver endpoints per AWS Region,4,None,true,false
+route53resolver,Route 53 Resolver,L-8B4B9B75,Resolver rule associations to a Route 53 Profile.,The maximum number of Resolver rule associations per Route 53 Profile.,1000,None,true,false
+route53resolver,Route 53 Resolver,L-51D8A1FB,Resolver rules per AWS Region,Maximum number of resolver rules per AWS Region,1000,None,true,false
+route53resolver,Route 53 Resolver,L-F763F4D9,Rules in a DNS Firewall rule group,The maximum number of rules in a DNS Firewall rule group.,100,None,true,false
+route53resolver,Route 53 Resolver,L-D74B6237,Target IP addresses per resolver rule,Maximum number of target IP addresses per resolver rule,6,None,false,false

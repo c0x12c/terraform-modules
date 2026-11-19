@@ -1,0 +1,20 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+signer,AWS Signer,L-9A9396FB,Rate of AddProfilePermission requests,"The maximum number of AddProfilePermission requests that you can make, per second, in this account in the current region.",3,None,true,false
+signer,AWS Signer,L-4E20C20E,Rate of CancelSigningProfile requests,"The maximum number of CancelSigningProfile requests that you can make, per second, in this account in the current region.",3,None,true,false
+signer,AWS Signer,L-F86FBF89,Rate of DescribeSigningJob requests,"The maximum number of DescribeSigningJob requests that you can make, per second, in this account in the current region.",6,None,true,false
+signer,AWS Signer,L-7068EEE0,Rate of GetRevocationStatus requests,"The maximum number of GetRevocationStatus requests that you can make, per second, in this account in the current region.",100,None,true,false
+signer,AWS Signer,L-E9957E95,Rate of GetSigningPlatform requests,"The maximum number of GetSigningPlatform requests that you can make, per second, in this account in the current region.",3,None,true,false
+signer,AWS Signer,L-C2AF6AB8,Rate of GetSigningProfile requests,"The maximum number of GetSigningProfile requests that you can make, per second, in this account in the current region.",3,None,true,false
+signer,AWS Signer,L-34D2D11C,Rate of ListProfilePermissions requests,"The maximum number of ListProfilePermissions requests that you can make, per second, in this account in the current region.",6,None,true,false
+signer,AWS Signer,L-5DB503D1,Rate of ListSigningJobs requests,"The maximum number of ListSigningJobs requests that you can make, per second, in this account in the current region.",6,None,true,false
+signer,AWS Signer,L-E1BE245B,Rate of ListSigningPlatforms requests,"The maximum number of ListSigningPlatforms requests that you can make, per second, in this account in the current region.",6,None,true,false
+signer,AWS Signer,L-A99B6F73,Rate of ListSigningProfiles requests,"The maximum number of ListSigningProfiles requests that you can make, per second, in this account in the current region.",6,None,true,false
+signer,AWS Signer,L-4F2A443B,Rate of ListTagsForResource requests,"The maximum number of ListTagsForResource requests that you can make, per second, in this account in the current region.",6,None,true,false
+signer,AWS Signer,L-FE97337F,Rate of PutSigningProfile requests,"The maximum number of PutSigningProfile requests that you can make, per second, in this account in the current region.",3,None,true,false
+signer,AWS Signer,L-FEE4A855,Rate of RemoveProfilePermission requests,"The maximum number of RemoveProfilePermission requests that you can make, per second, in this account in the current region.",3,None,true,false
+signer,AWS Signer,L-107F88F0,Rate of RevokeSignature requests,"The maximum number of RevokeSignature requests that you can make, per second, in this account in the current region.",3,None,true,false
+signer,AWS Signer,L-EBC45F16,Rate of RevokeSigningProfile requests,"The maximum number of RevokeSigningProfile requests that you can make, per second, in this account in the current region.",3,None,true,false
+signer,AWS Signer,L-C934DC82,Rate of SignPayload requests,"The maximum number of SignPayload requests that you can make, per second, in this account in the current region.",10,None,true,false
+signer,AWS Signer,L-6291E160,Rate of StartSigningJob requests,"The maximum number of StartSigningJob requests that you can make, per second, in this account in the current region.",3,None,true,false
+signer,AWS Signer,L-7E38DDAF,Rate of TagResource requests,"The maximum number of TagResource requests that you can make, per second, in this account in the current region.",3,None,true,false
+signer,AWS Signer,L-47E1077B,Rate of UntagResource requests,"The maximum number of UntagResource requests that you can make, per second, in this account in the current region.",3,None,true,false

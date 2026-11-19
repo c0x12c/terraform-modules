@@ -1,0 +1,10 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+drs,ElasticDisasterRecovery,L-D88FAC3A,Concurrent jobs in progress,Concurrent jobs in progress,20,None,false,false
+drs,ElasticDisasterRecovery,L-DD6D028C,Max concurrent Jobs per source server,Max concurrent Jobs per source server,1,None,false,false
+drs,ElasticDisasterRecovery,L-0588D03B,Max number of launch actions per resource,Max number of launch actions per resource,200,None,false,false
+drs,ElasticDisasterRecovery,L-1F3FAE4D,Max number of launch configuration templates per AWS account,Max number of launch configuration templates per AWS account,1,None,false,false
+drs,ElasticDisasterRecovery,L-4B0323BD,Max number of source networks per AWS account,Max number of source networks per AWS account,100,None,true,false
+drs,ElasticDisasterRecovery,L-B827C881,Max source servers in a single Job,Max source servers in a single Job,100,None,false,false
+drs,ElasticDisasterRecovery,L-05AFA8C6,Max source servers in all Jobs,Max source servers in all Jobs,500,None,false,false
+drs,ElasticDisasterRecovery,L-C1D14A2B,Max Total replicating source servers Per AWS Account,Max Total replicating source servers Per AWS Account,300,None,false,false
+drs,ElasticDisasterRecovery,L-E28BE5E0,Max Total source servers Per AWS Account,Max Total source servers Per AWS Account,4000,None,true,false

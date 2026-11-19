@@ -1,0 +1,3 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+emr-serverless,Amazon EMR Serverless,L-1F2073CE,Max concurrent flex vCPUs per account,Maximum number of flex vCPUs that can be concurrently run in this account in the current Region.,16,None,true,false
+emr-serverless,Amazon EMR Serverless,L-D05C8A75,Max concurrent vCPUs per account,Maximum number of vCPUs that can be concurrently run in this account in the current Region.,16,None,true,false

@@ -1,0 +1,6 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+es,Amazon OpenSearch Service,L-AE676A72,Dedicated master instances per domain,The maximum number of dedicated master instances in a single Amazon OpenSearch Service domain.,5,None,false,false
+es,Amazon OpenSearch Service,L-076D529E,Domains per Region,The maximum number of Amazon OpenSearch Service domains you can create in each AWS Region.,500,None,true,false
+es,Amazon OpenSearch Service,L-6408ABDE,Instances per domain,The maximum number of instances in a single Amazon OpenSearch Service domain. You can request an increase up to 1002 instances per domain.,200,None,true,false
+es,Amazon OpenSearch Service,L-E9BC8C95,Instances per domain (T2 instance type),The maximum number of T2 instances in a single Amazon OpenSearch Service domain.,10,None,false,false
+es,Amazon OpenSearch Service,L-1F053E6F,Warm instances per domain,The maximum number of warm nodes in a single Amazon OpenSearch Service cluster.,150,None,false,false

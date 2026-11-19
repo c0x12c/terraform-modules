@@ -1,0 +1,41 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+forecast,Amazon Forecast,L-690B4DB2,Maximum cumulative size of all files in your Amazon S3 bucket,The maximum cumulative size of all your files in your Amazon S3 bucket in GB,30,Gigabytes,true,false
+forecast,Amazon Forecast,L-57E6FE87,Maximum forecast horizon,The maximum prediction length (lesser of 500 data points or 1/3 of the target time series dataset length),500,None,false,false
+forecast,Amazon Forecast,L-4F7B6EC8,Maximum number of backtest windows,The maximum Back-Test Window Count (RecipeParameters),5,None,false,false
+forecast,Amazon Forecast,L-3D30706E,Maximum number of columns in a related time series dataset,The maximum number of columns that can be in the RELATED_TIME_SERIES dataset,25,None,false,false
+forecast,Amazon Forecast,L-9FD32A46,Maximum number of columns in a target time series dataset,The maximum number of columns that can be in the TARGET_TIME_SERIES dataset,13,None,false,false
+forecast,Amazon Forecast,L-F37CCDC6,Maximum number of columns in an item metadata dataset,The maximum number of columns that can be in the ITEM_METADATA dataset,10,None,false,false
+forecast,Amazon Forecast,L-5054D782,Maximum number of dataset groups,The maximum number of dataset groups that you can have in your Amazon Forecast account,500,None,true,false
+forecast,Amazon Forecast,L-1306EC42,Maximum number of dataset import jobs,The maximum number of dataset imports that you can have in your Amazon Forecast account,1000,None,true,false
+forecast,Amazon Forecast,L-D613D53B,Maximum number of datasets,The maximum number of datasets that you can have in your Amazon Forecast account,1500,None,true,false
+forecast,Amazon Forecast,L-D71794C7,Maximum number of datasets in a dataset group,The maximum number of datasets that can be in a dataset group,3,None,false,false
+forecast,Amazon Forecast,L-F58E51A9,Maximum number of Explainabilities,Maximum number of Explainabilities that you can have in your Amazon Forecast account,1000,None,false,false
+forecast,Amazon Forecast,L-928BCA42,Maximum number of Explainability exports,Maximum number of Explainability exports that you can have in your Amazon Forecast account,1000,None,false,false
+forecast,Amazon Forecast,L-3F8C5D53,Maximum number of files in your Amazon S3 bucket,The maximum number of files that you can have in your Amazon S3 bucket,10000,None,false,false
+forecast,Amazon Forecast,L-561FC25E,Maximum number of forecast export jobs,The maximum number of forecast exports that you can have in your Amazon Forecast account,1000,None,true,false
+forecast,Amazon Forecast,L-884F7F75,Maximum number of forecasts,The maximum number of forecasts that you can have in your Amazon Forecast account,100,None,true,false
+forecast,Amazon Forecast,L-E1AC300F,Maximum number of predictor backtest export jobs,The maximum number of predictor backtest exports that you can have in your Amazon Forecast account,1000,None,true,false
+forecast,Amazon Forecast,L-9C589A93,Maximum number of predictors,The maximum number of predictors that you can have in your Amazon Forecast account,500,None,true,false
+forecast,Amazon Forecast,L-618F5043,Maximum number of rows in a dataset,The maximum number of rows that can be in a dataset,3000000000,None,true,false
+forecast,Amazon Forecast,L-60743B41,Maximum number of tags you can add to a resource,Maximum number of tags you can add to a resource,50,None,false,false
+forecast,Amazon Forecast,L-4A218FD9,Maximum number of time series per predictor,The maximum number of time series allowed for training a predictor (number of items * number of unique values across forecast dimensions in the target time series dataset),5000000,None,true,false
+forecast,Amazon Forecast,L-24281831,Maximum parallel running CreateAutoPredictor tasks,The maximum number of parallel running CreateAutoPredictor tasks,3,None,false,false
+forecast,Amazon Forecast,L-407BD890,Maximum parallel running CreateDatasetImportJob tasks,The maximum number of parallel running CreateDatasetImportJob tasks,3,None,true,false
+forecast,Amazon Forecast,L-A6F48898,Maximum parallel running CreateExplainability tasks,Maximum number of parallel running CreateExplainability tasks,3,None,false,false
+forecast,Amazon Forecast,L-143E66E3,Maximum parallel running CreateExplainabilityExport tasks,Maximum number of parallel running CreateExplainabilityExport tasks,3,None,false,false
+forecast,Amazon Forecast,L-10DDC31D,Maximum parallel running CreateForecast tasks,The maximum number of parallel running CreateForecast tasks,3,None,true,false
+forecast,Amazon Forecast,L-02D995E1,Maximum parallel running CreateForecastExportJob tasks,The maximum number of parallel running CreateForecastExportJob tasks,3,None,true,false
+forecast,Amazon Forecast,L-3154C698,Maximum parallel running CreatePredictor tasks,The maximum number of parallel running CreatePredictor tasks,3,None,true,false
+forecast,Amazon Forecast,L-BDD6E332,Maximum parallel running CreatePredictor tasks using AutoML,The maximum number of parallel running CreatePredictor tasks using AutoML,3,None,true,false
+forecast,Amazon Forecast,L-C4147F5F,Maximum parallel running CreatePredictorBacktestExportJob tasks,The maximum number of parallel running CreatePredictorBacktestExportJob tasks,3,None,true,false
+forecast,Amazon Forecast,L-3DED4AA6,Maximum parallel running CreateWhatIfAnalysis tasks,The maximum number of parallel running CreateWhatIfAnalysis tasks,3,None,true,false
+forecast,Amazon Forecast,L-5EC8963B,Maximum parallel running CreateWhatIfForecast tasks,The maximum number of parallel running CreateWhatIfForecast tasks,3,None,true,false
+forecast,Amazon Forecast,L-B50F9B6C,Maximum parallel running CreateWhatIfForecastExport tasks,The maximum number of parallel running CreateWhatIfForecastExport tasks,3,None,true,false
+forecast,Amazon Forecast,L-B77118AF,Maximum parallel running QueryForecast API tasks,"10 concurrent forecasts, including 5 created with large datasets (anything over 20GB or 100,000 items).",10,None,false,false
+forecast,Amazon Forecast,L-710D1193,Maximum parallel running Stop jobs per resource type,Maximum number of parallel Stop jobs in progress,3,None,false,false
+forecast,Amazon Forecast,L-B8197A69,Maximum time for which a forecast can be queried on console or QueryForecast API,Maximum time (in days) for which a forecast can be queried on console or QueryForecast API,30,None,false,false
+forecast,Amazon Forecast,L-FBF2B427,The maximum number of AutoPredictors,The maximum number of AutoPredictors that you can have in your Amazon Forecast account,500,None,false,false
+forecast,Amazon Forecast,L-235B11D6,The maximum number of What-if Analyses,The maximum number of What-if Analyses that you can have in your Amazon Forecast account,500,None,true,false
+forecast,Amazon Forecast,L-6AD28BD9,The maximum number of What-if Forecast Exports,The maximum number of What-if Forecast Exports that you can have in your Amazon Forecast account,1000,None,true,false
+forecast,Amazon Forecast,L-762142D9,The maximum number of What-if Forecasts,The maximum number of What-if Forecasts that you can have in your Amazon Forecast account,100,None,true,false
+forecast,Amazon Forecast,L-50FA8F07,The maximum number of What-if Forecasts in a CreateWhatIfForecastExport task,The maximum number of What-if Forecasts in a CreateWhatIfForecastExport task,3,None,false,false

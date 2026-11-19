@@ -1,0 +1,19 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+oam,Amazon CloudWatch Observability Access Manager,L-303A1B23,Links per sink,Maximum number of links that can be attached to a sink,100000,None,false,false
+oam,Amazon CloudWatch Observability Access Manager,L-92C40D6D,Number of links,Maximum number of links in your account,5,None,false,false
+oam,Amazon CloudWatch Observability Access Manager,L-AA726EB1,Number of sinks,Maximum number of sinks in your account,1,None,false,false
+oam,Amazon CloudWatch Observability Access Manager,L-73AD4D12,Rate of CreateLink requests,"Maximum number of CreateLink requests you can make per second, in this account in the current region",10,None,false,false
+oam,Amazon CloudWatch Observability Access Manager,L-64C711AB,Rate of CreateSink requests,"Maximum number of CreateSink requests you can make per second, in this account in the current region",10,None,false,false
+oam,Amazon CloudWatch Observability Access Manager,L-1DA9A53C,Rate of DeleteLink requests,"Maximum number of DeleteLink requests you can make per second, in this account in the current region",10,None,false,false
+oam,Amazon CloudWatch Observability Access Manager,L-143B6A4E,Rate of DeleteSink requests,"Maximum number of DeleteSink requests you can make per second, in this account in the current region",10,None,false,false
+oam,Amazon CloudWatch Observability Access Manager,L-0C9B84F1,Rate of GetLink requests,"Maximum number of GetLink requests you can make per second, in this account in the current region",10,None,false,false
+oam,Amazon CloudWatch Observability Access Manager,L-17A1180D,Rate of GetSink requests,"Maximum number of GetSink requests you can make per second, in this account in the current region",10,None,false,false
+oam,Amazon CloudWatch Observability Access Manager,L-6F6854CA,Rate of GetSinkPolicy requests,"Maximum number of GetSinkPolicy requests you can make per second, in this account in the current region",10,None,false,false
+oam,Amazon CloudWatch Observability Access Manager,L-7EEA7BFD,Rate of ListAttachedLinks requests,"Maximum number of ListAttachedLinks requests you can make per second, in this account in the current region",10,None,false,false
+oam,Amazon CloudWatch Observability Access Manager,L-B753F5F0,Rate of ListLinks requests,"Maximum number of ListLinks requests you can make per second, in this account in the current region",10,None,false,false
+oam,Amazon CloudWatch Observability Access Manager,L-022081A8,Rate of ListSinks requests,"Maximum number of ListSinks requests you can make per second, in this account in the current region",10,None,false,false
+oam,Amazon CloudWatch Observability Access Manager,L-6FE8607E,Rate of ListTagsForResource requests,"Maximum number of ListTagsForResource requests you can make per second, in this account in the current region",10,None,false,false
+oam,Amazon CloudWatch Observability Access Manager,L-5CCC34E8,Rate of PutSinkPolicy requests,"Maximum number of PutSinkPolicy requests you can make per second, in this account in the current region",1,None,false,false
+oam,Amazon CloudWatch Observability Access Manager,L-F026BF93,Rate of TagResource requests,"Maximum number of TagResource requests you can make per second, in this account in the current region",10,None,false,false
+oam,Amazon CloudWatch Observability Access Manager,L-AB9CB007,Rate of UntagResource requests,"Maximum number of UntagResource requests you can make per second, in this account in the current region",10,None,false,false
+oam,Amazon CloudWatch Observability Access Manager,L-D7E6CF70,Rate of UpdateLink requests,"Maximum number of UpdateLink requests you can make per second, in this account in the current region",10,None,false,false

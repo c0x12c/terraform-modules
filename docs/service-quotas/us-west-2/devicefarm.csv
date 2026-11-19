@@ -1,0 +1,6 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+devicefarm,AWS Device Farm,L-681D859E,Concurrency for automation tests on metered devices,The maximum number of concurrent metered devices running automation tests.,5,None,true,false
+devicefarm,AWS Device Farm,L-F73D98D4,Concurrency for remote access on metered devices,The maximum number of concurrent metered devices running remote access sessions.,2,None,true,false
+devicefarm,AWS Device Farm,L-BEA71E6C,Remote access session length in minutes,The maximum length of a remote access session per device in minutes.,150,None,false,false
+devicefarm,AWS Device Farm,L-4FE0AE8D,Test run timeout per device in minutes,The maximum length of an automation test run per device in minutes.,150,None,false,false
+devicefarm,AWS Device Farm,L-89F640E1,Uploaded file size,The maximum size of a file to be uploaded.,4,Gigabytes,false,false

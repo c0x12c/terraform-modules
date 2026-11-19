@@ -1,0 +1,5 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+marketplaceagreement,AWS Marketplace Agreement Service,L-F1BF419D,Active agreements per resource,The maximum number of active agreements that you can create per resource per account.,100,None,true,false
+marketplaceagreement,AWS Marketplace Agreement Service,L-C00A36D2,Agreement value for general proposal,The maximum agreement value (in USD) that you can specify for general proposal.,1000000,None,true,false
+marketplaceagreement,AWS Marketplace Agreement Service,L-A67D6489,Agreement value for targeted proposal,The maximum agreement value (in USD) that you can specify for targeted proposal.,1000000000,None,true,false
+marketplaceagreement,AWS Marketplace Agreement Service,L-1D52CF88,Free trials per resource,The maximum number of free trials allowed per resource per account.,1,None,false,false

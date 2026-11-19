@@ -1,0 +1,25 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+medialive,AWS Elemental MediaLive,L-A4814CCC,Anywhere Inputs,The maximum number of inputs that are configured in a MediaLive Anywhere network that you can create in the current region. These inputs are push inputs but they do not count towards the standard Push Inputs quota. They count only towards this quota.,300,None,true,false
+medialive,AWS Elemental MediaLive,L-3FDA265B,CDI Channels,The maximum number of CDI channels (channels that include one or more CDI inputs) that you can create in the current region.,2,None,true,false
+medialive,AWS Elemental MediaLive,L-FF7E5CAC,Channel Placement Groups per Cluster,The maximum number of AWS MediaLive Anywhere channel placement groups that you can create in each cluster in the current region.,100,None,true,false
+medialive,AWS Elemental MediaLive,L-D1AFAF75,Channels,The maximum number of channels that you can create in the current region.,5,None,true,false
+medialive,AWS Elemental MediaLive,L-759E3395,CloudWatch Alarm Template Groups,The maximum number of cloudwatch alarm template groups that you can create in the current region.,20,None,true,false
+medialive,AWS Elemental MediaLive,L-9E4BC4C0,CloudWatch Alarm Templates,The maximum number of cloudwatch alarm templates that you can create in the current region.,200,None,true,false
+medialive,AWS Elemental MediaLive,L-7BC53EAF,Clusters,The maximum number of AWS MediaLive Anywhere clusters that you can create in the current region.,100,None,true,false
+medialive,AWS Elemental MediaLive,L-BDF24E14,Device Inputs,The maximum number of device inputs (an input from a device) that you can create in the current region.,100,None,true,false
+medialive,AWS Elemental MediaLive,L-019F695A,EventBridge Rule Template Groups,The maximum number of eventbridge rule template groups that you can create in the current region.,20,None,true,false
+medialive,AWS Elemental MediaLive,L-A825B11C,EventBridge Rule Templates,The maximum number of eventbridge rule templates that you can create in the current region.,200,None,true,false
+medialive,AWS Elemental MediaLive,L-05A796F2,HEVC Channels,The maximum number of HEVC channels (channels that include one or more HEVC outputs) that you can create in the current region.,5,None,true,false
+medialive,AWS Elemental MediaLive,L-6A0116BB,Input Security Groups,The maximum number of input security groups that you can create in the current region.,5,None,true,false
+medialive,AWS Elemental MediaLive,L-FBCE2FC3,MediaConnect Inputs,The maximum number of MediaConnect inputs that you can create in the current region.,100,None,true,false
+medialive,AWS Elemental MediaLive,L-63879FB4,MediaLive DescribeThumbnails TPS,The maximum number of transactions per second that an account can make to the DescribeThumbnails API in the current region.,40,None,true,false
+medialive,AWS Elemental MediaLive,L-8B49C5C1,Multiplexes,The maximum number of multiplexes that you can create in the current region.,2,None,true,false
+medialive,AWS Elemental MediaLive,L-3C46E17E,Networks,The maximum number of AWS MediaLive Anywhere networks that you can create in the current region.,100,None,true,false
+medialive,AWS Elemental MediaLive,L-22ED1BEF,Nodes per Cluster,The maximum number of AWS MediaLive Anywhere nodes that you can create in each cluster in the current region.,100,None,true,false
+medialive,AWS Elemental MediaLive,L-4D7207DE,Pull Inputs,The maximum number of pull inputs that you can create in the current region.,100,None,true,false
+medialive,AWS Elemental MediaLive,L-9E233AF7,Push Inputs,The maximum number of push inputs that you can create in the current region.,5,None,true,false
+medialive,AWS Elemental MediaLive,L-1F6E2FAF,Reservations,The maximum number of reservations that you can create in the current region.,50,None,true,false
+medialive,AWS Elemental MediaLive,L-AAFBD428,SDI sources,The maximum number of AWS MediaLive Anywhere SDI sources that you can create in the current region.,300,None,true,false
+medialive,AWS Elemental MediaLive,L-B0CA93DC,Signal Maps,The maximum number of signal maps that you can create in the current region.,30,None,true,false
+medialive,AWS Elemental MediaLive,L-DDE858F0,UHD Channels,The maximum number of UHD channels (channels that include one or more UHD outputs) that you can create in the current region.,1,None,true,false
+medialive,AWS Elemental MediaLive,L-68E02936,VPC Inputs,The maximum number of VPC inputs that you can create in the current region.,50,None,true,false

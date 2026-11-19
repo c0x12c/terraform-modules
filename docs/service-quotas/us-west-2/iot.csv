@@ -1,0 +1,180 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+iot,AWS IoT,L-4E068A30,Active continuous jobs,The maximum number of active Jobs in your AWS account per region. This limit value is an aggregation of both active snapshot jobs and active continuous jobs.,100000,None,true,false
+iot,AWS IoT,L-D80B05DB,Active snapshot jobs,The maximum number of active Jobs in your AWS account per region. This limit value is an aggregation of both active snapshot jobs and active continuous jobs.,100000,None,true,false
+iot,AWS IoT,L-D7A534B0,AssociateTargetsWithJob throttle limit,The throttle limit for AssociateTargetsWithJob in your AWS account per Region per second.,10,None,true,false
+iot,AWS IoT,L-E9111144,AttachSecurityProfile API TPS,The maximum number of transactions per second (TPS) that can be made for the AttachSecurityProfile API.,10,None,false,false
+iot,AWS IoT,L-971FA845,Behavior metric value elements for each security profile,"The maximum number of behavior metric value elements (counts, IP addresses, ports) for each security profile.",1000,None,false,false
+iot,AWS IoT,L-2F1C9734,Behaviors for each security profile,The maximum number of behaviors for each security profile,100,None,false,false
+iot,AWS IoT,L-03D9A452,CancelAuditMitigationActionsTask API TPS,The maximum number of transactions per second (TPS) that can be made for the CancelAuditMitigationActionsTask API.,10,None,false,false
+iot,AWS IoT,L-3AA926CF,CancelAuditTask API TPS,The maximum number of transactions per second (TPS) that can be made for the CancelAuditTask API.,10,None,false,false
+iot,AWS IoT,L-13B49C07,CancelDetectMitigationActionsTask API TPS,The maximum number of transactions per second (TPS) that can be made for the CancelDetectMitigationActionsTask API.,10,None,false,false
+iot,AWS IoT,L-DEC656C5,CancelJob throttle limit,The throttle limit for CancelJob in your AWS account per Region per second.,10,None,true,false
+iot,AWS IoT,L-5D01DB62,CancelJobExecution throttle limit,The throttle limit for CancelJobExecution in your AWS account per Region per second.,10,None,true,false
+iot,AWS IoT,L-4C86F053,CloseTunnel API throttle limit,The maximum number of transactions per second per account which can be caused by invoking CloseTunnel.,1,None,true,false
+iot,AWS IoT,L-631C84B3,Command execution concurrency limit,The maximum number of concurrent command executions per account for each device.,100,None,false,false
+iot,AWS IoT,L-F69C5695,Commands execution timeout,The command execution timeout in seconds in your AWS account.,43200,Seconds,true,false
+iot,AWS IoT,L-3123807D,Comment length,The maximum comment length (in characters).,2028,None,false,false
+iot,AWS IoT,L-FBF5CD89,Concurrent jobs,The maximum number of concurrent jobs in your AWS account per region.,500,None,true,false
+iot,AWS IoT,L-0C3BA39D,CreateAuditSuppression API TPS,The maximum number of transactions per second (TPS) that can be made for the CreateAuditSuppression API.,10,None,false,false
+iot,AWS IoT,L-AE161BC5,CreateCommand throttle limit,The throttle limit for CreateCommand in your AWS account per Region per second.,10,None,true,false
+iot,AWS IoT,L-E68D12E6,CreateCustomMetric API TPS,The maximum number of transactions per second (TPS) that can be made for the CreateCustomMetric API.,10,None,false,false
+iot,AWS IoT,L-23F244D4,CreateJob throttle limit,The throttle limit for CreateJob in your AWS account per Region per second.,10,None,false,false
+iot,AWS IoT,L-224318E9,CreateJobTemplate throttle limit,The throttle limit for CreateJobTemplate in your AWS account per Region per second.,10,None,true,false
+iot,AWS IoT,L-EFA916AE,CreateMitigationAction API TPS,The maximum number of transactions per second (TPS) that can be made for the CreateMitigationAction API.,10,None,false,false
+iot,AWS IoT,L-EFEC7F9B,CreateOTAUpdate API TPS,The maximum CreateOTAUpdate API transactions per second.,10,None,true,false
+iot,AWS IoT,L-60251A2B,CreateScheduledAudit API TPS,The maximum number of transactions per second (TPS) that can be made for the CreateScheduledAudit API.,5,None,false,false
+iot,AWS IoT,L-A2577F1F,CreateSecurityProfile API TPS,The maximum number of transactions per second (TPS) that can be made for the CreateSecurityProfile API.,10,None,false,false
+iot,AWS IoT,L-86E241A6,CreateStream API TPS,The maximum CreateStream API transactions per second.,15,None,true,false
+iot,AWS IoT,L-53A90E98,Custom metrics,The maximum number of detect custom metrics.,100,None,true,false
+iot,AWS IoT,L-B475FD53,Data retention,The maximum number of days that job data and job execution data will be retained for inactive jobs (jobs that aren't IN_PROGRESS).,730,None,false,false
+iot,AWS IoT,L-C6AA7145,DeleteAccountAuditConfiguration API TPS,The maximum number of transactions per second (TPS) that can be made for the DeleteAccountAuditConfiguration API.,5,None,false,false
+iot,AWS IoT,L-E70CF14E,DeleteAuditSuppression API TPS,The maximum number of transactions per second (TPS) that can be made for the DeleteAuditSuppression API.,10,None,false,false
+iot,AWS IoT,L-1F770514,DeleteCommand throttle limit,The throttle limit for DeleteCommand in your AWS account per Region per second.,10,None,true,false
+iot,AWS IoT,L-58D26E10,DeleteCommandExecution throttle limit,The throttle limit for DeleteCommandExecution in your AWS account per Region per second.,15,None,true,false
+iot,AWS IoT,L-CD7FC91A,DeleteCustomMetric API TPS,The maximum number of transactions per second (TPS) that can be made for the DeleteCustomMetric API.,10,None,false,false
+iot,AWS IoT,L-C002DA39,DeleteDimension API TPS,The maximum number of transactions per second (TPS) that can be made for the DeleteDimension API.,10,None,false,false
+iot,AWS IoT,L-46C255C8,DeleteJob throttle limit,The throttle limit for DeleteJob in your AWS account per Region per second.,10,None,true,false
+iot,AWS IoT,L-4AB367B4,DeleteJobExecution throttle limit,The throttle limit for DeleteJobExecution in your AWS account per Region per second.,10,None,true,false
+iot,AWS IoT,L-99780C4B,DeleteJobTemplate throttle limit,The throttle limit for DeleteJobTemplate in your AWS account per Region per second.,10,None,true,false
+iot,AWS IoT,L-5C712B10,DeleteMitigationAction API TPS,The maximum number of transactions per second (TPS) that can be made for the DeleteMitigationAction API.,10,None,false,false
+iot,AWS IoT,L-FCC8A955,DeleteOTAUpdate API TPS,The maximum DeleteOTAUpdate API transactions per second.,5,None,true,false
+iot,AWS IoT,L-7C0B717A,DeleteScheduledAudit API TPS,The maximum number of transactions per second (TPS) that can be made for the DeleteScheduledAudit API.,5,None,false,false
+iot,AWS IoT,L-A6ABB02F,DeleteSecurityProfile API TPS,The maximum number of transactions per second (TPS) that can be made for the DeleteSecurityProfile API.,10,None,false,false
+iot,AWS IoT,L-4BB13F2B,DeleteStream API TPS,The maximum DeleteStream API transactions per second.,15,None,true,false
+iot,AWS IoT,L-01C40691,DescribeAccountAuditConfiguration API TPS,The maximum number of transactions per second (TPS) that can be made for the DescribeAccountAuditConfiguration API.,5,None,false,false
+iot,AWS IoT,L-6A19A60F,DescribeAuditFinding API TPS,The maximum number of transactions per second (TPS) that can be made for the DescribeAuditFinding API.,25,None,false,false
+iot,AWS IoT,L-32F19277,DescribeAuditMitigationActionsTask API TPS,The maximum number of transactions per second (TPS) that can be made for the DescribeAuditMitigationActionsTask API.,25,None,false,false
+iot,AWS IoT,L-ADA44585,DescribeAuditSuppression API TPS,The maximum number of transactions per second (TPS) that can be made for the DescribeAuditSuppression API.,10,None,false,false
+iot,AWS IoT,L-146D20C5,DescribeAuditTask API TPS,The maximum number of transactions per second (TPS) that can be made for the DescribeAuditTask API.,25,None,false,false
+iot,AWS IoT,L-6F3753D8,DescribeCustomMetric API TPS,The maximum number of transactions per second (TPS) that can be made for the DescribeCustomMetric API.,25,None,false,false
+iot,AWS IoT,L-DCAEF14C,DescribeDetectMitigationActionsTask API TPS,The maximum number of transactions per second (TPS) that can be made for the DescribeDetectMitigationActionsTask API.,10,None,false,false
+iot,AWS IoT,L-002E66AE,DescribeDimension API TPS,The maximum number of transactions per second (TPS) that can be made for the DescribeDimension API.,10,None,false,false
+iot,AWS IoT,L-23B1CFB2,DescribeIndex rate,The maximum number of DescribeIndex calls per second.,10,None,true,false
+iot,AWS IoT,L-609D00CE,DescribeJob throttle limit,The throttle limit for DescribeJob in your AWS account per Region per second.,10,None,true,false
+iot,AWS IoT,L-B731A266,DescribeJobExecution throttle limit,The throttle limit for DescribeJobExecution in your AWS account per Region per second.,10,None,true,false
+iot,AWS IoT,L-62AE8B9D,DescribeJobExecution/GetPendingJobExecutions throttle limit,"The maximum number of total read transactions per second per account which can be caused by invoking DescribeJobExecution and/or GetPendingJobExecutions. In the control plane, DescribeJobExecution is limited to 10 TPS per invocation.",200,None,false,false
+iot,AWS IoT,L-D3020048,DescribeJobTemplate throttle limit,The throttle limit for DescribeJobTemplate in your AWS account per Region per second.,10,None,true,false
+iot,AWS IoT,L-145287EF,DescribeMitigationAction API TPS,The maximum number of transactions per second (TPS) that can be made for the DescribeMitigationAction API.,25,None,false,false
+iot,AWS IoT,L-42A0EE7E,DescribeScheduledAudit API TPS,The maximum number of transactions per second (TPS) that can be made for the DescribeScheduledAudit API.,5,None,false,false
+iot,AWS IoT,L-8AEAB7FE,DescribeSecurityProfile API TPS,The maximum number of transactions per second (TPS) that can be made for the DescribeSecurityProfile API.,25,None,false,false
+iot,AWS IoT,L-39850A9D,DescribeStream API (MQTT) TPS,The maximum DescribeStream API (MQTT) transactions per second.,1000,None,true,false
+iot,AWS IoT,L-F288A443,DescribeStream API TPS,The maximum DescribeStream API transactions per second.,15,None,true,false
+iot,AWS IoT,L-382CCFC0,DescribeTunnel API throttle limit,The maximum number of transactions per second per account which can be caused by invoking DescribeTunnel.,10,None,true,false
+iot,AWS IoT,L-CF4F23BC,DetachSecurityProfile API TPS,The maximum number of transactions per second (TPS) that can be made for the DetachSecurityProfile API.,10,None,false,false
+iot,AWS IoT,L-7BF41710,Device metric minimum delay,"The minimum time, in seconds, that a device must wait between sending metric reports.",300,Seconds,true,false
+iot,AWS IoT,L-9AE67DFC,Device metric peak reporting rate for an account,"The maximum number of device-side metric reports that can be sent, per second, from all devices in an account.",3500,None,true,false
+iot,AWS IoT,L-13B86658,DocumentSource length,The maximum number of characters in a job document source.,1350,None,false,false
+iot,AWS IoT,L-B68A9868,File size,The maximum file size (in MB).,16,Megabytes,false,false
+iot,AWS IoT,L-D32D434B,Files per stream,The maximum number of files per stream.,10,None,false,false
+iot,AWS IoT,L-B359270D,GetCardinality rate,The maximum number of GetCardinality calls per second.,15,None,true,false
+iot,AWS IoT,L-A7724468,GetCommand throttle limit,The throttle limit for GetCommand in your AWS account per Region per second.,15,None,true,false
+iot,AWS IoT,L-68091094,GetCommandExecution throttle limit,The throttle limit for GetCommandExecution in your AWS account per Region per second.,20,None,true,false
+iot,AWS IoT,L-4F362163,GetIndexingConfiguration rate,The maximum number of GetIndexingConfiguration calls per second.,20,None,true,false
+iot,AWS IoT,L-86FC5D66,GetJobDocument throttle limit,The throttle limit for GetJobDocument in your AWS account per Region per second.,10,None,true,false
+iot,AWS IoT,L-74CF42C0,GetOTAUpdate API TPS,The maximum GetOTAUpdate API transactions per second.,15,None,true,false
+iot,AWS IoT,L-4627F3A5,GetPercentiles rate,The maximum number of GetPercentiles calls per second.,15,None,true,false
+iot,AWS IoT,L-090EA78D,GetStatistics rate,The maximum number of GetStatistics calls per second.,15,None,true,false
+iot,AWS IoT,L-D6115138,GetStream API (MQTT) TPS,The maximum GetStream API (MQTT) transactions per second.,1000,None,true,false
+iot,AWS IoT,L-48D98BA3,GetThingConnectivityData rate,The maximum number of GetThingConnectivityData calls per second.,350,None,true,false
+iot,AWS IoT,L-6A6494DD,In Progress timeout,The maximum job execution InProgress timeout value (in minutes).,10080,None,false,false
+iot,AWS IoT,L-94973834,Job description length,The maximum number of characters in a job description.,2028,None,false,false
+iot,AWS IoT,L-026DF298,Job execution roll out rate,The maximum number of job executions that you can roll out per minute.,1000,None,true,false
+iot,AWS IoT,L-9D1E0A0D,Job Targets,The maximum number of targets you can assign to a job.,100,None,false,false
+iot,AWS IoT,L-CEAD881C,Job Template description length,The maximum number of characters in a job template description.,2028,None,false,false
+iot,AWS IoT,L-E41D2F60,JobId Length,The maximum number of characters in a Job id.,64,None,false,false
+iot,AWS IoT,L-3470FAF6,JobTemplateId Length,The maximum number of characters in a job template id.,64,None,false,false
+iot,AWS IoT,L-CB4FF40C,Leading Wildcard Query rate,The maximum number of Leading Wildcard Queries per second across all APIs.,30,None,true,false
+iot,AWS IoT,L-786CEEF0,List results per page,The maximum number of list results per page.,250,None,false,false
+iot,AWS IoT,L-6891CC02,ListActiveViolations API TPS,The maximum number of transactions per second (TPS) that can be made for the ListActiveViolations API.,10,None,false,false
+iot,AWS IoT,L-0321A666,ListAuditFindings API TPS,The maximum number of transactions per second (TPS) that can be made for the ListAuditFindings API.,10,None,false,false
+iot,AWS IoT,L-C6D7A02D,ListAuditMitigationActionsExecutions API TPS,The maximum number of transactions per second (TPS) that can be made for the ListAuditMitigationActionsExecutions API.,10,None,false,false
+iot,AWS IoT,L-08C28D29,ListAuditMitigationActionsTasks API TPS,The maximum number of transactions per second (TPS) that can be made for the ListAuditMitigationActionsTasks API.,10,None,false,false
+iot,AWS IoT,L-9227E25C,ListAuditSuppressions API TPS,The maximum number of transactions per second (TPS) that can be made for the ListAuditSuppressions API.,10,None,false,false
+iot,AWS IoT,L-B78A9E08,ListAuditTasks API TPS,The maximum number of transactions per second (TPS) that can be made for the ListAuditTasks API.,10,None,false,false
+iot,AWS IoT,L-CCBF5835,ListCommandExecutions throttle limit,The throttle limit for ListCommandExecutions in your AWS account per Region per second.,10,None,true,false
+iot,AWS IoT,L-13A0BCCB,ListCommands throttle limit,The throttle limit for ListCommands in your AWS account per Region per second.,10,None,true,false
+iot,AWS IoT,L-D45EEF28,ListCustomMetrics API TPS,The maximum number of transactions per second (TPS) that can be made for the ListCustomMetrics API.,10,None,false,false
+iot,AWS IoT,L-8D3E8509,ListDetectMitigationActionsExecutions API TPS,The maximum number of transactions per second (TPS) that can be made for the ListDetectMitigationActionsExecutions API.,10,None,false,false
+iot,AWS IoT,L-D18738F6,ListDetectMitigationActionsTasks API TPS,The maximum number of transactions per second (TPS) that can be made for the ListDetectMitigationActionsTasks API.,10,None,false,false
+iot,AWS IoT,L-0A17A254,ListDimensions API TPS,The maximum number of transactions per second (TPS) that can be made for the ListDimensions API.,10,None,false,false
+iot,AWS IoT,L-C0894219,ListIndices rate,The maximum number of ListIndices calls per second.,5,None,true,false
+iot,AWS IoT,L-9CCB5F90,ListJobExecutionsForJob throttle limit,The throttle limit for ListJobExecutionsForJob in your AWS account per Region per second.,10,None,true,false
+iot,AWS IoT,L-10F35433,ListJobExecutionsForThing throttle limit,The throttle limit for ListJobExecutionsForThing in your AWS account per Region per second.,10,None,true,false
+iot,AWS IoT,L-145FD0E6,ListJobs throttle limit,The throttle limit for ListJobs in your AWS account per Region per second.,10,None,true,false
+iot,AWS IoT,L-59178860,ListJobTemplates throttle limit,The throttle limit for ListJobTemplates in your AWS account per Region per second.,10,None,true,false
+iot,AWS IoT,L-DC1637B1,ListMetricValues API TPS,The maximum number of transactions per second (TPS) that can be made for the ListMetricValues API.,15,None,true,false
+iot,AWS IoT,L-62C55F58,ListMitigationActions API TPS,The maximum number of transactions per second (TPS) that can be made for the ListMitigationActions API.,10,None,false,false
+iot,AWS IoT,L-6A50FCE7,ListOTAUpdates API TPS,The maximum ListOTAUpdates API transactions per second.,15,None,true,false
+iot,AWS IoT,L-016FB677,ListScheduledAudits API TPS,The maximum number of transactions per second (TPS) that can be made for the ListScheduledAudits API.,5,None,false,false
+iot,AWS IoT,L-DACF0EDE,ListSecurityProfiles API TPS,The maximum number of transactions per second (TPS) that can be made for the ListSecurityProfiles API.,10,None,false,false
+iot,AWS IoT,L-9299DD15,ListSecurityProfilesForTarget API TPS,The maximum number of transactions per second (TPS) that can be made for the ListSecurityProfilesForTarget API.,10,None,false,false
+iot,AWS IoT,L-4026757A,ListStreams API TPS,The maximum ListStreams API transactions per second.,15,None,true,false
+iot,AWS IoT,L-60A7ED34,ListTagsForResource API throttle limit,The maximum number of transactions per second per account which can be caused by invoking ListTagsForResource.,10,None,true,false
+iot,AWS IoT,L-014BF26E,ListTargetsForSecurityProfile API TPS,The maximum number of transactions per second (TPS) that can be made for the ListTargetsForSecurityProfile API.,10,None,false,false
+iot,AWS IoT,L-B7CAF86D,ListTunnels API throttle limit,The maximum number of transactions per second per account which can be caused by invoking ListTunnels.,10,None,true,false
+iot,AWS IoT,L-56E94C1D,ListViolationEvents API TPS,The maximum number of transactions per second (TPS) that can be made for the ListViolationEvents API.,10,None,false,false
+iot,AWS IoT,L-6D2A593E,Maximum bandwidth per tunnel,The maximum bandwidth per tunnel (in kbps).,800,None,false,false
+iot,AWS IoT,L-00511A32,Maximum connection rate,The maximum number of transactions for connecting to a tunnel per second.,10,None,true,false
+iot,AWS IoT,L-4832A12B,Maximum length of a custom field name,The maximum length of a custom field name.,1024,None,true,false
+iot,AWS IoT,L-C3993A6F,Maximum length of a query,The maximum length of a query in UTF-8 encoded characters.,1000,None,true,false
+iot,AWS IoT,L-D92F6C41,Maximum number of * wildcard operators per query term,The maximum number of * wildcard operators per query term.,2,None,false,false
+iot,AWS IoT,L-47ADF6AA,Maximum number of ? wildcard operators per query term,The maximum number of ? wildcard operators per query term.,5,None,false,false
+iot,AWS IoT,L-8B2A08E6,Maximum number of custom fields in AWS thing groups index,The maximum number of custom fields in AWS thing groups index.,5,None,true,false
+iot,AWS IoT,L-AE68DCD9,Maximum number of custom fields in AWS things index,The maximum number of custom fields in AWS things index.,5,None,true,false
+iot,AWS IoT,L-2F036C7C,Maximum number of dynamic groups,The maximum number of dynamic groups per customer.,100,None,false,false
+iot,AWS IoT,L-A5B47E14,Maximum number of fleet metrics,The maximum number of fleet metrics per customer.,100,None,true,false
+iot,AWS IoT,L-B2C87795,Maximum number of job templates,The maximum number of job templates you can own.,100,None,true,false
+iot,AWS IoT,L-57F7D467,Maximum number of names in the named shadow names filter,The maximum number of names in the named shadow names filter,10,None,true,false
+iot,AWS IoT,L-24513B55,Maximum number of percentile values per fleet metric,The maximum number of values for percentile aggregation type per fleet metric.,5,None,false,false
+iot,AWS IoT,L-90F8C878,Maximum number of query terms per dynamic group,The maximum number of query terms per dynamic group.,5,None,true,false
+iot,AWS IoT,L-F7BC9359,Maximum number of query terms per fleet metric,The maximum number of query terms per fleet metric.,12,None,true,false
+iot,AWS IoT,L-00E8EC16,Maximum number of query terms per query,The maximum number of query terms per query.,12,None,true,false
+iot,AWS IoT,L-CE4D15EC,Maximum number of tags per resource,The maximum number of tags that can be used per resource.,50,None,false,false
+iot,AWS IoT,L-7068DC7F,Maximum number of targets in the geo locations filter,The maximum number of targets in the geo locations filter,1,None,true,false
+iot,AWS IoT,L-FC067223,Maximum period of a fleet metric,The maximum period of a fleet metric in seconds.,86400,Seconds,false,false
+iot,AWS IoT,L-47B4076F,Maximum tag key length,The maximum number of Unicode characters in a tag key. Each resource and tag key must be unique.,128,None,false,false
+iot,AWS IoT,L-B8CB01EA,Maximum tag value length,The maximum number of Unicode characters in a tag value. Each tag key can have one value.,256,None,false,false
+iot,AWS IoT,L-465123DA,Maximum tunnel lifetime,"The maximum tunnel lifetime (in hours), after which a tunnel will be closed after reaching.",12,None,false,false
+iot,AWS IoT,L-8B5F47E6,Metric dimensions,The maximum number of detect metric dimensions.,10,None,false,false
+iot,AWS IoT,L-22D1A126,Minimum job execution roll out rate,The minimum number of job executions that you can roll out per minute.,1,None,false,false
+iot,AWS IoT,L-4B5EBCAE,Minimum period of a fleet metric,The minimum period of a fleet metric in seconds.,60,Seconds,false,false
+iot,AWS IoT,L-EC6F1940,Minimum pre-signed URL lifetime,The minimum lifetime (in seconds) of a pre-signed URL.,60,Seconds,false,false
+iot,AWS IoT,L-1A084077,Mitigation actions,The maximum number of mitigation actions.,100,None,false,false
+iot,AWS IoT,L-E72C1C85,OpenTunnel API throttle limit,The maximum number of transactions per second per account which can be caused by invoking OpenTunnel.,1,None,true,false
+iot,AWS IoT,L-F570A784,Parameters per dynamic command,The maximum number of parameters supported per dynamic command in your account,5,None,true,false
+iot,AWS IoT,L-FBBB476F,Pre-signed URL lifetime,The maximum lifetime (in seconds) of a pre-signed URL.,3600,Seconds,false,false
+iot,AWS IoT,L-46522656,PutVerificationStateOnViolation API TPS,The maximum number of transactions per second (TPS) that can be made for the PutVerificationStateOnViolation API.,10,None,false,false
+iot,AWS IoT,L-AD4AFD1C,Retention period for command executions,The number of days for which the command executions must be retained in your account.,180,None,true,false
+iot,AWS IoT,L-7C5B0274,S3 job document length,The maximum length of an S3 job document that can be sent to an AWS IoT device (in Bytes).,32768,Bytes,true,false
+iot,AWS IoT,L-0D30EFBA,Scheduled audits,The maximum number of scheduled audits.,5,None,false,false
+iot,AWS IoT,L-908D0FBE,SearchIndex rate,The maximum number of SearchIndex calls per second.,15,None,true,false
+iot,AWS IoT,L-FF03CD81,Security profiles for each target,The maximum number of security profiles for each target (things or thing groups in the AWS account).,5,None,false,false
+iot,AWS IoT,L-1EF777B4,Simultaneous in progress on-demand audits,The maximum number of simultaneous in progress on-demand audits.,10,None,false,false
+iot,AWS IoT,L-81189B2F,StartAuditMitigationActionsTask API TPS,The maximum number of transactions per second (TPS) that can be made for the StartAuditMitigationActionsTask API.,10,None,false,false
+iot,AWS IoT,L-470BD798,StartCommandExecution throttle limit,The throttle limit for StartCommandExecution in your AWS account per Region per second.,100,None,true,false
+iot,AWS IoT,L-670D7C85,StartDetectMitigationActionsTask API TPS,The maximum number of transactions per second (TPS) that can be made for the StartDetectMitigationActionsTask API.,10,None,false,false
+iot,AWS IoT,L-C8F5F7B3,StartNextPendingJobExecution/UpdateJobExecution throttle limit,The maximum number of total write transactions per second per account which can be caused by invoking StartNextPendingJobExecution and/or UpdatePendingJobExecution.,200,None,false,false
+iot,AWS IoT,L-471C1537,StartOnDemandAuditTask API TPS,The maximum number of transactions per second (TPS) that can be made for the StartOnDemandAuditTask API.,10,None,false,false
+iot,AWS IoT,L-85B5C2FD,StatusDetail map key length,The maximum length of a StatusDetail map key (in characters).,128,None,false,false
+iot,AWS IoT,L-95D5D7AB,StatusDetail map key-value pairs,The maximum number of key-value pairs you can have in a StatusDetail map.,10,None,false,false
+iot,AWS IoT,L-36FC3065,StatusDetail map value length,The maximum length of a StatusDetail map value (in characters).,1024,None,false,false
+iot,AWS IoT,L-717A207E,Step Timer,The maximum job execution step timeout value (in minutes).,10080,None,false,false
+iot,AWS IoT,L-F5608FF9,Storage duration for audit findings,"The maximum time, in days, that audit findings are stored after being reported.",90,None,false,false
+iot,AWS IoT,L-2B367AAD,Storage duration for detect metrics,"The maximum time, in days, that detect metrics are stored after being ingested.",14,None,false,false
+iot,AWS IoT,L-C8D2DE05,Storage duration for detect violations,"The maximum time, in days, that detect violations are stored after being generated.",30,None,false,false
+iot,AWS IoT,L-4C271B57,Streams per account,The maximum number of streams per account.,10000,None,false,false
+iot,AWS IoT,L-5755407D,TagResource API throttle limit,The maximum number of transactions per second per account which can be caused by invoking TagResource.,10,None,true,false
+iot,AWS IoT,L-BF877B05,UntagResource API trottle limit,The maximum number of transactions per second per account which can be caused by invoking UntagResource.,10,None,true,false
+iot,AWS IoT,L-F62705AB,UpdateAccountAuditConfiguration API TPS,The maximum number of transactions per second (TPS) that can be made for the UpdateAccountAuditConfiguration API.,5,None,false,false
+iot,AWS IoT,L-CA8BDEFC,UpdateAuditSuppression API TPS,The maximum number of transactions per second (TPS) that can be made for the UpdateAuditSuppression API.,10,None,false,false
+iot,AWS IoT,L-5F04543F,UpdateCommand throttle limit,The throttle limit for UpdateCommand in your AWS account per Region per second.,10,None,true,false
+iot,AWS IoT,L-F0C81A68,UpdateCommandExecution throttle limit,The throttle limit for UpdateCommandExecution in your AWS account per Region per second.,100,None,true,false
+iot,AWS IoT,L-ABC0EA56,UpdateCustomMetric API TPS,The maximum number of transactions per second (TPS) that can be made for the UpdateCustomMetric API.,10,None,false,false
+iot,AWS IoT,L-68A50D88,UpdateDimension API TPS,The maximum number of transactions per second (TPS) that can be made for the UpdateDimension API.,10,None,false,false
+iot,AWS IoT,L-632CA122,UpdateIndexingConfiguration rate,The maximum number of UpdateIndexingConfiguration calls per second.,1,None,true,false
+iot,AWS IoT,L-7365ADF8,UpdateJob throttle limit,The throttle limit for UpdateJob in your AWS account per Region per second.,10,None,true,false
+iot,AWS IoT,L-1CB31CD2,UpdateMitigationAction API TPS,The maximum number of transactions per second (TPS) that can be made for the UpdateMitigationAction API.,10,None,false,false
+iot,AWS IoT,L-211671C6,UpdateScheduledAudit API TPS,The maximum number of transactions per second (TPS) that can be made for the UpdateScheduledAudit API.,5,None,false,false
+iot,AWS IoT,L-2145354D,UpdateSecurityProfile API TPS,The maximum number of transactions per second (TPS) that can be made for the UpdateSecurityProfile API.,10,None,false,false
+iot,AWS IoT,L-59F27FE9,UpdateStream API TPS,The maximum UpdateStream API transactions per second.,15,None,true,false
+iot,AWS IoT,L-88D87918,ValidateSecurityProfileBehaviors API TPS,The maximum number of transactions per second (TPS) that can be made for the ValidateSecurityProfileBehaviors API.,10,None,false,false

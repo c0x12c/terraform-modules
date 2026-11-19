@@ -1,0 +1,16 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+firehose,Amazon Kinesis Data Firehose,L-14BB0BE7,Delivery streams,The maximum number of delivery streams you can create in this account in the current Region.,5000,None,true,false
+firehose,Amazon Kinesis Data Firehose,L-23F03908,Dynamic Partitions,The maximum number of dynamic partitions for a delivery stream in the current Region.,500,None,false,false
+firehose,Amazon Kinesis Data Firehose,L-040D05FF,Rate of CreateDeliveryStream requests,The maximum number of CreateDeliveryStream requests you can make per second in this account in the current Region.,5,None,false,false
+firehose,Amazon Kinesis Data Firehose,L-937C879B,Rate of data,The maximum capacity in mebibyte per second for a delivery stream in the current Region.,5,None,true,false
+firehose,Amazon Kinesis Data Firehose,L-3A800C3A,Rate of DeleteDeliveryStream requests,The maximum number of DeleteDeliveryStream requests you can make per second in this account in the current Region.,5,None,false,false
+firehose,Amazon Kinesis Data Firehose,L-61E2CA1D,Rate of DescribeDeliveryStream requests,The maximum number of DescribeDeliveryStream requests you can make per second in this account in the current Region.,5,None,false,false
+firehose,Amazon Kinesis Data Firehose,L-FDED3C5B,Rate of ListDeliveryStream requests,The maximum number of ListDeliveryStream requests you can make per second in this account in the current Region.,5,None,false,false
+firehose,Amazon Kinesis Data Firehose,L-36A7E04C,Rate of ListTagsForDeliveryStream requests,The maximum number of ListTagsForDeliveryStream requests you can make per second in this account in the current Region.,5,None,false,false
+firehose,Amazon Kinesis Data Firehose,L-7681C790,Rate of Put requests,The maximum number of combined PutRecord and PutRecordBatch requests per second for a delivery stream in the current Region.,2000,None,true,false
+firehose,Amazon Kinesis Data Firehose,L-17D4EADE,Rate of records,The maximum capacity in records per second for a delivery stream in the current Region.,500000,None,true,false
+firehose,Amazon Kinesis Data Firehose,L-0D32C2BC,Rate of StartDeliveryStreamEncryption requests,The maximum number of StartDeliveryStreamEncryption requests you can make per second in this account in the current Region.,5,None,false,false
+firehose,Amazon Kinesis Data Firehose,L-09E8B729,Rate of StopDeliveryStreamEncryption requests,The maximum number of StopDeliveryStreamEncryption requests you can make per second in this account in the current Region.,5,None,false,false
+firehose,Amazon Kinesis Data Firehose,L-ED7DA7FC,Rate of TagDeliveryStream requests,The maximum number of TagDeliveryStream requests you can make per second in this account in the current Region.,5,None,false,false
+firehose,Amazon Kinesis Data Firehose,L-47C73A38,Rate of UntagDeliveryStream requests,The maximum number of UntagDeliveryStream requests you can make per second in this account in the current Region.,5,None,false,false
+firehose,Amazon Kinesis Data Firehose,L-CC1FDDAA,Rate of UpdateDestination requests,The maximum number of UpdateDestination requests you can make per second in this account in the current Region.,5,None,false,false

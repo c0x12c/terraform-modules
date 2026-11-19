@@ -1,0 +1,39 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+resiliencehub,AWS Resilience Hub,L-0076B5C6,Number of Application Components per application,The maximum number of Application Components for a given application,200,None,true,false
+resiliencehub,AWS Resilience Hub,L-3DCDC079,Number of Application Components per resource,The maximum number of Application Components an AWS account can have for a given resource,5,None,true,false
+resiliencehub,AWS Resilience Hub,L-CBE304D4,Number of applications,The maximum number of applications an AWS account can create in the current Region,50,None,true,false
+resiliencehub,AWS Resilience Hub,L-BF1D24DC,Number of assessments per application per month,The maximum number of assessments an AWS account can run for a given application in a given month,200,None,true,false
+resiliencehub,AWS Resilience Hub,L-3D296B58,Number of AWS CloudFormation stacks to import,The maximum number of AWS CloudFormation stacks an AWS account can import for a given application,20,None,true,false
+resiliencehub,AWS Resilience Hub,L-4EBD1E5A,Number of Compliance Readiness Policies,The maximum number of compliance readiness policies an AWS account can create in the current Region,10,None,true,false
+resiliencehub,AWS Resilience Hub,L-BD955A74,Number of concurrent assessments per account,The maximum number of concurrent assessments an AWS account can run,20,None,false,false
+resiliencehub,AWS Resilience Hub,L-0AD966B7,Number of concurrent assessments per application,The maximum number of concurrent assessments an AWS account can run for a given application,1,None,false,false
+resiliencehub,AWS Resilience Hub,L-CB12CFEB,Number of concurrent recommendation templates per account,The maximum number of recommendation templates an AWS account can concurrently create,100,None,false,false
+resiliencehub,AWS Resilience Hub,L-64AA3F12,Number of concurrent recommendation templates per application,The maximum number of recommendation templates an AWS account can create for a given application,1,None,false,false
+resiliencehub,AWS Resilience Hub,L-013E1BB6,Number of EKS clusters to import,The maximum number of EKS clusters an AWS account can import for a given application.,5,None,true,false
+resiliencehub,AWS Resilience Hub,L-3275C9FD,Number of metric exports per month,The maximum number of metric exports an AWS account can run in a given month,300,None,true,false
+resiliencehub,AWS Resilience Hub,L-6BE17D5B,Number of namespaces to import for an EKS cluster,The maximum number of namespaces per EKS cluster an AWS account can import.,10,None,true,false
+resiliencehub,AWS Resilience Hub,L-37EF5CB4,Number of recommendation templates per application per month,The maximum number of recommendation templates an AWS account can create for a given application in a given month,100,None,true,false
+resiliencehub,AWS Resilience Hub,L-EBA3F48E,Number of ResilienceHubV2 assumptions per service,The maximum number of ResilienceHubV2 assumptions per service,20,None,false,false
+resiliencehub,AWS Resilience Hub,L-FCCEDB4B,Number of ResilienceHubV2 concurrent assessments per service,The maximum number of ResilienceHubV2 concurrent assessments per service,1,None,false,false
+resiliencehub,AWS Resilience Hub,L-BC37F660,Number of ResilienceHubV2 cross-account role ARNs per service,The maximum number of ResilienceHubV2 cross-account role ARNs per service,5,None,false,false
+resiliencehub,AWS Resilience Hub,L-985E582D,Number of ResilienceHubV2 input sources per service,The maximum number of ResilienceHubV2 input sources per service,20,None,true,false
+resiliencehub,AWS Resilience Hub,L-6F0E13A4,Number of ResilienceHubV2 policies per account,The maximum number of ResilienceHubV2 policies an account can create in the current Region,100,None,false,false
+resiliencehub,AWS Resilience Hub,L-3C215170,Number of ResilienceHubV2 regions per service,The maximum number of ResilienceHubV2 regions per service,5,None,false,false
+resiliencehub,AWS Resilience Hub,L-2652C3BC,Number of ResilienceHubV2 resources per service,The maximum number of ResilienceHubV2 resources per service,500,None,true,false
+resiliencehub,AWS Resilience Hub,L-04157D7A,Number of ResilienceHubV2 service functions per service,The maximum number of ResilienceHubV2 service functions per service,20,None,false,false
+resiliencehub,AWS Resilience Hub,L-FC254984,Number of ResilienceHubV2 services per account,The maximum number of ResilienceHubV2 services an account can create in the current Region,100,None,true,false
+resiliencehub,AWS Resilience Hub,L-ED7E6FFD,Number of ResilienceHubV2 services per user journey,The maximum number of ResilienceHubV2 services per user journey,20,None,false,false
+resiliencehub,AWS Resilience Hub,L-6799E097,Number of ResilienceHubV2 systems per account,The maximum number of ResilienceHubV2 systems an account can create in the current Region,500,None,true,false
+resiliencehub,AWS Resilience Hub,L-358A975C,Number of ResilienceHubV2 systems per service,The maximum number of ResilienceHubV2 systems associated per service,20,None,false,false
+resiliencehub,AWS Resilience Hub,L-04E7C378,Number of ResilienceHubV2 tags per input source,The maximum number of ResilienceHubV2 tags per input source,10,None,false,false
+resiliencehub,AWS Resilience Hub,L-EB92175D,Number of ResilienceHubV2 user journeys per system,The maximum number of ResilienceHubV2 user journeys per system,20,None,false,false
+resiliencehub,AWS Resilience Hub,L-F9AC239A,Number of Resiliency Policies,The maximum number of resiliency policies an AWS account can create in the current Region,10,None,true,false
+resiliencehub,AWS Resilience Hub,L-5EC6916A,Number of resources per application,The maximum number of resources for a given application,400,None,true,false
+resiliencehub,AWS Resilience Hub,L-CEF638A1,Number of Terraform state files to import,The maximum number of Terraform state files an AWS account can import for a given application,20,None,true,false
+resiliencehub,AWS Resilience Hub,L-B160E08D,ResilienceHubV2 default pagination size,The ResilienceHubV2 default pagination size,100,None,false,false
+resiliencehub,AWS Resilience Hub,L-CB5AD205,ResilienceHubV2 event log retention period in days,The ResilienceHubV2 event log retention period in days,730,None,false,false
+resiliencehub,AWS Resilience Hub,L-6626BEC2,ResilienceHubV2 Terraform template maximum size,The maximum size of a ResilienceHubV2 Terraform template in bytes,26214400,None,false,false
+resiliencehub,AWS Resilience Hub,L-05336C5D,Retention period of past assessments/recommendations in days,Retention period of past assessments/recommendations in days,365,None,false,false
+resiliencehub,AWS Resilience Hub,L-63BA9671,Retention period of past recommendation templates in days,Retention period of past recommendation templates in days,365,None,false,false
+resiliencehub,AWS Resilience Hub,L-CB78A3C3,Template size in bytes,The maximum size of a template in bytes,51200,None,true,false
+resiliencehub,AWS Resilience Hub,L-D41E7350,Terraform state file maximum size,The maximum import size limit for terraform state files,4194305,None,true,false

@@ -1,0 +1,3 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+workspaces-instances,Amazon WorkSpaces Managed Instances,L-4842BC54,Concurrent WorkSpaces Managed Instances in allocating state,The maximum number of concurrent WorkSpaces Managed Instances in allocating state in this account in the current Region.,700,None,true,false
+workspaces-instances,Amazon WorkSpaces Managed Instances,L-7D173EC3,WorkSpaces Managed Instances,The maximum number of WorkSpaces Managed Instances in this account in the current Region.,1000,None,true,false

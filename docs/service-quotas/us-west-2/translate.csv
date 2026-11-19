@@ -1,0 +1,4 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+translate,Amazon Translate,L-10DB0BCF,Concurrent batch translation jobs,The maximum number of concurrent batch translation jobs in this account in the current Region.,10,None,true,false
+translate,Amazon Translate,L-4011ABD8,Custom terminology files,The maximum number of custom terminology files you can store in this account in the current Region.,100,None,true,false
+translate,Amazon Translate,L-2B2DC880,Parallel data resources,The maximum number of parallel data resources in this account in the current Region.,1000,None,true,false

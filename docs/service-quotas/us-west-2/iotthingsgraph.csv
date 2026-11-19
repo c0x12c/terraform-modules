@@ -1,0 +1,49 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+iotthingsgraph,AWS IoT Things Graph,L-3B8999A1,Flow definition size,Size of a single flow entity,10,Kilobytes,true,false
+iotthingsgraph,AWS IoT Things Graph,L-B12EB258,Maximum number of flows triggered,Maximum number of flows triggered,5,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-D957C70D,Maximum number of steps executed per deployment,Maximum number of steps executed per deployment,50,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-4E1874BC,Total deployment configurations in a namespace,Total number of deployment configurations allowed in a namespace,100,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-1241A2A2,Total entities in a namespace,Total number of entities allowed in a namespace,500,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-F4F0FE93,Total flow definitions in a namespace,Total number of flow definitions allowed in a namespace,100,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-B8ACA268,TPS limit for AssociateEntityToThing,TPS limit for AssociateEntityToThing,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-EB25BD02,TPS limit for CreateDeploymentConfiguration,TPS limit for CreateDeploymentConfiguration,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-563B2C2B,TPS limit for CreateFlowTemplate,TPS limit for CreateFlowTemplate,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-33DDBCD0,TPS limit for CreateSystemInstance,TPS limit for CreateSystemInstance,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-1568A699,TPS limit for CreateSystemTemplate,TPS limit for CreateSystemTemplate,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-3197C8C1,TPS limit for DeleteDeploymentConfiguration,TPS limit for DeleteDeploymentConfiguration,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-C10D50DA,TPS limit for DeleteFlowTemplate,TPS limit for DeleteFlowTemplate,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-6C64452B,TPS limit for DeleteNamespace,TPS limit for DeleteNamespace,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-2AA3EB03,TPS limit for DeleteSystemInstance,TPS limit for DeleteSystemInstance,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-39620E3B,TPS limit for DeleteSystemTemplate,TPS limit for DeleteSystemTemplate,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-833ED17B,TPS limit for DeployConfigurationToTarget,TPS limit for DeployConfigurationToTarget,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-A93CEC05,TPS limit for DeploySystemInstance,TPS limit for DeploySystemInstance,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-D3A10EC3,TPS limit for DeprecateDeploymentConfiguration,TPS limit for DeprecateDeploymentConfiguration,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-9150B976,TPS limit for DeprecateFlowTemplate,TPS limit for DeprecateFlowTemplate,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-7E34BF4F,TPS limit for DeprecateSystemTemplate,TPS limit for DeprecateSystemTemplate,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-E59F5B29,TPS limit for DescribeNamespace,TPS limit for DescribeNamespace,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-F90E5D50,TPS limit for DissociateEntityFromThing,TPS limit for DissociateEntityFromThing,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-23793080,TPS limit for GetDeploymentConfiguration,TPS limit for GetDeploymentConfiguration,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-FA04A690,TPS limit for GetEntities,TPS limit for GetEntities,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-2418C55F,TPS limit for GetFlowTemplate,TPS limit for GetFlowTemplate,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-14349E56,TPS limit for GetFlowTemplateRevisions,TPS limit for GetFlowTemplateRevisions,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-74BF2A1A,TPS limit for GetNamespaceDeletionStatus,TPS limit for GetNamespaceDeletionStatus,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-93B499C4,TPS limit for GetRecentUploads,TPS limit for GetRecentUploads,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-E286E5D0,TPS limit for GetSystemInstance,TPS limit for GetSystemInstance,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-AC9ABC2C,TPS limit for GetSystemTemplate,TPS limit for GetSystemTemplate,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-183A0E79,TPS limit for GetSystemTemplateRevisions,TPS limit for GetSystemTemplateRevisions,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-5403F04A,TPS limit for GetUploadStatus,TPS limit for GetUploadStatus,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-A026818C,TPS limit for ListFlowExecutionMessages,TPS limit for ListFlowExecutionMessages,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-9FF7971D,TPS limit for ListMappingPaths,TPS limit for ListMappingPaths,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-BDB80152,TPS limit for SearchDeploymentConfigurations,TPS limit for SearchDeploymentConfigurations,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-3AEFB560,TPS limit for SearchEntities,TPS limit for SearchEntities,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-19877104,TPS limit for SearchFlowExecutions,TPS limit for SearchFlowExecutions,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-E935AE5C,TPS limit for SearchFlowTemplates,TPS limit for SearchFlowTemplates,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-A7E96D49,TPS limit for SearchSystemInstance,TPS limit for SearchSystemInstance,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-0B5ED49C,TPS limit for SearchSystemTemplates,TPS limit for SearchSystemTemplates,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-90007F3D,TPS limit for SearchThings,TPS limit for SearchThings,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-A6120C65,TPS limit for UndeploySystemInstance,TPS limit for UndeploySystemInstance,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-918B3687,TPS limit for UpdateFlowTemplate,TPS limit for UpdateFlowTemplate,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-972FA3D1,TPS limit for UpdateSystemTemplate,TPS limit for UpdateSystemTemplate,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-A7AA5340,TPS limit for UploadEntityDefinitions,TPS limit for UploadEntityDefinitions,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-7CD26E32,TPS limit for ValidateEntityDefinitions,TPS limit for ValidateEntityDefinitions,10,None,true,false
+iotthingsgraph,AWS IoT Things Graph,L-EB21B17C,Upload request size,Size of a single entity upload request,1,Megabytes,false,false

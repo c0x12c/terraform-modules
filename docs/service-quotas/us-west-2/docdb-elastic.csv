@@ -1,0 +1,6 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+docdb-elastic,Amazon DocumentDB Elastic Clusters,L-B3699347,Elastic clusters,The maximum number of Elastic Clusters allowed in this account in the current region,20,None,true,false
+docdb-elastic,Amazon DocumentDB Elastic Clusters,L-BA054AA8,Elastic clusters vCPU limit,The maximum number of vCPUs summed across all Elastic Clusters in the current region,1024,None,true,false
+docdb-elastic,Amazon DocumentDB Elastic Clusters,L-00CE4D32,Manual cluster snapshots,The maximum number of manual snapshots,20,None,true,false
+docdb-elastic,Amazon DocumentDB Elastic Clusters,L-5CF76496,Shards per elastic cluster,The maximum number of shards per Elastic Cluster,32,None,false,false
+docdb-elastic,Amazon DocumentDB Elastic Clusters,L-A5B61A35,Tags per resource,Each resource can have a maximum of 50 tags,50,None,false,false

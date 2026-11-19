@@ -1,0 +1,4 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+internetmonitor,CloudWatch Internet Monitor,L-4C7E946E,Days that health events are retained,The number of days that AWS keeps information about a resolved Internet Monitor health event.,400,None,false,false
+internetmonitor,CloudWatch Internet Monitor,L-99A570F6,Monitors per account per AWS Region,The maximum number of monitors in an account in one AWS Region.,50,None,false,false
+internetmonitor,CloudWatch Internet Monitor,L-D43DFC35,Resources per monitor,The maximum number of resources that a monitor can have.,50,None,false,false

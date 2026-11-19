@@ -1,0 +1,7 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+apprunner,AWS App Runner,L-1D8C5BDD,Auto scaling configurations,The maximum number of auto scaling configurations that you can create in this account in the current Region. You can use a single auto scaling configuration in multiple services.,10,None,true,false
+apprunner,AWS App Runner,L-1BDBAAB6,Connections,The maximum number of connections that you can create in this account in the current Region. You can use a single connection in multiple services.,10,None,true,false
+apprunner,AWS App Runner,L-A0B46A0C,Observability configurations,The maximum number of observability configurations that you can create in this account in the current Region. You can use a single observability configuration in multiple services.,10,None,true,false
+apprunner,AWS App Runner,L-69F96A0C,Services,The maximum number of services that you can create in this account in the current Region.,30,None,true,false
+apprunner,AWS App Runner,L-F7ADEB8C,VPC connectors,The maximum number of VPC connectors that you can create in this account in the current Region. You can use a single VPC connector in multiple services.,10,None,true,false
+apprunner,AWS App Runner,L-4064914D,VPC ingress connections,The maximum number of VPC Ingress Connections that you can create for a single Service.,1,None,false,false

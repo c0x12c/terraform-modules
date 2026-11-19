@@ -1,0 +1,4 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+redshift-serverless,Amazon Redshift Serverless,L-1854027F,Redshift Processing Units (RPUs),The default number of Redshift Processing Units (RPUs) that are allocated for an account.,3200,Count,true,false
+redshift-serverless,Amazon Redshift Serverless,L-96772D74,Serverless Namespaces,The default number of Redshift Serverless Namespaces that are allowed in an account.,25,Count,true,false
+redshift-serverless,Amazon Redshift Serverless,L-51089E7F,Serverless Workgroups,The default number of Redshift Serverless Workgroups that are allowed in an account.,25,Count,true,false

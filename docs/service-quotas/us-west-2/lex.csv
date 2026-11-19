@@ -1,0 +1,14 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+lex,Amazon Lex,L-DA28F59B,Bot channel associations per bot alias (V2),The maximum number of bot channel associations that you can create per bot alias in this account in the current Region.,10,None,false,false
+lex,Amazon Lex,L-36FA8BD2,Bots per account (V2),The maximum number of bots that you can create in this account in the current Region.,100,None,true,false
+lex,Amazon Lex,L-9E828085,Characters per custom slot type value (V2),The maximum number of characters that you can have per custom slot type value in this account in the current Region.,500,None,false,false
+lex,Amazon Lex,L-4F321B43,Characters per sample utterance (V2),The maximum number of characters that you can have per intent or slot sample utterance in this account in the current Region.,500,None,false,false
+lex,Amazon Lex,L-824BBA1D,Custom slot type values and synonyms per bot locale (V2),The maximum number of custom slot type values and synonyms that you can have per locale per bot in this account in the current Region.,50000,None,false,false
+lex,Amazon Lex,L-3D56827F,Custom slot types per bot locale (V2),The maximum number of custom slot types that you can create per locale per bot in this account in the current Region.,100,None,false,false
+lex,Amazon Lex,L-ED50DA7C,Sample utterances per intent (V2),The maximum number of sample utterances that you can create per intent in this account in the current Region.,1500,None,true,false
+lex,Amazon Lex,L-77D6C60C,Sample utterances per slot (V2),The maximum number of sample utterances that you can create per slot in this account in the current Region.,10,None,true,false
+lex,Amazon Lex,L-9030FC28,Slots per bot locale (V2),The maximum number of slots that you can create per locale per bot in this account in the current Region.,2000,None,false,false
+lex,Amazon Lex,L-311093B9,Slots per intent (V2),The maximum number of slots that you can create per intent in this account in the current Region.,100,None,false,false
+lex,Amazon Lex,L-606F3490,Total characters in sample utterances per bot locale (V2),The maximum number of characters that you can use per locale per bot for all intent and slot sample utterances in this account in the current Region.,200000,None,false,false
+lex,Amazon Lex,L-52297D95,Values and synonyms per custom slot type (V2),The maximum number of values and synonyms that you can have per custom slot type in this account in the current Region.,10000,None,false,false
+lex,Amazon Lex,L-BCD96794,Versions per bot (V2),The maximum number of versions that you can create per bot in this account in the current Region.,100,None,false,false

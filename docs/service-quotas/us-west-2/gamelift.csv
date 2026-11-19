@@ -1,0 +1,28 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+gamelift,Amazon GameLift Servers,L-AED4A06A,Aliases per region,The maximum number of aliases allowed per region.,100,None,true,false
+gamelift,Amazon GameLift Servers,L-593688D9,Anywhere fleets per region,The maximum number of Anywhere fleets allowed (in any status) per region.,30,None,true,false
+gamelift,Amazon GameLift Servers,L-11948650,Build capacity,"The maximum capacity (in gigabytes) available for all uploaded game builds combined per region. To free storage space, delete unused builds as needed.",100,Gigabytes,false,false
+gamelift,Amazon GameLift Servers,L-90D24F1B,Builds per region,The maximum number of game server builds allowed (in any status) per region.,1000,None,true,false
+gamelift,Amazon GameLift Servers,L-0536A98D,Compute per Anywhere fleet,The maximum number of registered compute resources allowed per Anywhere fleet.,100,None,true,false
+gamelift,Amazon GameLift Servers,L-C6F4238C,Custom locations per region,The maximum number of custom locations allowed per region.,20,None,true,false
+gamelift,Amazon GameLift Servers,L-8D885299,Game server groups per region,The maximum number of game server groups allowed per region.,20,None,true,false
+gamelift,Amazon GameLift Servers,L-51AF299A,Game servers per game server group,The maximum number of game servers allowed per game server group.,1000,None,true,false
+gamelift,Amazon GameLift Servers,L-E8D8BD94,Game session log file size,The maximum file size (in megabytes) allowed for game session logs that are uploaded to Amazon GameLift Servers at the conclusion of a game session.,200,Megabytes,false,false
+gamelift,Amazon GameLift Servers,L-22451070,Game session queues per region,The maximum number of game session queues allowed per region.,100,None,true,false
+gamelift,Amazon GameLift Servers,L-A8C1B434,Key-value pairs per string to double map matchmaking player attribute,The maximum number of key-value pairs in a string to double map (SDM) matchmaking player attribute.,10,None,false,false
+gamelift,Amazon GameLift Servers,L-55650DB7,Locations in a fleet per region,The maximum number of locations allowed (in any status) in a fleet per region.,10,None,true,false
+gamelift,Amazon GameLift Servers,L-BFEEB817,Managed EC2 fleet EBS volume,The provisioned EBS volume capacity (in gigabytes) for managed EC2 fleet instances.,50,Gigabytes,true,false
+gamelift,Amazon GameLift Servers,L-FDDD1260,Managed EC2 fleets per region,The maximum number of managed EC2 fleets allowed (in any status) per region.,20,None,true,false
+gamelift,Amazon GameLift Servers,L-73F6E300,Matchmaking configurations per region,The maximum number of matchmaking configurations allowed per region.,300,None,true,false
+gamelift,Amazon GameLift Servers,L-8AE49BBD,Matchmaking rule sets per region,The maximum number of matchmaking rule sets allowed per region.,1000,None,true,false
+gamelift,Amazon GameLift Servers,L-3A43EF3C,Maximum NewGameSessionsPerCreator per fleet configuration,The maximum new game sessions per creator allowed in a fleet's resource policy configuration.,10,None,true,false
+gamelift,Amazon GameLift Servers,L-9F9DE0B2,Maximum PolicyPeriodInMinutes per fleet configuration,The maximum period (in minutes) allowed in a fleet's resource policy configuration.,60,None,true,false
+gamelift,Amazon GameLift Servers,L-CCBBB4DA,Player attributes per matchmaking player,The maximum number of player attributes for each player in a matchmaking ticket.,10,None,false,false
+gamelift,Amazon GameLift Servers,L-24BE0A39,Player session timeout,The maximum time (in seconds) for a reserved player session to timeout pending a valid player connection.,60,Seconds,true,false
+gamelift,Amazon GameLift Servers,L-EC03D793,Player sessions per game session,The maximum number of player sessions that can join a game session.,200,None,false,false
+gamelift,Amazon GameLift Servers,L-67477D57,Players per matchmaking ticket,The maximum number of players that can be included in a matchmaking ticket.,10,None,false,false
+gamelift,Amazon GameLift Servers,L-BB62CF1D,Queue destinations per game session queue,The maximum number of queue destinations allowed per game session queue.,10,None,true,false
+gamelift,Amazon GameLift Servers,L-ED58E8F8,Script capacity,"The maximum capacity (in gigabytes) available for all uploaded scripts combined per region. To free storage space, delete unused builds as needed.",100,Gigabytes,false,false
+gamelift,Amazon GameLift Servers,L-293B0017,Scripts per region,The maximum number of game server scripts allowed per region.,1000,None,true,false
+gamelift,Amazon GameLift Servers,L-C30AA854,Server processes per instance (Server SDK v3 and up),The maximum number of concurrent server processes that can run on a single instance when using the Server SDK for Amazon GameLift Servers version 3 or later.,50,None,false,false
+gamelift,Amazon GameLift Servers,L-8EBC4E87,Strings per string list matchmaking player attribute,The maximum number of strings in a string list (SL) matchmaking player attribute.,100,None,false,false

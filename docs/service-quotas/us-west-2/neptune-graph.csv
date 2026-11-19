@@ -1,0 +1,26 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+neptune-graph,Amazon Neptune Analytics,L-6CECD12A,Maximum Graph snapshots,The maximum number of active graph snapshots in current region,50,None,true,false
+neptune-graph,Amazon Neptune Analytics,L-D31591F1,Maximum Graphs,The maximum number of active graphs in current region,10,None,true,false
+neptune-graph,Amazon Neptune Analytics,L-145975CA,Maximum provisioned memory for each graph,The maximum provisioned memory each graph can be created with in current region,1024,None,true,false
+neptune-graph,Amazon Neptune Analytics,L-CCA6A9D0,Rate of CancelImportTask API requests,The maximum number of CancelImportTask requests that you can make per second in current region.,25,None,false,false
+neptune-graph,Amazon Neptune Analytics,L-1A4D313F,Rate of CreateGraph API requests,The maximum number of CreateGraph requests that you can make per second in current region.,10,None,false,false
+neptune-graph,Amazon Neptune Analytics,L-ACC6671C,Rate of CreateGraphSnapshot API requests,The maximum number of CreateGraphSnapshot requests that you can make per second in current region.,10,None,false,false
+neptune-graph,Amazon Neptune Analytics,L-43875DB3,Rate of CreateGraphUsingImportTask API requests,The maximum number of CreateGraphUsingImportTask requests that you can make per second in current region.,10,None,false,false
+neptune-graph,Amazon Neptune Analytics,L-5E4F82AC,Rate of CreatePrivateGraphEndpoint API requests,The maximum number of CreatePrivateGraphEndpoint requests that you can make per second in current region.,10,None,false,false
+neptune-graph,Amazon Neptune Analytics,L-0E92389A,Rate of DeleteGraph API requests,The maximum number of DeleteGraph requests that you can make per second in current region.,25,None,false,false
+neptune-graph,Amazon Neptune Analytics,L-CF286151,Rate of DeleteGraphSnapshot API requests,The maximum number of DeleteGraphSnapshot requests that you can make per second in current region.,25,None,false,false
+neptune-graph,Amazon Neptune Analytics,L-145FBBEC,Rate of DeletePrivateGraphEndpoint API requests,The maximum number of DeletePrivateGraphEndpoint requests that you can make per second in current region.,25,None,false,false
+neptune-graph,Amazon Neptune Analytics,L-2C6692EB,Rate of GetGraph API requests,The maximum number of GetGraph requests that you can make per second in current region.,25,None,false,false
+neptune-graph,Amazon Neptune Analytics,L-A53FC974,Rate of GetGraphSnapshot API requests,The maximum number of GetGraphSnapshot requests that you can make per second in current region.,25,None,false,false
+neptune-graph,Amazon Neptune Analytics,L-43A5F0FD,Rate of GetImportTask API requests,The maximum number of GetImportTask requests that you can make per second in current region.,25,None,false,false
+neptune-graph,Amazon Neptune Analytics,L-BCF9AD64,Rate of GetPrivateGraphEndpoint API requests,The maximum number of GetPrivateGraphEndpoint requests that you can make per second in current region.,25,None,false,false
+neptune-graph,Amazon Neptune Analytics,L-DCD81945,Rate of ListGraphs API requests,The maximum number of ListGraphs requests that you can make per second in current region.,25,None,false,false
+neptune-graph,Amazon Neptune Analytics,L-F4990E36,Rate of ListGraphSnapshots API requests,The maximum number of ListGraphSnapshots requests that you can make per second in current region.,25,None,false,false
+neptune-graph,Amazon Neptune Analytics,L-3BE1AAB0,Rate of ListImportTasks API requests,The maximum number of ListImportTasks requests that you can make per second in current region.,25,None,false,false
+neptune-graph,Amazon Neptune Analytics,L-D317DBA8,Rate of ListPrivateGraphEndpoints API requests,The maximum number of ListPrivateGraphEndpoints requests that you can make per second in current region.,25,None,false,false
+neptune-graph,Amazon Neptune Analytics,L-8DE01AD2,Rate of ListTagsForResource API requests,The maximum number of ListTagsForResource requests that you can make per second in current region.,25,None,false,false
+neptune-graph,Amazon Neptune Analytics,L-4C2E6787,Rate of ResetGraph API requests,The maximum number of ResetGraph requests that you can make per second in current region.,25,None,false,false
+neptune-graph,Amazon Neptune Analytics,L-6D065F9A,Rate of RestoreGraphFromSnapshot API requests,The maximum number of RestoreGraphFromSnapshot requests that you can make per second in current region.,10,None,false,false
+neptune-graph,Amazon Neptune Analytics,L-BAD55E25,Rate of TagResource API requests,The maximum number of TagResource requests that you can make per second in current region.,25,None,false,false
+neptune-graph,Amazon Neptune Analytics,L-319B0970,Rate of UntagResource API requests,The maximum number of UntagResource requests that you can make per second in current region.,25,None,false,false
+neptune-graph,Amazon Neptune Analytics,L-E50E3387,Rate of UpdateGraph API requests,The maximum number of UpdateGraph requests that you can make per second in current region.,25,None,false,false

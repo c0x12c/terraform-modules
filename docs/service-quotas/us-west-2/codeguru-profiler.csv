@@ -1,0 +1,2 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+codeguru-profiler,Amazon CodeGuru Profiler,L-DA8D4E8D,Number of profiling groups per account and region.,"The maximum number of profiling groups per account, per region.",500,None,true,false

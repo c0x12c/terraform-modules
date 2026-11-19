@@ -1,0 +1,77 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+healthlake,AWS HealthLake,L-982FE440,C-CDA files per transformation job,The maximum number of C-CDA source files in a single bulk transformation job.,1000,None,true,false
+healthlake,AWS HealthLake,L-8F8DCD2A,Columns per CSV file in transformation jobs,The maximum number of columns in a CSV source file for transformation jobs.,100,None,false,false
+healthlake,AWS HealthLake,L-09BBF02B,Concurrent transformation jobs per account,The maximum number of transformation jobs that can run concurrently per account.,1,None,true,false
+healthlake,AWS HealthLake,L-D5D18989,CSV files per transformation job,The maximum number of CSV source files in a single bulk transformation job.,20,None,false,false
+healthlake,AWS HealthLake,L-89013F06,Maximum C-CDA file size for sync conversion,The maximum size of a C-CDA input in a synchronous conversion request.,1,Megabytes,true,false
+healthlake,AWS HealthLake,L-45878D6C,Maximum combined CSV file size for sync conversion,The maximum combined size of all CSV files in a single synchronous conversion request.,500,Kilobytes,true,false
+healthlake,AWS HealthLake,L-F859E4F4,Maximum CSV files per sync conversion,The maximum number of CSV files in a single synchronous (real-time) conversion request.,20,None,false,false
+healthlake,AWS HealthLake,L-81DF8464,Number of active Subscription per account,The maximum number of active Subscription resources per account.,100,None,true,false
+healthlake,AWS HealthLake,L-D24A74BA,Number of active Subscription resources per datastore,The maximum number of active Subscription resources per datastore.,50,None,true,false
+healthlake,AWS HealthLake,L-BD4B2AD7,Number of active SubscriptionTopic per account,The maximum number of active SubscriptionTopic resources per account.,100,None,true,false
+healthlake,AWS HealthLake,L-D5F94141,Number of active SubscriptionTopic resources per datastore,The maximum number of active SubscriptionTopic resources per datastore.,50,None,true,false
+healthlake,AWS HealthLake,L-A877B121,Number of characters in a medical note,The maximum number of characters in an individual medical note within the DocumentReference Resource type (POST/PUT requests).,10000,None,false,false
+healthlake,AWS HealthLake,L-C81E556E,Number of concurrent StartFHIRExportJob jobs,The maximum concurrent StartFHIRExportJob jobs.,1,None,false,false
+healthlake,AWS HealthLake,L-C50C0FBE,Number of concurrent StartFHIRImportJob jobs,The maximum concurrent StartFHIRImportJob jobs.,1,None,false,false
+healthlake,AWS HealthLake,L-3EA1D6C3,Number of data stores per account,The default maximum number of active data stores per account.,20,None,true,false
+healthlake,AWS HealthLake,L-529B6D50,Number of files in a StartFHIRImportJob,The maximum number of files in a StartFHIRImportJob.,1000000,None,true,false
+healthlake,AWS HealthLake,L-26E871D4,Number of published versions per profile,The maximum number of versions that a profile can have.,99,None,false,false
+healthlake,AWS HealthLake,L-DEE2AD8C,Number of resources per Bundle,The maximum number of resources allowed in a Bundle request.,500,None,false,false
+healthlake,AWS HealthLake,L-BDA4CDD8,Number of transformation profiles per account,The maximum number of transformation profiles per account.,20,None,false,false
+healthlake,AWS HealthLake,L-0ADA6AFF,Rate of CancelFHIRExportJob requests using DELETE per account,The maximum number of CancelFHIRExportJob requests using DELETE that you can make per second per account.,1,None,false,false
+healthlake,AWS HealthLake,L-B24842B7,Rate of CreateDataTransformationProfile requests per account,The maximum number of CreateDataTransformationProfile requests that you can make per second per account.,1,None,true,false
+healthlake,AWS HealthLake,L-721C6162,Rate of CreateFHIRDatastore requests per account,The maximum number of CreateFHIRDatastore requests that you can make per minute per account.,1,None,false,false
+healthlake,AWS HealthLake,L-DB8BDF30,Rate of DeleteDataTransformationProfile requests per account,The maximum number of DeleteDataTransformationProfile requests that you can make per second per account.,1,None,true,false
+healthlake,AWS HealthLake,L-6F6B4950,Rate of DeleteFHIRDatastore requests per account,The maximum number of DeleteFHIRDatastore requests that you can make per minute per account.,1,None,false,false
+healthlake,AWS HealthLake,L-58E36444,Rate of DescribeDataTransformationJob requests per account,The maximum number of DescribeDataTransformationJob requests that you can make per second per account.,1,None,true,false
+healthlake,AWS HealthLake,L-B8DBC278,Rate of DescribeFHIRBulkDeleteJob requests per account,The maximum number of DescribeFHIRBulkDeleteJob requests that you can make per second per account.,10,None,true,false
+healthlake,AWS HealthLake,L-D16BCD46,Rate of DescribeFHIRBulkDeleteJob requests per data store,The maximum number of DescribeFHIRBulkDeleteJob requests that you can make per second per data store.,10,None,true,false
+healthlake,AWS HealthLake,L-08562F99,Rate of DescribeFHIRDatastore requests per account,The maximum number of DescribeFHIRDatastore requests that you can make per second per account.,10,None,false,false
+healthlake,AWS HealthLake,L-4AF06720,Rate of DescribeFHIRExportJob requests per account,The maximum number of DescribeFHIRExportJob requests that you can make per second per account.,10,None,false,false
+healthlake,AWS HealthLake,L-EA9D0A0E,Rate of DescribeFHIRExportJob requests using GET per account,The maximum number of DescribeFHIRExportJob requests using GET that you can make per second per account.,10,None,false,false
+healthlake,AWS HealthLake,L-CEC25D2E,Rate of DescribeFHIRImportJob requests per account,The maximum number of DescribeFHIRImportJob requests that you can make per second per account.,10,None,false,false
+healthlake,AWS HealthLake,L-F9693125,Rate of Discovery requests per account,The maximum number of Discovery requests that you can make per minute per account.,10,None,false,false
+healthlake,AWS HealthLake,L-F39A95A1,Rate of GET requests per account,The maximum number of GET requests that you can make per second per account.,6000,None,true,false
+healthlake,AWS HealthLake,L-863A7B88,Rate of GET requests per data store,The maximum number of GET requests that you can make per second per data store. Data stores created prior to 8/21/2023 will be limited to 100 requests per second.,3000,None,true,false
+healthlake,AWS HealthLake,L-EDA92DAB,Rate of GetCapabilities requests per account,The maximum number of GetCapabilities requests that you can make per second per account.,10,None,false,false
+healthlake,AWS HealthLake,L-65C26560,Rate of GetDataTransformationProfile requests per account,The maximum number of GetDataTransformationProfile requests that you can make per second per account.,1,None,true,false
+healthlake,AWS HealthLake,L-6C3EA1A2,Rate of GetExportedFile requests per datastore,The maximum number of GetExportedFile requests that you can make per second per datastore.,10,None,false,false
+healthlake,AWS HealthLake,L-DD07DA73,Rate of ListDataTransformationJobs requests per account,The maximum number of ListDataTransformationJobs requests that you can make per second per account.,1,None,true,false
+healthlake,AWS HealthLake,L-D236652C,Rate of ListDataTransformationProfiles requests per account,The maximum number of ListDataTransformationProfiles requests that you can make per second per account.,1,None,true,false
+healthlake,AWS HealthLake,L-30B8FAC4,Rate of ListDataTransformationProfileVersions requests per account,The maximum number of ListDataTransformationProfileVersions requests that you can make per second per account.,1,None,true,false
+healthlake,AWS HealthLake,L-37C7D0F4,Rate of ListFHIRDatastores requests per account,The maximum number of ListFHIRDatastores requests that you can make per second per account.,10,None,false,false
+healthlake,AWS HealthLake,L-F42E27CF,Rate of ListFHIRExportJobs requests per account,The maximum number of ListFHIRExportJobs requests that you can make per second per account.,10,None,false,false
+healthlake,AWS HealthLake,L-D3C3D97F,Rate of ListFHIRImportJobs requests per account,The maximum number of ListFHIRImportJobs requests that you can make per second per account.,10,None,false,false
+healthlake,AWS HealthLake,L-9A686AFF,Rate of ListTagsforResource requests per account,The maximum number of ListTagsforResource requests that you can make per second per account.,10,None,false,false
+healthlake,AWS HealthLake,L-94A94521,Rate of PublishDataTransformationProfile requests per account,The maximum number of PublishDataTransformationProfile requests that you can make per second per account.,1,None,true,false
+healthlake,AWS HealthLake,L-98AD4FBA,Rate of search requests using GET per account,The maximum number of search requests using GET that you can make per second per account.,200,None,true,false
+healthlake,AWS HealthLake,L-611058A1,Rate of search requests using GET per data store,The maximum number of search requests using GET that you can make per second per data store.,100,None,true,false
+healthlake,AWS HealthLake,L-6FDC6068,Rate of search requests using POST per account,The maximum number of search requests using POST that you can make per second per account.,200,None,true,false
+healthlake,AWS HealthLake,L-7366BBDE,Rate of search requests using POST per data store,The maximum number of search requests using POST that you can make per second per data store.,100,None,true,false
+healthlake,AWS HealthLake,L-8679094C,Rate of SearchEverything requests per account,The maximum number of SearchEverything requests that you can make per second per account.,10,None,true,false
+healthlake,AWS HealthLake,L-E217A52D,Rate of SearchEverything requests per data store,The maximum number of SearchEverything requests that you can make per second per data store.,10,None,true,false
+healthlake,AWS HealthLake,L-CC9F5BE8,Rate of StartDataTransformationJob requests per account,The maximum number of StartDataTransformationJob requests that you can make per second per account.,1,None,true,false
+healthlake,AWS HealthLake,L-40DE76FB,Rate of StartFHIRBulkDeleteJob requests per account,The maximum number of StartFHIRBulkDeleteJob requests that you can make per second per account.,10,None,true,false
+healthlake,AWS HealthLake,L-2CB9F0B5,Rate of StartFHIRBulkDeleteJob requests per data store,The maximum number of StartFHIRBulkDeleteJob requests that you can make per second per data store.,10,None,true,false
+healthlake,AWS HealthLake,L-77717537,Rate of StartFHIRBulkMemberMatchJob requests per account,The maximum number of StartFHIRBulkMemberMatchJob requests that you can make per second per account.,10,None,true,false
+healthlake,AWS HealthLake,L-F83DF017,Rate of StartFHIRBulkMemberMatchJob requests per data store,The maximum number of StartFHIRBulkMemberMatchJob requests that you can make per second per data store.,10,None,true,false
+healthlake,AWS HealthLake,L-89C5695B,Rate of StartFHIRExportJob requests per account,The maximum number of StartFHIRExportJob requests that you can make per second per account.,1,None,false,false
+healthlake,AWS HealthLake,L-E910D1AD,Rate of StartFHIRExportJob requests using GET per account,The maximum number of StartFHIRExportJob requests using GET that you can make per second per account.,1,None,false,false
+healthlake,AWS HealthLake,L-2CC47481,Rate of StartFHIRExportJob requests using POST per account,The maximum number of StartFHIRExportJob requests using POST that you can make per second per account.,1,None,false,false
+healthlake,AWS HealthLake,L-30C48F20,Rate of StartFHIRImportJob requests per account,The maximum number of StartFHIRImportJob requests that you can make per second per account.,25,None,false,false
+healthlake,AWS HealthLake,L-E5116CDE,Rate of sync (real-time) conversion requests (TransformData) per account,The maximum number of TransformData requests that you can make per second per account.,1,None,true,false
+healthlake,AWS HealthLake,L-80C56DBE,Rate of TagResource requests per account,The maximum number of TagResource requests that you can make per second per account.,10,None,false,false
+healthlake,AWS HealthLake,L-A6C0FA25,Rate of UntagResource requests per account,The maximum number of UntagResource requests that you can make per second per account.,10,None,false,false
+healthlake,AWS HealthLake,L-2D064D2E,Rate of UpdateDataTransformationProfile requests per account,The maximum number of UpdateDataTransformationProfile requests that you can make per second per account.,1,None,true,false
+healthlake,AWS HealthLake,L-198C5778,Rate of ValidateResource requests per account,The maximum number of ValidateResource requests that you can make per second per account. Data stores created prior to 8/21/2023 will be limited to 300 requests per second.,2000,None,true,false
+healthlake,AWS HealthLake,L-A7AC6F3E,Rate of ValidateResource requests per data store,The maximum number of ValidateResource requests that you can make per second per data store. Data stores created prior to 8/21/2023 will be limited to 300 requests per second.,1000,None,true,false
+healthlake,AWS HealthLake,L-0FC98FB4,Rate of ValidateSource per account,The maximum number of ValidateSource requests that you can make per second per account.,1,None,true,false
+healthlake,AWS HealthLake,L-B94D535B,Rate of WRITE requests per account,The maximum number of CREATE|UPDATE|DELETE requests that you can make per second per account.,6000,None,true,false
+healthlake,AWS HealthLake,L-9EB60712,Rate of WRITE requests per data store,The maximum number of CREATE|UPDATE|DELETE requests that you can make per second per data store. Data stores created prior to 8/21/2023 will be limited to 300 requests per second.,3000,None,true,false
+healthlake,AWS HealthLake,L-193CCF4A,Size of individual imported file,The maximum size (in GB) of an individual file included in a StartFHIRImportJob.,50,Gigabytes,false,false
+healthlake,AWS HealthLake,L-6E92BF8D,Size per CSV file in a transformation job,The maximum size of an individual CSV source file in a bulk transformation job.,50,Megabytes,true,false
+healthlake,AWS HealthLake,L-DEBEEE9B,Total import job size,The maximum size (in GB) of all files included in the import job.,5000,Gigabytes,true,false
+healthlake,AWS HealthLake,L-037097B2,Total input size per transformation job,The maximum combined size of all source files in a single bulk transformation job.,1,Gigabytes,true,false
+healthlake,AWS HealthLake,L-442A6C60,Total Queued Async Bundle Transactions per datastore,The maximum number of queued async bundle transactions per datastore at any given time.,500,None,true,false
+healthlake,AWS HealthLake,L-DDD1A3D1,Total Queued Bulk Export jobs per datastore,The maximum number of queued bulk export jobs per datastore at any given time.,25,None,true,false
+healthlake,AWS HealthLake,L-5E2BA274,Total Queued Bulk Import jobs per datastore,The maximum number of queued bulk import jobs per datastore at any given time.,25,None,true,false

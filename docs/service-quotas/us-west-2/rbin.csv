@@ -1,0 +1,3 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+rbin,Amazon Recycle Bin,L-629917A2,Rules per Region,The maximum number of rules per Region.,250,None,false,false
+rbin,Amazon Recycle Bin,L-BCC6359E,Tags per rule,The maximum number of tags per rule.,50,None,false,false

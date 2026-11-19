@@ -1,0 +1,3 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+vmimportexport,EC2 VM Import/Export,L-66ABAAD5,"Concurrent task limit for ImportImage, ImportSnapshot, and ExportImage","The maximum number of concurrent tasks for a given account initiated by the following VM Import/Export APIs: ImportImage, ImportSnapshot, and ExportImage.",20,None,true,false
+vmimportexport,EC2 VM Import/Export,L-0994E50B,"Concurrent task limit for ImportInstance, ImportVolume, and CreateInstanceExportTask","The maximum number of concurrent tasks for a given account initiated by the following VM Import/Export APIs: ImportInstance, ImportVolume, and CreateInstanceExportTask.",5,None,true,false

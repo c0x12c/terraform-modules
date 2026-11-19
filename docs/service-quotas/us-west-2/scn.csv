@@ -1,0 +1,5 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+scn,Amazon Connect Decisions,L-5420252D,Active Amazon Connect Decisions connections per instance,The maximum number of Amazon Connect Decisions connections in an active instance,25,None,false,false
+scn,Amazon Connect Decisions,L-D81DFD51,Amazon Connect Decisions connections per instance,The maximum number of Amazon Connect Decisions connections in an instance,10,None,false,false
+scn,Amazon Connect Decisions,L-F1600C71,Amazon Connect Decisions data integration flows per instance,The maximum number of Amazon Connect Decisions data integration flows in an active instance,200,None,false,false
+scn,Amazon Connect Decisions,L-4AF12E50,Amazon Connect Decisions instances per account,The maximum number of Amazon Connect Decisions instances allowed in this account,10,None,false,false

@@ -1,0 +1,6 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+auditmanager,AWS Audit Manager,L-BEA222D4,Accounts in scope across all assessments,The maximum number of accounts in scope across all assessments per region,250,None,true,false
+auditmanager,AWS Audit Manager,L-724DD74D,Controls per framework,The maximum number of controls per framework per account per region,1400,None,true,false
+auditmanager,AWS Audit Manager,L-0255B75F,Custom controls,The maximum number of custom controls per account per region,500,None,true,false
+auditmanager,AWS Audit Manager,L-8935A6F1,Custom frameworks,The maximum number of custom frameworks per account per region,100,None,true,false
+auditmanager,AWS Audit Manager,L-92B50F18,Running assessments,The maximum number of running assessments per account per region,100,None,true,false

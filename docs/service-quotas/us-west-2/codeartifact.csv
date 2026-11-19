@@ -1,0 +1,18 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+codeartifact,AWS CodeArtifact,L-AA0DC56D,Asset file size,The maximum file size per asset.,5,Gigabytes,true,false
+codeartifact,AWS CodeArtifact,L-5B2BD2E1,Assets per package version,The maximum number of assets per package version.,350,None,false,false
+codeartifact,AWS CodeArtifact,L-308A4050,CopyPackageVersions requests per second,The maximum number of calls that can be made to CopyPackageVersions per second.,5,None,true,false
+codeartifact,AWS CodeArtifact,L-D42B1EF2,Direct upstreams per repository,The maximum number of direct upstream repositories per repository.,10,None,false,false
+codeartifact,AWS CodeArtifact,L-DD7208D3,Domains per AWS account,The maximum number of domains that can be created per AWS account.,10,None,true,false
+codeartifact,AWS CodeArtifact,L-0B362111,GetAuthorizationToken requests per second,The maximum number of authorization tokens retrieved per second.,40,None,true,false
+codeartifact,AWS CodeArtifact,L-6C12FB34,GetPackageVersionAsset requests per second,The maximum number of calls that can be made to GetPackageVersionAsset per second.,50,None,true,false
+codeartifact,AWS CodeArtifact,L-6010CAF9,ListPackages requests per second,The maximum number of calls that can be made to ListPackages per second.,200,None,true,false
+codeartifact,AWS CodeArtifact,L-3072382D,ListPackageVersionAssets requests per second,The maximum number of calls that can be made to ListPackageVersionAssets per second.,200,None,true,false
+codeartifact,AWS CodeArtifact,L-CBBCDF5C,ListPackageVersions requests per second,The maximum number of calls that can be made to ListPackageVersions per second.,200,None,true,false
+codeartifact,AWS CodeArtifact,L-3E27C79F,PublishPackageVersion requests per second,The maximum number of calls that can be made to PublishPackageVersion per second.,10,None,true,false
+codeartifact,AWS CodeArtifact,L-F39CF68A,Read requests per second from a single AWS account,The maximum number of read requests from one AWS account per second.,800,None,true,false
+codeartifact,AWS CodeArtifact,L-86608C96,Repositories per domain,The maximum number of repositories that can be created per domain.,1000,None,true,false
+codeartifact,AWS CodeArtifact,L-37894301,Requests per second using a single authentication token,The maximum number of requests per second using a single authentication token.,1200,None,false,false
+codeartifact,AWS CodeArtifact,L-BD902DFC,Requests without authentication token per IP address,The maximum number of requests per second without an authentication token from a single IP address.,600,None,false,false
+codeartifact,AWS CodeArtifact,L-5D176989,Upstream repositories searched,The maximum number of upstream repositories searched when resolving a package.,25,None,false,false
+codeartifact,AWS CodeArtifact,L-A649E766,Write requests per second from a single AWS account,The maximum number of write requests from one AWS account per second.,100,None,true,false

@@ -1,0 +1,4 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+securityagent,AWS Security Agent,L-EC8BA326,Concurrently Running Code Review Jobs,The maximum number of concurrently running code review jobs in one account.,5,Count,true,false
+securityagent,AWS Security Agent,L-5EB2D333,Concurrently Running Pentest Jobs,The maximum number of concurrently running pentest jobs in one account.,5,Count,true,false
+securityagent,AWS Security Agent,L-812A42D7,Concurrently Running Threat Model Jobs,The maximum number of concurrently running threat model jobs in one account.,5,Count,true,false

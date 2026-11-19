@@ -1,0 +1,24 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+elasticfilesystem,Amazon Elastic File System (EFS),L-4CCB99B3,Access points per file system,The maximum number of access points allowed per file system,10000,None,false,false
+elasticfilesystem,Amazon Elastic File System (EFS),L-FA0AAA42,Active users per NFS client,The maximum number of active users that can have files open at the same time for each NFS client,65536,None,false,false
+elasticfilesystem,Amazon Elastic File System (EFS),L-CDCE244F,Bursting throughput,The maximum total bursting throughput for all connected clients on an EFS file system,3072,Megabytes,false,false
+elasticfilesystem,Amazon Elastic File System (EFS),L-F3C5D9EF,Directory depth,"The maximum number of levels, or depth, that you can have within a single directory",1000,None,false,false
+elasticfilesystem,Amazon Elastic File System (EFS),L-509A1582,EFS file locks,The maximum number of locks per file across all instances connected and users accessing the file,512,None,false,false
+elasticfilesystem,Amazon Elastic File System (EFS),L-A139E5A7,File hard links,The maximum number of hard links that you can have for each file,177,None,false,false
+elasticfilesystem,Amazon Elastic File System (EFS),L-7FEABCD7,File size,The maximum size of a single file on an EFS file system,52673613135872,Bytes,false,false
+elasticfilesystem,Amazon Elastic File System (EFS),L-207AE8E0,File system name length,The maximum length of a file system name,255,Bytes,false,false
+elasticfilesystem,Amazon Elastic File System (EFS),L-B8B14E21,File system symbolic link (symlink) length,"The maximum length that a file system symbolic link, or symlink, can be",4080,Bytes,false,false
+elasticfilesystem,Amazon Elastic File System (EFS),L-848C634D,File systems per account,The maximum number of file systems that a customer account can have in an AWS Region,1000,None,true,false
+elasticfilesystem,Amazon Elastic File System (EFS),L-C8C0D2A0,Locks across unique file/process pairs,"The maximum number of locks that can occur at the same time for each unique mount on an NFS client, across all unique file/process pairs",65536,None,false,false
+elasticfilesystem,Amazon Elastic File System (EFS),L-B34D07B4,Maximum read IOPS per file system with Elastic throughput,The maximum read IOPS file systems using Elastic throughput can achieve.,250000,None,true,false
+elasticfilesystem,Amazon Elastic File System (EFS),L-1E30FF38,Minimum wait time between Provisioned Throughput decreases,The minimum amount of time that you have to wait after decreasing the amount of Provisioned Throughput before you can decrease it again,86400,Seconds,false,false
+elasticfilesystem,Amazon Elastic File System (EFS),L-D6548EE7,Minimum wait time between Throughput mode changes,The minimum amount of time that you have to wait after changing the Throughput mode before you can change it again,86400,Seconds,false,false
+elasticfilesystem,Amazon Elastic File System (EFS),L-6D380DD0,Mount targets per Availability Zone,The maximum number of EFS mount targets that you can have in an Availability Zone,1,None,false,false
+elasticfilesystem,Amazon Elastic File System (EFS),L-7391004C,Mount targets per VPC,The maximum number of EFS mount targets allowed for each VPC,1400,None,false,false
+elasticfilesystem,Amazon Elastic File System (EFS),L-48B15094,Open files per NFS client,The maximum number of files that can be open at the same time for each NFS client,65536,None,false,false
+elasticfilesystem,Amazon Elastic File System (EFS),L-BFB6FB19,Provisioned throughput,The maximum total provisioned throughput for all connected clients on an EFS file system,3414,Megabytes,false,false
+elasticfilesystem,Amazon Elastic File System (EFS),L-336A920F,Rate of file system operations,"The maximum number of file system operations per second, for all connected clients, on an EFS file system that is configured in General Purpose mode. Data or metadata read operations consume one file operation, and data or metadata write operations consume five file operations.",250000,None,false,false
+elasticfilesystem,Amazon Elastic File System (EFS),L-3D348029,Security groups per mount target,The maximum number of security groups that you can apply to a single EFS mount target,5,None,false,false
+elasticfilesystem,Amazon Elastic File System (EFS),L-29770CF9,Tags,The maximum number of tags that you can apply to an EFS file system,50,None,false,false
+elasticfilesystem,Amazon Elastic File System (EFS),L-06519EB8,Throughput per NFS client,The maximum throughput that you can drive for each NFS client connected to an EFS file system,1500,Megabytes,false,false
+elasticfilesystem,Amazon Elastic File System (EFS),L-03A6A61D,VPCs per file system,The maximum number of VPCs that you can apply to an EFS file system,1,None,false,false

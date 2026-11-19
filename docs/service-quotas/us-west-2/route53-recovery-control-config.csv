@@ -1,0 +1,6 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+route53-recovery-control-config,Amazon Route 53 Recovery Control Configuration,L-195CF965,Clusters per AWS account,The maximum number of clusters for each AWS account.,2,None,true,false
+route53-recovery-control-config,Amazon Route 53 Recovery Control Configuration,L-75E415E3,Control panels per cluster,The maximum number of control panels for each cluster.,50,None,false,false
+route53-recovery-control-config,Amazon Route 53 Recovery Control Configuration,L-748A04F9,Routing controls per cluster,The maximum number of routing controls for each cluster.,300,None,false,false
+route53-recovery-control-config,Amazon Route 53 Recovery Control Configuration,L-1FD0988F,Routing controls per control panel,The maximum number of routing controls for each control panel.,100,None,false,false
+route53-recovery-control-config,Amazon Route 53 Recovery Control Configuration,L-E41C42C6,Safety rules per control panel,The maximum number of safety rules for each control panel.,20,None,false,false

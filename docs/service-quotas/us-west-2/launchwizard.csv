@@ -1,0 +1,5 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+launchwizard,AWS Launch Wizard,L-E64920AC,Active deployments,The maximum number of deployments with a status other than DELETED in this account in the current Region.,75,None,true,false
+launchwizard,AWS Launch Wizard,L-067B0AC5,Deployments,The maximum number of deployments that you can have in this account in the current Region.,300,None,true,false
+launchwizard,AWS Launch Wizard,L-0DE2E185,In-Progress Deployments,The maximum number of in-progress deployments with a status of IN_PROGRESS or DELETE_IN_PROGRESS in this account in the current Region.,10,None,true,false
+launchwizard,AWS Launch Wizard,L-B644EE89,Settings Set,The maximum number of settings sets that you can create in this account in the current Region.,50,None,true,false

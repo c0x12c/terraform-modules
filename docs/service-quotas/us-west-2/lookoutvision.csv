@@ -1,0 +1,16 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+lookoutvision,Amazon Lookout for Vision,L-65CC6428,Maximum image dimension for a training or test image (in pixels),Maximum image dimension (in pixels) for a training or test image in an Amazon S3 bucket.,4096,None,false,false
+lookoutvision,Amazon Lookout for Vision,L-EF7B9086,Maximum image file size (in MB) for a training or test image,The maximum file size (in MB) for a training or test image stored in an Amazon S3 bucket.,8,Megabytes,false,false
+lookoutvision,Amazon Lookout for Vision,L-6C6DBBAE,"Maximum number of API requests per second, excluding DetectAnomalies","The maximum number of API requests (excluding DetectAnomalies) that you can make, per API, per second, in this AWS account, in the current AWS Region.",5,None,true,false
+lookoutvision,Amazon Lookout for Vision,L-A2F581AB,Maximum number of concurrent model packaging jobs,The maximum number of concurrently running Amazon Lookout for Vision model packaging jobs per AWS account.,3,None,true,false
+lookoutvision,Amazon Lookout for Vision,L-2489F742,Maximum number of concurrent training jobs,The maximum number of concurrently running Amazon Lookout for Vision training jobs per AWS account.,2,None,true,false
+lookoutvision,Amazon Lookout for Vision,L-5863F741,Maximum number of concurrent trial detection tasks,The maximum number of concurrently running Amazon Lookout for Vision trial detection tasks per AWS account.,2,None,true,false
+lookoutvision,Amazon Lookout for Vision,L-9A58AC7A,Maximum number of DetectAnomalies API requests per second,"The maximum number of DetectAnomalies API requests that you can make, per second, in this AWS account in the current AWS Region.",10,None,true,false
+lookoutvision,Amazon Lookout for Vision,L-D146B80F,Maximum number of images in a test dataset,The maximum number of images that you can have in a test dataset.,4000,None,false,false
+lookoutvision,Amazon Lookout for Vision,L-1DCAE97B,Maximum number of images in a training dataset,The maximum number of images that you can have in a training dataset.,16000,None,false,false
+lookoutvision,Amazon Lookout for Vision,L-C19F11D8,Maximum number of images in a trial detection dataset,The maximum number of images in a trial detection dataset.,2000,None,false,false
+lookoutvision,Amazon Lookout for Vision,L-84E8C9F8,Maximum number of inference units per started model,The maximum number of inference units per started model.,5,None,true,false
+lookoutvision,Amazon Lookout for Vision,L-1B1011CA,Maximum number of models per project,The maximum number of Amazon Lookout for Vision models per project.,100,None,true,false
+lookoutvision,Amazon Lookout for Vision,L-64685F61,Maximum number of projects,The maximum number of Amazon Lookout for Vision projects per AWS account.,100,None,true,false
+lookoutvision,Amazon Lookout for Vision,L-82DA2ABD,Maximum number of running models,The maximum number of concurrently running Amazon Lookout for Vision models per AWS account.,2,None,true,false
+lookoutvision,Amazon Lookout for Vision,L-DAB2DC95,Minimum image dimension (in pixels) for a training or test image,The minimum image dimension (in pixels) for a training or test image in an Amazon S3 bucket.,64,None,false,false

@@ -1,0 +1,39 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+workspaces,Amazon WorkSpaces,L-843E43DA,Bundles,"The maximum number of bundles in this account in the current Region. This quota applies only to custom bundles, not to public bundles.",50,None,false,false
+workspaces,Amazon WorkSpaces,L-0798A2C9,Connection aliases,The maximum number of connection aliases in this account in the current Region.,20,None,false,false
+workspaces,Amazon WorkSpaces,L-EEB759DE,Directories,The maximum number of directories that can be registered for use with Amazon WorkSpaces in this account in the current Region.,50,None,false,false
+workspaces,Amazon WorkSpaces,L-2F7BEDD3,General Purpose Performance streaming instances for WorkSpaces Pools,The maximum number of General Purpose Performance streaming instances that can be used for WorkSpaces Pools in this account in the current Region.,50,None,true,false
+workspaces,Amazon WorkSpaces,L-07C6D3A5,General Purpose Power streaming instances for WorkSpaces Pools,The maximum number of General Purpose Power streaming instances that can be used for WorkSpaces Pools in this account in the current Region.,10,None,true,false
+workspaces,Amazon WorkSpaces,L-F7854FE2,General Purpose PowerPro streaming instances for WorkSpaces Pools,The maximum number of General Purpose PowerPro streaming instances that can be used for WorkSpaces Pools in this account in the current Region.,10,None,true,false
+workspaces,Amazon WorkSpaces,L-011B3C20,General Purpose Standard streaming instances for WorkSpaces Pools,The maximum number of General Purpose Standard instances that can be used for WorkSpaces Pools in this account in the current Region.,50,None,true,false
+workspaces,Amazon WorkSpaces,L-8C70C791,General Purpose Value streaming instances for WorkSpaces Pools,The maximum number of General Purpose Value streaming instances that can be used for WorkSpaces Pools in this account in the current Region.,50,None,true,false
+workspaces,Amazon WorkSpaces,L-465DA8AF,GeneralPurpose 4xlarge streaming instances for WorkSpaces,The maximum number of GeneralPurpose 4xlarge streaming instances that can be used for WorkSpaces in this account in the current Region.,0,None,true,false
+workspaces,Amazon WorkSpaces,L-C266A5F4,GeneralPurpose 8xlarge streaming instances for WorkSpaces,The maximum number of GeneralPurpose 8xlarge streaming instances that can be used for WorkSpaces in this account in the current Region.,0,None,true,false
+workspaces,Amazon WorkSpaces,L-0B7D5CA2,Graphics.g4dn 4xlarge streaming instances for WorkSpaces Pools,The maximum number of Graphics.g4dn 4xlarge streaming instances that can be used for WorkSpaces Pools in this account in the current Region.,0,None,true,false
+workspaces,Amazon WorkSpaces,L-BCACAEBC,Graphics.g4dn WorkSpaces,The maximum number of Graphics.g4dn WorkSpaces in this account in the current Region,0,None,true,false
+workspaces,Amazon WorkSpaces,L-D34D6523,Graphics.g4dn xlarge streaming instances for WorkSpaces Pools,The maximum number of Graphics.g4dn xlarge streaming instances that can be used for WorkSpaces Pools in this account in the current Region.,0,None,true,false
+workspaces,Amazon WorkSpaces,L-BD784BE1,Graphics.g6.16xlarge WorkSpaces,The maximum number of Graphics.g6.16xlarge WorkSpaces in this account in the current Region.,0,None,true,false
+workspaces,Amazon WorkSpaces,L-925915DC,Graphics.g6.2xlarge WorkSpaces,The maximum number of Graphics.g6.2xlarge WorkSpaces in this account in the current Region.,0,None,true,false
+workspaces,Amazon WorkSpaces,L-40A36AF9,Graphics.g6.4xlarge WorkSpaces,The maximum number of Graphics.g6.4xlarge WorkSpaces in this account in the current Region.,0,None,true,false
+workspaces,Amazon WorkSpaces,L-158CE743,Graphics.g6.8xlarge WorkSpaces,The maximum number of Graphics.g6.8xlarge WorkSpaces in this account in the current Region.,0,None,true,false
+workspaces,Amazon WorkSpaces,L-3AC69A9E,Graphics.g6.xlarge WorkSpaces,The maximum number of Graphics.g6.xlarge WorkSpaces in this account in the current Region.,0,None,true,false
+workspaces,Amazon WorkSpaces,L-6E205E73,Graphics.g6f.2xlarge WorkSpaces,The maximum number of Graphics.g6f.2xlarge WorkSpaces in this account in the current Region.,0,None,true,false
+workspaces,Amazon WorkSpaces,L-34D55C89,Graphics.g6f.4xlarge WorkSpaces,The maximum number of Graphics.g6f.4xlarge WorkSpaces in this account in the current Region.,0,None,true,false
+workspaces,Amazon WorkSpaces,L-18F1706C,Graphics.g6f.large WorkSpaces,The maximum number of Graphics.g6f.large WorkSpaces in this account in the current Region.,0,None,true,false
+workspaces,Amazon WorkSpaces,L-70A02F17,Graphics.g6f.xlarge WorkSpaces,The maximum number of Graphics.g6f.xlarge WorkSpaces in this account in the current Region.,0,None,true,false
+workspaces,Amazon WorkSpaces,L-E2CD2905,Graphics.g7.12xlarge WorkSpaces,The maximum number of Graphics.g7.12xlarge WorkSpaces in this account in the current Region.,0,None,true,false
+workspaces,Amazon WorkSpaces,L-63F14199,Graphics.g7.2xlarge WorkSpaces,The maximum number of Graphics.g7.2xlarge WorkSpaces in this account in the current Region.,0,None,true,false
+workspaces,Amazon WorkSpaces,L-F64A92CF,Graphics.g7.4xlarge WorkSpaces,The maximum number of Graphics.g7.4xlarge WorkSpaces in this account in the current Region.,0,None,true,false
+workspaces,Amazon WorkSpaces,L-9C1F7EB2,Graphics.g7.8xlarge WorkSpaces,The maximum number of Graphics.g7.8xlarge WorkSpaces in this account in the current Region.,0,None,true,false
+workspaces,Amazon WorkSpaces,L-EF6817EC,Graphics.gr6.4xlarge WorkSpaces,The maximum number of Graphics.gr6.4xlarge WorkSpaces in this account in the current Region.,0,None,true,false
+workspaces,Amazon WorkSpaces,L-337DA39D,Graphics.gr6.8xlarge WorkSpaces,The maximum number of Graphics.gr6.8xlarge WorkSpaces in this account in the current Region.,0,None,true,false
+workspaces,Amazon WorkSpaces,L-C76331EA,Graphics.gr6f.4xlarge WorkSpaces,The maximum number of Graphics.gr6f.4xlarge WorkSpaces in this account in the current Region.,0,None,true,false
+workspaces,Amazon WorkSpaces,L-254B485B,GraphicsPro WorkSpaces,The maximum number of GraphicsPro WorkSpaces in this account in the current Region.,0,None,true,false
+workspaces,Amazon WorkSpaces,L-BE9A8466,GraphicsPro.g4dn WorkSpaces,The maximum number of GraphicsPro.g4dn WorkSpaces in this account in the current Region.,0,None,true,false
+workspaces,Amazon WorkSpaces,L-18CE281C,Images,The maximum number of images in this account in the current Region.,40,None,true,false
+workspaces,Amazon WorkSpaces,L-0E312A12,IP access control groups,The maximum number of IP access control groups in this account in the current Region.,100,None,false,false
+workspaces,Amazon WorkSpaces,L-F61D0B79,IP access control groups per directory,The maximum number of IP access control groups per directory in this account in the current Region.,25,None,false,false
+workspaces,Amazon WorkSpaces,L-5782CB4D,Rules per IP access control group,The maximum number of rules per IP access control group in this account in the current Region.,10,None,false,false
+workspaces,Amazon WorkSpaces,L-9A67B5CB,Standby WorkSpaces,The maximum number of Standby WorkSpaces in this account in the current Region.,5,None,true,false
+workspaces,Amazon WorkSpaces,L-34278094,WorkSpaces,The maximum number of WorkSpaces in this account in the current Region.,1,None,true,false
+workspaces,Amazon WorkSpaces,L-D6CFBE96,WorkSpaces Pools,The maximum number of WorkSpaces Pools in this account in the current Region.,10,None,true,false

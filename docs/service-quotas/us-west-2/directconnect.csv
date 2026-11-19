@@ -1,0 +1,17 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+directconnect,AWS Direct Connect,L-A2659207,Dedicated connections per location,The maximum number of active AWS Direct Connect dedicated connections per location.,10,None,false,false
+directconnect,AWS Direct Connect,L-62B7491E,Direct Connect gateways per account,The maximum number of AWS Direct Connect gateways per account.,200,None,false,false
+directconnect,AWS Direct Connect,L-65FD60CB,Direct Connect gateways per transit gateway,The maximum number of Direct Connect gateways associated to a transit gateway.,20,None,false,false
+directconnect,AWS Direct Connect,L-42DEC0EF,LAGs per Region,The maximum number of link aggregation groups (LAGs) per AWS Region.,10,None,false,false
+directconnect,AWS Direct Connect,L-5A971579,Members per LAG,The maximum number of dedicated connections or interconnects per link aggregation group (LAG).,4,None,false,false
+directconnect,AWS Direct Connect,L-A1004C93,Prefixes per transit gateway,The maximum number of prefixes per AWS Transit Gateway from AWS to on-premises on a transit virtual interface.,200,None,false,false
+directconnect,AWS Direct Connect,L-3745876E,Private or public or transit virtual interfaces per hosted connection,"The maximum number of private, public, or transit virtual interfaces per AWS Direct Connect hosted connection.",1,None,false,false
+directconnect,AWS Direct Connect,L-0B7EBFD7,Public or private virtual interfaces per dedicated connection,"The maximum number of private, or public interfaces per AWS Direct Connect dedicated connection.",50,None,false,false
+directconnect,AWS Direct Connect,L-3024BDA6,Routes per BGP session on private or transit virtual interfaces,The maximum Routes per Border Gateway Protocol (BGP) on a private virtual interface or a transit virtual interface.,100,None,false,false
+directconnect,AWS Direct Connect,L-7F59CBF8,Routes per BGP session on public virtual interfaces,The maximum routes per Border Gateway Protocol (BGP) on a public virtual interface,1000,None,false,false
+directconnect,AWS Direct Connect,L-53A26B6D,Total number of virtual interfaces per dedicated connection,"The maximum number of private, or public and transit virtual interfaces per AWS Direct Connect dedicated connection.",54,None,false,false
+directconnect,AWS Direct Connect,L-9BCB4CD9,Transit gateways per AWS Direct Connect gateway,The maximum number of transit gateways per AWS Direct Connect gateway.,6,None,false,false
+directconnect,AWS Direct Connect,L-7B428EA3,Transit virtual interfaces per dedicated connection,The maximum number of transit virtual interfaces per AWS Direct Connect dedicated connection.,4,None,false,false
+directconnect,AWS Direct Connect,L-71C3BCCF,Virtual interfaces per Direct Connect gateway,The maximum number of virtual interfaces per AWS Direct Connect gateway.,30,None,false,false
+directconnect,AWS Direct Connect,L-59AD3548,Virtual interfaces per LAG,The maximum number of virtual interfaces for each Link Aggregation Group (LAG),54,None,false,false
+directconnect,AWS Direct Connect,L-FDE06981,Virtual private gateways per Direct Connect gateway,The maximum number of virtual private gateways per AWS Direct Connect gateway.,20,None,false,false

@@ -1,0 +1,43 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+acm,AWS Certificate Manager (ACM),L-F141DD1D,ACM certificates,The maximum number of ACM Certificates you can have in this account in the current Region. Only certificates in the PENDING or ISSUED state count towards this limit.,2500,None,true,false
+acm,AWS Certificate Manager (ACM),L-DA1D8B98,ACM certificates created in last 365 days,The maximum number of ACM Certificates you can request per year.,5000,None,true,false
+acm,AWS Certificate Manager (ACM),L-69D109B1,ACME domain validations per ACME endpoint,The maximum number of ACME domain validations per ACME endpoint.,1500,None,true,false
+acm,AWS Certificate Manager (ACM),L-8E212782,ACME endpoints per account,The maximum number of ACME endpoints you can have in this account in the current Region.,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-FB94F0B0,Domain names per ACM certificate,The maximum number of domain names per ACM Certificate. The first domain name that you submit is included as the subject common name (CN) of the certificate. All names are included in the Subject Alternative Name extension.,10,None,true,false
+acm,AWS Certificate Manager (ACM),L-E9B74925,External account bindings per ACME endpoint,The maximum number of external account bindings (EABs) per ACME endpoint.,1000,None,true,false
+acm,AWS Certificate Manager (ACM),L-DA2A90A5,Identifiers per ACME order,The maximum number of domain names (identifiers) per ACME order.,100,None,false,false
+acm,AWS Certificate Manager (ACM),L-D2CB7DE9,Imported certificates,The maximum number of imported certificates you can have in this account in the current Region.,2500,None,true,false
+acm,AWS Certificate Manager (ACM),L-3808DC70,Imported certificates in last 365 days,The maximum number of certificates you can import per year in this account in the current Region.,5000,None,true,false
+acm,AWS Certificate Manager (ACM),L-67CE8F15,Rate of ChangeAccountKey requests (public CA),The maximum number of ChangeAccountKey requests per second to an ACME endpoint (Public CA).,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-74BB4A99,Rate of CreateAcmeDomainValidation API requests,The maximum number of CreateAcmeDomainValidation API requests per second.,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-A7230D7D,Rate of CreateAcmeEndpoint API requests,The maximum number of CreateAcmeEndpoint API requests per second.,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-E8DE0414,Rate of CreateAcmeExternalAccountBinding API requests,The maximum number of CreateAcmeExternalAccountBinding API requests per second.,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-A1BB525F,Rate of DeleteAcmeDomainValidation API requests,The maximum number of DeleteAcmeDomainValidation API requests per second.,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-62A479C6,Rate of DeleteAcmeEndpoint API requests,The maximum number of DeleteAcmeEndpoint API requests per second.,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-A25FF1B0,Rate of DeleteAcmeExternalAccountBinding API requests,The maximum number of DeleteAcmeExternalAccountBinding API requests per second.,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-12943EEB,Rate of DescribeAcmeAccount API requests,The maximum number of DescribeAcmeAccount API requests per second.,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-A7EF109F,Rate of DescribeAcmeDomainValidation API requests,The maximum number of DescribeAcmeDomainValidation API requests per second.,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-08DCE28B,Rate of DescribeAcmeEndpoint API requests,The maximum number of DescribeAcmeEndpoint API requests per second.,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-535A8003,Rate of DescribeAcmeExternalAccountBinding API requests,The maximum number of DescribeAcmeExternalAccountBinding API requests per second.,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-8F907C16,Rate of FinalizeOrder requests (Public CA),The maximum number of FinalizeOrder requests per second to an ACME endpoint (Public CA).,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-2F0B3882,Rate of GetAcmeExternalAccountBindingCredentials API requests,The maximum number of GetAcmeExternalAccountBindingCredentials API requests per second.,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-C1B13B11,Rate of GetCertificate requests (Public CA),The maximum number of GetCertificate requests per second to an ACME endpoint (Public CA).,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-25850AC5,Rate of GetDirectory requests (Public CA),The maximum number of GetDirectory requests per second to an ACME endpoint (Public CA).,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-E5BD64C4,Rate of GetOrder requests (Public CA),The maximum number of GetOrder requests per second to an ACME endpoint (Public CA).,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-84FDD27E,Rate of ListAcmeAccounts API requests,The maximum number of ListAcmeAccounts API requests per second.,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-DD60D132,Rate of ListAcmeDomainValidations API requests,The maximum number of ListAcmeDomainValidations API requests per second.,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-EF1F514F,Rate of ListAcmeEndpoints API requests,The maximum number of ListAcmeEndpoints API requests per second.,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-E9F88106,Rate of ListAcmeExternalAccountBindings API requests,The maximum number of ListAcmeExternalAccountBindings API requests per second.,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-B54E258B,Rate of ListOrders requests (Public CA),The maximum number of ListOrders requests per second to an ACME endpoint (Public CA).,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-B8583BD1,Rate of ManageAccount requests (Public CA),The maximum number of ManageAccount requests per second to an ACME endpoint (Public CA).,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-E6DBDBE9,Rate of ManageAuthorization requests (Public CA),The maximum number of ManageAuthorization requests per second to an ACME endpoint (Public CA).,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-8976373F,Rate of NewAccount requests (Public CA),The maximum number of NewAccount requests per second to an ACME endpoint (Public CA).,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-24E5E876,Rate of NewNonce requests (Public CA),The maximum number of NewNonce requests per second to an ACME endpoint (Public CA).,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-201D91CA,Rate of NewOrder requests (Public CA),The maximum number of NewOrder requests per second to an ACME endpoint (Public CA).,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-CF670426,Rate of RestoreAcmeEndpoint API requests,The maximum number of RestoreAcmeEndpoint API requests per second.,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-D0E9B342,Rate of RevokeAcmeAccount API requests,The maximum number of RevokeAcmeAccount API requests per second.,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-183E8F71,Rate of RevokeAcmeCertificate API requests,The maximum number of RevokeAcmeCertificate API requests per second.,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-C71B9553,Rate of RevokeAcmeExternalAccountBinding API requests,The maximum number of RevokeAcmeExternalAccountBinding API requests per second.,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-4C8B8B5F,Rate of RevokeCertificate requests (Public CA),The maximum number of RevokeCertificate requests per second to an ACME endpoint (Public CA).,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-B97889A6,Rate of UpdateAcmeDomainValidation API requests,The maximum number of UpdateAcmeDomainValidation API requests per second.,50,None,true,false
+acm,AWS Certificate Manager (ACM),L-8849A1A8,Rate of UpdateAcmeEndpoint API requests,The maximum number of UpdateAcmeEndpoint API requests per second.,50,None,true,false

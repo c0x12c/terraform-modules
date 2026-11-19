@@ -1,0 +1,17 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+sms-voice,AWS End User Messaging SMS,L-9A0E302E,ConfigurationSets,The maximum number of configuration sets you can create per account.,25,None,true,false
+sms-voice,AWS End User Messaging SMS,L-DEA21975,MediaMessageMonthlySpend,The maximum monthly spend for media messages per account.,1,None,true,false
+sms-voice,AWS End User Messaging SMS,L-7CF5ECAE,NotifyConfigurations,The maximum number of notify configurations you can create per account.,25,None,true,false
+sms-voice,AWS End User Messaging SMS,L-D8A5B44B,NotifyMonthlySpend,The maximum monthly spend for notify messages per account.,1,None,true,false
+sms-voice,AWS End User Messaging SMS,L-1306C1EF,OptOutLists,The maximum number of opt-out lists you can create per account.,25,None,true,false
+sms-voice,AWS End User Messaging SMS,L-C62B0C80,PhoneNumbers,The maximum number of phone numbers you can request per account.,50,None,true,false
+sms-voice,AWS End User Messaging SMS,L-1A498A50,Pools,The maximum number of phone pools you can create per account.,25,None,true,false
+sms-voice,AWS End User Messaging SMS,L-95ACE848,ProtectConfigurations,The maximum number of protect configurations you can create per account.,25,None,true,false
+sms-voice,AWS End User Messaging SMS,L-AE02F3F6,RcsAgents,The maximum number of RCS agents you can create per account.,5,None,true,false
+sms-voice,AWS End User Messaging SMS,L-588597DC,RcsMessageMonthlySpend,The maximum monthly spend for RCS messages per account.,1,None,true,false
+sms-voice,AWS End User Messaging SMS,L-7988B946,RegistrationAttachments,The maximum number of registration attachments you can create per account.,100,None,true,false
+sms-voice,AWS End User Messaging SMS,L-BE964C91,Registrations,The maximum number of registrations you can request per account.,100,None,true,false
+sms-voice,AWS End User Messaging SMS,L-D6967A02,SenderIds,The maximum number of sender IDs you can create per account.,200,None,true,false
+sms-voice,AWS End User Messaging SMS,L-2325465C,TextMessageMonthlySpend,The maximum monthly spend for text messages per account.,1,None,true,false
+sms-voice,AWS End User Messaging SMS,L-AD1C675F,VerifiedDestinationPhoneNumbers,The maximum number of verified destination numbers you can create per account.,10,None,false,false
+sms-voice,AWS End User Messaging SMS,L-FDAE1CE0,VoiceMessageMonthlySpend,The maximum monthly spend for voice messages per account.,1,None,true,false

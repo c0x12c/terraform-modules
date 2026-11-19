@@ -1,0 +1,31 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+network-firewall,AWS Network Firewall,L-52ACCE4C,CA certificates per TLS configuration,The maximum number of certificate authority (CA) certificates for a TLS inspection configuration. CA certificates are used for outbound SSL/TLS inspection.,1,None,false,false
+network-firewall,AWS Network Firewall,L-56D4232F,Container associations,The maximum number of container associations per account per Region.,100,None,true,false
+network-firewall,AWS Network Firewall,L-0814492B,Firewall policies,The maximum number of firewall policies per account per Region.,20,None,true,false
+network-firewall,AWS Network Firewall,L-0A972525,Firewall policies (V2),The maximum number of V2 firewall policies per account per Region.,20,None,true,false
+network-firewall,AWS Network Firewall,L-CC7EC76F,Firewall rule groups,The maximum number of firewall rule groups per account per Region.,50,None,true,false
+network-firewall,AWS Network Firewall,L-DE163D32,Firewalls,The maximum number of firewalls per account per Region.,5,None,true,false
+network-firewall,AWS Network Firewall,L-3E253D9A,IP set references per Suricata compatible stateful rule group,The maximum number of IP set references per Suricata compatible stateful rule group.,5,None,false,false
+network-firewall,AWS Network Firewall,L-7CE054B0,IPS rule groups,The maximum number of IPS rule groups per account per Region.,50,None,true,false
+network-firewall,AWS Network Firewall,L-2B6C8C12,Network traffic bandwidth per firewall endpoint,"The maximum network traffic bandwidth, in Gbps, for any firewall endpoint. If you require more traffic bandwidth, you can split your resources into subnets and create a firewall in each subnet.",100,None,false,false
+network-firewall,AWS Network Firewall,L-00042DEC,Number of firewalls that can use the same policy,The maximum number of firewalls that can use the same firewall policy.,1000,None,false,false
+network-firewall,AWS Network Firewall,L-9B5B9EFB,Number of policies that can use the same rule group,The maximum number of firewall policies that can use the same rule group.,1000,None,false,false
+network-firewall,AWS Network Firewall,L-4BA822BD,Number of policies using a TLS inspection configuration,The maximum number of firewall policies that can use the same TLS inspection configuration.,1000,None,false,false
+network-firewall,AWS Network Firewall,L-63BF3FE7,Required firewall policies per firewall,The required number of firewall policies per firewall.,1,None,false,false
+network-firewall,AWS Network Firewall,L-DBC1A782,Resource filters,The maximum number of resource filters per account per Region.,50,None,true,false
+network-firewall,AWS Network Firewall,L-218BF7D1,Server certificates per TLS configuration,The maximum number of server certificates for a TLS inspection configuration. Server certificates are used for inbound SSL/TLS inspection.,10,None,false,false
+network-firewall,AWS Network Firewall,L-CEEC5053,Stateful rule group capacity,The maximum stateful rule group capacity.,30000,None,false,false
+network-firewall,AWS Network Firewall,L-9B335747,Stateful rule groups per policy,The maximum number of stateful rule groups per firewall policy.,20,None,false,false
+network-firewall,AWS Network Firewall,L-2D7A0EE2,Stateful rulegroups,The maximum number of stateful rule groups per account per Region.,50,None,true,false
+network-firewall,AWS Network Firewall,L-E65239AF,Stateful rules per policy,"The maximum number of stateful rules per firewall policy. This is the total across all rule groups that are referenced by the policy. You can increase this up to 50,000, but higher settings might impact firewall performance.",30000,None,true,false
+network-firewall,AWS Network Firewall,L-0E2A97AD,Stateless rule group capacity,The maximum stateless rule group capacity.,30000,None,false,false
+network-firewall,AWS Network Firewall,L-EB27A72A,Stateless rule group custom actions,The maximum number of custom actions per stateless rule group.,10,None,false,false
+network-firewall,AWS Network Firewall,L-8B62609E,Stateless rule groups per policy,The maximum number of stateless rule groups per firewall policy.,20,None,false,false
+network-firewall,AWS Network Firewall,L-EAE8E19E,Stateless rulegroups,The maximum number of stateless rule groups per account per Region.,50,None,true,false
+network-firewall,AWS Network Firewall,L-53DEAFE0,Stateless rules per policy,The maximum number of stateless rules per firewall policy. This is the total across all rule groups that are referenced by the policy.,30000,None,false,false
+network-firewall,AWS Network Firewall,L-A364946C,Suricata rule character length,The maximum character length of a Suricata rule. Each variable value in the rule counts toward this limit.,8192,None,false,false
+network-firewall,AWS Network Firewall,L-9E55B2E0,Suricata rules string size,"The maximum size of a Suricata-compatible rules string for a rule group, in bytes.",2000000,None,false,false
+network-firewall,AWS Network Firewall,L-801F8132,TLS configurations,The maximum number of TLS configurations per account per Region.,20,None,true,false
+network-firewall,AWS Network Firewall,L-4F6C862E,TLS inspection configurations per policy,The maximum number of TLS inspection configurations per policy.,1,None,false,false
+network-firewall,AWS Network Firewall,L-3EF9089F,VPC endpoint associations,The maximum number of VPC endpoint associations per account per Region.,300,None,true,false
+network-firewall,AWS Network Firewall,L-5BF9763F,VPC endpoint associations per Availability Zone per Firewall,The maximum number of VPC endpoint associations for a firewall per Availability Zone.,50,None,false,false

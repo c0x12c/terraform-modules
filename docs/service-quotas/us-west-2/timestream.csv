@@ -1,0 +1,32 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+timestream,Amazon Timestream,L-C49D398A,CreateBatchLoadTask request rate,Maximum number of CreateBatchLoadTask requests per second.,1,None,false,false
+timestream,Amazon Timestream,L-8892F7F6,CreateDatabase request rate,Maximum number of CreateDatabase requests per second.,1,None,false,false
+timestream,Amazon Timestream,L-798CB19D,CreateScheduledQuery request rate,Maximum number of CreateScheduledQuery requests per second.,1,None,false,false
+timestream,Amazon Timestream,L-7565C2A8,CreateTable request rate,Maximum number of CreateTable requests per second.,1,None,false,false
+timestream,Amazon Timestream,L-FD5A0C1A,Databases per account,The maximum number of databases you can create per AWS account.,500,None,false,false
+timestream,Amazon Timestream,L-279D7B08,DeleteDatabase request rate,Maximum number of DeleteDatabase requests per second.,1,None,false,false
+timestream,Amazon Timestream,L-FA296006,DeleteScheduledQuery request rate,Maximum number of DeleteScheduledQuery requests per second.,1,None,false,false
+timestream,Amazon Timestream,L-7C9FE50E,DeleteTable request rate,Maximum number of DeleteTable requests per second.,1,None,false,false
+timestream,Amazon Timestream,L-A83B13DB,DescribeAccountSettings request rate,Maximum number of DescribeAccountSettings requests per second.,1,None,false,false
+timestream,Amazon Timestream,L-6044E01C,DescribeBatchLoadTask request rate,Maximum number of DescribeBatchLoadTask requests per second.,5,None,false,false
+timestream,Amazon Timestream,L-F98EACE7,DescribeDatabase request rate,Maximum number of DescribeDatabase requests per second.,5,None,false,false
+timestream,Amazon Timestream,L-6C25862A,DescribeScheduledQuery request rate,Maximum number of DescribeScheduledQuery requests per second.,5,None,false,false
+timestream,Amazon Timestream,L-89E3B36D,DescribeTable request rate,Maximum number of DescribeTable requests per second.,5,None,false,false
+timestream,Amazon Timestream,L-3F031494,Dimensions per table,The maximum number of dimensions per table.,128,None,false,false
+timestream,Amazon Timestream,L-C0E9F2ED,ExecuteScheduledQuery request rate,Maximum number of ExecuteScheduledQuery requests per second.,5,None,false,false
+timestream,Amazon Timestream,L-F07A9AB4,ListBatchLoadTasks request rate,Maximum number of ListBatchLoadTasks requests per second.,5,None,false,false
+timestream,Amazon Timestream,L-0C6E4BCB,ListDatabases request rate,Maximum number of ListDatabases requests per second.,5,None,false,false
+timestream,Amazon Timestream,L-00158752,ListScheduledQueries request rate,Maximum number of ListScheduledQueries requests per second.,5,None,false,false
+timestream,Amazon Timestream,L-AE604CE2,ListTables request rate,Maximum number of ListTables requests per second.,5,None,false,false
+timestream,Amazon Timestream,L-FEB34FC6,Max allowed MaxQueryTCU,The maximum allowed MaxQueryTCU in your account,1000,None,false,false
+timestream,Amazon Timestream,L-BFCD0C9E,Maximum count of active magnetic store partitions per database,Maximum number of active magnetic store partitions per database. A partition may remain active for up to 6 hours after receiving ingestion.,250,None,false,false
+timestream,Amazon Timestream,L-05CF2F29,Measures per table,The maximum number of measures per table.,8192,None,false,false
+timestream,Amazon Timestream,L-16B72159,PrepareQuery request rate,Maximum number of PrepareQuery requests per second.,5,None,false,false
+timestream,Amazon Timestream,L-9F20DF3A,ResumeBatchLoadTask request rate,Maximum number of ResumeBatchLoadTask requests per second.,1,None,false,false
+timestream,Amazon Timestream,L-F1AC16A2,Scheduled queries per account,The maximum number of scheduled queries you can create per AWS account.,10000,None,false,false
+timestream,Amazon Timestream,L-1222731D,Tables per account,The maximum number of tables you can create per AWS account.,50000,None,false,false
+timestream,Amazon Timestream,L-71D80F70,Unique measures across multi-measure records per table,"The unique measures in all the multi-measure records defined in a single table. A single multi-measure record can have 'MaximumMeasureAttributesPerRecord' unique measures, and a table can have 'MaximumMeasureAttributesPerTable' unique measures defined across multi-measure records.",1024,None,false,false
+timestream,Amazon Timestream,L-8DFD99E7,UpdateAccountSettings request rate,Maximum number of UpdateAccountSettings requests per second.,1,None,false,false
+timestream,Amazon Timestream,L-6B1915C6,UpdateDatabase request rate,Maximum number of UpdateDatabase requests per second.,1,None,false,false
+timestream,Amazon Timestream,L-8BF444C0,UpdateScheduledQuery request rate,Maximum number of UpdateScheduledQuery requests per second.,1,None,false,false
+timestream,Amazon Timestream,L-8FD9593E,UpdateTable request rate,Maximum number of UpdateTable requests per second.,1,None,false,false

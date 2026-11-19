@@ -1,0 +1,15 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+cognito-identity,Amazon Cognito Federated Identities,L-29CA570C,Identity pool name size,The maximum size of an identity pool name in bytes.,128,Bytes,false,false
+cognito-identity,Amazon Cognito Federated Identities,L-8692CE1C,Identity pools per account,The maximum number of identity pools per account.,1000,None,true,false
+cognito-identity,Amazon Cognito Federated Identities,L-EAF710D2,List API call results,The maximum number of results from a list or lookup API call.,60,None,false,false
+cognito-identity,Amazon Cognito Federated Identities,L-B08F14B9,Login provider name size,The maximum size of a login provider name in bytes.,2048,Bytes,false,false
+cognito-identity,Amazon Cognito Federated Identities,L-5AE9F13D,Rate of GetCredentialsForIdentity requests,The maximum number of GetCredentialsForIdentity requests that you can make per second.,200,None,true,false
+cognito-identity,Amazon Cognito Federated Identities,L-A38ADA84,Rate of GetId requests,The maximum number of GetId requests that you can make per second.,25,None,true,false
+cognito-identity,Amazon Cognito Federated Identities,L-E97D135E,Rate of GetOpenIdToken requests,The maximum number of GetOpenIdToken requests that you can make per second.,200,None,true,false
+cognito-identity,Amazon Cognito Federated Identities,L-0BF99E8D,Rate of GetOpenIdTokenForDeveloperIdentity requests,The maximum number of GetOpenIdTokenForDeveloperIdentity requests that you can make per second.,50,None,true,false
+cognito-identity,Amazon Cognito Federated Identities,L-DBF99350,Rate of ListIdentities requests,The maximum number of ListIdentities requests that you can make per second.,5,None,true,false
+cognito-identity,Amazon Cognito Federated Identities,L-50C9AAB8,Rate of ListTagsForResource requests,The maximum number of ListTagsForResource requests that you can make per second.,10,None,true,false
+cognito-identity,Amazon Cognito Federated Identities,L-DAF3EAFF,Rate of TagResource requests,The maximum number of TagResource requests that you can make per second.,5,None,true,false
+cognito-identity,Amazon Cognito Federated Identities,L-0D31D6D2,Rate of UntagResource requests,The maximum number of UntagResource requests that you can make per second.,5,None,true,false
+cognito-identity,Amazon Cognito Federated Identities,L-1F1BC060,Role-based access control rules,The maximum number of rules for role-based access control (RBAC),25,None,false,false
+cognito-identity,Amazon Cognito Federated Identities,L-14403AD5,User pool providers per identity pool,The maximum number of Amazon Cognito user pool providers per identity pool.,50,None,true,false

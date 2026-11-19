@@ -1,0 +1,6 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+cognito-sync,Amazon Cognito Sync,L-239B0C0A,Bulk publish wait time,The maximum wait time for a bulk publish after a successful request in hours.,24,None,false,false
+cognito-sync,Amazon Cognito Sync,L-4CD747A5,Dataset name size,The maximum size of a dataset name in bytes.,128,Bytes,false,false
+cognito-sync,Amazon Cognito Sync,L-C5EE478A,Dataset size,The maximum size of a dataset in megabytes.,1,Megabytes,true,false
+cognito-sync,Amazon Cognito Sync,L-2625A4A0,Datasets per identity,The maximum number of datasets per identity.,20,None,true,false
+cognito-sync,Amazon Cognito Sync,L-97A9518B,Records per dataset,The maximum number of records per dataset.,1024,None,true,false

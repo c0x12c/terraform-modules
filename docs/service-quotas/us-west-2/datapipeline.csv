@@ -1,0 +1,14 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+datapipeline,AWS Data Pipeline,L-FB27F190,Minimum delay between retry attempts in minutes,The minimum delay between retry attempts in minutes.,2,None,false,false
+datapipeline,AWS Data Pipeline,L-8BA2F77F,Minimum scheduling interval in minutes,The minimum scheduling interval in minutes.,15,None,false,false
+datapipeline,AWS Data Pipeline,L-38666D85,Number of active instances per object,The maximum number of active instances per object.,5,None,true,false
+datapipeline,AWS Data Pipeline,L-69A30F0F,Number of EC2 instances per Ec2Resource object,The maximum number of EC2 instances per Ec2Resource object.,1,None,false,false
+datapipeline,AWS Data Pipeline,L-3CF04A5A,Number of fields per object,The maximum number of fields per object.,50,None,false,false
+datapipeline,AWS Data Pipeline,L-68BE1CDF,Number of objects per pipeline,The maximum number of objects that you can define per pipeline.,100,None,true,false
+datapipeline,AWS Data Pipeline,L-F826FAFA,Number of pipelines you can create,The maximum number of pipelines that you can create.,100,None,true,false
+datapipeline,AWS Data Pipeline,L-1DC02F93,Number of roll-ups into a single object,The maximum number of roll-ups into a single object.,32,None,false,false
+datapipeline,AWS Data Pipeline,L-F1DEF7D4,Number of UTF8 bytes per field,The maximum number of UTF8 bytes per field.,10240,None,false,false
+datapipeline,AWS Data Pipeline,L-064F8D6F,Number of UTF8 bytes per field name or identifier,The maximum number of UTF8 bytes per field name or identifier.,256,None,false,false
+datapipeline,AWS Data Pipeline,L-A7452F9F,Number of UTF8 bytes per object,The maximum number of UTF8 bytes per object (including field names).,15360,None,false,false
+datapipeline,AWS Data Pipeline,L-D6EAA5E9,Rate of creation of an instance from an object,The rate of creation of an instance from an object per 5 minutes.,1,None,false,false
+datapipeline,AWS Data Pipeline,L-6F30EEA5,Retries of a pipeline activity per task,The maximum number of retries of a pipeline activity per task.,5,None,false,false

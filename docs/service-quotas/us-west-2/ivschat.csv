@@ -1,0 +1,9 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+ivschat,Amazon Interactive Video Service Chat,L-2D7A45DA,Concurrent chat connections,"The maximum number of concurrent chat connections per account, across all your rooms in the current AWS region.",50000,None,true,false
+ivschat,Amazon Interactive Video Service Chat,L-F87B0F22,Logging Configurations,The maximum number of logging configurations that can be created per account in the current AWS region.,10,None,true,false
+ivschat,Amazon Interactive Video Service Chat,L-12580D29,Message review handler timeout period,"Timeout period in milliseconds for all your message review handlers in the current AWS Region. If this is exceeded, the message is allowed or denied depending on the value of the fallbackResult field you configured for the message review handler.",200,Milliseconds,false,false
+ivschat,Amazon Interactive Video Service Chat,L-766F0845,Rate of DeleteMessage requests,The maximum number of DeleteMessage requests that can be made per second across all your rooms.,100,None,true,false
+ivschat,Amazon Interactive Video Service Chat,L-0CF8D910,Rate of DisconnectUser requests,The maximum number of DisconnectUser requests that can be made per second across all your rooms.,100,None,true,false
+ivschat,Amazon Interactive Video Service Chat,L-B96AB553,Rate of messaging requests per connection,The maximum number of messaging requests that a chat connection can make per second.,10,None,false,false
+ivschat,Amazon Interactive Video Service Chat,L-B11841BF,Rate of SendMessage requests,The maximum number of SendMessage requests that can be made per second across all your rooms.,1000,None,true,false
+ivschat,Amazon Interactive Video Service Chat,L-85B84D18,Rooms,The maximum number of rooms that can be created per account in the current AWS region.,50000,None,true,false

@@ -1,0 +1,10 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+evidently,Amazon CloudWatch Evidently,L-E6200B63,Features per project,The maximum number of features you can have per project.,100,None,true,false
+evidently,Amazon CloudWatch Evidently,L-B63A538F,Projects per AWS account,The maximum number of projects you can have in this account.,50,None,true,false
+evidently,Amazon CloudWatch Evidently,L-ECD3E408,Rate of BatchEvaluateFeature requests,The maximum number of BatchEvaluateFeature requests per second (RPS) that you can send in one burst in this account in the current Region.,50,None,true,false
+evidently,Amazon CloudWatch Evidently,L-4F58F1DC,Rate of EvaluateFeature requests,The maximum number of EvaluateFeature requests per second (RPS) that you can send in one burst in this account in the current Region.,1000,None,true,false
+evidently,Amazon CloudWatch Evidently,L-2992F357,Rate of PostProjectEvents requests,The maximum number of PostProjectEvents requests per second (RPS) that you can send in one burst in this account in the current Region.,1000,None,true,false
+evidently,Amazon CloudWatch Evidently,L-738C873C,Running experiments per project,The maximum number of running experiments that you can have per project  at the same time.,50,None,true,false
+evidently,Amazon CloudWatch Evidently,L-DA4D659A,Running launches per project,The maximum number of running launches that you can have per project at the same time.,50,None,true,false
+evidently,Amazon CloudWatch Evidently,L-E477E349,Total experiments per project,The maximum number of experiments that you can have per project.,500,None,true,false
+evidently,Amazon CloudWatch Evidently,L-63083ACB,Total launches per project,The maximum number of launchess that you can have per project.,500,None,true,false

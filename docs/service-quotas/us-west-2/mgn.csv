@@ -1,0 +1,20 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+mgn,Application Migration,L-FE2EBE17,Concurrent jobs in progress,Concurrent jobs in progress,20,None,false,false
+mgn,Application Migration,L-0E532B45,Max actions per source server,Max actions per source server,100,None,false,false
+mgn,Application Migration,L-322CA331,Max actions per template,Max actions per template,100,None,false,false
+mgn,Application Migration,L-D5507441,Max active applications,Max active applications,200,None,false,false
+mgn,Application Migration,L-9A599620,Max Active Source Servers,Max Active Source Servers,150,None,true,false
+mgn,Application Migration,L-9FD6E875,Max active waves,Max active waves,200,None,false,false
+mgn,Application Migration,L-CBE9E36A,Max applications per wave,Max applications per wave,1000,None,false,false
+mgn,Application Migration,L-391504A2,Max archived applications,Max archived applications,10000,None,false,false
+mgn,Application Migration,L-BB9C7114,Max archived waves,Max archived waves,10000,None,false,false
+mgn,Application Migration,L-615F978B,Max concurrent Jobs per Source Server,Max concurrent Jobs per Source Server,1,None,false,false
+mgn,Application Migration,L-D617A7E7,Max network migration definitions per account per Region,Max network migration definitions per account per Region,5,None,true,false
+mgn,Application Migration,L-50980698,Max Non-Archived Source Servers,Max Non-Archived Source Servers,4000,None,true,false
+mgn,Application Migration,L-13A5D930,Max NSX gateway policy rules per network migration definition,Max NSX gateway policy rules per network migration definition,2500,None,true,false
+mgn,Application Migration,L-866BF8B4,Max NSX security policy rules per network migration definition,Max NSX security policy rules per network migration definition,2500,None,true,false
+mgn,Application Migration,L-F1FD732F,Max Source Servers in a single Job,Max Source Servers in a single Job,200,None,false,false
+mgn,Application Migration,L-4FF77426,Max Source Servers in all Jobs,Max Source Servers in all Jobs,200,None,false,false
+mgn,Application Migration,L-90A3F9F5,Max source servers per application,Max source servers per application,200,None,false,false
+mgn,Application Migration,L-DC1BBA2A,Max target FSx file systems per account,Max target FSx file systems per account,5,None,true,false
+mgn,Application Migration,L-967C958D,Max Total Source Servers Per AWS Account,Max Total Source Servers Per AWS Account,50000,None,false,false

@@ -1,0 +1,30 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+redshift,Amazon Redshift,L-D236BDB3,Allowed string value size per ION or JSON file when using AWS Glue Data Catalog,The maximum allowed size of a string value in an ION or JSON file when using an AWS Glue Data Catalog.,16,Kilobytes,true,false
+redshift,Amazon Redshift,L-7097B286,AWS accounts that you can authorize to restore a snapshot per AWS KMS key,"The maximum number of AWS accounts that you can authorize to restore a snapshot, per KMS key.",100,None,false,false
+redshift,Amazon Redshift,L-909949E5,AWS accounts that you can authorize to restore a snapshot per snapshot,"The maximum number of AWS accounts that you can authorize to restore a snapshot, per snapshot.",20,None,false,false
+redshift,Amazon Redshift,L-7C6A532D,Cluster IAM roles for Amazon Redshift to access other AWS services,The maximum number of IAM roles that you can associate with a cluster to authorize Amazon Redshift to access other AWS services for the user that owns the cluster and IAM roles.,50,None,false,false
+redshift,Amazon Redshift,L-8AFA7F04,Column limit for external tables with pseudocolumns when using AWS Glue Data Catalog,"The maximum number of columns for external tables when using an AWS Glue Data Catalog, 1,597 when pseudocolumns are enabled and 1,600 when pseudocolumns aren't enabled.",1597,None,true,false
+redshift,Amazon Redshift,L-24D7B305,Concurrency level (query slots) for all user-defined manual WLM queues,The maximum query slots for all user-defined queues defined by manual workload management.,50,None,false,false
+redshift,Amazon Redshift,L-84537943,DC2 nodes in a cluster,The maximum number of DC2 nodes that you can allocate to a cluster.,128,None,true,false
+redshift,Amazon Redshift,L-2B30DCFE,Event subscriptions,The maximum number of event subscriptions for this account in the current AWS Region.,20,None,true,false
+redshift,Amazon Redshift,L-7CB1CC00,Maximum number of connections for RA3 nodes,The maximum number of connections to an RA3 cluster.,2000,None,false,false
+redshift,Amazon Redshift,L-F9D462EE,Nodes,The maximum number of nodes across all database instances for this account in the current AWS Region.,200,None,true,false
+redshift,Amazon Redshift,L-BB966966,Nodes in a cluster,"The maximum number of nodes that you can allocate to a cluster, based on the cluster's node type.",128,None,false,false
+redshift,Amazon Redshift,L-A3830BB3,Parameter groups,The maximum number of parameter groups for this account in the current AWS Region.,20,None,false,false
+redshift,Amazon Redshift,L-93AC8AE6,RA3 nodes in a cluster,The maximum number of RA3 nodes that you can allocate to a cluster.,128,None,true,false
+redshift,Amazon Redshift,L-58C8C0E8,Reserved nodes,The maximum number of reserved nodes for this account in the current AWS Region.,200,None,true,false
+redshift,Amazon Redshift,L-4E1FE923,Schemas in each database per cluster,"The maximum number of schemas that you can create in each database, per cluster.",9900,None,false,false
+redshift,Amazon Redshift,L-890444C0,Security groups,The maximum number of security groups for this account in the current AWS Region.,20,None,true,false
+redshift,Amazon Redshift,L-4D30B127,Single row size when loading by COPY,The maximum size of a single row when loading by using the COPY command.,4,Megabytes,false,false
+redshift,Amazon Redshift,L-2E428669,Snapshots,The maximum number of user snapshots for this account in the current AWS Region.,700,None,true,false
+redshift,Amazon Redshift,L-21B48DE6,Stored procedures in a database,The maximum number of stored procedures.,10000,None,false,false
+redshift,Amazon Redshift,L-BE12F428,Subnet groups,The maximum number of subnet groups for this account in the current AWS Region.,50,None,true,false
+redshift,Amazon Redshift,L-6C6B6042,Subnets in a subnet group,The maximum number of subnets for a subnet group.,20,None,true,false
+redshift,Amazon Redshift,L-FA4166C9,Tables for 16xlarge cluster node type,The maximum number of tables for the 16xlarge cluster node type.,200000,None,false,false
+redshift,Amazon Redshift,L-99F53FC8,Tables for 4xlarge cluster node type,The maximum number of tables for the 4xlarge cluster node type.,200000,None,false,false
+redshift,Amazon Redshift,L-D8ECCA81,Tables for 8xlarge cluster node type,The maximum number of tables for the 8xlarge cluster node type.,200000,None,false,false
+redshift,Amazon Redshift,L-986F545D,Tables for large cluster node type,The maximum number of tables for the large cluster node type.,9900,None,false,false
+redshift,Amazon Redshift,L-A4D89F59,Tables for xlarge cluster node type,The maximum number of tables for the xlarge cluster node type.,9900,None,false,false
+redshift,Amazon Redshift,L-7438E5E3,Tables for xlplus cluster node type with a multiple-node cluster,The maximum number of tables for the xlplus cluster node type with a multiple-node cluster.,20000,None,false,false
+redshift,Amazon Redshift,L-01DE90DD,Tables for xlplus cluster node type with a single-node cluster,The maximum number of tables for the xlplus cluster node type with a single-node cluster.,9900,None,false,false
+redshift,Amazon Redshift,L-CA4E81F8,User-defined databases in a cluster,The maximum number of user-defined databases that you can create per cluster.,60,None,false,false

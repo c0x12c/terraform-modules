@@ -1,0 +1,13 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+grafana,Amazon Managed Grafana,L-2C2D5119,Number of workspaces,The maximum number of workspaces that you can have in this account in the current region.,5,None,true,false
+grafana,Amazon Managed Grafana,L-A947D66C,Rate of AssociateLicense requests,"The maximum number of AssociateLicense requests that you can make, per second, in this account in the current region.",1,None,false,false
+grafana,Amazon Managed Grafana,L-6134480C,Rate of CreateWorkspace requests,"The maximum number of CreateWorkspace requests that you can make, per second, in this account in the current region.",1,None,false,false
+grafana,Amazon Managed Grafana,L-DE04A994,Rate of DeleteWorkspace requests,"The maximum number of DeleteWorkspace requests that you can make, per second, in this account in the current region.",1,None,false,false
+grafana,Amazon Managed Grafana,L-C1661D81,Rate of DescribeWorkspace requests,"The maximum number of DescribeWorkspace requests that you can make, per second, in this account in the current region.",5,None,false,false
+grafana,Amazon Managed Grafana,L-B3CBC037,Rate of DescribeWorkspaceAuthentication requests,"The maximum number of DescribeWorkspaceAuthentication requests that you can make, per second, in this account in the current region.",1,None,false,false
+grafana,Amazon Managed Grafana,L-482DE601,Rate of DisassociateLicense requests,"The maximum number of DisassociateLicense requests that you can make, per second, in this account in the current region.",1,None,false,false
+grafana,Amazon Managed Grafana,L-EF9C1A59,Rate of ListPermissions requests,"The maximum number of ListPermissions requests that you can make, per second, in this account in the current region.",10,None,false,false
+grafana,Amazon Managed Grafana,L-F61AFA49,Rate of ListWorkspaces requests,"The maximum number of ListWorkspaces requests that you can make, per second, in this account in the current region.",5,None,false,false
+grafana,Amazon Managed Grafana,L-5420120D,Rate of UpdatePermissions requests,"The maximum number of UpdatePermissions requests that you can make, per second, in this account in the current region.",10,None,false,false
+grafana,Amazon Managed Grafana,L-0F096599,Rate of UpdateWorkspace requests,"The maximum number of UpdateWorkspace requests that you can make, per second, in this account in the current region.",10,None,false,false
+grafana,Amazon Managed Grafana,L-6A33FFDD,Rate of UpdateWorkspaceAuthentication requests,"The maximum number of UpdateWorkspaceAuthentication requests that you can make, per second, in this account in the current region.",1,None,false,false

@@ -1,0 +1,2 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+config,AWS Config,L-0BE82991,AWS Config Rules per region,The maximum number of AWS Config Rules per region in an AWS account,1000,None,false,false

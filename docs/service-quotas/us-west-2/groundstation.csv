@@ -1,0 +1,11 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+groundstation,AWS Ground Station,L-5CCF0BC2,Config limit,The maximum number of configs allowed.,100,None,true,false
+groundstation,AWS Ground Station,L-09DEC198,Contact Lead Time Maximum,Maximum lead time allowed for scheduling a contact in days,7,None,true,false
+groundstation,AWS Ground Station,L-D6A1915B,Dataflow endpoint group limit,The maximum number of dataflow endpoint groups allowed.,100,None,true,false
+groundstation,AWS Ground Station,L-98A63A85,Dataflow endpoints per group limit,The maximum number of dataflow endpoints per group allowed.,20,None,true,false
+groundstation,AWS Ground Station,L-BD84767C,Enabled Ephemerides limit,Maximum number of enabled customer-provided ephemerides per satellite.,30,None,true,false
+groundstation,AWS Ground Station,L-DE376FC5,Ephemeris Validation limit,Maximum number of customer-provided ephemerides that be validated simultaneously.,10,None,true,false
+groundstation,AWS Ground Station,L-CCFDE387,Maximum Contact Duration,The maximum contact duration permitted in minutes,20,None,true,false
+groundstation,AWS Ground Station,L-5342B9BF,Mission profile limit,The maximum number of mission profiles allowed.,100,None,true,false
+groundstation,AWS Ground Station,L-DF7B6DEC,Scheduled Contacts Limit,Maximum number of scheduled contacts allowed,100,None,true,false
+groundstation,AWS Ground Station,L-FED20749,Scheduled Minutes Limit,The maximum number of scheduled minutes allowed,1000,None,true,false

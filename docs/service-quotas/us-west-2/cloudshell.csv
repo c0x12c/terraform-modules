@@ -1,0 +1,5 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+cloudshell,AWS CloudShell,L-C2A56602,Concurrent shells,The maximum number of concurrent shells that you can run at the same time in this account in the current Region.,10,None,true,false
+cloudshell,AWS CloudShell,L-AFB6CE78,Data retention,The number of days that the data in the home directory will be retained after a shell was last accessed.,120,None,false,false
+cloudshell,AWS CloudShell,L-91D31FC1,Home directory size,The maximum size of your shell's home directory.,1,Gigabytes,false,false
+cloudshell,AWS CloudShell,L-937D704D,Monthly usage,The maximum number of hours that you can use AWS CloudShell per month in this account in the current Region.,200,None,true,false

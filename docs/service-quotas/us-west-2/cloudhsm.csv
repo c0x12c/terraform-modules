@@ -1,0 +1,10 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+cloudhsm,AWS CloudHSM,L-4B16B391,Clusters per AWS Region and AWS account,The maximum number of clusters that you can create in this account in the current Region.,4,None,true,false
+cloudhsm,AWS CloudHSM,L-95BA35D1,HSMs per AWS Region and AWS account,The maximum number of HSMs that you can create in this account in the current Region.,6,None,true,false
+cloudhsm,AWS CloudHSM,L-0D8B0541,HSMs per CloudHSM cluster,The maximum number of HSMs that you can create in a CloudHSM cluster.,28,None,false,false
+cloudhsm,AWS CloudHSM,L-36814031,Keys per CloudHSM cluster,The maximum number of keys that you can create in a CloudHSM cluster.,3300,None,false,false
+cloudhsm,AWS CloudHSM,L-F9BBB650,Length of a password,The maximum number of characters for a password.,32,None,false,false
+cloudhsm,AWS CloudHSM,L-772318AE,Length of a Username,The maximum number of characters for a username.,31,None,false,false
+cloudhsm,AWS CloudHSM,L-194EB2B8,Minimum length of a password,The minimum number of characters for a password.,7,None,false,false
+cloudhsm,AWS CloudHSM,L-0B35A0E6,Number of concurrent clients,The maximum number of concurrent clients that can exist in a Region.,900,None,false,false
+cloudhsm,AWS CloudHSM,L-F847CBBF,Users per CloudHSM cluster,The maximum number of users who can be created on a cluster in an account.,1024,None,false,false

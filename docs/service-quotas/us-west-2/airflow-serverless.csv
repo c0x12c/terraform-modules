@@ -1,0 +1,8 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+airflow-serverless,Amazon MWAA Serverless (airflow-serverless),L-E488E4B4,Maximum code storage per account,Maximum total size (MiB) of workflow code stored per account.,76800,Megabytes,true,false
+airflow-serverless,Amazon MWAA Serverless (airflow-serverless),L-643FB251,Maximum concurrent workflow runs per account,Maximum number of concurrent workflow runs per account,100,None,true,false
+airflow-serverless,Amazon MWAA Serverless (airflow-serverless),L-2C1A393B,Maximum task execution timeout,Maximum task execution timeout in minutes,60,None,true,false
+airflow-serverless,Amazon MWAA Serverless (airflow-serverless),L-053986BB,Maximum task instance XCom data size,Maximum task instance XCom data size in kilobytes,100,Kilobytes,true,false
+airflow-serverless,Amazon MWAA Serverless (airflow-serverless),L-B3B5D226,Maximum workflow definition size,Maximum workflow definition size in kilobytes,50,Kilobytes,true,false
+airflow-serverless,Amazon MWAA Serverless (airflow-serverless),L-430BC7B5,Maximum workflow versions per workflow,Maximum number of versions that can be created per workflow,50,None,true,false
+airflow-serverless,Amazon MWAA Serverless (airflow-serverless),L-D905802C,Maximum workflows per account,Maximum number of workflows that can be created per account,100,None,true,false

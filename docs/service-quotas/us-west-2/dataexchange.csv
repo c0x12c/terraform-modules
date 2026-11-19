@@ -1,0 +1,33 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+dataexchange,AWS Data Exchange,L-4F23AFE3,Active and pending data grants,The maximum number of active and pending data grants from a single data owner.,25000,None,false,false
+dataexchange,AWS Data Exchange,L-4F329808,Amazon API Gateway API assets per revision,The maximum number of Amazon API Gateway API assets that a single revision can contain.,20,None,true,false
+dataexchange,AWS Data Exchange,L-2BA57A8A,Amazon Redshift datashare assets per import job from Redshift,The maximum number of Amazon Redshift datashare assets you can import from Redshift in a single job.,10,None,false,false
+dataexchange,AWS Data Exchange,L-9961D71E,Amazon Redshift datashare assets per revision,The maximum number of Amazon Redshift datashare assets that a single revision can contain.,20,None,true,false
+dataexchange,AWS Data Exchange,L-60973A49,Amazon S3 data access assets per revision,The maximum number of Amazon S3 data access assets that a single revision can contain.,5,None,true,false
+dataexchange,AWS Data Exchange,L-B13AFAD0,Asset per export job from Amazon S3,The maximum number of assets you can export to Amazon S3 in a single job.,100,None,false,false
+dataexchange,AWS Data Exchange,L-514CB613,Asset size in GB,The maximum size in GB of a single asset.,100,Gigabytes,false,false
+dataexchange,AWS Data Exchange,L-694A226E,Assets per import job from Amazon S3,The maximum number of assets you can import from Amazon S3 in a single job.,100,None,false,false
+dataexchange,AWS Data Exchange,L-92FCD39C,Assets per revision,The maximum number of assets that a single revision can contain.,10000,None,true,false
+dataexchange,AWS Data Exchange,L-7053BE85,Auto export event actions per data set,The maximum number of auto export event actions per data set.,5,None,true,false
+dataexchange,AWS Data Exchange,L-D470FF0C,AWS Lake Formation data permission assets per revision,The maximum number of AWS Lake Formation data permission assets that a single revision can contain.,20,None,true,false
+dataexchange,AWS Data Exchange,L-7878C4C3,Concurrent in progress jobs to create Amazon S3 data access assets from S3 buckets,The maximum number of concurrently running jobs (i.e jobs IN_PROGRESS) to create Amazon S3 data access assets from S3 buckets.,5,None,false,false
+dataexchange,AWS Data Exchange,L-F1756D86,Concurrent in progress jobs to create data grants,The maximum number of concurrently running jobs (i.e jobs IN_PROGRESS) to create data grants.,5,None,false,false
+dataexchange,AWS Data Exchange,L-340ED0B2,Concurrent in progress jobs to delete data grants,The maximum number of concurrently running jobs (i.e jobs IN_PROGRESS) to delete data grants.,5,None,false,false
+dataexchange,AWS Data Exchange,L-52FCAA8A,Concurrent in progress jobs to export assets to a signed URL,The maximum number of concurrently running jobs (i.e. jobs with IN_PROGRESS state) to export assets to a signed URL.,10,None,false,false
+dataexchange,AWS Data Exchange,L-37C425C6,Concurrent in progress jobs to export assets to Amazon S3,The maximum number of concurrently running jobs (i.e. jobs with IN_PROGRESS state) to export assets to Amazon S3.,10,None,false,false
+dataexchange,AWS Data Exchange,L-09B749AD,Concurrent in progress jobs to export revisions to Amazon S3,The maximum number of concurrently running jobs (i.e. jobs with IN_PROGRESS state) to export revisions to Amazon S3.,5,None,false,false
+dataexchange,AWS Data Exchange,L-50515269,Concurrent in progress jobs to import assets from a signed URL,The maximum number of concurrently running jobs (i.e. jobs with IN_PROGRESS state) to import assets from a signed URL.,10,None,false,false
+dataexchange,AWS Data Exchange,L-A1C96D1F,Concurrent in progress jobs to import assets from Amazon API Gateway,The maximum number of concurrently running jobs (i.e. jobs with IN_PROGRESS state) to import assets from Amazon API Gateway.,10,None,false,false
+dataexchange,AWS Data Exchange,L-9D7AE86C,Concurrent in progress jobs to import assets from Amazon Redshift datashares,The maximum number of concurrently running jobs (i.e. jobs with IN_PROGRESS state) to import Amazon Redshift datashares.,10,None,false,false
+dataexchange,AWS Data Exchange,L-307F71B5,Concurrent in progress jobs to import assets from Amazon S3,The maximum number of concurrently running jobs (i.e. jobs with IN_PROGRESS state) to import assets from Amazon S3.,10,None,false,false
+dataexchange,AWS Data Exchange,L-426BE746,Concurrent in progress jobs to import assets from an AWS Lake Formation tag policy,The maximum number of concurrently running jobs (i.e. jobs with IN_PROGRESS state) to import assets from an AWS Lake Formation tag policy.,5,None,false,false
+dataexchange,AWS Data Exchange,L-52E2E63A,Data sets per account,The maximum number of data sets per account.,3000,None,true,false
+dataexchange,AWS Data Exchange,L-8EB7960E,Event actions per account,The maximum number of event actions per account.,50,None,true,false
+dataexchange,AWS Data Exchange,L-1FA7039C,Pending data grants per consumer,The maximum number of pending data grants from a single data owner to a single consumer account.,20,None,true,false
+dataexchange,AWS Data Exchange,L-D05CF9CD,Products per data set,The maximum number of products that can contain a given data set.,100,None,true,false
+dataexchange,AWS Data Exchange,L-916D9CEE,Revisions per addRevisions change set,The maximum number of revisions that can be published to a product in a single AWS Marketplace Catalog API ChangeSet of type addRevisions.,5,None,false,false
+dataexchange,AWS Data Exchange,L-237CFF3D,Revisions per Amazon API Gateway API data set,The maximum number of revisions that a single Amazon API Gateway API data set can contain.,20,None,true,false
+dataexchange,AWS Data Exchange,L-A8722A7A,Revisions per Amazon Redshift datashare data set,The maximum number of revisions that a single Amazon Redshift datashare data set can contain.,20,None,true,false
+dataexchange,AWS Data Exchange,L-70B0F91E,Revisions per Amazon S3 data access data set,The maximum number of revisions that a single Amazon S3 data access data set can contain.,5,None,true,false
+dataexchange,AWS Data Exchange,L-A15CB065,Revisions per AWS Lake Formation data permission data set,The maximum number of revisions that a single AWS Lake Formation data permission data set can contain.,20,None,true,false
+dataexchange,AWS Data Exchange,L-375806A0,Revisions per data set,The maximum number of revisions that a single data set can contain.,10000,None,true,false

@@ -1,0 +1,8 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+proton,AWS Proton,L-8FBB60E3,Components per account,Maximum number of components per account,1000,None,true,false
+proton,AWS Proton,L-6CC8209C,Environment account connections per environment account,Maximum number of environment account connections per environment account,1000,None,true,false
+proton,AWS Proton,L-37A692EA,Environments per account,Maximum number of environments per account,1000,None,true,false
+proton,AWS Proton,L-E8182F7E,Service instances per service,Maximum number of service instances per service,20,None,true,false
+proton,AWS Proton,L-1C8983C3,Services per account,Maximum number of services per account,1000,None,true,false
+proton,AWS Proton,L-A1B6A95A,Template versions per template,Maximum number of template versions registered per template,1000,None,true,false
+proton,AWS Proton,L-405DC02B,Templates per account,"Maximum number of registered templates per account, service and environment templates combined",1000,None,true,false

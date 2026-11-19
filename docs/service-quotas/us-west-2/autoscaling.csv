@@ -1,0 +1,10 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+autoscaling,Amazon EC2 Auto Scaling,L-CDE20ADC,Auto Scaling groups per region,The maximum number of Auto Scaling groups allowed for your AWS account,500,None,true,false
+autoscaling,Amazon EC2 Auto Scaling,L-F786B2E5,Classic Load Balancers per Auto Scaling group,The maximum number of Classic Load Balancers per Auto Scaling group,50,None,false,false
+autoscaling,Amazon EC2 Auto Scaling,L-6B80B8FA,Launch configurations per region,The maximum number of launch configurations allowed for your AWS account,200,None,true,false
+autoscaling,Amazon EC2 Auto Scaling,L-1312BBBF,Lifecycle hooks per Auto Scaling group,The maximum number of lifecycle hooks per Auto Scaling group,50,None,false,false
+autoscaling,Amazon EC2 Auto Scaling,L-72753F6F,Scaling policies per Auto Scaling group,The maximum number of scaling policies per Auto Scaling group,50,None,false,false
+autoscaling,Amazon EC2 Auto Scaling,L-F0B00D71,Scheduled actions per Auto Scaling group,The maximum number of scheduled actions per Auto Scaling group,125,None,false,false
+autoscaling,Amazon EC2 Auto Scaling,L-CEE5E714,SNS topics per Auto Scaling group,The maximum number of SNS topics per Auto Scaling group,10,None,false,false
+autoscaling,Amazon EC2 Auto Scaling,L-6C2A2F6E,Step adjustments per step scaling policy,The maximum number of step adjustments per step scaling policy,20,None,false,false
+autoscaling,Amazon EC2 Auto Scaling,L-05CB8B12,Target groups per Auto Scaling group,The maximum number of target groups per Auto Scaling group,50,None,false,false

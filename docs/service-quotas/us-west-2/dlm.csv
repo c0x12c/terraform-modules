@@ -1,0 +1,3 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+dlm,Amazon Data Lifecycle Manager,L-5407D8DA,Policies per Region,The maximum number of policies per Region.,100,None,true,false
+dlm,Amazon Data Lifecycle Manager,L-DCA05F2F,Target accounts per sharing rule,The maximum number of target accounts per sharing rule.,50,None,true,false

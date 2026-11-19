@@ -1,0 +1,19 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+profile,Amazon Connect Customer Profiles,L-6603B252,Amazon Connect Customer Profiles domain count,The maximum number of Amazon Connect Customer Profiles domains you can create in this account in the current AWS Region.,100,None,true,false
+profile,Amazon Connect Customer Profiles,L-A7ED412C,Keys per object type,The maximum number of keys that can be defined per object type in the current AWS Region.,10,None,true,false
+profile,Amazon Connect Customer Profiles,L-3217D1F1,Maximum expiration in days,"The maximum expiration, in days, that can be defined for an object or profile in the current AWS Region.",1098,None,true,false
+profile,Amazon Connect Customer Profiles,L-DB27F954,Maximum number of calculated attributes per domain,The maximum number of calculated attributes per domain in the current AWS Region.,100,None,false,false
+profile,Amazon Connect Customer Profiles,L-9CF9A111,Maximum number of domain object types per domain,The maximum number of domain object types you can define per domain in the current AWS Region.,1,None,false,false
+profile,Amazon Connect Customer Profiles,L-1DED0840,Maximum number of event stream per domain,The maximum number of event stream per domain in the current AWS Region.,1,None,false,false
+profile,Amazon Connect Customer Profiles,L-0A1E1791,Maximum number of event triggers per domain,The maximum number of event triggers per domain in the current AWS Region.,50,None,true,false
+profile,Amazon Connect Customer Profiles,L-4A5ECB8E,Maximum number of integrations,The maximum number of integrations per domain in the current AWS Region.,50,None,true,false
+profile,Amazon Connect Customer Profiles,L-DFAEAED3,Maximum number of profile history records per profile,The maximum number of profile history records per profile in the current AWS Region.,10000,None,true,false
+profile,Amazon Connect Customer Profiles,L-ECB9B0BB,Maximum number of recommender schemas per domain,The maximum number of recommender schemas you can define per domain in the current AWS Region.,5,None,true,false
+profile,Amazon Connect Customer Profiles,L-B6E9F054,Maximum number of recommenders per domain,The maximum number of recommenders you can define per domain in the current AWS Region.,10,None,true,false
+profile,Amazon Connect Customer Profiles,L-D53B7246,Maximum number of recommeneder filters per domain,The maximum number of recommender filters you can define per domain in the current AWS Region.,30,None,false,false
+profile,Amazon Connect Customer Profiles,L-E8EA6D23,Maximum number of segment definitions per domain,The maximum number of segment definitions you can create per domain in the current AWS Region.,500,None,true,false
+profile,Amazon Connect Customer Profiles,L-B59352A0,Maximum number of segment snapshots per day,The maximum number of segmentation snapshots that can be created per domain per day in the current AWS Region.,200,None,true,false
+profile,Amazon Connect Customer Profiles,L-63975AF3,Maximum size of all objects for a profile,"The total size of a profile, including all of its related objects, in the current AWS Region.",51200,Kilobytes,true,false
+profile,Amazon Connect Customer Profiles,L-3A29C525,Object and profile maximum size,The maximum size of a single profile or profile object in the current AWS Region.,250,Kilobytes,false,false
+profile,Amazon Connect Customer Profiles,L-14092FF4,Object types per domain,The maximum number of object types you can define per domain in the current AWS Region.,100,None,true,false
+profile,Amazon Connect Customer Profiles,L-E17DC7C3,Objects per profile,The maximum number of objects that can be attached to a single profile in the current AWS Region.,1000,None,true,false

@@ -1,0 +1,21 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+iotdeviceadvisor,AWS IoT Core Device Advisor,L-814F086E,Concurrently connected devices,The maximum number of test devices that can be concurrently connected per test suite run.,1,None,false,false
+iotdeviceadvisor,AWS IoT Core Device Advisor,L-3A1E53E8,Concurrently running test suites,The maximum number of suites an AWS account can run concurrently.,1,None,false,false
+iotdeviceadvisor,AWS IoT Core Device Advisor,L-F9A7549C,Connections per test endpoint,The maximum number of connections to an account-specific test endpoint.,5,None,false,false
+iotdeviceadvisor,AWS IoT Core Device Advisor,L-B2C37235,MQTT CONNECT requests per account,The maximum number of MQTT Connect requests sent from a test device per second per account.,5,None,false,false
+iotdeviceadvisor,AWS IoT Core Device Advisor,L-A93693EE,MQTT CONNECT requests per client ID,The maximum number of MQTT Connect requests sent from a test device per second per client ID.,1,None,false,false
+iotdeviceadvisor,AWS IoT Core Device Advisor,L-72BB0AC2,Rate of CreateSuiteDefinition API requests,The maximum number of CreateSuiteDefinition API requests you can make per second.,1,None,false,false
+iotdeviceadvisor,AWS IoT Core Device Advisor,L-C0257F24,Rate of DeleteSuiteDefinition API requests,The maximum number of DeleteSuiteDefinition API requests you can make per second.,10,None,false,false
+iotdeviceadvisor,AWS IoT Core Device Advisor,L-47C420DE,Rate of GetSuiteDefinition API requests,The maximum number of GetSuiteDefinition API requests you can make per second.,10,None,false,false
+iotdeviceadvisor,AWS IoT Core Device Advisor,L-78EB42FA,Rate of GetSuiteRun API requests,The maximum number of GetSuiteRun API requests you can make per second.,10,None,false,false
+iotdeviceadvisor,AWS IoT Core Device Advisor,L-E1EAD877,Rate of GetSuiteRunReport API requests,The maximum number of GetSuiteRunReport API requests you can make per second.,10,None,false,false
+iotdeviceadvisor,AWS IoT Core Device Advisor,L-D87936C6,Rate of ListSuiteDefinitions API requests,The maximum number of ListSuiteDefinitions API requests you can make per second.,10,None,false,false
+iotdeviceadvisor,AWS IoT Core Device Advisor,L-3BBA7D5E,Rate of ListSuiteRuns API requests,The maximum number of ListSuiteRuns API requests you can make per second.,10,None,false,false
+iotdeviceadvisor,AWS IoT Core Device Advisor,L-ACC4886B,Rate of ListTagsForResource API requests,The maximum number of ListTagsForResource API requests you can make per second.,10,None,false,false
+iotdeviceadvisor,AWS IoT Core Device Advisor,L-AB741764,Rate of ListTestCases API requests,The maximum number of ListTestCases API requests you can make per second.,10,None,false,false
+iotdeviceadvisor,AWS IoT Core Device Advisor,L-D95868BC,Rate of StartSuiteRun API requests,The maximum number of StartSuiteRun API requests you can make per second.,1,None,false,false
+iotdeviceadvisor,AWS IoT Core Device Advisor,L-038F5083,Rate of TagResource API requests,The maximum number of TagResource API requests you can make per second.,10,None,false,false
+iotdeviceadvisor,AWS IoT Core Device Advisor,L-F1F720AA,Rate of UntagResource API requests,The maximum number of UntagResource API requests you can make per second.,10,None,false,false
+iotdeviceadvisor,AWS IoT Core Device Advisor,L-A9BBB1E8,Rate of UpdateSuiteDefinition API requests,The maximum number of UpdateSuiteDefinition API requests you can make per second.,10,None,false,false
+iotdeviceadvisor,AWS IoT Core Device Advisor,L-3F694CF6,Test case execution time,The maximum time until a test case fails if not completed.,10800,Seconds,false,false
+iotdeviceadvisor,AWS IoT Core Device Advisor,L-5DB0F1ED,Test cases per test suite,The maximum number of test cases in one test suite.,50,None,false,false

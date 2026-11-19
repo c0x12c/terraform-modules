@@ -1,0 +1,22 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+aoss,Amazon OpenSearch Serverless,L-1A85D401,Collections per Collection Group (Classic),The maximum number of collections per collection group.,1500,None,false,false
+aoss,Amazon OpenSearch Serverless,L-E04A9F70,Collections per Collection Group (NextGen),The maximum number of collections per NextGen collection group.,10000,None,true,false
+aoss,Amazon OpenSearch Serverless,L-C3AEE11F,Data access policies per region,The maximum number of data access policies per account per region.,500,None,false,false
+aoss,Amazon OpenSearch Serverless,L-81F90FD2,Data access policy size per policy,The maximum size of a data access policy in bytes.,10240,Bytes,false,false
+aoss,Amazon OpenSearch Serverless,L-FBAA6E20,Default indexing MAX Collection Group OCU setting,"The default max indexing capacity per collection group, in OpenSearch Compute Units (OCUs).",96,None,true,false
+aoss,Amazon OpenSearch Serverless,L-50FA809B,Default indexing MAX OCU setting,"The default indexing capacity per account, in OpenSearch Compute Units (OCUs).",10,None,false,false
+aoss,Amazon OpenSearch Serverless,L-1F7A5B5B,Default search MAX Collection Group OCU setting,"The default max search capacity per collection group, in OpenSearch Compute Units (OCUs).",96,None,true,false
+aoss,Amazon OpenSearch Serverless,L-4E98D4EB,Default search MAX OCU setting,"The default search capacity per account, in OpenSearch Compute Units (OCUs).",10,None,false,false
+aoss,Amazon OpenSearch Serverless,L-3EDA8079,Encryption policies per region,The maximum number of encryption policies per account per region.,150,None,false,false
+aoss,Amazon OpenSearch Serverless,L-2005AF7E,Encryption policy size per policy,The maximum size of an encryption policy in bytes.,10240,Bytes,false,false
+aoss,Amazon OpenSearch Serverless,L-D5F2517B,IAM Identity Center applications,The maximum number of IAM Identity Center applications managed by Amazon OpenSearch Serverless per account.,1,None,false,false
+aoss,Amazon OpenSearch Serverless,L-51EC5B57,IAM Identity Center security config size,The maximum size of a IAM Identity Center security config in bytes.,10240,Bytes,false,false
+aoss,Amazon OpenSearch Serverless,L-993355FF,Maximum collection groups,The maximum number of collection groups per account.,300,None,false,false
+aoss,Amazon OpenSearch Serverless,L-B813BFF3,Maximum indexing capacity (OCUs),"The maximum indexing capacity per account, in OpenSearch Compute Units (OCUs).",1700,None,false,false
+aoss,Amazon OpenSearch Serverless,L-B0736F4C,Maximum search capacity (OCUs),"The maximum search capacity per account, in OpenSearch Compute Units (OCUs).",1700,None,false,false
+aoss,Amazon OpenSearch Serverless,L-92280D4D,Network policies per region,The maximum number of network policies per account per region.,500,None,false,false
+aoss,Amazon OpenSearch Serverless,L-877395DB,Network policy size per policy,The maximum size of a network policy in bytes.,10240,Bytes,false,false
+aoss,Amazon OpenSearch Serverless,L-F447691F,Retention policies,The maximum number of retention policies per account.,500,None,false,false
+aoss,Amazon OpenSearch Serverless,L-7077B8EB,Retention policy size,The maximum size of a retention policy in bytes.,10240,Bytes,false,false
+aoss,Amazon OpenSearch Serverless,L-380319CD,SAML provider size per policy,The maximum size of a SAML provider in bytes.,51200,Bytes,false,false
+aoss,Amazon OpenSearch Serverless,L-1D4405ED,SAML providers per region,The maximum number of SAML providers per account per region.,50,None,false,false

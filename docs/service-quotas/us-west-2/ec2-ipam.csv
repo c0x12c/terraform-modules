@@ -1,0 +1,16 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+ec2-ipam,IPAM,L-BE3D23C2,Allocations per IPAM pool,The maximum number of allocations you can have in an IPAM pool.,550000,None,true,false
+ec2-ipam,IPAM,L-0BC051D6,CIDRs per IPAM pool,The maximum number of CIDRs you can provision to an IPAM pool.,50,None,true,false
+ec2-ipam,IPAM,L-BB69F419,Internet Registry Associations per IPAM,The maximum number of internet registry associations you can have per IPAM.,20,None,true,false
+ec2-ipam,IPAM,L-047C0565,IPAM pool depth,The maximum depth of pools in IPAM.,10,None,true,false
+ec2-ipam,IPAM,L-F8B4A9E6,IPAMs per Region,The maximum number of IPAMs you can create per AWS Region.,1,None,false,false
+ec2-ipam,IPAM,L-9661390E,Max IPv4 Contig Block Size,The maximum size of IPv4 contiguous blocks that you can allocate in this region.,28,None,false,false
+ec2-ipam,IPAM,L-E9C7F47C,Max IPv4 Contig Blocks,The maximum number of IPv4 contiguous blocks that you can allocate in this region.,2,None,true,false
+ec2-ipam,IPAM,L-67900804,Max IPv6 Contig Block Size,The maximum size of IPv6 contiguous blocks that you can allocate in this region.,52,None,false,false
+ec2-ipam,IPAM,L-50203861,Max IPv6 Contig Blocks,The maximum number of IPv6 contiguous blocks that you can allocate in this region.,1,None,true,false
+ec2-ipam,IPAM,L-CD416D24,Organizational unit exclusions per resource discovery,The maximum number of organizational unit exclusions you can add per resource discovery.,10,None,true,false
+ec2-ipam,IPAM,L-7319AFC3,Pools per IPAM scope,The maximum number of pools you can have in a scope in IPAM.,50,None,true,false
+ec2-ipam,IPAM,L-853116AC,Prefix List Resolvers per IPAM,The maximum number of prefix list resolvers you can have per IPAM.,10,None,true,false
+ec2-ipam,IPAM,L-F0D8E837,Resource discoveries per Region,The maximum number of resource discoveries you can create per AWS Region.,1,None,false,false
+ec2-ipam,IPAM,L-037D1B6C,Resource discovery associations per IPAM,The maximum number of resource discoveries you can associate per IPAM.,5,None,true,false
+ec2-ipam,IPAM,L-F493CFD2,Scopes per IPAM,The maximum number of scopes you can have per IPAM.,5,None,true,false

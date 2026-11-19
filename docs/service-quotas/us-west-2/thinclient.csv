@@ -1,0 +1,2 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+thinclient,Amazon WorkSpaces Thin Client,L-64C2BDF4,Number of Environments,The maximum number of environments in this account in the current Region,50,None,true,false

@@ -1,0 +1,5 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+route53profiles,Route 53 Profiles,L-BA3424AB,Private hosted zone associations to a Route 53 Profile.,The maximum number of private hosted zones that can be associated to a Route 53 Profile.,5000,None,true,false
+route53profiles,Route 53 Profiles,L-D9B2356C,Route 53 Profiles per account per Region.,The maximum number of Route 53 Profiles per AWS account per Region.,5,None,true,false
+route53profiles,Route 53 Profiles,L-0B404E57,VPC Endpoint associations to a Route 53 Profile.,The maximum number of VPC Endpoints that can be associated to a Route 53 Profile.,100,None,true,false
+route53profiles,Route 53 Profiles,L-9BABD1D7,VPC to Route 53 Profile associations per Region,The maximum number of VPCs that can be associated to a Route 53 Profile.,1000,None,true,false

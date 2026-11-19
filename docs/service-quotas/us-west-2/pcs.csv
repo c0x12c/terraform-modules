@@ -1,0 +1,2 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+pcs,AWS Parallel Computing Service,L-0ADE95E3,Clusters,The maximum number of clusters per Region.,5,None,true,false

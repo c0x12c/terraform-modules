@@ -1,0 +1,100 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+states,AWS Step Functions,L-15D902EC, Open Map Runs,The maximum number of open Map Runs allowed at a time in this account.,1000,None,false,false
+states,AWS Step Functions,L-75EF6064,Activity pollers per ARN,The maximum number of workers concurrently polling an activity per ARN.,1000,None,false,false
+states,AWS Step Functions,L-D282C59F,CreateActivity throttle token bucket size,The maximum number of CreateActivity calls that you can make per second.,100,None,true,false
+states,AWS Step Functions,L-5D565FF6,CreateActivity throttle token refill rate per second,The token refill rate per second for CreateActivity calls.,1,None,true,false
+states,AWS Step Functions,L-11731986,CreateStateMachine throttle token bucket size,The maximum number of CreateStateMachine calls that you can make per second.,100,None,true,false
+states,AWS Step Functions,L-E6D39AA7,CreateStateMachine throttle token refill rate per second,The token refill rate per second of CreateStateMachine calls.,1,None,true,false
+states,AWS Step Functions,L-C04F0C78,CreateStateMachineAlias throttle token bucket size,The maximum number of CreateStateMachineAlias calls that you can make per second.,100,None,true,false
+states,AWS Step Functions,L-06F91E3A,CreateStateMachineAlias throttle token refill rate per second,The token refill rate per second for CreateStateMachineAlias calls.,1,None,true,false
+states,AWS Step Functions,L-809F4173,DeleteActivity throttle token bucket size,The maximum number of DeleteActivity calls that you can make per second.,100,None,true,false
+states,AWS Step Functions,L-623044A2,DeleteActivity throttle token refill rate per second,The token refill rate per second of DeleteActivity calls.,1,None,true,false
+states,AWS Step Functions,L-FA23558C,DeleteStateMachine throttle token bucket size,The maximum number of DeleteStateMachine calls that you can make per second.,100,None,true,false
+states,AWS Step Functions,L-0169882E,DeleteStateMachine throttle token refill rate per second,The token refill rate per second of DeleteStateMachine calls.,1,None,true,false
+states,AWS Step Functions,L-FAA4E8CB,DeleteStateMachineAlias throttle token bucket size,The maximum number of DeleteStateMachineAlias calls that you can make per second.,100,None,true,false
+states,AWS Step Functions,L-C96E1D3D,DeleteStateMachineAlias throttle token refill rate per second,The token refill rate per second for DeleteStateMachineAlias calls.,1,None,true,false
+states,AWS Step Functions,L-6B5F0D66,DeleteStateMachineVersion throttle token bucket size,The maximum number of DeleteStateMachineVersion calls that you can make per second.,100,None,true,false
+states,AWS Step Functions,L-0AA8035B,DeleteStateMachineVersion throttle token refill rate per second,The token refill rate per second for DeleteStateMachineVersion calls.,1,None,true,false
+states,AWS Step Functions,L-B581C5F3,DescribeActivity throttle token bucket size,The maximum number of DescribeActivity calls that you can make per second.,200,None,true,false
+states,AWS Step Functions,L-20F3BB5B,DescribeActivity throttle token refill rate per second,The token refill rate per second of DescribeActivity calls.,20,None,true,false
+states,AWS Step Functions,L-A0B4DA4A,DescribeExecution throttle token bucket size,The maximum number of DescribeExecution calls that you can make per second.,300,None,true,false
+states,AWS Step Functions,L-4A5FADE3,DescribeExecution throttle token refill rate per second,The token refill rate per second of DescribeExecution calls.,50,None,true,false
+states,AWS Step Functions,L-9BACC576,DescribeMapRun throttle token bucket size,The maximum number of DescribeMapRun calls that you can make per second.,200,None,true,false
+states,AWS Step Functions,L-B82BF66D,DescribeMapRun throttle token refill rate per second,The token refill rate per second for DescribeMapRun calls.,1,None,true,false
+states,AWS Step Functions,L-233C6A78,DescribeStateMachine throttle token bucket size,The maximum number of DescribeStateMachine calls that you can make per second.,200,None,true,false
+states,AWS Step Functions,L-718BBE49,DescribeStateMachine throttle token refill rate per second,The token refill rate per second of DescribeStateMachine calls.,20,None,true,false
+states,AWS Step Functions,L-0B6A3253,DescribeStateMachineAlias throttle token bucket size,The maximum number of DescribeStateMachineAlias calls that you can make per second.,200,None,true,false
+states,AWS Step Functions,L-345D7ED2,DescribeStateMachineAlias throttle token refill rate per second,The token refill rate per second for DescribeStateMachineAlias calls.,1,None,true,false
+states,AWS Step Functions,L-88A8339B,DescribeStateMachineForExecution throttle token bucket size,The maximum number of DescribeStateMachineForExecution calls that you can make per second.,200,None,true,false
+states,AWS Step Functions,L-0DC55683,DescribeStateMachineForExecution throttle token refill rate per second,The token refill rate per second of DescribeStateMachineForExecution calls.,1,None,true,false
+states,AWS Step Functions,L-5AD63623,Execution history retention time,The maximum time (in days) for which the execution history is stored after an execution completes.,90,None,true,false
+states,AWS Step Functions,L-CE44C76B,Execution history size,The maximum number of events in a state machine's execution history.,25000,None,false,false
+states,AWS Step Functions,L-824BD7F8,Execution idle time,The maximum amount of time (in years) a state machine execution can remain idle.,1,None,false,false
+states,AWS Step Functions,L-3F41C9CA,Execution time,The maximum amount of time (in years) for which an execution can run.,1,None,false,false
+states,AWS Step Functions,L-631A2A16,GetActivityTask throttle token bucket size,The maximum number of GetActivityTask calls that you can make per second.,3000,None,true,false
+states,AWS Step Functions,L-7DC9CADD,GetActivityTask throttle token refill rate per second,The token refill rate per second of GetActivityTask calls.,500,None,true,false
+states,AWS Step Functions,L-F9699A68,GetExecutionHistory throttle token bucket size,The maximum number of GetExecutionHistory calls that you can make per second.,400,None,true,false
+states,AWS Step Functions,L-144D81B0,GetExecutionHistory throttle token refill rate per second,The token refill rate per second of GetExecutionHistory calls.,20,None,true,false
+states,AWS Step Functions,L-2CDE2B0A,Input file data size for a Map Run,Input file data size for a Map Run,10,Gigabytes,false,false
+states,AWS Step Functions,L-8FEC45E4,Input or result data size in task state or execution,"The maximum size of input or output data (in bytes) as a UTF-8 encoded string. This quota affects tasks (activity, Lambda function, or integrated service), state or execution output, and input data when scheduling a task, entering a state, or starting an execution.",262144,Bytes,false,false
+states,AWS Step Functions,L-0EE9C880,ListActivities throttle token bucket size,The maximum number of ListActivities calls that you can make per second.,100,None,true,false
+states,AWS Step Functions,L-818B33FC,ListActivities throttle token refill rate per second,The token refill rate per second of ListActivities calls.,10,None,true,false
+states,AWS Step Functions,L-7A4BEE15,ListExecutions throttle token bucket size,The maximum number of ListExecutions calls that you can make per second.,200,None,true,false
+states,AWS Step Functions,L-1342F2DA,ListExecutions throttle token refill rate per second,The token refill rate per second of ListExecutions calls.,5,None,true,false
+states,AWS Step Functions,L-198B5406,ListMapRuns throttle token bucket size,The maximum number of ListMapRuns calls that you can make per second.,100,None,true,false
+states,AWS Step Functions,L-17571B08,ListMapRuns throttle token refill rate per second,The token refill rate per second for ListMapRuns calls.,1,None,true,false
+states,AWS Step Functions,L-E58E8A9B,ListStateMachineAliases throttle token bucket size,The maximum number of ListStateMachineAliases calls that you can make per second.,100,None,true,false
+states,AWS Step Functions,L-BF6A8A21,ListStateMachineAliases throttle token refill rate per second,The token refill rate per second for ListStateMachineAliases calls.,1,None,true,false
+states,AWS Step Functions,L-29AE5D31,ListStateMachines throttle token bucket size,The maximum number of ListStateMachine calls that you can make per second.,100,None,true,false
+states,AWS Step Functions,L-9E82C0BD,ListStateMachines throttle token refill rate per second,The token refill rate per second of ListStateMachines calls.,5,None,true,false
+states,AWS Step Functions,L-15419B47,ListStateMachineVersions throttle token bucket size,The maximum number of ListStateMachineVersions calls that you can make per second.,100,None,true,false
+states,AWS Step Functions,L-F8B59CB5,ListStateMachineVersions throttle token refill rate per second,The token refill rate per second for ListStateMachineVersions calls.,1,None,true,false
+states,AWS Step Functions,L-6F348EF6,ListTagsForResource throttle token bucket size,The maximum number of ListTagsForResource calls that you can make per second.,100,None,true,false
+states,AWS Step Functions,L-81549E4C,ListTagsForResource throttle token refill rate per second,The token refill rate per second of ListTagsForResource calls.,1,None,true,false
+states,AWS Step Functions,L-3586FBF7,Maximum Concurrency,The maximum number of parallel Map Run child executions,10000,None,false,false
+states,AWS Step Functions,L-47716EBC,Maximum Number of Items Read per Map Run,Maximum Number of Items Read per Map Run,100000000,None,false,false
+states,AWS Step Functions,L-94D27F5A,Maximum redrives of a Map Run,Maximum redrives of a Map Run,1000,None,false,false
+states,AWS Step Functions,L-752E372A,Maximum size of CSV headers,Maximum size of CSV headers,10,Kilobytes,false,false
+states,AWS Step Functions,L-B8A5B662,Open executions,The maximum number of open executions per account in the current Region.,1000000,None,true,false
+states,AWS Step Functions,L-6AFCB355,Published state machine versions per state machine,The maximum number of versions that can be published for a state machine.,1000,None,true,false
+states,AWS Step Functions,L-0A0C3368,PublishStateMachineVersion throttle token bucket size,The maximum number of PublishStateMachineVersion calls that you can make per second.,100,None,true,false
+states,AWS Step Functions,L-B590C09A,PublishStateMachineVersion throttle token refill rate per second,The token refill rate per second for PublishStateMachineVersion calls.,1,None,true,false
+states,AWS Step Functions,L-DB101538,RedriveExecution throttle token bucket size,The maximum number of RedriveExecution calls that you can make per second.,800,None,true,false
+states,AWS Step Functions,L-1D8665FF,RedriveExecution throttle token refill rate per second,The token refill rate per second for RedriveExecution calls.,150,None,true,false
+states,AWS Step Functions,L-A9562A73,Registered activities,The maximum number of activities that you can create in this account in the current Region.,100000,None,true,false
+states,AWS Step Functions,L-B66B0F91,Registered state machines,The maximum number of state machines that you can create in this account in the current Region.,100000,None,true,false
+states,AWS Step Functions,L-DAFB74D5,Request size,"The total data size in Megabytes per Step Functions API request, including the request header and all other associated request data.",1,Megabytes,false,false
+states,AWS Step Functions,L-881C30D9,Resource name length,"The maximum allowed characters for names of state machines, executions, and activity resource types.",80,None,false,false
+states,AWS Step Functions,L-CDF2E38B,SendTaskFailure throttle token bucket size,The maximum number of SendTaskFailure calls that you can make per second.,3000,None,true,false
+states,AWS Step Functions,L-91DFCA1B,SendTaskFailure throttle token refill rate per second,The token refill rate per second of SendTaskFailure calls.,500,None,true,false
+states,AWS Step Functions,L-2786AC1A,SendTaskHeartbeat throttle token bucket size,The maximum number of SendTaskHeartbeat calls that you can make per second.,3000,None,true,false
+states,AWS Step Functions,L-2225B7C3,SendTaskHeartbeat throttle token refill rate per second,The token refill rate per second of SendTaskHeartbeat calls.,500,None,true,false
+states,AWS Step Functions,L-630CF084,SendTaskSuccess throttle token bucket size,The maximum number of SendTaskSuccess calls that you can make per second.,3000,None,true,false
+states,AWS Step Functions,L-EACE83FA,SendTaskSuccess throttle token refill rate per second,The token refill rate per second of SendTaskSuccess calls.,500,None,true,false
+states,AWS Step Functions,L-CE9F8059,StartExecution throttle token bucket size,The maximum number of StartExecution calls that you can make per second.,1300,None,true,false
+states,AWS Step Functions,L-1B55A735,StartExecution throttle token refill rate per second,The token refill rate per second of StartExecution calls.,300,None,true,false
+states,AWS Step Functions,L-CFF7B006,StartExpressExecution throttle token bucket size,The maximum number of StartExpressExecution calls that you can make per second.,6000,None,true,false
+states,AWS Step Functions,L-7B8A8E4B,StartExpressExecution throttle token refill rate per second,The token refill rate per second of StartExpressExecution calls.,6000,None,true,false
+states,AWS Step Functions,L-77AA0D13,StartMapRun throttle token bucket size,The maximum number of StartMapRun calls that you can make per second.,25,None,false,false
+states,AWS Step Functions,L-BE9DC071,StartMapRun throttle token refill rate per second,The token refill rate per second of StartMapRun calls,25,None,false,false
+states,AWS Step Functions,L-C1D5EBBB,State machine aliases per state machine,The maximum number of aliases that can be created for a state machine.,100,None,true,false
+states,AWS Step Functions,L-137B3F65,StateTransition throttle token bucket size,The maximum number of StateTransition calls that you can make per second.,5000,None,true,false
+states,AWS Step Functions,L-AD9B4E93,StateTransition throttle token refill rate per second,The token refill rate per second of StateTransition calls.,5000,None,true,false
+states,AWS Step Functions,L-31300AD4,StopExecution throttle token bucket size,The maximum number of StopExecution calls that you can make per second.,1000,None,true,false
+states,AWS Step Functions,L-898DDD72,StopExecution throttle token refill rate per second,The token refill rate per second of StopExecution calls.,200,None,true,false
+states,AWS Step Functions,L-F965A8DF,TagResource throttle token bucket size,The maximum number of TagResource calls that you can make per second.,200,None,true,false
+states,AWS Step Functions,L-C314E25C,TagResource throttle token refill rate per second,The token refill rate per second of TagResource calls.,1,None,true,false
+states,AWS Step Functions,L-60E71163,Task execution time,The maximum time (in years) that a task can take to complete an execution.,1,None,false,false
+states,AWS Step Functions,L-C841B85F,Task retention time in queue,The maximum time (in years) that Step Functions keeps a task in the queue.,1,None,false,false
+states,AWS Step Functions,L-FB14794C,TestState throttle token bucket size,The maximum number of TestState calls that you can make per second.,50,None,false,false
+states,AWS Step Functions,L-75A8B871,TestState throttle token refill rate per second,The token refill rate per second of TestState calls.,10,None,false,false
+states,AWS Step Functions,L-2C798E2E,UntagResource throttle token bucket size,The maximum number of UntagResource calls that you can make per second.,200,None,true,false
+states,AWS Step Functions,L-191B5A6B,UntagResource throttle token refill rate per second,The token refill rate per second of UntagResource calls.,1,None,true,false
+states,AWS Step Functions,L-3D708175,UpdateMapRun throttle token bucket size,The maximum number of UpdateMapRun calls that you can make per second.,100,None,true,false
+states,AWS Step Functions,L-DEAF517C,UpdateMapRun throttle token refill rate per second,The token refill rate per second for UpdateMapRun calls.,1,None,true,false
+states,AWS Step Functions,L-25C72657,UpdateStateMachine throttle token bucket size,The maximum number of UpdateStateMachine calls that you can make per second.,100,None,true,false
+states,AWS Step Functions,L-7B25D42D,UpdateStateMachine throttle token refill rate per second,The token refill rate per second of UpdateStateMachine calls.,1,None,true,false
+states,AWS Step Functions,L-656FC223,UpdateStateMachineAlias throttle token bucket size,The maximum number of UpdateStateMachineAlias calls that you can make per second.,100,None,true,false
+states,AWS Step Functions,L-53EFA4BD,UpdateStateMachineAlias throttle token refill rate per second,The token refill rate per second for UpdateStateMachineAlias calls.,1,None,true,false
+states,AWS Step Functions,L-0DD5CC77,ValidateStateMachineDefinition throttle token bucket size,The maximum number of ValidateStateMachineDefinition calls that you can make per second.,100,None,true,false
+states,AWS Step Functions,L-BE784273,ValidateStateMachineDefinition throttle token refill rate per second,The token refill rate per second for ValidateStateMachineDefinition calls.,1,None,true,false

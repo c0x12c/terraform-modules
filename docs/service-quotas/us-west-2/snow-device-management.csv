@@ -1,0 +1,13 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+snow-device-management,AWS Snow Device Management,L-8CEBA534,CancelTask throttle limit,The throttle limit for CancelTask,10,None,false,false
+snow-device-management,AWS Snow Device Management,L-C90DA346,CreateTask throttle limit,The throttle limit for CreateTask,20,None,false,false
+snow-device-management,AWS Snow Device Management,L-8BC3C224,DescribeDevice throttle limit,The throttle limit for DescribeDevice,20,None,false,false
+snow-device-management,AWS Snow Device Management,L-4B75C131,DescribeDeviceEc2Instances throttle limit,The throttle limit for DescribeDeviceEc2Instances,20,None,false,false
+snow-device-management,AWS Snow Device Management,L-CA980D98,DescribeExecution throttle limit,The throttle limit for DescribeExecution,20,None,false,false
+snow-device-management,AWS Snow Device Management,L-209341BC,DescribeTask throttle limit,The throttle limit for DescribeTask,20,None,false,false
+snow-device-management,AWS Snow Device Management,L-0C95862B,ListDeviceResources throttle limit,The throttle limit for ListDeviceResources,20,None,false,false
+snow-device-management,AWS Snow Device Management,L-CCEAB4FA,ListDevices throttle limit,The throttle limit for ListDevices,20,None,false,false
+snow-device-management,AWS Snow Device Management,L-8A2E571D,ListExecutions throttle limit,The throttle limit for ListExecutions,20,None,false,false
+snow-device-management,AWS Snow Device Management,L-396E856A,ListTasks throttle limit,The throttle limit for ListTasks,20,None,false,false
+snow-device-management,AWS Snow Device Management,L-FFEB0409,Snow Device Management active tasks.,The maximum number of active tasks for a Snow device.,1,None,false,false
+snow-device-management,AWS Snow Device Management,L-D88A1E78,Snow Device Management maximum tasks.,The maximum number of targets per task.,10,None,false,false

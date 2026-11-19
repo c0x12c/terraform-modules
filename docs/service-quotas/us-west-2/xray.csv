@@ -1,0 +1,12 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+xray,AWS X-Ray,L-8C0C998A,Custom sampling rules per region,The maximum number of custom sampling rules per region.,25,None,true,false
+xray,AWS X-Ray,L-7F259013,Groups in an account,The maximum number of groups per account.,25,None,false,false
+xray,AWS X-Ray,L-C6B6F05D,Indexed annotations per trace,The maximum number of annotations that can be indexed within a single trace.,50,None,false,false
+xray,AWS X-Ray,L-D781C0FD,Segment document size,The maximum size for segment documents.,64,Kilobytes,false,false
+xray,AWS X-Ray,L-E75A2BBF,Segments per second,The maximum number of segments per second you can send to X-Ray.,2600,None,false,false
+xray,AWS X-Ray,L-DB51D338,Tags per custom sampling rule,The maximum number of tags per custom sampling rule.,50,None,false,false
+xray,AWS X-Ray,L-E2DD2778,Tags per group,The maximum number of tags per group.,50,None,false,false
+xray,AWS X-Ray,L-998BFF16,Trace and service graph retention in days,The number of days to retain trace and service map data.,30,None,false,false
+xray,AWS X-Ray,L-5DB17969,Trace data modification period in days,The number of days to update recorded data at no additional cost.,7,None,false,false
+xray,AWS X-Ray,L-428FB8E0,Trace document size (dynamic upper limit),The maximum size of a trace document.,500,Kilobytes,false,false
+xray,AWS X-Ray,L-3B8EFF88,Trace document size (lower limit),The maximum size of a trace document.,100,Kilobytes,false,false
