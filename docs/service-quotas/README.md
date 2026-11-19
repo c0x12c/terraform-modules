@@ -12,8 +12,9 @@ Look up the `service_code` and `quota_code` that the
 - Source APIs: ListServices, ListAWSDefaultServiceQuotas
 <!-- END catalog-metadata -->
 
-- **Purpose:** a snapshot for finding a `service_code` and `quota_code` quickly, including
-  on GitHub without AWS access. It is not the source of truth.
+- **Purpose:** a dated snapshot for finding a `service_code` and `quota_code` without AWS
+  access: on GitHub, with `grep`, or by an AI agent reading this repo. A local lookup is
+  quicker than a web search or an AWS CLI call per service. It is not the source of truth.
 - **Limits:** AWS adds quotas and changes default values over time. `default_value` is the
   AWS default, not what any account currently has applied, and defaults can differ outside
   `us-west-2`.
@@ -75,8 +76,8 @@ aws service-quotas list-aws-default-service-quotas --region us-east-1 --service-
 - **On GitHub:** open the service's CSV from the index below and type in the table's
   search box, or use code search: `repo:c0x12c/terraform-modules path:docs/service-quotas "Fargate"`.
 - **Locally:** `grep -ri "on-demand standard" docs/service-quotas/us-west-2/`
-- **Live, always current:** the same generator writes one CSV with every service to stdout,
-  so nothing goes stale:
+- **Live, always current:** the generator reads AWS directly and writes one CSV to stdout.
+  Use it when a quota is missing from the snapshot or the snapshot is old:
 
   ```bash
   python3 scripts/generate_service_quota_catalog.py --output - | grep -i "fargate"
