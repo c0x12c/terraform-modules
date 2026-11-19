@@ -75,3 +75,24 @@ run "raised_outside_terraform" {
     error_message = "A quota raised in the console above code must be reported."
   }
 }
+
+# Adopting a quota that defaults to 0, or setting value back to 0 after a denied increase.
+run "zero_value_in_sync" {
+  command = plan
+
+  variables {
+    quotas = {
+      ec2_on_demand_gpu_vcpus = { service_code = "ec2", quota_code = "L-DB2E81BA", value = 0 }
+    }
+  }
+
+  override_data {
+    target = data.aws_servicequotas_service_quota.applied["ec2_on_demand_gpu_vcpus"]
+    values = { value = 0, default_value = 0 }
+  }
+
+  assert {
+    condition     = length(output.quotas_out_of_sync) == 0
+    error_message = "A quota whose applied value is 0 must be accepted and reported in sync at 0."
+  }
+}

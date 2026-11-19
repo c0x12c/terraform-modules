@@ -17,8 +17,9 @@ variable "quotas" {
     error_message = "Each quota_code must match L-XXXXXXXX (eight uppercase hex characters), for example L-1216C47A."
   }
 
+  # Zero is valid: many adjustable quotas default to 0, and a denied increase leaves 0 applied.
   validation {
-    condition     = alltrue([for quota in values(var.quotas) : quota.value > 0])
-    error_message = "Each value must be greater than zero."
+    condition     = alltrue([for quota in values(var.quotas) : quota.value >= 0])
+    error_message = "Each value must be zero or greater."
   }
 }

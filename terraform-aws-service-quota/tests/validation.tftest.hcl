@@ -12,12 +12,12 @@ run "invalid_quota_code" {
   expect_failures = [var.quotas]
 }
 
-run "non_positive_value" {
+run "negative_value" {
   command = plan
 
   variables {
     quotas = {
-      zero = { service_code = "ec2", quota_code = "L-1216C47A", value = 0 }
+      negative = { service_code = "ec2", quota_code = "L-1216C47A", value = -1 }
     }
   }
 
