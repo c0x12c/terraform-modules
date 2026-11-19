@@ -8,7 +8,11 @@ import sys
 
 MAX_PROSE_WORDS = 300
 BANNED_DASHES = re.compile("[\u2013\u2014\u2015]")
-ATTRIBUTION = re.compile(r"generated with|co-authored-by|\U0001F916", re.IGNORECASE)
+# Tool names, not the bare phrase: "generated with terraform-docs" is a legitimate sentence here.
+ATTRIBUTION = re.compile(
+    r"\U0001F916|co-authored-by:|generated (?:with|by) \[?(?:claude|codex|copilot|chatgpt|gpt|gemini|cursor|an? (?:ai|llm))",
+    re.IGNORECASE,
+)
 COMMENT = re.compile(r"<!--.*?-->", re.DOTALL)
 FENCE = re.compile(r"```[^\n]*\n(.*?)```", re.DOTALL)
 HEADING = re.compile(r"^## +(.+?)\s*$", re.MULTILINE)

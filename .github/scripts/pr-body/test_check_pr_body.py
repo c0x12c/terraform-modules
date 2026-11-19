@@ -53,8 +53,12 @@ class CheckPrBody(unittest.TestCase):
         self.assertTrue(any("dash" in e for e in check(TEMPLATE, GOOD.replace("No.", "No \u2014 none."))))
 
     def test_attribution_fails(self):
-        body = GOOD + "\nGenerated with a coding assistant\n"
-        self.assertTrue(any("attribution" in e for e in check(TEMPLATE, body)))
+        for line in ("Generated with Claude Code", "Co-Authored-By: someone", "\U0001F916 Generated"):
+            self.assertTrue(any("attribution" in e for e in check(TEMPLATE, GOOD + "\n" + line + "\n")), line)
+
+    def test_tool_output_mention_is_not_attribution(self):
+        body = GOOD.replace("No.", "No. README regenerated with terraform-docs v0.20.0.")
+        self.assertEqual(check(TEMPLATE, body), [])
 
     def test_long_body_fails(self):
         body = GOOD.replace("No.", "No. " + "word " * 400)
