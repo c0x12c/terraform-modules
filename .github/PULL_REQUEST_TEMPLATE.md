@@ -1,6 +1,9 @@
 <!--
 Fill every section. Write "none" where one does not apply rather than deleting it.
 State the behaviour after this change, not the story of getting there.
+Keep the headings exactly as written. The PR Body check fails a body with a missing,
+reordered or empty section, no code block under Verification, an em-dash, AI attribution,
+or more than 300 words outside code blocks.
 Agents: see AGENTS.md for the full rules.
 -->
 

@@ -1,0 +1,30 @@
+name: PR Body
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    # Release-please parses its own PR body, and Dependabot writes its own. Exact
+    # logins, not user.type, so a renamed branch or any other bot cannot opt out.
+    if: >-
+      github.event.pull_request.user.login != 'spartan-public-cicd[bot]'
+      && github.event.pull_request.user.login != 'dependabot[bot]'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Test the checker
+        run: python3 -m unittest discover -s .github/scripts/pr-body -p 'test_*.py'
+
+      - name: Check the PR body against the template
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          printf '%s' "$PR_BODY" > "$RUNNER_TEMP/pr-body.md"
+          python3 .github/scripts/pr-body/check_pr_body.py .github/PULL_REQUEST_TEMPLATE.md "$RUNNER_TEMP/pr-body.md"
