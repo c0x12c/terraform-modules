@@ -19,5 +19,7 @@ resource "aws_iam_role_policy" "amplify_backend" {
   name = "${var.name}-amplify-iam-role-policy"
   role = aws_iam_role.amplify_backend.id
 
-  policy = file("${path.module}/files/amplify_role_policies.json")
+  # Hosting-only apps need log delivery and nothing else; the backend policy can
+  # create and rewrite any role in the account.
+  policy = file("${path.module}/files/${var.enable_backend ? "amplify_role_policies.json" : "amplify_hosting_policies.json"}")
 }
