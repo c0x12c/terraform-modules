@@ -15,6 +15,7 @@ module "website" {
   environment      = "dev"
   repository       = "https://github.com/example-org/example-repo"
   application_root = "./"
+  build_variables  = {}
 
   github_oauth_token = data.github_app_token.this.token
 
