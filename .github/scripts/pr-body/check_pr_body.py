@@ -15,11 +15,13 @@ ATTRIBUTION = re.compile(
 )
 COMMENT = re.compile(r"<!--.*?-->", re.DOTALL)
 FENCE = re.compile(r"```[^\n]*\n(.*?)```", re.DOTALL)
-HEADING = re.compile(r"^## +(.+?)\s*$", re.MULTILINE)
+HEADING = re.compile(r"^## +(.+?)[ \t]*$", re.MULTILINE)
 
 
 def sections(text):
-    marks = list(HEADING.finditer(text))
+    # Pasted markdown output (terraform-docs prints "## Requirements") is not a heading.
+    masked = FENCE.sub(lambda m: re.sub(r"[^\n]", " ", m.group(0)), text)
+    marks = list(HEADING.finditer(masked))
     return [
         (m.group(1), text[m.end(): marks[i + 1].start() if i + 1 < len(marks) else len(text)])
         for i, m in enumerate(marks)

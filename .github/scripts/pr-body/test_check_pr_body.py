@@ -68,6 +68,10 @@ class CheckPrBody(unittest.TestCase):
         body = GOOD.replace("Success!", "Success! " + "line\n" * 500)
         self.assertEqual(check(TEMPLATE, body), [])
 
+    def test_headings_inside_code_blocks_are_ignored(self):
+        body = GOOD.replace("Success!", "## Requirements\n\n## Providers\nSuccess!")
+        self.assertEqual(check(TEMPLATE, body), [])
+
     def test_text_left_inside_comments_does_not_count(self):
         body = GOOD.replace("No.", "<!-- notes -->\n")
         self.assertTrue(any('section "Breaking for consumers" is empty' in e for e in check(TEMPLATE, body)))
