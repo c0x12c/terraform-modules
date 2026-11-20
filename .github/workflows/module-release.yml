@@ -74,6 +74,42 @@ jobs:
           print(f"versions={json.dumps(versions, separators=(',', ':'))}")
           PY
 
+  release-pr-catalog:
+    needs: release
+    if: github.repository_owner == 'c0x12c'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create GitHub App Token
+        uses: actions/create-github-app-token@v3
+        id: github-app-token
+        with:
+          client-id: ${{ vars.GH_APP_CLIENT_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
+      - name: Checkout master
+        uses: actions/checkout@v7
+        with:
+          ref: master
+          token: ${{ steps.github-app-token.outputs.token }}
+          fetch-depth: 0
+
+      - name: Resolve bot email
+        id: bot-email
+        env:
+          GH_TOKEN: ${{ steps.github-app-token.outputs.token }}
+          SLUG: ${{ steps.github-app-token.outputs.app-slug }}
+        run: |
+          bot_id=$(gh api "users/${SLUG}[bot]" --jq .id)
+          echo "email=${bot_id}+${SLUG}[bot]@users.noreply.github.com" >> "$GITHUB_OUTPUT"
+
+      - name: Refresh release PR catalogs
+        env:
+          GH_TOKEN: ${{ steps.github-app-token.outputs.token }}
+          REPO: ${{ github.repository }}
+          RELEASE_BOT: ${{ steps.github-app-token.outputs.app-slug }}[bot]
+          BOT_EMAIL: ${{ steps.bot-email.outputs.email }}
+        run: bash .github/scripts/module-release/refresh-release-pr-catalog.sh
+
   publish:
     needs: release
     if: needs.release.outputs.releases_created == 'true'

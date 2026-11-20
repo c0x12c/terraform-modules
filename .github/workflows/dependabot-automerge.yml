@@ -1,59 +1,52 @@
 name: Dependabot auto-merge
-on: pull_request
+on:
+  workflow_run:
+    workflows: ['registry-tests', 'Module CI']
+    types: [completed]
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        type: boolean
+        default: false
 
-permissions:
-  contents: write
-  pull-requests: write
+permissions: {}
+
+concurrency:
+  group: dependabot-auto-merge
+  cancel-in-progress: false
 
 jobs:
-  dependabot:
+  merge:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.user.login == 'dependabot[bot]'
+    permissions:
+      contents: read
     steps:
+      # App-token merges trigger module release and registry deploy push workflows; GITHUB_TOKEN merges do not.
       - name: Create GitHub App Token
         uses: actions/create-github-app-token@v3
         id: github-app-token
         with:
           app-id: ${{ vars.GH_APP_ID }}
           private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+          permission-actions: read
 
-      - name: Dependabot metadata
-        id: metadata
-        uses: dependabot/fetch-metadata@v3
+      # PR code never runs here because the script comes from the default branch.
+      - name: Checkout source
+        uses: actions/checkout@v7
         with:
-          github-token: "${{ steps.github-app-token.outputs.token }}"
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
 
-      - name: Merge GitHub Actions updates
-        if: |
-          steps.metadata.outputs.package-ecosystem == 'github_actions' &&
-          (steps.metadata.outputs.update-type == 'version-update:semver-major' ||
-           steps.metadata.outputs.update-type == 'version-update:semver-minor' ||
-           steps.metadata.outputs.update-type == 'version-update:semver-patch')
-        run: gh pr merge --admin --squash "$PR_URL"
+      - name: Merge green Dependabot and release PRs
         env:
-          PR_URL: ${{ github.event.pull_request.html_url }}
           GH_TOKEN: ${{ steps.github-app-token.outputs.token }}
-
-      - name: Merge Terraform patch updates
-        if: |
-          steps.metadata.outputs.package-ecosystem == 'terraform' &&
-          steps.metadata.outputs.update-type == 'version-update:semver-patch'
-        run: gh pr merge --admin --squash "$PR_URL"
-        env:
-          PR_URL: ${{ github.event.pull_request.html_url }}
-          GH_TOKEN: ${{ steps.github-app-token.outputs.token }}
-
-      # Enhancement: this repo also receives pip updates (boto3 in /tools/registry
-      # for the R2 dual-publish registry, and publish_module.py deps in
-      # /set-up-repositories). Auto-merge any non-major pip bump. This includes
-      # grouped updates and requirement-range widenings, which dependabot reports
-      # with an empty update-type (e.g. boto3 "<2,>=1.34" -> ">=1.43.27,<2").
-      # Only an explicit semver-major bump is held back for manual review.
-      - name: Merge pip non-major updates
-        if: |
-          steps.metadata.outputs.package-ecosystem == 'pip' &&
-          steps.metadata.outputs.update-type != 'version-update:semver-major'
-        run: gh pr merge --admin --squash "$PR_URL"
-        env:
-          PR_URL: ${{ github.event.pull_request.html_url }}
-          GH_TOKEN: ${{ steps.github-app-token.outputs.token }}
+          REPO: ${{ github.repository }}
+          RELEASE_BOT: 'spartan-public-cicd[bot]'
+          RELEASE_GATE: 'Module CI'
+          PR_GATES: 'registry-tests|scripts/,tools/registry/,set-up-repositories/'
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run && '1' || '0' }}
+        run: .github/scripts/dependabot-auto-merge/merge-green-prs.sh
