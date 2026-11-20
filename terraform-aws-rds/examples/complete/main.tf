@@ -75,3 +75,21 @@ module "mysql" {
   vpc_id         = "vpc-123456789"
   subnet_ids     = []
 }
+
+# Open the database port only to the listed security groups instead of the whole VPC CIDR.
+# Keep the ID list order stable because rules are keyed by position.
+module "restricted_ingress" {
+  source = "../../"
+
+  db_name        = "example_rds_restricted"
+  db_username    = "exampleuser"
+  engine_version = "18.4"
+  instance_class = "db.t4g.micro"
+  disk_size      = 20
+  storage_type   = "gp3"
+  replica_count  = 0
+  vpc_id         = "vpc-123456789"
+  subnet_ids     = []
+
+  allowed_security_group_ids = ["sg-0123456789abcdef0", "sg-0123456789abcdef1"]
+}

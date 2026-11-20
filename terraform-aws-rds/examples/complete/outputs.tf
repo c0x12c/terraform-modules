@@ -16,3 +16,8 @@ output "main_db_name" {
 output "main_db_port" {
   value = module.postgresql.db_port
 }
+
+# The security group ID for the database with restricted ingress
+output "restricted_ingress_security_group_id" {
+  value = module.restricted_ingress.security_group_id
+}
