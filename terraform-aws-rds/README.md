@@ -380,6 +380,7 @@ Enabling this requires the applying principal to hold `secretsmanager:CreateSecr
 | [aws_secretsmanager_secret_version.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version) | resource |
 | [aws_security_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [aws_vpc_security_group_egress_rule.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_egress_rule) | resource |
+| [aws_vpc_security_group_ingress_rule.allowed_security_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_ingress_rule) | resource |
 | [aws_vpc_security_group_ingress_rule.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_ingress_rule) | resource |
 | [random_password.this](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
 | [aws_secretsmanager_random_password.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_random_password) | data source |
@@ -392,6 +393,7 @@ Enabling this requires the applying principal to hold `secretsmanager:CreateSecr
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_postgres_parameters"></a> [additional\_postgres\_parameters](#input\_additional\_postgres\_parameters) | Additional postgres parameters to add to parameter groups. | <pre>map(object({<br/>    value        = any<br/>    apply_method = string<br/>  }))</pre> | `null` | no |
 | <a name="input_allow_major_version_upgrade"></a> [allow\_major\_version\_upgrade](#input\_allow\_major\_version\_upgrade) | Whether a major engine version upgrade is allowed. Defaults to false: with it off, raising engine\_version across a major fails the apply instead of silently performing an offline, non-reversible in-place upgrade. Turn it on deliberately for the apply that performs the upgrade. | `bool` | `false` | no |
+| <a name="input_allowed_security_group_ids"></a> [allowed\_security\_group\_ids](#input\_allowed\_security\_group\_ids) | Security group IDs allowed to access the database port. An empty list allows the VPC CIDR instead. | `list(string)` | `[]` | no |
 | <a name="input_apply_immediately"></a> [apply\_immediately](#input\_apply\_immediately) | Apply any changes to this database immediately. | `bool` | `true` | no |
 | <a name="input_auto_minor_version_upgrade"></a> [auto\_minor\_version\_upgrade](#input\_auto\_minor\_version\_upgrade) | Indicates whether minor engine upgrades will be applied automatically to the DB instance during the maintenance window. | `bool` | `false` | no |
 | <a name="input_backup_retention_day"></a> [backup\_retention\_day](#input\_backup\_retention\_day) | The number of days to retain database backups (default is 7 days). | `number` | `7` | no |
@@ -443,4 +445,5 @@ Enabling this requires the applying principal to hold `secretsmanager:CreateSecr
 | <a name="output_db_username"></a> [db\_username](#output\_db\_username) | The master username for the database |
 | <a name="output_main_address"></a> [main\_address](#output\_main\_address) | The DNS address of the main RDS instance |
 | <a name="output_replica_address"></a> [replica\_address](#output\_replica\_address) | The DNS address of the first replica instance, or main instance if no replicas exist |
+| <a name="output_security_group_id"></a> [security\_group\_id](#output\_security\_group\_id) | The ID of the database security group |
 <!-- END_TF_DOCS -->
