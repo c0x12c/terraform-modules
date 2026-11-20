@@ -1,0 +1,21 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+servicecatalog,AWS Service Catalog,L-223F4C54,Applications per attribute group,The maximum number of applications per attribute group,1000,None,true,false
+servicecatalog,AWS Service Catalog,L-7C3CEC2B,Applications per region,The maximum number of applications you can create per region,2000,None,true,false
+servicecatalog,AWS Service Catalog,L-C533FF9A,Attribute groups per application,The maximum number of attribute groups per application,1000,None,true,false
+servicecatalog,AWS Service Catalog,L-1639038A,Attribute groups per region,The maximum number of attribute groups you can create per region,2000,None,true,false
+servicecatalog,AWS Service Catalog,L-CA761021,Delegated administrators per organization,The maximum number of delegated administrators you can register per organization,50,None,false,false
+servicecatalog,AWS Service Catalog,L-C6458716,Portfolios per region,The maximum number of portfolios you can create per region,100,None,true,false
+servicecatalog,AWS Service Catalog,L-A5846085,Product versions per product,The maximum number of product versions you can create per product,100,None,true,false
+servicecatalog,AWS Service Catalog,L-AB79E48B,Products per portfolio,The maximum number of products you can create per portfolio,150,None,true,false
+servicecatalog,AWS Service Catalog,L-764CF6A1,Products per region,The maximum number of products you can create per region,350,None,true,false
+servicecatalog,AWS Service Catalog,L-360CDF2E,Resources per application,The maximum number of resources per applications,1000,None,true,false
+servicecatalog,AWS Service Catalog,L-58FC5582,Service action associations per provisioning artifact,The maximum number of service action associations you can create per provisioning artifact,25,None,false,false
+servicecatalog,AWS Service Catalog,L-BEE0DD19,Service actions per region,The maximum number of service actions you can create per region,200,None,false,false
+servicecatalog,AWS Service Catalog,L-A2FB1BD2,Shared accounts per portfolio,The maximum number of shared accounts per portfolio,5000,None,false,false
+servicecatalog,AWS Service Catalog,L-73A88F28,TagOptions per resource,The maximum number of TagOptions you can associate with a resource,25,None,false,false
+servicecatalog,AWS Service Catalog,L-77FEF8C5,Tags per portfolio,The maximum number of tags you can create per portfolio,20,None,false,false
+servicecatalog,AWS Service Catalog,L-CC0BF186,Tags per product,The maximum number of tags you can create per product,20,None,false,false
+servicecatalog,AWS Service Catalog,L-2B360974,Tags per provisioned product,The maximum number of tags you can create per provisioned product,50,None,false,false
+servicecatalog,AWS Service Catalog,L-E8959660,"Users, groups, and roles per portfolio","The maximum number of users, groups, and roles you can create per portfolio",100,None,true,false
+servicecatalog,AWS Service Catalog,L-3BC91705,"Users, groups, and roles per product","The maximum number of users, groups, and roles you can create per portfolio",200,None,true,false
+servicecatalog,AWS Service Catalog,L-79127A24,Values per TagOption,The maximum number of different values for each TagOption,25,None,false,false

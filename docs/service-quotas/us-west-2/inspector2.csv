@@ -1,0 +1,2 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+inspector2,Amazon Inspector,L-3CFEE10A,Number of Suppression Rules,The maximum number of Suppression Rules allowed per account.,500,None,false,false

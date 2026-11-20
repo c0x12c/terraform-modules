@@ -1,0 +1,4 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+datasync,AWS DataSync,L-DF42D66D,Files per task,The maximum number of files per task.,25000000,None,true,false
+datasync,AWS DataSync,L-74E04279,Tasks,The maximum number of tasks that you can create in this account in the current Region.,100,None,true,false
+datasync,AWS DataSync,L-1FEC79AD,Throughput per task,The maximum throughput per task.,10,Gigabits,true,false

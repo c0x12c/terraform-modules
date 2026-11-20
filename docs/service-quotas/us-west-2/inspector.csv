@@ -1,0 +1,5 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+inspector,Amazon Inspector Classic,L-12943E2F,Assessment runs,The maximum number of assessment runs that you can create per account per region. You can have multiple assessment runs happening at the same time as long as the assessment targets used for these runs do not contain overlapping EC2 instances.,50000,None,true,false
+inspector,Amazon Inspector Classic,L-E1AFB5F4,Assessment Targets,The maximum number of assessment targets that you can have at any given time per account per region.,50,None,true,false
+inspector,Amazon Inspector Classic,L-7A3AEC10,Assessment Templates,The maximum number of assessment templates that you can have at any given time per account per region.,500,None,true,false
+inspector,Amazon Inspector Classic,L-6750F872,Instances in running assessments,The maximum number of EC2 instances that can be included across all running assessments per account per region.,500,None,true,false

@@ -1,0 +1,6 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+cloud9,AWS Cloud9,L-8ECD6BDB,EC2 development environments for this account,The maximum number of AWS Cloud9 EC2 development environments that you can create in this account in the current Region.,200,None,true,false
+cloud9,AWS Cloud9,L-C1302C17,EC2 development environments for this user,The maximum number of AWS Cloud9 EC2 development environments that you can create for this user in the current Region.,100,None,true,false
+cloud9,AWS Cloud9,L-65F36924,Members per development environment,The maximum number of users that can participate in a single AWS Cloud9 development environment in this account in the current Region.,8,None,false,false
+cloud9,AWS Cloud9,L-A29EDECE,SSH development environments for this account,The maximum number of AWS Cloud9 SSH development environments that you can create in this account in the current Region.,200,None,true,false
+cloud9,AWS Cloud9,L-5D26553C,SSH development environments for this user,The maximum number of AWS Cloud9 SSH development environments that you can create for this user in the current Region.,100,None,true,false

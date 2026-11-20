@@ -1,0 +1,2 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+codeguru-reviewer,Amazon CodeGuru Reviewer,L-F5129FC6,Allowed Code Reviews,The maximum number of code reviews per account per month in the current region.,5000,None,true,false

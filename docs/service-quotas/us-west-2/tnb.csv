@@ -1,0 +1,5 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+tnb,AWS Telco Network Builder,L-81A3E723,Concurrent ongoing network service operations,The maximum number of concurrent ongoing network service operations in one Region.,40,None,true,false
+tnb,AWS Telco Network Builder,L-08069DBD,Function packages,The maximum number of function packages in one Region.,200,None,true,false
+tnb,AWS Telco Network Builder,L-3328748B,Network packages,The maximum number of network packages in one Region.,40,None,true,false
+tnb,AWS Telco Network Builder,L-C92FB107,Network service instances,The maximum number of network service instances in one Region.,800,None,true,false

@@ -1,0 +1,9 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+discovery,AWS Application Discovery Service,L-AD9963F2,Active agents sending data to the service,The maximum number of active agents sending data to the service.,1000,None,false,false
+discovery,AWS Application Discovery Service,L-F2981287,Applications per account,"The maximum number of applications per account. If you reach this quota, and want to import new applications, you can delete existing applications in the Migration Hub console or by using the DeleteApplications API action.",1000,None,false,false
+discovery,AWS Application Discovery Service,L-D0845C33,Deletions of import records per day,The maximum number of deletions of import records per day. Each day starts at 00:00 UTC.,25000,None,false,false
+discovery,AWS Application Discovery Service,L-9031D934,Imported server records per account,The maximum number of imported server records per account.,25000,None,false,false
+discovery,AWS Application Discovery Service,L-E92F1B88,Imported servers per account,The maximum number of imported servers per account.,10000,None,true,false
+discovery,AWS Application Discovery Service,L-5BC4442B,Inactive agents heartbeating but not collecting data,The maximum number of inactive agents heartbeating but not collecting data.,10000,None,false,false
+discovery,AWS Application Discovery Service,L-B88D303A,Servers per application,The maximum number of servers that can be associated with a single application.,400,None,false,false
+discovery,AWS Application Discovery Service,L-EC09FB9C,Tags per server,The maximum number of tags for a single server.,30,None,false,false

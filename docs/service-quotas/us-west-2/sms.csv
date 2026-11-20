@@ -1,0 +1,3 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+sms,AWS Server Migration Service,L-AFABDADD,Concurrent VM migrations,The maximum number of concurrent VM migrations (replication jobs) for this account in the current region.,50,None,true,false
+sms,AWS Server Migration Service,L-3290AB9E,Duration of service usage per VM in days,The maximum number of days of service usage per VM for this account in the current region.,90,None,true,false

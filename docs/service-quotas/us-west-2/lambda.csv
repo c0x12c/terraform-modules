@@ -1,0 +1,77 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+lambda,AWS Lambda,L-A19E4180,Arm vCPUs for all Web Functions,The Arm64 vCPU capacity for Lambda Web Function execution environments in this account in the current Region.,2000,None,false,false
+lambda,AWS Lambda,L-A723F9CC,Asynchronous invocation request throughput on Lambda Managed Instances,The maximum invoke request throughput (MB/s) for asynchronous invocations on Lambda Managed Instances. Asynchronous invocations occur when Lambda functions are invoked by services such as Amazon S3 or Amazon SNS.,5,Megabytes/Second,true,false
+lambda,AWS Lambda,L-7C0F49F9,Asynchronous payload,The maximum size of an incoming asynchronous invocation request.,1024,Kilobytes,false,false
+lambda,AWS Lambda,L-D65D9F16,Burst rate of CreateMicrovmAuthToken API requests,The maximum number of CreateMicrovmAuthToken API requests that can be sent in one burst.,50,None,true,false
+lambda,AWS Lambda,L-9A5E43A5,Burst rate of CreateMicrovmShellAuthToken API requests,The maximum number of CreateMicrovmShellAuthToken API requests that can be sent in one burst.,5,None,true,false
+lambda,AWS Lambda,L-C9C2110E,Burst rate of GetMicrovm API requests,The maximum number of GetMicrovm API requests that can be sent in one burst.,100,None,true,false
+lambda,AWS Lambda,L-25EEC0A4,Burst rate of ResumeMicrovm API requests,The maximum number of ResumeMicrovm API requests that can be sent in one burst.,5,None,true,false
+lambda,AWS Lambda,L-91B95582,Burst rate of RunMicrovm API requests,The maximum number of RunMicrovm API requests that can be sent in one burst.,5,None,true,false
+lambda,AWS Lambda,L-139F9A48,Burst rate of SuspendMicrovm API requests,The maximum number of SuspendMicrovm API requests that can be sent in one burst.,2,None,true,false
+lambda,AWS Lambda,L-2CCA0501,Burst rate of TerminateMicrovm API requests,The maximum number of TerminateMicrovm API requests that can be sent in one burst.,10,None,true,false
+lambda,AWS Lambda,L-F864D568,Capacity providers,The maximum number of capacity providers that can be created in an account.,1000,None,true,false
+lambda,AWS Lambda,L-A1AFA3CF,Concurrency scaling rate,"The maximum immediate increase in function concurrency that can occur in response to an increase in traffic or execution duration. Every 10 seconds, each synchronously invoked Lambda function can scale by an additional 1,000 concurrent executions until the total concurrency across your functions in a Region reaches the account concurrency limit.",1000,None,false,false
+lambda,AWS Lambda,L-772D8D8F,Concurrent connections per 1 vCPU MicroVM,Maximum number of concurrent connections per MicroVM with 1 vCPUs.,8,Count,false,false
+lambda,AWS Lambda,L-19741F6D,Concurrent connections per 16 vCPU MicroVM,Maximum number of concurrent connections per MicroVM with 16 vCPUs.,128,Count,false,false
+lambda,AWS Lambda,L-70A4FCC6,Concurrent connections per 2 vCPU MicroVM,Maximum number of concurrent connections per MicroVM with 2 vCPUs.,16,Count,false,false
+lambda,AWS Lambda,L-07A00922,Concurrent connections per 4 vCPU MicroVM,Maximum number of concurrent connections per MicroVM with 4 vCPUs.,32,Count,false,false
+lambda,AWS Lambda,L-9F0DD1B3,Concurrent connections per 8 vCPU MicroVM,Maximum number of concurrent connections per MicroVM with 8 vCPUs.,64,Count,false,false
+lambda,AWS Lambda,L-B99A9384,Concurrent executions,The maximum number of events that functions can process simultaneously in the current Region.,1000,Count,true,false
+lambda,AWS Lambda,L-8E39F3F1,Deployment package size (console editor),The maximum size of a deployment package or layer archive when you upload it through the console editor. Upload larger files with Amazon S3.,3,Megabytes,false,false
+lambda,AWS Lambda,L-75F48B05,Deployment package size (direct upload),The maximum size of a deployment package or layer archive when you upload it directly to Lambda. Upload larger files with Amazon S3.,50,Megabytes,false,false
+lambda,AWS Lambda,L-E49FF7B8,Deployment package size (unzipped),The maximum size of the contents of a deployment package or layer archive when it's unzipped.,250,Megabytes,false,false
+lambda,AWS Lambda,L-560437FE,Durable execution storage written in megabytes,"The maximum cumulative amount of data persisted per durable execution, including input and output payloads, checkpoints and error data, measured in megabytes.",100,Megabytes,false,false
+lambda,AWS Lambda,L-7E8754C7,DynamoDB Event Source Mapping throughput on Lambda Managed Instances,The maximum data throughput (MB/s) per DynamoDB event source mapping on Lambda Managed Instances.,10,Megabytes/Second,true,false
+lambda,AWS Lambda,L-9FEE3D26,Elastic network interfaces per VPC,The maximum number of network interfaces that Lambda creates for a VPC with functions attached. Lambda creates a network interface for each combination of subnet and security group that functions connect to.,3000,None,true,false
+lambda,AWS Lambda,L-3B5F93AC,Endpoints per Web Function,The maximum number of endpoints allowed per Lambda Web Function.,10,None,false,false
+lambda,AWS Lambda,L-6581F036,Environment variable size,The maximum combined size of environment variables that are configured on a function.,4,Kilobytes,false,false
+lambda,AWS Lambda,L-438DAE3B,File descriptors,The maximum number of file descriptors that a function can have open.,1024,None,false,false
+lambda,AWS Lambda,L-2ACBD22F,Function and layer storage,The amount of storage that's available for deployment packages and layer archives in the current Region.,300,Gigabytes,true,false
+lambda,AWS Lambda,L-A0D6E196,Function invocation rate to initiate durable executions,The maximum number of new durable executions that you can initiate per second.,6000,None,true,false
+lambda,AWS Lambda,L-01237738,Function layers,The maximum number of layers that you can add to your function.,5,None,false,false
+lambda,AWS Lambda,L-07A00131,Function resource-based policy,The maximum combined size of resource-based policies that are configured on a function.,20,Kilobytes,false,false
+lambda,AWS Lambda,L-9FEEFFC0,Function timeout,The maximum timeout that you can configure for a function.,900,None,false,false
+lambda,AWS Lambda,L-96779E29,Function versions per capacity provider,The maximum number of function versions per capacity provider.,100,None,false,false
+lambda,AWS Lambda,L-C952DDE4,Kafka Event Source Mappings in default mode on Lambda Managed Instances,The maximum number of Kafka event source mappings in default mode on Lambda Managed Instances.,100,None,false,false
+lambda,AWS Lambda,L-2713A7D4,Kafka Stream Event Source Mapping throughput in non-provisioned mode,The maximum data throughput (MB/s) per Kafka Stream event source mapping in non-provisioned mode.,5,Megabytes/Second,false,false
+lambda,AWS Lambda,L-2EBBB6B4,Kinesis Event Source Mapping throughput on Lambda Managed Instances,The maximum data throughput (MB/s) per Kinesis event source mapping on Lambda Managed Instances.,25,Megabytes/Second,true,false
+lambda,AWS Lambda,L-CD1C0CC4,Max allocated ARM_64 MicroVM memory,"The maximum total configured baseline memory across all concurrently running ARM_64 MicroVMs, per account, per region. Individual MicroVMs can burst up to 4x their configured baseline memory.",2048,Gigabytes,true,false
+lambda,AWS Lambda,L-20EE1DBE,Max allocated X86_64 MicroVM memory,"The maximum total configured baseline memory across all concurrently running X86_64 MicroVMs, per account, per region. Individual MicroVMs can burst up to 4x their configured baseline memory.",2048,Gigabytes,true,false
+lambda,AWS Lambda,L-B430C318,Max Execution Duration of a MicroVM (in Hours),The maximum execution duration of a MicroVM (in Hours).,8,None,false,false
+lambda,AWS Lambda,L-42D0A120,Maximum number of durable operations per durable execution,The maximum number of durable operations (including customer-initiated operations and automatic retries) that trigger state persistence within a single durable execution.,30000,None,false,false
+lambda,AWS Lambda,L-ABBF0CF3,Maximum running durable executions,The maximum number of durable executions that can be running simultaneously in the current region.,10000000,None,true,false
+lambda,AWS Lambda,L-14320ECE,Network bandwidth per execution environment,"The maximum sustained network bandwidth, in megabits per second, for a Lambda function's execution environment that is not attached to a VPC.",625,Megabits/Second,true,false
+lambda,AWS Lambda,L-5E779850,Network connectors,Number of Network Connectors per account,1000,None,false,false
+lambda,AWS Lambda,L-72E0D058,Number of concurrent MicroVM image builds,Number of concurrent MicroVM image builds per account per region,10,Count,true,false
+lambda,AWS Lambda,L-942E56BE,Number of MicroVM images,Number of MicroVM images per account per region,100,Count,true,false
+lambda,AWS Lambda,L-77C8EE9D,Processes and threads,The maximum combined number of processes and threads that a function can have open.,1024,None,false,false
+lambda,AWS Lambda,L-865A2C6B,Rate of capacity provider read API requests,The maximum combined rate (requests per second) for all capacity provider read APIs.,15,None,false,false
+lambda,AWS Lambda,L-F55076EC,Rate of capacity provider write API requests,The maximum combined rate (requests per second) for all capacity provider write APIs.,1,None,false,false
+lambda,AWS Lambda,L-DF87A8A6,Rate of CheckpointDurableExecution API requests,The maximum number of CheckpointDurableExecution API requests per second.,20000,None,true,false
+lambda,AWS Lambda,L-B2AA0F47,"Rate of control plane API requests (excludes invocation, GetFunction, and GetPolicy requests)","The maximum number of API requests per second (excluding invocation, GetFunction, and GetPolicy requests).",15,None,false,false
+lambda,AWS Lambda,L-7712260B,Rate of CreateMicrovmAuthToken API requests,The maximum number of CreateMicrovmAuthToken API requests per second.,50,None,true,false
+lambda,AWS Lambda,L-B78D2ECC,Rate of CreateMicrovmShellAuthToken API requests,The maximum number of CreateMicrovmShellAuthToken API requests per second in this account in the current Region.,5,None,true,false
+lambda,AWS Lambda,L-9B52FC60,Rate of GetDurableExecution API requests,The maximum number of GetDurableExecution API requests per second.,600,None,true,false
+lambda,AWS Lambda,L-BA29C22B,Rate of GetDurableExecutionHistory API requests,The maximum number of GetDurableExecutionHistory API requests per second.,300,None,true,false
+lambda,AWS Lambda,L-50EA21A9,Rate of GetDurableExecutionState API requests,The maximum number of GetDurableExecutionState API requests per second.,20000,None,true,false
+lambda,AWS Lambda,L-37540937,Rate of GetFunction API requests,The maximum number of GetFunction API requests per second.,100,None,false,false
+lambda,AWS Lambda,L-CE98C9E3,Rate of GetMicrovm API requests,The maximum number of GetMicrovm API requests per second.,100,None,true,false
+lambda,AWS Lambda,L-4273958C,Rate of GetPolicy API requests,The maximum number of GetPolicy API requests per second.,15,None,false,false
+lambda,AWS Lambda,L-6A3611ED,Rate of ListDurableExecutionsByFunction API requests,The maximum number of ListDurableExecutionsByFunction API requests per second.,300,None,true,false
+lambda,AWS Lambda,L-F41EF633,Rate of requests per Web Function Endpoint,The maximum number of requests per second allowed for a single Lambda Web Function endpoint.,10000,None,false,false
+lambda,AWS Lambda,L-BAF37AA0,Rate of requests to Web Functions,The maximum number of requests per second allowed across all your Lambda Web Function endpoints in this account in the current Region.,100000,None,false,false
+lambda,AWS Lambda,L-118C44B3,Rate of ResumeMicrovm API requests,The maximum number of ResumeMicrovm API requests per second.,5,None,true,false
+lambda,AWS Lambda,L-535CA9B6,Rate of RunMicrovm API requests,The maximum number of RunMicrovm API requests per second,5,None,true,false
+lambda,AWS Lambda,L-88CBC2FA,Rate of SendDurableExecutionCallbackFailure API requests,The maximum number of SendDurableExecutionCallbackFailure API requests per second.,6000,None,true,false
+lambda,AWS Lambda,L-133D658A,Rate of SendDurableExecutionCallbackHeartbeat API requests,The maximum number of SendDurableExecutionCallbackHeartbeat API requests per second.,6000,None,true,false
+lambda,AWS Lambda,L-B82A30EA,Rate of SendDurableExecutionCallbackSuccess API requests,The maximum number of SendDurableExecutionCallbackSuccess API requests per second.,6000,None,true,false
+lambda,AWS Lambda,L-4C4550DE,Rate of StopDurableExecution API requests,The maximum number of StopDurableExecution API requests per second.,600,None,true,false
+lambda,AWS Lambda,L-90045317,Rate of SuspendMicrovm API requests,The maximum number of SuspendMicrovm API requests per second.,2,None,true,false
+lambda,AWS Lambda,L-74787B8A,Rate of TerminateMicrovm API requests,The maximum number of TerminateMicrovm API requests per second.,10,None,true,false
+lambda,AWS Lambda,L-B6BAB649,Revisions per Web Function,"The maximum number of revisions retained per Lambda Web Function. When this limit is reached, the oldest revisions not referenced by any endpoint are automatically deleted.",50,None,false,false
+lambda,AWS Lambda,L-49891FEA,RPS per 16 vCPU MicroVm,Maximum number of requests per second per MicroVM with 16 vCPUs / 32 GB.,160,Count,false,false
+lambda,AWS Lambda,L-9F9899B1,RPS per 4 vCPU MicroVm,Maximum number of requests per second per MicroVM with 4 vCPUs / 8 GB.,40,Count,false,false
+lambda,AWS Lambda,L-0A4FC1E6,SQS Event Source Mapping throughput in default mode on Lambda Managed Instances,The maximum data throughput (MB/s) per SQS event source mapping in default mode on Lambda Managed Instances.,5,Megabytes/Second,false,false
+lambda,AWS Lambda,L-5C4B2C97,Synchronous payload,The maximum size of an incoming synchronous invocation request or outgoing response.,6,Megabytes,false,false
+lambda,AWS Lambda,L-AD930C90,Test events (console editor),The maximum amount of test events for a function through the console editor.,10,None,false,false
+lambda,AWS Lambda,L-F8BECE9C,Versions per MicroVM Image,The maximum number of versions per MicroVM image per account per region.,50,Count,true,false

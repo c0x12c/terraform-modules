@@ -1,0 +1,36 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+appsync,AWS AppSync,L-06A0647C,All APIs - API keys per API,Maximum number of API keys per API,50,None,false,false
+appsync,AWS AppSync,L-E7CCBB11,All APIs - Authentication providers per API,The maximum number of authentication providers per API,50,None,false,false
+appsync,AWS AppSync,L-855DA767,All APIs - Functions per pipeline resolver or handler,Maximum number of functions per pipeline resolver or handler,10,None,false,false
+appsync,AWS AppSync,L-4DE70025,"All APIs - Handler, resolver, and function code size","Maximum code size of handlers, resolvers, and functions running on APPSYNC_JS runtime.",32,Kilobytes,false,false
+appsync,AWS AppSync,L-5684A2A5,"All APIs - Iterations per loops in resolvers, functions, and handlers",Maximum number of iterations in #foreach...#end loops,1000,None,false,false
+appsync,AWS AppSync,L-51A37BC6,All APIs - Number of custom domain names,The maximum number of custom domain names per region,50,None,true,false
+appsync,AWS AppSync,L-629488CF,All APIs - Request execution time,Maximum request execution time,30,Seconds,false,false
+appsync,AWS AppSync,L-1BB7D45F,"All APIs - Resolvers, functions, and handlers response size","Maximum size of the evaluated resolver, function, or handler template",5,Megabytes,false,false
+appsync,AWS AppSync,L-F21064F0,All APIs - Subscription payload size,Maximum size of the message received via subscriptions,240,Kilobytes,false,false
+appsync,AWS AppSync,L-AA33EB36,All APIs - Subscriptions per client connection,Subscriptions code statements per client in a single WebSocket connection. Each statement allows the client to receive multiple messages related to the specific subscription.,200,None,true,false
+appsync,AWS AppSync,L-D19E6EC4,Event APIs - APIs per region,The maximum number of AppSync Event APIs per region,50,None,true,false
+appsync,AWS AppSync,L-B6E463BF,Event APIs - Batch size per publish request,The maximum number of events that can be batched in one publish operation.,5,None,false,false
+appsync,AWS AppSync,L-39784425,Event APIs - Channel namespaces per API,The maximum number of channel namespaces on an Event API,50,None,true,false
+appsync,AWS AppSync,L-A1CF8F5B,Event APIs - Number of characters allowed in a channel segment,The maximum character length of a channel segment,50,None,false,false
+appsync,AWS AppSync,L-7DE80FA2,Event APIs - Number of segments allowed in a channel,The maximum number of segments in a channel,5,None,false,false
+appsync,AWS AppSync,L-16CCBB05,Event APIs - Publish payload size,The maximum size of the entire payload sent in a publish operation,1.2,Megabytes,false,false
+appsync,AWS AppSync,L-10498098,Event APIs - Rate of connections per API,The maximum number of Event API connect requests per second.,2000,None,true,false
+appsync,AWS AppSync,L-D91E563A,Event APIs - Rate of inbound events per API,The maximum number of inbound events per second. Each published event generates a single inbound event.,10000,None,true,false
+appsync,AWS AppSync,L-F643C244,Event APIs - Rate of outbound messages per API,The maximum number of outbound metered events per second. One metered event equals 5 kB of delivered event.,1000000,None,true,false
+appsync,AWS AppSync,L-D33F7C2A,Event APIs - Rate of publish requests per client connection,The maximum number of publish requests per second per WebSocket connection. WebSocket publish requests are also evaluated against the rate of request tokens quota.,25,None,false,false
+appsync,AWS AppSync,L-27770490,Event APIs - Rate of request tokens,The maximum number of request tokens per second for Event APIs in this account in the current Region. AWS AppSync allocates tokens to publish requests based on the amount of resources (processing time and memory) that they consume and the number of 5kB messages published.,2000,None,true,false
+appsync,AWS AppSync,L-4DFA3D2F,GraphQL APIs - APIs per region,Maximum number of GraphQL APIs per region,50,None,true,false
+appsync,AWS AppSync,L-69193794,GraphQL APIs - Max Batch Size per request,The maximum length of the resolver request list that will be sent to a single Lambda function for a BatchInvoke operation.,2000,None,false,false
+appsync,AWS AppSync,L-3F6439E9,GraphQL APIs - Maximum query length,"Maximum length of a GraphQL query, measured in tokens (15,000). Tokens are individual parsed elements of the query string. Queries exceeding this limit will fail with the error message 'Maximum char length exceeded'.",15000,None,false,false
+appsync,AWS AppSync,L-58A9E1D6,GraphQL APIs - Number of caching keys,The maximum number of caching keys,25,None,false,false
+appsync,AWS AppSync,L-C01DB6E6,GraphQL APIs - Rate of connections per API,The maximum number of GraphQL API connect requests per second.,2000,None,true,false
+appsync,AWS AppSync,L-A1B022A0,GraphQL APIs - Rate of inbound messages per API,The maximum number of inbound messages per second. Each subscription type invoked by a mutation generates one inbound message.,10000,None,true,false
+appsync,AWS AppSync,L-5DE70651,GraphQL APIs - Rate of outbound messages per API,The maximum number of outbound messages per second. One outbound message is equal to 5 KB of payload data delivered.,1000000,None,true,false
+appsync,AWS AppSync,L-FC5E46D0,GraphQL APIs - Rate of request tokens,"The maximum number of request tokens per second for GraphQL APIs in this account in the current Region. AWS AppSync allocates tokens to mutation and query requests based on the amount of resources (processing time and memory) that they consume. For more details on tokens, see the Monitoring section in the AWS AppSync documentation.",10000,None,true,false
+appsync,AWS AppSync,L-4456C49D,Graphql APIs - Rate of subscription invalidation requests,The maximum number of invalidation requests per second per account per region,100,None,false,false
+appsync,AWS AppSync,L-7FC6D61A,GraphQL APIs - Request mapping template size,Maximum size of the request mapping template,64,Kilobytes,false,false
+appsync,AWS AppSync,L-97EB21C3,GraphQL APIs - Resolvers executed in a single request,The maximum number of resolvers that can be executed in a single request,10000,None,false,false
+appsync,AWS AppSync,L-B94CDCB7,GraphQL APIs - Response mapping template size,Maximum size of the response mapping template,64,Kilobytes,false,false
+appsync,AWS AppSync,L-352DA8E7,GraphQL APIs - Schema document size,Maximum size of the schema document,1,Megabytes,false,false
+appsync,AWS AppSync,L-3B7F188C,GraphQL APIs - Source API associations per Merged API,The maximum number of Source API associations per Merged API.,10,None,true,false

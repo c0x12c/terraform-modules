@@ -1,0 +1,47 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+finspace,Amazon FinSpace,L-ABE17502,Attribute sets,The maximum number of attribute sets that can exist in a FinSpace environment.,100,None,true,false
+finspace,Amazon FinSpace,L-6E3A1A62,Clusters per user,The maximum number of FinSpace Spark clusters that can be active for each user.,1,None,false,false
+finspace,Amazon FinSpace,L-9FC1D048,Concurrent changesets processing,The maximum number of concurrent changesets that can be processing per FinSpace environment,10,None,true,false
+finspace,Amazon FinSpace,L-077DA164,Concurrent data views processing,The maximum number of concurrently running data views processing per FinSpace environment.,10,None,true,false
+finspace,Amazon FinSpace,L-8798EB61,Concurrent dataview version processing,The maximum number of concurrent Managed kdb dataview version processing.,10,None,true,false
+finspace,Amazon FinSpace,L-669A142A,Controlled vocabularies and categories,The maximum combined number of controlled vocabularies and categories per FinSpace environment.,100,None,true,false
+finspace,Amazon FinSpace,L-7682C473,Data views per dataset,The maximum number of data views that can be created per dataset.,3,None,true,false
+finspace,Amazon FinSpace,L-4BDBD2F7,Datasets,The maximum number of datasets that can exist in a FinSpace environment.,1500,None,true,false
+finspace,Amazon FinSpace,L-33511B45,Datasets per permission group,The maximum number of datasets assigned per permission group.,1500,None,true,false
+finspace,Amazon FinSpace,L-687E8054,Environments,The maximum number of FinSpace environments you can create per AWS account.,2,None,true,false
+finspace,Amazon FinSpace,L-4AB90B30,File size per changeset,The maximum file size of any single file in a changeset.,50,Gigabytes,false,false
+finspace,Amazon FinSpace,L-E4BB6ED1,Files per changeset,The maximum number of files in a single changeset.,100000,None,false,false
+finspace,Amazon FinSpace,L-8995E194,kx.s.16xlarge nodes,The maximum number of kx.s.16xlarge nodes allowed per environment.,0,None,true,false
+finspace,Amazon FinSpace,L-3B1B408E,kx.s.2xlarge nodes,The maximum number of kx.s.2xlarge nodes allowed per environment.,5,None,true,false
+finspace,Amazon FinSpace,L-BA1748AE,kx.s.32xlarge nodes,The maximum number of kx.s.32xlarge nodes allowed per environment.,0,None,true,false
+finspace,Amazon FinSpace,L-6271C28F,kx.s.4xlarge nodes,The maximum number of kx.s.4xlarge nodes allowed per environment.,1,None,true,false
+finspace,Amazon FinSpace,L-79C359E7,kx.s.8xlarge nodes,The maximum number of kx.s.8xlarge nodes allowed per environment.,1,None,true,false
+finspace,Amazon FinSpace,L-816D4CEA,kx.s.large nodes,The maximum number of kx.s.large nodes allowed per environment.,5,None,true,false
+finspace,Amazon FinSpace,L-8D2987C0,kx.s.xlarge nodes,The maximum number of kx.s.xlarge nodes allowed per environment.,5,None,true,false
+finspace,Amazon FinSpace,L-B75F5AE2,kx.sg.16xlarge scaling group nodes,The maximum number of kx.sg.16xlarge Managed kdb scaling group nodes per environment.,0,None,true,false
+finspace,Amazon FinSpace,L-186ACF90,kx.sg.2xlarge scaling group nodes,The maximum number of kx.sg.2xlarge Managed kdb scaling group nodes per environment.,1,None,true,false
+finspace,Amazon FinSpace,L-F9DDF688,kx.sg.32xlarge scaling group nodes,The maximum number of kx.sg.32xlarge Managed kdb scaling group nodes per environment.,0,None,true,false
+finspace,Amazon FinSpace,L-9EFEF0D8,kx.sg.4xlarge scaling group nodes,The maximum number of kx.sg.4xlarge Managed kdb scaling group nodes per environment.,1,None,true,false
+finspace,Amazon FinSpace,L-8116797B,kx.sg.8xlarge scaling group nodes,The maximum number of kx.sg.8xlarge Managed kdb scaling group nodes per environment.,1,None,true,false
+finspace,Amazon FinSpace,L-1F5558B4,kx.sg.large scaling group nodes,The maximum number of kx.sg.large Managed kdb scaling group nodes per environment.,1,None,true,false
+finspace,Amazon FinSpace,L-256AB33A,kx.sg.xlarge scaling group nodes,The maximum number of kx.sg.xlarge Managed kdb scaling group nodes per environment.,1,None,true,false
+finspace,Amazon FinSpace,L-EE85DFB8,kx.sg1.16xlarge scaling group nodes,The maximum number of kx.sg1.16xlarge Managed kdb scaling group nodes per environment.,0,None,true,false
+finspace,Amazon FinSpace,L-8C2FDE0C,kx.sg1.24xlarge scaling group nodes,The maximum number of kx.sg1.24xlarge Managed kdb scaling group nodes per environment.,0,None,true,false
+finspace,Amazon FinSpace,L-A18C5C9A,Managed kdb cluster users,The maximum number of cluster users per environment.,1000,None,true,false
+finspace,Amazon FinSpace,L-403A8F92,Managed kdb clusters,The maximum number of clusters allowed per environment.,10,None,true,false
+finspace,Amazon FinSpace,L-05F8CB95,Managed kdb concurrent changeset ingestions,The maximum number of concurrent changeset ingestions allowed per environment.,10,None,true,false
+finspace,Amazon FinSpace,L-C8CECF7C,Managed kdb database cluster cache size,The maximum amount of database cluster cache allowed per environment.,7730,Gigabytes,true,false
+finspace,Amazon FinSpace,L-EB49E8B0,Managed kdb databases,The maximum number of databases allowed per environment.,1500,None,true,false
+finspace,Amazon FinSpace,L-4F92BAA2,Managed kdb dataviews,The maximum number of Managed kdb dataviews per environment.,4500,None,true,false
+finspace,Amazon FinSpace,L-7CF802FB,Managed kdb multi-AZ clusters,The maximum number of multi-AZ clusters per environment.,1,None,true,false
+finspace,Amazon FinSpace,L-9EDD8654,Managed kdb savedown storage,The maximum amount of savedown storage allowed per environment.,17179,Gigabytes,true,false
+finspace,Amazon FinSpace,L-8F9600BF,Managed kdb scaling groups,The maximum number of Managed kdb scaling groups per environment.,10,None,true,false
+finspace,Amazon FinSpace,L-7E609E02,Managed kdb single-AZ clusters,The maximum number of single-AZ clusters per environment.,5,None,true,false
+finspace,Amazon FinSpace,L-CD999E75,Managed kdb volume read mounts,The maximum number of read mounts per Managed kdb volume per environment.,5,None,true,false
+finspace,Amazon FinSpace,L-2B5C0922,Managed kdb volume storage,The maximum amount of storage for Managed kdb volumes per environment.,7730,Gigabytes,true,false
+finspace,Amazon FinSpace,L-0FC2034E,Managed kdb volume write mounts,The maximum number of write mounts per Managed kdb volume per environment.,5,None,true,false
+finspace,Amazon FinSpace,L-9DDBB72F,Managed kdb volumes,The maximum number of Managed kdb volumes per environment.,5,None,true,false
+finspace,Amazon FinSpace,L-6997032A,Notebook storage,The maximum amount of EFS storage per user notebook environment.,10,Gigabytes,false,false
+finspace,Amazon FinSpace,L-6B8BCEA6,Permission groups,The maximum number of permission groups per FinSpace environment.,20,None,true,false
+finspace,Amazon FinSpace,L-C49840B4,Total kdb environments,The maximum number of environments per AWS account.,1,None,false,false
+finspace,Amazon FinSpace,L-2AA8A0CC,Users,The maximum number of users that can exist in a FinSpace environment.,5,None,true,false

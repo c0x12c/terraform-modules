@@ -1,0 +1,32 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+elasticloadbalancing,Elastic Load Balancing (ELB),L-53DA6B97,Application Load Balancers per Region,The maximum number of Application Load Balancers per Region,50,None,true,false
+elasticloadbalancing,Elastic Load Balancing (ELB),L-43FE5A42,CA certificates per trust store,The maximum number of CA certificates per trust store,25,None,true,false
+elasticloadbalancing,Elastic Load Balancing (ELB),L-F31E307C,CA certificates subject size per trust store,The maximum number of CA certificates subject size per trust store,10000,None,true,false
+elasticloadbalancing,Elastic Load Balancing (ELB),L-9365A611,Certificates per Application Load Balancer,The maximum number of certificates per Application Load Balancer,25,None,true,false
+elasticloadbalancing,Elastic Load Balancing (ELB),L-52964454,Certificates per Network Load Balancer,The maximum number of certificates per Network Load Balancer,25,None,true,false
+elasticloadbalancing,Elastic Load Balancing (ELB),L-E9E9831D,Classic Load Balancers per Region,The maximum number of Classic Load Balancers per Region,20,None,true,false
+elasticloadbalancing,Elastic Load Balancing (ELB),L-EBC0C08B,Condition Values per Rule,The maximum number of condition values per Rule,5,None,false,false
+elasticloadbalancing,Elastic Load Balancing (ELB),L-A012D4E8,Condition Wildcards per Rule,The maximum number of condition wildcards per Rule,6,None,false,false
+elasticloadbalancing,Elastic Load Balancing (ELB),L-B6DF7632,Listeners per Application Load Balancer,The maximum number of listeners per Application Load Balancer,50,None,true,false
+elasticloadbalancing,Elastic Load Balancing (ELB),L-1A491844,Listeners per Classic Load Balancer,The maximum number of listeners per Classic Load Balancer,100,None,true,false
+elasticloadbalancing,Elastic Load Balancing (ELB),L-57A373D6,Listeners per Network Load Balancer,The maximum number of listeners per Network Load Balancer,50,None,false,false
+elasticloadbalancing,Elastic Load Balancing (ELB),L-23568085,Network Load Balancer ENIs per VPC,The total number of Network Load Balancer eni's per VPC,1200,None,true,false
+elasticloadbalancing,Elastic Load Balancing (ELB),L-69A177A2,Network Load Balancers per Region,The maximum number of Network Load Balancers per Region,50,None,true,false
+elasticloadbalancing,Elastic Load Balancing (ELB),L-CE3125E5,Registered Instances per Classic Load Balancer,The maximum number of instances that can be registered per Classic Load Balancer,1000,None,true,false
+elasticloadbalancing,Elastic Load Balancing (ELB),L-0BB7B635,Reserved Application Load Balancer Capacity Units (LCU) per Application Load Balancer,The maximum number of Reserved Application Load Balancer Capacity Units (LCU) per Load Balancer,15000,None,true,false
+elasticloadbalancing,Elastic Load Balancing (ELB),L-8A66D0E6,Reserved Application Load Balancer Capacity Units (LCU) per Region,The maximum number of Reserved Application Load Balancer Capacity Units (LCU) per Region,0,None,true,false
+elasticloadbalancing,Elastic Load Balancing (ELB),L-9E6F9012,"Reserved Gateway Load Balancer Capacity Units (LCU) per Gateway Load Balancer, per availability zone","The maximum number of Reserved Gateway Load Balancer Capacity Units (LCUs) per Gateway Load Balancer, per availability zone",45000,None,true,false
+elasticloadbalancing,Elastic Load Balancing (ELB),L-7A15E3C5,Reserved Gateway Load Balancer Capacity Units (LCU) per Region,The maximum number of Reserved Gateway Load Balancer Capacity Units (LCU) per Region,0,None,true,false
+elasticloadbalancing,Elastic Load Balancing (ELB),L-723DCCB6,Reserved Network Load Balancer Capacity Units (LCU) per Region,The maximum number of Reserved Network Load Balancer Capacity Units (LCU) per Region,0,None,true,false
+elasticloadbalancing,Elastic Load Balancing (ELB),L-7C45F98A,"Reserved Network Load Balancer Capacity Units (LCUs) per Network Load Balancer, per availability zone","The maximum number of Reserved Network Load Balancer Capacity Units (LCUs) per Network Load Balancer, per availability zone",45000,None,true,false
+elasticloadbalancing,Elastic Load Balancing (ELB),L-37E1617B,Revocation entries per trust store,The maximum number of Revocation entries per trust store,500000,None,true,false
+elasticloadbalancing,Elastic Load Balancing (ELB),L-332EE142,Revocation lists per trust store,The maximum number of Revocation lists per trust store,30,None,true,false
+elasticloadbalancing,Elastic Load Balancing (ELB),L-7EED9B64,Rules per Application Load Balancer,The maximum number of rules per Application Load Balancer,100,None,true,false
+elasticloadbalancing,Elastic Load Balancing (ELB),L-057ECE54,Target Groups per Action per Application Load Balancer,The maximum number of target groups per action per Application Load Balancer,5,None,false,false
+elasticloadbalancing,Elastic Load Balancing (ELB),L-822D1B1B,Target Groups per Application Load Balancer,The maximum number of target groups per Application Load Balancer,100,None,false,false
+elasticloadbalancing,Elastic Load Balancing (ELB),L-B22855CB,Target Groups per Region,The maximum number of target groups per Region,3000,None,true,false
+elasticloadbalancing,Elastic Load Balancing (ELB),L-7E6692B2,Targets per Application Load Balancer,The maximum number of targets per Application Load Balancer,1000,None,true,false
+elasticloadbalancing,Elastic Load Balancing (ELB),L-B211E961,Targets per Availability Zone per Network Load Balancer,The maximum number of targets per availability zone per Network Load Balancer,500,None,true,false
+elasticloadbalancing,Elastic Load Balancing (ELB),L-EEF1AD04,Targets per Network Load Balancer,The maximum number of targets per Network Load Balancer,3000,None,true,false
+elasticloadbalancing,Elastic Load Balancing (ELB),L-A0D0B863,Targets per Target Group per Region,The maximum number of targets per target group per Region,1000,None,true,false
+elasticloadbalancing,Elastic Load Balancing (ELB),L-A8F7060B,Trust stores per account,The maximum number of Trust stores per account,20,None,true,false

@@ -1,0 +1,4 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+controltower,AWS Control Tower,L-04D09B14,Concurrent account operations quota,The maximum number of concurrent account operations that can be performed at the same time. Maximum: 10,5,None,true,false
+controltower,AWS Control Tower,L-6579BCE4,Concurrent organization units (OUs) operations quota,The maximum number of concurrent OU-related operations that can be performed at the same time.,1,None,false,false
+controltower,AWS Control Tower,L-E9464183,Number of accounts in a single OU quota,"The maximum number of AWS Control Tower managed accounts that can be present in one OU. If you add accounts beyond this limit, the OU registration process in AWS Control Tower cannot be performed. To learn more about the number of accounts per OU, review Regions and Stackset Limitations in the AWS Control Tower documentation.",1000,None,false,false

@@ -1,0 +1,12 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+appmesh,AWS App Mesh,L-8775AB18,Backends per virtual node,Number of backends per virtual node,50,None,false,false
+appmesh,AWS App Mesh,L-33E8F9C9,Connected Envoy processes per virtual gateway,Number of concurrently connected Envoy processes per virtual gateway,50,None,true,false
+appmesh,AWS App Mesh,L-606A910B,Connected Envoy processes per virtual node,Number of concurrently connected Envoy processes per virtual node,50,None,true,false
+appmesh,AWS App Mesh,L-F6F26D09,Gateway routes per virtual gateway,Number of gateway routes per virtual gateway,10,None,true,false
+appmesh,AWS App Mesh,L-AC861A39,Meshes per account,Number of meshes per account,15,None,true,false
+appmesh,AWS App Mesh,L-BB90B7FF,Routes per virtual router,Number of routes per virtual router,50,None,true,false
+appmesh,AWS App Mesh,L-87E74146,Virtual gateways per mesh,Number of virtual gateways per mesh,3,None,true,false
+appmesh,AWS App Mesh,L-E043DFB4,Virtual nodes per mesh,Number of virtual nodes per mesh,200,None,true,false
+appmesh,AWS App Mesh,L-50F6C35A,Virtual routers per mesh,Number of virtual routers per mesh,200,None,true,false
+appmesh,AWS App Mesh,L-DA7495A7,Virtual services per mesh,Number of virtual services per mesh,200,None,true,false
+appmesh,AWS App Mesh,L-AE1D9567,Weighted targets per route,Number of weighted targets per route,10,None,false,false

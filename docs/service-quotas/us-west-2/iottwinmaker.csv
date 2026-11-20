@@ -1,0 +1,19 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+iottwinmaker,AWS IoT TwinMaker,L-6B0BA854,Component type composition tree depth,The maximum depth of a component type composition tree.,5,None,true,false
+iottwinmaker,AWS IoT TwinMaker,L-62EFDD1A,Component type composition tree size,The maximum number of component types in a component type composition tree.,50,None,true,false
+iottwinmaker,AWS IoT TwinMaker,L-E97A4C92,Component types per workspace,The maximum number of unique component types per workspace.,1000,None,true,false
+iottwinmaker,AWS IoT TwinMaker,L-FE672086,Components per entity,The maximum number of components that can be defined on one entity.,30,None,true,false
+iottwinmaker,AWS IoT TwinMaker,L-C511254B,Depth of component type hierarchy,The maximum depth of the component type hierarchy tree.,10,None,true,false
+iottwinmaker,AWS IoT TwinMaker,L-019A0AE4,Depth of entity hierarchy,The maximum depth of the entity hierarchy tree.,30,None,true,false
+iottwinmaker,AWS IoT TwinMaker,L-ADB4D9B9,Entities per workspace,The maximum number of entities allowed per workspace.,50000,None,true,false
+iottwinmaker,AWS IoT TwinMaker,L-F123ACD6,Number of metadata transfer jobs in queue,The maximum number of PENDING metadata transfer jobs.,10,None,true,false
+iottwinmaker,AWS IoT TwinMaker,L-2064CF20,Number of SiteWise export resources per job,The maximum number of SiteWise export resources per job.,5000,None,true,false
+iottwinmaker,AWS IoT TwinMaker,L-56552C16,Number of SiteWise import resources per job,The maximum number of SiteWise import resources per job.,5000,None,true,false
+iottwinmaker,AWS IoT TwinMaker,L-43909161,Number of TwinMaker export resources per job,The maximum number of TwinMaker export resources per job.,100000,None,true,false
+iottwinmaker,AWS IoT TwinMaker,L-8537DB8F,Number of TwinMaker import resources per job,The maximum number of TwinMaker import resources per job.,100000,None,true,false
+iottwinmaker,AWS IoT TwinMaker,L-0169BFDB,Parent component types per child component type,"The maximum number of multi-inheritance parent component types or ""extendsFrom"" relationships one component type can have.",10,None,false,false
+iottwinmaker,AWS IoT TwinMaker,L-D8DF6F6C,Properties per component type or component,The maximum number of properties that can be defined on a component type or added to any given component instance.,800,None,true,false
+iottwinmaker,AWS IoT TwinMaker,L-8E0F7923,Scenes per workspace,The maximum number of scenes within a workspace.,100,None,true,false
+iottwinmaker,AWS IoT TwinMaker,L-09F67DF4,Size of the metadata transfer job import file,The maximum size of the imported file (in MB).,100,None,true,false
+iottwinmaker,AWS IoT TwinMaker,L-6A666826,Tags per resource,"The maximum number of tags that can be placed on any resource with an ARN (like workspace, entity, component type, etc.).",50,None,false,false
+iottwinmaker,AWS IoT TwinMaker,L-3BCB51AD,Workspaces in this account in the current Region,The maximum number of workspaces in this account in the current Region.,15,None,true,false

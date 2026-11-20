@@ -1,0 +1,13 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+medical-imaging,AWS Health Imaging,L-0D1B2633,Maximum concurrent CopyImageSet requests per data store,The maximum concurrent CopyImageSet requests per data store in the current AWS Region,100,None,true,false
+medical-imaging,AWS Health Imaging,L-2020885D,Maximum concurrent DeleteImageSet requests per data store,The maximum concurrent DeleteImageSet requests per data store in the current AWS Region,100,None,true,false
+medical-imaging,AWS Health Imaging,L-23763099,Maximum concurrent import jobs per data store,The maximum number of concurrent import jobs per data store in the current AWS Region,100,None,true,false
+medical-imaging,AWS Health Imaging,L-8588E9BF,Maximum concurrent UpdateImageSetMetadata requests per data store,The maximum concurrent UpdateImageSetMetadata requests per data store in the current AWS Region,100,None,true,false
+medical-imaging,AWS Health Imaging,L-8829B870,Maximum data stores,The maximum number of active data stores in the current AWS Region,100,None,true,false
+medical-imaging,AWS Health Imaging,L-685AAB3A,Maximum number of files in a DICOM import job,The maximum number of files in a DICOM import job in the current AWS Region,5000,None,true,false
+medical-imaging,AWS Health Imaging,L-164416ED,Maximum number of ImageFrames allowed to be copied per CopyImageSet request,The maximum number of ImageFrames allowed to be copied per CopyImageSet request in the current AWS Region,1000,None,true,false
+medical-imaging,AWS Health Imaging,L-82EB2111,Maximum number of nested folders in a DICOM import job,The maximum number of nested folders in a DICOM import job in the current AWS Region,10000,None,false,false
+medical-imaging,AWS Health Imaging,L-A880A4C2,Maximum payload size limit (in KB) accepted by UpdateImageSetMetadata,The maximum payload size limit (in KB) accepted by UpdateImageSetMetadata in the current AWS Region,10,Kilobytes,true,false
+medical-imaging,AWS Health Imaging,L-09BF036A,Maximum size (in GB) of all files in a DICOM import job,The maximum size (in GB) of all files in a DICOM import job in the current AWS Region,10,Gigabytes,false,false
+medical-imaging,AWS Health Imaging,L-1D182717,Maximum size (in GB) of each DICOM P10 file in a DICOM import job,The maximum size (in GB) of each DICOM P10 file in the DICOM import job in the current AWS Region,10,Gigabytes,false,false
+medical-imaging,AWS Health Imaging,L-AD2C6765,"Maximum size limit (in MB) on ImageSetMetadata per Import, Copy, and UpdateImageSet","The maximum size limit (in MB) on ImageSetMetadata per Import, Copy, and UpdateImageSet in the current AWS Region",50,Megabytes,true,false

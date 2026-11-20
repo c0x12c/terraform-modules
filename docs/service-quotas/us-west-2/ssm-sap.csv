@@ -1,0 +1,4 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+ssm-sap,AWS Systems Manager for SAP,L-458E2EE3,Components per SAP application,The maximum number of ssm-sap components that you can register per ssm-sap application.,20,None,true,false
+ssm-sap,AWS Systems Manager for SAP,L-5B34AA09,Databases per component,The maximum number of ssm-sap databases that you can register per ssm-sap component.,20,None,true,false
+ssm-sap,AWS Systems Manager for SAP,L-C8103580,SAP applications per Region in account,The maximum number of ssm-sap applications that you can register in your AWS account per Region.,10,None,true,false

@@ -1,0 +1,9 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+glacier,Amazon Glacier,L-E96017CA,Archive size in GB.,The maximum size of an archive.,40000,Gigabytes,false,false
+glacier,Amazon Glacier,L-E0D19AD1,Archive size.,The minimum size (in MB) of an archive (or part).,4,Megabytes,false,false
+glacier,Amazon Glacier,L-4BF4C362,Multipart parts size.,The maximum size (in GB) of parts allowed in a multipart upload.,4,Gigabytes,false,false
+glacier,Amazon Glacier,L-982DEA76,Number of multipart parts.,The maximum number of parts allowed in a multipart upload.,10000,None,false,false
+glacier,Amazon Glacier,L-0D9D2530,Number of random restore requests.,The number of random restore requests per PiB stored per day.,35,None,false,false
+glacier,Amazon Glacier,L-153F5D45,Number of vault tags.,The maximum number of tags that can be applied to a vault.,50,None,false,false
+glacier,Amazon Glacier,L-F127DF29,Provisioned capacity units,The maximum number of provisioned capacity units available to purchase per account.,2,None,false,false
+glacier,Amazon Glacier,L-D1C67346,Vaults per account,The maximum number of vaults an account can have.,1000,None,false,false

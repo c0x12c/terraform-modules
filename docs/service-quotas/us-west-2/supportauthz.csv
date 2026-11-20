@@ -1,0 +1,14 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+supportauthz,AWS Support Authorization,L-B6F53736,Combined rate of API requests per account,The maximum number of combined API requests per second per account.,20,None,false,false
+supportauthz,AWS Support Authorization,L-FDFD933E,CreateSupportPermit requests per second per account,The maximum number of CreateSupportPermit requests per second per account.,3,None,false,false
+supportauthz,AWS Support Authorization,L-2ED5D373,DeleteSupportPermit requests per second per account,The maximum number of DeleteSupportPermit requests per second per account.,3,None,false,false
+supportauthz,AWS Support Authorization,L-6342E5DF,GetAction requests per second per account,The maximum number of GetAction requests per second per account.,3,None,false,false
+supportauthz,AWS Support Authorization,L-A2EF16BD,GetSupportPermit requests per second per account,The maximum number of GetSupportPermit requests per second per account.,3,None,false,false
+supportauthz,AWS Support Authorization,L-EF8B3577,ListActions requests per second per account,The maximum number of ListActions requests per second per account.,10,None,false,false
+supportauthz,AWS Support Authorization,L-71259196,ListSupportPermitRequests requests per second per account,The maximum number of ListSupportPermitRequests requests per second per account.,10,None,false,false
+supportauthz,AWS Support Authorization,L-60F743DD,ListSupportPermits requests per second per account,The maximum number of ListSupportPermits requests per second per account.,10,None,false,false
+supportauthz,AWS Support Authorization,L-69FF784A,ListTagsForResource requests per second per account,The maximum number of ListTagsForResource requests per second per account.,10,None,false,false
+supportauthz,AWS Support Authorization,L-6833A3E3,RejectSupportPermitRequest requests per second per account,The maximum number of RejectSupportPermitRequest requests per second per account.,3,None,false,false
+supportauthz,AWS Support Authorization,L-EDDA9F00,Support permits per account,The maximum number of support permits per account.,200,None,false,false
+supportauthz,AWS Support Authorization,L-7AC0B3A2,TagResource requests per second per account,The maximum number of TagResource requests per second per account.,3,None,false,false
+supportauthz,AWS Support Authorization,L-7D193E06,UntagResource requests per second per account,The maximum number of UntagResource requests per second per account.,3,None,false,false

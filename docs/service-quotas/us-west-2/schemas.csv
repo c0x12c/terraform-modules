@@ -1,0 +1,6 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+schemas,Amazon EventBridge Schema Registry,L-1738102F,DiscoveredSchemas,The maximum number of schemas for a discovered schema registry that you can create in the current region,200,None,true,false
+schemas,Amazon EventBridge Schema Registry,L-037FC7C4,Discoverers,The maximum number of discoverers that you can create in the current region.,10,None,true,false
+schemas,Amazon EventBridge Schema Registry,L-85663EFB,Registries,The maximum number of registries that you can create in the current region.,10,None,true,false
+schemas,Amazon EventBridge Schema Registry,L-EE9E5FA9,Schemas,The maximum number of schemas per registry that you can create in the current region. (Except Discovered Schema Registry),100,None,true,false
+schemas,Amazon EventBridge Schema Registry,L-3C443A2A,SchemaVersions,The maximum number of versions per schema that you can create in the current region.,100,None,true,false

@@ -1,0 +1,13 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+databrew,AWS Glue DataBrew,L-935D4120,Concurrent jobs per AWS account,The maximum number of jobs that you can run at the same time in this AWS account.,10,None,true,false
+databrew,AWS Glue DataBrew,L-940C8930,Datasets per AWS account,The maximum number of datasets that you can create in this AWS account.,100,None,true,false
+databrew,AWS Glue DataBrew,L-0D2C4DFC,Jobs per AWS account,The maximum number of jobs that you can create in this AWS account.,100,None,true,false
+databrew,AWS Glue DataBrew,L-B06AE58E,Node capacity per AWS account,The maximum number of nodes available to jobs running in this AWS account.,300,None,true,false
+databrew,AWS Glue DataBrew,L-5748848E,Open projects per AWS account,The maximum number of projects that you can open concurrently in this AWS account.,10,None,true,false
+databrew,AWS Glue DataBrew,L-CE9E9D8D,Projects per AWS account,The maximum number of projects that you can create in this AWS account.,100,None,true,false
+databrew,AWS Glue DataBrew,L-EE2782A4,Recipes per AWS account,The maximum number of recipes that you can create in this AWS account.,500,None,true,false
+databrew,AWS Glue DataBrew,L-640ABD4F,Rules per ruleset,The maximum number of rules that you can have in a ruleset.,100,None,true,false
+databrew,AWS Glue DataBrew,L-955A1FA6,Rulesets per AWS account,The maximum number of rulesets that you can create in this AWS account.,100,None,true,false
+databrew,AWS Glue DataBrew,L-131D2768,Rulesets per dataset,The maximum number of rulesets that you can create for a dataset.,10,None,true,false
+databrew,AWS Glue DataBrew,L-BF3E0A94,Schedules per AWS account,The maximum number of schedules that you can create in this AWS account.,10,None,true,false
+databrew,AWS Glue DataBrew,L-A386FCB8,Versions per recipe,The maximum number of versions that you can create for a recipe.,100,None,true,false

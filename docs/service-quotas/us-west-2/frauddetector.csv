@@ -1,0 +1,20 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+frauddetector,Amazon Fraud Detector,L-46EB4650,Concurrent training jobs per model,Maximum number of concurrent training jobs per model.,1,None,false,false
+frauddetector,Amazon Fraud Detector,L-2A06444E,Deployed model versions,Maximum number of deployed model versions per account.,5,None,false,false
+frauddetector,Amazon Fraud Detector,L-EB925C6F,Detectors per account,Maximum number of detectors per account.,100,None,false,false
+frauddetector,Amazon Fraud Detector,L-CE9FFC2E,EntityType per account,Maximum number of EntityType per account,100,None,false,false
+frauddetector,Amazon Fraud Detector,L-6952AC52,EventType per account,Maximum number of EventType per account,100,None,false,false
+frauddetector,Amazon Fraud Detector,L-D3D8860F,Labels per account,Maximum number of labels per account,100,None,false,false
+frauddetector,Amazon Fraud Detector,L-889822E1,Lists per account,Maximum number of lists per account.,100,None,false,false
+frauddetector,Amazon Fraud Detector,L-A9872AF8,Models including external models per detector version,Maximum number of models including external models per detector version.,10,None,false,false
+frauddetector,Amazon Fraud Detector,L-A499790A,Models per account,Maximum number of models per account.,50,None,false,false
+frauddetector,Amazon Fraud Detector,L-A8E1A12A,Outcomes per account,Maximum number of outcomes per account.,5000,None,false,false
+frauddetector,Amazon Fraud Detector,L-7D855745,Rate of GetPrediction requests,Maximum number of GetPrediction API calls that you can make per second.,200,None,true,false
+frauddetector,Amazon Fraud Detector,L-4CB84A5D,Rules per account,Maximum number of rules per account.,5000,None,false,false
+frauddetector,Amazon Fraud Detector,L-B866C3AA,Size of GetPrediction requests,Maximum size of payload per GetPrediction API call.,256,Kilobytes,false,false
+frauddetector,Amazon Fraud Detector,L-71AAD453,Total concurrent Event Type statistics update operations,Maximum total number of concurrent Event Type statistics update operations per account.,1,None,true,false
+frauddetector,Amazon Fraud Detector,L-9729D5BB,Total concurrent training jobs,Maximum total number of concurrent training jobs per account.,3,None,false,false
+frauddetector,Amazon Fraud Detector,L-FD6E2577,Training data size,Maximum size of Fraud Detector model training data.,5,Gigabytes,false,false
+frauddetector,Amazon Fraud Detector,L-6A39223B,Variables per account,Maximum number of variables per account.,5000,None,false,false
+frauddetector,Amazon Fraud Detector,L-10D6B82C,Versions per detector,Maximum number of draft versions per detector.,100,None,false,false
+frauddetector,Amazon Fraud Detector,L-17F80A78,Versions per model,Maximum number of versions per model.,200,None,false,false

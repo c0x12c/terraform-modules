@@ -1,0 +1,4 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+migrationhuborchestrator,Migration Hub Orchestrator,L-FD489B05,Maximum step groups per workflow,The maximum number of step groups in a given workflow,15,None,true,false
+migrationhuborchestrator,Migration Hub Orchestrator,L-71F71C2E,Maximum steps per step group,The maximum number of step in a given step group,15,None,true,false
+migrationhuborchestrator,Migration Hub Orchestrator,L-9E55B371,Maximum workflows,The maximum number of workflows for a given account in a given region,50,None,true,false

@@ -1,0 +1,4 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+support,AWS Support,L-740CFD0C,AWS Support API operations,The maximum number of AWS Support API operations that you can perform per second.,5,None,false,false
+support,AWS Support,L-981EE492,AWS Trusted Advisor API operations,The maximum number of AWS Trusted Advisor API operations that you can perform per second.,100,None,false,false
+support,AWS Support,L-9943BD41,Number of AWS Support cases that you can create,The maximum number of AWS Support cases that you can create per hour.,10,None,false,false

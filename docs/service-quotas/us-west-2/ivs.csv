@@ -1,0 +1,30 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+ivs,Amazon Interactive Video Service,L-D15E1F21,Ad configurations,Maximum number of ad configurations in the current region.,20,None,false,false
+ivs,Amazon Interactive Video Service,L-1FDF4F40,AWS (EMT) MediaTailor playback configurations,Maximum number of AWS EMT playback configurations allowed in a single ad configuration in the current region.,3,None,false,false
+ivs,Amazon Interactive Video Service,L-C01DFF58,Channels,"Maximum number of channels that can be created, in the current region.",5000,None,true,false
+ivs,Amazon Interactive Video Service,L-E945C199,Compositions,Maximum concurrent Composition resources per account.,20,None,true,false
+ivs,Amazon Interactive Video Service,L-21B2923F,Concurrent Compositions per Stage,Maximum number of concurrent compositions per stage.,5,None,true,false
+ivs,Amazon Interactive Video Service,L-B33A5A4F,Concurrent publishers,Maximum number of participants who can be publishing across all stages in an AWS Region.,1000,None,true,false
+ivs,Amazon Interactive Video Service,L-8E5617D4,Concurrent replication per participant,Maximum number of concurrent replications per participant across all stages in an AWS Region.,5,None,false,false
+ivs,Amazon Interactive Video Service,L-FD1EB8A7,Concurrent streams,"Maximum number of channels that can be streamed simultaneously, in the current region. If you exceed this threshold, the stream is rejected.",100,None,true,false
+ivs,Amazon Interactive Video Service,L-E9691DAB,Concurrent subscriptions,Maximum number of simultaneous publisher-to-subscriber connections across all stages in an AWS Region.,20000,None,true,false
+ivs,Amazon Interactive Video Service,L-77A18D5D,Concurrent views,"Maximum number of views allowed to playback a live channel simultaneously, across all channels, in the current region.",15000,None,true,false
+ivs,Amazon Interactive Video Service,L-F7C5B6C9,Encoder configurations,Maximum number of encoder configurations resources per account.,20,None,true,false
+ivs,Amazon Interactive Video Service,L-3B5D0A1C,Ingest bitrate (channel type BASIC),"Maximum bitrate per second that can be streamed to a channel. If you exceed this threshold, the stream may disconnect.",1.5,Megabits,false,false
+ivs,Amazon Interactive Video Service,L-832F442C,Ingest bitrate (channel type STANDARD),"Maximum bitrate per second that can be streamed to a channel. If you exceed this threshold, the stream may disconnect.",8.5,Megabits,false,false
+ivs,Amazon Interactive Video Service,L-CE6ADDBE,Ingest configurations,Maximum number of ingest configurations per account.,100,None,true,false
+ivs,Amazon Interactive Video Service,L-25CC60E6,Max Composition duration,"Maximum amount of time a Composition can exist, in hours.",24,None,false,false
+ivs,Amazon Interactive Video Service,L-8D348609,Metadata payload,Maximum size of a PutMetadata request payload (Amazon IVS API).,1,Kilobytes,false,false
+ivs,Amazon Interactive Video Service,L-5339BD50,Playback authorization key pairs,"Maximum number of playback authorization key pairs, in the current region.",3,None,false,false
+ivs,Amazon Interactive Video Service,L-BF6EB49C,Playback restriction policies,"Maximum number of playback restriction policies, in the current region.",3,None,false,false
+ivs,Amazon Interactive Video Service,L-BE74979C,Playback token size,Maximum size of the entire JSON web token (JWT) used to initiate playback.,2,Kilobytes,false,false
+ivs,Amazon Interactive Video Service,L-DA157FF6,Public keys,"Maximum number of public keys, in the current region.",3,None,false,false
+ivs,Amazon Interactive Video Service,L-4189D9D0,PutMetadata rate per channel,Maximum PutMetadata transactions per second per channel,5,None,false,false
+ivs,Amazon Interactive Video Service,L-90ABAB37,Recording configurations,"Maximum number of recording configurations, in the current region.",20,None,true,false
+ivs,Amazon Interactive Video Service,L-9965E8BE,Stage participants (publishers),Maximum number of participants who can be publishing to a stage at once.,12,None,true,false
+ivs,Amazon Interactive Video Service,L-160C013D,Stage participants (subscribers),Maximum number of participants who can be subscribing to a stage at once.,10000,None,true,false
+ivs,Amazon Interactive Video Service,L-47F0B706,Stages,"Maximum number of stages, in the current region.",1000,None,true,false
+ivs,Amazon Interactive Video Service,L-BF843A02,Storage configurations,Maximum number of storage configurations resources per account.,5,None,true,false
+ivs,Amazon Interactive Video Service,L-80F95143,Stream Key,"Maximum number of stream keys that can be created, per channel.",1,None,false,false
+ivs,Amazon Interactive Video Service,L-41152BE7,Stream takeovers,"Maximum number of stream takeovers, per stream.",100,None,true,false
+ivs,Amazon Interactive Video Service,L-9C6AF7E0,Total number of Destinations per Composition,Maximum destinations per Composition resource.,1,None,false,false

@@ -1,0 +1,5 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+interconnect,AWS Interconnect,L-00139C4D,Interconnect Maximum Created Connections,The maximum number of active AWS Interconnect connections allowed per account.,10,None,true,false
+interconnect,AWS Interconnect,L-29F85628,Interconnect Outstanding Requested Connections,The maximum number of requested AWS Interconnect connections allowed per account.,4,None,true,false
+interconnect,AWS Interconnect,L-14D2B214,Last Mile Connections Per Provider,The maximum number of last mile AWS Interconnect connections allowed per provider per account.,2,None,true,false
+interconnect,AWS Interconnect,L-7B96960D,Multicloud Connections Per Provider,The maximum number of AWS Interconnect multicloud connections allowed per provider per account.,2,None,true,false

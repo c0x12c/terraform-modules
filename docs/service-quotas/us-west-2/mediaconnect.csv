@@ -1,0 +1,11 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+mediaconnect,AWS Elemental MediaConnect,L-075679EF,Bridges,The maximum number of bridges that a gateway can have.,40,None,false,false
+mediaconnect,AWS Elemental MediaConnect,L-F1F62F5D,Entitlements,The maximum number of entitlements that you can grant on a flow.,50,None,false,false
+mediaconnect,AWS Elemental MediaConnect,L-A99016A8,Flows,The maximum number of flows that you can create in each AWS Region.,20,None,true,false
+mediaconnect,AWS Elemental MediaConnect,L-25EA13F4,MediaConnectRouterTypeMediaLiveChannelInputs,The maximum number of MediaLive channel inputs of type MediaConnect router that you can create in an AWS region,50,None,true,false
+mediaconnect,AWS Elemental MediaConnect,L-CB77E87E,Outputs,The maximum number of outputs that a flow can have.,50,None,false,false
+mediaconnect,AWS Elemental MediaConnect,L-77138741,RouterInputs,The maximum number of router inputs that you can create in an AWS region,20,None,true,false
+mediaconnect,AWS Elemental MediaConnect,L-6C50CD26,RouterNetworkInterfaces,The maximum number of router network interfaces that you can create in an AWS region,10,None,true,false
+mediaconnect,AWS Elemental MediaConnect,L-58DF4801,RouterOutputs,The maximum number of router outputs that you can create in an AWS region,20,None,true,false
+mediaconnect,AWS Elemental MediaConnect,L-1D9B2049,StandardTypeDestinationEndpoints,The maximum number of standard type destination endpoints that you can create in an AWS region,1000,None,true,false
+mediaconnect,AWS Elemental MediaConnect,L-FC90A5C2,StandardTypeSourceEndpoints,The maximum number of standard type source endpoints that you can create in an AWS region,1000,None,true,false

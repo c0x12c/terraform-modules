@@ -1,0 +1,14 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+social-messaging,AWS End User Messaging Social,L-1FA8F135,Rate of CreateWhatsAppMessageTemplate API requests,The maximum number of CreateWhatsAppMessageTemplate calls that you can make per second.,10,None,false,false
+social-messaging,AWS End User Messaging Social,L-221D48F1,Rate of CreateWhatsAppMessageTemplateMedia API requests,The maximum number of CreateWhatsAppMessageTemplateMedia calls that you can make per second.,10,None,false,false
+social-messaging,AWS End User Messaging Social,L-68B6D81D,Rate of DeleteWhatsAppMessageMedia API requests,The maximum number of DeleteWhatsAppMessageMedia calls that you can make per second.,100,None,false,false
+social-messaging,AWS End User Messaging Social,L-D06A8815,Rate of DisassociateWhatsAppBusinessAccount API requests,The maximum number of DisassociateWhatsAppBusinessAccount calls that you can make per second.,10,None,false,false
+social-messaging,AWS End User Messaging Social,L-24D3430B,Rate of GetWhatsAppMessageMedia API requests,The maximum number of GetWhatsAppMessageMedia calls that you can make per second.,100,None,false,false
+social-messaging,AWS End User Messaging Social,L-3B3DB8E9,Rate of GetWhatsAppMessageTemplate API requests,The maximum number of GetWhatsAppMessageTemplate calls that you can make per second.,10,None,false,false
+social-messaging,AWS End User Messaging Social,L-B752DEC4,Rate of ListLinkedWhatsAppBusinessAccounts API requests,The maximum number of ListLinkedWhatsAppBusinessAccounts calls that you can make per second.,10,None,false,false
+social-messaging,AWS End User Messaging Social,L-0942AEB8,Rate of ListTagsForResource API requests,The maximum number of ListTagsForResource calls that you can make per second.,10,None,false,false
+social-messaging,AWS End User Messaging Social,L-67364A44,Rate of PostWhatsAppMessageMedia API requests,The maximum number of PostWhatsAppMessageMedia calls that you can make per second.,100,None,false,false
+social-messaging,AWS End User Messaging Social,L-52675531,Rate of SendWhatsAppMessage API requests,The maximum number of SendWhatsAppMessage calls that you can make per second for each phone number.,1000,None,false,false
+social-messaging,AWS End User Messaging Social,L-07DABF82,Rate of TagResource API requests,The maximum number of TagResource calls that you can make per second.,10,None,false,false
+social-messaging,AWS End User Messaging Social,L-D468F93A,Rate of UntagResource API requests,The maximum number of UntagResource calls that you can make per second.,10,None,false,false
+social-messaging,AWS End User Messaging Social,L-8479D5F2,WhatsApp Business Accounts per account,The maximum number of WhatsApp Business Accounts that you can create in this account in the current Region.,25,None,true,false

@@ -1,0 +1,3 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+connect-campaigns,Amazon Connect outbound campaigns,L-7F7B4C39,Active campaigns per instance,The maximum number of active campaigns that an AWS account can configure per Connect instance,50,None,true,false
+connect-campaigns,Amazon Connect outbound campaigns,L-31C1321D,Total campaigns per instance,The maximum total number of campaigns that an AWS account can configure per Connect instance,500,None,true,false

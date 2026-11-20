@@ -1,0 +1,75 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+personalize,Amazon Personalize,L-052ECD67,Active campaigns per dataset group,The total number of active campaigns per dataset group in the current Region.,5,None,true,false
+personalize,Amazon Personalize,L-14011066,Active dataset groups,The total number of active dataset groups that you can create in this account in the current Region.,5,None,true,false
+personalize,Amazon Personalize,L-B9CFBC8B,Active filters per dataset group,The total number of active filters per dataset group in the current Region.,30,None,true,false
+personalize,Amazon Personalize,L-D9DD83B7,Active solutions per dataset group,The total number of active solutions per dataset group in the current Region.,20,None,true,false
+personalize,Amazon Personalize,L-DD6792CA,Amount of data for HRNN recipe,The maximum amount of data for an individual dataset for HRNN recipe,100,Gigabytes,false,false
+personalize,Amazon Personalize,L-B33ADDC3,Amount of data for Personalized-Ranking recipe,The maximum amount of data for an individual dataset for Personalized-Ranking recipe,100,Gigabytes,false,false
+personalize,Amazon Personalize,L-A6D35102,Amount of data for Popularity-Count recipe,The maximum amount of data for an individual dataset for Popularity-Count recipe,100,Gigabytes,false,false
+personalize,Amazon Personalize,L-E427562C,Amount of data for SIMS recipe,The maximum amount of data for an individual dataset for SIMS recipe,100,Gigabytes,false,false
+personalize,Amazon Personalize,L-C5A4FD57,Amount of data per incremental import.,The maximum amount of data (in GB) you can import with a single incremental import in this account in the current Region.,1,Gigabytes,true,false
+personalize,Amazon Personalize,L-8CF67C84,Amount of interactions data for HRNN-coldstart recipe,The maximum amount of data for interactions dataset for HRNN-coldstart recipe,100,Gigabytes,false,false
+personalize,Amazon Personalize,L-A2675B6E,Amount of interactions data for HRNN-metadata recipe,The maximum amount of data for interactions dataset for HRNN-metadata recipe,100,Gigabytes,false,false
+personalize,Amazon Personalize,L-DEDA9DCF,Amount of users and items data combined for HRNN-coldstart recipe,The maximum amount of data for users dataset and items dataset combined for HRNN-coldstart recipe,5,Gigabytes,false,false
+personalize,Amazon Personalize,L-2EE592C4,Amount of users and items data combined for HRNN-metadata recipe,The maximum amount of data for users dataset and items dataset combined for HRNN-metadata recipe,5,Gigabytes,false,false
+personalize,Amazon Personalize,L-FA8BB2FC,Event size,The maximum size of an event in kilobytes.,10,Kilobytes,false,false
+personalize,Amazon Personalize,L-C71694DA,Maximum number of action interactions per event type per user considered by a filter.,The maximum number of action interactions per event type per user Amazon Personalize considers when filtering recommendations. This quota applies to each get action recommendations request in this account in the current region.,300,None,true,false
+personalize,Amazon Personalize,L-A8FE1453,Maximum number of interactions per event type per user considered by a filter.,The maximum number of interactions per event type per user Amazon Personalize considers when filtering recommendations. This quota applies to each get recommendations request in this account in the current Region.,100,None,true,false
+personalize,Amazon Personalize,L-4D685096,Maximum number of recommenders per dataset group,The total number of recommenders per dataset group in the current Region.,5,None,false,false
+personalize,Amazon Personalize,L-4DFC060E,Minimum data points for model training,The minimum number of data points required for training a model (creating a solution),1000,None,false,false
+personalize,Amazon Personalize,L-ADCAE478,Minimum unique users for model training,The minimum number of unique users required for training a model (creating a solution).,25,None,false,false
+personalize,Amazon Personalize,L-90932EE6,Number of action interaction events in a PutActionInteractions call,Maximum number of action interaction events in a PutActionInteractions call.,10,None,false,false
+personalize,Amazon Personalize,L-E30A1A43,Number of action interactions for model training,Maximum number of action interactions that are considered by a model during training.,500000000,None,false,false
+personalize,Amazon Personalize,L-0DAD8751,Number of actions used in model training,Maximum number of actions that are considered by a model during training and generating recommendations.,1000,None,false,false
+personalize,Amazon Personalize,L-A2738B0F,Number of events in PutEvents call,The maximum number of events in a PutEvents call.,10,None,false,false
+personalize,Amazon Personalize,L-A6A4AB70,Number of interactions for model training,The maximum number of interactions that are considered by a model during training.,500000000,None,true,false
+personalize,Amazon Personalize,L-49CC69B6,Number of items used in model training,The maximum number of items that are considered by a model during training.,750000,None,false,false
+personalize,Amazon Personalize,L-037D5A71,Number of schemas,The total number of active schemas that you can create in this account in the current Region.,500,None,false,false
+personalize,Amazon Personalize,L-A11DBE93,Pending data deletion jobs per dataset group,The total number of pending data deletion jobs that you can create per dataset group in the current Region.,5,None,true,false
+personalize,Amazon Personalize,L-69B72005,Pending or In Progress batch inference jobs,The total number of pending or in progress batch inference jobs that you can create in this account in the current Region.,5,None,true,false
+personalize,Amazon Personalize,L-9C16B368,Pending or In Progress solution versions,The total number of pending or in progress solution versions that you can create in this account in the current Region.,20,None,true,false
+personalize,Amazon Personalize,L-18DCD0DA,PutActionInteractions Event size,The maximum size of a PutActionInteractions event in kilobytes.,10,Kilobytes,false,false
+personalize,Amazon Personalize,L-9FDB137B,Rate of CreateCampaign requests,The maximum number of CreateCampaign requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-5D7942B8,Rate of CreateDataset requests,The maximum number of CreateDataset requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-141B5F3C,Rate of CreateDatasetGroup requests,The maximum number of CreateDatasetGroup requests that you can make per second,1,None,false,false
+personalize,Amazon Personalize,L-7AA65A3D,Rate of CreateDatasetImportJob requests,The maximum number of CreateDatasetImportJob requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-D1699476,Rate of CreateEventTracker requests,The maximum number of CreateEventTracker requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-C044F2CA,Rate of CreateSchema requests,The maximum number of CreateSchema requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-A527EF3A,Rate of CreateSolution requests,The maximum number of CreateSolution requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-1B982452,Rate of CreateSolutionVersion requests,The maximum number of CreateSolutionVersion requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-BD0DF30D,Rate of DeleteCampaign requests,The maximum number of DeleteCampaign requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-E1ABE5BE,Rate of DeleteDataset requests,The maximum number of DeleteDataset requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-1CAC7664,Rate of DeleteDatasetGroup requests,The maximum number of DeleteDatasetGroup requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-ACBBDC27,Rate of DeleteDatasetImportJob requests,The maximum number of DeleteDatasetImportJob requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-353C3E7E,Rate of DeleteEventTracker requests,The maximum number of DeleteEventTracker requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-34736E70,Rate of DeleteSchema requests,The maximum number of DeleteSchema requests that you can make per second,1,None,false,false
+personalize,Amazon Personalize,L-7E76619B,Rate of DeleteSolution requests,The maximum number of DeleteSolution requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-D551DB19,Rate of DescribeAlgorithm requests,The maximum number of DescribeAlgorithm requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-D98A73E8,Rate of DescribeCampaign requests,The maximum number of DescribeCampaign requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-DC96DE0A,Rate of DescribeDataset requests,The maximum number of DescribeDataset requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-9B095670,Rate of DescribeDatasetGroup requests,The maximum number of DescribeDatasetGroup requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-6A61577D,Rate of DescribeDatasetImportJob requests,The maximum number of DescribeDatasetImportJob requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-5E3F1253,Rate of DescribeEventTracker requests,The maximum number of DescribeEventTracker requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-FAB63F14,Rate of DescribeFeatureTransformation requests,The maximum number of DescribeFeatureTransformation requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-3A81D0FF,Rate of DescribeRecipe requests,The maximum number of DescribeRecipe requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-159027CF,Rate of DescribeSchema requests,The maximum number of DescribeSchema requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-ECA454DD,Rate of DescribeSolution requests,The maximum number of DescribeSolution requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-0314CB5C,Rate of GetActionRecommendations requests per campaign,The maximum number of GetActionRecommendations requests that you can make per second per campaign.,500,None,false,false
+personalize,Amazon Personalize,L-83D79D48,Rate of GetPersonalizedRanking requests per campaign,The maximum number of GetPersonalizedRanking requests that you can make per second per campaign.,500,None,false,false
+personalize,Amazon Personalize,L-E5F8E322,Rate of GetRecommendations requests per campaign,The maximum number of GetRecommendations requests that you can make per second per campaign.,500,None,false,false
+personalize,Amazon Personalize,L-89B2007E,Rate of GetSolutionMetrics requests,The maximum number of GetSolutionMetrics requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-AE7FD4E5,Rate of ListCampaigns requests,The maximum number of ListCampaigns requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-1513644C,Rate of ListDatasetGroups requests,The maximum number of ListDatasetGroups requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-5282CC49,Rate of ListDatasetImportJobRuns requests,The maximum number of ListDatasetImportJobRuns requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-B9C7903C,Rate of ListDatasetImportJobs requests,The maximum number of ListDatasetImportJobs requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-CA34375E,Rate of ListDatasets requests,The maximum number of ListDatasets requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-896849F5,Rate of ListEventTrackers requests,The maximum number of ListEventTrackers requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-3A79BA38,Rate of ListRecipes requests,The maximum number of ListRecipes requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-542429F0,Rate of ListSchemas requests,The maximum number of ListSchemas requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-3A329490,Rate of ListSolutions requests,The maximum number of ListSolutions requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-76D6B0AB,Rate of ListSolutionVersions requests,The maximum number of ListSolutionVersions requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-F1119DA2,Rate of PutActionInteractions requests per dataset group,The maximum number of PutActionInteractions requests that you can make per second per dataset group from this account in the current region.,1000,None,true,false
+personalize,Amazon Personalize,L-8047B3A8,Rate of PutEvents requests per dataset group,The maximum number of PutEvents requests that you can make per second per dataset group from this account in the current Region.,1000,None,true,false
+personalize,Amazon Personalize,L-5667F87F,Rate of transactions per account,The maximum transactions per second per account. Transaction is a single recommendation request.,2500,None,false,false
+personalize,Amazon Personalize,L-12101E4A,Rate of UpdateCampaign requests,The maximum number of UpdateCampaign requests that you can make per second.,1,None,false,false
+personalize,Amazon Personalize,L-76C4D7A9,Rate of UpdateDataset requests,The maximum number of UpdateDataset requests that you can make per second.,1,None,false,false

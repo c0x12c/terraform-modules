@@ -1,0 +1,3 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+axis,sagemaker-geospatial,L-DC290044,Maximum concurrent EarthObservationJobs,The maximum number of total concurrent EarthObservationJobs per AWS account per region,3,None,false,false
+axis,sagemaker-geospatial,L-962C3D55,Maximum concurrent VectorEnrichmentJobs,The maximum number of total concurrent VectorEnrichmentJobs per AWS account per region,3,None,false,false

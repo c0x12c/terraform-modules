@@ -1,0 +1,5 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+qapps,Amazon Q Apps,L-07861170,Maximum character length for an Amazon Q App Creator prompt.,Maximum character length for an Amazon Q App Creator prompt.,10000,None,false,false
+qapps,Amazon Q Apps,L-B86F3D29,Maximum number of Amazon Q Apps that a single web experience user can create.,Maximum number of Amazon Q Apps that a single web experience user can create.,100,None,false,false
+qapps,Amazon Q Apps,L-950EF090,Maximum number of cards used per Amazon Q App.,Maximum number of cards used per Amazon Q App.,20,None,false,false
+qapps,Amazon Q Apps,L-87C635B7,Maximum number of total Amazon Q Apps created within an application environment.,Maximum number of total Amazon Q Apps created within an application environment.,1000,None,false,false

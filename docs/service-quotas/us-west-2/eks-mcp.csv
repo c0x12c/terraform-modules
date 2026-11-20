@@ -1,0 +1,3 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+eks-mcp,Amazon EKS MCP,L-C59CF311,Burst rate of EKS MCP requests,The maximum number of requests per second (burst rate) that can be made to EKS MCP service.,10,None,false,false
+eks-mcp,Amazon EKS MCP,L-87AD797A,Rate of EKS MCP requests,The maximum number of requests per second (sustained rate) that can be made to the EKS MCP service APIs.,2,None,false,false

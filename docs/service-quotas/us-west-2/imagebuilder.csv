@@ -1,0 +1,24 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+imagebuilder,EC2 Image Builder,L-10D22E0D,Component parameter length,The maximum number of characters that a component parameter value can contain.,1024,None,true,false
+imagebuilder,EC2 Image Builder,L-D5DC1FB3,Component size,The maximum size of the data field of a component.,64,Kilobytes,true,false
+imagebuilder,EC2 Image Builder,L-9B183655,Components,The maximum number of components that you can create in an account in the current Region.,1000,None,true,false
+imagebuilder,EC2 Image Builder,L-59EC76F6,Components per image recipe,The maximum number of components that can be associated with a single image recipe.,20,None,true,false
+imagebuilder,EC2 Image Builder,L-69312229,Concurrent AMI copies per distribution configuration,The maximum number of target accounts that can be defined for a single distribution configuration.,50,None,true,false
+imagebuilder,EC2 Image Builder,L-BA4D191B,Concurrent builds,The maximum number of concurrent builds that can be in progress in this account in the current Region.,100,None,true,false
+imagebuilder,EC2 Image Builder,L-5E848392,Concurrent resource state update,The maximum number of concurrent resource state updates that can be in progress in this account in the current Region.,50,None,true,false
+imagebuilder,EC2 Image Builder,L-28A502FD,Container recipes,The maximum number of container recipes that you can create in an account in the current Region.,1000,None,true,false
+imagebuilder,EC2 Image Builder,L-2BAA05D8,Distribution configurations,The maximum number of distribution configurations that you can create in an account in the current Region.,1000,None,true,false
+imagebuilder,EC2 Image Builder,L-84F5AB81,Docker template size,The maximum size of a Docker template data field.,64,Kilobytes,true,false
+imagebuilder,EC2 Image Builder,L-7A0E01E3,Image pipelines,The maximum number of image pipelines that you can create in an account in the current Region.,75,None,true,false
+imagebuilder,EC2 Image Builder,L-1DF98342,Image recipes,The maximum number of image recipes that you can create in an account in the current Region.,1000,None,true,false
+imagebuilder,EC2 Image Builder,L-A26B27A7,Image workflow parameter,The maximum number of characters that an image workflow parameter value can contain.,1024,None,true,false
+imagebuilder,EC2 Image Builder,L-22EAF8F8,Image workflow size,The maximum size of the data field of an image workflow.,64,Kilobytes,true,false
+imagebuilder,EC2 Image Builder,L-0DF2752F,Image workflows,The maximum number of image workflows that you can create in an account in the current Region.,1000,None,true,false
+imagebuilder,EC2 Image Builder,L-31E5726E,Image workflows per image,The maximum number of image workflows that can be associated with a single image.,10,None,true,false
+imagebuilder,EC2 Image Builder,L-D9EF98D9,Infrastructure configurations,The maximum number of infrastructure configurations that you can create in an account in the current Region.,1000,None,true,false
+imagebuilder,EC2 Image Builder,L-D5665818,Launch templates modified per distribution configuration Region,The maximum number of launch templates that a single distribution configuration can modify per Region.,5,None,true,false
+imagebuilder,EC2 Image Builder,L-6105A4EE,Lifecycle policies,The maximum number of lifecycle policies that you can create in an account in the current Region.,50,None,true,false
+imagebuilder,EC2 Image Builder,L-A58CFBED,Parameters per component,The maximum number of parameters that a single component can contain.,25,None,true,false
+imagebuilder,EC2 Image Builder,L-E49825CC,Parameters per image workflow,The maximum number of parameters that a single image workflow can contain.,25,None,true,false
+imagebuilder,EC2 Image Builder,L-B588F8CA,SSM Parameters updated per distribution configuration Region,The maximum number of SSM Parameters that a single distribution configuration can update per Region.,10,None,true,false
+imagebuilder,EC2 Image Builder,L-D9E1BB3C,Steps per image workflow,The maximum number of steps that a single image workflow can contain.,15,None,true,false

@@ -1,0 +1,5 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+refactor-spaces,AWS Migration Hub Refactor Spaces,L-EACEDE8E,Applications,The maximum number of Refactor Spaces applications that you can create in this account in the current Region.,600,None,true,false
+refactor-spaces,AWS Migration Hub Refactor Spaces,L-DEF84811,Environments,The maximum number of Refactor Spaces environments that you can create in this account in the current Region.,50,None,true,false
+refactor-spaces,AWS Migration Hub Refactor Spaces,L-CE52EEA2,Routes,The maximum number of Refactor Spaces routes that you can create in this account in the current Region.,1000,None,true,false
+refactor-spaces,AWS Migration Hub Refactor Spaces,L-B19E8A2B,Services,The maximum number of Refactor Spaces services that you can create in this account in the current Region.,500,None,true,false

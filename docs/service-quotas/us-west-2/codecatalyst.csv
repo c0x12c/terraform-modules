@@ -1,0 +1,62 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+codecatalyst,Amazon CodeCatalyst,L-AEA4AEDB,Account associations per space,The maximum number of AWS accounts that you can associate with a space.,5000,None,true,false
+codecatalyst,Amazon CodeCatalyst,L-FA908705,Account environment associations per space,The maximum number of associations between accounts and environments per space.,5000,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-50650A24,Active issues per project,The maximum number of active issues per project.,1000,None,true,false
+codecatalyst,Amazon CodeCatalyst,L-3BD88BCE,Assignees per issue,The maximum number of assignees per issue.,10,None,true,false
+codecatalyst,Amazon CodeCatalyst,L-E32C40D7,Comments per issue,The maximum number of comments per issue.,1000,None,true,false
+codecatalyst,Amazon CodeCatalyst,L-32F74AB5,Comments per pull request,The maximum number of comments per pull request.,1000,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-5E730E2F,Compute instances per fleet,The maximum number of active compute instances per fleet. This includes both on-demand and provisioned fleets.,20,None,true,false
+codecatalyst,Amazon CodeCatalyst,L-95D173D3,Concurrent running actions per space,The maximum number of workflow actions running concurrently per space.,200,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-0F96E861,Concurrent running actions per workflow,The maximum number of actions running concurrently per workflow.,50,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-E446046E,Concurrent workflow runs per space,The maximum number of concurrent workflow runs per space.,100,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-E44B2A17,Custom fields per issue,The maximum number of custom fields per issue.,50,None,true,false
+codecatalyst,Amazon CodeCatalyst,L-DED22179,File per static analysis report,The maximum number of files per static analysis report,20000,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-2B1585B9,File size viewable in the web console,The maximum file size (in MiB) for any individual file when using the web console.,6,Megabits,false,false
+codecatalyst,Amazon CodeCatalyst,L-A5E929A0,Files per code coverage report,The maximum number of files per code coverage report,20000,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-1964BB1A,Files processed by workflows per source event,The maximum number of files that can be processed by workflows in a single source event.,4000,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-FBC5DFC5,Fleets per space,The maximum number of active fleets per space.,10,None,true,false
+codecatalyst,Amazon CodeCatalyst,L-2C23F8E7,Git blob size,The maximum size (in GiB) of a single git blob per commit.,2,Gigabits,false,false
+codecatalyst,Amazon CodeCatalyst,L-83827088,Invitations per email address,The maximum number of invitations sent to an email address in a given day,25,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-892ED829,Invitations per user,The maximum number of invitations sent by a user in a given day,500,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-C026D5A5,Labels per issue,The maximum number of labels per issue.,50,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-A53531FB,Labels per project,The maximum number of labels per project.,200,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-66F8F842,Metadata per commit,The maximum size (in MiB) of the combined metadata per commit.,6,Megabits,false,false
+codecatalyst,Amazon CodeCatalyst,L-8177EC67,Notifications per Slack channel,The maximum number of notifications in a Slack channel per second,1,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-861435F6,Number of assets in a version,The maximum number of assets in a package version,150,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-C5F8A35A,Number of direct upstream repositories,The maximum number of direct upstream repositories for a package repository,10,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-FBB0CB2B,Number of package repositories,The maximum number of package repositories for a space,1000,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-4C7E2CDD,Number of project blueprints,The maximum number of blueprints that can be applied to a project,100,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-1EE0DDBE,Number of SSO groups in a team,The maximum number of SSO groups that can be added to a team,5,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-5047C089,Number of teams,The maximum number of teams in a space,100,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-B22DB613,Number of users in a team,The maximum number of users in a team,1000,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-06773CC7,Open pull requests per repository,The maximum number of open pull requests per source repository.,1000,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-6FC3E6A1,Package asset file size,The maximum file size (in GiB) for an asset in a package version,5,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-13707A17,Project members,The maximum number of members that can belong to a project.,10000,None,true,false
+codecatalyst,Amazon CodeCatalyst,L-109E3AB2,Projects per space,The maximum number of projects per space.,100,None,true,false
+codecatalyst,Amazon CodeCatalyst,L-F6E274FB,Pull requests associated to an issue,The maximum number of pull request associated to an issue.,50,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-42024A83,Pull requests per repository,The maximum number of (open or otherwise) pull requests per source repository.,10000,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-A3E5B517,Quality reports per action,The maximum number of software quality reports per action,50,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-079FC7E0,References per push,"The maximum number of references per push, including create, delete, and update.",4000,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-16D06E6F,Repositories per space,The maximum number of source repositories per space.,5000,None,true,false
+codecatalyst,Amazon CodeCatalyst,L-78EDDBFF,Reviewers per pull request,The maximum number of reviewers (optional or required) per pull request.,100,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-404F8380,Saved issue views per project,The maximum number of saved issue views per project.,50,None,true,false
+codecatalyst,Amazon CodeCatalyst,L-54710612,Secrets per space,The maximum number of secrets per space.,500000,None,true,false
+codecatalyst,Amazon CodeCatalyst,L-45B15694,Slack channels per space,The maximum number of Slack channels per space,500,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-BEEE9217,Software composition analysis findings,The maximum number of software composition analysis findings,20000,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-9C8DC0AC,Space associations for billing,The maximum number of associations between a space and an AWS account that can be used for billing.,1,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-825141EA,Space associations per account,The maximum number of spaces that you can associate with an AWS account.,5000,None,true,false
+codecatalyst,Amazon CodeCatalyst,L-C2FE829E,Space members,The maximum number of members that can belong to a space.,10000,None,true,false
+codecatalyst,Amazon CodeCatalyst,L-ED5AD0F3,Spaces per user,The maximum number of spaces a user can create in a calendar month.,5,None,true,false
+codecatalyst,Amazon CodeCatalyst,L-00323126,Statuses per issue,The maximum number of statuses (active and otherwise) per issue.,50,None,true,false
+codecatalyst,Amazon CodeCatalyst,L-2F636CA3,Statuses per project,The maximum number of active issue statuses per project.,50,None,true,false
+codecatalyst,Amazon CodeCatalyst,L-28BEA8AE,Test cases per test report,The maximum number of test cases per test report,20000,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-ECD3D7C5,Total issues per project,The maximum number of issues (active and otherwise) per project.,100000,None,true,false
+codecatalyst,Amazon CodeCatalyst,L-CD08C7EB,Total pull requests per project,The maximum number of (open or otherwise) pull requests per project.,10000,None,true,false
+codecatalyst,Amazon CodeCatalyst,L-401675F7,Total pull requests per space,The maximum number of (open or otherwise) pull requests per space.,10000,None,true,false
+codecatalyst,Amazon CodeCatalyst,L-AF962739,Upstream package repositories searched,The maximum number of upstream repositories searched when resolving a package,25,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-3A718BEC,Workflow definition file size,The maximum size (in KiB) of a workflow definition file.,256,Kilobits,false,false
+codecatalyst,Amazon CodeCatalyst,L-9C14627A,Workflows input artifacts per action,The maximum number of input artifacts per action in a workflow.,10,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-F1F2445C,Workflows output artifacts per action,The maximum number of output artifacts per action in a workflow.,10,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-8DC0AB7E,Workflows output variables size,The maximum total size (in KiB) of a single action's output variables.,120,Kilobits,false,false
+codecatalyst,Amazon CodeCatalyst,L-4B8F3B5A,Workflows per source event,The maximum number of workflows that can be processed in a single source event.,50,None,false,false
+codecatalyst,Amazon CodeCatalyst,L-D7D81B65,Workflows per space,The maximum number of workflows per space.,800,None,false,false

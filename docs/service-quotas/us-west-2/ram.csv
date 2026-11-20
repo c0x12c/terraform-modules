@@ -1,0 +1,9 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+ram,AWS Resource Access Manager,L-9EBA15DD,Number of custom permissions,The maximum number of custom permissions.,1500,None,true,false
+ram,AWS Resource Access Manager,L-2870BE9D,Number of custom permissions per resource type,The maximum number of custom permissions that you can create per resource type.,10,None,true,false
+ram,AWS Resource Access Manager,L-238C96EE,Number of pending invitations,The maximum number of pending invitations.,250,None,true,false
+ram,AWS Resource Access Manager,L-8491BF81,Number of principal associations,The maximum number of principal associations.,25000,None,true,false
+ram,AWS Resource Access Manager,L-275DAC00,Number of principal associations per resource share,The maximum number of principals that you can specify in a resource share.,5000,None,false,false
+ram,AWS Resource Access Manager,L-4A6CEE66,Number of resource associations,The maximum number of resources associations.,25000,None,true,false
+ram,AWS Resource Access Manager,L-1F7F8A25,Number of resource associations per resource share,The maximum number of resources that you can include in a resource share.,5000,None,false,false
+ram,AWS Resource Access Manager,L-595828F9,Number of resource shares,The maximum number of resource shares.,25000,None,true,false

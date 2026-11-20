@@ -1,0 +1,29 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+kendra,Amazon Kendra,L-7107C1BC,Characters in query text,The maximum number of characters in query text.,1000,None,true,false
+kendra,Amazon Kendra,L-25C6FEE8,Collapsed results to expand,The maximum number of collapsed result items to expand,20,None,true,false
+kendra,Amazon Kendra,L-7BC65C3F,Data sources (developer edition),The maximum number of data sources per developer edition index.,5,None,false,false
+kendra,Amazon Kendra,L-91D7F3F0,Data sources (enterprise edition),The maximum number of data sources per enterprise edition index.,50,None,true,false
+kendra,Amazon Kendra,L-51C776DF,Developer edition indexes,The maximum number of developer edition indexes that can be created per account.,10,None,true,false
+kendra,Amazon Kendra,L-4704867A,Enterprise edition indexes,The maximum number of enterprise edition indexes that can be created per account.,10,None,true,false
+kendra,Amazon Kendra,L-90A916B2,Expanded results per collapsed result item,The maximum number of expanded results per item,5,None,true,false
+kendra,Amazon Kendra,L-962D0B14,Extracted text size,"The maximum extracted text size, in MB, from a file that can be ingested.",5,Megabytes,false,false
+kendra,Amazon Kendra,L-522F5A9C,FAQs,The maximum number of FAQs that can be created per index.,30,None,true,false
+kendra,Amazon Kendra,L-2BF8365C,Featured documents per featured results set,The maximum number of featured documents per featured results set.,4,None,true,false
+kendra,Amazon Kendra,L-22D37218,Featured results sets per index,The maximum number of featured results sets per index.,50,None,true,false
+kendra,Amazon Kendra,L-C108EA1B,File size,"The maximum file size, in MB, that can be ingested.",50,Megabytes,true,false
+kendra,Amazon Kendra,L-5D790B76,Ingestion attributes string list size,The maximum string list size per ingestion attribute.,10,None,true,false
+kendra,Amazon Kendra,L-DCB3B6C6,Items in a query suggestions block list,The maximum number of items in a query suggestions block list.,20000,None,true,false
+kendra,Amazon Kendra,L-78CBE960,Query attributes user group list size,The maximum user group list size per query attribute.,10,None,true,false
+kendra,Amazon Kendra,L-332A3A1A,Query capacity units,The maximum number of query capacity units per index.,100,None,true,false
+kendra,Amazon Kendra,L-4FC16EE5,Query suggestions block list file size,The maximum query suggestions block list file size in MB.,2,Megabytes,true,false
+kendra,Amazon Kendra,L-5A68C0A6,Query suggestions block lists,The maximum number of query suggestions block lists per index.,1,None,false,false
+kendra,Amazon Kendra,L-31DA7514,Query suggestions max additional response attributes in API,The maximum number of additional fields/attributes to include in the response for query suggestions per GetQuerySuggestions API call.,5,None,true,false
+kendra,Amazon Kendra,L-27DC8932,Query suggestions max suggestable attributes in API,The maximum number of fields/attributes for query suggestions per GetQuerySuggestions API call,10,None,true,false
+kendra,Amazon Kendra,L-4E1777B8,Query suggestions returned in API,The maximum number of query suggestions returned in a GetQuerySuggestions API call.,10,None,true,false
+kendra,Amazon Kendra,L-543AB3EE,Sort configurations,The maximum number of sort configurations,3,None,true,false
+kendra,Amazon Kendra,L-740FA277,Spell correction query suggestions,The maximum number of spell-corrected query suggestions to return in a Query API call.,1,None,true,false
+kendra,Amazon Kendra,L-E8A56FA5,Storage capacity units,The maximum number of storage capacity units per index.,100,None,true,false
+kendra,Amazon Kendra,L-6BFC06E7,Synonym rules per thesaurus,The maximum number of synonym rules per thesaurus.,10000,None,true,false
+kendra,Amazon Kendra,L-E8BFBD04,Synonyms per term,The maximum number of synonyms per term in all thesauri in a index.,10,None,false,false
+kendra,Amazon Kendra,L-408FF1D0,Thesauri,The maximum number of thesauri per index.,1,None,false,false
+kendra,Amazon Kendra,L-C0EA1398,Thesaurus file size,The maximum thesaurus file size in MB.,5,Megabytes,true,false

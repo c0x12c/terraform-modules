@@ -1,0 +1,14 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+eks,Amazon Elastic Kubernetes Service (Amazon EKS),L-C56B9FC3,Access entries per cluster,The maximum number of access entries per cluster.,3000,None,false,false
+eks,Amazon Elastic Kubernetes Service (Amazon EKS),L-1194D53C,Clusters,The maximum number of EKS clusters in this account in the current Region.,100,None,true,false
+eks,Amazon Elastic Kubernetes Service (Amazon EKS),L-11427A54,Control plane security groups per cluster,The maximum number of control plane security groups per cluster (these are specified when you create the cluster).,4,None,false,false
+eks,Amazon Elastic Kubernetes Service (Amazon EKS),L-EA277FDC,EKS Anywhere Enterprise Subscriptions,The maximum number of EKS Anywhere Enterprise Subscriptions in this account in the current Region.,10,None,true,false
+eks,Amazon Elastic Kubernetes Service (Amazon EKS),L-33415657,Fargate profiles per cluster,The maximum number of Fargate profiles per cluster.,10,None,true,false
+eks,Amazon Elastic Kubernetes Service (Amazon EKS),L-23414FF3,Label pairs per Fargate profile selector,The maximum number of label pairs per Fargate profile selector.,5,None,true,false
+eks,Amazon Elastic Kubernetes Service (Amazon EKS),L-6D54EA21,Managed node groups per cluster,The maximum number of managed node groups per cluster.,30,None,true,false
+eks,Amazon Elastic Kubernetes Service (Amazon EKS),L-BD136A63,Nodes per managed node group,The maximum number of nodes per managed node group.,450,None,true,false
+eks,Amazon Elastic Kubernetes Service (Amazon EKS),L-93A74D60,Public endpoint access CIDR ranges per cluster,The maximum number of public endpoint access CIDR ranges per cluster (these are specified when you create or update the cluster).,40,None,false,false
+eks,Amazon Elastic Kubernetes Service (Amazon EKS),L-FDFA5F81,Registered clusters,The maximum number of registered clusters in this account in the current Region.,10,None,true,false
+eks,Amazon Elastic Kubernetes Service (Amazon EKS),L-5C12D558,Remote node networks per cluster,The maximum number of remote node networks per cluster.,15,None,true,false
+eks,Amazon Elastic Kubernetes Service (Amazon EKS),L-6AFFD1D8,Remote pod networks per cluster,The maximum number of remote pod networks per cluster.,15,None,true,false
+eks,Amazon Elastic Kubernetes Service (Amazon EKS),L-D78D8AF8,Selectors per Fargate profile,The maximum number of selectors per Fargate profile.,5,None,true,false

@@ -1,0 +1,2 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+elastic-inference,Amazon Elastic Inference,L-495D9A1B,Number of Elastic Inference accelerators,The maximum number of Elastic Inference accelerators that you can request in this Region.,5,None,true,false

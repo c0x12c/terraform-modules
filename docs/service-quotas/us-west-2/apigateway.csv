@@ -1,0 +1,52 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+apigateway,Amazon API Gateway,L-1D180A63,API keys,The maximum number of API keys that you can create in this account in the current region,10000,None,false,false
+apigateway,Amazon API Gateway,L-46624B39,API Payload Size,Maximum payload size for non WebSocket API.,10,Megabytes,false,false
+apigateway,Amazon API Gateway,L-A9DBC573,API Stage throttles in a usage plan,The maximum number of API-stage throttle settings you can create in a usage plan in this account in the current region,20,None,true,false
+apigateway,Amazon API Gateway,L-20859C74,AWS Lambda authorizer result size,The maximum size of AWS Lambda authorizer result.,8,Kilobytes,false,false
+apigateway,Amazon API Gateway,L-824C9E42,Client certificates,The maximum number of certificates that you can associate with this account in the current region,60,None,true,false
+apigateway,Amazon API Gateway,L-A6CCE716,Connection duration for WebSocket API,Maximum duration for WebSocket API connection.,7200,Seconds,false,false
+apigateway,Amazon API Gateway,L-A93447B8,Custom Domain Names,The maximum number of Custom domain names that you can create in this account in the current region,120,None,true,false
+apigateway,Amazon API Gateway,L-4D98A8A5,Domain name access associations,The maximum number of domain name access associations that you can create in this account in the current region,100,None,true,false
+apigateway,Amazon API Gateway,L-9C147DE4,Edge API URL Length,"Length, in characters, of the URL for an edge-optimized API.",8192,None,false,false
+apigateway,Amazon API Gateway,L-B97207D0,Edge-optimized APIs,The maximum number of edge-optimized APIs that you can create in this account in the current region,120,None,false,false
+apigateway,Amazon API Gateway,L-8C2F9A1D,Maximum API caching TTL,The maximum API caching TTL you can have in this account in the current region.,3600,Seconds,false,false
+apigateway,Amazon API Gateway,L-8F8AAAFE,Maximum Authorizers per Portal,The maximum number of authorizer per portal,1,None,false,false
+apigateway,Amazon API Gateway,L-CC2525B6,Maximum Cached Response Size,Maximum size of cached response in bytes,1048576,Bytes,false,false
+apigateway,Amazon API Gateway,L-E9EEB922,Maximum Combined Header Size,Maximum combined size of all header values,10240,Bytes,false,false
+apigateway,Amazon API Gateway,L-B4D69DB7,Maximum Custom Domain Names per Portal,The maximum number of custom domain names per portal,1,None,false,false
+apigateway,Amazon API Gateway,L-45CC0E8B,Maximum Documentation Size per ProductRestEndpointPage,The maximum documentation size per ProductRestEndpointPage,32768,Bytes,false,false
+apigateway,Amazon API Gateway,L-E5AE38E3,Maximum integration timeout in milliseconds,The maximum integration timeout (in milliseconds) allowed for your account in the current region. This limit can only be increased for Regional and private APIs.,29000,Milliseconds,true,false
+apigateway,Amazon API Gateway,L-8E6A5A87,Maximum Iterations In Mapping Template,Maximum number of iterations in a #foreach ... #end loop in mapping templates,1000,None,false,false
+apigateway,Amazon API Gateway,L-F8A34CAF,Maximum Logo Size,The maximum size of a logo,200,Kilobytes,false,false
+apigateway,Amazon API Gateway,L-8B81B02C,Maximum resource policy size in bytes,The maximum resource policy size in bytes you can have in this account in the current region.,8192,None,true,false
+apigateway,Amazon API Gateway,L-CAEF46D2,Maximum Size per ProductPage body,The maximum size per ProductPage body,32768,Bytes,false,false
+apigateway,Amazon API Gateway,L-5244589D,Method ARN Length,ARN length of a method with authorization,1600,Bytes,false,false
+apigateway,Amazon API Gateway,L-7D4D47CD,PortalProducts per account,The maximum number of PortalProducts per account,500,None,false,false
+apigateway,Amazon API Gateway,L-85120D8E,PortalProducts per Portal,The maximum number of PortalProducts per Portal,200,None,false,false
+apigateway,Amazon API Gateway,L-F8BD84D3,Portals per account,The maximum number of Portals per account,15,None,true,false
+apigateway,Amazon API Gateway,L-A966AB5C,Private APIs,The maximum number of private APIs that you can create in this account in the current region,600,None,false,false
+apigateway,Amazon API Gateway,L-24E7E662,Private custom domain names,The maximum number of private custom domain names that you can create in this account in the current region,50,None,true,false
+apigateway,Amazon API Gateway,L-154598D1,ProductPages per PortalProduct,The maximum number of ProductPages per PortalProduct,40,None,true,false
+apigateway,Amazon API Gateway,L-05295E0B,ProductRestEndpointPages per PortalProduct,The maximum number of ProductRestEndpointPages per PortalProduct,40,None,true,false
+apigateway,Amazon API Gateway,L-A7033131,Regional API URL Length,"Length, in characters, of the URL for a regional API",10240,None,false,false
+apigateway,Amazon API Gateway,L-AA0FF27B,Regional APIs,The maximum number of regional APIs that you can create in this account in the current region,600,None,false,false
+apigateway,Amazon API Gateway,L-01C8A9E0,Resources/Routes per REST/WebSocket API,The maximum number of resources/routes that you can include in a REST or WebSocket API,300,None,true,false
+apigateway,Amazon API Gateway,L-65B5C802,Routes per HTTP API,The maximum number of routes that you can include in an HTTP API,300,None,true,false
+apigateway,Amazon API Gateway,L-68B79FF0,RoutingRules Per Domain Name,The maximum number of RoutingRules per DomainName that you can create in this account in the current region,50,None,true,false
+apigateway,Amazon API Gateway,L-3A613F94,Stage Variable Key Length,"Length, in characters, of the key in a stage variable",64,None,false,false
+apigateway,Amazon API Gateway,L-B2CF62DC,Stage Variable Value Length,"Length, in characters, of the value in a stage variable",512,None,false,false
+apigateway,Amazon API Gateway,L-95BA6EA5,Stage variables per stage,Stage variables per stage,100,None,false,false
+apigateway,Amazon API Gateway,L-379E48B0,Stages per API,The maximum number of stages that you can create for an API,10,None,true,false
+apigateway,Amazon API Gateway,L-668C9B28,Subnets per VPC link(V2),The maximum number of subnets per V2 VPC link in this account in the current Region,10,None,true,false
+apigateway,Amazon API Gateway,L-FB4F0270,Tags Per Stage,Maximum tags per stage.,50,None,false,false
+apigateway,Amazon API Gateway,L-CDF5615A,Throttle burst rate,The maximum number of additional requests per second (RPS) that you can send in one burst in this account in the current region,5000,None,false,false
+apigateway,Amazon API Gateway,L-8A5B8E43,Throttle rate,The maximum number of requests per second that your APIs can receive in this account in the current region,10000,None,true,false
+apigateway,Amazon API Gateway,L-E8693075,Usage plans,The maximum number of usage plans that you can create in this account in the current region,300,None,true,false
+apigateway,Amazon API Gateway,L-985EB478,Usage plans per API key,The maximum number of usage plans that you can associate with an API key,10,None,true,false
+apigateway,Amazon API Gateway,L-A4C7274F,VPC links,The maximum number of VPC links that you can create in this account in the current region,20,None,true,false
+apigateway,Amazon API Gateway,L-608BDCD4,VPC links(V2),The maximum number of V2 VPC links that you can create in this account in the current Region,10,None,true,false
+apigateway,Amazon API Gateway,L-E11F7D5D,WebSocket frame size,Maximum WebSocket frame size.,32,Kilobytes,false,false
+apigateway,Amazon API Gateway,L-60AC41CD,WebSocket Idle Connection Timeout,WebSocket API idle connection timeout.,600,Seconds,false,false
+apigateway,Amazon API Gateway,L-FD0EB744,WebSocket message payload size,Maximum WebSocket message payload size.,128,Kilobytes,false,false
+apigateway,Amazon API Gateway,L-E1465507,WebSocket new connections burst rate,New connections in burst capacity per account (across all WebSocket APIs) per region,500,None,false,false
+apigateway,Amazon API Gateway,L-9ED1E49A,WebSocket new connections rate,New connections per second per account (across all WebSocket APIs) per region,500,None,true,false

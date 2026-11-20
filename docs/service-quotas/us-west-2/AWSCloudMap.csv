@@ -1,0 +1,8 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+AWSCloudMap,AWS Cloud Map,L-D589BB26,Custom attributes per instance,The maximum number of custom attributes that you can specify when you register an instance.,30,None,false,false
+AWSCloudMap,AWS Cloud Map,L-76CF203B,DiscoverInstances operation per account burst rate,The maximum burst rate to call DiscoverInstances operation from a single account.,2000,None,true,false
+AWSCloudMap,AWS Cloud Map,L-514A639A,DiscoverInstances operation per account steady rate,The maximum steady rate to call DiscoverInstances operation from a single account.,1000,None,true,false
+AWSCloudMap,AWS Cloud Map,L-0BA10AAE,DiscoverInstancesRevision operation per account rate,The maximum rate to call DiscoverInstancesRevision operation from a single account.,3000,None,true,false
+AWSCloudMap,AWS Cloud Map,L-D95E8A57,Instances per namespace,The maximum number of service instances that you can register using the same namespace.,2000,None,true,false
+AWSCloudMap,AWS Cloud Map,L-2DA90E5C,Instances per service,The maximum number of instances that you can register in a Region using the same service.,1000,None,false,false
+AWSCloudMap,AWS Cloud Map,L-0FE3F50E,Namespaces per Region,The maximum number of namespaces that you can create per Region.,50,None,true,false

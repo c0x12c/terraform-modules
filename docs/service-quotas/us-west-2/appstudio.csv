@@ -1,0 +1,3 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+appstudio,AWS App Studio,L-B07DC829,Applications,The maximum number of applications (published or otherwise) per instance in the current Region.,20,None,false,false
+appstudio,AWS App Studio,L-45B0D852,Published applications,"The maximum number of applications published to the Testing or Production environment per instance in the current Region. For example, a single application published to both Testing and Production counts as two published applications.",6,None,false,false

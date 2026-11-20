@@ -1,0 +1,4 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+networkmonitor,Amazon CloudWatch Network Monitor,L-A4298AB9,Number of monitors per account per AWS region,The maximum number of monitors in an account in one AWS Region.,100,None,true,false
+networkmonitor,Amazon CloudWatch Network Monitor,L-F192A8D6,Number of probes per monitor,The maximum number of probes that a monitor can have.,24,None,true,false
+networkmonitor,Amazon CloudWatch Network Monitor,L-A8FA6DFE,Number of probes per subnet for each monitor,The maximum number of probes that a subnet in a monitor can have.,4,None,true,false

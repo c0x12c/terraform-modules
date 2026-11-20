@@ -1,0 +1,22 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+dms,AWS Database Migration Service (AWS DMS),L-FE918D88,Certificate count,The maximum number of certificates allowed in this account in the current Region.,100,None,true,false
+dms,AWS Database Migration Service (AWS DMS),L-E17328E9,Endpoint count,The maximum number of endpoints allowed in this account in the current Region.,1000,None,true,false
+dms,AWS Database Migration Service (AWS DMS),L-2146F1FD,Endpoints per instance,The maximum number of endpoints allowed per replication instance.,100,None,true,false
+dms,AWS Database Migration Service (AWS DMS),L-D97343A2,Event subscriptions,The maximum number of AWS DMS events that you can subscribe to.,60,None,true,false
+dms,AWS Database Migration Service (AWS DMS),L-233F27C4,Number of data files DMS Fleet Advisor can send per hour,Maximum number of files that DMS Fleet Advisor collector can send per hour,500,None,false,false
+dms,AWS Database Migration Service (AWS DMS),L-1AB41EE0,Number of Data Migrations,Maximum number of data migrations,1000,None,true,false
+dms,AWS Database Migration Service (AWS DMS),L-62EFB27A,Number of Data Migrations per Migration Project,Maximum number of data migrations allowed per migration project,10,None,false,false
+dms,AWS Database Migration Service (AWS DMS),L-9A47CA81,Number of Data Providers,Maximum number of data providers,1000,None,true,false
+dms,AWS Database Migration Service (AWS DMS),L-70AA6054,Number of database objects DMS Fleet Advisor can process,"The total number of database objects that AWS DMS Fleet Advisor can process. A database object is any data structure used to store or reference data, including tables, views, stored procedures,  functions, and triggers",50000000,None,false,false
+dms,AWS Database Migration Service (AWS DMS),L-8D962DAE,Number of DMS Fleet Advisor collector instances,Maximum number of created instances of DMS Fleet Advisor collector,10,None,false,false
+dms,AWS Database Migration Service (AWS DMS),L-D12045C2,Number of Instance Profiles,Maximum number of instance profiles,60,None,true,false
+dms,AWS Database Migration Service (AWS DMS),L-DE63148C,Number of Migration Projects,Maximum number of migration projects,50,None,true,false
+dms,AWS Database Migration Service (AWS DMS),L-49123F1B,Number of monitored objects in DMS Fleet Advisor collector,Maximum number of monitored objects that a customer can add in a single DMS Fleet Advisor collector,2000,None,false,false
+dms,AWS Database Migration Service (AWS DMS),L-FBEA20FB,Number of running Data Migrations,Maximum number of running data migrations simultaneously.,500,None,true,false
+dms,AWS Database Migration Service (AWS DMS),L-C2341CDC,Replication instances,The maximum number of replication instances allowed in this account in the current Region.,60,None,true,false
+dms,AWS Database Migration Service (AWS DMS),L-E569F59D,Serverless replications,The maximum number of serverless replications allowed in this account in the current Region.,100,None,true,false
+dms,AWS Database Migration Service (AWS DMS),L-27B24FAD,Subnet groups,The maximum number of subnet groups allowed in this account in the current Region.,60,None,true,false
+dms,AWS Database Migration Service (AWS DMS),L-4182EDE9,Subnets per subnet group,The maximum number of subnets allowed per subnet group.,60,None,true,false
+dms,AWS Database Migration Service (AWS DMS),L-7FD3593B,Task count,The maximum number of tasks allowed in this account in the current Region.,600,None,true,false
+dms,AWS Database Migration Service (AWS DMS),L-6FA8C1C1,The amount of collected data in DMS Fleet Advisor,The amount of data that can be collected by all DMS Fleet Advisor collectors,10,Gigabytes,false,false
+dms,AWS Database Migration Service (AWS DMS),L-BBDCBDC8,Total storage,The maximum total storage (in GB) for all replication instances added together.,30000,Gigabytes,true,false

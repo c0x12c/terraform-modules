@@ -1,0 +1,9 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+aidevops,AWS DevOps Agent,L-510AF4A9,agent-spaces-per-account-per-region,Agent spaces per account per Region,100,None,true,false
+aidevops,AWS DevOps Agent,L-0178C38B,aws-orgs-associations-per-agent-space,The maximum number of active AWS Organizations (sourceAwsOrg) service associations in a single agent space.,20,Count,true,false
+aidevops,AWS DevOps Agent,L-10E2D25F,aws-orgs-secondary-accounts-per-agent-space,"The maximum number of secondary AWS accounts covered by the active AWS Organizations (sourceAwsOrg) service associations of a single agent space. Each association counts its member accounts separately, so an account covered by two associations counts twice. The quota is registered as adjustable, but increase requests are not yet supported.",3000,Count,true,false
+aidevops,AWS DevOps Agent,L-4FF187E6,concurrent-evaluations-per-agent-space,Concurrent evaluations per agent space,1,Count,false,false
+aidevops,AWS DevOps Agent,L-1553F789,concurrent-investigations-per-agent-space,"Concurrent investigations per agent space. Quota increase requests for values up to 10 are approved automatically, while requests above 20 are typically not granted. Please provide a business justification and use case pattern when requesting higher limits.",3,Count,true,false
+aidevops,AWS DevOps Agent,L-3D8A06B8,concurrent-on-demand-invocations-per-agent-space,Concurrent on-demand agent invocations per agent space,10,Count,true,false
+aidevops,AWS DevOps Agent,L-F1DF5F94,memories-per-memory-store,The maximum number of individual memory files within a single memory store.,200,Count,false,false
+aidevops,AWS DevOps Agent,L-D774F842,memory-stores-per-agent-space,The maximum number of memory stores that can exist in a single agent space.,50,Count,false,false

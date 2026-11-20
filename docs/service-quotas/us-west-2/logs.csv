@@ -1,0 +1,70 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+logs,Amazon CloudWatch Logs,L-EEC839DF,Active export task,The number of active (running or pending) export tasks per account,1,None,false,false
+logs,Amazon CloudWatch Logs,L-7A4B5D2F,AssociateKmsKey throttle limit in transactions per second,The maximum number of associate-kms-key calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-09AD5E48,AssociateSourceToS3TableIntegration throttle limit in transactions per second,The maximum number of AssociateSourceToS3TableIntegration calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-F3B54F77,AssociateSourceToS3TableIntegration throttle limit in transactions per second in a burst,The maximum number of AssociateSourceToS3TableIntegration calls per second per account/per region in a burst,10,None,false,false
+logs,Amazon CloudWatch Logs,L-29A639F6,Batch size,The maximum batch size in MB of a put-log-events request,1,Megabytes,false,false
+logs,Amazon CloudWatch Logs,L-97393AE2,CancelExportTask throttle limit in transactions per second,The maximum number of cancel-export-task calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-E3553944,CancelImportTask throttle limit in transactions per second,The maximum number of CancelImportTask calls per second per account/per region,1,None,false,false
+logs,Amazon CloudWatch Logs,L-F28F0852,CancelImportTask throttle limit in transactions per second in a burst,The maximum number of CancelImportTask calls per second per account/per region in a burst,1,None,false,false
+logs,Amazon CloudWatch Logs,L-BD9DB0EB,CreateExportTask throttle limit in transactions per second,The maximum number of create-export-task calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-6FDAA596,CreateImportTask throttle limit in transactions per second,The maximum number of CreateImportTask calls per second per account/per region,1,None,false,false
+logs,Amazon CloudWatch Logs,L-9AE6F36A,CreateImportTask throttle limit in transactions per second in a burst,The maximum number of CreateImportTask calls per second per account/per region in a burst,1,None,false,false
+logs,Amazon CloudWatch Logs,L-D2832119,CreateLogGroup throttle limit in transactions per second,The maximum number of create-log-group calls per second per account/per region,10,None,true,false
+logs,Amazon CloudWatch Logs,L-76507CEF,CreateLogStream throttle limit in transactions per second,The maximum number of create-log-stream calls per second per account/per region,50,None,true,false
+logs,Amazon CloudWatch Logs,L-A33040DC,Data archiving,The maximum size in GB of free data archiving,5,Gigabytes,false,false
+logs,Amazon CloudWatch Logs,L-F738B5C5,DeleteDataProtectionPolicy throttle limit in transactions per second,The maximum number of delete-data-protection-policy calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-BE2A59B1,DeleteDestination throttle limit in transactions per second,The maximum number of delete-destination calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-07A912D5,DeleteLogGroup throttle limit in transactions per second,The maximum number of delete-log-group calls per second per account/per region,10,None,true,false
+logs,Amazon CloudWatch Logs,L-C029A21C,DeleteLogStream throttle limit in transactions per second,The maximum number of delete-log-stream calls per second per account/per region,15,None,true,false
+logs,Amazon CloudWatch Logs,L-363FC8B0,DeleteMetricFilter throttle limit in transactions per second,The maximum number of delete-metric-filter calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-66F5762A,DeleteRetentionPolicy throttle limit in transactions per second,The maximum number of delete-retention-policy calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-56B91A0A,DeleteSubscriptionFilter throttle limit in transactions per second,The maximum number of delete-subscription-filter calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-C68057D1,DeleteTransformer throttle limit in transactions per second,The maximum number of delete-transformer calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-BEB90E24,DescribeDestinations throttle limit in transactions per second,The maximum number of describe-destinations calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-ACAEE94E,DescribeExportTasks throttle limit in transactions per second,The maximum number of describe-export-tasks calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-C4B2839B,DescribeImportTaskBatches throttle limit in transactions per second,The maximum number of DescribeImportTaskBatches calls per second per account/per region,10,None,false,false
+logs,Amazon CloudWatch Logs,L-A68978AA,DescribeImportTaskBatches throttle limit in transactions per second in a burst,The maximum number of DescribeImportTaskBatches calls per second per account/per region in a burst,10,None,false,false
+logs,Amazon CloudWatch Logs,L-4D2D08B8,DescribeImportTasks throttle limit in transactions per second,The maximum number of DescribeImportTasks calls per second per account/per region,10,None,false,false
+logs,Amazon CloudWatch Logs,L-AF821D83,DescribeImportTasks throttle limit in transactions per second in a burst,The maximum number of DescribeImportTasks calls per second per account/per region in a burst,10,None,false,false
+logs,Amazon CloudWatch Logs,L-4284EEDE,DescribeLogGroups throttle limit in transactions per second,The maximum number of describe-log-groups calls per second per account/per region,10,None,true,false
+logs,Amazon CloudWatch Logs,L-3F243AD0,DescribeLogStreams throttle limit in transactions per second,The maximum number of describe-log-streams calls per second per account/per region,25,None,true,false
+logs,Amazon CloudWatch Logs,L-69BF6BAC,DescribeMetricFilters throttle limit in transactions per second,The maximum number of describe-metric-filters calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-9D43025B,DescribeSubscriptionFilters throttle limit in transactions per second,The maximum number of describe-subscription-filters calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-32B765B8,DisassociateSourceFromS3TableIntegration throttle limit in transactions per second,The maximum number of DisassociateSourceFromS3TableIntegration calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-035ED7CA,DisassociateSourceFromS3TableIntegration throttle limit in transactions per second in a burst,The maximum number of DisassociateSourceFromS3TableIntegration calls per second per account/per region in a burst,10,None,false,false
+logs,Amazon CloudWatch Logs,L-91470774,Event size,The maximum log event size in KB,1024,Kilobytes,false,false
+logs,Amazon CloudWatch Logs,L-55E3CA17,FilterLogEvents throttle limit in transactions per second,The maximum number of filter-log-events calls per second per account/per region,10,None,false,false
+logs,Amazon CloudWatch Logs,L-D750499E,GetDataProtectionPolicy throttle limit in transactions per second,The maximum number of get-data-protection-policy calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-4FE15505,GetLogEvents throttle limit in transactions per second,The maximum number of get-log-events calls per second per account/per region,10,None,false,false
+logs,Amazon CloudWatch Logs,L-FAF0999A,GetQueryResults  throttle limit in transactions per second,The maximum number of get-query-results calls per second per account/per region,10,None,false,false
+logs,Amazon CloudWatch Logs,L-15F83CC1,GetTransformer throttle limit in transactions per second,The maximum number of get-transformer calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-170E7F59,ListSourcesForS3TableIntegration throttle limit in transactions per second,The maximum number of ListSourcesForS3TableIntegration calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-896CA7CF,ListSourcesForS3TableIntegration throttle limit in transactions per second in a burst,The maximum number of ListSourcesForS3TableIntegration calls per second per account/per region in a burst,10,None,false,false
+logs,Amazon CloudWatch Logs,L-E6EF8674,ListTagsForResource throttle limit in transactions per second,The maximum number of list-tags-for-resource calls per second per account/per region,30,None,false,false
+logs,Amazon CloudWatch Logs,L-3E4C85B1,ListTagsLogGroup throttle limit in transactions per second,The maximum number of list-tags-log-group calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-D6990B80,Live Tail concurrent sessions limit,The maximum number of concurrent active Live Tail sessions per account,15,None,true,false
+logs,Amazon CloudWatch Logs,L-C7B9AAAB,Log groups,The maximum number of log groups an account can have,1000000,None,true,false
+logs,Amazon CloudWatch Logs,L-4A1D48B1,Log groups scanned per Live Tail session,The maximum number of log groups that can be scanned per Live Tail session,10,None,false,false
+logs,Amazon CloudWatch Logs,L-B53B9649,logs anomaly detectors,The maximum number of active log anomaly detectors,500,None,true,false
+logs,Amazon CloudWatch Logs,L-3D5753EA,Metrics filters per log group,The number of metric filters per log group,100,None,false,false
+logs,Amazon CloudWatch Logs,L-5D08A28D,PutBearerTokenAuthentication throttle limit in transactions per second,The maximum number of put-bearer-token-authentication calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-FB8CE9B0,PutBearerTokenAuthentication throttle limit in transactions per second in a burst,The maximum number of put-bearer-token-authentication calls per second per account/per region in a burst,10,None,false,false
+logs,Amazon CloudWatch Logs,L-78EF23F2,PutDataProtectionPolicy throttle limit in transactions per second,The maximum number of put-data-protection-policy calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-7A9B3427,PutDestination throttle limit in transactions per second,The maximum number of put-destination calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-7EB1C513,PutDestinationPolicy throttle limit in transactions per second,The maximum number of put-destination-policy calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-7E1FAE88,PutLogEvents throttle limit in transactions per second,The maximum number of put-log-events calls per second per account/per region,5000,None,true,false
+logs,Amazon CloudWatch Logs,L-E5FB5933,PutMetricFilter throttle limit in transactions per second,The maximum number of put-metric-filter calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-0397E41F,PutRetentionPolicy throttle limit in transactions per second,The maximum number of put-retention-policy calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-A5D79081,PutSubscriptionFilter throttle limit in transactions per second,The maximum number of put-subscription-filter calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-309BA0AF,PutTransformer throttle limit in transactions per second,The maximum number of put-transformer calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-89892494,Resource policies,The maximum number of resource policies per account/per region,10,None,false,false
+logs,Amazon CloudWatch Logs,L-39FFB556,StartLiveTail throttle limit in transactions per second,The maximum number of start-live-tail calls per second per account/per region. This limit applies independently to both console and API,5,None,false,false
+logs,Amazon CloudWatch Logs,L-4FC2190A,StartQuery throttle limit in transactions per second,The maximum number of start-query calls per second per account/per region,10,None,false,false
+logs,Amazon CloudWatch Logs,L-87E7D306,Subscription filters per log group,The number of subscription filters per log group,5,None,false,false
+logs,Amazon CloudWatch Logs,L-BBECF742,TagLogGroup throttle limit in transactions per second,The maximum number of tag-log-group calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-956BB71D,TagResource throttle limit in transactions per second,The maximum number of tag-resource calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-1CD226BD,TestMetricFilter throttle limit in transactions per second,The maximum number of test-metric-filter calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-27BFBEA7,TestTransformer throttle limit in transactions per second,The maximum number of test-transformer calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-EEEC3365,UntagLogGroup throttle limit in transactions per second,The maximum number of untag-log-group calls per second per account/per region,5,None,false,false
+logs,Amazon CloudWatch Logs,L-B501C43C,UntagResource throttle limit in transactions per second,The maximum number of untag-resource calls per second per account/per region,5,None,false,false

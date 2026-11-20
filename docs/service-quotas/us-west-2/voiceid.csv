@@ -1,0 +1,10 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+voiceid,Amazon Connect Voice ID,L-38B73369,Active fraudster registration jobs per domain,The maximum number of active fraudster registration jobs you can have per domain.,1,None,true,false
+voiceid,Amazon Connect Voice ID,L-55441DAB,Active speaker enrollment jobs per domain,The maximum number of active speaker enrollment jobs you can have per domain.,1,None,true,false
+voiceid,Amazon Connect Voice ID,L-F4849009,Active streaming sessions per domain,The maximum number of active streaming sessions you can have per domain.,50,None,true,false
+voiceid,Amazon Connect Voice ID,L-CF9F1A9B,Domains per region,The maximum number of domains you can create in this account per region.,3,None,true,false
+voiceid,Amazon Connect Voice ID,L-429DC46D,Fraudster registration requests per fraudster registration job,The maximum number of fraudster registration requests per fraudster registration job.,500,None,true,false
+voiceid,Amazon Connect Voice ID,L-6DD2993B,Fraudsters per watchlist,The maximum number of fraudsters you can have per watchlist.,500,None,true,false
+voiceid,Amazon Connect Voice ID,L-9EB99B73,Speaker enrollment requests per speaker enrollment job,The maximum number of speaker enrollment requests per speaker enrollment job.,10000,None,true,false
+voiceid,Amazon Connect Voice ID,L-65FE7850,Speakers per domain,The maximum number of speakers you can enroll per domain.,100000,None,true,false
+voiceid,Amazon Connect Voice ID,L-3790424B,Watchlists per domain,The maximum number of watchlists you can have per domain.,3,None,true,false

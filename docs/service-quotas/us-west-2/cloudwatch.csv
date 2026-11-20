@@ -1,0 +1,70 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+cloudwatch,Amazon CloudWatch Omni,L-7AF518C2,Access profiles per space,The maximum number of access profiles per space,100,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-1ACFCDBB,Alerts per space,The maximum number of alerts per space,500,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-B78F8A6D,Concurrent query sessions per account per region,The maximum number of concurrent query sessions per account per region,250,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-B41DDB9A,Concurrent SQL queries per account per region,The maximum number of concurrent SQL queries per account per region,400,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-14593AA9,Grants per space,The maximum number of grants per space,500,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-111E0C2D,Monthly Omni agent credits,The maximum number of Omni agent credits per account per region per month.,100,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-B6550D21,Omni dashboards per space,The maximum number of Omni dashboards per space,200,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-09128996,Omni threads per principal per space,The maximum number of Omni threads per principal per space,200,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-E712D3E0,Org-wide domain grants per domain,The maximum number of org-wide (domain) grants per domain,100,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-EA7887C1,Rate of CreateAccessGrant requests,Creates a new rich AccessGrant with optional field filters.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-9AE09E0F,Rate of CreateAccessProfile requests,Creates a new Access Profile within a space.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-5B94856F,Rate of CreateAlert requests,Creates a new alert within a space.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-F7CDAD58,Rate of CreateDomain requests,Creates a new domain with identity provider configuration.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-AF71B678,Rate of CreateDomainAccessGrantForOrganization requests,Creates an org-scoped ADMIN grant for a principal on the organization domain.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-81271BD8,Rate of CreateIntegration requests,Creates an integration with a third-party provider. Returns the integration,10,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-FAC932E6,Rate of CreateOmniDashboard requests,Creates a new dashboard within a space.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-D87DA461,Rate of CreateOneTimeDeepLinkCode requests,Generates a one-time code for deep link authentication.,50,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-8E4DDE29,Rate of CreateSpace requests,Creates a new Space within a domain.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-836B5DAB,Rate of CreateView requests,Creates a new SQL view.,10,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-673EC492,Rate of DeleteAccessGrant requests,Removes an existing AccessGrant and its associated Cedar policy.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-DBC239D4,Rate of DeleteAccessProfile requests,Removes an Access Profile.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-9E353D39,Rate of DeleteAlert requests,Deletes an alert by its identifier.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-53869AC8,Rate of DeleteDomain requests,Removes a domain and all associated resources.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-F1CDB543,Rate of DeleteDomainAccessGrantForOrganization requests,Deletes an org-scoped grant. Soft-deletes the grant record.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-2790CA64,Rate of DeleteDomainForOrganization requests,Deletes an organization-scoped domain. All Spaces must be deleted first.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-E31E8E00,Rate of DeleteIntegration requests,Deletes an integration. Returns the resulting status.,10,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-C693165C,Rate of DeleteOmniDashboard requests,Removes a dashboard from a space.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-10310482,Rate of DeleteSpace requests,Removes a Space and all associated resources.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-9BFF234A,Rate of DeleteView requests,Deletes the specified view.,10,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-BCF5C83E,Rate of GetAccessGrant requests,Retrieves the full detail of a single AccessGrant by ID.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-ECA72B0E,Rate of GetAccessProfile requests,Retrieves an Access Profile with its permissions and access grants.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-AFC28060,Rate of GetAlert requests,Retrieves a single alert by its identifier.,25,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-E5222B55,Rate of GetContextGraph requests,"Queries the context graph with filtering, traversal, and pagination support.",10,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-D12CE7DE,Rate of GetDomain requests,Retrieves a domain by its identifier.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-CED8BA96,Rate of GetDomainAccessGrantForOrganization requests,Retrieves an org-scoped grant on the organization domain.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-6CB06005,Rate of GetDomainForOrganization requests,Retrieves details of an organization-scoped domain.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-FCDC4E7D,Rate of GetIntegration requests,"Returns the details of a single integration, identified by its identifier.",10,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-02D251AF,Rate of GetIntelligenceConfiguration requests,Retrieves the intelligence configuration for the calling account.,10,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-6BF9D758,Rate of GetOmniDashboard requests,Retrieves a dashboard by ID within a space.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-11972D3C,Rate of GetSpace requests,Retrieves details of a specific Space.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-403F740D,Rate of GetSpaceCredentialsForOrganization requests,Vends space-scoped credentials for MA/DA in a member account. IAM_DIRECT only.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-D4D85994,Rate of GetTelemetryQueryResults requests,Returns the results for the specified query.,20,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-043BB774,Rate of GetView requests,Returns the definition and metadata of the specified view.,10,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-6B30132D,Rate of ListAccessGrants requests,Returns AccessGrants within a space with optional filtering.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-046DDC32,Rate of ListAccessProfiles requests,Returns all access profiles in a space.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-8156750C,Rate of ListAlerts requests,"Lists alerts within a space, optionally filtered by exact name(s).",10,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-40F841AE,Rate of ListDomainAccessGrantsForOrganization requests,Lists org-scoped grants for the organization domain.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-B0777310,Rate of ListDomains requests,Returns all Domains visible to the caller.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-6B5E9505,Rate of ListIntegrations requests,"Lists the integrations in the account, optionally filtered by type, status.",10,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-B1913D9C,Rate of ListOmniDashboards requests,Returns dashboards within a space.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-654A4CB2,Rate of ListSpaces requests,Returns all Spaces in the account.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-66E5A3B9,Rate of ListSpacesForOrganization requests,Lists all Spaces across all member accounts in the organization domain.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-B200775E,Rate of ListTelemetryFields requests,Lists fields available for telemetry queries.,10,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-4C761AF4,Rate of ListTelemetryQuerySessions requests,Lists telemetry query sessions.,10,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-0467BE0B,Rate of ListViews requests,Lists the views in the caller's account and region.,10,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-7FCAA92E,Rate of PutIntelligenceConfiguration requests,Creates or updates the intelligence configuration for the calling account.,10,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-FB71163D,Rate of SearchPrincipals requests,Searches Identity Center for users and groups matching a query within a domain.,50,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-A745EAE1,Rate of StartTelemetryQuery requests,Starts a telemetry query within a session.,10,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-67A7E9F4,Rate of StartTelemetryQuerySession requests,Starts a new telemetry query session.,10,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-42B9068A,Rate of StopTelemetryQuery requests,Stops a running telemetry query.,10,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-9C5BB7FF,Rate of StopTelemetryQuerySession requests,Stops a telemetry query session.,10,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-F78D9C1C,Rate of UpdateAccessProfile requests,Updates the name and/or description of an Access Profile.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-C0CCF638,Rate of UpdateAlert requests,Updates an existing alert.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-3409CD28,Rate of UpdateDomain requests,Updates a domain's authentication provider configuration.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-CAE0E395,Rate of UpdateDomainForOrganization requests,Updates an organization-scoped domain. Must target the domain's home region.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-FC5DFDC0,Rate of UpdateIntegration requests,"Updates an existing integration, identified by its id, ARN, or name.",10,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-8D3A55F3,Rate of UpdateOmniDashboard requests,Updates an existing dashboard within a space.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-458E10E1,Rate of UpdateSpace requests,Updates an existing Space within a domain.,5,None,false,false
+cloudwatch,Amazon CloudWatch Omni,L-FF7949BE,Rate of UpdateView requests,Updates an existing view's definition and/or description.,10,None,false,false

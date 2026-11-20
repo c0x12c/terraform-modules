@@ -1,0 +1,27 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+omics,AWS HealthOmics,L-01A419C5,Analytics - Maximum annotation stores,The maximum number of annotation stores in the current AWS region,10,None,true,false
+omics,AWS HealthOmics,L-876AD0A2,Analytics - Maximum concurrent variant or annotation store import jobs,The maximum number of concurrent import jobs in the current AWS region,5,None,true,false
+omics,AWS HealthOmics,L-22E12079,Analytics - Maximum files per variant store import job,The maximum number of files per variant import job in the current AWS region,1000,None,true,false
+omics,AWS HealthOmics,L-E787EB79,Analytics - Maximum shares per annotation store,The maximum number of shares per annotation store in the current AWS region,10,None,true,false
+omics,AWS HealthOmics,L-242998FB,Analytics - Maximum shares per variant store,The maximum number of shares per variant store in the current AWS region,10,None,true,false
+omics,AWS HealthOmics,L-13B00733,Analytics - Maximum size of each file in a variant import job,The maximum size of one file in a variant import job in the current AWS region,20,Gigabytes,true,false
+omics,AWS HealthOmics,L-B94B38A2,Analytics - Maximum size of each file in an annotation import job,The maximum size of one file in an annotation import job in the current AWS region,20,Gigabytes,true,false
+omics,AWS HealthOmics,L-899DA104,Analytics - Maximum variant stores,The maximum number of variant stores in the current AWS region,10,None,true,false
+omics,AWS HealthOmics,L-186D3DEB,Analytics - Maximum versions per annotation store,The maximum number of versions per annotation store in the current AWS region,10,None,true,false
+omics,AWS HealthOmics,L-D91CDC5E,Configurations - Maximum configurations,The maximum number of configurations in the current AWS region.,10,None,true,false
+omics,AWS HealthOmics,L-911E26A1,Storage - Maximum concurrent read set activation jobs,The maximum number of concurrent read set activation jobs in the current AWS region,25,None,true,false
+omics,AWS HealthOmics,L-473E274D,Storage - Maximum concurrent sequence and reference store export jobs,The maximum number of concurrent export jobs from a sequence or reference store in the current AWS region,5,None,true,false
+omics,AWS HealthOmics,L-F57A8D18,Storage - Maximum concurrent sequence or reference store import jobs,The maximum number of concurrent import jobs for a sequence or reference store in the current AWS region,5,None,true,false
+omics,AWS HealthOmics,L-BE766427,Storage - Maximum read sets per sequence store,The maximum number of read sets in a sequence store in the current AWS region,1000000,None,true,false
+omics,AWS HealthOmics,L-F34A3FC2,Storage - Maximum references per reference store,The maximum number of references in a reference store in the current AWS region,50,None,true,false
+omics,AWS HealthOmics,L-BFFBB2FD,Storage - Maximum sequence stores,The maximum number of sequence stores in the current AWS region,20,None,true,false
+omics,AWS HealthOmics,L-AFB19B96,Workflows - Maximum active GPUs,"The maximum number of concurrent active GPUs in the current AWS region. In us-east-1 and us-west-2, quota increase requests for values up to 500 are automatically approved.",12,None,true,false
+omics,AWS HealthOmics,L-BE38079A,Workflows - Maximum concurrent active runs using dynamic run storage,The maximum number of active runs using dynamic run storage in the current AWS region. Quota increase requests for values up to 200 are automatically approved.,50,None,true,false
+omics,AWS HealthOmics,L-A30FD31B,Workflows - Maximum concurrent active runs using static run storage,The maximum number of active runs using static run storage in the current AWS region. Quota increase requests for values up to 50 are automatically approved.,10,None,true,false
+omics,AWS HealthOmics,L-25504C8C,Workflows - Maximum concurrent tasks per run,"The maximum number of concurrent tasks in each run in the current AWS region. In us-east-1 and us-west-2, quota increase requests for values up to 100 are automatically approved.",25,None,true,false
+omics,AWS HealthOmics,L-7B9E5416,Workflows - Maximum run duration,The maximum workflow run duration in the current AWS region.,604800,Seconds,true,false
+omics,AWS HealthOmics,L-C9679DBC,Workflows - Maximum runs (active or inactive),The maximum number of runs (active or inactive) in the current AWS region.,100000,None,true,false
+omics,AWS HealthOmics,L-4E5B34A1,Workflows - Maximum shares per workflow,The maximum number of shares per workflow in the current AWS region,100,None,true,false
+omics,AWS HealthOmics,L-35CE76C9,Workflows - Maximum static run storage capacity per run,"The maximum static run storage capacity in gibibytes (GiB) for each run in the current AWS region. In us-east-1 and us-west-2, quota increase requests for values up to 50,000 are automatically approved.",9600,None,true,false
+omics,AWS HealthOmics,L-7CAE62CF,Workflows - Maximum workflows,The maximum number of workflows in the current AWS region.,1000,None,true,false
+omics,AWS HealthOmics,L-24A3B174,Workflows - Transactions per second (TPS) for the StartRun operation,The maximum transactions per second (TPS) for the StartRun operation in the current AWS region. Quota increase requests for values up to 10 are automatically approved.,5,None,true,false

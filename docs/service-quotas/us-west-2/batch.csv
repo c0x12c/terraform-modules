@@ -1,0 +1,16 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+batch,AWS Batch,L-144F0CA5,Compute environment limit,"Maximum number of compute environments per account, per region.",50,None,false,false
+batch,AWS Batch,L-F8102809,Compute environments per job queue limit.,Maximum number of compute environments per job queue.,3,None,false,false
+batch,AWS Batch,L-E6A2743D,Job definition size limit,"Maximum job definition size (for RegisterJobDefinition API operations), measured in KiB.",24,None,false,false
+batch,AWS Batch,L-AD075A76,Job dependencies limit,Maximum number of job dependencies per job.,20,None,false,false
+batch,AWS Batch,L-6B86CF1E,Job payload size limit,"Maximum job payload size (for SubmitJob API operations), measured in KiB.",30,None,false,false
+batch,AWS Batch,L-4CEA37AD,Job queue limit,"Maximum number of job queues per account, per region.",50,None,false,false
+batch,AWS Batch,L-F9381E33,Maximum array size limit,Maximum array size for array jobs.,10000,None,false,false
+batch,AWS Batch,L-61E3E54E,Service environment,"Maximum number of service environments per account, per region.",50,None,false,false
+batch,AWS Batch,L-80D92D24,Service environments per job queue,Maximum number of service environments per job queue.,1,None,false,false
+batch,AWS Batch,L-A2F30F35,Service Job serviceRequestPayload size,"Maximum serviceRequestpayload size (within SubmitServiceJob API operations), measured in KiB.",10,None,false,false
+batch,AWS Batch,L-B15D0E72,Service Job total payload size,"Maximum total job payload size (for SubmitServiceJob API operations), measured in KiB.",30,None,false,false
+batch,AWS Batch,L-C997A649,Share identifiers per job queue limit.,Maximum number of share identifiers per job queue.,500,None,false,false
+batch,AWS Batch,L-65F8BA2C,Submitted state jobs limit,Maximum number of jobs in SUBMITTED state.,1000000,None,false,false
+batch,AWS Batch,L-E985971C,Transactions per second for SubmitJob limit,Maximum number of transactions per second (TPS) for each account for SubmitJob operations.,50,None,false,false
+batch,AWS Batch,L-0194C9AB,Transactions per second for SubmitServiceJob,Maximum number of transactions per second (TPS) for each account for SubmitServiceJob operations.,5,None,false,false

@@ -1,0 +1,26 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+license-manager,AWS License Manager,L-9FC671A7,Custom license asset rulesets per account,Total number of custom license asset rulesets that can be created per account.,25,None,false,false
+license-manager,AWS License Manager,L-404FB90C,Extend license consumption per consumption token,The number of ExtendLicenseConsumption calls that can be made for a consumption token per hour.,1,None,false,false
+license-manager,AWS License Manager,L-94CAAF1E,GetAccessTokens calls,The total number of GetAccessToken calls that can be made for a license per hour.,10,None,false,false
+license-manager,AWS License Manager,L-D603D41E,License asset groups per account,Total number of license asset groups that can be created per account.,25,None,false,false
+license-manager,AWS License Manager,L-60C1FE55,License asset rulesets per asset group,Total number of license asset rulesets that can attached to a license asset group.,5,None,false,false
+license-manager,AWS License Manager,L-0B08C8C5,License configuration associations per resource,Number of license configurations that can be associated with a resource.,10,None,true,false
+license-manager,AWS License Manager,L-CDB75D7A,License configurations,Total number of license configurations that can be created in an account.,25,None,true,false
+license-manager,AWS License Manager,L-6FD36464,License conversion tasks per resource per day,Number of license conversion tasks that can be created per resource per day.,5,None,true,false
+license-manager,AWS License Manager,L-96B4765E,Maximum number of concurrent organization grant activities,The maximum number of concurrent grant activities for an organization.,10,None,false,false
+license-manager,AWS License Manager,L-2D64C85F,Number of account discovery mode updates per day,The maximum number of account discovery mode updates per day for an account.,1,None,false,false
+license-manager,AWS License Manager,L-FD8F1E79,Number of accounts per organization for License Manager,The maximum number of accounts within your organization that License Manager can support.,15000,None,false,false
+license-manager,AWS License Manager,L-55F04DE6,Number of grants per license,The total number of active grants per license.,2000,None,false,false
+license-manager,AWS License Manager,L-252E35E9,Number of instances aggregated per license asset group per account,Total number of instances each license asset group can aggregate usage data for each account.,10000,None,true,false
+license-manager,AWS License Manager,L-30F617EC,Number of instances aggregated per license asset group per organization,Total number of instances each license asset group can aggregate usage data for each organization.,50000,None,true,false
+license-manager,AWS License Manager,L-F6FC7130,Number of instances tracked per license asset group per account per region,Total number of instances each license asset group can track and evaluate for each account in a region.,5000,None,true,false
+license-manager,AWS License Manager,L-46604BA1,Number of instances tracked per license asset group per organization per region,Total number of instances each license asset group can track and evaluate for each organization in a region.,25000,None,true,false
+license-manager,AWS License Manager,L-C45FDCC5,Number of licenses you can create,The total number of licenses that can be created in an account.,2000,None,false,false
+license-manager,AWS License Manager,L-48BF1E76,Number of received licenses per product,The total number of licenses received with same product SKU.,10,None,false,false
+license-manager,AWS License Manager,L-9FBEFBCB,Number of Report generators,The Total number of report generators that can be created.,25,None,false,false
+license-manager,AWS License Manager,L-992B7443,Number of tokens per account and license,The total number of tokens per license that can be created in an account.,10,None,false,false
+license-manager,AWS License Manager,L-908B54DF,Number of updates for a report generator per day,The maximum number of updates per day for a given report generator.,25,None,false,false
+license-manager,AWS License Manager,L-A6872F54,Rules per custom license asset ruleset,Total number of rules per custom license asset ruleset.,5,None,false,false
+license-manager,AWS License Manager,L-089B8712,Total number counted entitlements per checkout,The total number of counted entitlements that can be specified on a single CheckoutLicense call.,5,None,false,false
+license-manager,AWS License Manager,L-D92A2CE4,Total number counted entitlements per license,The total number of counted entitlements allowed per license.,25,None,false,false
+license-manager,AWS License Manager,L-CA3CD2C4,Total number uncounted entitlements per license,The total number of uncounted entitlements allowed per license.,25,None,false,false

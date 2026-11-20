@@ -1,0 +1,4 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+serverlessrepo,AWS Serverless Application Repository,L-41ACBE3C,Application policy length,The maximum application policy length (in characters).,6144,None,false,false
+serverlessrepo,AWS Serverless Application Repository,L-3EEA1272,Free Amazon S3 storage for code packages,The maximum amount (in GB) of free Amazon S3 storage for code packages per AWS account per AWS region.,5,Gigabytes,false,false
+serverlessrepo,AWS Serverless Application Repository,L-38772E7B,Public applications,The maximum number of public applications per AWS account per AWS region.,100,None,true,false

@@ -1,0 +1,3 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+signin,AWS IAM Identity Center,L-42359A23,Maximum Signin resource based policy statement size,The maximum size of individual Resource-Based Policy statements in bytes,10240,Bytes,false,false
+signin,AWS IAM Identity Center,L-5ECCC143,Maximum Signin resource based policy statement size,The maximum number of Resource-Based Policy statements that can be created per AWS account,100,None,false,false

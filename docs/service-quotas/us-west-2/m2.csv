@@ -1,0 +1,7 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+m2,AWS Mainframe Modernization,L-00464274,Max Applications Per AWS Account,Max Applications Per AWS Account,20,None,true,false
+m2,AWS Mainframe Modernization,L-536F13DF,Max DataTransferEndpoints Per AWS Account,Max DataTransferEndpoints Per AWS Account,10,None,false,false
+m2,AWS Mainframe Modernization,L-6851C542,Max Environments Per AWS Account,Max Environments Per AWS Account,20,None,true,false
+m2,AWS Mainframe Modernization,L-24ACBEAE,Max Instances Per High Availability Environment,Max Instances Per High Availability Environment,12,None,true,false
+m2,AWS Mainframe Modernization,L-5D943D0B,Max number of EFS filesystems per environment,Max number of EFS filesystems per environment,1,None,true,false
+m2,AWS Mainframe Modernization,L-C1C41257,Max number of FSX filesystems per environment,Max number of FSX filesystems per environment,1,None,true,false

@@ -1,0 +1,14 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+neptune,Amazon Neptune,L-A425F59F,Cluster endpoints per DB cluster,The maximum number of cluster endpoints per DB cluster.,5,None,true,false
+neptune,Amazon Neptune,L-BF10548E,Cross-region snapshot copy requests,The maximum number of cross-region snapshot copy requests.,5,None,true,false
+neptune,Amazon Neptune,L-D6543DBD,DB cluster manuals snapshots,The maximum number of DB cluster manual snapshots.,100,None,true,false
+neptune,Amazon Neptune,L-5BB9A916,DB cluster parameter groups,The maximum number of DB cluster parameter groups.,50,None,true,false
+neptune,Amazon Neptune,L-9AEE2A70,DB cluster Roles,The maximum number of DB cluster roles.,5,None,true,false
+neptune,Amazon Neptune,L-6D17A5A2,DB clusters,The maximum number of DB clusters.,40,None,true,false
+neptune,Amazon Neptune,L-584DADE7,DB instance parameter groups,The maximum number of DB instance parameter groups.,50,None,true,false
+neptune,Amazon Neptune,L-368A3E00,DB instances,The maximum number of DB instances.,40,None,true,false
+neptune,Amazon Neptune,L-483F7912,DB subnet groups,The maximum number of DB subnet groups.,50,None,true,false
+neptune,Amazon Neptune,L-463F8A01,Event subscriptions,The maximum number of event subscriptions.,20,None,true,false
+neptune,Amazon Neptune,L-A6A065D7,Read replicas per cluster,The maximum number of read replicas per cluster.,15,None,false,false
+neptune,Amazon Neptune,L-22818E49,Reserved DB instances,The maximum number of reserved DB instances.,40,None,true,false
+neptune,Amazon Neptune,L-B3AC6773,Tags per resource,The maximum number of tags per resource.,50,None,true,false

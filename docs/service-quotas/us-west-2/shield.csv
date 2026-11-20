@@ -1,0 +1,3 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+shield,AWS Shield Advanced,L-0BACF966,Elastic IP address protections,The maximum number of Elastic IP addresses you can monitor and protect.,1000,None,true,false
+shield,AWS Shield Advanced,L-BBD47253,Elastic Load Balancing load balancer protections,The maximum number of Elastic Load Balancing load balancers you can monitor and protect.,1000,None,true,false

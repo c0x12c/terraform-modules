@@ -1,0 +1,6 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+ssm-guiconnect,AWS Systems Manager GUI Connect,L-64419857,Concurrent Remote Desktop connections,The maximum number of concurrent Remote Desktop connections in the AWS Region. Service quota increase requests up to 50 are automatically approved. Service quota increases can take up to two and a half hours to take effect.,5,None,true,false
+ssm-guiconnect,AWS Systems Manager GUI Connect,L-71687733,Throttle rate for CancelConnection,The maximum number of CancelConnection requests per second that you can send in this account in the current Region.,1,None,false,false
+ssm-guiconnect,AWS Systems Manager GUI Connect,L-0D9340F5,Throttle rate for GetConnection,The maximum number of GetConnection requests per second that you can send in this account in the current Region.,5,None,false,false
+ssm-guiconnect,AWS Systems Manager GUI Connect,L-FC9CFAED,Throttle rate for ListConnections,The maximum number of ListConnections requests per second that you can send in this account in the current Region.,5,None,false,false
+ssm-guiconnect,AWS Systems Manager GUI Connect,L-6C572BE6,Throttle rate for StartConnection,The maximum number of StartConnection requests per second that you can send in this account in the current Region.,1,None,false,false

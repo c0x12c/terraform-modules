@@ -1,0 +1,118 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+cleanrooms,AWS Clean Rooms,L-ED3352DE,Analysis rule size,Maximum size of JSON for an analysis rule,100,Kilobytes,false,false
+cleanrooms,AWS Clean Rooms,L-AF88CE55,Analysis templates per membership,Maximum number of analysis templates per membership,100,None,true,false
+cleanrooms,AWS Clean Rooms,L-F60C2030,Collaborations created per account,Maximum number of collaborations created per account,500,None,true,false
+cleanrooms,AWS Clean Rooms,L-14E81699,Columns per configured table allowlist,Maximum number of columns that can be allowlisted per configured table,100,None,true,false
+cleanrooms,AWS Clean Rooms,L-844B7ECC,Concurrent ongoing job per membership,Maximum number of concurrent ongoing jobs per membership,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-D269978F,Concurrent ongoing log exports per account,Maximum number of concurrent ongoing log exports per account,10,None,true,false
+cleanrooms,AWS Clean Rooms,L-6CE5FF0C,Concurrent ongoing log exports per membership,Maximum number of concurrent ongoing log exports per membership,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-F04AAAFE,Concurrent ongoing queries per membership,Maximum number of concurrent ongoing queries per membership,5,None,false,false
+cleanrooms,AWS Clean Rooms,L-26B93E43,Concurrent PySpark job vCPU usage per account,Maximum total vCPU usage of all concurrently running PySpark jobs per account,512,None,true,false
+cleanrooms,AWS Clean Rooms,L-B45D79BC,Concurrent PySpark jobs per account,Maximum number of concurrently running PySpark jobs per account,2,None,true,false
+cleanrooms,AWS Clean Rooms,L-40165B7B,Concurrent SQL queries per account,Maximum number of concurrently running SQL queries per account,2,None,true,false
+cleanrooms,AWS Clean Rooms,L-3159A189,Concurrent SQL query vCPU usage per account,Maximum total vCPU usage of all concurrently running SQL queries per account,512,None,true,false
+cleanrooms,AWS Clean Rooms,L-4596E0C1,Configured audience model associations per membership,Maximum number of configured audience model associations per membership,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-7CEACCA0,Configured tables per account,Maximum number of configured tables created per account,250,None,true,false
+cleanrooms,AWS Clean Rooms,L-08F7F01C,Configured tables per protected query,Maximum number of configured tables in a protected query,15,None,true,false
+cleanrooms,AWS Clean Rooms,L-2222C6AC,CR.1X workers per PySpark job,Maximum number of CR.1X workers per PySpark job,128,None,true,false
+cleanrooms,AWS Clean Rooms,L-D04BF025,CR.4X workers per PySpark job,Maximum number of CR.4X workers per PySpark job,32,None,true,false
+cleanrooms,AWS Clean Rooms,L-DBDCEC0D,ID mapping tables per membership,Maximum number of ID mapping tables per membership,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-6359BE00,ID namespace associations per membership,Maximum number of ID namespace associations per membership,10,None,true,false
+cleanrooms,AWS Clean Rooms,L-F40A73B7,Intermediate tables per membership,Maximum number of intermediate tables per membership,25,None,true,false
+cleanrooms,AWS Clean Rooms,L-F7B26AF5,Members invited per collaboration,Maximum number of members invited per collaboration,10,None,true,false
+cleanrooms,AWS Clean Rooms,L-99A163CB,Memberships per account,Maximum number of memberships per account,500,None,true,false
+cleanrooms,AWS Clean Rooms,L-6FE25843,Privacy budget templates for access budgets per collaboration,Maximum number of privacy budget templates for access budgets per collaboration,25,None,true,false
+cleanrooms,AWS Clean Rooms,L-C6B48C80,Query text length (using differential privacy),Maximum text length for a SQL query statement using differential privacy,8,Kilobytes,false,false
+cleanrooms,AWS Clean Rooms,L-0BF5D984,Query text length on Clean Rooms SQL analytics engine,Maximum text length for a SQL query statement on Clean Rooms SQL analytics engine,90,Kilobytes,false,false
+cleanrooms,AWS Clean Rooms,L-4645126D,Query text length on Spark analytics engine,Maximum text length for a SQL query statement on Spark analytics engine,500,Kilobytes,false,false
+cleanrooms,AWS Clean Rooms,L-D4ACC820,Rate of BatchGetCollaborationAnalysisTemplate requests,Maximum number of BatchGetCollaborationAnalysisTemplate API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-FA0B0432,Rate of BatchGetSchema requests,Maximum number of BatchGetSchema API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-314AA705,Rate of BatchGetSchemaAnalysisRule requests,Maximum number of BatchGetSchemaAnalysisRule API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-98BDB219,Rate of CreateAnalysisTemplate requests,Maximum number of CreateAnalysisTemplate API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-71F0D659,Rate of CreateCollaboration requests,Maximum number of CreateCollaboration API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-5D65AE8D,Rate of CreateCollaborationChangeRequest requests,Maximum number of CreateCollaborationChangeRequest API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-ED22C809,Rate of CreateConfiguredAudienceModelAssociation requests,Maximum number of CreateConfiguredAudienceModelAssociation API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-971686CB,Rate of CreateConfiguredTable requests,Maximum number of CreateConfiguredTable API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-AA1FCC92,Rate of CreateConfiguredTableAnalysisRule requests,Maximum number of CreateConfiguredTableAnalysisRule API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-58076094,Rate of CreateConfiguredTableAssociation requests,Maximum number of CreateConfiguredTableAssociation API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-0AD7EAD3,Rate of CreateConfiguredTableAssociationAnalysisRule requests,Maximum number of CreateConfiguredTableAssociationAnalysisRule API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-CEBF94E4,Rate of CreateIdMappingTable requests,Maximum number of CreateIdMappingTable API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-207110E9,Rate of CreateIdNamespaceAssociation requests,Maximum number of CreateIdNamespaceAssociation API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-AA83E042,Rate of CreateMembership requests,Maximum number of CreateMembership API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-133DD466,Rate of CreatePrivacyBudgetTemplate requests,Maximum number of CreatePrivacyBudgetTemplate API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-4EFF30C3,Rate of DeleteAnalysisTemplate requests,Maximum number of DeleteAnalysisTemplate API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-F0A87380,Rate of DeleteCollaboration requests,Maximum number of DeleteCollaboration API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-57B36CC8,Rate of DeleteConfiguredAudienceModelAssociation requests,Maximum number of DeleteConfiguredAudienceModelAssociation API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-C0D69AA0,Rate of DeleteConfiguredTable requests,Maximum number of DeleteConfiguredTable API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-6FF866CD,Rate of DeleteConfiguredTableAnalysisRule requests,Maximum number of DeleteConfiguredTableAnalysisRule API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-88914C24,Rate of DeleteConfiguredTableAssociation requests,Maximum number of DeleteConfiguredTableAssociation API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-C176B0B6,Rate of DeleteConfiguredTableAssociationAnalysisRule requests,Maximum number of DeleteConfiguredTableAssociationAnalysisRule API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-44815395,Rate of DeleteIdMappingTable requests,Maximum number of DeleteIdMappingTable API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-DA8821F5,Rate of DeleteIdNamespaceAssociation requests,Maximum number of DeleteIdNamespaceAssociation API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-46ADBA29,Rate of DeleteMember requests,Maximum number of DeleteMember API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-80DB73D7,Rate of DeleteMembership requests,Maximum number of DeleteMembership API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-37644F21,Rate of DeletePrivacyBudgetTemplate requests,Maximum number of DeletePrivacyBudgetTemplate API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-98713D84,Rate of GetAnalysisLogExport requests,Maximum number of GetAnalysisLogExport API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-5EDF6508,Rate of GetAnalysisTemplate requests,Maximum number of GetAnalysisTemplate API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-EA789CE8,Rate of GetCollaboration requests,Maximum number of GetCollaboration API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-8B32F74B,Rate of GetCollaborationAnalysisTemplate requests,Maximum number of GetCollaborationAnalysisTemplate API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-BAAD82E2,Rate of GetCollaborationChangeRequest requests,Maximum number of GetCollaborationChangeRequest API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-C3A930AB,Rate of GetCollaborationConfiguredAudienceModelAssociation requests,Maximum number of GetCollaborationConfiguredAudienceModelAssociation API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-804ACCF8,Rate of GetCollaborationIdNamespaceAssociation requests,Maximum number of GetCollaborationIdNamespaceAssociation API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-4678811D,Rate of GetCollaborationPrivacyBudgetTemplate requests,Maximum number of GetCollaborationPrivacyBudgetTemplate API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-60AA2A10,Rate of GetConfiguredAudienceModelAssociation requests,Maximum number of GetConfiguredAudienceModelAssociation API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-9FC85564,Rate of GetConfiguredTable requests,Maximum number of GetConfiguredTable API calls per second,20,None,true,false
+cleanrooms,AWS Clean Rooms,L-0FB3F147,Rate of GetConfiguredTableAnalysisRule requests,Maximum number of GetConfiguredTableAnalysisRule API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-1BCDF035,Rate of GetConfiguredTableAssociation requests,Maximum number of GetConfiguredTableAssociation API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-D29A24D7,Rate of GetConfiguredTableAssociationAnalysisRule requests,Maximum number of GetConfiguredTableAssociationAnalysisRule API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-84D87AAE,Rate of GetIdMappingTable requests,Maximum number of GetIdMappingTable API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-18630DF3,Rate of GetIdNamespaceAssociation requests,Maximum number of GetIdNamespaceAssociation API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-6EE33BE8,Rate of GetMembership requests,Maximum number of GetMembership API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-C21604A2,Rate of GetPrivacyBudgetTemplate requests,Maximum number of GetPrivacyBudgetTemplate API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-1F2FB8F2,Rate of GetProtectedJob requests,Maximum number of GetProtectedJob API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-5B356E2B,Rate of GetProtectedQuery requests,Maximum number of GetProtectedQuery API calls per second,20,None,true,false
+cleanrooms,AWS Clean Rooms,L-0A3E7551,Rate of GetSchema requests,Maximum number of GetSchema API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-23D4B294,Rate of GetSchemaAnalysisRule requests,Maximum number of GetSchemaAnalysisRule API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-FB77D69E,Rate of ListAnalysisLogExports requests,Maximum number of ListAnalysisLogExports API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-47C1561A,Rate of ListAnalysisTemplates requests,Maximum number of ListAnalysisTemplates API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-3CFEE53C,Rate of ListCollaborationAnalysisTemplates requests,Maximum number of ListCollaborationAnalysisTemplates API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-DB68AF19,Rate of ListCollaborationChangeRequests requests,Maximum number of ListCollaborationChangeRequests API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-82F4A89C,Rate of ListCollaborationConfiguredAudienceModelAssociations requests,Maximum number of ListCollaborationConfiguredAudienceModelAssociations API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-73071115,Rate of ListCollaborationIdNamespaceAssociations requests,Maximum number of ListCollaborationIdNamespaceAssociations API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-E95B9B79,Rate of ListCollaborationPrivacyBudgets requests,Maximum number of ListCollaborationPrivacyBudgets API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-CDE3C47C,Rate of ListCollaborationPrivacyBudgetTemplates requests,Maximum number of ListCollaborationPrivacyBudgetTemplates API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-60C9F5C8,Rate of ListCollaborations requests,Maximum number of ListCollaborations API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-C5494CAA,Rate of ListConfiguredAudienceModelAssociations requests,Maximum number of ListConfiguredAudienceModelAssociations API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-D90468BB,Rate of ListConfiguredTableAssociations requests,Maximum number of ListConfiguredTableAssociations API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-4FA6F2CA,Rate of ListConfiguredTables requests,Maximum number of ListConfiguredTables API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-D3DE47CF,Rate of ListIdMappingTables requests,Maximum number of ListIdMappingTables API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-093F1424,Rate of ListIdNamespaceAssociations requests,Maximum number of ListIdNamespaceAssociations API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-659B47CC,Rate of ListMembers requests,Maximum number of ListMembers API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-8CF613B7,Rate of ListMemberships requests,Maximum number of ListMemberships API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-C36D988B,Rate of ListPrivacyBudgets requests,Maximum number of ListPrivacyBudgets API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-8EADB354,Rate of ListPrivacyBudgetTemplates requests,Maximum number of ListPrivacyBudgetTemplates API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-BA5CF250,Rate of ListProtectedJobs requests,Maximum number of ListProtectedJobs API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-2BCA0376,Rate of ListProtectedQueries requests,Maximum number of ListProtectedQueries API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-8C954508,Rate of ListSchemas requests,Maximum number of ListSchemas API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-978BC400,Rate of ListTagsForResource requests,Maximum number of ListTagsForResource API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-75B5199D,Rate of PopulateIdMappingTable requests,Maximum number of PopulateIdMappingTable API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-51EC588A,Rate of PreviewPrivacyImpact requests,Maximum number of PreviewPrivacyImpact API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-2F999FD7,Rate of StartAnalysisLogExport requests,Maximum number of StartAnalysisLogExport API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-53CCCC3A,Rate of StartProtectedJob requests,Maximum number of StartProtectedJob API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-59F4710C,Rate of StartProtectedQuery requests,Maximum number of StartProtectedQuery API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-339A44FE,Rate of TagResource requests,Maximum number of TagResource API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-F434A8C7,Rate of UntagResource requests,Maximum number of UntagResource API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-43C36E0F,Rate of UpdateAnalysisTemplate requests,Maximum number of UpdateAnalysisTemplate API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-DDC82272,Rate of UpdateCollaboration requests,Maximum number of UpdateCollaboration API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-DF77CB1F,Rate of UpdateCollaborationChangeRequest requests,Maximum number of UpdateCollaborationChangeRequest API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-43DCB767,Rate of UpdateConfiguredAudienceModelAssociation requests,Maximum number of UpdateConfiguredAudienceModelAssociation API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-DF3C63EF,Rate of UpdateConfiguredTable requests,Maximum number of UpdateConfiguredTable API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-39FE5CA0,Rate of UpdateConfiguredTableAnalysisRule requests,Maximum number of UpdateConfiguredTableAnalysisRule API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-BC5338D1,Rate of UpdateConfiguredTableAssociation requests,Maximum number of UpdateConfiguredTableAssociation API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-FD7BEEA1,Rate of UpdateConfiguredTableAssociationAnalysisRule requests,Maximum number of UpdateConfiguredTableAssociationAnalysisRule API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-DF39885E,Rate of UpdateIdMappingTable requests,Maximum number of UpdateIdMappingTable API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-F84196BB,Rate of UpdateIdNamespaceAssociation requests,Maximum number of UpdateIdNamespaceAssociation API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-E555FCAB,Rate of UpdatePrivacyBudgetTemplate requests,Maximum number of UpdatePrivacyBudgetTemplate API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-D3626550,Rate of UpdateProtectedJob requests,Maximum number of UpdateProtectedJob API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-422E468C,Rate of UpdateProtectedQuery requests,Maximum number of UpdateProtectedQuery API calls per second,5,None,true,false
+cleanrooms,AWS Clean Rooms,L-25AC34A7,Table associations per membership,Maximum number of table associations per membership,100,None,true,false

@@ -1,0 +1,39 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+codebuild,AWS CodeBuild,L-BECF4531,Associated tags per project,Maximum number of tags you can associate with a build project,50,None,false,false
+codebuild,AWS CodeBuild,L-ACCF6C0D,Build projects,Maximum number of build projects,5000,None,true,false
+codebuild,AWS CodeBuild,L-4167E76F,Build timeout in minutes,Maximum build timeout in minutes,2160,None,false,false
+codebuild,AWS CodeBuild,L-42CB2FCC,Concurrent request for information about builds,Maximum number of builds you can request information about at any one time using the AWS CLI or an AWS SDK.,100,None,false,false
+codebuild,AWS CodeBuild,L-390F410B,Concurrent requests for information on build projects,Maximum number of build projects you can request information about at any one time using the AWS CLI or an AWS SDK.,100,None,false,false
+codebuild,AWS CodeBuild,L-36AF3CA5,Concurrently running builds for ARM Lambda/10GB environment,Maximum number of concurrently running builds for ARM Lambda/10GB environment,1,None,true,false
+codebuild,AWS CodeBuild,L-FD92223D,Concurrently running builds for ARM Lambda/1GB environment,Maximum number of concurrently running builds for ARM Lambda/1GB environment,1,None,true,false
+codebuild,AWS CodeBuild,L-DE99852F,Concurrently running builds for ARM Lambda/2GB environment,Maximum number of concurrently running builds for ARM Lambda/2GB environment,1,None,true,false
+codebuild,AWS CodeBuild,L-72045165,Concurrently running builds for ARM Lambda/4GB environment,Maximum number of concurrently running builds for ARM Lambda/4GB environment,1,None,true,false
+codebuild,AWS CodeBuild,L-546A802A,Concurrently running builds for ARM Lambda/8GB environment,Maximum number of concurrently running builds for ARM Lambda/8GB environment,1,None,true,false
+codebuild,AWS CodeBuild,L-1E43FDE0,Concurrently running builds for ARM/2XLarge environment,Maximum number of concurrently running builds for ARM/2XLarge environment,1,None,true,false
+codebuild,AWS CodeBuild,L-596BEAB4,Concurrently running builds for ARM/Large environment,Maximum number of concurrently running builds for ARM/Large environment,1,None,true,false
+codebuild,AWS CodeBuild,L-DF544FF3,Concurrently running builds for ARM/Medium environment,Maximum number of concurrently running builds for ARM/Medium environment,1,None,true,false
+codebuild,AWS CodeBuild,L-5ED1D25B,Concurrently running builds for ARM/Small environment,Maximum number of concurrently running builds for ARM/Small environment,1,None,true,false
+codebuild,AWS CodeBuild,L-8D06F3EA,Concurrently running builds for ARM/XLarge environment,Maximum number of concurrently running builds for ARM/XLarge environment,1,None,true,false
+codebuild,AWS CodeBuild,L-D906BEE7,Concurrently running builds for Linux GPU Large environment,Maximum number of concurrently running builds for Linux GPU/Large environment,0,None,true,false
+codebuild,AWS CodeBuild,L-F1FE1B52,Concurrently running builds for Linux GPU Small environment,Maximum number of concurrently running builds for Linux GPU/Small environment,0,None,true,false
+codebuild,AWS CodeBuild,L-E692F494,Concurrently running builds for Linux Lambda/10GB environment,Maximum number of concurrently running builds for Linux Lambda/10GB environment,1,None,true,false
+codebuild,AWS CodeBuild,L-03FBB1ED,Concurrently running builds for Linux Lambda/1GB environment,Maximum number of concurrently running builds for Linux Lambda/1GB environment,1,None,true,false
+codebuild,AWS CodeBuild,L-1DFDD5F9,Concurrently running builds for Linux Lambda/2GB environment,Maximum number of concurrently running builds for Linux Lambda/2GB environment,1,None,true,false
+codebuild,AWS CodeBuild,L-39DB2B0B,Concurrently running builds for Linux Lambda/4GB environment,Maximum number of concurrently running builds for Linux Lambda/4GB environment,1,None,true,false
+codebuild,AWS CodeBuild,L-049948E0,Concurrently running builds for Linux Lambda/8GB environment,Maximum number of concurrently running builds for Linux Lambda/8GB environment,1,None,true,false
+codebuild,AWS CodeBuild,L-0397D009,Concurrently running builds for Linux/2XLarge environment,Maximum number of concurrently running builds for Linux/2XLarge environment,0,None,true,false
+codebuild,AWS CodeBuild,L-4DDC4A99,Concurrently running builds for Linux/Large environment,Maximum number of concurrently running builds for Linux/Large environment,1,None,true,false
+codebuild,AWS CodeBuild,L-2DC20C30,Concurrently running builds for Linux/Medium environment,Maximum number of concurrently running builds for Linux/Medium environment,1,None,true,false
+codebuild,AWS CodeBuild,L-9D07B6EF,Concurrently running builds for Linux/Small environment,Maximum number of concurrently running builds for Linux/Small environment,1,None,true,false
+codebuild,AWS CodeBuild,L-04E5CA62,Concurrently running builds for Linux/XLarge environment,Maximum number of concurrently running builds for Linux/XLarge environment,1,None,true,false
+codebuild,AWS CodeBuild,L-2C3490D7,Concurrently running builds for Windows Server 2019/Large environment,Maximum number of concurrently running builds for Windows Server 2019/Large environment,1,None,true,false
+codebuild,AWS CodeBuild,L-ECF1B2A0,Concurrently running builds for Windows Server 2019/Medium environment,Maximum number of concurrently running builds for Windows Server 2019/Medium environment,1,None,true,false
+codebuild,AWS CodeBuild,L-0DED26C7,Concurrently running builds for Windows Server 2022/2XLarge environment,Maximum number of concurrently running builds for Windows Server 2022/2XLarge environment,1,None,true,false
+codebuild,AWS CodeBuild,L-C3D92D78,Concurrently running builds for Windows Server 2022/Large environment,Maximum number of concurrently running builds for Windows Server 2022/Large environment,1,None,true,false
+codebuild,AWS CodeBuild,L-0544DB6A,Concurrently running builds for Windows Server 2022/Medium environment,Maximum number of concurrently running builds for Windows Server 2022/Medium environment,1,None,true,false
+codebuild,AWS CodeBuild,L-F2D50796,Concurrently running builds for Windows Server 2022/XLarge environment,Maximum number of concurrently running builds for Windows Server 2022/XLarge environment,1,None,true,false
+codebuild,AWS CodeBuild,L-4135EDF8,Concurrently running builds for Windows/Large environment,Maximum number of concurrently running builds for Windows/Large environment,1,None,true,false
+codebuild,AWS CodeBuild,L-B4157408,Concurrently running builds for Windows/Medium environment,Maximum number of concurrently running builds for Windows/Medium environment,1,None,true,false
+codebuild,AWS CodeBuild,L-376C4764,Minimum period for build timeout in minutes,Minimum build timeout in minutes,5,None,false,false
+codebuild,AWS CodeBuild,L-EDB7A61A,Security groups under VPC configuration,Security groups available for VPC configuration,5,None,false,false
+codebuild,AWS CodeBuild,L-33638FE6,Subnets under VPC configuration,Subnets available for VPC configuration,16,None,false,false

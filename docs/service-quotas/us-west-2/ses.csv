@@ -1,0 +1,6 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+ses,Amazon Simple Email Service(Amazon SES),L-10E24536,Configuration set count,The maximum number of configuration sets that can exist within the current Region.,10000,None,true,false
+ses,Amazon Simple Email Service(Amazon SES),L-5C01A92C,Email identity count,The maximum number of email identities that can exist for this account in the current Region.,10000,None,true,false
+ses,Amazon Simple Email Service(Amazon SES),L-804C8AE8,Sending quota,The maximum number of emails that you can send in a 24-hour period for this account in the current Region.,200,None,true,false
+ses,Amazon Simple Email Service(Amazon SES),L-CDEF9B6B,Sending rate,The maximum number of emails that Amazon SES can accept each second for this account in the current Region.,1,None,true,false
+ses,Amazon Simple Email Service(Amazon SES),L-E7F21B4C,Tenant count,The maximum number of tenants that can exist within the current Region.,10000,None,true,false

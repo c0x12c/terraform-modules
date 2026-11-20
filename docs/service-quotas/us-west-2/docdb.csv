@@ -1,0 +1,11 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+docdb,Amazon DocumentDB (with MongoDB compatibility),L-2A542E16,Cluster parameter groups,The maximum number of DB cluster parameter groups,50,None,false,false
+docdb,Amazon DocumentDB (with MongoDB compatibility),L-13F31459,Clusters,The maximum number of clusters allowed in this account in the current Region,40,None,true,false
+docdb,Amazon DocumentDB (with MongoDB compatibility),L-F7FABF71,Event subscriptions,The maximum number of event subscriptions,20,None,true,false
+docdb,Amazon DocumentDB (with MongoDB compatibility),L-739A3A85,Instances,The maximum number of DB instances allowed in this account in the current Region,40,None,true,false
+docdb,Amazon DocumentDB (with MongoDB compatibility),L-B2551F83,Manual cluster snapshots,The maximum number of manual snapshots,100,None,true,false
+docdb,Amazon DocumentDB (with MongoDB compatibility),L-5BA57179,Read replicas per cluster,The maximum number of read replicas per cluster,15,None,true,false
+docdb,Amazon DocumentDB (with MongoDB compatibility),L-02DEA053,Subnet groups,The maximum number of DB subnet groups,50,None,true,false
+docdb,Amazon DocumentDB (with MongoDB compatibility),L-36C7F3F8,Subnets per subnet group,The maximum number of subnets per DB subnet group,20,None,false,false
+docdb,Amazon DocumentDB (with MongoDB compatibility),L-3B0E1499,Tags per resource,The maximum number of tags per Amazon RDS resource,50,None,false,false
+docdb,Amazon DocumentDB (with MongoDB compatibility),L-D02D85EA,VPC security groups per instance,The maximum number of DB security groups per Amazon VPC,5,None,false,false

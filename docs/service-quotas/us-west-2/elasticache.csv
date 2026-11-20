@@ -1,0 +1,13 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+elasticache,Amazon ElastiCache,L-AF354865,Nodes per cluster (cluster mode enabled),The maximum number of nodes in an individual Redis or Valkey cluster.,90,None,true,false
+elasticache,Amazon ElastiCache,L-8C334AD1,Nodes per cluster (Memcached),The maximum number of nodes in an individual Memcached cluster.,60,None,true,false
+elasticache,Amazon ElastiCache,L-DFE45DF3,Nodes per Region,The maximum number of nodes across all clusters in a Region. This quota applies to both your reserved and non-reserved nodes within the given Region. You can have up to 300 reserved nodes and 300 non-reserved nodes in the same Region.,300,None,true,false
+elasticache,Amazon ElastiCache,L-7D6587E6,Nodes per shard,The maximum number of nodes in an individual shard (node group). One node is the read/write Primary. All other nodes are read-only Replicas.,6,None,false,false
+elasticache,Amazon ElastiCache,L-3F15A733,Parameter groups per Region,The maximum number of parameters groups you can create in a Region.,300,None,true,false
+elasticache,Amazon ElastiCache,L-BBCDAECC,Serverless Caches per Region,The maximum number of serverless caches in a Region.,40,None,true,false
+elasticache,Amazon ElastiCache,L-75A7B5A4,Serverless snapshots per day per cache,The maximum number of snapshots that can be taken per day per serverless cache.,24,None,true,false
+elasticache,Amazon ElastiCache,L-3E7F7726,Subnet groups per Region,The maximum number of subnet groups you can create in a Region.,300,None,true,false
+elasticache,Amazon ElastiCache,L-A87EE522,Subnets per subnet group,The maximum number of subnets you can define for a subnet group.,20,None,true,false
+elasticache,Amazon ElastiCache,L-AD484FC5,User Groups per Region,The maximum number of user groups you can create in a Region.,200,None,true,false
+elasticache,Amazon ElastiCache,L-80E085C7,Users per Region,The maximum number of users you can create in a Region.,2000,None,true,false
+elasticache,Amazon ElastiCache,L-943F0F1C,Users per User Group,The maximum number of users you can define for a user group.,100,None,true,false

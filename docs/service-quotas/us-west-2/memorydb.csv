@@ -1,0 +1,9 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+memorydb,Amazon MemoryDB,L-A1C3C09E,Nodes per cluster (Cluster mode enabled) (MemoryDB),The maximum number of nodes in an individual MemoryDB cluster.,90,None,true,false
+memorydb,Amazon MemoryDB,L-7BC2A09E,Nodes per Region (MemoryDB),The maximum number of nodes across all MemoryDB clusters in a Region. This quota applies to both your reserved and non-reserved nodes within the given Region. You can have up to 300 reserved nodes and 300 non-reserved nodes in the same Region.,300,None,true,false
+memorydb,Amazon MemoryDB,L-48695EA8,Parameter groups per Region (MemoryDB),The maximum number of parameter groups you can create in a Region for MemoryDB.,300,None,true,false
+memorydb,Amazon MemoryDB,L-8B9CD3D0,Subnet groups per Region (MemoryDB),The maximum number of subnet groups you can create in a Region for MemoryDB.,300,None,true,false
+memorydb,Amazon MemoryDB,L-63EE95F8,Subnets per subnet group (MemoryDB),The maximum number of subnets you can define for a subnet group for MemoryDB.,20,None,true,false
+memorydb,Amazon MemoryDB,L-4BFB02AA,User Groups per Region (MemoryDB),The maximum number of user groups you can create in a Region for MemoryDB.,200,None,true,false
+memorydb,Amazon MemoryDB,L-95D39780,Users per Region (MemoryDB),The maximum number of users you can create in a Region for MemoryDB.,2000,None,true,false
+memorydb,Amazon MemoryDB,L-9DDCFD10,Users per User Group (MemoryDB),The maximum number of users you can define for a user group for MemoryDB.,100,None,true,false

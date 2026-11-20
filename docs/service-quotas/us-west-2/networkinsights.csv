@@ -1,0 +1,7 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+networkinsights,Network Insights,L-06B98CB1,Network Access Analyzer Access Scope Analyses,The maximum number of access scope analyses allowed for the account,10000,None,true,false
+networkinsights,Network Insights,L-72DF2E0E,Network Access Analyzer Access Scopes,The maximum number of access scopes allowed for the account.,1000,None,true,false
+networkinsights,Network Insights,L-2AC9F231,Network Access Analyzer Concurrent Access Scope Analyses,The maximum number of concurrently running access scope analyses allowed for the account,25,None,true,false
+networkinsights,Network Insights,L-44B7545B,Reachability Analyzer Analyses,The maximum number of analyses allowed for the account,10000,None,true,false
+networkinsights,Network Insights,L-B393345A,Reachability Analyzer concurrent Analyses,The maximum number of concurrently running analyses allowed for the account,100,None,true,false
+networkinsights,Network Insights,L-51CB2D5B,Reachability Analyzer Paths,The maximum number of paths allowed for the account.,1000,None,true,false

@@ -1,0 +1,2 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+cloudwatchpredictions,Amazon CloudWatch Anomaly Detection,L-58896C49,CloudWatch Anomaly Detection models,The maximum number of CloudWatch Anomaly Detection models allowed per AWS account.,500,None,true,false

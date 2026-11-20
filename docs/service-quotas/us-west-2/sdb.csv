@@ -1,0 +1,19 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+sdb,Amazon SimpleDB,L-E1EE132B,Attribute count per domain,The maximum number of attributes allowed per domain,1000000000,None,true,false
+sdb,Amazon SimpleDB,L-4DB66646,Attribute name size,The maximum number of bytes allowed in the attribute name,1024,Bytes,false,false
+sdb,Amazon SimpleDB,L-9828E854,Attribute name-value pairs per item,The maximum number of attribute name-value pairs allowed per item,256,None,false,false
+sdb,Amazon SimpleDB,L-AF2DC962,Attribute value size,The maximum number of bytes allowed in the attribute value,1024,Bytes,false,false
+sdb,Amazon SimpleDB,L-0AE7E975,Attributes per PutAttributes operation,The maximum number of attributes allowed per PutAttributes operation,256,None,false,false
+sdb,Amazon SimpleDB,L-05D88DAF,Attributes requested per Select operation,The maximum number of attributes that could be requested per Select operation,256,None,false,false
+sdb,Amazon SimpleDB,L-42888860,Comparisons per Select expression,The maximum number of comparisons allowed per Select expression,20,None,false,false
+sdb,Amazon SimpleDB,L-4E1F7154,Domain name length,The maximum number of characters allowed in the domain name,255,None,false,false
+sdb,Amazon SimpleDB,L-C84701BD,Item name size,The maximum number of bytes allowed in the item name,1024,Bytes,false,false
+sdb,Amazon SimpleDB,L-64BEF375,Items per BatchDeleteAttributes operation,The maximum number of items allowed per BatchDeleteAttributes operation,25,None,false,false
+sdb,Amazon SimpleDB,L-11AE8FE2,Items per BatchPutAttributes operation,The maximum number of items allowed per BatchPutAttributes operations,25,None,false,false
+sdb,Amazon SimpleDB,L-F117730B,Items per Select response,The maximum number of items allowed per Select response,2500,None,false,false
+sdb,Amazon SimpleDB,L-332FFAEF,Minimum domain name length,The minimum number of characters required in the domain name,3,None,false,false
+sdb,Amazon SimpleDB,L-FBE8DA78,Query execution time,The maximum execution time allowed in seconds,5,Seconds,false,false
+sdb,Amazon SimpleDB,L-3BE242F8,Select response size,The maximum size (in MB) of Select response,1,Megabytes,false,false
+sdb,Amazon SimpleDB,L-6CEDEDBA,Size per domain,The maximum size (in GB) allowed per domain,10,Gigabytes,false,false
+sdb,Amazon SimpleDB,L-7C4A3D89,Total Domains,The maximum number of domains allowed in this account in the current Region,250,None,true,false
+sdb,Amazon SimpleDB,L-D7B92346,Unique attributes per Select expression,The maximum number of unique attributes allowed per Select expression,20,None,false,false

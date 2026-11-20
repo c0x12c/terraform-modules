@@ -1,0 +1,6 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+dax,Amazon DynamoDB Accelerator (DAX),L-87AEEBB5,Nodes per cluster,"The maximum number of nodes per cluster, including the primary node as well as any read replica nodes.",11,None,false,false
+dax,Amazon DynamoDB Accelerator (DAX),L-315AFD08,Parameter groups,The maximum number of parameter groups in a single AWS region.,20,None,false,false
+dax,Amazon DynamoDB Accelerator (DAX),L-F55BD408,Subnet groups,The maximum number of subnet groups in a single AWS region.,50,None,false,false
+dax,Amazon DynamoDB Accelerator (DAX),L-E34C284B,Subnets per subnet group,The maximum number of subnets per subnet group in a single AWS region.,20,None,false,false
+dax,Amazon DynamoDB Accelerator (DAX),L-AB139030,Total number of nodes,The maximum total number of nodes per AWS account in a single AWS region.,50,None,true,false

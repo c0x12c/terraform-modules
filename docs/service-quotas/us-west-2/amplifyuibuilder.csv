@@ -1,0 +1,9 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+amplifyuibuilder,Amplify UI Builder,L-4FE3AB63,Component size,The maximum size (in KB) of the component.,350,Kilobytes,false,false
+amplifyuibuilder,Amplify UI Builder,L-E5E3CF14,Components per app,The maximum number of components that you can create per Amplify app in the current Region.,1000,None,false,false
+amplifyuibuilder,Amplify UI Builder,L-A25B72F2,Form size,The maximum size (in KB) of the form.,350,Kilobytes,false,false
+amplifyuibuilder,Amplify UI Builder,L-F527F6EB,Forms per app,The maximum number of forms that you can create per Amplify app in the current Region.,1000,None,false,false
+amplifyuibuilder,Amplify UI Builder,L-D500C0BA,Theme size,The maximum size (in KB) of the theme.,350,Kilobytes,false,false
+amplifyuibuilder,Amplify UI Builder,L-429DD3BA,Themes per app,The maximum number of themes that you can create per Amplify app in the current Region.,1000,None,false,false
+amplifyuibuilder,Amplify UI Builder,L-CA57203B,View size,The maximum size (in KB) of the view.,350,Kilobytes,false,false
+amplifyuibuilder,Amplify UI Builder,L-E4AD9560,Views per app,The maximum number of views that you can create per Amplify app in the current Region.,1000,None,false,false

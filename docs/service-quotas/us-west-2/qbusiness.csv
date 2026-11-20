@@ -1,0 +1,6 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+qbusiness,Amazon Q,L-012F5447,Maximum number of actions per plugin.,Maximum number of actions per plugin.,20,None,false,false
+qbusiness,Amazon Q,L-32924358,Maximum number of applications per account.,Maximum number of applications per account.,50,None,false,false
+qbusiness,Amazon Q,L-C6A7B6A7,Maximum number of data accessors per application.,The maximum number of data accessors per Amazon Q Business application.,10,None,false,false
+qbusiness,Amazon Q,L-1B99F8DB,Maximum number of data sources per application.,Maximum number of data sources per application.,50,None,false,false
+qbusiness,Amazon Q,L-DD5A6E5E,Maximum number of plugins per application.,Maximum number of plugins per application.,25,None,false,false

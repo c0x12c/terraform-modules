@@ -1,0 +1,5 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+airflow,Amazon Managed Workflows for Apache Airflow,L-67D41C6B,"Environments per account per Region (small, medium, large)",The maximum number of environments per account per Region.,10,None,true,false
+airflow,Amazon Managed Workflows for Apache Airflow,L-4BA0CB82,"Larger environments per account per Region (xlarge, 2xlarge)",The maximum number of mw1.xlarge and mw1.2xlarge environments per account per Region.,5,None,true,false
+airflow,Amazon Managed Workflows for Apache Airflow,L-52DCDA32,Web servers per environment,The maximum number of web servers per environment.,5,None,true,false
+airflow,Amazon Managed Workflows for Apache Airflow,L-78AC1883,Workers per environment,The maximum number of workers per environment.,25,None,true,false

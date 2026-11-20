@@ -1,0 +1,30 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+codepipeline,AWS CodePipeline,L-182AE5D8,Action configuration key length,The maximum number of characters allowed in an action configuration key,50,None,false,false
+codepipeline,AWS CodePipeline,L-6F95DA01,Action configuration value length,The maximum number of characters allowed in an action configuration value,1000,None,false,false
+codepipeline,AWS CodePipeline,L-5AA45A27,Action timeout,The length of time in hours before any other action times out,1,None,true,false
+codepipeline,AWS CodePipeline,L-0097A9B4,Active executions per pipeline,The maximum number of active executions allowed in a PARALLEL execution mode pipeline.,50,None,false,false
+codepipeline,AWS CodePipeline,L-ABB870A7,Amazon S3 deployment action timeout,"The length of time, in minutes, before an Amazon S3 deployment action times out",90,None,true,false
+codepipeline,AWS CodePipeline,L-A95CB60D,Approval action timeout,"The length of time, in days, before an approval action times out",7,None,false,false
+codepipeline,AWS CodePipeline,L-447DD651,AWS CloudFormation action timeout,"The length of time, in days, before an AWS CloudFormation deployment action times out",3,None,true,false
+codepipeline,AWS CodePipeline,L-F7192911,AWS CodeBuild action timeout,"The length of time, in hours, before an AWS CodeBuild build action or test action times out",36,None,false,false
+codepipeline,AWS CodePipeline,L-CE1F2EE9,AWS CodeDeploy action timeout,"The length of time, in days, before an AWS CodeDeploy deployment action times out",5,None,true,false
+codepipeline,AWS CodePipeline,L-87C878A5,AWS CodeDeploy ECS (Blue/Green) action timeout,"The length of time, in days, before an AWS CodeDeploy ECS (Blue/Green) action times out",5,None,true,false
+codepipeline,AWS CodePipeline,L-912817AD,AWS Lambda action timeout,The length of time in hours before an AWS Lambda invoke action times out,24,None,true,false
+codepipeline,AWS CodePipeline,L-C57FFB43,Minimum actions,The minimum number of actions allowed in a stage,1,None,false,false
+codepipeline,AWS CodePipeline,L-C8CB041B,Minimum stages per pipeline,The minimum number of stages allowed in a pipeline.,2,None,false,false
+codepipeline,AWS CodePipeline,L-1402209C,Total actions per pipeline,The maximum number of actions allowed in a pipeline,1000,None,false,false
+codepipeline,AWS CodePipeline,L-570F1605,Total actions per stage,The maximum number of actions allowed in a stage,100,None,false,false
+codepipeline,AWS CodePipeline,L-9D72EF0D,Total Amazon S3 source artifact size,The maximum size (in GB) of artifacts in a source stage that uses Amazon S3 artifact buckets,7,Gigabytes,false,false
+codepipeline,AWS CodePipeline,L-1E23CE75,Total AWS CodeCommit or GitHub source artifact size,The maximum size (in GB) of artifacts in a source stage that uses AWS CodeCommit or GitHub repositories,1,Gigabytes,false,false
+codepipeline,AWS CodePipeline,L-519D5A90,Total custom actions,The maximum number of custom actions per region in an AWS account,50,None,true,false
+codepipeline,AWS CodePipeline,L-DCBA35EE,Total image definitions JSON file size,The maximum size (in KB) of the image definitions file JSON file used in pipelines that deploy Amazon ECS containers and images,100,Kilobytes,false,false
+codepipeline,AWS CodePipeline,L-3ECA8567,Total input artifact size for AWS CloudFormation deployments,The maximum size (in MB) of input artifacts for AWS CloudFormation actions when deploying Lambda functions,256,Megabytes,false,false
+codepipeline,AWS CodePipeline,L-F8F56C9F,Total JSON object size for Parameter Overrides,The maximum size (in KB) of the JSON object that can be stored in the ParameterOverrides property,1,Kilobytes,false,false
+codepipeline,AWS CodePipeline,L-2B3011E2,Total parallel actions per stage,The maximum number of parallel actions in a stage,100,None,false,false
+codepipeline,AWS CodePipeline,L-31A751EC,Total period for execution history,The maximum number of previous months for which pipeline execution history information can be viewed,12,None,false,false
+codepipeline,AWS CodePipeline,L-78D200AD,Total pipelines,The maximum number of pipelines per AWS Region in an AWS account.,1000,None,true,false
+codepipeline,AWS CodePipeline,L-C5885C1C,Total pipelines with change detection set to periodically checking for source changes,The maximum number of pipelines per region with change detection set to periodically checking for source changes,300,None,false,false
+codepipeline,AWS CodePipeline,L-8DF1BAAD,Total sequential actions per stage,The maximum number of sequential actions in a stage,100,None,false,false
+codepipeline,AWS CodePipeline,L-F2AD11A6,Total source artifact size for Amazon EBS deployments,The maximum size (in MB) of artifacts in a source stage for a pipeline that uses Amazon EBS to deploy applications,512,Megabytes,false,false
+codepipeline,AWS CodePipeline,L-A0A99E23,Total stages per pipeline,The maximum number of stages allowed in a pipeline,50,None,false,false
+codepipeline,AWS CodePipeline,L-FE939BB2,Total webhooks,The maximum number of webhooks per region in an AWS account,300,None,true,false

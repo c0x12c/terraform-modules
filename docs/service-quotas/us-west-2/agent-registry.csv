@@ -1,0 +1,21 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+agent-registry,AWS Agent Registry,L-0CAE3C7F,BatchGetDiscoverableRegistryRecord requests per second,The maximum number of BatchGetDiscoverableRegistryRecord API requests per second per account per Region,10,Count/Second,true,false
+agent-registry,AWS Agent Registry,L-81AC7820,CreateRegistry requests per second,The maximum number of CreateRegistry API requests per second per account per Region,5,Count/Second,false,false
+agent-registry,AWS Agent Registry,L-85B05706,CreateRegistryRecord requests per second,The maximum number of CreateRegistryRecord API requests per second per account per Region,5,Count/Second,false,false
+agent-registry,AWS Agent Registry,L-46414A87,DeleteRegistry requests per second,The maximum number of DeleteRegistry API requests per second per account per Region,5,Count/Second,false,false
+agent-registry,AWS Agent Registry,L-4BB62FF5,DeleteRegistryRecord requests per second,The maximum number of DeleteRegistryRecord API requests per second per account per Region,10,Count/Second,false,false
+agent-registry,AWS Agent Registry,L-160B222D,GetRegistry requests per second,The maximum number of GetRegistry API requests per second per account per Region,5,Count/Second,false,false
+agent-registry,AWS Agent Registry,L-67DB47D8,GetRegistryRecord requests per second,The maximum number of GetRegistryRecord API requests per second per account per Region,10,Count/Second,false,false
+agent-registry,AWS Agent Registry,L-7F384C37,InvokeRegistryMcp requests per second,The maximum number of InvokeRegistryMcp API requests per second per account per Region,10,Count/Second,true,false
+agent-registry,AWS Agent Registry,L-1538F37F,ListDiscoverableRegistryRecords requests per second,The maximum number of ListDiscoverableRegistryRecords API requests per second per account per Region,10,Count/Second,true,false
+agent-registry,AWS Agent Registry,L-54A26A66,ListRegistries requests per second,The maximum number of ListRegistries API requests per second per account per Region,5,Count/Second,false,false
+agent-registry,AWS Agent Registry,L-2ECDF0F2,ListRegistryRecords requests per second,The maximum number of ListRegistryRecords API requests per second per account per Region,10,Count/Second,false,false
+agent-registry,AWS Agent Registry,L-8164FDE4,ListTagsForResource requests per second,The maximum number of ListTagsForResource API requests per second per account per Region,10,Count/Second,false,false
+agent-registry,AWS Agent Registry,L-197AC8CB,Registries per Account,The maximum number of registries that can be created per account per Region,10,None,true,false
+agent-registry,AWS Agent Registry,L-255B1802,SearchDiscoverableRegistryRecords requests per second,The maximum number of SearchDiscoverableRegistryRecords API requests per second per account per Region,10,Count/Second,true,false
+agent-registry,AWS Agent Registry,L-6E19E834,SubmitRegistryRecordForApproval requests per second,The maximum number of SubmitRegistryRecordForApproval API requests per second per account per Region,10,Count/Second,false,false
+agent-registry,AWS Agent Registry,L-51701B73,TagResource requests per second,The maximum number of TagResource API requests per second per account per Region,10,Count/Second,false,false
+agent-registry,AWS Agent Registry,L-F9E1296A,UntagResource requests per second,The maximum number of UntagResource API requests per second per account per Region,10,Count/Second,false,false
+agent-registry,AWS Agent Registry,L-FA4ADD41,UpdateRegistry requests per second,The maximum number of UpdateRegistry API requests per second per account per Region,5,Count/Second,false,false
+agent-registry,AWS Agent Registry,L-98282C16,UpdateRegistryRecord requests per second,The maximum number of UpdateRegistryRecord API requests per second per account per Region,5,Count/Second,false,false
+agent-registry,AWS Agent Registry,L-ECDA7BFC,UpdateRegistryRecordStatus requests per second,The maximum number of UpdateRegistryRecordStatus API requests per second per account per Region,10,Count/Second,false,false

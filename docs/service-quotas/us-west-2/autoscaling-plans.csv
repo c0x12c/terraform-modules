@@ -1,0 +1,4 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+autoscaling-plans,AWS Auto Scaling Plans,L-7FAA513E,Scaling instructions per scaling plan,The maximum number of scaling instructions per scaling plan.,500,None,false,false
+autoscaling-plans,AWS Auto Scaling Plans,L-BD401546,Scaling plans,The maximum number of scaling plans that you can create in this account in the current Region. A scaling plan tells AWS Auto Scaling how to scale a collection of resources.,100,None,true,false
+autoscaling-plans,AWS Auto Scaling Plans,L-6538FA5E,Target tracking configurations per scaling instruction,The maximum number of target tracking configurations per scaling instruction.,10,None,false,false

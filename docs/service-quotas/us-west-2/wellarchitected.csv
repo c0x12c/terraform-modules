@@ -1,0 +1,15 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+wellarchitected,AWS Well-Architected Tool,L-84104561,Choices per question,The maximum number of choices that can be created for a question.,15,None,false,false
+wellarchitected,AWS Well-Architected Tool,L-D5439D2C,Lens size,"The maximum lens size, in KB.",500,Kilobytes,false,false
+wellarchitected,AWS Well-Architected Tool,L-BAE0003F,Lenses per account per Region,The maximum number of lenses that can be created per account in a Region.,15,None,false,false
+wellarchitected,AWS Well-Architected Tool,L-B9D3FEAA,Lenses per review template,The maximum number of lenses that can be associated with a review template.,20,None,false,false
+wellarchitected,AWS Well-Architected Tool,L-66BC6D27,Lenses per workload,The maximum number of lenses that can be associated with a workload.,20,None,false,false
+wellarchitected,AWS Well-Architected Tool,L-CA783EAE,Milestones per workload,The maximum number of milestones that can be created for a workload.,100,None,false,false
+wellarchitected,AWS Well-Architected Tool,L-0AA67FCF,Pillars per lens,The maximum number of pillars that can be created for a lens.,10,None,false,false
+wellarchitected,AWS Well-Architected Tool,L-FCB0C16C,Questions per pillar,The maximum number of questions that can be created for a pillar.,20,None,false,false
+wellarchitected,AWS Well-Architected Tool,L-D69BFA30,Review templates per account per Region,The maximum number of review templates that can be created per account in a Region.,500,None,false,false
+wellarchitected,AWS Well-Architected Tool,L-E62A1DE4,Shares per lens,The maximum number of shares that can be created for a lens.,300,None,false,false
+wellarchitected,AWS Well-Architected Tool,L-A5DDC022,Shares per review template,The maximum number of shares that can be created for a review template.,20,None,false,false
+wellarchitected,AWS Well-Architected Tool,L-7E98904D,Shares per workload,The maximum number of shares that can be created for a workload.,20,None,false,false
+wellarchitected,AWS Well-Architected Tool,L-0979631D,Versions per lens,The maximum number of versions that can be created for a lens.,100,None,false,false
+wellarchitected,AWS Well-Architected Tool,L-ACECEBBD,Workloads per account per Region,The maximum number of workloads that can be created per account in a Region.,1000,None,false,false

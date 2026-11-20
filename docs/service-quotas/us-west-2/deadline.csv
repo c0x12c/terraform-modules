@@ -1,0 +1,33 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+deadline,AWS Deadline Cloud,L-2F4AD227,Associated members per farm,"The maximum number of principals (users or groups) that can be associated to each farm in the current AWS Region. Each associated group counts as one member, regardless of how many users it contains.",75,None,false,false
+deadline,AWS Deadline Cloud,L-D7E39278,Associated members per fleet,"The maximum number of principals (users or groups) that can be associated to each fleet in the current AWS Region. Each associated group counts as one member, regardless of how many users it contains.",75,None,false,false
+deadline,AWS Deadline Cloud,L-F9F8B66A,Associated members per job,"The maximum number of principals (users or groups) that can be associated to each job in the current AWS Region. Each associated group counts as one member, regardless of how many users it contains.",75,None,false,false
+deadline,AWS Deadline Cloud,L-B1CBF582,Associated members per queue,"The maximum number of principals (users or groups) that can be associated to each queue in the current AWS Region. Each associated group counts as one member, regardless of how many users it contains.",75,None,false,false
+deadline,AWS Deadline Cloud,L-86C1F13E,Budgets per farm,The maximum number of budgets per farm in the current AWS Region,20,None,true,false
+deadline,AWS Deadline Cloud,L-2DEF7E07,Farms per region,The maximum number of farms that can be created in the current AWS Region.,2,None,true,false
+deadline,AWS Deadline Cloud,L-55A8E463,Fleets per farm,The maximum number of fleets that can be created for each farm in the current AWS Region.,5,None,true,false
+deadline,AWS Deadline Cloud,L-5369B22C,Jobs per farm,The maximum number of jobs per farm in the current AWS Region.,100000,None,true,false
+deadline,AWS Deadline Cloud,L-F0DF6BC2,License endpoints per region,The maximum number of license endpoints in the current AWS Region.,5,None,true,false
+deadline,AWS Deadline Cloud,L-EFCAFDCA,License sessions per license endpoint,The maximum number of license sessions per license endpoint in the current AWS Region.,500,None,true,false
+deadline,AWS Deadline Cloud,L-253A82CE,Limits per farm,The maximum number of limits that can be created for each farm in the current AWS Region.,50,None,true,false
+deadline,AWS Deadline Cloud,L-F4ED6ADC,Monitors per region,The maximum number of monitors in the current AWS Region.,1,None,false,false
+deadline,AWS Deadline Cloud,L-5D6BA491,OnDemand G instance GPUs per region,The maximum number of on-demand G instance GPUs that can be provisioned across all service-managed fleets in the current AWS Region.,0,None,true,false
+deadline,AWS Deadline Cloud,L-3ED8FD3C,OnDemand vCPUs per region,The maximum number of on-demand vCPUs that can be provisioned across all service-managed fleets in the current AWS Region.,50,None,true,false
+deadline,AWS Deadline Cloud,L-162A55BC,Queue environments per queue,The maximum number of queue environments that can be created for each queue in the current AWS Region.,10,None,false,false
+deadline,AWS Deadline Cloud,L-BF011D88,Queue fleet associations per farm,The maximum number of queue fleet associations per farm in the current AWS Region,100,None,true,false
+deadline,AWS Deadline Cloud,L-55B7030C,Queue limit associations per queue,The maximum number of limits that can be associated with each queue in the current AWS Region.,10,None,true,false
+deadline,AWS Deadline Cloud,L-5E4FD3A4,Queues per farm,The maximum number of queues that can be created for each farm in the current AWS Region.,20,None,true,false
+deadline,AWS Deadline Cloud,L-9F7AA0C8,Resource configurations per fleet,The maximum number of VPC Lattice resource configurations that can be added to each fleet.,1,None,true,false
+deadline,AWS Deadline Cloud,L-2CCF07BF,Spot G Instance GPUs per region,The maximum number of spot G instance GPUs that can be provisioned across all service-managed fleets in the current AWS Region.,0,None,true,false
+deadline,AWS Deadline Cloud,L-F4A135EC,Spot vCPUs per region,The maximum number of spot vCPUs that can be provisioned across all service-managed fleets in the current AWS Region.,50,None,true,false
+deadline,AWS Deadline Cloud,L-B38F4796,Step consumers per step,The maximum number of steps that may declare a dependency on (consume) a single step within a job in the current AWS Region.,32,None,true,false
+deadline,AWS Deadline Cloud,L-3A262554,Step dependencies per step,The maximum number of steps that a single step within a job may declare a dependency on in the current AWS Region.,128,None,true,false
+deadline,AWS Deadline Cloud,L-BABD8718,Steps per job,The maximum number of steps per job in the current AWS Region.,200,None,true,false
+deadline,AWS Deadline Cloud,L-711C7611,"Storage for General Purpose SSD (gp3) volumes, in TiB","The maximum aggregated amount of EBS storage, measured in TiB, that can be used across all fleets in the current AWS Region.",1,None,true,false
+deadline,AWS Deadline Cloud,L-49CA2379,"Storage for persistent General Purpose SSD (gp3) volumes, in TiB","The maximum aggregated amount of storage, in TiB, that can be provisioned across persistent General Purpose SSD (gp3) volumes in the current AWS Region.",4,None,true,false
+deadline,AWS Deadline Cloud,L-8148A0DC,Storage profiles per farm,The maximum number of storage profiles that can be created for each farm in the current AWS Region.,50,None,false,false
+deadline,AWS Deadline Cloud,L-E20DD5F5,Tasks per chunk,The maximum number of tasks that can be combined into a single chunk when submitting a job.,150,None,false,false
+deadline,AWS Deadline Cloud,L-CF66A041,Tasks per job,The maximum number of tasks per job in the current AWS Region.,10000,None,true,false
+deadline,AWS Deadline Cloud,L-3DE82FE6,Tasks per step,The maximum number of tasks per step in the current AWS Region.,10000,None,true,false
+deadline,AWS Deadline Cloud,L-B65B621C,Wait-and-save vCPUs per region,The maximum number of wait-and-save vCPUs that can be provisioned across all service-managed fleets in the current AWS Region.,50,None,true,false
+deadline,AWS Deadline Cloud,L-48CC9B8E,Workers per farm,The maximum number of workers per farm in the current AWS Region.,7500,None,true,false

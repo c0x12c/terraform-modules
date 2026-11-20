@@ -1,0 +1,35 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+transfer,AWS Transfer Family,L-C08739CA,Agreements per account,Maximum number of agreements per account,100,None,true,false
+transfer,AWS Transfer Family,L-547461C3,AS2 connectors per account,Maximum number of AS2 connectors per account,100,None,true,false
+transfer,AWS Transfer Family,L-C0FDC60E,Certificates per account,Maximum number of certificates per account,1000,None,true,false
+transfer,AWS Transfer Family,L-B2750988,Certificates per profile,Maximum number of certificates per profile,10,None,false,false
+transfer,AWS Transfer Family,L-83F728FB,Concurrent AS2 messages per connector,The maximum number of concurrent AS2 messages that can be handled by a connector,400,None,false,false
+transfer,AWS Transfer Family,L-1B7183EB,Concurrent AS2 messages per server,The maximum number of concurrent AS2 messages that can be handled by a server,400,None,false,false
+transfer,AWS Transfer Family,L-396F6E73,Concurrent multiplexed SFTP sessions per connection,The maximum number of concurrent multiplexed SFTP sessions per connection,10,None,false,false
+transfer,AWS Transfer Family,L-4BAB8288,Concurrent sessions per server,Maximum number of concurrent sessions per server,10000,None,false,false
+transfer,AWS Transfer Family,L-2259D421,File size,Maximum size of an individual file,5,Terabytes,false,false
+transfer,AWS Transfer Family,L-B6C4BD5F,Idle connection timeout,Inactivity timeout for SFTP/FTP(S) connections. If there is no activity after the period has passed the client may be disconnected,1800,Seconds,false,false
+transfer,AWS Transfer Family,L-1B36ED13,Maximum inbound AS2 message size,Maximum size in (MB) of an inbound AS2 message,1000,Megabytes,false,false
+transfer,AWS Transfer Family,L-ACBBA5DF,Maximum logical directory mappings characters,The maximum length in UTF-8 encoded characters of logical directory mappings JSON document per user,2100000,Bytes,false,false
+transfer,AWS Transfer Family,L-2F6B27A1,Maximum logical directory mappings entries,The maximum entries per logical directory mapping per Service Managed user,2000,None,true,false
+transfer,AWS Transfer Family,L-843894CE,Maximum number of AD Groups for access,Number of Active Directory Groups allowed for mapping to access per server,100,None,true,false
+transfer,AWS Transfer Family,L-05D4EADD,Maximum number of new executions per workflow,Maximum number of new executions allowed per workflow at one time.,100,None,false,false
+transfer,AWS Transfer Family,L-9A414140,Maximum outbound AS2 message size,Maximum size in (MB) of an outbound AS2 message,1000,Megabytes,false,false
+transfer,AWS Transfer Family,L-B51E8407,Maximum web app units per web app,The maximum number of web app units per web app resource,4,None,true,false
+transfer,AWS Transfer Family,L-7E767654,Maximum web apps per account,The maximum number of web apps per account,10,None,true,false
+transfer,AWS Transfer Family,L-CD3E054C,New executions refill rate per workflow per second,The new executions refill rate per workflow per second,1,None,false,false
+transfer,AWS Transfer Family,L-3B829EB0,Number of authentication requests per user per second,"If your identity provider type is AWS Directory Service, there is a limit of 2 authentications per user per second per directory",2,None,false,false
+transfer,AWS Transfer Family,L-2B1BC0C3,Number of files per StartFileTransfer request,Maximum number of files per StartFileTransfer request,10,None,false,false
+transfer,AWS Transfer Family,L-101C3D29,Number of Service Managed users per server,Maximum number of Service Managed users per server,10000,None,true,false
+transfer,AWS Transfer Family,L-858EB316,Profiles per account,Maximum number of profiles per account,1000,None,true,false
+transfer,AWS Transfer Family,L-4978356A,Rate of AS2 messages per server,The maximum number of AS2 messages a server can receive per second,100,None,false,false
+transfer,AWS Transfer Family,L-1A59C433,Rate of StartDirectoryListing per SFTP connector,Maximum number of StartDirectoryListing request sent per second per SFTP connector,3,None,false,false
+transfer,AWS Transfer Family,L-E5F10FFD,Rate of StartFileTransfer files per AS2 connector,Maximum number of StartFileTransfer files sent per second per AS2 connector,100,None,true,false
+transfer,AWS Transfer Family,L-57D537DE,Rate of StartFileTransfer files per SFTP connector,Maximum number of StartFileTransfer files sent per second per SFTP connector,100,None,true,false
+transfer,AWS Transfer Family,L-CFAB221D,Rate of StartRemoteDelete files per SFTP connector,Maximum number of StartRemoteDelete files sent per second per SFTP connector,100,None,true,false
+transfer,AWS Transfer Family,L-4963D6B7,Rate of StartRemoteMove files per SFTP connector,Maximum number of StartRemoteMove files sent per second per SFTP connector,100,None,true,false
+transfer,AWS Transfer Family,L-6E386A05,Servers per account,Maximum number of servers per account,50,None,true,false
+transfer,AWS Transfer Family,L-D0C40802,SFTP connectors per account,Maximum number of SFTP connectors per account,100,None,true,false
+transfer,AWS Transfer Family,L-90797EDA,SSH keys per Service Managed user,Maximum number of SSH keys per Service Managed user,50,None,true,false
+transfer,AWS Transfer Family,L-5BAD02C2,VPC_ENDPOINT servers per account,Maximum number of VPC_ENDPOINT servers per account,10,None,false,false
+transfer,AWS Transfer Family,L-8A2575E3,Workflows per account,Maximum number of workflows per account,10,None,true,false

@@ -1,0 +1,3 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+evs,Amazon Elastic VMware Service,L-27E780D9,Environment count per AWS account,The maximum number of EVS environments that can be created in this account in the current Region.,3,None,true,false
+evs,Amazon Elastic VMware Service,L-96A49955,Host count per EVS environment,Maximum number of Hosts that can be provisioned within a single EVS environment,5,None,true,false

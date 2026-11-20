@@ -1,0 +1,3 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+rum,Amazon CloudWatch RUM,L-3FB7EA17,RUM AppMonitors,The maximum number of RUM AppMonitors that you can have in this AWS account.,50,None,true,false
+rum,Amazon CloudWatch RUM,L-35851224,RUM Events per second per AWS Account,The maximum number of RUM Events per second that RUM will ingest for this AWS account.,50,None,true,false

@@ -1,0 +1,7 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+ds,AWS Directory Service,L-092080C3,AD Connector directories,The maximum number of AD Connector directories that you can create in the current Region.,10,None,true,false
+ds,AWS Directory Service,L-EF86B739,AWS Managed Microsoft AD directories,The maximum number of AWS Managed Microsoft AD directories that you can create in the current region.,20,None,true,false
+ds,AWS Directory Service,L-25146888,AWS Managed Microsoft AD domain controllers,The maximum number of domain controllers that you can add to your AWS Managed Microsoft AD directory.,20,None,true,false
+ds,AWS Directory Service,L-92A19B29,AWS Managed Microsoft AD manual snapshots,The maximum number of manual snapshots that you can take for your AWS Managed Microsoft AD directory.,5,None,false,false
+ds,AWS Directory Service,L-5B5620DE,Simple AD directories,The maximum number of Simple AD directories that you can create in the current Region.,10,None,true,false
+ds,AWS Directory Service,L-A18F1612,Simple AD manual snapshots,The maximum number of manual snapshots that you can take for your Simple AD directory.,5,None,false,false

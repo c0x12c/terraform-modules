@@ -1,0 +1,19 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+sqs,Amazon Simple Queue Service (Amazon SQS),L-79B6240C,Actions per Queue Policy,The number of actions in a queue policy.,7,None,false,false
+sqs,Amazon Simple Queue Service (Amazon SQS),L-98134C75,Attributes per Message,The number of attributes added to a message.,10,None,false,false
+sqs,Amazon Simple Queue Service (Amazon SQS),L-4FF3DAAF,Batched Message ID Length,The length of a batched message ID.,80,None,false,false
+sqs,Amazon Simple Queue Service (Amazon SQS),L-6A03DCE9,Conditions per Queue Policy,The number of conditions in a queue policy.,10,None,false,false
+sqs,Amazon Simple Queue Service (Amazon SQS),L-C491D5A4,In-Flight Messages per Standard Queue,The number of in-flight messages in a standard queue.,120000,None,false,false
+sqs,Amazon Simple Queue Service (Amazon SQS),L-B2A3B9D5,Message Invisibility Period,"The length of time, in seconds, for which a message consumed from a queue remains invisible to other consumers.",0,Seconds,false,false
+sqs,Amazon Simple Queue Service (Amazon SQS),L-2DA3E3B2,Message Retention Time,"The length of time, in seconds, for which Amazon SQS retains a message if it isn't deleted. The maximum is 14 days (1,209,600 seconds).",345600,Seconds,false,false
+sqs,Amazon Simple Queue Service (Amazon SQS),L-49DA5CEC,Message Size,"The size of a message, in kilobytes.",1024,Kilobytes,false,false
+sqs,Amazon Simple Queue Service (Amazon SQS),L-81970B52,Message Size in S3 Bucket,"The size of a message, in gigabytes, in an Amazon S3 bucket.",2,Gigabytes,false,false
+sqs,Amazon Simple Queue Service (Amazon SQS),L-F115E65A,Messages per Batch,The number of messages in a message batch.,10,None,false,false
+sqs,Amazon Simple Queue Service (Amazon SQS),L-F61F33C3,Principals per Queue Policy,The number of principals in a queue policy.,50,None,false,false
+sqs,Amazon Simple Queue Service (Amazon SQS),L-A7816957,Queue Delivery Delay,"The length of time, in minutes, by which to delay the initial delivery of messages to a queue.",15,None,false,false
+sqs,Amazon Simple Queue Service (Amazon SQS),L-E8A9C91E,Queue Name Length,The queue name length.,80,None,false,false
+sqs,Amazon Simple Queue Service (Amazon SQS),L-BBEFA6CF,Queue Policy Size,"The size, in bytes, of a queue policy.",8192,Bytes,false,false
+sqs,Amazon Simple Queue Service (Amazon SQS),L-9F628B95,Statements per Queue Policy,The number of statements in a queue policy.,20,None,false,false
+sqs,Amazon Simple Queue Service (Amazon SQS),L-4BE1B2BD,Tags per Queue,The number of tags added to a queue.,50,None,false,false
+sqs,Amazon Simple Queue Service (Amazon SQS),L-A01B4DF0,UTF-8 Queue Tag Key Length,The length of a UTF-8 queue tag key.,128,None,false,false
+sqs,Amazon Simple Queue Service (Amazon SQS),L-BF2A6161,UTF-8 Queue Tag Value Length,The length of a UTF-8 queue tag value.,256,None,false,false

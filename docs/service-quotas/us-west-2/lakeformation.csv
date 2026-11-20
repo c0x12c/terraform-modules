@@ -1,0 +1,8 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+lakeformation,AWS Lake Formation,L-3D55E97C,Length of a path that can be registered,The maximum length of a path that can be registered per catalog.,700,None,true,false
+lakeformation,AWS Lake Formation,L-3E3798DF,Number of data lake administrators,The maximum number of data lake administrators per catalog.,30,None,true,false
+lakeformation,AWS Lake Formation,L-F165AF61,Number of lf tag per account,The maximum number of lf tag per account,1000,None,true,false
+lakeformation,AWS Lake Formation,L-9F3EFFAB,Number of lf tag policy per principal per resource type,The maximum number of lf tag policy per principal per resource type,50,None,true,false
+lakeformation,AWS Lake Formation,L-B0A837CA,Number of registered paths,The maximum number of registered paths per catalog.,10000,None,true,false
+lakeformation,AWS Lake Formation,L-1343AC0E,Number of subfolders in an Amazon S3 path,The maximum number of subfolders in an Amazon S3 path per catalog.,20,None,true,false
+lakeformation,AWS Lake Formation,L-47097528,Number of tag values per lf tag,The maximum number of tag values per lf tag.,1000,None,true,false

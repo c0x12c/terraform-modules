@@ -62,6 +62,7 @@
   "terraform-aws-secret-manager": "0.2.0",
   "terraform-aws-security-group": "0.1.58",
   "terraform-aws-sendgrid": "0.2.0",
+  "terraform-aws-service-quota": "0.0.0",
   "terraform-aws-ses": "1.0.0",
   "terraform-aws-ses-monitoring": "1.0.0",
   "terraform-aws-sns": "0.1.44",

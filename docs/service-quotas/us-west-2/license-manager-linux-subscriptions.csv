@@ -1,0 +1,2 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+license-manager-linux-subscriptions,AWS License Manager Linux Subscriptions,L-5373D1AB,Number of discovered resources,The total number of resources (EC2 instances) that can be discovered and displayed.,5000,None,false,false

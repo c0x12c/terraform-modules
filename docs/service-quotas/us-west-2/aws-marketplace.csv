@@ -1,0 +1,10 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+aws-marketplace,AWS Marketplace,L-5706DECE,[AWS Marketplace Discovery] GetListing throttle quota,The maximum number of GetListing requests that you can make per second per account.,5,None,false,false
+aws-marketplace,AWS Marketplace,L-CD4DC1E4,[AWS Marketplace Discovery] GetOffer throttle quota,The maximum number of GetOffer requests that you can make per second per account.,5,None,false,false
+aws-marketplace,AWS Marketplace,L-9ED59CF3,[AWS Marketplace Discovery] GetOfferSet throttle quota,The maximum number of GetOfferSet requests that you can make per second per account.,5,None,false,false
+aws-marketplace,AWS Marketplace,L-04FCBB30,[AWS Marketplace Discovery] GetOfferTerms throttle quota,The maximum number of GetOfferTerms requests that you can make per second per account.,5,None,false,false
+aws-marketplace,AWS Marketplace,L-68F80CEA,[AWS Marketplace Discovery] GetProduct throttle quota,The maximum number of GetProduct requests that you can make per second per account.,5,None,false,false
+aws-marketplace,AWS Marketplace,L-DF8B8977,[AWS Marketplace Discovery] ListFulfillmentOptions throttle quota,The maximum number of ListFulfillmentOptions requests that you can make per second per account.,5,None,false,false
+aws-marketplace,AWS Marketplace,L-472C3436,[AWS Marketplace Discovery] ListPurchaseOptions throttle quota,The maximum number of ListPurchaseOptions requests that you can make per second per account.,5,None,false,false
+aws-marketplace,AWS Marketplace,L-164CB5C5,[AWS Marketplace Discovery] SearchFacets throttle quota,The maximum number of SearchFacets requests that you can make per second per account.,10,None,false,false
+aws-marketplace,AWS Marketplace,L-96311249,[AWS Marketplace Discovery] SearchListings throttle quota,The maximum number of SearchListings requests that you can make per second per account.,10,None,false,false

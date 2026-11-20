@@ -1,0 +1,29 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+rds,Amazon Relational Database Service (Amazon RDS),L-AA8B1026,Authorizations per DB security group,Number of security group authorizations per DB security group,20,None,false,false
+rds,Amazon Relational Database Service (Amazon RDS),L-9372BAB3,Custom endpoints per DB cluster,The maximum number of custom endpoints that you can create per Aurora DB cluster in this account in the current Region. This value reflects the highest number of custom endpoints in a DB cluster in the account. Other DB clusters in the account might have a lower number of custom endpoints.,5,None,true,false
+rds,Amazon Relational Database Service (Amazon RDS),L-A399AC0B,Custom engine versions,The maximum number of custom engine versions allowed in this account in the current Region,40,None,true,false
+rds,Amazon Relational Database Service (Amazon RDS),L-D87A28C7,Data API HTTP request body size,The maximum size allowed for the HTTP request body.,4,Megabytes,false,false
+rds,Amazon Relational Database Service (Amazon RDS),L-E3721453,Data API maximum concurrent cluster-secret pairs,The maximum number of unique pairs of Aurora Serverless v1 DB clusters and secrets in concurrent Data API requests for this account in the current AWS Region.,30,None,false,false
+rds,Amazon Relational Database Service (Amazon RDS),L-E79969BF,Data API maximum concurrent requests,The maximum number of Data API requests to an Aurora Serverless v1 DB cluster that use the same secret and can be processed at the same time. Additional requests are queued and processed as in-process requests complete.,500,None,false,false
+rds,Amazon Relational Database Service (Amazon RDS),L-BDB2F348,Data API maximum result set size,The maximum size of the database result set that can be returned by the Data API.,1,Megabytes,false,false
+rds,Amazon Relational Database Service (Amazon RDS),L-C0506D15,Data API maximum size of JSON response string,The maximum size of the simplified JSON response string returned by the RDS Data API.,10,Megabytes,false,false
+rds,Amazon Relational Database Service (Amazon RDS),L-ECDFB241,Data API requests per second,The maximum number of requests to the Data API per second allowed for this account in the current AWS Region. This quota only applies to Amazon Aurora Serverless v1 clusters.,1000,None,false,false
+rds,Amazon Relational Database Service (Amazon RDS),L-E4C808A8,DB cluster parameter groups,The maximum number of DB cluster parameter groups,50,None,true,false
+rds,Amazon Relational Database Service (Amazon RDS),L-952B80B8,DB clusters,The maximum number of Aurora clusters allowed in this account in the current Region,40,None,true,false
+rds,Amazon Relational Database Service (Amazon RDS),L-7B6409FD,DB instances,The maximum number of DB instances allowed in this account in the current Region,40,None,true,false
+rds,Amazon Relational Database Service (Amazon RDS),L-75AC651F,DB shard groups,The maximum number of DB shard groups for Aurora Limitless Database in this account in the current Region,5,None,true,false
+rds,Amazon Relational Database Service (Amazon RDS),L-48C6BF61,DB subnet groups,The maximum number of DB subnet groups,50,None,true,false
+rds,Amazon Relational Database Service (Amazon RDS),L-A59F4C87,Event subscriptions,The maximum number of event subscriptions,20,None,true,false
+rds,Amazon Relational Database Service (Amazon RDS),L-E094F43D,IAM roles per DB cluster,The maximum number of IAM roles associated with a DB cluster,5,None,true,false
+rds,Amazon Relational Database Service (Amazon RDS),L-DD2301CA,IAM roles per DB instance,The maximum number of IAM roles associated with a DB instance,5,None,true,false
+rds,Amazon Relational Database Service (Amazon RDS),L-CB9BE6F8,Integrations,The maximum number of integrations allowed in this account in the current AWS Region,100,None,false,false
+rds,Amazon Relational Database Service (Amazon RDS),L-9B510759,Manual DB cluster snapshots,The maximum number of manual DB cluster snapshots,100,None,true,false
+rds,Amazon Relational Database Service (Amazon RDS),L-272F1212,Manual DB instance snapshots,The maximum number of manual DB instance snapshots,100,None,true,false
+rds,Amazon Relational Database Service (Amazon RDS),L-9FA33840,Option groups,The maximum number of option groups,20,None,true,false
+rds,Amazon Relational Database Service (Amazon RDS),L-DE55804A,Parameter groups,The maximum number of parameter groups,50,None,true,false
+rds,Amazon Relational Database Service (Amazon RDS),L-D94C7EA3,Proxies,The maximum number of proxies allowed in this account in the current AWS Region,20,None,true,false
+rds,Amazon Relational Database Service (Amazon RDS),L-5BC124EF,Read replicas per primary,The maximum number of read replicas per primary DB instance. This quota can't be adjusted for Amazon Aurora.,15,None,true,false
+rds,Amazon Relational Database Service (Amazon RDS),L-78E853F4,Reserved DB instances,The maximum number of reserved DB instances allowed in this account in the current AWS Region,40,None,true,false
+rds,Amazon Relational Database Service (Amazon RDS),L-732153D0,Security groups,The maximum number of DB security groups,25,None,true,false
+rds,Amazon Relational Database Service (Amazon RDS),L-6F3ACC36,Subnets per DB subnet group,The maximum number of subnets per DB subnet group,20,None,false,false
+rds,Amazon Relational Database Service (Amazon RDS),L-7ADDB58A,Total storage for all DB instances,"The maximum total storage (in GB) on EBS volumes for all Amazon RDS DB instances added together. This quota does not apply to Amazon Aurora, which has a maximum cluster volume of 128 TiB for each DB cluster.",100000,None,true,false

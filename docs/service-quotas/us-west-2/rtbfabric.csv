@@ -1,0 +1,13 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+rtbfabric,RTB Fabric,L-0D7BE865,Availability zones per gateway,The maximum number of availability zones that can be configured per gateway.,1,Count,true,false
+rtbfabric,RTB Fabric,L-7A1DE2E7,Certificate associations per gateway,The maximum number of certificate associations that can be configured per gateway.,5,Count,true,false
+rtbfabric,RTB Fabric,L-BF687DC1,External inbound links per gateway,The maximum number of inbound external links that can be created from a single gateway.,2,Count,true,false
+rtbfabric,RTB Fabric,L-E93A25F4,External inbound links supported,Indicates whether gateways can be configured with inbound external links (Supported values: 0 or 1).,0,Count,true,false
+rtbfabric,RTB Fabric,L-24DB5098,External outbound links per gateway,The maximum number of outbound external links that can be created from a single gateway.,2,Count,true,false
+rtbfabric,RTB Fabric,L-6149EBBA,External outbound links supported,Indicates whether gateways can be configured with outbound external links (Supported values: 0 or 1).,0,Count,true,false
+rtbfabric,RTB Fabric,L-76B04EF7,Links per gateway,The maximum number of links that can be created from a single gateway.,2,Count,true,false
+rtbfabric,RTB Fabric,L-010B9A72,Modules per flow,The maximum number of modules that can be configured in a single flow.,2,Count,true,false
+rtbfabric,RTB Fabric,L-A6B8AC62,Number of gateways,The maximum number of requester and responder gateways combined that can be created in each supported AWS Region.,2,Count,true,false
+rtbfabric,RTB Fabric,L-E0D1ECDF,Routing rules per link,The maximum number of routing rules that can be configured per link.,10,Count,true,false
+rtbfabric,RTB Fabric,L-4CB472F0,Transactions per second (TPS) per inbound or outbound external link,The maximum number of transactions per second that can be processed through an inbound or outbound external link.,1000,Count,true,false
+rtbfabric,RTB Fabric,L-93F89653,Transactions per second (TPS) per link,The maximum number of transactions per second that can be processed through a single link.,1000,Count,true,false

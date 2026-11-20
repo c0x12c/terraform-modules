@@ -1,0 +1,5 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+migrationhubstrategy,Migration Hub Strategy Recommendations,L-A80C6746,Active Assessment Maximum,The maximum number of concurrent active assessments,1,None,true,false
+migrationhubstrategy,Migration Hub Strategy Recommendations,L-33C4B34A,Active Import Maximum,The maximum number of concurrent active import tasks,5,None,true,false
+migrationhubstrategy,Migration Hub Strategy Recommendations,L-7571197D,Assessment Maximum,The maximum number of assessments per AWS account,50,None,true,false
+migrationhubstrategy,Migration Hub Strategy Recommendations,L-649F667C,Maximum Server per Assessment,The maximum number of servers per assessment,300,None,true,false

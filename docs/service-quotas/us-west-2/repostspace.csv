@@ -1,0 +1,26 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+repostspace,AWS re:Post Private,L-5DF45BC4,Free private re:Post size,The maximum size (in GB) of a free private re:Post.,10,Gigabytes,false,false
+repostspace,AWS re:Post Private,L-4A83A41F,Number of private re:Posts,The maximum number of private re:Posts in this account in the current Region.,3,None,false,false
+repostspace,AWS re:Post Private,L-4311E6E0,Rate of CreateSpace API requests,The maximum number of CreateSpace calls that you can make per second.,1,None,false,false
+repostspace,AWS re:Post Private,L-8AAF8EA2,Rate of DeleteSpace API requests,The maximum number of DeleteSpace calls that you can make per second.,1,None,false,false
+repostspace,AWS re:Post Private,L-AA78BA51,Rate of DeregisterAdmin API requests,The maximum number of DeregisterAdmin calls that you can make per second.,100,None,false,false
+repostspace,AWS re:Post Private,L-E494DB7F,Rate of GetSpace API requests,The maximum number of GetSpace calls that you can make per second.,10,None,false,false
+repostspace,AWS re:Post Private,L-E9789367,Rate of ListSpaces API requests,The maximum number of ListSpaces calls that you can make per second.,10,None,false,false
+repostspace,AWS re:Post Private,L-95EAC37F,Rate of ListTagsForResource API requests,The maximum number of ListTagsForResource calls that you can make per second.,10,None,false,false
+repostspace,AWS re:Post Private,L-5DA8E4B2,Rate of RegisterAdmin API requests,The maximum number of RegisterAdmin calls that you can make per second.,100,None,false,false
+repostspace,AWS re:Post Private,L-A3894671,Rate of SendInvites API requests,The maximum number of SendInvites calls that you can make per second.,1,None,false,false
+repostspace,AWS re:Post Private,L-6E628E2D,Rate of TagResource API requests,The maximum number of TagResource calls that you can make per second.,10,None,false,false
+repostspace,AWS re:Post Private,L-F6573C98,Rate of UntagResource API requests,The maximum number of UntagResource calls that you can make per second.,10,None,false,false
+repostspace,AWS re:Post Private,L-99CE318E,Rate of UpdateSpace API requests,The maximum number of UpdateSpace calls that you can make per second.,10,None,false,false
+repostspace,AWS re:Post Private,L-185C3A35,Standard private re:Post size,The maximum size (in GB) of a standard private re:Post.,100,Gigabytes,false,false
+repostspace,AWS re:Post Private,L-E68D3B02,Token refill rate for CreateSpace API requests,CreateSpace throttle token refill rate per second.,1,None,false,false
+repostspace,AWS re:Post Private,L-5CA43569,Token refill rate for DeleteSpace API requests,DeleteSpace throttle token refill rate per second.,1,None,false,false
+repostspace,AWS re:Post Private,L-173CE406,Token refill rate for DeregisterAdmin API requests,DeregisterAdmin throttle token refill rate per second.,10,None,false,false
+repostspace,AWS re:Post Private,L-E307E23A,Token refill rate for GetSpace API requests,GetSpace throttle token refill rate per second.,10,None,false,false
+repostspace,AWS re:Post Private,L-48DDB811,Token refill rate for ListSpaces API requests,ListSpaces throttle token refill rate per second.,10,None,false,false
+repostspace,AWS re:Post Private,L-0E12E984,Token refill rate for ListTagsForResource API requests,ListTagsForResource throttle token refill rate per second.,10,None,false,false
+repostspace,AWS re:Post Private,L-D8E09F48,Token refill rate for RegisterAdmin API requests,RegisterAdmin throttle token refill rate per second.,10,None,false,false
+repostspace,AWS re:Post Private,L-0B22FBC9,Token refill rate for SendInvites API requests,SendInvites throttle token refill rate per second.,1,None,false,false
+repostspace,AWS re:Post Private,L-69C945E4,Token refill rate for TagResource API requests,TagResource throttle token refill rate per second.,10,None,false,false
+repostspace,AWS re:Post Private,L-720B7455,Token refill rate for UntagResource API requests,UntagResource throttle token refill rate per second.,10,None,false,false
+repostspace,AWS re:Post Private,L-291A9E46,Token refill rate for UpdateSpace API requests,UpdateSpace throttle token refill rate per second.,10,None,false,false

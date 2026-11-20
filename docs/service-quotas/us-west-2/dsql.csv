@@ -1,0 +1,5 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+dsql,Amazon Aurora DSQL,L-9A50E9F1,Cluster size,The maximum capacity (in GB) for an Aurora DSQL cluster. This quota applies to both single-Region and multi-Region clusters.,10000,Gigabytes,true,false
+dsql,Amazon Aurora DSQL,L-AA07A0EE,Connections per cluster,The maximum number of active connections per cluster that you can have in this account in the current Region.,10000,None,true,false
+dsql,Amazon Aurora DSQL,L-DCF93F11,Multi-Region clusters,The maximum number of multi region clusters allowed per account.,5,None,true,false
+dsql,Amazon Aurora DSQL,L-B3A4E51E,Single-Region clusters,The maximum number of active clusters allowed per account in a given region.,20,None,true,false

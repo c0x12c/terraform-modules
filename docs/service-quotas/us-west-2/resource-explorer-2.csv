@@ -1,0 +1,3 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+resource-explorer-2,AWS Resource Explorer,L-0C73063D,Search TPS quota,The maximum number of search calls you can make per second in each AWS Region of an account.,5,None,false,false
+resource-explorer-2,AWS Resource Explorer,L-AE5C2578,Views,The maximum number of views that you can create in each AWS Region in an account.,10,None,false,false

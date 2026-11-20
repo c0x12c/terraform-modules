@@ -1,0 +1,25 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+robomaker,AWS RoboMaker,L-0DED0FF4,Batch timeout,The maximum timeout in days for a simulation job batch,14,None,false,false
+robomaker,AWS RoboMaker,L-15E423AD,Concurrent deployment jobs,The maximum number of concurrent deployment jobs you can run in this account in the current Region.,20,None,true,false
+robomaker,AWS RoboMaker,L-61591119,Concurrent GPU simulation jobs,The maximum number of concurrent GPU simulation jobs you can run in this account in the current Region.,1,None,true,false
+robomaker,AWS RoboMaker,L-6CFB8C09,Concurrent simulation job batches,The maximum number of concurrent simulation job batches you can run in this account in the current Region.,5,None,true,false
+robomaker,AWS RoboMaker,L-FE0C173F,Concurrent simulation jobs,The maximum number of concurrent simulation jobs you can run in this account in the current Region.,1,None,true,false
+robomaker,AWS RoboMaker,L-B47404F4,Concurrent World Export Jobs,The maximum number of concurrent world export jobs that you can run in this account in this region.,3,None,true,false
+robomaker,AWS RoboMaker,L-7651BB34,Concurrent World Generation Jobs,The maximum number of concurrent world generation jobs that you can run in this account in this region.,3,None,true,false
+robomaker,AWS RoboMaker,L-19B1F5F2,Fleets,The maximum number of fleets you can create in this account in the current Region.,20,None,true,false
+robomaker,AWS RoboMaker,L-99FBC089,GPU Simulation Job Creation Rate Per Minute,The maximum number of GPU simulation job you can create in this account in the current Region per minute.,2,None,false,false
+robomaker,AWS RoboMaker,L-925F020F,Minimum batch timeout,The minimum timeout in minutes that you can specify for a simulation job batch.,5,None,false,false
+robomaker,AWS RoboMaker,L-CEB47779,Minimum simulation duration,The minimum duration in minutes that you can specify for a simulation job.,5,None,false,false
+robomaker,AWS RoboMaker,L-E5D0EA7D,Robot applications,The maximum number of robot applications you can create in this account in the current Region.,40,None,true,false
+robomaker,AWS RoboMaker,L-40FACCBF,Robots,The maximum number of robots you can create in this account in the current Region.,100,None,true,false
+robomaker,AWS RoboMaker,L-275E9052,Robots per fleet,The maximum number of robots you can register to a fleet.,100,None,true,false
+robomaker,AWS RoboMaker,L-D6554FB1,Simulation applications,The maximum number of simulation applications you can create in this account in the current Region.,40,None,true,false
+robomaker,AWS RoboMaker,L-7E2BA58F,Simulation duration,The maximum duration in days that a simulation job can run for including restarts.,14,None,false,false
+robomaker,AWS RoboMaker,L-04ECBB71,Simulation Job Creation Rate Per Minute,The maximum number of simulation job you can create in this account in the current Region per minute.,10,None,false,false
+robomaker,AWS RoboMaker,L-949954FD,Simulation job requests per batch,The maximum number of simulation job requests that can be submitted in a StartSimulationJobBatch call,20,None,true,false
+robomaker,AWS RoboMaker,L-3CD5069F,Source size,The maximum size (in GB) for any source of robot application or simulation application.,5,Gigabytes,false,false
+robomaker,AWS RoboMaker,L-AE5043DD,Versions per robot application,The maximum number of versions you can create for a Robot Application.,40,None,true,false
+robomaker,AWS RoboMaker,L-4D288B5C,Versions per simulation application,The maximum number of versions you can create for a Simulation Application.,40,None,true,false
+robomaker,AWS RoboMaker,L-C2C8236B,World Templates Per Account,The maximum number of world templates that you can create in this account in this region.,40,None,true,false
+robomaker,AWS RoboMaker,L-D5AF2EE5,Worlds Per Export Job,The maximum number of worlds in a world export job request.,1,None,false,false
+robomaker,AWS RoboMaker,L-335D1CF0,Worlds Per Generation Job,The maximum number of worlds in a world generation job request.,50,None,false,false

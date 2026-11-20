@@ -1,0 +1,56 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+quicksight,Amazon QuickSight,L-681A9699,Amazon Quick Automate Maximum Automation Groups,Maximum number of Automation Groups allowed per account in Amazon Quick Automate,200,None,true,false
+quicksight,Amazon QuickSight,L-5FE00BED,Amazon Quick Automate Maximum Automations,Maximum number of Automations allowed across all Automation Groups in Amazon Quick Automate,1000,None,true,false
+quicksight,Amazon QuickSight,L-027ECCA8,Amazon Quick Automate Maximum Concurrent Executions per Trigger,Maximum number of concurrent executions per trigger in Amazon Quick Automate,20,None,false,false
+quicksight,Amazon QuickSight,L-264703A8,Amazon Quick Automate Maximum Concurrent Tests and Deployed Executions,Maximum number of concurrent tests and executions per account in Amazon Quick Automate,100,None,true,false
+quicksight,Amazon QuickSight,L-29203CBA,Amazon Quick Automate Maximum Credentials,Maximum number of credentials allowed across all Automation Groups in Amazon Quick Automate,200,None,true,false
+quicksight,Amazon QuickSight,L-12A1F6CA,Amazon Quick Automate Maximum Nesting Depth,Maximum nesting depth allowed in an automation in Amazon Quick Automate,6,None,false,false
+quicksight,Amazon QuickSight,L-BFCA054D,Amazon Quick Automate Maximum Triggers per Automation,Maximum number of triggers allowed per automation in Amazon Quick Automate,30,None,false,false
+quicksight,Amazon QuickSight,L-84253D38,Amazon Quick Automate Maximum Workflow Execution Time,Maximum workflow execution time in hours in Amazon Quick Automate,48,None,false,false
+quicksight,Amazon QuickSight,L-E3375426,API_CREATE-INGESTION: Calls per 24 hour period from Enterprise edition,The maximum number of calls to the createIngestion API function in a floating 24-hour window. The time period is measured starting 24 hours before the current date and time. This maximum applies to AWS accounts that use Amazon QuickSight Enterprise edition.,32,None,false,false
+quicksight,Amazon QuickSight,L-01C190BD,API_CREATE-INGESTION: Calls per 24 hour period from Standard edition,The maximum number of calls to the createIngestion API function in a floating 24-hour window. The time period is measured starting 24 hours before the current date and time. This maximum applies to AWS accounts that use Amazon QuickSight Standard edition.,8,None,false,false
+quicksight,Amazon QuickSight,L-AECE65ED,Calculated field expression length,The maximum number of characters that you can use in an expression for a calculated field.,250000,None,false,false
+quicksight,Amazon QuickSight,L-A9D3C3EF,Conversation history retention in days,The number of days conversation history is retained before deletion.,365,None,false,false
+quicksight,Amazon QuickSight,L-B8F293B6,Custom action name length,The maximum number of characters that you can use in naming a custom action.,256,None,false,false
+quicksight,Amazon QuickSight,L-E43AEF3C,Custom actions per visual,The maximum number of custom actions that you can configure for each visual in an analysis.,10,None,false,false
+quicksight,Amazon QuickSight,L-90F283DF,Custom agent artifact retention in days,The number of days custom agent artifacts are retained before deletion.,365,None,false,false
+quicksight,Amazon QuickSight,L-C2064901,Data Prep: Fields per dataset,"The maximum number of fields that a dataset can contain. File imports and query result sets can contain more than 2,000 columns. However, you must edit the dataset settings and manually exclude fields until there are less than 2,000 selected or included.",2000,None,false,false
+quicksight,Amazon QuickSight,L-E9E486C4,Display items per sheet control,The maximum number of distinct items that a sheet control can display.,1000,None,false,false
+quicksight,Amazon QuickSight,L-BF25D425,Email aliases per group for email reports,"The maximum number of members in any group that QuickSight sends email reports to. If you try to send reports to larger groups, the report fails.",5000,None,false,false
+quicksight,Amazon QuickSight,L-CD5C557E,In-folder conversation history retention in days,The number of days conversation history in a folder is retained before deletion.,750,None,false,false
+quicksight,Amazon QuickSight,L-FF353768,Maximum active sessions per user,The maximum number of concurrent active sessions a user can have.,3,None,false,false
+quicksight,Amazon QuickSight,L-04458D9F,Maximum applicable groups per approval policy,The maximum number of group ARNs that can be specified in an approval policy's ApplicableTo configuration (the groups the policy applies to).,5,None,true,false
+quicksight,Amazon QuickSight,L-61EC97DA,Maximum approver groups per approval policy,The maximum number of approver group ARNs that can be specified in an approval policy's ApprovalGroups configuration (the groups that can approve requests).,5,None,true,false
+quicksight,Amazon QuickSight,L-C656FCEB,Maximum artifact file size,The maximum size in megabytes (MBs) of a single artifact stored in personal space.,500,Megabytes,false,false
+quicksight,Amazon QuickSight,L-8E3914EF,Maximum concurrent runs per user,The maximum number of active conversations with concurrent runs a user can have.,30,None,false,false
+quicksight,Amazon QuickSight,L-1389E97F,Maximum concurrent tool executions,The maximum number of tool executions that can run concurrently within a conversation.,20,None,false,false
+quicksight,Amazon QuickSight,L-8926DD84,Maximum custom agent files size,The maximum total size in gigabytes (GBs) of files associated with a custom agent.,1,Gigabytes,false,false
+quicksight,Amazon QuickSight,L-FDFAC9CF,Maximum custom agent instruction length,The maximum number of characters allowed in a custom agent instruction.,50000,None,false,false
+quicksight,Amazon QuickSight,L-1BEE4AC3,Maximum file attachment size,The maximum size in megabytes (MBs) of a single file attachment.,50,Megabytes,false,false
+quicksight,Amazon QuickSight,L-ABC72C19,Maximum installed and draft custom agents,The maximum combined number of installed and draft custom agents a user can have.,100,None,false,false
+quicksight,Amazon QuickSight,L-E653EE50,Maximum installed connectors,The maximum number of connectors (A2A and MCP) a user can have installed.,100,None,false,false
+quicksight,Amazon QuickSight,L-EDBA0E22,Maximum memory and knowledge graph size,The maximum combined size in gigabytes (GBs) of memory and knowledge graph data per user.,2,Gigabytes,false,false
+quicksight,Amazon QuickSight,L-D75C2D48,Maximum number of approval policies per account,The maximum number of approval policies that can be created in a single account across all asset types.,500,None,true,false
+quicksight,Amazon QuickSight,L-8D8B7044,Maximum number of approval policies per asset type,"The maximum number of approval policies per asset type (for example, KNOWLEDGE_BASE) within a single account.",100,None,true,false
+quicksight,Amazon QuickSight,L-843701D0,Maximum number of characters per specified Control values,The maximum number of characters used in the entries that you type in to display inside sheet controls. An example is the values specified for a dropdown. This doesn't apply to values created from a dataset.,200000,None,false,false
+quicksight,Amazon QuickSight,L-226BD4AC,Maximum number of reference documents per chat agent,The maximum number of reference documents that can be attached to a chat agent.,10,None,false,false
+quicksight,Amazon QuickSight,L-9715A85D,Maximum number of resources per chat agent,The maximum number of resources that can be associated with a chat agent.,20,None,false,false
+quicksight,Amazon QuickSight,L-39A09B2E,Maximum number of resources per space,The maximum number of resources that can be linked to a space.,100,None,false,false
+quicksight,Amazon QuickSight,L-C2A32E06,Maximum number of uploaded files per space,The maximum number of files that can be uploaded to a space.,10000,None,false,false
+quicksight,Amazon QuickSight,L-EFC4F96E,Maximum reference file size,The maximum size in megabytes (MBs) of a single reference file.,50,Megabytes,false,false
+quicksight,Amazon QuickSight,L-2DDEAF8B,Maximum scheduled task instruction length,The maximum number of characters allowed in a scheduled task instruction.,50000,None,false,false
+quicksight,Amazon QuickSight,L-2B1372DD,Maximum scheduled tasks per user,The maximum number of scheduled tasks a user can create across all triggers.,20,None,false,false
+quicksight,Amazon QuickSight,L-F73CB479,Maximum skill size,The maximum size in megabytes (MBs) of a single skill bundle.,6,Megabytes,false,false
+quicksight,Amazon QuickSight,L-301B9742,Maximum skills per user,The maximum number of skills a user can create.,1000,None,false,false
+quicksight,Amazon QuickSight,L-CD711E4F,Maximum total artifact storage per user,The maximum total size in megabytes (MBs) of all artifacts stored in a user's personal space.,51200,Megabytes,false,false
+quicksight,Amazon QuickSight,L-2EDD261C,Maximum total data capacity of an index,The maximum total data capacity in megabytes (MBs) of an index.,60000,Megabytes,false,false
+quicksight,Amazon QuickSight,L-26532294,Maximum total size of attached reference documents per chat agent,The maximum size in megabytes (MBs) of all reference documents attached to a chat agent.,50,Megabytes,false,false
+quicksight,Amazon QuickSight,L-4A8A5E70,Maximum total size of uploaded files per space,The maximum size in gigabytes (GBs) of all files uploaded to a space.,1,Gigabytes,false,false
+quicksight,Amazon QuickSight,L-27D7CA37,Minimum schedule interval in minutes,"The minimum interval, in minutes, allowed between scheduled task runs.",15,None,false,false
+quicksight,Amazon QuickSight,L-197D9B71,Pinned and in-folder conversation history retention in days,The number of days conversation history that is both pinned and in a folder is retained before deletion.,750,None,false,false
+quicksight,Amazon QuickSight,L-B84575B1,Pinned conversation history retention in days,The number of days pinned conversation history is retained before deletion.,750,None,false,false
+quicksight,Amazon QuickSight,L-F1EA8033,Query timeout for visuals,The maximum amount of time that QuickSight waits for a database to finish sending data. This applies to queries initiated by visuals.,120,Seconds,false,false
+quicksight,Amazon QuickSight,L-7DB5CFE0,Scheduled task history retention in days,The number of days scheduled task run history is retained.,365,None,false,false
+quicksight,Amazon QuickSight,L-3B893AF4,Session approval expiry in hours,The number of hours before a session approval expires and must be renewed.,12,None,false,false
+quicksight,Amazon QuickSight,L-92D2E884,The maximum amount of time to wait for a dataset preview,The maximum amount of time that QuickSight waits for a data preview to finish loading.,45,Seconds,false,false
+quicksight,Amazon QuickSight,L-C1F9B371,URL action hyperlink length,The maximum number of characters allowed in the hyperlink (URL) of a custom action that's defined as a URL action. This includes all variations of the link for the different parameters you include.,2048,None,false,false

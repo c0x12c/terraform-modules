@@ -1,0 +1,4 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+kafkaconnect,Managed Streaming for Kafka Connect,L-C78B0952,Maximum connect workers,"The maximum number of connect workers per Region. If a connector has auto-scaling turned on, the maximum number of workers configured counts towards quota usage instead of the number of connect workers in use at a given time.",60,None,true,false
+kafkaconnect,Managed Streaming for Kafka Connect,L-F71212B3,Maximum custom plugins,The maximum number of custom plugins per Region that you can create.,100,None,true,false
+kafkaconnect,Managed Streaming for Kafka Connect,L-5BED8C47,Maximum worker configurations,The maximum number of worker configurations per Region that you can create.,100,None,true,false

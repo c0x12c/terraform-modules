@@ -1,0 +1,10 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+access-analyzer,Access Analyzer,L-8750DAE0,Access previews per analyzer per hour,The maximum number of access previews per analyzer per hour.,1000,None,true,false
+access-analyzer,Access Analyzer,L-2F63646F,Account level analyzer,The maximum number of account level analyzers that can be created per analyzer type per AWS Account per Region.,1,None,false,false
+access-analyzer,Access Analyzer,L-1E51937C,Archive rules per analyzer,The maximum number of archive rules per analyzer.,100,None,true,false
+access-analyzer,Access Analyzer,L-5EFCE71D,CloudTrail log files processed per policy generation,The maximum number of CloudTrail log files that can be processed per policy generation.,100000,None,false,false
+access-analyzer,Access Analyzer,L-4599575C,Concurrent policy generations,The maximum number of concurrent policy generations.,1,None,false,false
+access-analyzer,Access Analyzer,L-6F85FE0C,Organization level analyzer,The maximum number of organization level analyzers that can be created per analyzer type per AWS Account per Region.,5,None,true,false
+access-analyzer,Access Analyzer,L-94099EDD,Policy generation CloudTrail data size,The maximum size of CloudTrail data per policy generation.,25,Gigabytes,false,false
+access-analyzer,Access Analyzer,L-96F55078,Policy generation CloudTrail time range,The maximum CloudTrail time range that you can select in days when you generate a policy.,90,None,false,false
+access-analyzer,Access Analyzer,L-FD4CD927,Policy generations per day,The maximum number of policy generations per day.,50,None,false,false

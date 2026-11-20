@@ -1,0 +1,11 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+route53-recovery-readiness,Amazon Route 53 Recovery Readiness,L-FEDCA8B6,Cells per AWS account,The maximum number of cells for each AWS account.,15,None,false,false
+route53-recovery-readiness,Amazon Route 53 Recovery Readiness,L-FB7051CD,Cells per recovery group,The maximum number of cells for each recovery group.,3,None,false,false
+route53-recovery-readiness,Amazon Route 53 Recovery Readiness,L-88CE31D1,Cross-account authorizations per AWS account,The maximum number of cross-account authorizations for each AWS account.,100,None,false,false
+route53-recovery-readiness,Amazon Route 53 Recovery Readiness,L-496F19A3,Nested cells per cell,The maximum number of nested cells for each cell.,3,None,false,false
+route53-recovery-readiness,Amazon Route 53 Recovery Readiness,L-B8C69D95,Readiness checks per AWS account,The maximum number of readiness checks for each AWS account.,200,None,false,false
+route53-recovery-readiness,Amazon Route 53 Recovery Readiness,L-175734E1,Recovery groups per AWS account,The maximum number of recovery groups for each AWS account.,5,None,false,false
+route53-recovery-readiness,Amazon Route 53 Recovery Readiness,L-18E5E167,Resource sets per AWS account,The maximum number of resource sets for each AWS account.,200,None,false,false
+route53-recovery-readiness,Amazon Route 53 Recovery Readiness,L-FC779B5B,Resources per cell,The maximum number of resources for each cell.,10,None,false,false
+route53-recovery-readiness,Amazon Route 53 Recovery Readiness,L-5102E28C,Resources per recovery group,The maximum number of resources for each recovery group.,10,None,false,false
+route53-recovery-readiness,Amazon Route 53 Recovery Readiness,L-155837CB,Resources per resource set,The maximum number of resources for each resource set.,6,None,false,false

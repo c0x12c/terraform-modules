@@ -1,0 +1,327 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+datazone,Amazon DataZone,L-9EF33583,Asset Types,The maximum number of asset types that can be created in an Amazon DataZone domain.,1000,None,true,false
+datazone,Amazon DataZone,L-06335BC6,Assets,The maximum number of assets that can be created in an Amazon DataZone domain.,1000000,None,true,false
+datazone,Amazon DataZone,L-DBBF7161,Business Glossary Terms,The maximum number of business glossary terms that can be created in an Amazon DataZone domain.,10000,None,true,false
+datazone,Amazon DataZone,L-BA2CE78A,Data Products,The maximum number of data products that can be created in an Amazon DataZone domain.,500000,None,true,false
+datazone,Amazon DataZone,L-7EC59F3E,Data source runs/data source/day,The maximum data source runs per data source per day.,25,None,true,false
+datazone,Amazon DataZone,L-EDF6298B,Environments in a domain,The maximum number of Amazon DataZone environments in an Amazon DataZone domain.,1000,None,true,false
+datazone,Amazon DataZone,L-FAD0E7F7,Git connections per project,The maximum number of connections of type GIT that can be created in a project,5,None,true,false
+datazone,Amazon DataZone,L-2C2845D2,Glossaries,The maximum number of business glossaries that can be created in an Amazon DataZone domain.,1000,None,true,false
+datazone,Amazon DataZone,L-A6E246EC,SageMaker Unified Studio agent requests per month,The maximum number of requests that can be made to the SageMaker Unified Studio agent per month.,1000,None,false,false
+datazone,Amazon DataZone,L-B890B049,SageMaker Unified Studio Compute environments running on sc.t3.large instances,SageMaker Unified Studio Compute environments running on sc.t3.large instances,5,None,true,false
+datazone,Amazon DataZone,L-B3D47A94,SageMaker Unified Studio Data Apps,The maximum number of data apps that can be created in a domain.,5000,None,true,false
+datazone,Amazon DataZone,L-707F1F84,SageMaker Unified Studio Data Apps Per Notebook,The maximum number of data apps that can be created from a single notebook.,50,None,true,false
+datazone,Amazon DataZone,L-A2EE1D3F,SageMaker Unified Studio Notebook Runs running on sc.c5.12xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c5.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-83EE0703,SageMaker Unified Studio Notebook Runs running on sc.c5.18xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c5.18xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-BA52119F,SageMaker Unified Studio Notebook Runs running on sc.c5.24xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c5.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-2B858BD2,SageMaker Unified Studio Notebook Runs running on sc.c5.2xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c5.2xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-1F0855CA,SageMaker Unified Studio Notebook Runs running on sc.c5.4xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c5.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-3D8C2C6B,SageMaker Unified Studio Notebook Runs running on sc.c5.9xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c5.9xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-9304BB41,SageMaker Unified Studio Notebook Runs running on sc.c5.large instances,SageMaker Unified Studio Notebook Runs running on sc.c5.large instances,1,None,true,false
+datazone,Amazon DataZone,L-4E2375EF,SageMaker Unified Studio Notebook Runs running on sc.c5.xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c5.xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-597F5168,SageMaker Unified Studio Notebook Runs running on sc.c6i.12xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c6i.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-0594EDCD,SageMaker Unified Studio Notebook Runs running on sc.c6i.16xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c6i.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-E151BCAC,SageMaker Unified Studio Notebook Runs running on sc.c6i.24xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c6i.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-BA17A8F9,SageMaker Unified Studio Notebook Runs running on sc.c6i.2xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c6i.2xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-99588BDC,SageMaker Unified Studio Notebook Runs running on sc.c6i.32xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c6i.32xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-61C15A6B,SageMaker Unified Studio Notebook Runs running on sc.c6i.4xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c6i.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-1889B79D,SageMaker Unified Studio Notebook Runs running on sc.c6i.8xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c6i.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-65C9CA9F,SageMaker Unified Studio Notebook Runs running on sc.c6i.large instances,SageMaker Unified Studio Notebook Runs running on sc.c6i.large instances,1,None,true,false
+datazone,Amazon DataZone,L-F0197BFE,SageMaker Unified Studio Notebook Runs running on sc.c6i.xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c6i.xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-987EFFA1,SageMaker Unified Studio Notebook Runs running on sc.c6id.12xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c6id.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-D5B66B56,SageMaker Unified Studio Notebook Runs running on sc.c6id.16xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c6id.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-F3606A5A,SageMaker Unified Studio Notebook Runs running on sc.c6id.24xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c6id.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-5479C2D1,SageMaker Unified Studio Notebook Runs running on sc.c6id.2xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c6id.2xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-322E8D6B,SageMaker Unified Studio Notebook Runs running on sc.c6id.32xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c6id.32xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-92AE3565,SageMaker Unified Studio Notebook Runs running on sc.c6id.4xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c6id.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-920561C9,SageMaker Unified Studio Notebook Runs running on sc.c6id.8xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c6id.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-B03B2250,SageMaker Unified Studio Notebook Runs running on sc.c6id.large instances,SageMaker Unified Studio Notebook Runs running on sc.c6id.large instances,1,None,true,false
+datazone,Amazon DataZone,L-5752FCFB,SageMaker Unified Studio Notebook Runs running on sc.c6id.xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c6id.xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-5220DF90,SageMaker Unified Studio Notebook Runs running on sc.c7i.12xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c7i.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-82082A03,SageMaker Unified Studio Notebook Runs running on sc.c7i.16xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c7i.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-91FDC957,SageMaker Unified Studio Notebook Runs running on sc.c7i.24xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c7i.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-27FE930C,SageMaker Unified Studio Notebook Runs running on sc.c7i.2xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c7i.2xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-B8768141,SageMaker Unified Studio Notebook Runs running on sc.c7i.48xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c7i.48xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-E1145E02,SageMaker Unified Studio Notebook Runs running on sc.c7i.4xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c7i.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-F988B219,SageMaker Unified Studio Notebook Runs running on sc.c7i.8xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c7i.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-27DBC256,SageMaker Unified Studio Notebook Runs running on sc.c7i.large instances,SageMaker Unified Studio Notebook Runs running on sc.c7i.large instances,1,None,true,false
+datazone,Amazon DataZone,L-3B345055,SageMaker Unified Studio Notebook Runs running on sc.c7i.xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.c7i.xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-4ED191CE,SageMaker Unified Studio Notebook Runs running on sc.g4dn.12xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.g4dn.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-D37052C3,SageMaker Unified Studio Notebook Runs running on sc.g4dn.16xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.g4dn.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-B2EDE077,SageMaker Unified Studio Notebook Runs running on sc.g4dn.2xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.g4dn.2xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-FE297877,SageMaker Unified Studio Notebook Runs running on sc.g4dn.4xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.g4dn.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-E9686ED2,SageMaker Unified Studio Notebook Runs running on sc.g4dn.8xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.g4dn.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-1CD3A635,SageMaker Unified Studio Notebook Runs running on sc.g4dn.xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.g4dn.xlarge instances,2,None,true,false
+datazone,Amazon DataZone,L-9A67422B,SageMaker Unified Studio Notebook Runs running on sc.g5.12xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.g5.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-60850394,SageMaker Unified Studio Notebook Runs running on sc.g5.16xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.g5.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-E36FE9B9,SageMaker Unified Studio Notebook Runs running on sc.g5.24xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.g5.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-072F5ACB,SageMaker Unified Studio Notebook Runs running on sc.g5.2xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.g5.2xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-29E5A6EF,SageMaker Unified Studio Notebook Runs running on sc.g5.48xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.g5.48xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-7A994E78,SageMaker Unified Studio Notebook Runs running on sc.g5.4xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.g5.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-094E5508,SageMaker Unified Studio Notebook Runs running on sc.g5.8xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.g5.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-A5028242,SageMaker Unified Studio Notebook Runs running on sc.g5.xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.g5.xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-A4BCBB74,SageMaker Unified Studio Notebook Runs running on sc.g6.12xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.g6.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-48E36D84,SageMaker Unified Studio Notebook Runs running on sc.g6.16xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.g6.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-769BD7FF,SageMaker Unified Studio Notebook Runs running on sc.g6.24xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.g6.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-14B550E8,SageMaker Unified Studio Notebook Runs running on sc.g6.2xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.g6.2xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-37D7C23C,SageMaker Unified Studio Notebook Runs running on sc.g6.48xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.g6.48xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-7D3ADB11,SageMaker Unified Studio Notebook Runs running on sc.g6.4xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.g6.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-8328E887,SageMaker Unified Studio Notebook Runs running on sc.g6.8xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.g6.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-2E7520FA,SageMaker Unified Studio Notebook Runs running on sc.g6.xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.g6.xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-FD971C91,SageMaker Unified Studio Notebook Runs running on sc.g6e.12xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.g6e.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-799FC0BB,SageMaker Unified Studio Notebook Runs running on sc.g6e.16xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.g6e.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-4B1F3603,SageMaker Unified Studio Notebook Runs running on sc.g6e.24xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.g6e.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-D0271C70,SageMaker Unified Studio Notebook Runs running on sc.g6e.2xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.g6e.2xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-0E89932E,SageMaker Unified Studio Notebook Runs running on sc.g6e.48xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.g6e.48xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-45D60E32,SageMaker Unified Studio Notebook Runs running on sc.g6e.4xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.g6e.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-E892FD42,SageMaker Unified Studio Notebook Runs running on sc.g6e.8xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.g6e.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-60C13DB5,SageMaker Unified Studio Notebook Runs running on sc.g6e.xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.g6e.xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-971FA405,SageMaker Unified Studio Notebook Runs running on sc.m5.12xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m5.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-3C10196E,SageMaker Unified Studio Notebook Runs running on sc.m5.16xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m5.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-5F754EF0,SageMaker Unified Studio Notebook Runs running on sc.m5.24xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m5.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-4560BFFD,SageMaker Unified Studio Notebook Runs running on sc.m5.2xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m5.2xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-F2B8CCF9,SageMaker Unified Studio Notebook Runs running on sc.m5.4xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m5.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-EB27E635,SageMaker Unified Studio Notebook Runs running on sc.m5.8xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m5.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-18655314,SageMaker Unified Studio Notebook Runs running on sc.m5.large instances,SageMaker Unified Studio Notebook Runs running on sc.m5.large instances,2,None,true,false
+datazone,Amazon DataZone,L-05CD8FC0,SageMaker Unified Studio Notebook Runs running on sc.m5.xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m5.xlarge instances,2,None,true,false
+datazone,Amazon DataZone,L-C9A69FBE,SageMaker Unified Studio Notebook Runs running on sc.m5d.12xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m5d.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-EE16CD09,SageMaker Unified Studio Notebook Runs running on sc.m5d.16xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m5d.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-B6B53255,SageMaker Unified Studio Notebook Runs running on sc.m5d.24xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m5d.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-545B793C,SageMaker Unified Studio Notebook Runs running on sc.m5d.2xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m5d.2xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-B2BF340C,SageMaker Unified Studio Notebook Runs running on sc.m5d.4xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m5d.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-EF45D3E9,SageMaker Unified Studio Notebook Runs running on sc.m5d.8xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m5d.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-B79A8212,SageMaker Unified Studio Notebook Runs running on sc.m5d.large instances,SageMaker Unified Studio Notebook Runs running on sc.m5d.large instances,2,None,true,false
+datazone,Amazon DataZone,L-F008E935,SageMaker Unified Studio Notebook Runs running on sc.m5d.xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m5d.xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-BFCE7F95,SageMaker Unified Studio Notebook Runs running on sc.m6i.12xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m6i.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-D57244DA,SageMaker Unified Studio Notebook Runs running on sc.m6i.16xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m6i.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-269FA066,SageMaker Unified Studio Notebook Runs running on sc.m6i.24xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m6i.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-2279B1E7,SageMaker Unified Studio Notebook Runs running on sc.m6i.2xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m6i.2xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-57454FF2,SageMaker Unified Studio Notebook Runs running on sc.m6i.32xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m6i.32xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-8B620F97,SageMaker Unified Studio Notebook Runs running on sc.m6i.4xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m6i.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-63553718,SageMaker Unified Studio Notebook Runs running on sc.m6i.8xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m6i.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-DC9E45FD,SageMaker Unified Studio Notebook Runs running on sc.m6i.large instances,SageMaker Unified Studio Notebook Runs running on sc.m6i.large instances,2,None,true,false
+datazone,Amazon DataZone,L-4F555D04,SageMaker Unified Studio Notebook Runs running on sc.m6i.xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m6i.xlarge instances,2,None,true,false
+datazone,Amazon DataZone,L-88E28AA9,SageMaker Unified Studio Notebook Runs running on sc.m6id.12xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m6id.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-69E28C9E,SageMaker Unified Studio Notebook Runs running on sc.m6id.16xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m6id.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-A5C56C3D,SageMaker Unified Studio Notebook Runs running on sc.m6id.24xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m6id.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-A0B94FE4,SageMaker Unified Studio Notebook Runs running on sc.m6id.2xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m6id.2xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-96CE8E90,SageMaker Unified Studio Notebook Runs running on sc.m6id.32xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m6id.32xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-03A3E611,SageMaker Unified Studio Notebook Runs running on sc.m6id.4xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m6id.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-45FF9C2D,SageMaker Unified Studio Notebook Runs running on sc.m6id.8xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m6id.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-3CAC1F33,SageMaker Unified Studio Notebook Runs running on sc.m6id.large instances,SageMaker Unified Studio Notebook Runs running on sc.m6id.large instances,2,None,true,false
+datazone,Amazon DataZone,L-C44E65AA,SageMaker Unified Studio Notebook Runs running on sc.m6id.xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m6id.xlarge instances,2,None,true,false
+datazone,Amazon DataZone,L-6B0A3716,SageMaker Unified Studio Notebook Runs running on sc.m7i.12xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m7i.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-981542EA,SageMaker Unified Studio Notebook Runs running on sc.m7i.16xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m7i.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-119593FA,SageMaker Unified Studio Notebook Runs running on sc.m7i.24xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m7i.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-F7DDA40F,SageMaker Unified Studio Notebook Runs running on sc.m7i.2xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m7i.2xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-4FDF3EFC,SageMaker Unified Studio Notebook Runs running on sc.m7i.48xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m7i.48xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-C06BD38E,SageMaker Unified Studio Notebook Runs running on sc.m7i.4xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m7i.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-2BCD813A,SageMaker Unified Studio Notebook Runs running on sc.m7i.8xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m7i.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-341AC6E4,SageMaker Unified Studio Notebook Runs running on sc.m7i.large instances,SageMaker Unified Studio Notebook Runs running on sc.m7i.large instances,2,None,true,false
+datazone,Amazon DataZone,L-5D622935,SageMaker Unified Studio Notebook Runs running on sc.m7i.xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.m7i.xlarge instances,2,None,true,false
+datazone,Amazon DataZone,L-2B2B4885,SageMaker Unified Studio Notebook Runs running on sc.p4d.24xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.p4d.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-C8A58772,SageMaker Unified Studio Notebook Runs running on sc.p4de.24xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.p4de.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-0C0E7BF2,SageMaker Unified Studio Notebook Runs running on sc.p5.48xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.p5.48xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-A2883A47,SageMaker Unified Studio Notebook Runs running on sc.p5en.48xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.p5en.48xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-A005D504,SageMaker Unified Studio Notebook Runs running on sc.p6-b200.48xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.p6-b200.48xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-CC68FAE2,SageMaker Unified Studio Notebook Runs running on sc.r5.12xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r5.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-7B76B18E,SageMaker Unified Studio Notebook Runs running on sc.r5.16xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r5.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-FDB94E8D,SageMaker Unified Studio Notebook Runs running on sc.r5.24xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r5.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-6F7ED782,SageMaker Unified Studio Notebook Runs running on sc.r5.2xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r5.2xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-EE94FFD9,SageMaker Unified Studio Notebook Runs running on sc.r5.4xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r5.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-19B63211,SageMaker Unified Studio Notebook Runs running on sc.r5.8xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r5.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-4A4DD24B,SageMaker Unified Studio Notebook Runs running on sc.r5.large instances,SageMaker Unified Studio Notebook Runs running on sc.r5.large instances,1,None,true,false
+datazone,Amazon DataZone,L-A14B395B,SageMaker Unified Studio Notebook Runs running on sc.r5.xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r5.xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-6F8C2E83,SageMaker Unified Studio Notebook Runs running on sc.r6i.12xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r6i.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-D02CAEA3,SageMaker Unified Studio Notebook Runs running on sc.r6i.16xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r6i.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-98063CF6,SageMaker Unified Studio Notebook Runs running on sc.r6i.24xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r6i.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-93604BA1,SageMaker Unified Studio Notebook Runs running on sc.r6i.2xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r6i.2xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-7CBBF1C6,SageMaker Unified Studio Notebook Runs running on sc.r6i.32xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r6i.32xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-3F2E1385,SageMaker Unified Studio Notebook Runs running on sc.r6i.4xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r6i.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-E6A005FC,SageMaker Unified Studio Notebook Runs running on sc.r6i.8xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r6i.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-681786FF,SageMaker Unified Studio Notebook Runs running on sc.r6i.large instances,SageMaker Unified Studio Notebook Runs running on sc.r6i.large instances,1,None,true,false
+datazone,Amazon DataZone,L-B14787B1,SageMaker Unified Studio Notebook Runs running on sc.r6i.xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r6i.xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-8EF341EC,SageMaker Unified Studio Notebook Runs running on sc.r6id.12xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r6id.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-BE4485E8,SageMaker Unified Studio Notebook Runs running on sc.r6id.16xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r6id.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-4E231FBB,SageMaker Unified Studio Notebook Runs running on sc.r6id.24xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r6id.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-3BCE8EE8,SageMaker Unified Studio Notebook Runs running on sc.r6id.2xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r6id.2xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-AFCDA3C0,SageMaker Unified Studio Notebook Runs running on sc.r6id.32xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r6id.32xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-04DDDDB6,SageMaker Unified Studio Notebook Runs running on sc.r6id.4xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r6id.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-D870E557,SageMaker Unified Studio Notebook Runs running on sc.r6id.8xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r6id.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-B5332323,SageMaker Unified Studio Notebook Runs running on sc.r6id.large instances,SageMaker Unified Studio Notebook Runs running on sc.r6id.large instances,1,None,true,false
+datazone,Amazon DataZone,L-96E4B2CD,SageMaker Unified Studio Notebook Runs running on sc.r6id.xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r6id.xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-4F328FD7,SageMaker Unified Studio Notebook Runs running on sc.r7i.12xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r7i.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-1E698902,SageMaker Unified Studio Notebook Runs running on sc.r7i.16xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r7i.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-F55BE65F,SageMaker Unified Studio Notebook Runs running on sc.r7i.24xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r7i.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-695C11C6,SageMaker Unified Studio Notebook Runs running on sc.r7i.2xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r7i.2xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-35CD1016,SageMaker Unified Studio Notebook Runs running on sc.r7i.48xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r7i.48xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-59EBF892,SageMaker Unified Studio Notebook Runs running on sc.r7i.4xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r7i.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-E03EE2CE,SageMaker Unified Studio Notebook Runs running on sc.r7i.8xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r7i.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-3BBE234F,SageMaker Unified Studio Notebook Runs running on sc.r7i.large instances,SageMaker Unified Studio Notebook Runs running on sc.r7i.large instances,1,None,true,false
+datazone,Amazon DataZone,L-809C4562,SageMaker Unified Studio Notebook Runs running on sc.r7i.xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.r7i.xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-E1992F9D,SageMaker Unified Studio Notebook Runs running on sc.t3.2xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.t3.2xlarge instances,5,None,true,false
+datazone,Amazon DataZone,L-8FBE168C,SageMaker Unified Studio Notebook Runs running on sc.t3.large instances,SageMaker Unified Studio Notebook Runs running on sc.t3.large instances,5,None,true,false
+datazone,Amazon DataZone,L-BDD1DE91,SageMaker Unified Studio Notebook Runs running on sc.t3.medium instances,SageMaker Unified Studio Notebook Runs running on sc.t3.medium instances,5,None,true,false
+datazone,Amazon DataZone,L-4F05C3AA,SageMaker Unified Studio Notebook Runs running on sc.t3.xlarge instances,SageMaker Unified Studio Notebook Runs running on sc.t3.xlarge instances,5,None,true,false
+datazone,Amazon DataZone,L-C0CEB7FD,SageMaker Unified Studio Notebooks,The maximum number of notebooks that can be created in a domain.,5000,None,true,false
+datazone,Amazon DataZone,L-25722556,SageMaker Unified Studio Notebooks running on sc.c5.12xlarge instances,SageMaker Unified Studio Notebooks running on sc.c5.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-B38A7559,SageMaker Unified Studio Notebooks running on sc.c5.18xlarge instances,SageMaker Unified Studio Notebooks running on sc.c5.18xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-861421BE,SageMaker Unified Studio Notebooks running on sc.c5.24xlarge instances,SageMaker Unified Studio Notebooks running on sc.c5.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-3FA073F3,SageMaker Unified Studio Notebooks running on sc.c5.2xlarge instances,SageMaker Unified Studio Notebooks running on sc.c5.2xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-8A8B581B,SageMaker Unified Studio Notebooks running on sc.c5.4xlarge instances,SageMaker Unified Studio Notebooks running on sc.c5.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-4D0F52E0,SageMaker Unified Studio Notebooks running on sc.c5.9xlarge instances,SageMaker Unified Studio Notebooks running on sc.c5.9xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-F95E55F2,SageMaker Unified Studio Notebooks running on sc.c5.large instances,SageMaker Unified Studio Notebooks running on sc.c5.large instances,1,None,true,false
+datazone,Amazon DataZone,L-AD587E80,SageMaker Unified Studio Notebooks running on sc.c5.xlarge instances,SageMaker Unified Studio Notebooks running on sc.c5.xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-16B5C62E,SageMaker Unified Studio Notebooks running on sc.c6i.12xlarge instances,SageMaker Unified Studio Notebooks running on sc.c6i.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-0EB704A3,SageMaker Unified Studio Notebooks running on sc.c6i.16xlarge instances,SageMaker Unified Studio Notebooks running on sc.c6i.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-EE4B153F,SageMaker Unified Studio Notebooks running on sc.c6i.24xlarge instances,SageMaker Unified Studio Notebooks running on sc.c6i.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-1F0DC259,SageMaker Unified Studio Notebooks running on sc.c6i.2xlarge instances,SageMaker Unified Studio Notebooks running on sc.c6i.2xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-3DF946B5,SageMaker Unified Studio Notebooks running on sc.c6i.32xlarge instances,SageMaker Unified Studio Notebooks running on sc.c6i.32xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-67A810C4,SageMaker Unified Studio Notebooks running on sc.c6i.4xlarge instances,SageMaker Unified Studio Notebooks running on sc.c6i.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-2AACBE89,SageMaker Unified Studio Notebooks running on sc.c6i.8xlarge instances,SageMaker Unified Studio Notebooks running on sc.c6i.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-7E1A5C26,SageMaker Unified Studio Notebooks running on sc.c6i.large instances,SageMaker Unified Studio Notebooks running on sc.c6i.large instances,1,None,true,false
+datazone,Amazon DataZone,L-B3567441,SageMaker Unified Studio Notebooks running on sc.c6i.xlarge instances,SageMaker Unified Studio Notebooks running on sc.c6i.xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-32E4B349,SageMaker Unified Studio Notebooks running on sc.c6id.12xlarge instances,SageMaker Unified Studio Notebooks running on sc.c6id.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-4E497DA4,SageMaker Unified Studio Notebooks running on sc.c6id.16xlarge instances,SageMaker Unified Studio Notebooks running on sc.c6id.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-8B131225,SageMaker Unified Studio Notebooks running on sc.c6id.24xlarge instances,SageMaker Unified Studio Notebooks running on sc.c6id.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-986EA6BF,SageMaker Unified Studio Notebooks running on sc.c6id.2xlarge instances,SageMaker Unified Studio Notebooks running on sc.c6id.2xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-D693C025,SageMaker Unified Studio Notebooks running on sc.c6id.32xlarge instances,SageMaker Unified Studio Notebooks running on sc.c6id.32xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-D5A2DB25,SageMaker Unified Studio Notebooks running on sc.c6id.4xlarge instances,SageMaker Unified Studio Notebooks running on sc.c6id.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-7E3C416C,SageMaker Unified Studio Notebooks running on sc.c6id.8xlarge instances,SageMaker Unified Studio Notebooks running on sc.c6id.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-E84B5869,SageMaker Unified Studio Notebooks running on sc.c6id.large instances,SageMaker Unified Studio Notebooks running on sc.c6id.large instances,1,None,true,false
+datazone,Amazon DataZone,L-5C285BD7,SageMaker Unified Studio Notebooks running on sc.c6id.xlarge instances,SageMaker Unified Studio Notebooks running on sc.c6id.xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-4E71E53C,SageMaker Unified Studio Notebooks running on sc.c7i.12xlarge instances,SageMaker Unified Studio Notebooks running on sc.c7i.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-EB076206,SageMaker Unified Studio Notebooks running on sc.c7i.16xlarge instances,SageMaker Unified Studio Notebooks running on sc.c7i.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-5CE753BB,SageMaker Unified Studio Notebooks running on sc.c7i.24xlarge instances,SageMaker Unified Studio Notebooks running on sc.c7i.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-5C513122,SageMaker Unified Studio Notebooks running on sc.c7i.2xlarge instances,SageMaker Unified Studio Notebooks running on sc.c7i.2xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-DC192892,SageMaker Unified Studio Notebooks running on sc.c7i.48xlarge instances,SageMaker Unified Studio Notebooks running on sc.c7i.48xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-50552FED,SageMaker Unified Studio Notebooks running on sc.c7i.4xlarge instances,SageMaker Unified Studio Notebooks running on sc.c7i.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-DFFC92F9,SageMaker Unified Studio Notebooks running on sc.c7i.8xlarge instances,SageMaker Unified Studio Notebooks running on sc.c7i.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-4914CC68,SageMaker Unified Studio Notebooks running on sc.c7i.large instances,SageMaker Unified Studio Notebooks running on sc.c7i.large instances,1,None,true,false
+datazone,Amazon DataZone,L-81D24CEB,SageMaker Unified Studio Notebooks running on sc.c7i.xlarge instances,SageMaker Unified Studio Notebooks running on sc.c7i.xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-596B7AA8,SageMaker Unified Studio Notebooks running on sc.g4dn.12xlarge instances,SageMaker Unified Studio Notebooks running on sc.g4dn.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-6FA6E542,SageMaker Unified Studio Notebooks running on sc.g4dn.16xlarge instances,SageMaker Unified Studio Notebooks running on sc.g4dn.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-C862650E,SageMaker Unified Studio Notebooks running on sc.g4dn.2xlarge instances,SageMaker Unified Studio Notebooks running on sc.g4dn.2xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-8A421FD0,SageMaker Unified Studio Notebooks running on sc.g4dn.4xlarge instances,SageMaker Unified Studio Notebooks running on sc.g4dn.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-81F91BD4,SageMaker Unified Studio Notebooks running on sc.g4dn.8xlarge instances,SageMaker Unified Studio Notebooks running on sc.g4dn.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-32B8917C,SageMaker Unified Studio Notebooks running on sc.g4dn.xlarge instances,SageMaker Unified Studio Notebooks running on sc.g4dn.xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-FB3C17BB,SageMaker Unified Studio Notebooks running on sc.g5.12xlarge instances,SageMaker Unified Studio Notebooks running on sc.g5.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-8805DA44,SageMaker Unified Studio Notebooks running on sc.g5.16xlarge instances,SageMaker Unified Studio Notebooks running on sc.g5.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-65D36D57,SageMaker Unified Studio Notebooks running on sc.g5.24xlarge instances,SageMaker Unified Studio Notebooks running on sc.g5.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-15FEF8A9,SageMaker Unified Studio Notebooks running on sc.g5.2xlarge instances,SageMaker Unified Studio Notebooks running on sc.g5.2xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-6640301F,SageMaker Unified Studio Notebooks running on sc.g5.48xlarge instances,SageMaker Unified Studio Notebooks running on sc.g5.48xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-57DF57DF,SageMaker Unified Studio Notebooks running on sc.g5.4xlarge instances,SageMaker Unified Studio Notebooks running on sc.g5.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-0E916491,SageMaker Unified Studio Notebooks running on sc.g5.8xlarge instances,SageMaker Unified Studio Notebooks running on sc.g5.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-2847BDE2,SageMaker Unified Studio Notebooks running on sc.g5.xlarge instances,SageMaker Unified Studio Notebooks running on sc.g5.xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-680BA798,SageMaker Unified Studio Notebooks running on sc.g6.12xlarge instances,SageMaker Unified Studio Notebooks running on sc.g6.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-91D42009,SageMaker Unified Studio Notebooks running on sc.g6.16xlarge instances,SageMaker Unified Studio Notebooks running on sc.g6.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-D605C6B5,SageMaker Unified Studio Notebooks running on sc.g6.24xlarge instances,SageMaker Unified Studio Notebooks running on sc.g6.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-E346D771,SageMaker Unified Studio Notebooks running on sc.g6.2xlarge instances,SageMaker Unified Studio Notebooks running on sc.g6.2xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-95496345,SageMaker Unified Studio Notebooks running on sc.g6.48xlarge instances,SageMaker Unified Studio Notebooks running on sc.g6.48xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-4043B998,SageMaker Unified Studio Notebooks running on sc.g6.4xlarge instances,SageMaker Unified Studio Notebooks running on sc.g6.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-41A93936,SageMaker Unified Studio Notebooks running on sc.g6.8xlarge instances,SageMaker Unified Studio Notebooks running on sc.g6.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-0BBECEB3,SageMaker Unified Studio Notebooks running on sc.g6.xlarge instances,SageMaker Unified Studio Notebooks running on sc.g6.xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-BB9E6BB2,SageMaker Unified Studio Notebooks running on sc.g6e.12xlarge instances,SageMaker Unified Studio Notebooks running on sc.g6e.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-13E5C3DF,SageMaker Unified Studio Notebooks running on sc.g6e.16xlarge instances,SageMaker Unified Studio Notebooks running on sc.g6e.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-1F494C7F,SageMaker Unified Studio Notebooks running on sc.g6e.24xlarge instances,SageMaker Unified Studio Notebooks running on sc.g6e.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-E8AB2D3E,SageMaker Unified Studio Notebooks running on sc.g6e.2xlarge instances,SageMaker Unified Studio Notebooks running on sc.g6e.2xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-4FEF42CE,SageMaker Unified Studio Notebooks running on sc.g6e.48xlarge instances,SageMaker Unified Studio Notebooks running on sc.g6e.48xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-7D0EF005,SageMaker Unified Studio Notebooks running on sc.g6e.4xlarge instances,SageMaker Unified Studio Notebooks running on sc.g6e.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-FCACE013,SageMaker Unified Studio Notebooks running on sc.g6e.8xlarge instances,SageMaker Unified Studio Notebooks running on sc.g6e.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-9A988D30,SageMaker Unified Studio Notebooks running on sc.g6e.xlarge instances,SageMaker Unified Studio Notebooks running on sc.g6e.xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-67FC031D,SageMaker Unified Studio Notebooks running on sc.m5.12xlarge instances,SageMaker Unified Studio Notebooks running on sc.m5.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-4F4489AB,SageMaker Unified Studio Notebooks running on sc.m5.16xlarge instances,SageMaker Unified Studio Notebooks running on sc.m5.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-80E91D9D,SageMaker Unified Studio Notebooks running on sc.m5.24xlarge instances,SageMaker Unified Studio Notebooks running on sc.m5.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-D95C7B84,SageMaker Unified Studio Notebooks running on sc.m5.2xlarge instances,SageMaker Unified Studio Notebooks running on sc.m5.2xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-23A4AF43,SageMaker Unified Studio Notebooks running on sc.m5.4xlarge instances,SageMaker Unified Studio Notebooks running on sc.m5.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-9A7F17BD,SageMaker Unified Studio Notebooks running on sc.m5.8xlarge instances,SageMaker Unified Studio Notebooks running on sc.m5.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-B2B7FA19,SageMaker Unified Studio Notebooks running on sc.m5.large instances,SageMaker Unified Studio Notebooks running on sc.m5.large instances,1,None,true,false
+datazone,Amazon DataZone,L-46531A54,SageMaker Unified Studio Notebooks running on sc.m5.xlarge instances,SageMaker Unified Studio Notebooks running on sc.m5.xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-49F5D341,SageMaker Unified Studio Notebooks running on sc.m5d.12xlarge instances,SageMaker Unified Studio Notebooks running on sc.m5d.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-EA58D357,SageMaker Unified Studio Notebooks running on sc.m5d.16xlarge instances,SageMaker Unified Studio Notebooks running on sc.m5d.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-B9925360,SageMaker Unified Studio Notebooks running on sc.m5d.24xlarge instances,SageMaker Unified Studio Notebooks running on sc.m5d.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-5BB81DFD,SageMaker Unified Studio Notebooks running on sc.m5d.2xlarge instances,SageMaker Unified Studio Notebooks running on sc.m5d.2xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-CF8D5CF1,SageMaker Unified Studio Notebooks running on sc.m5d.4xlarge instances,SageMaker Unified Studio Notebooks running on sc.m5d.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-33972E03,SageMaker Unified Studio Notebooks running on sc.m5d.8xlarge instances,SageMaker Unified Studio Notebooks running on sc.m5d.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-3FC0FFF8,SageMaker Unified Studio Notebooks running on sc.m5d.large instances,SageMaker Unified Studio Notebooks running on sc.m5d.large instances,1,None,true,false
+datazone,Amazon DataZone,L-4E69294D,SageMaker Unified Studio Notebooks running on sc.m5d.xlarge instances,SageMaker Unified Studio Notebooks running on sc.m5d.xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-388CF561,SageMaker Unified Studio Notebooks running on sc.m6i.12xlarge instances,SageMaker Unified Studio Notebooks running on sc.m6i.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-C233AF33,SageMaker Unified Studio Notebooks running on sc.m6i.16xlarge instances,SageMaker Unified Studio Notebooks running on sc.m6i.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-9CAB8B46,SageMaker Unified Studio Notebooks running on sc.m6i.24xlarge instances,SageMaker Unified Studio Notebooks running on sc.m6i.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-DBE065EB,SageMaker Unified Studio Notebooks running on sc.m6i.2xlarge instances,SageMaker Unified Studio Notebooks running on sc.m6i.2xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-52C2995B,SageMaker Unified Studio Notebooks running on sc.m6i.32xlarge instances,SageMaker Unified Studio Notebooks running on sc.m6i.32xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-2141D064,SageMaker Unified Studio Notebooks running on sc.m6i.4xlarge instances,SageMaker Unified Studio Notebooks running on sc.m6i.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-D9CF8A06,SageMaker Unified Studio Notebooks running on sc.m6i.8xlarge instances,SageMaker Unified Studio Notebooks running on sc.m6i.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-92AC5281,SageMaker Unified Studio Notebooks running on sc.m6i.large instances,SageMaker Unified Studio Notebooks running on sc.m6i.large instances,1,None,true,false
+datazone,Amazon DataZone,L-916F22C8,SageMaker Unified Studio Notebooks running on sc.m6i.xlarge instances,SageMaker Unified Studio Notebooks running on sc.m6i.xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-25E846E6,SageMaker Unified Studio Notebooks running on sc.m6id.12xlarge instances,SageMaker Unified Studio Notebooks running on sc.m6id.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-D940D50E,SageMaker Unified Studio Notebooks running on sc.m6id.16xlarge instances,SageMaker Unified Studio Notebooks running on sc.m6id.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-8B3A596F,SageMaker Unified Studio Notebooks running on sc.m6id.24xlarge instances,SageMaker Unified Studio Notebooks running on sc.m6id.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-C0BDD608,SageMaker Unified Studio Notebooks running on sc.m6id.2xlarge instances,SageMaker Unified Studio Notebooks running on sc.m6id.2xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-57E70985,SageMaker Unified Studio Notebooks running on sc.m6id.32xlarge instances,SageMaker Unified Studio Notebooks running on sc.m6id.32xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-598D64DA,SageMaker Unified Studio Notebooks running on sc.m6id.4xlarge instances,SageMaker Unified Studio Notebooks running on sc.m6id.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-0442E90F,SageMaker Unified Studio Notebooks running on sc.m6id.8xlarge instances,SageMaker Unified Studio Notebooks running on sc.m6id.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-E050B45F,SageMaker Unified Studio Notebooks running on sc.m6id.large instances,SageMaker Unified Studio Notebooks running on sc.m6id.large instances,1,None,true,false
+datazone,Amazon DataZone,L-D78F2499,SageMaker Unified Studio Notebooks running on sc.m6id.xlarge instances,SageMaker Unified Studio Notebooks running on sc.m6id.xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-D0C02739,SageMaker Unified Studio Notebooks running on sc.m7i.12xlarge instances,SageMaker Unified Studio Notebooks running on sc.m7i.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-F3ADD3F9,SageMaker Unified Studio Notebooks running on sc.m7i.16xlarge instances,SageMaker Unified Studio Notebooks running on sc.m7i.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-317F9B74,SageMaker Unified Studio Notebooks running on sc.m7i.24xlarge instances,SageMaker Unified Studio Notebooks running on sc.m7i.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-355F9E47,SageMaker Unified Studio Notebooks running on sc.m7i.2xlarge instances,SageMaker Unified Studio Notebooks running on sc.m7i.2xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-9C1F370D,SageMaker Unified Studio Notebooks running on sc.m7i.48xlarge instances,SageMaker Unified Studio Notebooks running on sc.m7i.48xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-89D77413,SageMaker Unified Studio Notebooks running on sc.m7i.4xlarge instances,SageMaker Unified Studio Notebooks running on sc.m7i.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-90CE0524,SageMaker Unified Studio Notebooks running on sc.m7i.8xlarge instances,SageMaker Unified Studio Notebooks running on sc.m7i.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-861A568B,SageMaker Unified Studio Notebooks running on sc.m7i.large instances,SageMaker Unified Studio Notebooks running on sc.m7i.large instances,1,None,true,false
+datazone,Amazon DataZone,L-66CB8DFC,SageMaker Unified Studio Notebooks running on sc.m7i.xlarge instances,SageMaker Unified Studio Notebooks running on sc.m7i.xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-CED90DBB,SageMaker Unified Studio Notebooks running on sc.p3.16xlarge instances,SageMaker Unified Studio Notebooks running on sc.p3.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-28D31D5C,SageMaker Unified Studio Notebooks running on sc.p3.2xlarge instances,SageMaker Unified Studio Notebooks running on sc.p3.2xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-CE3DF522,SageMaker Unified Studio Notebooks running on sc.p3.8xlarge instances,SageMaker Unified Studio Notebooks running on sc.p3.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-BD3E51F8,SageMaker Unified Studio Notebooks running on sc.p3dn.24xlarge instances,SageMaker Unified Studio Notebooks running on sc.p3dn.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-B735C692,SageMaker Unified Studio Notebooks running on sc.p4d.24xlarge instances,SageMaker Unified Studio Notebooks running on sc.p4d.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-E0B2E509,SageMaker Unified Studio Notebooks running on sc.p4de.24xlarge instances,SageMaker Unified Studio Notebooks running on sc.p4de.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-B03A4150,SageMaker Unified Studio Notebooks running on sc.p5.48xlarge instances,SageMaker Unified Studio Notebooks running on sc.p5.48xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-63FAE892,SageMaker Unified Studio Notebooks running on sc.p5en.48xlarge instances,SageMaker Unified Studio Notebooks running on sc.p5en.48xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-C44B0B0B,SageMaker Unified Studio Notebooks running on sc.p6-b200.48xlarge instances,SageMaker Unified Studio Notebooks running on sc.p6-b200.48xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-966B9814,SageMaker Unified Studio Notebooks running on sc.r5.12xlarge instances,SageMaker Unified Studio Notebooks running on sc.r5.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-4DFF94FF,SageMaker Unified Studio Notebooks running on sc.r5.16xlarge instances,SageMaker Unified Studio Notebooks running on sc.r5.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-0DC98845,SageMaker Unified Studio Notebooks running on sc.r5.24xlarge instances,SageMaker Unified Studio Notebooks running on sc.r5.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-205A3DEC,SageMaker Unified Studio Notebooks running on sc.r5.2xlarge instances,SageMaker Unified Studio Notebooks running on sc.r5.2xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-3D66F2F5,SageMaker Unified Studio Notebooks running on sc.r5.4xlarge instances,SageMaker Unified Studio Notebooks running on sc.r5.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-CB5DA869,SageMaker Unified Studio Notebooks running on sc.r5.8xlarge instances,SageMaker Unified Studio Notebooks running on sc.r5.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-E5237D8F,SageMaker Unified Studio Notebooks running on sc.r5.large instances,SageMaker Unified Studio Notebooks running on sc.r5.large instances,1,None,true,false
+datazone,Amazon DataZone,L-6E0EA7C6,SageMaker Unified Studio Notebooks running on sc.r5.xlarge instances,SageMaker Unified Studio Notebooks running on sc.r5.xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-29CAD584,SageMaker Unified Studio Notebooks running on sc.r6i.12xlarge instances,SageMaker Unified Studio Notebooks running on sc.r6i.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-D2B8BFF2,SageMaker Unified Studio Notebooks running on sc.r6i.16xlarge instances,SageMaker Unified Studio Notebooks running on sc.r6i.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-FA0B4A78,SageMaker Unified Studio Notebooks running on sc.r6i.24xlarge instances,SageMaker Unified Studio Notebooks running on sc.r6i.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-FD29991E,SageMaker Unified Studio Notebooks running on sc.r6i.2xlarge instances,SageMaker Unified Studio Notebooks running on sc.r6i.2xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-0042FF11,SageMaker Unified Studio Notebooks running on sc.r6i.32xlarge instances,SageMaker Unified Studio Notebooks running on sc.r6i.32xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-2B477F19,SageMaker Unified Studio Notebooks running on sc.r6i.4xlarge instances,SageMaker Unified Studio Notebooks running on sc.r6i.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-5DA7B698,SageMaker Unified Studio Notebooks running on sc.r6i.8xlarge instances,SageMaker Unified Studio Notebooks running on sc.r6i.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-64DD66F3,SageMaker Unified Studio Notebooks running on sc.r6i.large instances,SageMaker Unified Studio Notebooks running on sc.r6i.large instances,1,None,true,false
+datazone,Amazon DataZone,L-BF221654,SageMaker Unified Studio Notebooks running on sc.r6i.xlarge instances,SageMaker Unified Studio Notebooks running on sc.r6i.xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-2BAD8591,SageMaker Unified Studio Notebooks running on sc.r6id.12xlarge instances,SageMaker Unified Studio Notebooks running on sc.r6id.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-6336C0DA,SageMaker Unified Studio Notebooks running on sc.r6id.16xlarge instances,SageMaker Unified Studio Notebooks running on sc.r6id.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-B90EBAB1,SageMaker Unified Studio Notebooks running on sc.r6id.24xlarge instances,SageMaker Unified Studio Notebooks running on sc.r6id.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-3BDAD428,SageMaker Unified Studio Notebooks running on sc.r6id.2xlarge instances,SageMaker Unified Studio Notebooks running on sc.r6id.2xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-29173D22,SageMaker Unified Studio Notebooks running on sc.r6id.32xlarge instances,SageMaker Unified Studio Notebooks running on sc.r6id.32xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-F7C04830,SageMaker Unified Studio Notebooks running on sc.r6id.4xlarge instances,SageMaker Unified Studio Notebooks running on sc.r6id.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-644A60D4,SageMaker Unified Studio Notebooks running on sc.r6id.8xlarge instances,SageMaker Unified Studio Notebooks running on sc.r6id.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-A182369F,SageMaker Unified Studio Notebooks running on sc.r6id.large instances,SageMaker Unified Studio Notebooks running on sc.r6id.large instances,1,None,true,false
+datazone,Amazon DataZone,L-FE87B0A9,SageMaker Unified Studio Notebooks running on sc.r6id.xlarge instances,SageMaker Unified Studio Notebooks running on sc.r6id.xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-28814C02,SageMaker Unified Studio Notebooks running on sc.r7i.12xlarge instances,SageMaker Unified Studio Notebooks running on sc.r7i.12xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-F691472E,SageMaker Unified Studio Notebooks running on sc.r7i.16xlarge instances,SageMaker Unified Studio Notebooks running on sc.r7i.16xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-0624B625,SageMaker Unified Studio Notebooks running on sc.r7i.24xlarge instances,SageMaker Unified Studio Notebooks running on sc.r7i.24xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-93AC2830,SageMaker Unified Studio Notebooks running on sc.r7i.2xlarge instances,SageMaker Unified Studio Notebooks running on sc.r7i.2xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-D15F8564,SageMaker Unified Studio Notebooks running on sc.r7i.48xlarge instances,SageMaker Unified Studio Notebooks running on sc.r7i.48xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-6169706C,SageMaker Unified Studio Notebooks running on sc.r7i.4xlarge instances,SageMaker Unified Studio Notebooks running on sc.r7i.4xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-DA651D55,SageMaker Unified Studio Notebooks running on sc.r7i.8xlarge instances,SageMaker Unified Studio Notebooks running on sc.r7i.8xlarge instances,0,None,true,false
+datazone,Amazon DataZone,L-82D08DDA,SageMaker Unified Studio Notebooks running on sc.r7i.large instances,SageMaker Unified Studio Notebooks running on sc.r7i.large instances,1,None,true,false
+datazone,Amazon DataZone,L-E8A3772E,SageMaker Unified Studio Notebooks running on sc.r7i.xlarge instances,SageMaker Unified Studio Notebooks running on sc.r7i.xlarge instances,1,None,true,false
+datazone,Amazon DataZone,L-8FBF3C5B,SageMaker Unified Studio Notebooks running on sc.t3.2xlarge instances,SageMaker Unified Studio Notebooks running on sc.t3.2xlarge instances,6,None,true,false
+datazone,Amazon DataZone,L-1AD2333D,SageMaker Unified Studio Notebooks running on sc.t3.large instances,SageMaker Unified Studio Notebooks running on sc.t3.large instances,6,None,true,false
+datazone,Amazon DataZone,L-DBBAE884,SageMaker Unified Studio Notebooks running on sc.t3.medium instances,SageMaker Unified Studio Notebooks running on sc.t3.medium instances,6,None,true,false
+datazone,Amazon DataZone,L-3BED6FAF,SageMaker Unified Studio Notebooks running on sc.t3.xlarge instances,SageMaker Unified Studio Notebooks running on sc.t3.xlarge instances,6,None,true,false
+datazone,Amazon DataZone,L-B3401D17,SageMaker Unified Studio Querybook Runs running on sc.t3.medium instances,SageMaker Unified Studio Querybook Runs running on sc.t3.medium instances,5,None,true,false
+datazone,Amazon DataZone,L-F63F402C,SageMaker Unified Studio Querybooks running on sc.t3.medium instances,SageMaker Unified Studio Querybooks running on sc.t3.medium instances,5,None,true,false
+datazone,Amazon DataZone,L-85C9EC5A,The maximum number of concurrent notebook runs per account.,The maximum number of concurrent notebook runs per account.,15,None,true,false
+datazone,Amazon DataZone,L-3FA06515,Total EBS volume size in GB across all SageMaker Unified Studio Compute environments,Total EBS volume size in GB across all SageMaker Unified Studio Compute environments,500,None,true,false
+datazone,Amazon DataZone,L-0BA926FA,Total EBS volume size in GB across all SageMaker Unified Studio Notebooks,Total EBS volume size in GB across all SageMaker Unified Studio Notebooks,500,None,true,false

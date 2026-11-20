@@ -1,0 +1,5 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+kinesisanalytics,Amazon Managed Service for Apache Flink,L-3A88E041,Apache Flink Kinesis Processing Units (KPUs),The maximum number of Kinesis Processing Units (KPUs) that your Apache Flink application can use.,64,None,true,false
+kinesisanalytics,Amazon Managed Service for Apache Flink,L-3729A2EF,Application count,The maximum number of applications per account per Region.,100,None,true,false
+kinesisanalytics,Amazon Managed Service for Apache Flink,L-59171AE6,Input Parallelism in input streams for SQL applications,The maximum number of in-application input streams for SQL applications.,64,None,false,false
+kinesisanalytics,Amazon Managed Service for Apache Flink,L-90BEDB9D,SQL Kinesis Processing Units (KPUs),The maximum number of Kinesis Processing Units (KPUs) that your SQL application can use.,8,None,true,false

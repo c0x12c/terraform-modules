@@ -1,0 +1,20 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+mediatailor,AWS Elemental MediaTailor,L-B7A40915,Ad decision server (ADS) length,The maximum number of characters in an ad decision server (ADS) specification.,25000,None,false,false
+mediatailor,AWS Elemental MediaTailor,L-7202B1BD,Ad decision server (ADS) redirects,The maximum depth of redirects that MediaTailor follows in VAST wrapper tags.,5,None,false,false
+mediatailor,AWS Elemental MediaTailor,L-B800E13A,Ad decision server (ADS) timeout,"The maximum number of seconds that MediaTailor waits before timing out on an open connection to an ad decision server (ADS). When a connection times out due to no response from the ADS, MediaTailor is unable to fill the ad avail with ads.",3,Seconds,false,false
+mediatailor,AWS Elemental MediaTailor,L-32FBC51C,Ad Insertion Requests,"Maximum requests per second when requesting manifests, segments, and tracking information when performing server side ad insertion.",10000,None,true,false
+mediatailor,AWS Elemental MediaTailor,L-C13EFDBD,Channel Manifest Requests,The maximum number of manifest requests per second for any single Channel Assembly channel. This is an account-level quota.,50,None,true,false
+mediatailor,AWS Elemental MediaTailor,L-3BCD6A29,Channel outputs,The maximum number of outputs per channel.,5,None,true,false
+mediatailor,AWS Elemental MediaTailor,L-29DF1B92,Channels per account,The maximum number of channels per account.,100,None,true,false
+mediatailor,AWS Elemental MediaTailor,L-F60EC97B,Configurations,The maximum number of configurations that MediaTailor allows.,1000,None,false,false
+mediatailor,AWS Elemental MediaTailor,L-93B27B6F,Content origin length,The maximum number of characters in a content origin specification.,512,None,false,false
+mediatailor,AWS Elemental MediaTailor,L-007E683B,Content origin server timeout,The maximum number of seconds that MediaTailor waits before timing out on an open connection to the content origin server when requesting template manifests. Timeouts generate HTTP 504 (GatewayTimeoutException) response errors.,2,Seconds,false,false
+mediatailor,AWS Elemental MediaTailor,L-7A79D9CE,Live Sources,The maximum number of live sources sources per source location.,50,None,true,false
+mediatailor,AWS Elemental MediaTailor,L-B9D43015,Manifest Requests,The maximum number of manifest requests per second across all channels. This is an account-level quota.,400,None,true,false
+mediatailor,AWS Elemental MediaTailor,L-16A95E26,Manifest size,"The maximum size, in MB, of any playback manifest, whether in input or output. To ensure that you stay under the quota, use gzip to compress your input manifests into MediaTailor.",2,Megabytes,false,false
+mediatailor,AWS Elemental MediaTailor,L-0F7265C4,Package configurations,The maximum number of package configurations per live or VOD (video on demand) source.,5,None,true,false
+mediatailor,AWS Elemental MediaTailor,L-7946CFE6,Programs Per Channel,The maximum number of programs per channel.,400,None,true,false
+mediatailor,AWS Elemental MediaTailor,L-680CE323,Segment Delivery Configurations Per Source,The maximum number of segment delivery configurations per source location.,5,None,true,false
+mediatailor,AWS Elemental MediaTailor,L-BE3CDF89,Session expiration,"The maximum amount of time (quota times the manifest duration) that MediaTailor allows a session to remain inactive before ending the session. Session activity can be a player request or an advance by the origin server. When the session expires, MediaTailor returns an HTTP 400 (Bad Request) response error.",10,None,false,false
+mediatailor,AWS Elemental MediaTailor,L-2290981E,Source Locations,The maximum number of source locations per account.,100,None,true,false
+mediatailor,AWS Elemental MediaTailor,L-A32E8357,VOD Sources,The maximum number of video on demand (VOD) sources per source location.,1000,None,true,false

@@ -1,0 +1,34 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+lightsail,Amazon Lightsail,L-C3D6EA9E,Allowed cookies per cache behavior for a distribution,The maximum number of allowed cookies per cache behavior.,10,None,false,false
+lightsail,Amazon Lightsail,L-97957401,Allowed headers per cache behavior for a distribution,The maximum number of allowed headers per cache behavior.,10,None,false,false
+lightsail,Amazon Lightsail,L-A85C5367,Allowed query strings per cache behavior for a distribution,The maximum number of allowed query strings per cache behavior.,10,None,false,false
+lightsail,Amazon Lightsail,L-6A41A279,Block storage disks per instance,The maximum number of block storage disks that can be attached per instance.,15,None,false,false
+lightsail,Amazon Lightsail,L-4179DBC5,Container service certificates,The maximum number of certificates that can be attached per container service.,4,None,false,false
+lightsail,Amazon Lightsail,L-8C5BE2E1,Container service custom domains,The maximum number of custom domains per container service.,4,None,false,false
+lightsail,Amazon Lightsail,L-FC916C10,Container service deployment containers,The maximum number of containers per deployment on a container service.,10,None,false,false
+lightsail,Amazon Lightsail,L-56E0BA80,Container service deployment versions,The maximum number of deployment versions per container service.,50,None,false,false
+lightsail,Amazon Lightsail,L-8E04AC4B,Container service logs storage days,The maximum number of days that container service logs are stored.,4,None,false,false
+lightsail,Amazon Lightsail,L-C5DF431B,Container service nodes,The maximum number of nodes per container service.,20,None,false,false
+lightsail,Amazon Lightsail,L-B35F6366,Container service stored container images,The maximum number of stored container images per container service.,150,None,false,false
+lightsail,Amazon Lightsail,L-BB561519,Container services,The maximum number of container services per region.,100,None,false,false
+lightsail,Amazon Lightsail,L-C27ADEB6,Custom domain names per distribution,The maximum number of custom domain names per distribution. You can specify up to 10 domains for a Lightsail SSL/TLS certificate. You can then use the certificate to enable custom domains on your Lightsail distribution.,10,None,false,false
+lightsail,Amazon Lightsail,L-65A94DD9,Data transfer rate per distribution,The maximum data transfer rate (in GB per second) per distribution.,150,None,false,false
+lightsail,Amazon Lightsail,L-3B2B13A1,Databases,The maximum number of databases per region.,40,None,false,false
+lightsail,Amazon Lightsail,L-0ABA1512,Default behaviors (default cache behavior) per distribution,The maximum number of default behaviors (default cache behavior) per distribution.,1,None,false,false
+lightsail,Amazon Lightsail,L-9A462869,Directory and file overrides per distribution,"The maximum number of directory and file overrides per distribution. You can create up to 25 directory and file overrides, and you can specify one cache behavior per override.",25,None,false,false
+lightsail,Amazon Lightsail,L-1DB37119,Distributions,The maximum number of distributions per account.,20,None,false,false
+lightsail,Amazon Lightsail,L-4259AF9B,Instances,The maximum number of vCPUs per Region for Lightsail instances.,20,None,true,false
+lightsail,Amazon Lightsail,L-C512E6B9,Load balancers,The maximum number of load balancers per region.,10,None,false,false
+lightsail,Amazon Lightsail,L-D3506055,Maximum active certificates,"The maximum number of active certificates per region, per account.",10,None,false,false
+lightsail,Amazon Lightsail,L-8F295028,Maximum block storage disk space,The maximum amount of disk space (in GB) per block storage disk.,16000,Gigabytes,false,false
+lightsail,Amazon Lightsail,L-CF67FCDA,Maximum buckets per account,The maximum number of buckets per account,20,None,false,false
+lightsail,Amazon Lightsail,L-D5FCDF87,Maximum certificates,"The maximum number of certificates per region, per account in the last 365 days.",20,None,false,false
+lightsail,Amazon Lightsail,L-D919EE0B,Maximum keys per bucket,The maximum number of keys per bucket,2,None,false,false
+lightsail,Amazon Lightsail,L-64F0454B,Minimum block storage disk space,The minimum amount of disk space (in GB) per block storage disk.,8,Gigabytes,false,false
+lightsail,Amazon Lightsail,L-C93D8613,Origins per distribution,The maximum number of origins per distribution. You can specify one instance or one load balancer per distribution.,1,None,false,false
+lightsail,Amazon Lightsail,L-A6831527,Parallel RDP connections using the browser-based RDP client,"The maximum number of parallel RDP connections using the browser-based RDP client per region, per account.",1,None,false,false
+lightsail,Amazon Lightsail,L-D858D90E,Parallel SSH connections using the browser-based SSH client,"The maximum number of parallel SSH connections using the browser-based SSH client per region, per account.",5,None,false,false
+lightsail,Amazon Lightsail,L-18D5AED5,Response timeout per origin for a distribution,The response timeout per origin (4-60 seconds).,60,Seconds,false,false
+lightsail,Amazon Lightsail,L-BBF0F260,Static IP addresses,The maximum number of static IP addresses per region.,5,None,true,false
+lightsail,Amazon Lightsail,L-5BB7D4B4,Tags,The maximum number of tags per resource.,50,None,false,false
+lightsail,Amazon Lightsail,L-9773709E,Total attached block storage disk space,The maximum amount of attached block storage disk space (in GB) per region.,20000,Gigabytes,false,false

@@ -1,0 +1,21 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+s3,Amazon Simple Storage Service (Amazon S3),L-FAABEEBA,Access Points,The number of Amazon S3 Access Points that you can create per region in an account,10000,None,true,false
+s3,Amazon Simple Storage Service (Amazon S3),L-748707F3,Bucket policy,The maximum size (in KB) of a bucket policy for an Amazon S3 bucket,20,Kilobytes,false,false
+s3,Amazon Simple Storage Service (Amazon S3),L-55BA2C6C,Bucket tags,The maximum number of tags you can assign to an Amazon S3 bucket,50,None,false,false
+s3,Amazon Simple Storage Service (Amazon S3),L-775A314D,Directory buckets,The number of Amazon S3 directory buckets that you can create in an account,100,None,true,false
+s3,Amazon Simple Storage Service (Amazon S3),L-3E24E5F9,Event notifications,The maximum number of event notifications per Amazon S3 bucket,100,None,false,false
+s3,Amazon Simple Storage Service (Amazon S3),L-146D5F0C,Lifecycle rules,The maximum number of rules you can specify for an Amazon S3 lifecycle configuration,1000,None,false,false
+s3,Amazon Simple Storage Service (Amazon S3),L-2A85EAC1,Maximum part size, The maximum size (in GB) of an Amazon S3 object part in a Multipart upload using the API,5,Gigabytes,false,false
+s3,Amazon Simple Storage Service (Amazon S3),L-CD1053C4,Minimum part size,The minimum size (in MB) of an Amazon S3 object part in a Multipart upload using the API. The last part uploaded can be less than the stated minimum,5,Megabytes,false,false
+s3,Amazon Simple Storage Service (Amazon S3),L-2431D3AF,Multi-Region Access Point Regions,Maximum Regions per Multi-Region Access Point.,20,None,false,false
+s3,Amazon Simple Storage Service (Amazon S3),L-881EA1F4,Multi-Region Access Points,Multi-Region Access Points per Account.,100,None,false,false
+s3,Amazon Simple Storage Service (Amazon S3),L-89BABEE8,Object size,The maximum size (in TB) of an Amazon S3 object,48.828125,Terabytes,false,false
+s3,Amazon Simple Storage Service (Amazon S3),L-9CD4D118,Object size (Console upload),The maximum size (in GB) of an Amazon S3 object that you can upload using the console,160,Gigabytes,false,false
+s3,Amazon Simple Storage Service (Amazon S3),L-6AF88990,Object tags,The maximum number of tags you can assign to an Amazon S3 object,10,None,false,false
+s3,Amazon Simple Storage Service (Amazon S3),L-DEBF781C,Parts,The maximum number of Amazon S3 object parts per Multipart upload,10000,None,false,false
+s3,Amazon Simple Storage Service (Amazon S3),L-1A9B467F,Replication Destinations,The number of destination S3 buckets you can add for each source S3 bucket across all replication rules.,28,None,true,false
+s3,Amazon Simple Storage Service (Amazon S3),L-B461D596,Replication rules,The maximum number of rules you can specify in an Amazon S3 Replication configuration,1000,None,false,false
+s3,Amazon Simple Storage Service (Amazon S3),L-349AD9CA,Replication transfer rate,The maximum Replication Time Control transfer rate that you can replicate from the source region in this account.,1,Gigabits,true,false
+s3,Amazon Simple Storage Service (Amazon S3),L-BB883139,S3 Glacier: Number of random restore requests.,The number of random restore requests from S3 Glacier storage class per PiB stored per day.,35,None,false,false
+s3,Amazon Simple Storage Service (Amazon S3),L-DEDCCF9D,S3 Glacier: Provisioned capacity units,The maximum number of S3 Glacier storage class provisioned capacity units available to purchase per account.,2,None,false,false
+s3,Amazon Simple Storage Service (Amazon S3),L-1923B91D,S3 Glacier: Retrieval request rate per second.,The maximum number of retrieval requests per second allowed per account.,1000,None,false,false

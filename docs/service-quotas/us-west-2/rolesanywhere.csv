@@ -1,0 +1,11 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+rolesanywhere,IAM Roles Anywhere,L-8436C93F,Bundle size per trust anchor,The maximum bundle size (in bytes) per trust anchor in this account in the current Region.,25600,Bytes,true,false
+rolesanywhere,IAM Roles Anywhere,L-0017E049,Combined rate of CRL requests,"The maximum transactions per second for ListCrls, GetCrl, ImportCrl, UpdateCrl, DeleteCrl, EnableCrl, and DisableCrl requests combined.",1,None,true,false
+rolesanywhere,IAM Roles Anywhere,L-F8680437,Combined rate of profile requests,"The maximum transactions per second for ListProfiles, CreateProfile, GetProfile, UpdateProfile, DeleteProfile, EnableProfile, and DisableProfile requests combined.",1,None,true,false
+rolesanywhere,IAM Roles Anywhere,L-1A26F220,Combined rate of subject requests,The maximum transactions per second for ListSubjects and GetSubject requests combined.,1,None,true,false
+rolesanywhere,IAM Roles Anywhere,L-BCE17F1C,Combined rate of tagging requests,"The maximum transactions per second for TagResource, UntagResource, and ListTagsForResource requests combined.",1,None,true,false
+rolesanywhere,IAM Roles Anywhere,L-E7B077D9,Combined rate of trust anchor requests,"The maximum transactions per second for ListTrustAnchors, CreateTrustAnchor, GetTrustAnchor, UpdateTrustAnchor, DeleteTrustAnchor, EnableTrustAnchor, and DisableTrustAnchor requests combined.",1,None,true,false
+rolesanywhere,IAM Roles Anywhere,L-19368711,CRLs per trust anchor,The maximum number of certificate revocation lists (CRLs) that you can create per trust anchor in this account in the current Region.,2,None,true,false
+rolesanywhere,IAM Roles Anywhere,L-950ED79F,Profiles,The maximum number of profiles that you can create in this account in the current Region.,250,None,true,false
+rolesanywhere,IAM Roles Anywhere,L-A9D9612A,Rate of CreateSession requests,The maximum transactions per second for CreateSession requests.,20,None,true,false
+rolesanywhere,IAM Roles Anywhere,L-AB49EEA7,Trust anchors,The maximum number of trust anchors that you can create in this account in the current Region.,50,None,true,false

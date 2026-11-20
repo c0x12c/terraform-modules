@@ -1,0 +1,8 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+securityhub,AWS Security Hub,L-D348B3A2,Number of automation rules,The maximum number of automation rules that can be created by a Security Hub administrator account.,100,None,false,false
+securityhub,AWS Security Hub,L-D639633A,Number of custom actions,The maximum number of custom actions that can be created per account per Region.,50,None,false,false
+securityhub,AWS Security Hub,L-1AA69D21,Number of custom insights,The maximum number of user-defined custom insights that can be created per AWS account per Region.,100,None,false,false
+securityhub,AWS Security Hub,L-11E34C3D,Number of insight results,The maximum number of aggregated results returned for the GetInsightsResults API operation.,100,None,false,false
+securityhub,AWS Security Hub,L-6E4302A5,Number of Security Hub member accounts,The maximum number of Security Hub member accounts that can be added for each Security Hub administrator account in each Region.,10000,None,false,false
+securityhub,AWS Security Hub,L-387C829B,Number of Security Hub outstanding invitations,The maximum number of outstanding Security Hub member account invitations that can be sent per AWS account (Security Hub administrator account) per Region.,1000,None,false,false
+securityhub,AWS Security Hub,L-F717136E,Security Hub finding retention time,The maximum number of days a Security Hub finding is saved. This is 90 days after the most recent update or 90 days after the creation date if no update occurs.,90,None,false,false

@@ -1,0 +1,4 @@
+service_code,service_name,quota_code,quota_name,description,default_value,unit,adjustable,global_quota
+end-user-messaging,AWS End User Messaging,L-5EA12AFB,AttributesPerBrandProfile,The maximum number of attributes that you can create for each brand profile in this account in the current Region.,100,None,true,false
+end-user-messaging,AWS End User Messaging,L-983B073D,BrandProfiles,The maximum number of brand profiles that you can create in this account in the current Region.,25,None,true,false
+end-user-messaging,AWS End User Messaging,L-DFB27F64,NotifyCodeConfigurations,The maximum number of notify code configurations that you can create in this account in the current Region.,25,None,true,false
