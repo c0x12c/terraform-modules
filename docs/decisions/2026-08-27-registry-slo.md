@@ -2,6 +2,10 @@
 
 Status: **Proposed - needs an owner decision** - Date: 2026-08-27 - Scope: `terraform.c0x12c.com`
 
+> **Superseded 2026-11-20 in part:** the uptime probe, quota watch, daily snapshot and weekly
+> health check were deleted as low value. The detection and backup this record builds on no longer
+> exist; the monorepo tags are the only recovery source (see `docs/registry-recovery-runbook.md`).
+
 Two blanks in this document can only be filled by a person. It is written so that
 filling them is a five-minute decision rather than a design exercise.
 

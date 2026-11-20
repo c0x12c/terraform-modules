@@ -2,6 +2,10 @@
 
 Status: **Partially accepted** - Date: 2026-08-26 - Scope: `terraform.c0x12c.com`
 
+> **Superseded 2026-11-20 in part:** the offsite bucket snapshot this record proposes was built and
+> then deleted as low value; there is no offsite copy, and recovery re-publishes every version from
+> the monorepo tags (`docs/registry-recovery-runbook.md`).
+
 Follow-on to [`2026-06-08-self-host-registry.md`](2026-06-08-self-host-registry.md),
 written after the registry became a dependency of client project applies.
 
