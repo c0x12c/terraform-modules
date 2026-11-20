@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.6.2](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-amplify/v1.6.1...terraform-aws-amplify/v1.6.2) (2026-11-19)
+
+
+### Bug Fixes
+
+* **amplify:** log-delivery-only service role for hosting-only apps ([#417](https://github.com/c0x12c/terraform-modules/issues/417)) ([2694d82](https://github.com/c0x12c/terraform-modules/commit/2694d82b7d7b0ae42b331ef7671b378af78115fc))
+
 ## [1.6.1](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-amplify/v1.6.0...terraform-aws-amplify/v1.6.1) (2026-09-07)
 
 
