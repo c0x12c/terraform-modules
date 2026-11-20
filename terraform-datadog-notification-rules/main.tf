@@ -4,6 +4,7 @@ resource "datadog_monitor_notification_rule" "this" {
   name       = each.value.name
   recipients = each.value.recipients
   filter {
-    tags = try(each.value.filter.tags, null)
+    tags  = try(each.value.filter.tags, null)
+    scope = try(each.value.filter.scope, null)
   }
 }
