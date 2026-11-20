@@ -18,12 +18,12 @@ module "datadog_notification_rules" {
         tags = ["env:prod"]
       }
     }
-    # Rules only add recipients, so a shared channel excludes a project with NOT, which needs scope.
+    # Rules only add recipients, so a shared channel excludes a team with NOT, which needs scope.
     dev_shared_rule = {
-      name       = "Dev shared channel, every project except x"
+      name       = "Dev shared channel, every team except x"
       recipients = ["slack-ops-dev"]
       filter = {
-        scope = "env:dev AND NOT project:x"
+        scope = "env:dev AND NOT team:x"
       }
     }
   }
@@ -61,7 +61,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_notification_rules"></a> [notification\_rules](#input\_notification\_rules) | Datadog notification rules. `filter.tags` ANDs key:value tags; `filter.scope` is a boolean expression (AND, OR, NOT, parentheses), e.g. `env:dev AND NOT project:iot`. | <pre>map(object({<br/>    name       = string<br/>    recipients = list(string)<br/>    filter = optional(object({<br/>      tags  = optional(list(string))<br/>      scope = optional(string)<br/>    }))<br/>  }))</pre> | `{}` | no |
+| <a name="input_notification_rules"></a> [notification\_rules](#input\_notification\_rules) | Datadog notification rules. `filter.tags` ANDs key:value tags; `filter.scope` is a boolean expression (AND, OR, NOT, parentheses), e.g. `env:dev AND NOT team:x`. | <pre>map(object({<br/>    name       = string<br/>    recipients = list(string)<br/>    filter = optional(object({<br/>      tags  = optional(list(string))<br/>      scope = optional(string)<br/>    }))<br/>  }))</pre> | `{}` | no |
 
 ## Outputs
 
