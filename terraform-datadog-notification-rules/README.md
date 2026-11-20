@@ -18,9 +18,19 @@ module "datadog_notification_rules" {
         tags = ["env:prod"]
       }
     }
+    # Rules only add recipients, so a shared channel excludes a team with NOT, which needs scope.
+    dev_shared_rule = {
+      name       = "Dev shared channel, every team except x"
+      recipients = ["slack-ops-dev"]
+      filter = {
+        scope = "env:dev AND NOT team:x"
+      }
+    }
   }
 }
 ```
+
+`filter.scope` needs Datadog provider 3.83.0 or later.
 
 <!-- BEGIN_TF_DOCS -->
 
@@ -29,13 +39,13 @@ module "datadog_notification_rules" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.8 |
-| <a name="requirement_datadog"></a> [datadog](#requirement\_datadog) | >= 3.4.0 |
+| <a name="requirement_datadog"></a> [datadog](#requirement\_datadog) | >= 3.83.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_datadog"></a> [datadog](#provider\_datadog) | >= 3.4.0 |
+| <a name="provider_datadog"></a> [datadog](#provider\_datadog) | >= 3.83.0 |
 
 ## Modules
 
@@ -51,7 +61,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_notification_rules"></a> [notification\_rules](#input\_notification\_rules) | Datadog notification rules | <pre>map(object({<br/>    name       = string<br/>    recipients = list(string)<br/>    filter = optional(object({<br/>      tags = optional(list(string))<br/>    }))<br/>  }))</pre> | `{}` | no |
+| <a name="input_notification_rules"></a> [notification\_rules](#input\_notification\_rules) | Datadog notification rules. filter.tags ANDs tags; filter.scope takes AND, OR, NOT. | <pre>map(object({<br/>    name       = string<br/>    recipients = list(string)<br/>    filter = optional(object({<br/>      tags  = optional(list(string))<br/>      scope = optional(string)<br/>    }))<br/>  }))</pre> | `{}` | no |
 
 ## Outputs
 

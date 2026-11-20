@@ -7,6 +7,14 @@ locals {
         tags = ["env:prod"]
       }
     }
+    # Rules only add recipients, so a shared channel excludes a team with NOT, which needs scope.
+    dev_shared_rule = {
+      name       = "Dev shared channel, every team except x"
+      recipients = ["slack-ops-dev"]
+      filter = {
+        scope = "env:dev AND NOT team:x"
+      }
+    }
   }
 }
 
