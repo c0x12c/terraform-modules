@@ -58,6 +58,10 @@ module "restricted_instance" {
 Use `module.restricted_instance.security_group_id` to reference the database security group.
 List length must be known at plan time; the security group IDs may be unknown until apply.
 
+Operational notes:
+- Rules are keyed by list position. Keep the order stable and append; removing or reordering an entry updates rules in parallel and can fail with a duplicate-rule error on the first apply (re-run to converge).
+- Switching from `[]` to a non-empty list removes the VPC-CIDR rule and adds the group rules in the same apply, so new connections can fail for a moment. Apply in a quiet period. Established connections are tracked and survive.
+
 ## `storage_type` changes now reach the instance
 
 Read this before upgrading an existing database past 1.1.2.
