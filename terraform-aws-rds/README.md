@@ -36,6 +36,32 @@ break greenfield creates later with no change on your side. Pinning the value in
 config is the only way to control when the engine version moves.
 `db.t4g.micro` on `gp3` is the cheapest orderable combination for a scratch instance.
 
+### Restrict ingress to security groups
+
+Set `allowed_security_group_ids` to replace VPC-wide ingress with one TCP rule per security
+group on the database port. The default `[]` keeps VPC-CIDR ingress. The existing CIDR
+rule moves to index `[0]` without replacement.
+
+```hcl
+module "restricted_instance" {
+  source = "./terraform-aws-rds"
+
+  db_name                    = "example_rds"
+  db_username                = "exampleuser"
+  replica_count              = 0
+  vpc_id                     = "vpc-123456789"
+  subnet_ids                 = ["subnet-123456789", "subnet-987654321"]
+  allowed_security_group_ids = ["sg-0123456789abcdef0", "sg-0123456789abcdef1"]
+}
+```
+
+Use `module.restricted_instance.security_group_id` to reference the database security group.
+List length must be known at plan time; the security group IDs may be unknown until apply.
+
+Operational notes:
+- Rules are keyed by list position. Keep the order stable and append; removing or reordering an entry updates rules in parallel and can fail with a duplicate-rule error on the first apply (re-run to converge).
+- Switching from `[]` to a non-empty list removes the VPC-CIDR rule and adds the group rules in the same apply, so new connections can fail for a moment. Apply in a quiet period. Established connections are tracked and survive.
+
 ## `storage_type` changes now reach the instance
 
 Read this before upgrading an existing database past 1.1.2.
@@ -358,6 +384,7 @@ Enabling this requires the applying principal to hold `secretsmanager:CreateSecr
 | [aws_secretsmanager_secret_version.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version) | resource |
 | [aws_security_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [aws_vpc_security_group_egress_rule.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_egress_rule) | resource |
+| [aws_vpc_security_group_ingress_rule.allowed_security_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_ingress_rule) | resource |
 | [aws_vpc_security_group_ingress_rule.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_ingress_rule) | resource |
 | [random_password.this](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
 | [aws_secretsmanager_random_password.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_random_password) | data source |
@@ -370,6 +397,7 @@ Enabling this requires the applying principal to hold `secretsmanager:CreateSecr
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_postgres_parameters"></a> [additional\_postgres\_parameters](#input\_additional\_postgres\_parameters) | Additional postgres parameters to add to parameter groups. | <pre>map(object({<br/>    value        = any<br/>    apply_method = string<br/>  }))</pre> | `null` | no |
 | <a name="input_allow_major_version_upgrade"></a> [allow\_major\_version\_upgrade](#input\_allow\_major\_version\_upgrade) | Whether a major engine version upgrade is allowed. Defaults to false: with it off, raising engine\_version across a major fails the apply instead of silently performing an offline, non-reversible in-place upgrade. Turn it on deliberately for the apply that performs the upgrade. | `bool` | `false` | no |
+| <a name="input_allowed_security_group_ids"></a> [allowed\_security\_group\_ids](#input\_allowed\_security\_group\_ids) | Security group IDs allowed to access the database port. An empty list allows the VPC CIDR instead. | `list(string)` | `[]` | no |
 | <a name="input_apply_immediately"></a> [apply\_immediately](#input\_apply\_immediately) | Apply any changes to this database immediately. | `bool` | `true` | no |
 | <a name="input_auto_minor_version_upgrade"></a> [auto\_minor\_version\_upgrade](#input\_auto\_minor\_version\_upgrade) | Indicates whether minor engine upgrades will be applied automatically to the DB instance during the maintenance window. | `bool` | `false` | no |
 | <a name="input_backup_retention_day"></a> [backup\_retention\_day](#input\_backup\_retention\_day) | The number of days to retain database backups (default is 7 days). | `number` | `7` | no |
@@ -421,4 +449,5 @@ Enabling this requires the applying principal to hold `secretsmanager:CreateSecr
 | <a name="output_db_username"></a> [db\_username](#output\_db\_username) | The master username for the database |
 | <a name="output_main_address"></a> [main\_address](#output\_main\_address) | The DNS address of the main RDS instance |
 | <a name="output_replica_address"></a> [replica\_address](#output\_replica\_address) | The DNS address of the first replica instance, or main instance if no replicas exist |
+| <a name="output_security_group_id"></a> [security\_group\_id](#output\_security\_group\_id) | The ID of the database security group |
 <!-- END_TF_DOCS -->

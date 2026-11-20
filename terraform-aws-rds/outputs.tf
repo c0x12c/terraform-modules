@@ -3,6 +3,11 @@ output "main_address" {
   value       = module.main_db_instance.db_address
 }
 
+output "security_group_id" {
+  description = "The ID of the database security group"
+  value       = aws_security_group.this.id
+}
+
 output "replica_address" {
   description = "The DNS address of the first replica instance, or main instance if no replicas exist"
   value       = try(module.replica_db_instance[0].db_address, module.main_db_instance.db_address)

@@ -15,11 +15,28 @@ resource "aws_security_group" "this" {
 }
 
 resource "aws_vpc_security_group_ingress_rule" "this" {
+  count = length(var.allowed_security_group_ids) == 0 ? 1 : 0
+
   security_group_id = aws_security_group.this.id
   cidr_ipv4         = data.aws_vpc.this.cidr_block
   from_port         = var.port
   ip_protocol       = "tcp"
   to_port           = var.port
+}
+
+moved {
+  from = aws_vpc_security_group_ingress_rule.this
+  to   = aws_vpc_security_group_ingress_rule.this[0]
+}
+
+resource "aws_vpc_security_group_ingress_rule" "allowed_security_group" {
+  count = length(var.allowed_security_group_ids)
+
+  security_group_id            = aws_security_group.this.id
+  referenced_security_group_id = var.allowed_security_group_ids[count.index]
+  from_port                    = var.port
+  ip_protocol                  = "tcp"
+  to_port                      = var.port
 }
 
 resource "aws_vpc_security_group_egress_rule" "this" {

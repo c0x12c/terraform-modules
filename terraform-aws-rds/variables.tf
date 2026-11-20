@@ -55,6 +55,17 @@ variable "subnet_ids" {
   type        = list(string)
 }
 
+variable "allowed_security_group_ids" {
+  description = "Security group IDs allowed to access the database port. An empty list allows the VPC CIDR instead."
+  type        = list(string)
+  default     = []
+
+  validation {
+    condition     = length(var.allowed_security_group_ids) == length(distinct(var.allowed_security_group_ids))
+    error_message = "allowed_security_group_ids must not contain duplicates."
+  }
+}
+
 variable "multi_az" {
   description = "Indicates whether the database instance should be deployed across multiple availability zones."
   type        = bool
