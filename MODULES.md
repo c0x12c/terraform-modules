@@ -15,7 +15,7 @@ module "example" {
 |---|---|---|---|
 | `terraform-aws-acm` | `terraform.c0x12c.com/c0x12c/acm/aws` | 0.1.63 | Terraform module which creates ACM certificates and validates them using Route53 DNS. |
 | `terraform-aws-alb` | `terraform.c0x12c.com/c0x12c/alb/aws` | 1.0.0 | Terraform module which creates external Application Load Balancer resources on AWS: |
-| `terraform-aws-amplify` | `terraform.c0x12c.com/c0x12c/amplify/aws` | 1.6.1 | Terraform module to provision AWS Amplify apps, backend environments, branches, domain associations. |
+| `terraform-aws-amplify` | `terraform.c0x12c.com/c0x12c/amplify/aws` | 1.6.2 | Terraform module to provision AWS Amplify apps, backend environments, branches, domain associations. |
 | `terraform-aws-cloudfront-logging` | `terraform.c0x12c.com/c0x12c/cloudfront-logging/aws` | 0.1.0 |  |
 | `terraform-aws-cloudtrail` | `terraform.c0x12c.com/c0x12c/cloudtrail/aws` | 0.7.0 | Terraform module which creates external AWS CloudTrail resources: |
 | `terraform-aws-cloudwatch-alarm` | `terraform.c0x12c.com/c0x12c/cloudwatch-alarm/aws` | 0.8.0 | Terraform module which creates Amazon CloudWatch Alarm resources. |
