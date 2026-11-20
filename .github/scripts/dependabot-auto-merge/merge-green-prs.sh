@@ -137,14 +137,9 @@ check_pr() {
   if ! behind=$(gh api "repos/$REPO/compare/$base...$sha" --jq .behind_by); then
     echo 'could not compare base'; return
   fi
-  if [[ $behind != 0 ]]; then
-    if [[ $kind == release ]]; then echo "$behind commits behind; waiting for release automation"; return; fi
-    if [[ ${DRY_RUN:-0} != 1 ]]; then
-      if ! gh pr comment "$number" --repo "$REPO" --body '@dependabot rebase' >/dev/null 2>&1; then
-        echo "$behind commits behind; rebase request failed"; return
-      fi
-    fi
-    echo "$behind commits behind; needs rebase"; return
+  # Dependabot ignores '@dependabot rebase' from an App and updating the branch would add a non-Dependabot commit, so a behind manifest-only PR merges as is; GitHub refuses a conflicting merge.
+  if [[ $kind == release && $behind != 0 ]]; then
+    echo "$behind commits behind; waiting for release automation"; return
   fi
   if ! runs=$(gh api "repos/$REPO/actions/runs?head_sha=$sha&event=pull_request&per_page=100" --paginate --slurp); then
     echo 'could not read workflow runs'; return
