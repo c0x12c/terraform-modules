@@ -58,6 +58,16 @@ run "restricted_security_group_ingress" {
   }
 }
 
+run "duplicate_security_group_ids" {
+  command = plan
+
+  variables {
+    allowed_security_group_ids = ["sg-11111111111111111", "sg-11111111111111111"]
+  }
+
+  expect_failures = [var.allowed_security_group_ids]
+}
+
 run "security_group_output" {
   command = apply
 
