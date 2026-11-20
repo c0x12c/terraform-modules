@@ -36,6 +36,28 @@ break greenfield creates later with no change on your side. Pinning the value in
 config is the only way to control when the engine version moves.
 `db.t4g.micro` on `gp3` is the cheapest orderable combination for a scratch instance.
 
+### Restrict ingress to security groups
+
+Set `allowed_security_group_ids` to replace VPC-wide ingress with one TCP rule per security
+group on the database port. The default `[]` keeps VPC-CIDR ingress. The existing CIDR
+rule moves to index `[0]` without replacement.
+
+```hcl
+module "restricted_instance" {
+  source = "./terraform-aws-rds"
+
+  db_name                    = "example_rds"
+  db_username                = "exampleuser"
+  replica_count              = 0
+  vpc_id                     = "vpc-123456789"
+  subnet_ids                 = ["subnet-123456789", "subnet-987654321"]
+  allowed_security_group_ids = ["sg-0123456789abcdef0", "sg-0123456789abcdef1"]
+}
+```
+
+Use `module.restricted_instance.security_group_id` to reference the database security group.
+List length must be known at plan time; the security group IDs may be unknown until apply.
+
 ## `storage_type` changes now reach the instance
 
 Read this before upgrading an existing database past 1.1.2.
