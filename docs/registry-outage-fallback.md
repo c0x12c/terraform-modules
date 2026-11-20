@@ -45,6 +45,5 @@ for a prolonged outage, and remove the vendored copy afterwards.
 
 ## Reporting
 
-If the registry is down and no alert has fired, say so in the incident channel - the
-uptime probe runs on a 15 minute schedule and is best-effort, so a real outage can
-start before it is noticed.
+If the registry is down, say so in the incident channel. Nothing monitors it: the
+first signal is a failed `terraform init`.

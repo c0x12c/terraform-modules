@@ -1,9 +1,11 @@
 # Registry recovery runbook
 
-For losing the Cloudflare account that hosts the registry. For the narrower case
-of losing or corrupting objects while the account is fine, use
-[`registry-restore.md`](registry-restore.md) - that is a shorter procedure and
-the one you will need far more often.
+For losing the Cloudflare account that hosts the registry. Losing or corrupting
+only some objects while the account is fine uses the same re-publish step (5),
+against the existing bucket.
+
+There is no backup of the R2 bucket: the monorepo's `<module>/vX.Y.Z` tags are
+the source of truth, and recovery rebuilds every object from them.
 
 Nothing here has been rehearsed. See "Rehearsal" at the end; a procedure nobody
 has run is a draft, and this one says so rather than implying otherwise.
@@ -27,10 +29,12 @@ block a restore.
 
 ## Expected RPO and RTO
 
-- **RPO: up to 24 hours.** Snapshots run daily. Any module version published
-  between the last snapshot and the loss must be re-released from the monorepo.
-- **RTO: hours, dominated by nameserver propagation**, which is not under our
-  control. Every step before the NS change can be done in parallel with it.
+- **RPO: none for tagged releases.** Every released version is a tag in the
+  monorepo and is re-publishable; nothing outside the tags (the stats database,
+  see above) is lost that matters.
+- **RTO: hours, dominated by nameserver propagation and by re-publishing every
+  tag** (one workflow run per version). Every step before the NS change can be
+  done in parallel with it.
 
 ## Procedure
 
@@ -41,21 +45,17 @@ curl -sS -o /dev/null -w '%{http_code}\n' https://terraform.c0x12c.com/healthz
 dig +short terraform.c0x12c.com
 ```
 
-A 5xx with DNS still resolving is a Worker or R2 problem, not account loss - stop
-here and use [`registry-restore.md`](registry-restore.md). Only proceed if the
+A 5xx with DNS still resolving is a Worker or R2 problem, not account loss - skip
+to step 5 and 6 against the existing account. Only run the whole procedure if the
 account itself is gone.
 
-### 2. Get the most recent snapshot first
+### 2. Build the list of versions to re-publish
 
-Do this before touching DNS; it is the step with a deadline, because artifacts
-expire after 30 days.
+No snapshot exists, so list the tags while you wait on the account:
 
 ```
-gh run list --workflow registry-snapshot.yml --limit 10
-gh run download <run-id> --name registry-snapshot-<date>
+git fetch --tags && git tag --list '*/v*'
 ```
-
-Check `manifest.json` for `generated_at` and `object_count` before relying on it.
 
 ### 3. Stand up a new Cloudflare account
 
@@ -76,11 +76,17 @@ At Squarespace, replace the Cloudflare nameservers with the new ones. This is th
 point of no return for the old account and the step that sets the RTO. Start it
 as early as you can - the remaining steps do not depend on it finishing.
 
-### 5. Restore the objects
+### 5. Re-publish every version
 
-Follow [`registry-restore.md`](registry-restore.md) against the new bucket. Use
-the dry run first: it verifies every object against its recorded checksum, so a
-damaged artifact fails before a half-finished restore rather than during one.
+For each tag from step 2, publish it to the new bucket (`<module>` is the
+directory name, the version keeps its `v`):
+
+```
+gh workflow run registry-publish.yml -f module=<module> -f version=<vX.Y.Z>
+```
+
+Publishing needs the R2 secrets and `R2_BUCKET` pointed at the new bucket first
+(step 3). Do one module first and read its run before dispatching the rest.
 
 ### 6. Redeploy the Worker
 
@@ -106,10 +112,10 @@ then, in a scratch directory, a `terraform init` against a pinned module. The
 protocol endpoints can look healthy while a tarball is missing; only a real
 client resolving a real version proves the restore.
 
-### 8. Re-publish anything lost to the RPO gap
+### 8. Check nothing was missed
 
-Compare `index.json` against the monorepo's tags. Any version tagged after the
-snapshot needs re-releasing.
+Compare `index.json` against the monorepo's tags. Any tag absent from the index
+needs another step 5 run.
 
 ## While it is down
 
@@ -122,11 +128,11 @@ every project inconvenienced.
 
 This procedure is unrehearsed, which means its real RTO is a guess.
 
-The cheap rehearsal is step 5 alone: create a throwaway R2 bucket, restore the
-latest snapshot into it, and confirm the object count and checksums match the
-manifest. That exercises the artifact, the restore tool, and the operator's
-familiarity with both, without touching DNS or the live bucket. It needs an R2
-credential with bucket-create rights, so it is an owner action.
+The cheap rehearsal is step 5 on one module: create a throwaway R2 bucket, publish
+a few tags into it, and confirm the objects and index entries appear. That
+exercises the publish path and the operator's familiarity with it without
+touching DNS or the live bucket. It needs an R2 credential with bucket-create
+rights, so it is an owner action.
 
-Doing that once converts the largest unknown here - whether the backup is
-actually restorable - from an assumption into a fact.
+It does not tell you how long re-publishing every tag takes, which dominates the
+RTO; time it on a sample and scale it.
