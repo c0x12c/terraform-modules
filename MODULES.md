@@ -97,7 +97,7 @@ module "example" {
 | `terraform-datadog-logging-monitor` | `terraform.c0x12c.com/c0x12c/logging-monitor/datadog` | 0.0.2 |  |
 | `terraform-datadog-monitors` | `terraform.c0x12c.com/c0x12c/monitors/datadog` | 1.0.1 |  |
 | `terraform-datadog-mono-monitor` | `terraform.c0x12c.com/c0x12c/mono-monitor/datadog` | 1.1.1 | Terraform module that creates standalone Datadog monitors, supporting the following: |
-| `terraform-datadog-notification-rules` | `terraform.c0x12c.com/c0x12c/notification-rules/datadog` | 1.0.0 | Terraform module that creates Datadog notification rules. These rules allow to filter alerts by tag and sen... |
+| `terraform-datadog-notification-rules` | `terraform.c0x12c.com/c0x12c/notification-rules/datadog` | 1.1.0 | Terraform module that creates Datadog notification rules. These rules allow to filter alerts by tag and sen... |
 | `terraform-datadog-oncall` | `terraform.c0x12c.com/c0x12c/oncall/datadog` | 1.0.1 | Terraform module that creates Datadog notification rules. These rules allow to filter alerts by tag and sen... |
 | `terraform-datadog-service-monitor` | `terraform.c0x12c.com/c0x12c/service-monitor/datadog` | 1.1.4 | Terraform module which creates Datadog monitors for services, supporting: |
 | `terraform-datadog-team` | `terraform.c0x12c.com/c0x12c/team/datadog` | 1.0.0 | Terraform module to create Datadog team. |
