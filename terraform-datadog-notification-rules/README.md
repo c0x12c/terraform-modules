@@ -61,7 +61,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_notification_rules"></a> [notification\_rules](#input\_notification\_rules) | Datadog notification rules. `filter.tags` ANDs key:value tags; `filter.scope` is a boolean expression (AND, OR, NOT, parentheses), e.g. `env:dev AND NOT team:x`. | <pre>map(object({<br/>    name       = string<br/>    recipients = list(string)<br/>    filter = optional(object({<br/>      tags  = optional(list(string))<br/>      scope = optional(string)<br/>    }))<br/>  }))</pre> | `{}` | no |
+| <a name="input_notification_rules"></a> [notification\_rules](#input\_notification\_rules) | Datadog notification rules. filter.tags ANDs tags; filter.scope takes AND, OR, NOT. | <pre>map(object({<br/>    name       = string<br/>    recipients = list(string)<br/>    filter = optional(object({<br/>      tags  = optional(list(string))<br/>      scope = optional(string)<br/>    }))<br/>  }))</pre> | `{}` | no |
 
 ## Outputs
 

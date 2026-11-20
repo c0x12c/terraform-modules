@@ -1,5 +1,5 @@
 variable "notification_rules" {
-  description = "Datadog notification rules. `filter.tags` ANDs key:value tags; `filter.scope` is a boolean expression (AND, OR, NOT, parentheses), e.g. `env:dev AND NOT team:x`."
+  description = "Datadog notification rules. filter.tags ANDs tags; filter.scope takes AND, OR, NOT."
   type = map(object({
     name       = string
     recipients = list(string)
