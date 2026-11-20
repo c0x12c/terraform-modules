@@ -30,9 +30,9 @@ jobs:
         with:
           app-id: ${{ vars.GH_APP_ID }}
           private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+          # No actions scope: the installation lacks it, and run listing on a public repo needs none.
           permission-contents: write
           permission-pull-requests: write
-          permission-actions: read
 
       # PR code never runs here because the script comes from the default branch.
       - name: Checkout source
