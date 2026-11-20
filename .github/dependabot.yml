@@ -6,8 +6,12 @@ updates:
       interval: weekly
     groups:
       actions:
+        update-types: [minor, patch]
         patterns:
           - "*"
+    commit-message:
+      prefix: chore
+      include: scope
 
   # publish_module.py deps (registry-register.yml first-time registrations)
   - package-ecosystem: pip
@@ -16,8 +20,12 @@ updates:
       interval: monthly
     groups:
       pip:
+        update-types: [minor, patch]
         patterns:
           - "*"
+    commit-message:
+      prefix: chore
+      include: scope
 
   # R2 dual-publish deps (boto3) for the self-hosted registry
   - package-ecosystem: pip
@@ -26,5 +34,22 @@ updates:
       interval: monthly
     groups:
       pip:
+        update-types: [minor, patch]
         patterns:
           - "*"
+    commit-message:
+      prefix: chore
+      include: scope
+
+  - package-ecosystem: pip
+    directory: /scripts
+    schedule:
+      interval: monthly
+    groups:
+      pip:
+        update-types: [minor, patch]
+        patterns:
+          - "*"
+    commit-message:
+      prefix: chore
+      include: scope
