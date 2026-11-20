@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-rds/v1.2.1...terraform-aws-rds/v1.3.0) (2026-11-20)
+
+
+### Features
+
+* **terraform-aws-rds:** restrict ingress to listed security groups ([#419](https://github.com/c0x12c/terraform-modules/issues/419)) ([7ad4dce](https://github.com/c0x12c/terraform-modules/commit/7ad4dce7d0af539f0d83d68d78e2ead496529965))
+
 ## [1.2.1](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-rds/v1.2.0...terraform-aws-rds/v1.2.1) (2026-10-09)
 
 
