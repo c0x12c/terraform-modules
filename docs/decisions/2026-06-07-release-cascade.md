@@ -4,16 +4,24 @@ Status: **Accepted** · Date: 2026-06-07 · Scope: `terraform-modules`
 
 ## Decisions taken (2026-06-08)
 
-- **D1 — which releases cascade: all releases** (as-built). The cascade fires on
+- **D1 - which releases cascade: all releases** (as-built). The cascade fires on
   every leaf release. A `fix:`-only filter is deferred as a volume optimization
-  if changelog noise proves excessive — not needed for correctness.
-- **D2 — who merges cascade release PRs: humans.** The cascade only *creates*
+  if changelog noise proves excessive - not needed for correctness.
+- **D2 - who merges cascade release PRs: humans.** The cascade only *creates*
   `fix(deps)` commits + opens parent release PRs; a human merges each, so a
   registry publish never happens unreviewed. No auto-merge wiring.
+  - **Superseded 2026-11-20:** release PRs, cascade ones included, are
+    auto-merged by `.github/workflows/dependabot-automerge.yml` once `Module CI`
+    passes at the PR head, the PR changes only the version manifest, `MODULES.md`
+    and that module's `CHANGELOG.md` / `README.md`, and every commit is by the
+    release bot. Review happens on the feature PR that triggers the release.
+    Accepted risk: with `CASCADE_EXECUTE=true`, a bad leaf release reaches every
+    consuming parent without a human merge. To restore manual merges, unset
+    `RELEASE_GATE` in that workflow.
 - **Enablement is two repo variables, gated for safety:**
-  - `CASCADE_ENABLED=true` — arms the job in **dry-run** (prints planned bumps,
+  - `CASCADE_ENABLED=true` - arms the job in **dry-run** (prints planned bumps,
     zero mutation). **Set 2026-06-08.**
-  - `CASCADE_EXECUTE=true` — promotes dry-run to real commits/pushes. Flip only
+  - `CASCADE_EXECUTE=true` - promotes dry-run to real commits/pushes. Flip only
     after observing one clean dry-run on a real release. **Not yet set.**
   Revert either instantly by unsetting the variable.
 
@@ -44,7 +52,7 @@ flowchart LR
 1. **Trigger**: a `cascade` job appended to `module-release.yml`, running after
    the `mirror` job when `releases_created == 'true'`.
 2. **Reverse-dep closure**: same grep used by `module-ci.yml` detect
-   (`source = "../<module>"`), one level per release event — transitive
+   (`source = "../<module>"`), one level per release event - transitive
    propagation happens naturally as each parent's release triggers its own
    cascade.
 3. **Attribution artifact**: a generated `<parent>/.sibling-versions` JSON file
@@ -76,23 +84,23 @@ flowchart LR
 
 ## Decisions required
 
-### D1 — Which leaf releases cascade?
+### D1 - Which leaf releases cascade?
 
 | Option | Effect | Risk |
 |---|---|---|
-| **`fix:` releases only (recommended)** | Cascade targets the actual gap: fix propagation. Bounded release volume. | A parent keeps consuming a leaf `feat:` at next natural release rather than immediately — acceptable; features aren't stranded fixes. |
+| **`fix:` releases only (recommended)** | Cascade targets the actual gap: fix propagation. Bounded release volume. | A parent keeps consuming a leaf `feat:` at next natural release rather than immediately - acceptable; features aren't stranded fixes. |
 | All releases (`feat:` + `fix:`) | Parents always pin latest. | A single leaf `feat:` fans out to N parent releases; busy weeks multiply fleet release volume and changelog noise. |
 
-### D2 — Who merges cascade release PRs?
+### D2 - Who merges cascade release PRs?
 
 | Option | Effect | Risk |
 |---|---|---|
-| **Human merges (recommended)** | One click per cascade PR; release governance preserved. | A forgotten PR strands the fix — same failure as today, but now visible as an open PR instead of invisible. |
+| **Human merges (recommended)** | One click per cascade PR; release governance preserved. | A forgotten PR strands the fix - same failure as today, but now visible as an open PR instead of invisible. |
 | Auto-merge on green CI | Fully closed loop. | Unreviewed releases reach a public registry; a bad leaf release auto-propagates fleet-wide before anyone looks. |
 
 ## Out of scope
 
-- Multi-level batching (releasing a leaf and grandparent in one event) — the
+- Multi-level batching (releasing a leaf and grandparent in one event) - the
   natural per-level cascade covers it with one extra release cycle per level.
 - Terraform provider-constraint reconciliation across parents (surfaced
   separately when parents validate against leaf HEAD in CI).
