@@ -6,7 +6,7 @@ resource "helm_release" "this" {
   version          = var.chart_version
   max_history      = 3
   create_namespace = true
-  values           = [local.manifest]
+  values           = concat([local.manifest], var.extra_values)
 }
 
 resource "kubernetes_secret" "github_app" {
