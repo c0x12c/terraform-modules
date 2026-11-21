@@ -16,6 +16,12 @@ variable "chart_url" {
   default     = "https://argoproj.github.io/argo-helm"
 }
 
+variable "extra_values" {
+  description = "Additional Helm values documents (YAML strings) applied after the module's own values, so callers can set chart values the module does not expose (component resources, probes, metrics). Later entries win."
+  type        = list(string)
+  default     = []
+}
+
 variable "repositories" {
   description = "To connect to repository by using Credentials Template, which is currently using Github App"
   type        = list(string)
