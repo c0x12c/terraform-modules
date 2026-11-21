@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.10.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-helm-argocd/v1.9.0...terraform-aws-helm-argocd/v1.10.0) (2026-11-21)
+
+
+### Features
+
+* **terraform-aws-helm-argocd:** extra_values input for argo-cd chart values the module does not expose ([#431](https://github.com/c0x12c/terraform-modules/issues/431)) ([48f8b31](https://github.com/c0x12c/terraform-modules/commit/48f8b314e09fabd4d09c13be5f1491d0b1d4e742))
+
 ## [1.9.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-helm-argocd/v1.8.0...terraform-aws-helm-argocd/v1.9.0) (2026-10-20)
 
 
