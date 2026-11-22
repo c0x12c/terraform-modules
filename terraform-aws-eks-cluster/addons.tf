@@ -5,10 +5,14 @@ data "aws_eks_addon_version" "vpc_cni_latest" {
 }
 
 locals {
-  # try()+coalesce guards a caller explicitly forwarding `vpc_cni = { env = null }` - the
-  # optional() default in the variable type only fills in when the attribute is omitted
-  # entirely, not when null is passed explicitly.
-  vpc_cni_env = coalesce(try(var.vpc_cni.env, null), {})
+  # Guard null inputs so wrapper modules can safely forward an unset configuration.
+  vpc_cni_env                   = coalesce(try(var.vpc_cni.env, null), {})
+  vpc_cni_enable_network_policy = try(var.vpc_cni.enable_network_policy, null)
+  # Preserve explicit false so an enabled remote setting can be rolled back.
+  vpc_cni_configuration = merge(
+    length(local.vpc_cni_env) > 0 ? { env = local.vpc_cni_env } : {},
+    local.vpc_cni_enable_network_policy != null ? { enableNetworkPolicy = tostring(local.vpc_cni_enable_network_policy) } : {}
+  )
 }
 
 resource "aws_eks_addon" "vpc_cni" {
@@ -18,9 +22,9 @@ resource "aws_eks_addon" "vpc_cni" {
   resolve_conflicts_on_update = "OVERWRITE"
   resolve_conflicts_on_create = "OVERWRITE"
 
-  # null (not "{}") when no overrides are set, so callers who don't touch var.vpc_cni see no
-  # configuration_values diff on this addon.
-  configuration_values = length(local.vpc_cni_env) > 0 ? jsonencode({ env = local.vpc_cni_env }) : null
+  # Omit configuration only when env is empty and the flag is null; explicit false must
+  # reach the Optional+Computed add-on setting to disable existing enforcement.
+  configuration_values = length(local.vpc_cni_configuration) > 0 ? jsonencode(local.vpc_cni_configuration) : null
 
   depends_on = [aws_eks_cluster.master]
 }

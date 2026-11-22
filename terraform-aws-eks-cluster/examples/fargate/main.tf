@@ -20,6 +20,9 @@ module "eks" {
   enabled_datadog_agent      = true
   enabled_efs                = true
 
+  # Enable the add-on's network policy enforcement switch.
+  vpc_cni = { enable_network_policy = true }
+
   # fargate
   fargate_profiles = {
     default = {
