@@ -29,7 +29,7 @@ module "example" {
 | `terraform-aws-efs` | `terraform.c0x12c.com/c0x12c/efs/aws` | 0.1.78 | Terraform EFS sub-module to create EFS resources on AWS. |
 | `terraform-aws-eks-access-entry` | `terraform.c0x12c.com/c0x12c/eks-access-entry/aws` | 0.3.0 | Terraform module which creates Amazon EKS (Kubernetes) resources |
 | `terraform-aws-eks-cloudwatch-logging-fargate` | `terraform.c0x12c.com/c0x12c/eks-cloudwatch-logging-fargate/aws` | 1.0.0 | Terraform Cloudwatch logging module for fargate. |
-| `terraform-aws-eks-cluster` | `terraform.c0x12c.com/c0x12c/eks-cluster/aws` | 1.2.0 | Terraform module which creates Amazon EKS (Kubernetes) resources |
+| `terraform-aws-eks-cluster` | `terraform.c0x12c.com/c0x12c/eks-cluster/aws` | 1.3.0 | Terraform module which creates Amazon EKS (Kubernetes) resources |
 | `terraform-aws-eks-datadog-rbac` | `terraform.c0x12c.com/c0x12c/eks-datadog-rbac/aws` | 1.2.0 | Terraform Datadog RBAC sub-module. |
 | `terraform-aws-eks-efs` | `terraform.c0x12c.com/c0x12c/eks-efs/aws` | 1.0.0 | Terraform EFS sub-module to create EFS resources on AWS. |
 | `terraform-aws-eks-fargate-profile` | `terraform.c0x12c.com/c0x12c/eks-fargate-profile/aws` | 1.0.0 | Configuration in this directory creates a Fargate EKS Profile |

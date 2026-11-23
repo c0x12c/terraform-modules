@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-eks-cluster/v1.2.0...terraform-aws-eks-cluster/v1.3.0) (2026-11-23)
+
+
+### Features
+
+* **terraform-aws-eks-cluster:** add tri-state vpc_cni.enable_network_policy ([#433](https://github.com/c0x12c/terraform-modules/issues/433)) ([e8c24f8](https://github.com/c0x12c/terraform-modules/commit/e8c24f88937a5aa80e235a6a5f123c877c5fb15d))
+
 ## [1.2.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-eks-cluster/v1.1.0...terraform-aws-eks-cluster/v1.2.0) (2026-07-06)
 
 
