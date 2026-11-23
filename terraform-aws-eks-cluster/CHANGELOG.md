@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-eks-cluster/v1.3.0...terraform-aws-eks-cluster/v1.4.0) (2026-11-23)
+
+
+### Features
+
+* **terraform-aws-eks-cluster:** per-namespace labels input custom_namespace_labels ([#437](https://github.com/c0x12c/terraform-modules/issues/437)) ([8fb5d16](https://github.com/c0x12c/terraform-modules/commit/8fb5d16e78a3030cd54a193985538a211fdbb3e5))
+
 ## [1.3.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-eks-cluster/v1.2.0...terraform-aws-eks-cluster/v1.3.0) (2026-11-23)
 
 
