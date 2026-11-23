@@ -9,6 +9,7 @@ on:
   pull_request:
     paths:
       - "tools/registry/**"
+      - "tools/maven-registry/**"
       - "set-up-repositories/**"
       - ".github/scripts/dependabot-auto-merge/**"
       - ".github/scripts/registry-tests/**"
@@ -19,6 +20,7 @@ on:
     branches: [master]
     paths:
       - "tools/registry/**"
+      - "tools/maven-registry/**"
       - "set-up-repositories/**"
       - ".github/scripts/dependabot-auto-merge/**"
       - ".github/scripts/registry-tests/**"
@@ -41,6 +43,10 @@ jobs:
           node-version: "22"
       - name: Worker suite
         run: node tools/registry/test_worker.mjs
+      - name: Maven Worker suites
+        run: |
+          node tools/maven-registry/test_oidc.mjs
+          node tools/maven-registry/test_worker.mjs
 
   deps:
     runs-on: ubuntu-latest

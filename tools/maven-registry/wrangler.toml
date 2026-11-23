@@ -1,0 +1,14 @@
+name = "maven-publish-registry"
+main = "worker.js"
+compatibility_date = "2026-01-01"
+routes = [{ pattern = "maven-publish.c0x12c.com", custom_domain = true }]
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "c0x12c-maven"
+
+[vars]
+OIDC_AUDIENCE = "c0x12c-maven-publish"
+ALLOWED_OWNERS = "c0x12c"
+ALLOWED_REPOS = ""
+MAX_BYTES = "104857600"
