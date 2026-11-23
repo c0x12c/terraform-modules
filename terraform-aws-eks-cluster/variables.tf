@@ -234,16 +234,19 @@ variable "addons_vpc_cni_version" {
 }
 
 # Passthrough for the vpc-cni addon's `env` block (e.g. WARM_ENI_TARGET, WARM_IP_TARGET,
-# MINIMUM_IP_TARGET to tune ENI/IP pre-allocation on IP-constrained subnets). Empty by default
-# so existing clusters that don't set this see no configuration_values diff / addon behavior
-# change.
+# MINIMUM_IP_TARGET to tune ENI/IP pre-allocation on IP-constrained subnets) and the add-on's
+# top-level enableNetworkPolicy switch (schema strings "true"/"false", not an env var).
+# Empty env and a null flag avoid changing existing add-on configuration by default.
 variable "vpc_cni" {
   description = "Configuration for the VPC CNI add-on"
   type = object({
     env = optional(map(string), {})
+    # Null leaves the add-on setting untouched; true enables enforcement; false explicitly disables it.
+    enable_network_policy = optional(bool)
   })
   default = {
-    env = {}
+    env                   = {}
+    enable_network_policy = null
   }
   # Guards against a caller explicitly forwarding `vpc_cni = null` (variables are nullable by
   # default; the object default above only fills in when the whole variable is omitted, not
