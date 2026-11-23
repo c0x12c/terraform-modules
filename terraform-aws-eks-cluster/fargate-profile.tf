@@ -20,6 +20,7 @@ resource "kubernetes_namespace" "fargate" {
   for_each = local.namespaces
 
   metadata {
-    name = each.value
+    name   = each.value
+    labels = lookup(var.custom_namespace_labels, each.value, {})
   }
 }

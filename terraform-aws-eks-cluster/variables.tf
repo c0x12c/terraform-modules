@@ -221,6 +221,12 @@ variable "enabled_efs" {
   default     = false
 }
 
+variable "custom_namespace_labels" {
+  type        = map(map(string))
+  description = "Labels per custom namespace, keyed by namespace name, so the namespace owner declares them and no other resource has to label it"
+  default     = {}
+}
+
 variable "custom_namespaces" {
   type        = list(string)
   description = "Custom namespaces to be created during initialization"
