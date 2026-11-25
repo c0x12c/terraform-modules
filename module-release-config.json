@@ -358,6 +358,9 @@
     "terraform-github-actions": {
       "component": "terraform-github-actions"
     },
+    "terraform-grafana-tenant-dashboards": {
+      "component": "terraform-grafana-tenant-dashboards"
+    },
     "terraform-kubernetes-helm-reloader": {
       "component": "terraform-kubernetes-helm-reloader"
     },
