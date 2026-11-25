@@ -52,3 +52,51 @@ run "extra_values" {
     error_message = "The appended values document must match the caller's YAML string."
   }
 }
+
+run "upgrade_safe_defaults" {
+  command = plan
+
+  assert {
+    condition     = helm_release.this.version == "10.19.1"
+    error_message = "The default chart must be argo-cd 10.19.1 (Argo CD v3.6.3)."
+  }
+
+  assert {
+    condition     = yamldecode(helm_release.this.values[0]).configs.cm["application.resourceTrackingMethod"] == "label"
+    error_message = "Resource tracking must stay on label by default so the upgrade does not re-apply every resource."
+  }
+
+  assert {
+    condition     = yamldecode(helm_release.this.values[0]).global.networkPolicy.create == false
+    error_message = "Chart NetworkPolicies must stay off by default."
+  }
+}
+
+run "tracking_and_network_policy_overrides" {
+  command = plan
+
+  variables {
+    resource_tracking_method = "annotation"
+    network_policy_enabled   = true
+  }
+
+  assert {
+    condition     = yamldecode(helm_release.this.values[0]).configs.cm["application.resourceTrackingMethod"] == "annotation"
+    error_message = "resource_tracking_method must render into argocd-cm."
+  }
+
+  assert {
+    condition     = yamldecode(helm_release.this.values[0]).global.networkPolicy.create == true
+    error_message = "network_policy_enabled must render into global.networkPolicy.create."
+  }
+}
+
+run "rejects_unknown_tracking_method" {
+  command = plan
+
+  variables {
+    resource_tracking_method = "labels"
+  }
+
+  expect_failures = [var.resource_tracking_method]
+}

@@ -37,6 +37,8 @@ CASES = {
     # Exercises the custom-template override path - the module must prefer the caller's string
     # over its own sample card, and still fall back to the sample for every unset key.
     "custom_template":  {"notification_templates": '{app_deployed="[{\\"title\\": \\"CUSTOM\\"}]"}'},
+    "tracking_annotation": {"resource_tracking_method": "annotation"},
+    "netpol_on":       {"network_policy_enabled": "true"},
     "ext_cluster_full":{"external_clusters": '{dev={server="https://d.example",assume_role="arn:aws:iam::1:role/a",namespace="ns",cluster_resources=true,labels={env="dev"},annotations={note="n"},config={aws_auth_config={cluster_name="dev",role_arn="arn:aws:iam::1:role/r"},tls_client_config={insecure=true,ca_data="Y2E="}}}}'},
 }
 # Required variables are stubbed to `any` in the scratch root, and terraform parses a -var value
@@ -51,6 +53,8 @@ BASE_VARS = {
     "oidc_github_client_id": '"oidc-client-id"',
     "oidc_github_client_secret": '"oidc-client-secret"',
     "oidc_github_organization": '"acme"',
+    # github_app is validated as required while this is true; the manifest never reads either.
+    "create_github_app_secret": "false",
 }
 
 TOP_BLOCK = re.compile(r'^(locals|variable|terraform|resource|data|module|provider|output)\b')
