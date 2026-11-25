@@ -1,0 +1,279 @@
+{
+  "uid": "runtime",
+  "title": "Backend runtime",
+  "description": "JVM heap, database pools and the durable queue",
+  "tags": [],
+  "schemaVersion": 39,
+  "editable": true,
+  "refresh": "1m",
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timezone": "browser",
+  "templating": {
+    "list": [
+      {
+        "type": "datasource",
+        "name": "DS_PROMETHEUS",
+        "label": "Prometheus",
+        "query": "prometheus",
+        "current": {},
+        "hide": 0,
+        "refresh": 1,
+        "regex": ""
+      },
+      {
+        "name": "namespace",
+        "label": "Namespace",
+        "type": "constant",
+        "query": "namespace-placeholder",
+        "hide": 2,
+        "current": {
+          "text": "namespace-placeholder",
+          "value": "namespace-placeholder"
+        },
+        "options": [
+          {
+            "text": "namespace-placeholder",
+            "value": "namespace-placeholder",
+            "selected": true
+          }
+        ]
+      },
+      {
+        "name": "service_name",
+        "label": "Service",
+        "type": "constant",
+        "query": "service_name-placeholder",
+        "hide": 2,
+        "current": {
+          "text": "service_name-placeholder",
+          "value": "service_name-placeholder"
+        },
+        "options": [
+          {
+            "text": "service_name-placeholder",
+            "value": "service_name-placeholder",
+            "selected": true
+          }
+        ]
+      },
+      {
+        "name": "pod_regex",
+        "label": "Pod regex",
+        "type": "constant",
+        "query": "pod_regex-placeholder",
+        "hide": 2,
+        "current": {
+          "text": "pod_regex-placeholder",
+          "value": "pod_regex-placeholder"
+        },
+        "options": [
+          {
+            "text": "pod_regex-placeholder",
+            "value": "pod_regex-placeholder",
+            "selected": true
+          }
+        ]
+      }
+    ]
+  },
+  "panels": [
+    {
+      "type": "text",
+      "title": "Scope",
+      "options": {
+        "mode": "markdown",
+        "content": "Scoped to the namespace and service of this environment. Red lines are alert thresholds."
+      },
+      "id": 1,
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 4
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Heap used / limit",
+      "description": "Alert JvmHeapHigh: above 90% for 15m",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum by (k8s_pod_name) (jvm_memory_used_bytes{namespace=\"$namespace\",jvm_memory_type=\"heap\",k8s_pod_name=~\"$pod_regex\"}) / on(k8s_pod_name) sum by (k8s_pod_name) (jvm_memory_limit_bytes{namespace=\"$namespace\",jvm_memory_type=\"heap\",k8s_pod_name=~\"$pod_regex\"})",
+          "legendFormat": "{{k8s_pod_name}}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "custom": {
+            "thresholdsStyle": {
+              "mode": "line"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0.9
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "id": 2,
+      "gridPos": {
+        "x": 0,
+        "y": 4,
+        "w": 12,
+        "h": 8
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "DB pool in use / max",
+      "description": "Alert DbPoolHigh: above 90% for 10m",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum by (k8s_pod_name, pool_name) (db_client_connections_usage{namespace=\"$namespace\",state!=\"idle\",k8s_pod_name=~\"$pod_regex\"}) / on(k8s_pod_name, pool_name) max by (k8s_pod_name, pool_name) (db_client_connections_max{namespace=\"$namespace\",k8s_pod_name=~\"$pod_regex\"})",
+          "legendFormat": "{{k8s_pod_name}} {{pool_name}}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "custom": {
+            "thresholdsStyle": {
+              "mode": "line"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0.9
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "id": 3,
+      "gridPos": {
+        "x": 12,
+        "y": 4,
+        "w": 12,
+        "h": 8
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Durable queue depth",
+      "description": "Alert DurableQueueNotDraining: above 0 for 30m. Excludes in-flight messages",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "max by (queue_name) (durable_queue_depth{service_name=\"$service_name\",namespace=\"$namespace\"})",
+          "legendFormat": "{{queue_name}}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "custom": {
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "id": 4,
+      "gridPos": {
+        "x": 0,
+        "y": 12,
+        "w": 12,
+        "h": 8
+      }
+    }
+  ],
+  "annotations": {
+    "list": []
+  },
+  "links": []
+}
