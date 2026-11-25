@@ -76,6 +76,24 @@
             "selected": true
           }
         ]
+      },
+      {
+        "name": "container",
+        "label": "Container",
+        "type": "constant",
+        "query": "container-placeholder",
+        "hide": 2,
+        "current": {
+          "text": "container-placeholder",
+          "value": "container-placeholder"
+        },
+        "options": [
+          {
+            "text": "container-placeholder",
+            "value": "container-placeholder",
+            "selected": true
+          }
+        ]
       }
     ]
   },
@@ -162,7 +180,7 @@
       "targets": [
         {
           "refId": "A",
-          "expr": "max by (pod) (increase(kube_pod_container_status_restarts_total{namespace=\"$namespace\",container=\"spartan\",pod=~\"$pod_regex\"}[10m]))",
+          "expr": "max by (pod) (increase(kube_pod_container_status_restarts_total{namespace=\"$namespace\",container=\"$container\",pod=~\"$pod_regex\"}[10m]))",
           "legendFormat": "{{pod}}",
           "datasource": {
             "type": "prometheus",
@@ -278,7 +296,7 @@
       "targets": [
         {
           "refId": "A",
-          "expr": "max by (pod) (container_memory_working_set_bytes{namespace=\"$namespace\",container=\"spartan\",pod=~\"$pod_regex\"}) / max by (pod) (container_spec_memory_limit_bytes{namespace=\"$namespace\",container=\"spartan\",pod=~\"$pod_regex\"} > 0)",
+          "expr": "max by (pod) (container_memory_working_set_bytes{namespace=\"$namespace\",container=\"$container\",pod=~\"$pod_regex\"}) / max by (pod) (container_spec_memory_limit_bytes{namespace=\"$namespace\",container=\"$container\",pod=~\"$pod_regex\"} > 0)",
           "legendFormat": "{{pod}}",
           "datasource": {
             "type": "prometheus",
@@ -338,7 +356,7 @@
       "targets": [
         {
           "refId": "A",
-          "expr": "sum by (pod) (rate(container_cpu_usage_seconds_total{namespace=\"$namespace\",container=\"spartan\",pod=~\"$pod_regex\"}[5m])) / max by (pod) (kube_pod_container_resource_limits{namespace=\"$namespace\",container=\"spartan\",pod=~\"$pod_regex\",resource=\"cpu\"} > 0)",
+          "expr": "sum by (pod) (rate(container_cpu_usage_seconds_total{namespace=\"$namespace\",container=\"$container\",pod=~\"$pod_regex\"}[5m])) / max by (pod) (kube_pod_container_resource_limits{namespace=\"$namespace\",container=\"$container\",pod=~\"$pod_regex\",resource=\"cpu\"} > 0)",
           "legendFormat": "{{pod}}",
           "datasource": {
             "type": "prometheus",
@@ -398,7 +416,7 @@
       "targets": [
         {
           "refId": "A",
-          "expr": "sum by (pod) (increase(container_cpu_cfs_throttled_periods_total{namespace=\"$namespace\",container=\"spartan\",pod=~\"$pod_regex\"}[15m])) / sum by (pod) (increase(container_cpu_cfs_periods_total{namespace=\"$namespace\",container=\"spartan\",pod=~\"$pod_regex\"}[15m]))",
+          "expr": "sum by (pod) (increase(container_cpu_cfs_throttled_periods_total{namespace=\"$namespace\",container=\"$container\",pod=~\"$pod_regex\"}[15m])) / sum by (pod) (increase(container_cpu_cfs_periods_total{namespace=\"$namespace\",container=\"$container\",pod=~\"$pod_regex\"}[15m]))",
           "legendFormat": "{{pod}}",
           "datasource": {
             "type": "prometheus",
@@ -458,7 +476,7 @@
       "targets": [
         {
           "refId": "A",
-          "expr": "max by (pod) (increase(container_oom_events_total{namespace=\"$namespace\",container=\"spartan\",pod=~\"$pod_regex\"}[10m]))",
+          "expr": "max by (pod) (increase(container_oom_events_total{namespace=\"$namespace\",container=\"$container\",pod=~\"$pod_regex\"}[10m]))",
           "legendFormat": "{{pod}}",
           "datasource": {
             "type": "prometheus",

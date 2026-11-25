@@ -12,6 +12,7 @@ variables {
       namespace       = "service-example-prod"
       service_name    = "api"
       pod_regex       = "example-worker-.*"
+      container       = "app"
       aws_tag_project = "shared-example"
     }
   }
@@ -59,6 +60,7 @@ run "defaults" {
             namespace       = cfg.namespace
             service_name    = cfg.service_name
             pod_regex       = cfg.pod_regex
+            container       = cfg.container
             aws_tag_project = coalesce(try(cfg.aws_tag_project, null), var.project)
           }[constant.name] &&
           constant.current.text == constant.query &&
@@ -71,6 +73,34 @@ run "defaults" {
       ]
     ]))
     error_message = "All hidden constants must be replaced, including project fallback and per-env AWS tag overrides."
+  }
+
+  assert {
+    condition = alltrue(flatten([
+      for dashboard in values(grafana_dashboard.this) : [
+        for panel in jsondecode(dashboard.config_json).panels : [
+          for target in try(panel.targets, []) :
+          !strcontains(target.expr, "container=\"spartan\"")
+        ]
+      ]
+      ])) && alltrue(flatten([
+      for env in keys(var.environments) : [
+        for panel in jsondecode(grafana_dashboard.this["${env}/pods"].config_json).panels : [
+          for target in try(panel.targets, []) :
+          strcontains(target.expr, "container=\"$container\"")
+          if strcontains(target.expr, "container=")
+        ]
+      ]
+      ])) && alltrue([
+      for env in keys(var.environments) :
+      anytrue(flatten([
+        for panel in jsondecode(grafana_dashboard.this["${env}/pods"].config_json).panels : [
+          for target in try(panel.targets, []) :
+          strcontains(target.expr, "container=\"$container\"")
+        ]
+      ]))
+    ])
+    error_message = "Rendered queries must not hardcode the workload container; pods container filters must use the container constant."
   }
 
   assert {

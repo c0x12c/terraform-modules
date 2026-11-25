@@ -40,6 +40,7 @@ locals {
       namespace       = cfg.namespace
       service_name    = cfg.service_name
       pod_regex       = cfg.pod_regex
+      container       = cfg.container
       aws_tag_project = coalesce(cfg.aws_tag_project, var.project)
     }
   }

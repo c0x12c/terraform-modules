@@ -18,11 +18,12 @@ variable "project" {
 }
 
 variable "environments" {
-  description = "Environments keyed by dev or prod. Dashboard constants use namespace, service_name and pod_regex; aws_tag_project defaults to project."
+  description = "Environments keyed by dev or prod. Dashboard constants use namespace, service_name, pod_regex and container (default spartan); aws_tag_project defaults to project."
   type = map(object({
     namespace       = string
     service_name    = string
     pod_regex       = string
+    container       = optional(string, "spartan")
     aws_tag_project = optional(string)
   }))
 
