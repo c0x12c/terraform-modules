@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.8.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-elasticache/v0.7.2...terraform-aws-elasticache/v0.8.0) (2026-11-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* **terraform-aws-elasticache:** generate the auth token with random_password ([#444](https://github.com/c0x12c/terraform-modules/issues/444))
+
+### Features
+
+* **terraform-aws-elasticache:** generate the auth token with random_password ([#444](https://github.com/c0x12c/terraform-modules/issues/444)) ([a0f2c2c](https://github.com/c0x12c/terraform-modules/commit/a0f2c2c27af34a2aa2a6a286c165f61bbc908f31))
+
 ## [0.7.2](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-elasticache/v0.7.1...terraform-aws-elasticache/v0.7.2) (2026-07-29)
 
 
