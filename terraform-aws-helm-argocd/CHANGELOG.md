@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-helm-argocd/v1.10.0...terraform-aws-helm-argocd/v2.0.0) (2026-11-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* **terraform-aws-helm-argocd:** default to argo-cd chart 10.19.1 (Argo CD v3.6.3) ([#439](https://github.com/c0x12c/terraform-modules/issues/439))
+
+### Features
+
+* **terraform-aws-helm-argocd:** default to argo-cd chart 10.19.1 (Argo CD v3.6.3) ([#439](https://github.com/c0x12c/terraform-modules/issues/439)) ([4315a70](https://github.com/c0x12c/terraform-modules/commit/4315a7067d505da555246c6de0b5869c9d69b354))
+
 ## [1.10.0](https://github.com/c0x12c/terraform-modules/compare/terraform-aws-helm-argocd/v1.9.0...terraform-aws-helm-argocd/v1.10.0) (2026-11-21)
 
 
