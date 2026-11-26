@@ -94,7 +94,10 @@ Two chart defaults changed in that range, and the module pins the 2.x behaviour 
 
 - `resource_tracking_method` defaults to `label`. Argo CD 3.0 switched to `annotation`, and switching
   during the upgrade makes auto-sync re-apply every resource it owns. Flip it afterwards, in its own
-  apply.
+  apply. Changing the method does not mark applications OutOfSync, so auto-sync alone will not
+  migrate every resource. After the flip, run a full sync of each application with
+  `ApplyOutOfSyncOnly` disabled, and do this before deleting any resource from Git; otherwise
+  resources still carrying the old tracking label can be orphaned and missed by pruning.
 - `network_policy_enabled` defaults to `false`. Chart 10.0 started creating six NetworkPolicies by
   default.
 
@@ -114,7 +117,21 @@ application's sub-resources, logs RBAC is always enforced, high-churn kinds sit 
 `resource.exclusions`, and the Dex RBAC subject is `federated_claims.user_id` instead of `sub`.
 Check `rbac_policies` that name individual users, and give roles that need logs `logs, get`.
 
-Pin `version = "2.0.0"` exactly while rolling out; rolling back is pinning `1.10.0` again.
+Chart 9.0.0 removed every default under `configs.params`, so values the chart used to set now fall
+back to the Argo CD binary defaults. `applicationsetcontroller.policy` was `sync` and is now `""`;
+`controller.status.processors`, `controller.operation.processors` and
+`controller.self.heal.timeout.seconds` are no longer set either. Restore any you rely on through
+`extra_values`:
+
+```yaml
+configs:
+  params:
+    applicationsetcontroller.policy: sync
+```
+
+Pin `version = "2.0.0"` exactly while rolling out. Rolling back is pinning `1.10.0` again, as long as
+`resource_tracking_method` has not been changed from `label`. Once it is `annotation`, pinning
+`1.10.0` puts tracking back on label and every application shows OutOfSync until it is re-applied.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -130,9 +147,9 @@ Pin `version = "2.0.0"` exactly while rolling out; rolling back is pinning `1.10
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.62.0 |
-| <a name="provider_helm"></a> [helm](#provider\_helm) | 3.3.0 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 3.2.1 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.75.0 |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | ~> 3.0 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | >= 2.33.0 |
 
 ## Modules
 
@@ -193,7 +210,7 @@ Pin `version = "2.0.0"` exactly while rolling out; rolling back is pinning `1.10
 | <a name="input_oidc_github_organization"></a> [oidc\_github\_organization](#input\_oidc\_github\_organization) | GitHub organization to restrict access to | `string` | n/a | yes |
 | <a name="input_rbac_policies"></a> [rbac\_policies](#input\_rbac\_policies) | List of RBAC policies to apply | `list(string)` | `[]` | no |
 | <a name="input_repositories"></a> [repositories](#input\_repositories) | To connect to repository by using Credentials Template, which is currently using Github App | `list(string)` | `[]` | no |
-| <a name="input_resource_tracking_method"></a> [resource\_tracking\_method](#input\_resource\_tracking\_method) | How Argo CD tracks the resources an application owns. Defaults to `label`, the Argo CD 2.x behaviour, so upgrading the chart does not re-apply every resource. Argo CD 3.x defaults to `annotation`; switch per estate in its own change. | `string` | `"label"` | no |
+| <a name="input_resource_tracking_method"></a> [resource\_tracking\_method](#input\_resource\_tracking\_method) | How Argo CD tracks the resources an application owns. Defaults to `label`, the Argo CD 2.x behaviour, so upgrading the chart does not re-apply every resource. Argo CD 3.x defaults to `annotation`; switch per estate in its own change, then run a full sync of each application with ApplyOutOfSyncOnly disabled before deleting resources from Git, because the switch alone does not mark applications OutOfSync. | `string` | `"label"` | no |
 | <a name="input_server_side_diff"></a> [server\_side\_diff](#input\_server\_side\_diff) | Enable server side diff | `bool` | `true` | no |
 | <a name="input_slack_token"></a> [slack\_token](#input\_slack\_token) | The token to authenticate to slack, which will help application push notification to slack | `string` | `""` | no |
 | <a name="input_slack_webhook_url"></a> [slack\_webhook\_url](#input\_slack\_webhook\_url) | Incoming webhook URL used instead of a bot token. When set, notifications are delivered through ArgoCD's `service.webhook` rather than `service.slack`, because ArgoCD's slack service authenticates with a bot token and has no webhook mode. The channel is then fixed by the webhook itself, so `default_notification_channel` no longer selects a channel and is not consulted at all; use `enable_default_subscription` to turn the default subscription on or off. | `string` | `""` | no |
