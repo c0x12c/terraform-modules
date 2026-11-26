@@ -14,7 +14,7 @@ This module will create the following components:
 ```hcl
 module "elasticache" {
   source  = "terraform.c0x12c.com/c0x12c/elasticache/aws"
-  version = "0.6.0"
+  version = "0.7.2"
 
   cluster_name                           = "example"
   environment                            = "dev"
@@ -24,6 +24,37 @@ module "elasticache" {
   security_group_allow_all_within_vpc_id = "sg-1234567899"
 }
 ```
+
+## Migrating from 0.7.x
+
+Releases up to 0.7.x generated the auth token with `random_string`, whose value is printed in plan output. The token now comes from `random_password` (sensitive). The new resource has a different type, so Terraform cannot convert it with a `moved` block: import the live token instead.
+
+Set `keep_legacy_random_string = true` while migrating. Three cases:
+
+1. Flag `true` and the live token imported: no change. The token is not rotated.
+2. Flag `true` and no import: the apply fails closed on a postcondition. Nothing rotates.
+3. Flag `false` (the default) on existing 0.7.x state: the token ROTATES. Do not do this unless a rotation is intended.
+
+Sequence:
+
+1. Bump the module version and set `keep_legacy_random_string = true`.
+2. Import the live token. `import` prints the value, so discard its output:
+
+   ```sh
+   terraform import -input=false -- '<module path>.random_password.this[0]' "$value" >/dev/null 2>&1
+   ```
+
+3. Run `terraform plan`: it must show no changes. Then merge and apply.
+4. Later, remove the legacy resource from state and set the flag to `false`:
+
+   ```sh
+   terraform state rm '<module path>.random_string.this[0]'
+   ```
+
+Caveats:
+
+- `random_string` keeps printing its value in refresh and plan output (`[id=...]`) until it is removed from state.
+- If the fail-closed apply (case 2) ran, a throwaway `random_password` is left in state. Recover with `terraform state rm '<module path>.random_password.this[0]'`, then import, then plan.
 
 ## Examples
 
@@ -56,6 +87,7 @@ No modules.
 | [aws_elasticache_parameter_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/elasticache_parameter_group) | resource |
 | [aws_elasticache_replication_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/elasticache_replication_group) | resource |
 | [aws_elasticache_subnet_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/elasticache_subnet_group) | resource |
+| [random_password.this](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
 | [random_string.this](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string) | resource |
 
 ## Inputs
@@ -71,6 +103,7 @@ No modules.
 | <a name="input_custom_redis_parameters"></a> [custom\_redis\_parameters](#input\_custom\_redis\_parameters) | Custom redis parameters to apply to the parameter group | <pre>list(object({<br/>    name  = string<br/>    value = string<br/>  }))</pre> | `null` | no |
 | <a name="input_engine"></a> [engine](#input\_engine) | Name of the cache engine to be used for the clusters in the replication group. Valid values are redis or valkey | `string` | `"redis"` | no |
 | <a name="input_engine_version"></a> [engine\_version](#input\_engine\_version) | The version of Redis, default 7.1 | `string` | `"7.1"` | no |
+| <a name="input_keep_legacy_random_string"></a> [keep\_legacy\_random\_string](#input\_keep\_legacy\_random\_string) | Migration flag. Set to true when upgrading from 0.7.x with transit encryption enabled, then import the live token into random\_password.this[0] (see README). Set back to false once random\_string.this[0] is removed from state. | `bool` | `false` | no |
 | <a name="input_multi_az_enabled"></a> [multi\_az\_enabled](#input\_multi\_az\_enabled) | Flag to enable multi az feature, default is false | `bool` | `false` | no |
 | <a name="input_node_type"></a> [node\_type](#input\_node\_type) | The node type of this cluster, will affect the memory and bandwidth | `string` | n/a | yes |
 | <a name="input_parameter_group_name"></a> [parameter\_group\_name](#input\_parameter\_group\_name) | Parameter group for redis cluster, default is 'default.redis7.cluster.on' | `string` | `"default.redis7.cluster.on"` | no |
