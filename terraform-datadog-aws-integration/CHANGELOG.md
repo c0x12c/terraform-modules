@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.2](https://github.com/c0x12c/terraform-modules/compare/terraform-datadog-aws-integration/v2.1.1...terraform-datadog-aws-integration/v2.1.2) (2026-11-26)
+
+
+### Bug Fixes
+
+* **terraform-datadog-aws-integration:** allow Datadog provider 4.x from 4.9.0 ([#442](https://github.com/c0x12c/terraform-modules/issues/442)) ([f7ef4ac](https://github.com/c0x12c/terraform-modules/commit/f7ef4ac0c1f39331e4c56ad450bc0717c44bcbe6))
+
 ## [2.1.1](https://github.com/c0x12c/terraform-modules/compare/terraform-datadog-aws-integration/v2.1.0...terraform-datadog-aws-integration/v2.1.1) (2026-09-23)
 
 
