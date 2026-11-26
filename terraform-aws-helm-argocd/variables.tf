@@ -7,7 +7,7 @@ variable "argocd_namespace" {
 variable "chart_version" {
   description = "Version of the Argo CD Helm chart"
   type        = string
-  default     = "7.8.26"
+  default     = "10.19.1"
 }
 
 variable "chart_url" {
@@ -50,6 +50,23 @@ variable "server_side_diff" {
   description = "Enable server side diff"
   type        = bool
   default     = true
+}
+
+variable "resource_tracking_method" {
+  description = "How Argo CD tracks the resources an application owns. Defaults to `label`, the Argo CD 2.x behaviour, so upgrading the chart does not re-apply every resource. Argo CD 3.x defaults to `annotation`; switch per estate in its own change, then run a full sync of each application with ApplyOutOfSyncOnly disabled before deleting resources from Git, because the switch alone does not mark applications OutOfSync."
+  type        = string
+  default     = "label"
+
+  validation {
+    condition     = contains(["label", "annotation", "annotation+label"], var.resource_tracking_method)
+    error_message = "resource_tracking_method must be one of label, annotation or annotation+label."
+  }
+}
+
+variable "network_policy_enabled" {
+  description = "Whether the chart creates NetworkPolicies for the Argo CD components. Chart 10.x defaults this to true; the module keeps it off until enforcement is confirmed on the cluster."
+  type        = bool
+  default     = false
 }
 
 # Enabled in-cluster

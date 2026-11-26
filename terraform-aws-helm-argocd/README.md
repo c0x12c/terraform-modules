@@ -83,6 +83,56 @@ notifications.argoproj.io/subscribe.<trigger>.slack: <channel>
 See `examples/complete` for the bot-token path and `examples/slack-webhook-notifications` for the
 webhook one.
 
+## Upgrading to 2.0.0
+
+2.0.0 moves the default chart from `7.8.26` (Argo CD v2.14.10, end of life since 2025-11-04) to
+`10.19.1` (Argo CD v3.6.3). Argo CD keeps its state in Application and AppProject resources, so the
+controllers can move from 2.14 to 3.6 in one apply, but read every upstream guide on the way first:
+[upgrading overview](https://argo-cd.readthedocs.io/en/stable/operator-manual/upgrading/overview/).
+
+Two chart defaults changed in that range, and the module pins the 2.x behaviour for both:
+
+- `resource_tracking_method` defaults to `label`. Argo CD 3.0 switched to `annotation`, and switching
+  during the upgrade makes auto-sync re-apply every resource it owns. Flip it afterwards, in its own
+  apply. Changing the method does not mark applications OutOfSync, so auto-sync alone will not
+  migrate every resource. After the flip, run a full sync of each application with
+  `ApplyOutOfSyncOnly` disabled, and do this before deleting any resource from Git; otherwise
+  resources still carrying the old tracking label can be orphaned and missed by pruning.
+- `network_policy_enabled` defaults to `false`. Chart 10.0 started creating six NetworkPolicies by
+  default.
+
+What changes on apply:
+
+- Every Argo CD pod restarts once. Redis (now 8.x) starts empty, so the controller re-renders every
+  application on start; size the controller for that peak. With single replicas the UI and API are
+  unavailable while pods roll - set `server.replicas`, `repoServer.replicas`, their `pdb` values and
+  a short `lifecycle.preStop` sleep through `extra_values` in an earlier apply to make the upgrade
+  rolling.
+- The chart adds a headless Service for the application controller and drops the notifications
+  controller's ClusterRole and ClusterRoleBinding.
+- Redis is pulled from `ecr-public.aws.com`; allow egress to it where egress is restricted.
+
+The other 3.x defaults are kept as upstream ships them: `update` and `delete` no longer cover an
+application's sub-resources, logs RBAC is always enforced, high-churn kinds sit in the default
+`resource.exclusions`, and the Dex RBAC subject is `federated_claims.user_id` instead of `sub`.
+Check `rbac_policies` that name individual users, and give roles that need logs `logs, get`.
+
+Chart 9.0.0 removed every default under `configs.params`, so values the chart used to set now fall
+back to the Argo CD binary defaults. `applicationsetcontroller.policy` was `sync` and is now `""`;
+`controller.status.processors`, `controller.operation.processors` and
+`controller.self.heal.timeout.seconds` are no longer set either. Restore any you rely on through
+`extra_values`:
+
+```yaml
+configs:
+  params:
+    applicationsetcontroller.policy: sync
+```
+
+Pin `version = "2.0.0"` exactly while rolling out. Rolling back is pinning `1.10.0` again, as long as
+`resource_tracking_method` has not been changed from `label`. Once it is `annotation`, pinning
+`1.10.0` puts tracking back on label and every application shows OutOfSync until it is re-applied.
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
@@ -97,9 +147,9 @@ webhook one.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.62.0 |
-| <a name="provider_helm"></a> [helm](#provider\_helm) | 3.3.0 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 3.2.1 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.75.0 |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | ~> 3.0 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | >= 2.33.0 |
 
 ## Modules
 
@@ -134,7 +184,7 @@ webhook one.
 | <a name="input_argocd_namespace"></a> [argocd\_namespace](#input\_argocd\_namespace) | Namespace to install Argo CD | `string` | `"argocd"` | no |
 | <a name="input_aws_management_role"></a> [aws\_management\_role](#input\_aws\_management\_role) | AWS management role configuration, only required if enabled\_aws\_management\_role is true | <pre>object({<br/>    eks_oidc_provider_arn = string<br/>    role_name             = string<br/>    eks_oidc_provider_url = string<br/>  })</pre> | `null` | no |
 | <a name="input_chart_url"></a> [chart\_url](#input\_chart\_url) | URL of the Argo CD Helm chart | `string` | `"https://argoproj.github.io/argo-helm"` | no |
-| <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Version of the Argo CD Helm chart | `string` | `"7.8.26"` | no |
+| <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Version of the Argo CD Helm chart | `string` | `"10.19.1"` | no |
 | <a name="input_create_github_app_secret"></a> [create\_github\_app\_secret](#input\_create\_github\_app\_secret) | Whether to create the GitHub App repo-creds Secret from `github_app`. Set false when another controller (e.g. External Secrets) owns a Secret of the same name; remove the existing Secret from state first, or Terraform destroys it. | `bool` | `true` | no |
 | <a name="input_create_route53_record"></a> [create\_route53\_record](#input\_create\_route53\_record) | Determines whether or not to create a route53 record for the ingress or not | `bool` | `false` | no |
 | <a name="input_default_notification_channel"></a> [default\_notification\_channel](#input\_default\_notification\_channel) | Slack channel for the default ArgoCD notification subscription applied to every application. Leave empty to skip the default subscription entirely; per-app `subscribe.*` annotations are unaffected. Not consulted on the webhook path - see `enable_default_subscription`. | `string` | `""` | no |
@@ -152,6 +202,7 @@ webhook one.
 | <a name="input_ingress_group_name"></a> [ingress\_group\_name](#input\_ingress\_group\_name) | Ingress group name for Argo CD | `string` | `"external"` | no |
 | <a name="input_ingress_scheme"></a> [ingress\_scheme](#input\_ingress\_scheme) | Scheme for the ALB ingress (internet-facing or internal) | `string` | `"internet-facing"` | no |
 | <a name="input_issuer_url"></a> [issuer\_url](#input\_issuer\_url) | The issuer URL should be where Dex talks to the OIDC provider | `string` | `"http://argocd-dex-server:5556"` | no |
+| <a name="input_network_policy_enabled"></a> [network\_policy\_enabled](#input\_network\_policy\_enabled) | Whether the chart creates NetworkPolicies for the Argo CD components. Chart 10.x defaults this to true; the module keeps it off until enforcement is confirmed on the cluster. | `bool` | `false` | no |
 | <a name="input_node_selector"></a> [node\_selector](#input\_node\_selector) | Node selector for the ingress controller | `map(string)` | `{}` | no |
 | <a name="input_notification_templates"></a> [notification\_templates](#input\_notification\_templates) | Custom templates for ArgoCD notification. Leave the field null to use sample (default) template provided by this module. | <pre>object({<br/>    app_created             = optional(string, null)<br/>    app_deleted             = optional(string, null)<br/>    app_deployed            = optional(string, null)<br/>    app_health_degraded     = optional(string, null)<br/>    app_sync_failed         = optional(string, null)<br/>    app_sync_running        = optional(string, null)<br/>    app_sync_status_unknown = optional(string, null)<br/>    app_sync_succeeded      = optional(string, null)<br/>    app_out_of_sync         = optional(string, null)<br/>  })</pre> | `{}` | no |
 | <a name="input_oidc_github_client_id"></a> [oidc\_github\_client\_id](#input\_oidc\_github\_client\_id) | GitHub App Client ID for OIDC | `string` | n/a | yes |
@@ -159,6 +210,7 @@ webhook one.
 | <a name="input_oidc_github_organization"></a> [oidc\_github\_organization](#input\_oidc\_github\_organization) | GitHub organization to restrict access to | `string` | n/a | yes |
 | <a name="input_rbac_policies"></a> [rbac\_policies](#input\_rbac\_policies) | List of RBAC policies to apply | `list(string)` | `[]` | no |
 | <a name="input_repositories"></a> [repositories](#input\_repositories) | To connect to repository by using Credentials Template, which is currently using Github App | `list(string)` | `[]` | no |
+| <a name="input_resource_tracking_method"></a> [resource\_tracking\_method](#input\_resource\_tracking\_method) | How Argo CD tracks the resources an application owns. Defaults to `label`, the Argo CD 2.x behaviour, so upgrading the chart does not re-apply every resource. Argo CD 3.x defaults to `annotation`; switch per estate in its own change, then run a full sync of each application with ApplyOutOfSyncOnly disabled before deleting resources from Git, because the switch alone does not mark applications OutOfSync. | `string` | `"label"` | no |
 | <a name="input_server_side_diff"></a> [server\_side\_diff](#input\_server\_side\_diff) | Enable server side diff | `bool` | `true` | no |
 | <a name="input_slack_token"></a> [slack\_token](#input\_slack\_token) | The token to authenticate to slack, which will help application push notification to slack | `string` | `""` | no |
 | <a name="input_slack_webhook_url"></a> [slack\_webhook\_url](#input\_slack\_webhook\_url) | Incoming webhook URL used instead of a bot token. When set, notifications are delivered through ArgoCD's `service.webhook` rather than `service.slack`, because ArgoCD's slack service authenticates with a bot token and has no webhook mode. The channel is then fixed by the webhook itself, so `default_notification_channel` no longer selects a channel and is not consulted at all; use `enable_default_subscription` to turn the default subscription on or off. | `string` | `""` | no |

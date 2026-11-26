@@ -95,6 +95,9 @@ locals {
     global = merge(
       {
         domain = "${var.sub_domain}.${var.domain_name}"
+        networkPolicy = {
+          create = var.network_policy_enabled
+        }
       },
       length(local.node_selectors) > 0 ? {
         nodeSelector = var.node_selector
@@ -136,6 +139,7 @@ locals {
         "controller.diff.server.side" = tostring(var.server_side_diff)
       }
       cm = {
+        "application.resourceTrackingMethod" = var.resource_tracking_method
         "dex.config" = yamlencode({
           connectors = local.dex_connectors
           issuer     = var.issuer_url

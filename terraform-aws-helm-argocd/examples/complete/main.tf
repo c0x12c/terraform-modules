@@ -60,6 +60,10 @@ module "argocd" {
     role_name             = "argocd_management"
   }
 
+  # Compatibility defaults kept from the 1.x behaviour; see "Upgrading to 2.0.0" in the README.
+  resource_tracking_method = "label"
+  network_policy_enabled   = false
+
   # Repository Connection
   repositories = ["argocd-atlas"]
 
@@ -75,9 +79,7 @@ module "argocd" {
   # node_selector = local.node_selector
   # tolerations   = local.tolerations
 
-  # GitHub App
-  # Default; set false when External Secrets owns the repo-creds Secret instead
-  create_github_app_secret = true
+  create_github_app_secret = true # set false when External Secrets owns the repo-creds Secret
   github_app = {
     secret_name     = "argocd"
     app_id          = 123456
