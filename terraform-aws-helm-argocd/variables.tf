@@ -221,18 +221,36 @@ variable "subscription_triggers" {
   ]
 
   validation {
-    condition = length(setsubtract(var.subscription_triggers, [
-      "on-sync-status-unknown",
-      "on-deployed",
-      "on-sync-failed",
-      "on-sync-running",
-      "on-sync-succeeded",
-      "on-created",
-      "on-deleted",
-      "on-health-degraded",
-      "on-out-of-sync",
-    ])) == 0
+    condition     = length(setsubtract(var.subscription_triggers, local.defined_trigger_names)) == 0
     error_message = "subscription_triggers may only name triggers this module defines: on-created, on-deleted, on-deployed, on-health-degraded, on-out-of-sync, on-sync-failed, on-sync-running, on-sync-status-unknown, on-sync-succeeded. ArgoCD ignores an unknown name silently, so the subscription would send nothing for it."
+  }
+}
+
+variable "notification_subscriptions" {
+  description = "Module-wide Slack subscriptions, each sent to its own channel and optionally limited to the Applications whose labels match `selector` (a Kubernetes label selector such as `environment=dev` or `environment!=dev`). A non-empty list replaces the default subscription, so `enable_default_subscription` and `default_notification_channel` are not consulted. `triggers` defaults to `subscription_triggers`. Bot-token path only: a webhook fixes the channel, so this cannot be combined with `slack_webhook_url`."
+  type = list(object({
+    channel  = string
+    selector = optional(string, "")
+    triggers = optional(list(string))
+  }))
+  default = []
+
+  validation {
+    condition     = alltrue([for s in var.notification_subscriptions : trimspace(s.channel) != ""])
+    error_message = "Every notification_subscriptions entry needs a non-empty channel."
+  }
+
+  validation {
+    condition = alltrue([
+      for s in var.notification_subscriptions :
+      length(setsubtract(coalesce(s.triggers, []), local.defined_trigger_names)) == 0
+    ])
+    error_message = "notification_subscriptions triggers may only name triggers this module defines: on-created, on-deleted, on-deployed, on-health-degraded, on-out-of-sync, on-sync-failed, on-sync-running, on-sync-status-unknown, on-sync-succeeded. ArgoCD ignores an unknown name silently."
+  }
+
+  validation {
+    condition     = length(var.notification_subscriptions) == 0 || var.slack_webhook_url == ""
+    error_message = "notification_subscriptions selects a channel per subscription, which needs the bot-token path; it cannot be combined with slack_webhook_url, whose webhook fixes the channel."
   }
 }
 

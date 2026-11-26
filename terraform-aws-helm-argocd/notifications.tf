@@ -1,6 +1,22 @@
 locals {
   notification_trigger_names = var.subscription_triggers
 
+  # Every trigger name a subscription may reference; derived from the triggers below so a new
+  # trigger cannot be defined without becoming valid in the validations that read this.
+  defined_trigger_names = [for key in keys(local.notification_triggers) : trimprefix(key, "trigger.")]
+
+  # An entry without a selector renders without the key, so it applies to every Application in
+  # the same way the default subscription does.
+  notification_subscriptions = [
+    for s in var.notification_subscriptions : merge(
+      {
+        recipients = ["slack:${s.channel}"]
+        triggers   = s.triggers != null ? s.triggers : local.notification_trigger_names
+      },
+      s.selector != "" ? { selector = s.selector } : {}
+    )
+  ]
+
   notification_template_keys = {
     app_created             = "template.app-created"
     app_deleted             = "template.app-deleted"
@@ -147,7 +163,7 @@ locals {
         ]
       } : {}
       ) : (
-      var.enable_default_subscription && var.default_notification_channel != "" ? {
+      length(local.notification_subscriptions) == 0 && var.enable_default_subscription && var.default_notification_channel != "" ? {
         subscriptions = [
           {
             recipients = ["slack:${var.default_notification_channel}"]
@@ -155,6 +171,13 @@ locals {
           }
         ]
       } : {}
-    )
+    ),
+    # A separate merge argument rather than another branch above: its entries differ in shape
+    # (with and without `selector`), which a conditional cannot unify with the default list.
+    # The variable's validation keeps it off the webhook path, so at most one argument sets
+    # `subscriptions`.
+    length(local.notification_subscriptions) > 0 ? {
+      subscriptions = local.notification_subscriptions
+    } : {}
   )
 }

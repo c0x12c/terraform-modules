@@ -40,6 +40,11 @@ CASES = {
     "tracking_annotation": {"resource_tracking_method": "annotation"},
     "netpol_on":       {"network_policy_enabled": "true"},
     "ext_cluster_full":{"external_clusters": '{dev={server="https://d.example",assume_role="arn:aws:iam::1:role/a",namespace="ns",cluster_resources=true,labels={env="dev"},annotations={note="n"},config={aws_auth_config={cluster_name="dev",role_arn="arn:aws:iam::1:role/r"},tls_client_config={insecure=true,ca_data="Y2E="}}}}'},
+    # Per-channel subscriptions replace the default one even though a default channel is set:
+    # one entry with its own triggers, one inheriting subscription_triggers, one with no selector.
+    "token_subs":      {"slack_token": "faketok", "default_notification_channel": "#chan",
+                        "subscription_triggers": '["on-deployed","on-sync-failed"]',
+                        "notification_subscriptions": '[{channel="#dev",selector="environment=dev",triggers=["on-sync-status-unknown"]},{channel="#prod",selector="environment!=dev"},{channel="#all"}]'},
 }
 # Required variables are stubbed to `any` in the scratch root, and terraform parses a -var value
 # for an any-typed variable as an HCL expression - so these must carry their own quotes.

@@ -66,6 +66,22 @@ application rather than per deploy, and `on-created` carries `when: "true"`, so 
 application to it notifies for all of them - subscribe to any of the four with a per-app annotation
 on the applications that want them.
 
+The default subscription has no selector, so on the bot-token path every Application reports to
+one channel. To split them, set `notification_subscriptions`: one subscription per channel, each
+limited by a Kubernetes label selector on the Application. A non-empty list replaces the default
+subscription, and an entry without `triggers` uses `subscription_triggers`:
+
+```hcl
+notification_subscriptions = [
+  { channel = "eng-cicd-notification-dev", selector = "environment=dev" },
+  { channel = "eng-cicd-notification", selector = "environment!=dev" },
+]
+```
+
+`environment!=dev` also matches an Application with no `environment` label, so unlabelled
+Applications keep reporting to the main channel. The webhook path cannot use this, because the
+webhook fixes the channel. See `examples/per-channel-notifications`.
+
 Webhook subscriptions carry no channel, since the webhook fixes it. `slack` here is the service
 NAME from `service.webhook.slack` - ArgoCD keys its notifier registry by that name, not by the
 service type:
@@ -204,6 +220,7 @@ Pin `version = "2.0.0"` exactly while rolling out. Rolling back is pinning `1.10
 | <a name="input_issuer_url"></a> [issuer\_url](#input\_issuer\_url) | The issuer URL should be where Dex talks to the OIDC provider | `string` | `"http://argocd-dex-server:5556"` | no |
 | <a name="input_network_policy_enabled"></a> [network\_policy\_enabled](#input\_network\_policy\_enabled) | Whether the chart creates NetworkPolicies for the Argo CD components. Chart 10.x defaults this to true; the module keeps it off until enforcement is confirmed on the cluster. | `bool` | `false` | no |
 | <a name="input_node_selector"></a> [node\_selector](#input\_node\_selector) | Node selector for the ingress controller | `map(string)` | `{}` | no |
+| <a name="input_notification_subscriptions"></a> [notification\_subscriptions](#input\_notification\_subscriptions) | Module-wide Slack subscriptions, each sent to its own channel and optionally limited to the Applications whose labels match `selector` (a Kubernetes label selector such as `environment=dev` or `environment!=dev`). A non-empty list replaces the default subscription, so `enable_default_subscription` and `default_notification_channel` are not consulted. `triggers` defaults to `subscription_triggers`. Bot-token path only: a webhook fixes the channel, so this cannot be combined with `slack_webhook_url`. | <pre>list(object({<br/>    channel  = string<br/>    selector = optional(string, "")<br/>    triggers = optional(list(string))<br/>  }))</pre> | `[]` | no |
 | <a name="input_notification_templates"></a> [notification\_templates](#input\_notification\_templates) | Custom templates for ArgoCD notification. Leave the field null to use sample (default) template provided by this module. | <pre>object({<br/>    app_created             = optional(string, null)<br/>    app_deleted             = optional(string, null)<br/>    app_deployed            = optional(string, null)<br/>    app_health_degraded     = optional(string, null)<br/>    app_sync_failed         = optional(string, null)<br/>    app_sync_running        = optional(string, null)<br/>    app_sync_status_unknown = optional(string, null)<br/>    app_sync_succeeded      = optional(string, null)<br/>    app_out_of_sync         = optional(string, null)<br/>  })</pre> | `{}` | no |
 | <a name="input_oidc_github_client_id"></a> [oidc\_github\_client\_id](#input\_oidc\_github\_client\_id) | GitHub App Client ID for OIDC | `string` | n/a | yes |
 | <a name="input_oidc_github_client_secret"></a> [oidc\_github\_client\_secret](#input\_oidc\_github\_client\_secret) | GitHub App Client Secret for OIDC | `string` | n/a | yes |
