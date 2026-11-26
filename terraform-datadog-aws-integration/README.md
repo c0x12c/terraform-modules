@@ -33,14 +33,14 @@ module "datadog_aws_integration" {
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.8 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.75 |
-| <a name="requirement_datadog"></a> [datadog](#requirement\_datadog) | ~> 4.9.0 |
+| <a name="requirement_datadog"></a> [datadog](#requirement\_datadog) | >= 4.9.0, < 5.0.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.75 |
-| <a name="provider_datadog"></a> [datadog](#provider\_datadog) | ~> 4.9.0 |
+| <a name="provider_datadog"></a> [datadog](#provider\_datadog) | >= 4.9.0, < 5.0.0 |
 
 ## Modules
 
