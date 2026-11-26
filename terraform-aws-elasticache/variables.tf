@@ -103,3 +103,9 @@ variable "custom_redis_parameters" {
   }))
   default = null
 }
+
+variable "keep_legacy_random_string" {
+  description = "Migration flag. Set to true when upgrading from 0.7.x with transit encryption enabled, then import the live token into random_password.this[0] (see README). Set back to false once random_string.this[0] is removed from state."
+  type        = bool
+  default     = false
+}

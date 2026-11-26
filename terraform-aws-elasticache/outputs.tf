@@ -20,6 +20,6 @@ output "elasticache_replication_group_port" {
 
 output "transition_encryption_auth_token" {
   description = "The authentication token for enabling encryption in transit for the ElastiCache replication group. This token is used to secure client-to-node and node-to-node communications."
-  value       = try(random_string.this[0].result, null)
+  value       = try(random_password.this[0].result, null)
   sensitive   = true
 }

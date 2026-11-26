@@ -1,12 +1,34 @@
 /**
-`random_string` generates a random permutation of alphanumeric characters and optionally special characters.
+`random_string` is the legacy auth token generator. Its value is not sensitive and is printed in plan output.
+It is kept only so existing state can be migrated to `random_password` without rotating the live token.
 https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string
  */
 resource "random_string" "this" {
+  count            = var.transit_encryption_enabled && var.keep_legacy_random_string ? 1 : 0
+  length           = 32
+  special          = true
+  override_special = "!&#$^<>-"
+}
+
+/**
+`random_password` generates the auth token and marks it sensitive.
+https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password
+ */
+resource "random_password" "this" {
   count            = var.transit_encryption_enabled ? 1 : 0
   length           = 32
   special          = true
   override_special = "!&#$^<>-"
+
+  lifecycle {
+    # An imported value carries provider defaults; without this it would be replaced (token rotation).
+    ignore_changes = [length, special, override_special]
+
+    postcondition {
+      condition     = alltrue([for s in random_string.this : s.result == self.result])
+      error_message = "random_password differs from legacy random_string: import the live token first."
+    }
+  }
 }
 
 /*
@@ -72,7 +94,7 @@ resource "aws_elasticache_replication_group" "this" {
   # The following blocks specified only if (var.transit_encryption_enabled == true)
   transit_encryption_enabled = var.transit_encryption_enabled
   transit_encryption_mode    = var.transit_encryption_mode # make sure you update this when enabled transit encryption
-  auth_token                 = var.transit_encryption_enabled ? random_string.this[0].result : null
+  auth_token                 = var.transit_encryption_enabled ? random_password.this[0].result : null
   # auth_token_update_strategy lost its default in AWS provider v6 and is rejected when
   # auth_token is null (RequiredWith: auth_token). Only set it when transit encryption
   # (and therefore an auth_token) is enabled; v5 behavior is unchanged.
