@@ -25,7 +25,7 @@ variables {
   oidc_github_organization     = "fake-organization"
   create_github_app_secret     = false
   slack_token                  = "fake-token"
-  default_notification_channel = "eng-cicd-notification"
+  default_notification_channel = "cicd-notification"
 }
 
 run "default_subscription_unchanged" {
@@ -34,7 +34,7 @@ run "default_subscription_unchanged" {
   assert {
     condition = nonsensitive(yamldecode(helm_release.this.values[0]).notifications.subscriptions) == [
       {
-        recipients = ["slack:eng-cicd-notification"]
+        recipients = ["slack:cicd-notification"]
         triggers   = ["on-sync-status-unknown", "on-deployed", "on-sync-failed", "on-sync-running", "on-sync-succeeded"]
       }
     ]
@@ -47,20 +47,20 @@ run "per_channel_subscriptions_replace_default" {
 
   variables {
     notification_subscriptions = [
-      { channel = "eng-cicd-notification-dev", selector = "environment=dev", triggers = ["on-sync-status-unknown"] },
-      { channel = "eng-cicd-notification", selector = "environment!=dev" },
+      { channel = "cicd-notification-dev", selector = "environment=dev", triggers = ["on-sync-status-unknown"] },
+      { channel = "cicd-notification", selector = "environment!=dev" },
     ]
   }
 
   assert {
     condition = nonsensitive(yamldecode(helm_release.this.values[0]).notifications.subscriptions) == [
       {
-        recipients = ["slack:eng-cicd-notification-dev"]
+        recipients = ["slack:cicd-notification-dev"]
         selector   = "environment=dev"
         triggers   = ["on-sync-status-unknown"]
       },
       {
-        recipients = ["slack:eng-cicd-notification"]
+        recipients = ["slack:cicd-notification"]
         selector   = "environment!=dev"
         triggers   = ["on-sync-status-unknown", "on-deployed", "on-sync-failed", "on-sync-running", "on-sync-succeeded"]
       },
@@ -74,7 +74,7 @@ run "rejects_unknown_trigger" {
 
   variables {
     notification_subscriptions = [
-      { channel = "eng-cicd-notification", triggers = ["app-deployed"] },
+      { channel = "cicd-notification", triggers = ["app-deployed"] },
     ]
   }
 
@@ -100,7 +100,7 @@ run "rejects_webhook_path" {
     slack_token       = ""
     slack_webhook_url = "https://example.invalid/hook"
     notification_subscriptions = [
-      { channel = "eng-cicd-notification" },
+      { channel = "cicd-notification" },
     ]
   }
 
@@ -113,7 +113,7 @@ run "accepts_label_selector_forms" {
   variables {
     notification_subscriptions = [
       { channel = "a", selector = "environment in (dev,staging)" },
-      { channel = "b", selector = "app.kubernetes.io/part-of=fleet,!legacy" },
+      { channel = "b", selector = "app.kubernetes.io/part-of=shop,!legacy" },
       { channel = "c", selector = "tier, environment notin (prod)" },
     ]
   }
@@ -129,7 +129,7 @@ run "rejects_malformed_selector" {
 
   variables {
     notification_subscriptions = [
-      { channel = "eng-cicd-notification", selector = "environment:dev" },
+      { channel = "cicd-notification", selector = "environment:dev" },
     ]
   }
 
@@ -141,7 +141,7 @@ run "rejects_empty_in_set" {
 
   variables {
     notification_subscriptions = [
-      { channel = "eng-cicd-notification", selector = "environment in ()" },
+      { channel = "cicd-notification", selector = "environment in ()" },
     ]
   }
 
@@ -153,7 +153,7 @@ run "rejects_empty_triggers" {
 
   variables {
     notification_subscriptions = [
-      { channel = "eng-cicd-notification", triggers = [] },
+      { channel = "cicd-notification", triggers = [] },
     ]
   }
 

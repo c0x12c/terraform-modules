@@ -73,8 +73,8 @@ subscription, and an entry without `triggers` uses `subscription_triggers`:
 
 ```hcl
 notification_subscriptions = [
-  { channel = "eng-cicd-notification-dev", selector = "environment=dev" },
-  { channel = "eng-cicd-notification", selector = "environment!=dev" },
+  { channel = "cicd-notification-dev", selector = "environment=dev" },
+  { channel = "cicd-notification", selector = "environment!=dev" },
 ]
 ```
 

@@ -22,13 +22,13 @@ module "argocd" {
 
   notification_subscriptions = [
     {
-      channel  = "eng-cicd-notification-dev"
+      channel  = "cicd-notification-dev"
       selector = "environment=dev"
     },
     {
       # environment!=dev also matches an Application with no environment label, so an
       # unlabelled Application keeps reporting to the main channel instead of going silent.
-      channel  = "eng-cicd-notification"
+      channel  = "cicd-notification"
       selector = "environment!=dev"
       # Overrides subscription_triggers for this channel only.
       triggers = ["on-sync-status-unknown", "on-sync-failed"]
