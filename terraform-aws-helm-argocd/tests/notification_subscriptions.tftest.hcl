@@ -93,6 +93,18 @@ run "rejects_empty_channel" {
   expect_failures = [var.notification_subscriptions]
 }
 
+run "rejects_padded_channel" {
+  command = plan
+
+  variables {
+    notification_subscriptions = [
+      { channel = " cicd-notification " },
+    ]
+  }
+
+  expect_failures = [var.notification_subscriptions]
+}
+
 run "rejects_webhook_path" {
   command = plan
 

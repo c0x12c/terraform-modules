@@ -236,8 +236,8 @@ variable "notification_subscriptions" {
   default = []
 
   validation {
-    condition     = alltrue([for s in var.notification_subscriptions : trimspace(s.channel) != ""])
-    error_message = "Every notification_subscriptions entry needs a non-empty channel."
+    condition     = alltrue([for s in var.notification_subscriptions : s.channel != "" && s.channel == trimspace(s.channel)])
+    error_message = "Every notification_subscriptions entry needs a non-empty channel with no leading or trailing spaces. The channel is rendered as given, so a padded name never matches a Slack channel and nothing is delivered."
   }
 
   validation {
