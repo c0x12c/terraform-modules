@@ -60,7 +60,7 @@ module "argocd" {
     role_name             = "argocd_management"
   }
 
-  # Compatibility defaults kept from the 1.x behaviour; see "Upgrading to 2.0.0" in the README.
+  # Compatibility defaults kept from the 1.x behaviour; see docs/upgrading.md.
   resource_tracking_method = "label"
   network_policy_enabled   = false
 

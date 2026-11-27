@@ -53,7 +53,7 @@ variable "server_side_diff" {
 }
 
 variable "resource_tracking_method" {
-  description = "How Argo CD tracks the resources an application owns. Defaults to `label`, the Argo CD 2.x behaviour, so upgrading the chart does not re-apply every resource. Argo CD 3.x defaults to `annotation`; switch per estate in its own change, then run a full sync of each application with ApplyOutOfSyncOnly disabled before deleting resources from Git, because the switch alone does not mark applications OutOfSync."
+  description = "How Argo CD tracks the resources an application owns. Defaults to `label`, the Argo CD 2.x behaviour, so upgrading the chart does not re-apply every resource. Argo CD 3.x defaults to `annotation`; switch per estate in its own change, and sync applications without auto-sync before deleting resources from Git (see docs/upgrading.md)."
   type        = string
   default     = "label"
 
