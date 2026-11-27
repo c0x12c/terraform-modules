@@ -106,3 +106,56 @@ run "rejects_webhook_path" {
 
   expect_failures = [var.notification_subscriptions]
 }
+
+run "accepts_label_selector_forms" {
+  command = plan
+
+  variables {
+    notification_subscriptions = [
+      { channel = "a", selector = "environment in (dev,staging)" },
+      { channel = "b", selector = "app.kubernetes.io/part-of=fleet,!legacy" },
+      { channel = "c", selector = "tier, environment notin (prod)" },
+    ]
+  }
+
+  assert {
+    condition     = length(nonsensitive(yamldecode(helm_release.this.values[0]).notifications.subscriptions)) == 3
+    error_message = "Valid label selectors must pass validation and render one subscription each."
+  }
+}
+
+run "rejects_malformed_selector" {
+  command = plan
+
+  variables {
+    notification_subscriptions = [
+      { channel = "eng-cicd-notification", selector = "environment:dev" },
+    ]
+  }
+
+  expect_failures = [var.notification_subscriptions]
+}
+
+run "rejects_empty_in_set" {
+  command = plan
+
+  variables {
+    notification_subscriptions = [
+      { channel = "eng-cicd-notification", selector = "environment in ()" },
+    ]
+  }
+
+  expect_failures = [var.notification_subscriptions]
+}
+
+run "rejects_empty_triggers" {
+  command = plan
+
+  variables {
+    notification_subscriptions = [
+      { channel = "eng-cicd-notification", triggers = [] },
+    ]
+  }
+
+  expect_failures = [var.notification_subscriptions]
+}

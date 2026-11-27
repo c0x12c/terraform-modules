@@ -227,7 +227,7 @@ variable "subscription_triggers" {
 }
 
 variable "notification_subscriptions" {
-  description = "Module-wide Slack subscriptions, each sent to its own channel and optionally limited to the Applications whose labels match `selector` (a Kubernetes label selector such as `environment=dev` or `environment!=dev`). A non-empty list replaces the default subscription, so `enable_default_subscription` and `default_notification_channel` are not consulted. `triggers` defaults to `subscription_triggers`. Bot-token path only: a webhook fixes the channel, so this cannot be combined with `slack_webhook_url`."
+  description = "Module-wide Slack subscriptions, each sent to its own channel and optionally limited to the Applications whose labels match `selector` (a Kubernetes label selector such as `environment=dev` or `environment!=dev`). A non-empty list replaces the default subscription, so `enable_default_subscription` and `default_notification_channel` are not consulted. `triggers` defaults to `subscription_triggers`; when set it must not be empty. `selector` is checked against the label selector grammar at plan time (shape only, not the 63-character limits). Bot-token path only: a webhook fixes the channel, so this cannot be combined with `slack_webhook_url`."
   type = list(object({
     channel  = string
     selector = optional(string, "")
@@ -246,6 +246,19 @@ variable "notification_subscriptions" {
       length(setsubtract(coalesce(s.triggers, []), local.defined_trigger_names)) == 0
     ])
     error_message = "notification_subscriptions triggers may only name triggers this module defines: on-created, on-deleted, on-deployed, on-health-degraded, on-out-of-sync, on-sync-failed, on-sync-running, on-sync-status-unknown, on-sync-succeeded. ArgoCD ignores an unknown name silently."
+  }
+
+  validation {
+    condition     = alltrue([for s in var.notification_subscriptions : s.triggers == null ? true : length(s.triggers) > 0])
+    error_message = "notification_subscriptions triggers, when set, must name at least one trigger; an empty list renders a subscription that sends nothing. Omit triggers to use subscription_triggers."
+  }
+
+  validation {
+    condition = alltrue([
+      for s in var.notification_subscriptions :
+      s.selector == "" ? true : can(regex(local.label_selector_pattern, s.selector))
+    ])
+    error_message = "notification_subscriptions selector must be a Kubernetes label selector: comma-separated requirements of the form key, !key, key=value, key==value, key!=value, key in (a,b) or key notin (a,b)."
   }
 
   validation {

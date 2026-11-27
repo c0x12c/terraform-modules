@@ -5,6 +5,18 @@ locals {
   # trigger cannot be defined without becoming valid in the validations that read this.
   defined_trigger_names = [for key in keys(local.notification_triggers) : trimprefix(key, "trigger.")]
 
+  # Kubernetes label selector grammar, for the notification_subscriptions validation. A key is an
+  # optional DNS-subdomain prefix plus "/" and a name; a value after =, == or != is a name or
+  # empty; an in/notin set needs at least one non-empty name. Shape only: the 63/253-character
+  # limits are not checked.
+  label_selector_name = "[A-Za-z0-9](?:[-A-Za-z0-9_.]*[A-Za-z0-9])?"
+  label_selector_key  = format("(?:[a-z0-9](?:[-a-z0-9]*[a-z0-9])?(?:\\.[a-z0-9](?:[-a-z0-9]*[a-z0-9])?)*/)?%s", local.label_selector_name)
+  label_selector_requirement = format(
+    "(?:!?%[1]s|%[1]s\\s*(?:==|=|!=)\\s*(?:%[2]s)?|%[1]s\\s+(?:in|notin)\\s*\\(\\s*%[2]s(?:\\s*,\\s*%[2]s)*\\s*\\))",
+    local.label_selector_key, local.label_selector_name
+  )
+  label_selector_pattern = format("^\\s*%[1]s(?:\\s*,\\s*%[1]s)*\\s*$", local.label_selector_requirement)
+
   # An entry without a selector renders without the key, so it applies to every Application in
   # the same way the default subscription does.
   notification_subscriptions = [
