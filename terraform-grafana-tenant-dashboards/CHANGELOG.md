@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.3.0](https://github.com/c0x12c/terraform-modules/compare/terraform-grafana-tenant-dashboards/v0.2.0...terraform-grafana-tenant-dashboards/v0.3.0) (2026-11-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* **terraform-grafana-tenant-dashboards:** rename scrape_interval to min_interval ([#451](https://github.com/c0x12c/terraform-modules/issues/451))
+
+### Features
+
+* **terraform-grafana-tenant-dashboards:** rename scrape_interval to min_interval ([#451](https://github.com/c0x12c/terraform-modules/issues/451)) ([9935538](https://github.com/c0x12c/terraform-modules/commit/99355380f7199493b0797c5fc608337389033786))
+
 ## [0.2.0](https://github.com/c0x12c/terraform-modules/compare/terraform-grafana-tenant-dashboards/v0.1.0...terraform-grafana-tenant-dashboards/v0.2.0) (2026-11-28)
 
 
