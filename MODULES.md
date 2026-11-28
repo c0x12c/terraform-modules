@@ -130,6 +130,6 @@ module "example" {
 | `terraform-github-action-secrets` | `terraform.c0x12c.com/c0x12c/action-secrets/github` | 1.0.1 | This module creates list of GitHub Actions secrets from input. |
 | `terraform-github-action-variables` | `terraform.c0x12c.com/c0x12c/action-variables/github` | 1.0.0 | This module creates list of GitHub Actions variables from input. |
 | `terraform-github-actions` | `terraform.c0x12c.com/c0x12c/actions/github` | 1.0.0 | This module creates list of GitHub Actions secrets and variables from input. |
-| `terraform-grafana-tenant-dashboards` | `terraform.c0x12c.com/c0x12c/tenant-dashboards/grafana` | 0.2.0 | Terraform module which creates Grafana folders and preset dashboards for a project. |
+| `terraform-grafana-tenant-dashboards` | `terraform.c0x12c.com/c0x12c/tenant-dashboards/grafana` | 0.3.0 | Terraform module which creates Grafana folders and preset dashboards for a project. |
 | `terraform-kubernetes-helm-reloader` | `terraform.c0x12c.com/c0x12c/helm-reloader/kubernetes` | 1.1.1 | This Terraform module deploys [Stakater Reloader](https://github.com/stakater/Reloader) to a Kubernetes clu... |
 | `terraform-qdrant-accounts-cluster` | `terraform.c0x12c.com/c0x12c/accounts-cluster/qdrant` | 1.0.0 |  |
