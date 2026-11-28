@@ -222,3 +222,89 @@ run "unknown_preset" {
   }
   expect_failures = [var.enabled_presets]
 }
+
+run "scrape_interval_null_adds_no_keys" {
+  command = plan
+
+  variables {
+    extra_dashboards = {
+      custom = jsonencode({
+        title = "Custom dashboard"
+        panels = [
+          { id = 1, type = "timeseries", targets = [{ expr = "up" }] },
+          { id = 2, type = "row", panels = [{ id = 3, type = "timeseries", targets = [{ expr = "up" }] }] },
+        ]
+      })
+    }
+  }
+
+  assert {
+    condition = alltrue(flatten([
+      for dashboard in values(grafana_dashboard.this) : [
+        for panel in jsondecode(dashboard.config_json).panels : [
+          !contains(keys(panel), "interval"),
+          alltrue([for target in try(panel.targets, []) : !contains(keys(target), "interval")]),
+          alltrue([for child in try(panel.panels, []) : !contains(keys(child), "interval")]),
+        ]
+      ]
+    ]))
+    error_message = "A null scrape_interval must not add interval keys to any panel or target."
+  }
+}
+
+run "scrape_interval_set" {
+  command = plan
+
+  variables {
+    scrape_interval = "1m"
+    extra_dashboards = {
+      custom = jsonencode({
+        title = "Custom dashboard"
+        panels = [
+          { id = 1, type = "timeseries", targets = [{ expr = "up" }] },
+          { id = 2, type = "row", panels = [{ id = 3, type = "timeseries", targets = [{ expr = "up" }] }] },
+        ]
+      })
+    }
+  }
+
+  assert {
+    condition = alltrue(flatten([
+      for panel in jsondecode(grafana_dashboard.this["dev/pods"].config_json).panels : [
+        panel.interval == "1m",
+        alltrue([for target in panel.targets : target.interval == "1m"]),
+      ]
+      if length(try(panel.targets, [])) > 0
+    ])) && anytrue([for panel in jsondecode(grafana_dashboard.this["dev/pods"].config_json).panels : length(try(panel.targets, [])) > 0])
+    error_message = "A preset's panels with targets must carry the interval on the panel and each target."
+  }
+
+  assert {
+    condition = alltrue(flatten([
+      for panel in jsondecode(grafana_dashboard.this["dev/pods"].config_json).panels : [
+        !contains(keys(panel), "interval")
+      ]
+      if length(try(panel.targets, [])) == 0
+    ]))
+    error_message = "Panels without targets must not get an interval."
+  }
+
+  assert {
+    condition = (
+      jsondecode(grafana_dashboard.this["prod/custom"].config_json).panels[0].interval == "1m" &&
+      jsondecode(grafana_dashboard.this["prod/custom"].config_json).panels[0].targets[0].interval == "1m" &&
+      !contains(keys(jsondecode(grafana_dashboard.this["prod/custom"].config_json).panels[1]), "interval") &&
+      jsondecode(grafana_dashboard.this["prod/custom"].config_json).panels[1].panels[0].interval == "1m" &&
+      jsondecode(grafana_dashboard.this["prod/custom"].config_json).panels[1].panels[0].targets[0].interval == "1m"
+    )
+    error_message = "Extra dashboards must be stamped, including panels nested in rows."
+  }
+}
+
+run "scrape_interval_invalid" {
+  command = plan
+  variables {
+    scrape_interval = "one minute"
+  }
+  expect_failures = [var.scrape_interval]
+}

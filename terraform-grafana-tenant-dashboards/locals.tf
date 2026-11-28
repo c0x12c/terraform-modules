@@ -45,9 +45,34 @@ locals {
     }
   }
 
-
   # Panels 2 (5xx ratio) and 3 (latency) of dashboards/red.json get threshold lines from var.red_thresholds,
   # matched by panel id so a title edit in the JSON cannot detach them. try() leaves every other panel unchanged.
+  threshold_panels = {
+    for key, d in local.dashboards : key => [
+      for p in try(local.templates[d.name].panels, []) : merge(p, try({
+        "2" = {
+          fieldConfig = {
+            defaults = merge(p.fieldConfig.defaults, {
+              custom     = merge(p.fieldConfig.defaults.custom, { thresholdsStyle = { mode = "line" } })
+              thresholds = { mode = "absolute", steps = [{ color = "green", value = null }, { color = "red", value = var.red_thresholds.error_ratio }] }
+            })
+            overrides = p.fieldConfig.overrides
+          }
+        }
+        "3" = {
+          fieldConfig = {
+            defaults = merge(p.fieldConfig.defaults, {
+              custom     = merge(p.fieldConfig.defaults.custom, { thresholdsStyle = { mode = "line" } })
+              thresholds = { mode = "absolute", steps = [{ color = "green", value = null }, { color = "red", value = var.red_thresholds.p95_seconds }] }
+            })
+            overrides = p.fieldConfig.overrides
+          }
+        }
+      }[d.name == "red" ? tostring(p.id) : ""], {}))
+    ]
+  }
+
+  # scrape_interval stamps the panel and each target of every panel that has targets, including panels nested in rows.
   rendered = {
     for key, d in local.dashboards : key => jsonencode(merge(
       { for k, v in local.templates[d.name] : k => v if !contains(["id", "version", "templating", "panels"], k) },
@@ -67,26 +92,20 @@ locals {
           ]
         }
         panels = [
-          for p in try(local.templates[d.name].panels, []) : merge(p, try({
-            "2" = {
-              fieldConfig = {
-                defaults = merge(p.fieldConfig.defaults, {
-                  custom     = merge(p.fieldConfig.defaults.custom, { thresholdsStyle = { mode = "line" } })
-                  thresholds = { mode = "absolute", steps = [{ color = "green", value = null }, { color = "red", value = var.red_thresholds.error_ratio }] }
-                })
-                overrides = p.fieldConfig.overrides
-              }
-            }
-            "3" = {
-              fieldConfig = {
-                defaults = merge(p.fieldConfig.defaults, {
-                  custom     = merge(p.fieldConfig.defaults.custom, { thresholdsStyle = { mode = "line" } })
-                  thresholds = { mode = "absolute", steps = [{ color = "green", value = null }, { color = "red", value = var.red_thresholds.p95_seconds }] }
-                })
-                overrides = p.fieldConfig.overrides
-              }
-            }
-          }[d.name == "red" ? tostring(p.id) : ""], {}))
+          for p in local.threshold_panels[key] : merge(
+            p,
+            { for k, v in { interval = var.scrape_interval, targets = [for t in try(p.targets, []) : merge(t, { interval = var.scrape_interval })] } :
+            k => v if var.scrape_interval != null && length(try(p.targets, [])) > 0 },
+            try({
+              panels = [
+                for c in p.panels : merge(
+                  c,
+                  { for k, v in { interval = var.scrape_interval, targets = [for t in try(c.targets, []) : merge(t, { interval = var.scrape_interval })] } :
+                  k => v if var.scrape_interval != null && length(try(c.targets, [])) > 0 },
+                )
+              ]
+            }, {}),
+          )
         ]
       },
     ))

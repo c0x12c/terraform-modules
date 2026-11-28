@@ -84,3 +84,14 @@ variable "folder_uids" {
   })
   default = {}
 }
+
+variable "scrape_interval" {
+  description = "Minimum query interval stamped on every panel and target that has targets, in every rendered dashboard (presets and extra_dashboards, including panels nested in rows), such as 1m. Grafana computes $__rate_interval as at least 4x the data source scrape interval; a data source shared by workloads scraped at different periods cannot carry one value, so the dashboard sets the minimum interval instead. Null leaves panels unchanged."
+  type        = string
+  default     = null
+
+  validation {
+    condition     = var.scrape_interval == null || can(regex("^[0-9]+(ms|s|m|h)$", var.scrape_interval))
+    error_message = "scrape_interval must be a number followed by ms, s, m or h, such as 1m."
+  }
+}
