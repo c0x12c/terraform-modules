@@ -84,6 +84,16 @@ or disable dashboards, and `extra_dashboards` to render additional JSON dashboar
 for every environment. Environment settings populate dashboard constants;
 `aws_tag_project` defaults to `project` when omitted.
 
+### Scrape interval
+
+Grafana computes `$__rate_interval` as at least four times the data source scrape
+interval. A data source shared by workloads scraped at different periods cannot
+carry one value, so set `scrape_interval` (for example `"1m"`) to set the minimum
+interval on each rendered dashboard instead. It is stamped as the panel `interval`
+and on every target of each panel that has targets, in presets and
+`extra_dashboards`, including panels nested in rows. The default `null` leaves the
+rendered JSON unchanged.
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
@@ -121,6 +131,7 @@ No modules.
 | <a name="input_folder_uids"></a> [folder\_uids](#input\_folder\_uids) | Existing folder uids to adopt instead of the generated ones: parent, and envs keyed by env. | <pre>object({<br/>    parent = optional(string)<br/>    envs   = optional(map(string))<br/>  })</pre> | `{}` | no |
 | <a name="input_project"></a> [project](#input\_project) | Project name. Titles the parent folder and prefixes every dashboard uid. | `string` | n/a | yes |
 | <a name="input_red_thresholds"></a> [red\_thresholds](#input\_red\_thresholds) | Threshold lines on the red preset: p95 latency in seconds and 5xx ratio (0.05 = 5 percent). | <pre>object({<br/>    p95_seconds = number<br/>    error_ratio = number<br/>  })</pre> | <pre>{<br/>  "error_ratio": 0.05,<br/>  "p95_seconds": 1<br/>}</pre> | no |
+| <a name="input_scrape_interval"></a> [scrape\_interval](#input\_scrape\_interval) | Minimum query interval stamped on every panel and target that has targets, in every rendered dashboard (presets and extra\_dashboards, including panels nested in rows), such as 1m. Grafana computes $\_\_rate\_interval as at least 4x the data source scrape interval; a data source shared by workloads scraped at different periods cannot carry one value, so the dashboard sets the minimum interval instead. Null leaves panels unchanged. | `string` | `null` | no |
 
 ## Outputs
 
