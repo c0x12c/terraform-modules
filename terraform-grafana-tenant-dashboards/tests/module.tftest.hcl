@@ -223,7 +223,7 @@ run "unknown_preset" {
   expect_failures = [var.enabled_presets]
 }
 
-run "scrape_interval_null_adds_no_keys" {
+run "min_interval_null_adds_no_keys" {
   command = plan
 
   variables {
@@ -248,15 +248,15 @@ run "scrape_interval_null_adds_no_keys" {
         ]
       ]
     ]))
-    error_message = "A null scrape_interval must not add interval keys to any panel or target."
+    error_message = "A null min_interval must not add interval keys to any panel or target."
   }
 }
 
-run "scrape_interval_set" {
+run "min_interval_set" {
   command = plan
 
   variables {
-    scrape_interval = "1m"
+    min_interval = "1m"
     extra_dashboards = {
       custom = jsonencode({
         title = "Custom dashboard"
@@ -301,10 +301,10 @@ run "scrape_interval_set" {
   }
 }
 
-run "scrape_interval_invalid" {
+run "min_interval_invalid" {
   command = plan
   variables {
-    scrape_interval = "one minute"
+    min_interval = "one minute"
   }
-  expect_failures = [var.scrape_interval]
+  expect_failures = [var.min_interval]
 }
